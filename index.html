@@ -309,9 +309,52 @@
       .pattern-dock { grid-template-columns: 1fr; }
       .shell { grid-template-columns: 1fr; height: auto; }
       .left { min-height: 420px; }
+      .right { overflow: visible; }
+      .detail-grid { overflow: visible; }
       .detail-grid { grid-template-columns: 1fr; }
       .panel.wide { grid-column: auto; }
       .source { white-space: normal; }
+    }
+    @media (max-width: 760px) {
+      body { overflow-x: hidden; }
+      .topbar { grid-template-columns: 1fr; gap: 6px; padding: 10px 12px; }
+      .topbar h1 { font-size: 19px; }
+      .sub, .source { font-size: 12px; }
+      .pattern-dock {
+        margin: 8px;
+        gap: 8px;
+        max-height: 240px;
+        overflow: auto;
+      }
+      .pattern-card .panel-title { font-size: 13px; }
+      .pattern-body { padding: 8px; }
+      .shell {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 8px 12px;
+        height: auto;
+        overflow: visible;
+      }
+      .right { order: 1; min-width: 0; overflow: visible; }
+      .left { order: 2; min-height: 0; max-height: none; }
+      .match-list { max-height: 340px; }
+      .date-strip { grid-template-columns: 1fr 74px; }
+      .match-header { grid-template-columns: 1fr; }
+      .selected-title { font-size: 18px; }
+      .selected-meta { font-size: 12px; }
+      .score-box { min-width: 0; width: 100%; }
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 8px;
+        overflow: visible;
+      }
+      .panel-body { padding: 7px; }
+      th, td { padding: 6px; font-size: 13px; }
+      .kv { grid-template-columns: 96px 1fr; }
+      .kv .k, .kv .v { padding: 6px; font-size: 13px; }
     }
   </style>
 </head>
@@ -321,7 +364,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-08-26 15:02 ｜ 数据目录：D:\codex</div>
+    <div class="source">更新时间：2026-08-26 17:20 ｜ 数据目录：D:\codex</div>
   </header>
 
   <section class="pattern-dock">
