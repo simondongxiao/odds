@@ -362,7 +362,7 @@
       }
       .left { order: 1; min-height: 0; max-height: none; }
       .right { display: none; }
-      .match-list { max-height: none; overflow: visible; }
+      .match-list { display: block; max-height: none; overflow: visible; }
       .mobile-detail {
         display: block;
         grid-column: 1 / -1;
@@ -406,7 +406,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-08-26 18:39 ｜ 数据目录：D:\codex</div>
+    <div class="source">更新时间：2026-08-26 20:36 ｜ 数据目录：D:\codex</div>
   </header>
 
   <section class="pattern-dock">
@@ -834,8 +834,9 @@ function renderList(selectedMatch = null) {
   }
   const selected = selectedMatch || rows[0].display_match;
   const selectedRow = rows.find(r => r.display_match === selected) || rows[0];
+  const mobile = isMobileView();
   list.innerHTML = rows.map((r, idx) => `
-    <button class="match-item ${r.display_match === selected ? "active" : ""}" data-idx="${idx}">
+    <button class="match-item ${!mobile && r.display_match === selected ? "active" : ""}" data-idx="${idx}" aria-expanded="false">
       <div>
         <div class="match-main">${r.display_match}</div>
         <div class="match-meta">${r.display_time} ｜ ${r.league} ｜ ${r.market}：${r.pick} ｜ 比分：${r.display_score}</div>
@@ -845,15 +846,30 @@ function renderList(selectedMatch = null) {
   `).join("");
   list.querySelectorAll(".match-item").forEach(btn => {
     btn.addEventListener("click", () => {
+      const alreadyOpen = isMobileView()
+        && btn.classList.contains("active")
+        && btn.nextElementSibling
+        && btn.nextElementSibling.classList.contains("mobile-detail");
+      if (alreadyOpen) {
+        btn.classList.remove("active");
+        btn.setAttribute("aria-expanded", "false");
+        list.querySelectorAll(".mobile-detail").forEach(x => x.remove());
+        return;
+      }
       list.querySelectorAll(".match-item").forEach(x => x.classList.remove("active"));
+      list.querySelectorAll(".match-item").forEach(x => x.setAttribute("aria-expanded", "false"));
       btn.classList.add("active");
+      btn.setAttribute("aria-expanded", "true");
       const row = rows[Number(btn.dataset.idx)];
       renderDetail(row);
       renderMobileDetail(row, btn);
     });
   });
   renderDetail(selectedRow);
-  renderMobileDetail(selectedRow, list.querySelector(".match-item.active"));
+  if (!mobile) {
+    const active = list.querySelector(".match-item.active");
+    if (active) active.setAttribute("aria-expanded", "true");
+  }
 }
 
 function oddsRow(label, value) {
