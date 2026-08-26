@@ -179,6 +179,30 @@
       background: #dceeff;
       box-shadow: inset 4px 0 0 var(--red);
     }
+    .mobile-detail {
+      display: none;
+    }
+    .mobile-detail-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: start;
+      padding: 8px;
+      background: #f4f9ff;
+      border: 1px solid var(--line);
+      border-bottom: 0;
+    }
+    .mobile-detail-title {
+      font-weight: 900;
+      color: #123c62;
+      line-height: 1.35;
+    }
+    .mobile-detail-meta {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
     .match-main { font-weight: 700; line-height: 1.35; }
     .match-meta { margin-top: 3px; color: var(--muted); font-size: 12px; }
     .tag {
@@ -336,9 +360,27 @@
         height: auto;
         overflow: visible;
       }
-      .right { order: 1; min-width: 0; overflow: visible; }
-      .left { order: 2; min-height: 0; max-height: none; }
-      .match-list { max-height: 340px; }
+      .left { order: 1; min-height: 0; max-height: none; }
+      .right { display: none; }
+      .match-list { max-height: none; overflow: visible; }
+      .mobile-detail {
+        display: block;
+        grid-column: 1 / -1;
+        padding: 0 6px 10px;
+        background: #eef6fd;
+        border-bottom: 1px solid #bfd4e7;
+      }
+      .mobile-detail-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 0;
+        background: transparent;
+        overflow: visible;
+      }
+      .mobile-detail .panel {
+        width: 100%;
+      }
       .date-strip { grid-template-columns: 1fr 74px; }
       .match-header { grid-template-columns: 1fr; }
       .selected-title { font-size: 18px; }
@@ -364,7 +406,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-08-26 17:20 ｜ 数据目录：D:\codex</div>
+    <div class="source">更新时间：2026-08-26 18:39 ｜ 数据目录：D:\codex</div>
   </header>
 
   <section class="pattern-dock">
@@ -791,6 +833,7 @@ function renderList(selectedMatch = null) {
     return;
   }
   const selected = selectedMatch || rows[0].display_match;
+  const selectedRow = rows.find(r => r.display_match === selected) || rows[0];
   list.innerHTML = rows.map((r, idx) => `
     <button class="match-item ${r.display_match === selected ? "active" : ""}" data-idx="${idx}">
       <div>
@@ -804,15 +847,169 @@ function renderList(selectedMatch = null) {
     btn.addEventListener("click", () => {
       list.querySelectorAll(".match-item").forEach(x => x.classList.remove("active"));
       btn.classList.add("active");
-      renderDetail(rows[Number(btn.dataset.idx)]);
+      const row = rows[Number(btn.dataset.idx)];
+      renderDetail(row);
+      renderMobileDetail(row, btn);
     });
   });
-  renderDetail(rows.find(r => r.display_match === selected) || rows[0]);
+  renderDetail(selectedRow);
+  renderMobileDetail(selectedRow, list.querySelector(".match-item.active"));
 }
 
 function oddsRow(label, value) {
   const [open, now] = splitOdds(value);
   return `<tr><td><strong>${label}</strong></td><td class="odds-open">${open}</td><td class="odds-now">${now}</td></tr>`;
+}
+
+function rateClass(v) {
+  return v !== null && v >= .55 ? "rate-good" : (v !== null && v < .45 ? "rate-bad" : "");
+}
+
+function rateTableHtml(r) {
+  const sameMarket = winRate(cardsData.filter(x => x.market === r.market));
+  const sameLeague = winRate(cardsData.filter(x => x.league === r.league));
+  const sameCombo = winRate(cardsData.filter(x => x.league === r.league && x.market === r.market));
+  return `
+    <table>
+      <thead><tr><th>统计口径</th><th>样本</th><th>赢/输/走</th><th>胜率</th><th>盈亏单位</th></tr></thead>
+      <tbody>
+        <tr><td>同盘口类型：${clean(r.market)}</td><td>${sameMarket.wins + sameMarket.losses + sameMarket.pushes}</td><td>${sameMarket.wins}/${sameMarket.losses}/${sameMarket.pushes}</td><td class="${rateClass(sameMarket.rate)}">${pct(sameMarket.rate)}</td><td>${sameMarket.pnl.toFixed(2)}</td></tr>
+        <tr><td>同联赛：${clean(r.league)}</td><td>${sameLeague.wins + sameLeague.losses + sameLeague.pushes}</td><td>${sameLeague.wins}/${sameLeague.losses}/${sameLeague.pushes}</td><td class="${rateClass(sameLeague.rate)}">${pct(sameLeague.rate)}</td><td>${sameLeague.pnl.toFixed(2)}</td></tr>
+        <tr><td>同联赛 + 同盘口</td><td>${sameCombo.wins + sameCombo.losses + sameCombo.pushes}</td><td>${sameCombo.wins}/${sameCombo.losses}/${sameCombo.pushes}</td><td class="${rateClass(sameCombo.rate)}">${pct(sameCombo.rate)}</td><td>${sameCombo.pnl.toFixed(2)}</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:8px;">样本不足 8 场时只作观察，不作为主单依据。历史战绩、近5场输赢盘和BTTS赔率尚未稳定接入时均明确标注待核。</div>
+  `;
+}
+
+function sourceRowsFor(r) {
+  return [
+    ["赛程/中文名/比分", r.schedule_source],
+    ["亚盘/欧赔/大小球", r.odds_source],
+    ["数据完整性审计", `${r.data_complete_status}；${r.data_complete_detail}`],
+    ["亚盘意图候选", r.asian_intent],
+    ["BTTS/球队进球/角球/半场", r.btts_source],
+    ["进球模型/射手/时间分布", `${r.goal_model_status}；${r.goal_model_detail}`],
+    ["双方历史战绩", r.h2h_source],
+    ["近5场/主客场状态", r.form_source],
+    ["历史赢盘/输盘/大小球", r.handicap_record_source],
+    ["伤停/首发/停赛", r.lineup_source],
+    ["战意/积分/杯赛赛制", r.motivation_source],
+    ["Polymarket/必发/投注流", r.flow_source],
+    ["公共博主/盘口观点", r.analyst_source],
+  ];
+}
+
+function sourceTableHtml(r) {
+  return `
+    <table>
+      <thead><tr><th>数据字段</th><th>状态</th><th>当前来源/缺口</th></tr></thead>
+      <tbody>
+        ${sourceRowsFor(r).map(([name, value]) => `<tr><td>${name}</td><td>${sourceBadge(value)}</td><td>${clean(value)}</td></tr>`).join("")}
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:8px;">主单升级规则：关键字段必须至少有一个市场价格源和一个基本面源通过核验；盘口、阵容、投注流三者冲突时，自动降为观察或仅模拟。</div>
+  `;
+}
+
+function mobileDetailHtml(r) {
+  const proxy = modelProxy(r);
+  const kelly = kellyCalc(r);
+  return `
+    <div class="mobile-detail">
+      <div class="mobile-detail-top">
+        <div>
+          <div class="mobile-detail-title">${clean(r.display_match)}</div>
+          <div class="mobile-detail-meta">${clean(r.display_time)} ｜ ${clean(r.league)} ｜ 排名/阶段：${clean(r.rank)} ｜ 球探状态：${clean(r.state_label || r.state)}（${clean(r.state)}）</div>
+        </div>
+        <span class="tag ${tagClass(r.display_status)}">${clean(r.display_status)}</span>
+      </div>
+      <div class="detail-grid mobile-detail-grid">
+        <section class="panel">
+          <div class="panel-title"><span>1. 盘口与赔率</span><span>${r.matched_odds ? "Titan007赔率已匹配" : "赔率待核"}</span></div>
+          <div class="panel-body">
+            <table>
+              <thead><tr><th>盘口类型</th><th>开盘</th><th>即时/当前</th></tr></thead>
+              <tbody>
+                ${oddsRow("亚盘", r.ah)}
+                ${oddsRow("欧赔", r.euro)}
+                ${oddsRow("大小球", r.total)}
+                ${oddsRow("双方进球", "未接入：等待BTTS稳定赔率源")}
+              </tbody>
+            </table>
+            <div class="analysis-line" style="margin-top:8px;">
+              <strong>模拟盘口：</strong>${clean(r.market)} ｜ ${clean(r.pick)}<br>
+              <strong>价格/赔率：</strong>${clean(r.price)}<br>
+              <strong>赔率来源：</strong>${clean(r.price_source)}<br>
+              <strong>结算口径：</strong>${clean(r.settlement)}
+              <div class="intent-ev-badge">${intentEvBadge(r)}</div>
+            </div>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="panel-title"><span>2. 交锋/近况/输赢盘</span><span>资料层</span></div>
+          <div class="panel-body">
+            <div class="kv"><div class="k">双方历史战绩</div><div class="v">${clean(r.h2h_source)}</div></div>
+            <div class="kv"><div class="k">近5场/状态</div><div class="v">${clean(r.form_source)}</div></div>
+            <div class="kv"><div class="k">赢盘/输盘与大小球记录</div><div class="v">${clean(r.handicap_record_source)}</div></div>
+            <div class="kv"><div class="k">本场结算</div><div class="v">状态：${clean(r.status)}；赛果：${clean(r.result)}；模拟盈亏：${clean(r.pnl)}；过程评级：${clean(r.grade)}；错误类型：${clean(r.error)}</div></div>
+          </div>
+        </section>
+        <section class="panel wide">
+          <div class="panel-title"><span>3. 本场基本面、拉力与资金流</span><span>五板链路</span></div>
+          <div class="panel-body">
+            <div class="kv"><div class="k">伤停/首发</div><div class="v">${clean(r.lineup)}<br>${clean(r.injury)}</div></div>
+            <div class="kv"><div class="k">战意/场景</div><div class="v">${clean(r.purpose)}</div></div>
+            <div class="kv"><div class="k">盘口拉力</div><div class="v">${clean(r.pull)}</div></div>
+            <div class="kv"><div class="k">数据完整性</div><div class="v">${clean(r.data_complete_status)}<br>${clean(r.data_complete_detail)}</div></div>
+            <div class="kv"><div class="k">进球模型核验</div><div class="v">${clean(r.goal_model_status)}<br>${clean(r.goal_model_detail)}</div></div>
+            <div class="kv"><div class="k">欧赔去水</div><div class="v">${clean(r.euro_devig)}<br>来源：Titan007即时欧赔；未做跨公司共识时不能单独升级主单。</div></div>
+            <div class="kv"><div class="k">亚盘真实意图</div><div class="v">${clean(r.asian_intent)}<br>盘口拉力：${clean(r.pull)}</div></div>
+            <div class="kv"><div class="k">资金/流动性</div><div class="v">真实成交/PM/必发：${clean(r.flow)}<br>盘口流动性：${clean(r.liquidity)}</div></div>
+            <div class="kv"><div class="k">模型更新</div><div class="v">${clean(r.update)}</div></div>
+          </div>
+        </section>
+        <section class="panel wide">
+          <div class="panel-title"><span>4. 历史同盘口模拟胜率</span><span>账本统计</span></div>
+          <div class="panel-body">${rateTableHtml(r)}</div>
+        </section>
+        <section class="panel wide">
+          <div class="panel-title"><span>5. Polymarket/必发执行门槛</span><span>价格与流动性</span></div>
+          <div class="panel-body">
+            <div class="kv"><div class="k">Polymarket价格</div><div class="v">${clean(r.flow)}<br>若无Gamma/CLOB bid/ask、spread、volume、liquidity和合约口径，则不能给Polymarket主单。</div></div>
+            <div class="kv"><div class="k">必发/交易所</div><div class="v">当前字段：${clean(r.flow)}。必须区分真实投注量、流动性、盘口价格流；Titan007只算盘口价格流，不算投注量。</div></div>
+            <div class="kv"><div class="k">盘口等价</div><div class="v">Asian quarter line 不能直接映射成 Polymarket ±1.5/±2.5；若要下PM，必须重算 P(赢2+) / P(赢3+) / 不败等二元桶。</div></div>
+            <div class="kv"><div class="k">执行状态</div><div class="v">默认无PM主单；只有合约、结算时钟、可成交价、流动性、保守胜率和最大买入价全部通过才升级。</div></div>
+          </div>
+        </section>
+        <section class="panel wide">
+          <div class="panel-title"><span>6. Kelly、最终选择与证据完整性</span><span>skill强制字段</span></div>
+          <div class="panel-body">
+            <div class="kv"><div class="k">模型概率</div><div class="v">${proxy.rate ? (proxy.rate * 100).toFixed(1) + "%" : "未入账"}；来源：${proxy.source}，样本 ${proxy.sample}。这是历史代理概率，不等同完整五板模型概率。</div></div>
+            <div class="kv"><div class="k">Kelly测算</div><div class="v">${kelly.text}</div></div>
+            <div class="kv"><div class="k">最终盘口选择</div><div class="v">${clean(r.final_action)}；是否主单：${clean(r.main)}；模拟方向：${clean(r.pick)}。</div></div>
+            <div class="kv"><div class="k">证据完整性</div><div class="v">${clean(r.evidence_status)}。主单必须同时满足至少一个基本面输入和一个市场拉力输入。</div></div>
+            <div class="kv"><div class="k">赛后复盘</div><div class="v">赛果：${clean(r.result)}；盈亏：${clean(r.pnl)}；过程评级：${clean(r.grade)}；错误类型：${clean(r.error)}；规则更新：${clean(r.update)}</div></div>
+          </div>
+        </section>
+        <section class="panel wide">
+          <div class="panel-title"><span>7. 数据源核验矩阵</span><span>多方验证</span></div>
+          <div class="panel-body">${sourceTableHtml(r)}</div>
+        </section>
+      </div>
+    </div>
+  `;
+}
+
+function isMobileView() {
+  return window.matchMedia("(max-width: 760px)").matches;
+}
+
+function renderMobileDetail(r, btn) {
+  const list = document.getElementById("matchList");
+  list.querySelectorAll(".mobile-detail").forEach(x => x.remove());
+  if (!r || !btn || !isMobileView()) return;
+  btn.insertAdjacentHTML("afterend", mobileDetailHtml(r));
 }
 
 function renderDetail(r) {
@@ -932,6 +1129,12 @@ function init() {
   renderDates();
   document.getElementById("dateSelect").addEventListener("change", () => renderList());
   document.getElementById("matchSearch").addEventListener("input", () => renderList());
+  window.addEventListener("resize", () => {
+    const rows = rowsForDate();
+    const active = document.querySelector(".match-item.active");
+    const row = active ? rows[Number(active.dataset.idx)] : null;
+    renderMobileDetail(row, active);
+  });
   renderList();
 }
 
