@@ -67,6 +67,10 @@ def publish(push: bool = True) -> dict[str, object]:
         (ROOT / "backtests" / "top5_tier_split", "top5_tier_split_backtest_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
         (ROOT / "backtests" / "top5_tier_split", "top5_tier_split_by_league_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
         (ROOT / "backtests" / "top5_tier_split", "top5_tier_split_backtest_*_clean.md", PUBLISH_REPO / "backtests" / "top5_tier_split"),
+        (ROOT / "backtests" / "top5_tier_split", "top5_region_full_sample_matches_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
+        (ROOT / "backtests" / "top5_tier_split", "top5_region_full_sample_summary_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
+        (ROOT / "backtests" / "top5_tier_split", "top5_region_full_ledger_matches_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
+        (ROOT / "backtests" / "top5_tier_split", "top5_region_full_ledger_summary_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
     ]
     for root, pattern, dst_dir in latest_outputs:
         src = latest_file(root, pattern)

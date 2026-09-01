@@ -11,6 +11,7 @@ import pandas as pd
 
 ROOT = Path(r"D:\codex\outputs\football_odds_trader")
 OUT_DIR = ROOT / "backtests" / "top5_tier_split"
+LEDGER_PATH = ROOT / "ledger" / "simulated_bets.csv"
 
 LEAGUE_MAP: dict[str, tuple[str, str]] = {
     "英超": ("英格兰", "顶级"),
@@ -241,13 +242,36 @@ def fmt_unit(value: float | None) -> str:
     return "" if value is None else f"{value:+.4f}"
 
 
-def prepare() -> tuple[pd.DataFrame, Path]:
+def prepare_universe() -> tuple[pd.DataFrame, Path]:
     input_path = latest_input_file()
     df = pd.read_csv(input_path, encoding="utf-8-sig")
     df = stable_time_sort(df)
+    df["赛事原始"] = df["赛事"]
     df["赛事"] = df["赛事"].replace(LEAGUE_ALIASES)
     df = df[df["赛事"].isin(LEAGUE_MAP)].copy()
     df[["国家", "层级"]] = df["赛事"].map(LEAGUE_MAP).apply(pd.Series)
+    df["五大地区筛选"] = "是"
+    return df.reset_index(drop=True), input_path
+
+
+def prepare_ledger_universe() -> pd.DataFrame:
+    if not LEDGER_PATH.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(LEDGER_PATH, encoding="utf-8-sig")
+    df = stable_time_sort(df)
+    df["赛事原始"] = df["赛事"]
+    df["赛事"] = df["赛事"].replace(LEAGUE_ALIASES)
+    df = df[df["赛事"].isin(LEAGUE_MAP)].copy()
+    if df.empty:
+        return df
+    df[["国家", "层级"]] = df["赛事"].map(LEAGUE_MAP).apply(pd.Series)
+    df["五大地区筛选"] = "是"
+    return df.reset_index(drop=True)
+
+
+def prepare() -> tuple[pd.DataFrame, Path, pd.DataFrame]:
+    universe, input_path = prepare_universe()
+    df = universe.copy()
     df = df[df["意图结算"].isin(SETTLED) & df["反向结算"].isin(SETTLED)].copy()
     df["意图水位_数值"] = df["意图水位"].map(parse_float)
     df["反向水位_数值"] = df["反向水位"].map(parse_float)
@@ -258,7 +282,7 @@ def prepare() -> tuple[pd.DataFrame, Path]:
         calc_pnl(s, w, p) for s, w, p in zip(df["反向结算"], df["反向水位_数值"], df["反向均注盈亏"])
     ]
     df = df[df["意图均注盈亏_数值"].notna() & df["反向均注盈亏_数值"].notna()].copy()
-    return df.reset_index(drop=True), input_path
+    return df.reset_index(drop=True), input_path, universe
 
 
 def build_choice_maps(df: pd.DataFrame, min_sample: int) -> tuple[dict[tuple, Choice], dict[tuple, Choice]]:
@@ -432,8 +456,35 @@ def write_dashboard_compat(summary: pd.DataFrame, ts: str) -> None:
 
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    df, input_path = prepare()
+    df, input_path, universe = prepare()
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    universe = universe.copy()
+    ledger_universe = prepare_ledger_universe()
+    universe["是否有效亚盘结算"] = universe["意图结算"].isin(SETTLED) & universe["反向结算"].isin(SETTLED)
+    full_sample_path = OUT_DIR / f"top5_region_full_sample_matches_{ts}.csv"
+    full_summary_path = OUT_DIR / f"top5_region_full_sample_summary_{ts}.csv"
+    full_ledger_path = OUT_DIR / f"top5_region_full_ledger_matches_{ts}.csv"
+    full_ledger_summary_path = OUT_DIR / f"top5_region_full_ledger_summary_{ts}.csv"
+    universe.to_csv(full_sample_path, index=False, encoding="utf-8-sig")
+    full_summary = (
+        universe.groupby(["国家", "层级", "赛事"], dropna=False, sort=True)
+        .agg(
+            全样本场数=("比赛", "count"),
+            有效亚盘结算=("是否有效亚盘结算", "sum"),
+            不计或待核=("是否有效亚盘结算", lambda x: int((~x).sum())),
+        )
+        .reset_index()
+    )
+    full_summary.to_csv(full_summary_path, index=False, encoding="utf-8-sig")
+    if not ledger_universe.empty:
+        ledger_universe.to_csv(full_ledger_path, index=False, encoding="utf-8-sig")
+        full_ledger_summary = (
+            ledger_universe.groupby(["国家", "层级", "赛事"], dropna=False, sort=True)
+            .agg(总账本场数=("比赛", "count"))
+            .reset_index()
+        )
+        full_ledger_summary.to_csv(full_ledger_summary_path, index=False, encoding="utf-8-sig")
 
     detail = pd.concat(
         [
@@ -524,6 +575,10 @@ def main() -> None:
                 ),
                 "",
                 "## 输出文件",
+                f"- 五大地区全样本筛选：`{full_sample_path}`",
+                f"- 五大地区样本池汇总：`{full_summary_path}`",
+                f"- 五大地区总账本筛选：`{full_ledger_path}`",
+                f"- 五大地区总账本汇总：`{full_ledger_summary_path}`",
                 f"- 总体：`{overall_path}`",
                 f"- 分联赛/杯赛：`{league_path}`",
                 f"- 分国家/层级：`{tier_path}`",
@@ -535,6 +590,11 @@ def main() -> None:
     (OUT_DIR / f"top5_tier_split_backtest_{ts}_clean.md").write_text(report_path.read_text(encoding="utf-8"), encoding="utf-8")
 
     print(report_path)
+    print(full_sample_path)
+    print(full_summary_path)
+    if not ledger_universe.empty:
+        print(full_ledger_path)
+        print(full_ledger_summary_path)
     print(overall_path)
     print(league_path)
     print(tier_path)

@@ -41,6 +41,47 @@ TAG_ORDER = [
     "诱下/上盘降温",
 ]
 
+TOP5_LEAGUE_MAP: dict[str, tuple[str, str]] = {
+    "英超": ("英格兰", "顶级"),
+    "英冠": ("英格兰", "次级"),
+    "英甲": ("英格兰", "次次级"),
+    "英联杯": ("英格兰", "杯赛"),
+    "英足总杯": ("英格兰", "杯赛"),
+    "英挑杯": ("英格兰", "杯赛"),
+    "西甲": ("西班牙", "顶级"),
+    "西乙": ("西班牙", "次级"),
+    "西协甲": ("西班牙", "次次级"),
+    "西班牙杯": ("西班牙", "杯赛"),
+    "国王杯": ("西班牙", "杯赛"),
+    "意甲": ("意大利", "顶级"),
+    "意乙": ("意大利", "次级"),
+    "意丙": ("意大利", "次次级"),
+    "意大利杯": ("意大利", "杯赛"),
+    "意杯": ("意大利", "杯赛"),
+    "意丙杯": ("意大利", "杯赛"),
+    "德甲": ("德国", "顶级"),
+    "德乙": ("德国", "次级"),
+    "德丙": ("德国", "次次级"),
+    "德国杯": ("德国", "杯赛"),
+    "德超杯": ("德国", "杯赛"),
+    "德电信杯": ("德国", "杯赛"),
+    "法甲": ("法国", "顶级"),
+    "法乙": ("法国", "次级"),
+    "法丙": ("法国", "次次级"),
+    "法国杯": ("法国", "杯赛"),
+    "法联杯": ("法国", "杯赛"),
+    "法国超级杯": ("法国", "杯赛"),
+}
+
+TOP5_LEAGUE_ALIASES = {
+    "意杯": "意大利杯",
+    "国王杯": "西班牙杯",
+}
+
+AH_SETTLED = {"赢", "赢半", "走", "输半", "输"}
+AH_COUNT_ORDER = ["赢", "赢半", "走", "输半", "输"]
+MIN_TOP5_ACTION_SAMPLE = 8
+
 TEAM_CN = {
     "Brighton": "布莱顿",
     "Aston Villa": "阿斯顿维拉",
@@ -643,6 +684,305 @@ def load_micro_risk() -> dict[str, object]:
         if region:
             lookup[region] = row
     return {"source": str(path), "rows": rows, "lookup": lookup}
+
+
+def top5_normalize_league(league: str) -> str:
+    text = str(league or "").strip()
+    return TOP5_LEAGUE_ALIASES.get(text, text)
+
+
+def top5_league_info(league: str) -> tuple[str, str, str] | None:
+    normalized = top5_normalize_league(league)
+    info = TOP5_LEAGUE_MAP.get(normalized)
+    if not info:
+        return None
+    country, tier = info
+    return country, tier, normalized
+
+
+def top5_match_id(row: dict[str, str]) -> str:
+    for key in ("比赛ID", "match_id", "模拟ID"):
+        value = str(row.get(key, "") or "").strip()
+        if not value:
+            continue
+        match = re.search(r"TITAN-(\d{5,})", value)
+        if match:
+            return match.group(1)
+        if value.isdigit():
+            return value
+    return ""
+
+
+def top5_match_key(row: dict[str, str]) -> str:
+    return "|".join(
+        [
+            str(row.get("日期", "") or "").strip(),
+            top5_normalize_league(str(row.get("赛事", "") or "").strip()),
+            translate_text(str(row.get("比赛", "") or "").strip()),
+        ]
+    )
+
+
+def top5_sort_key(row: dict[str, str]) -> tuple[str, str, str, str]:
+    return (
+        str(row.get("日期", "") or "").strip(),
+        str(row.get("开赛时间", "") or row.get("time", "") or "").strip(),
+        top5_match_id(row),
+        str(row.get("模拟ID", "") or "").strip(),
+    )
+
+
+def ah_saved_pnl(settlement: str, water: object, saved: object) -> float | None:
+    existing = safe_float(str(saved or ""))
+    if existing is not None:
+        return round(existing, 4)
+    water_value = safe_float(str(water or ""))
+    if settlement == "赢":
+        return round(water_value or 0.0, 4)
+    if settlement == "赢半":
+        return round((water_value or 0.0) / 2.0, 4)
+    if settlement == "走":
+        return 0.0
+    if settlement == "输半":
+        return -0.5
+    if settlement == "输":
+        return -1.0
+    return None
+
+
+def top5_history_valid(row: dict[str, str]) -> bool:
+    mapping = str(row.get("候选映射方向", "") or "").strip()
+    if not mapping or mapping.startswith("不计"):
+        return False
+    if not str(row.get("盘口档位", "") or "").strip() or not str(row.get("候选标签", "") or "").strip():
+        return False
+    return str(row.get("意图结算", "") or "").strip() in AH_SETTLED and str(row.get("反向结算", "") or "").strip() in AH_SETTLED
+
+
+def top5_side_stats(rows: list[dict[str, str]], side: str) -> dict[str, object]:
+    settle_col = "意图结算" if side == "forward" else "反向结算"
+    pnl_col = "意图均注盈亏" if side == "forward" else "反向均注盈亏"
+    water_col = "意图水位" if side == "forward" else "反向水位"
+    counts = {key: 0 for key in AH_COUNT_ORDER}
+    pnl = 0.0
+    for row in rows:
+        settlement = str(row.get(settle_col, "") or "").strip()
+        if settlement not in AH_SETTLED:
+            continue
+        counts[settlement] += 1
+        pnl_value = ah_saved_pnl(settlement, row.get(water_col, ""), row.get(pnl_col, ""))
+        if pnl_value is not None:
+            pnl += pnl_value
+    sample = sum(counts.values())
+    non_push = sample - counts["走"]
+    rate = None
+    loss_rate = None
+    if non_push > 0:
+        rate = round((counts["赢"] + 0.5 * counts["赢半"]) / non_push, 4)
+        loss_rate = round((counts["输"] + 0.5 * counts["输半"]) / non_push, 4)
+    return {
+        "sample": sample,
+        "counts": f"{counts['赢']}/{counts['赢半']}/{counts['走']}/{counts['输半']}/{counts['输']}",
+        "red": counts["赢"],
+        "red_half": counts["赢半"],
+        "push": counts["走"],
+        "black_half": counts["输半"],
+        "black": counts["输"],
+        "rate": rate,
+        "loss_rate": loss_rate,
+        "pnl": round(pnl, 4),
+    }
+
+
+def top5_dual_stats(rows: list[dict[str, str]]) -> dict[str, object]:
+    forward = top5_side_stats(rows, "forward")
+    reverse = top5_side_stats(rows, "reverse")
+    return {
+        "sample": int(forward["sample"]),
+        "forward": forward,
+        "reverse": reverse,
+    }
+
+
+def top5_choice(stats: dict[str, object], sample_floor: int, reason: str) -> dict[str, object]:
+    sample = int(stats.get("sample") or 0)
+    forward = stats.get("forward", {}) if isinstance(stats.get("forward"), dict) else {}
+    reverse = stats.get("reverse", {}) if isinstance(stats.get("reverse"), dict) else {}
+    if sample < sample_floor:
+        return {
+            "mode": "none",
+            "rate": None,
+            "pnl": 0.0,
+            "sample": sample,
+            "reason": f"样本不足<{sample_floor}",
+        }
+    forward_rate = forward.get("rate")
+    reverse_rate = reverse.get("rate")
+    f_rate = -1.0 if forward_rate is None else float(forward_rate)
+    r_rate = -1.0 if reverse_rate is None else float(reverse_rate)
+    if f_rate > r_rate:
+        return {"mode": "forward", "rate": forward_rate, "pnl": forward.get("pnl", 0.0), "sample": sample, "reason": reason}
+    if r_rate > f_rate:
+        return {"mode": "reverse", "rate": reverse_rate, "pnl": reverse.get("pnl", 0.0), "sample": sample, "reason": reason}
+    forward_pnl = float(forward.get("pnl") or 0.0)
+    reverse_pnl = float(reverse.get("pnl") or 0.0)
+    if forward_pnl > reverse_pnl:
+        return {"mode": "forward", "rate": forward_rate, "pnl": forward_pnl, "sample": sample, "reason": f"{reason};胜率相同按盈亏"}
+    if reverse_pnl > forward_pnl:
+        return {"mode": "reverse", "rate": reverse_rate, "pnl": reverse_pnl, "sample": sample, "reason": f"{reason};胜率相同按盈亏"}
+    return {"mode": "none", "rate": forward_rate, "pnl": forward_pnl, "sample": sample, "reason": "正反胜率/盈亏接近"}
+
+
+def top5_resolve_choice(league_choice: dict[str, object], line_choice: dict[str, object]) -> dict[str, object]:
+    league_mode = str(league_choice.get("mode") or "none")
+    line_mode = str(line_choice.get("mode") or "none")
+    if league_mode == "none" and line_mode == "none":
+        return {"mode": "none", "rate": None, "sample": 0, "source": "不投", "reason": "赛事级和盘口标签历史样本都不足"}
+    if line_mode == "none":
+        return {
+            "mode": league_mode,
+            "rate": league_choice.get("rate"),
+            "sample": league_choice.get("sample"),
+            "source": "赛事级",
+            "reason": "盘口标签样本不足，回退赛事级胜率高方",
+        }
+    if league_mode == "none":
+        return {
+            "mode": line_mode,
+            "rate": line_choice.get("rate"),
+            "sample": line_choice.get("sample"),
+            "source": "盘口标签",
+            "reason": "赛事级样本不足，采用盘口档位+标签胜率高方",
+        }
+    if league_mode == line_mode:
+        return {
+            "mode": league_mode,
+            "rate": max(float(league_choice.get("rate") or 0), float(line_choice.get("rate") or 0)),
+            "sample": min(int(league_choice.get("sample") or 0), int(line_choice.get("sample") or 0)),
+            "source": "一致",
+            "reason": "赛事级与盘口标签方向一致",
+        }
+    league_rate = float(league_choice.get("rate") or -1.0)
+    line_rate = float(line_choice.get("rate") or -1.0)
+    if line_rate > league_rate:
+        return {
+            "mode": line_mode,
+            "rate": line_choice.get("rate"),
+            "sample": line_choice.get("sample"),
+            "source": "冲突取盘口标签",
+            "reason": f"方向冲突，盘口标签胜率{line_rate:.1%}高于赛事级{league_rate:.1%}",
+        }
+    if league_rate > line_rate:
+        return {
+            "mode": league_mode,
+            "rate": league_choice.get("rate"),
+            "sample": league_choice.get("sample"),
+            "source": "冲突取赛事级",
+            "reason": f"方向冲突，赛事级胜率{league_rate:.1%}高于盘口标签{line_rate:.1%}",
+        }
+    if float(line_choice.get("pnl") or 0.0) > float(league_choice.get("pnl") or 0.0):
+        return {
+            "mode": line_mode,
+            "rate": line_choice.get("rate"),
+            "sample": line_choice.get("sample"),
+            "source": "冲突取盘口标签",
+            "reason": "方向冲突且胜率相同，盘口标签盈亏更高",
+        }
+    return {
+        "mode": league_mode,
+        "rate": league_choice.get("rate"),
+        "sample": league_choice.get("sample"),
+        "source": "冲突取赛事级",
+        "reason": "方向冲突且胜率相同，赛事级盈亏更高",
+    }
+
+
+def load_top5_walkforward_policy() -> dict[str, object]:
+    path = latest_file("asian_intent_history_detail_*.csv", DETAIL_LEDGER)
+    if not path:
+        return {"source": "未生成", "by_sim_id": {}, "by_match_key": {}}
+    rows: list[dict[str, str]] = []
+    for raw in read_csv(path):
+        info = top5_league_info(raw.get("赛事", ""))
+        if not info:
+            continue
+        country, tier, league = info
+        row = dict(raw)
+        row["赛事"] = league
+        row["五大国家"] = country
+        row["五大层级"] = tier
+        row["比赛ID"] = row.get("比赛ID", "") or top5_match_id(row)
+        rows.append(row)
+    rows.sort(key=top5_sort_key)
+
+    by_sim_id: dict[str, dict[str, object]] = {}
+    by_match_key: dict[str, dict[str, object]] = {}
+    seen: list[dict[str, str]] = []
+    for row in rows:
+        league_rows = [
+            h
+            for h in seen
+            if h.get("五大国家") == row.get("五大国家")
+            and h.get("五大层级") == row.get("五大层级")
+            and h.get("赛事") == row.get("赛事")
+        ]
+        line_rows = [
+            h
+            for h in league_rows
+            if h.get("盘口档位") == row.get("盘口档位") and h.get("候选标签") == row.get("候选标签")
+        ]
+        league_stats = top5_dual_stats(league_rows)
+        line_stats = top5_dual_stats(line_rows)
+        league_choice = top5_choice(league_stats, MIN_TOP5_ACTION_SAMPLE, "赛事级胜率高方")
+        line_choice = top5_choice(line_stats, MIN_TOP5_ACTION_SAMPLE, "盘口档位+标签胜率高方")
+        selected = top5_resolve_choice(league_choice, line_choice)
+
+        line_selected_rate = None
+        selected_mode = str(selected.get("mode") or "none")
+        if selected_mode in {"forward", "reverse"}:
+            selected_line_stats = line_stats.get(selected_mode, {}) if isinstance(line_stats.get(selected_mode), dict) else {}
+            line_selected_rate = selected_line_stats.get("rate")
+            if int(line_stats.get("sample") or 0) > MIN_TOP5_ACTION_SAMPLE and line_selected_rate is not None and float(line_selected_rate) < 0.4:
+                selected = {
+                    **selected,
+                    "mode": "none",
+                    "source": "同盘口否决",
+                    "reason": f"同赛事同盘口+标签样本{line_stats.get('sample')}且所选方向胜率{float(line_selected_rate):.1%}<40%",
+                }
+
+        policy = {
+            "is_top5": True,
+            "source": str(path),
+            "min_action_sample": MIN_TOP5_ACTION_SAMPLE,
+            "country": row.get("五大国家", ""),
+            "tier": row.get("五大层级", ""),
+            "league": row.get("赛事", ""),
+            "match": translate_text(row.get("比赛", "")),
+            "line": row.get("盘口档位", ""),
+            "tag": row.get("候选标签", ""),
+            "candidate_mapping": row.get("候选映射方向", ""),
+            "league_stats": league_stats,
+            "line_stats": line_stats,
+            "league_choice": league_choice,
+            "line_choice": line_choice,
+            "selected_mode": selected.get("mode", "none"),
+            "selected_rate": selected.get("rate"),
+            "selected_sample": selected.get("sample"),
+            "selected_source": selected.get("source", ""),
+            "selected_reason": selected.get("reason", ""),
+        }
+        sim_id = str(row.get("模拟ID", "") or "").strip()
+        if sim_id:
+            by_sim_id[sim_id] = policy
+        by_match_key[top5_match_key(row)] = policy
+
+        if top5_history_valid(row):
+            forward_pnl = ah_saved_pnl(row.get("意图结算", ""), row.get("意图水位", ""), row.get("意图均注盈亏", ""))
+            reverse_pnl = ah_saved_pnl(row.get("反向结算", ""), row.get("反向水位", ""), row.get("反向均注盈亏", ""))
+            if forward_pnl is not None and reverse_pnl is not None:
+                seen.append(row)
+
+    return {"source": str(path), "by_sim_id": by_sim_id, "by_match_key": by_match_key}
 
 
 def extract_decimal(text: str) -> float | None:
@@ -1367,6 +1707,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
     ledger_rows = read_csv(LEDGER)
     today_rows = ledger_rows
     odds = titan_lookup()
+    top5_policy = load_top5_walkforward_policy()
     final_scores = load_titan_over_scores()
     details = detail_lookup()
     cards = []
@@ -1386,6 +1727,11 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
         goal_status, goal_detail = goal_model_audit(r, matched)
         data_status, data_detail = data_completeness_audit(r, matched, detail, o)
         micro_region = dashboard_micro_region(r.get("赛事", ""))
+        top5_row_policy = (
+            top5_policy.get("by_sim_id", {}).get(r.get("模拟ID", ""))
+            or top5_policy.get("by_match_key", {}).get(top5_match_key(r))
+            or {}
+        )
         if "盘口快照" in r.get("市场框架", "") or "五板证据缺失" in r.get("错误类型", ""):
             final_action = "盘口快照/不形成模拟"
         elif "盘口缺失" in r.get("市场框架", "") or "不形成模拟" in r.get("市场框架", "") or "盘口未读取" in r.get("错误类型", ""):
@@ -1438,6 +1784,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "intent_forward_water": o["intent_forward_water"],
                 "intent_reverse_water": o["intent_reverse_water"],
                 "micro_region": micro_region,
+                "top5_policy": top5_row_policy,
                 "injury": translate_text(detail_injury(detail)),
                 "lineup": translate_text(detail_lineup(detail)),
                 "pull": clean_missing_odds_text(translate_text(r.get("盘口倾向", ""))),
@@ -2591,6 +2938,7 @@ const intentMatrixData = stats.intent_matrix || {{tags: [], matrix: [], detail: 
 const tagPerformanceData = intentMatrixData.tag_performance || {{good: [], bad: [], all: [], source: "未生成"}};
 const microEdgeData = stats.micro_edge || {{rows: [], lookup: {{}}, source: "未生成"}};
 const microRiskData = stats.micro_risk || {{rows: [], lookup: {{}}, source: "未生成"}};
+const top5MinActionSample = {MIN_TOP5_ACTION_SAMPLE};
 
 function pct(v) {{
   if (v === null || v === undefined || Number.isNaN(v)) return "无";
@@ -2810,10 +3158,80 @@ function skillBetDecision(r, cell = null) {{
   return `是否投注：${{decision.action}}；投注方向：${{decision.mode === "reverse" ? "反向" : "正向"}}；正期望方：${{decision.team}}；${{decision.reason}}。`;
 }}
 
+function top5RateText(stats, mode) {{
+  const n = Number(stats?.sample || 0);
+  const side = stats?.[mode] || {{}};
+  if (n < top5MinActionSample) return `样本${{n}}（<${{top5MinActionSample}}，仅观察，不作下注胜率依据）`;
+  return `样本${{n}}，${{mode === "reverse" ? "反向" : "正向"}}胜率${{pct(side.rate)}}/收益${{signed(side.pnl)}}`;
+}}
+
+function top5StatsLine(label, stats) {{
+  const n = Number(stats?.sample || 0);
+  const forward = stats?.forward || {{}};
+  const reverse = stats?.reverse || {{}};
+  if (n < top5MinActionSample) {{
+    return `${{label}}：样本${{n}}（<${{top5MinActionSample}}，仅观察，不显示为可投胜率）；正向收益${{signed(forward.pnl)}}，反向收益${{signed(reverse.pnl)}}。`;
+  }}
+  return `${{label}}：样本${{n}}，正向胜率${{pct(forward.rate)}}/收益${{signed(forward.pnl)}}，反向胜率${{pct(reverse.rate)}}/收益${{signed(reverse.pnl)}}。`;
+}}
+
+function top5Decision(r) {{
+  const policy = r.top5_policy || null;
+  if (!policy || !policy.is_top5) return null;
+  const mode = String(policy.selected_mode || "none");
+  const details = [];
+  details.push(`1）当前盘口意图：${{policy.line || "缺盘口档位"}} + ${{policy.tag || "缺候选标签"}}；盘口意图正向=${{positiveTeamText(r, "forward")}}；反向=${{positiveTeamText(r, "reverse")}}。`);
+  details.push(`2）赛事级历史：${{top5StatsLine(policy.league || "赛事级", policy.league_stats)}} 选择=${{policy.league_choice?.mode === "reverse" ? "反向" : (policy.league_choice?.mode === "forward" ? "正向" : "不投")}}；原因=${{policy.league_choice?.reason || "无"}}。`);
+  details.push(`3）盘口标签历史：${{top5StatsLine("同赛事同盘口+标签", policy.line_stats)}} 选择=${{policy.line_choice?.mode === "reverse" ? "反向" : (policy.line_choice?.mode === "forward" ? "正向" : "不投")}}；原因=${{policy.line_choice?.reason || "无"}}。`);
+  details.push(`4）合并规则：若方向一致买一致；方向相反买历史胜率更高方；当前=${{policy.selected_source || "无"}}，${{policy.selected_reason || "无"}}。`);
+
+  if (!r.ah_ok) {{
+    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "亚盘盘口/两边水位缺失", details}};
+  }}
+  if (mode === "none") {{
+    return {{action: "不投", mode, team: positiveTeamText(r, "none"), reason: policy.selected_reason || "赛前历史样本不足或同档否决", details}};
+  }}
+  const rate = Number(policy.selected_rate || 0);
+  const water = selectedWater(r, mode);
+  const threshold = breakevenThreshold(water);
+  const team = positiveTeamText(r, mode);
+  details.push(`5）水位阈值：当前水位${{water ? water.toFixed(2) : "缺失"}}，盈亏平衡+2%阈值${{threshold ? pct(threshold) : "无法计算"}}；赛前历史选中胜率${{rate ? pct(rate) : "无"}}。`);
+  if (!water) {{
+    return {{action: "不投", mode, team, reason: "当前正期望方水位缺失，无法计算性价比", details, rate, water, threshold}};
+  }}
+  if (!rate) {{
+    return {{action: "不投", mode, team, reason: "赛前历史胜率缺失", details, rate, water, threshold}};
+  }}
+  if (rate < threshold) {{
+    return {{action: "不投", mode, team, reason: `赛前历史胜率${{pct(rate)}}低于水位阈值${{pct(threshold)}}`, details, rate, water, threshold}};
+  }}
+  return {{action: "可投", mode, team, reason: `通过：赛前历史胜率${{pct(rate)}} >= 阈值${{pct(threshold)}}`, details, rate, water, threshold}};
+}}
+
+function top5PolicyBadge(r, cell = null) {{
+  const policy = r.top5_policy || {{}};
+  const decision = top5Decision(r);
+  if (!decision) return "";
+  const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
+  const actionText = decision.action === "不投" ? "不投" : `${{decision.action}}（${{modeText}}）`;
+  const lineText = policy.line || r.intent_line_bucket || "缺盘口档位";
+  const tagText = policy.tag || r.intent_tag || "缺候选标签";
+  const detail = (decision.details || []).map(x => `<div>${{x}}</div>`).join("");
+  const sameLine = cell
+    ? (Number(cell.sample || 0) < top5MinActionSample
+      ? `全局同盘口同标签：样本${{cell.sample}}（<${{top5MinActionSample}}，仅作旁证）；正向收益${{signed(cell.forward_pnl)}}，反向收益${{signed(cell.reverse_pnl)}}。`
+      : `全局同盘口同标签：样本${{cell.sample}}，正向胜率${{cell.forward_rate}}/收益${{signed(cell.forward_pnl)}}，反向胜率${{cell.reverse_rate}}/收益${{signed(cell.reverse_pnl)}}。`)
+    : "全局同盘口同标签：无样本或样本未生成。";
+  return `五大地区赛前EV：${{policy.country || "五大地区"}}/${{policy.tier || "未分层"}}/${{policy.league || clean(r.league)}}，${{lineText}} + ${{tagText}}，投注建议：${{actionText}}；正期望方：${{decision.team}}。<br>${{top5StatsLine("赛事级赛前历史", policy.league_stats)}}<br>${{top5StatsLine("同赛事同盘口+标签赛前历史", policy.line_stats)}}<br>${{sameLine}}<br>是否投注：${{decision.action === "不投" ? "不投" : decision.action}}；${{decision.action === "不投" ? `未通过环节：${{decision.reason}}` : `投注方向：${{modeText}}；${{decision.reason}}`}}。<details class="ev-calc"><summary>查看1-4步测算</summary>${{detail}}</details>`;
+}}
+
 function intentEvBadge(r) {{
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
   const cell = intentMatrixCell(line, tag);
+  if (r.top5_policy && r.top5_policy.is_top5) {{
+    return top5PolicyBadge(r, cell);
+  }}
   const decision = frameworkDecision(r, cell);
   const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
   const actionText = decision.action === "不投" ? "不投" : `${{decision.action}}（${{modeText}}）`;
