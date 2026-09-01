@@ -165,6 +165,9 @@ def latest_sequential_backtest() -> dict[str, object]:
         return {"available": False, "error": str(exc), "summary_json": str(path)}
     payload["available"] = True
     payload["summary_json"] = str(path)
+    bettable_stats = latest_file("bettable_event_stats_*.csv", DETAIL_LEDGER)
+    if bettable_stats:
+        payload["bettable_stats_csv"] = str(bettable_stats)
     return payload
 
 
@@ -222,6 +225,7 @@ def render_sequential_backtest_box(backtest: dict[str, object]) -> str:
         ("板块", backtest.get("region_csv", "")),
         ("标签", backtest.get("tag_csv", "")),
         ("类型", backtest.get("type_csv", "")),
+        ("可投注统计", backtest.get("bettable_stats_csv", "")),
         ("报告", backtest.get("report_md", "")),
     ]
 
@@ -2566,6 +2570,28 @@ def html_doc_v2(
       background: var(--subhead);
       border-bottom: 1px solid var(--line-soft);
     }}
+    .bettable-toggle {{
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 28px;
+      padding: 5px 7px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #174e7e;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      user-select: none;
+    }}
+    .bettable-toggle input {{
+      width: 15px;
+      height: 15px;
+      margin: 0;
+      padding: 0;
+      accent-color: var(--blue);
+    }}
     select, input {{
       width: 100%;
       border: 1px solid var(--line);
@@ -2872,6 +2898,10 @@ def html_doc_v2(
       <div class="date-strip">
         <select id="dateSelect"></select>
         <div class="mini-stat" id="dateCount">0 场</div>
+        <label class="bettable-toggle" title="只显示当前日期下通过严格skill漏斗的可投注/半仓可投注赛事">
+          <input type="checkbox" id="bettableFilter">
+          <span>筛选当日可投注赛事</span>
+        </label>
       </div>
       <div class="searchbox"><input id="matchSearch" placeholder="搜索中文比赛、联赛、盘口"></div>
       <div class="match-list" id="matchList"></div>
@@ -2936,6 +2966,7 @@ def html_doc_v2(
 
 <script>
 const cardsData = {js_data(cards)};
+cardsData.forEach((r, idx) => {{ r.__initialIndex = idx; }});
 const stats = {js_data(stats)};
 const defaultDate = "{default_date}";
 const intentMatrixData = stats.intent_matrix || {{tags: [], matrix: [], detail: [], source: "未生成"}};
@@ -3435,11 +3466,64 @@ function renderTagPerformance() {{
     ${{tagRows(bad, "暂无明显反向标签")}}`;
 }}
 
+function bettableFilterEnabled() {{
+  return Boolean(document.getElementById("bettableFilter")?.checked);
+}}
+
+function plannedSkillDecision(r) {{
+  const cell = intentMatrixCell(String(r.intent_line_bucket || "").trim(), String(r.intent_tag || "").trim());
+  if (r.top5_policy && r.top5_policy.is_top5) {{
+    return top5Decision(r) || frameworkDecision(r, cell);
+  }}
+  return frameworkDecision(r, cell);
+}}
+
+function isBettableDecision(decision) {{
+  const action = String(decision?.action || "");
+  return (action === "可投" || action === "半仓可投") && !action.includes("不投");
+}}
+
+function bettableSortValue(entry) {{
+  const decision = entry.decision || {{}};
+  const hardAction = decision.action === "可投" ? 1 : 0;
+  const rate = Number(decision.rate || 0);
+  const water = Number(decision.water || 0);
+  return {{ hardAction, rate, water }};
+}}
+
 function allDates() {{
   return [...new Set(cardsData.map(r => r.date).filter(Boolean))].sort().reverse();
 }}
 
 function rowsForDate() {{
+  const d = document.getElementById("dateSelect").value;
+  const q = document.getElementById("matchSearch").value.trim().toLowerCase();
+  const filtered = cardsData
+    .filter(r => r.date === d)
+    .filter(r => !q || Object.values(r).join(" ").toLowerCase().includes(q));
+
+  if (bettableFilterEnabled()) {{
+    return filtered
+      .map(r => ({{ r, decision: plannedSkillDecision(r) }}))
+      .filter(x => isBettableDecision(x.decision))
+      .sort((a, b) => {{
+        const av = bettableSortValue(a);
+        const bv = bettableSortValue(b);
+        return (bv.hardAction - av.hardAction)
+          || (bv.rate - av.rate)
+          || (bv.water - av.water)
+          || String(a.r.display_time).localeCompare(String(b.r.display_time), "zh-Hans-CN")
+          || String(a.r.display_match).localeCompare(String(b.r.display_match), "zh-Hans-CN");
+      }})
+      .map(x => x.r);
+  }}
+
+  return filtered.sort((a, b) => {{
+      return Number(a.__initialIndex || 0) - Number(b.__initialIndex || 0);
+    }});
+}}
+
+function rankedRowsForDateLegacy() {{
   const d = document.getElementById("dateSelect").value;
   const q = document.getElementById("matchSearch").value.trim().toLowerCase();
   return cardsData
@@ -3469,9 +3553,12 @@ function renderDates() {{
 function renderList(selectedMatch = null) {{
   const rows = rowsForDate();
   const list = document.getElementById("matchList");
-  document.getElementById("dateCount").textContent = `${{rows.length}} 场`;
+  const onlyBettable = bettableFilterEnabled();
+  document.getElementById("dateCount").textContent = onlyBettable ? `${{rows.length}} 场可投` : `${{rows.length}} 场`;
   if (!rows.length) {{
-    list.innerHTML = '<div class="empty">该日期暂无模拟比赛</div>';
+    list.innerHTML = onlyBettable
+      ? '<div class="empty">当日暂无通过skill漏斗的可投注赛事</div>'
+      : '<div class="empty">该日期暂无模拟比赛</div>';
     renderDetail(null);
     return;
   }}
@@ -3790,6 +3877,7 @@ function init() {{
   renderDates();
   document.getElementById("dateSelect").addEventListener("change", () => renderList());
   document.getElementById("matchSearch").addEventListener("input", () => renderList());
+  document.getElementById("bettableFilter").addEventListener("change", () => renderList());
   window.addEventListener("resize", () => {{
     const rows = rowsForDate();
     const active = document.querySelector(".match-item.active");

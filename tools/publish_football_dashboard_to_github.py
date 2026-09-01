@@ -53,6 +53,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "tools" / "build_top5_high_win_side_policy.py", PUBLISH_REPO / "tools" / "build_top5_high_win_side_policy.py"),
         (WORKSPACE / "tools" / "export_current_intent_matches.py", PUBLISH_REPO / "tools" / "export_current_intent_matches.py"),
         (WORKSPACE / "tools" / "build_current_intent_strict_backtest_report.py", PUBLISH_REPO / "tools" / "build_current_intent_strict_backtest_report.py"),
+        (WORKSPACE / "tools" / "build_bettable_event_stats.py", PUBLISH_REPO / "tools" / "build_bettable_event_stats.py"),
         (WORKSPACE / "tools" / "publish_football_dashboard_to_github.py", PUBLISH_REPO / "tools" / "publish_football_dashboard_to_github.py"),
         (ROOT / "ledger" / "DATA_STRUCTURE.md", PUBLISH_REPO / "docs" / "DATA_STRUCTURE.md"),
     ]
@@ -62,6 +63,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (ROOT / "reviews", "grouped_edge_review_*.md", PUBLISH_REPO / "reports" / "reviews"),
         (ROOT / "reviews", "micro_region_tag_edge_*.md", PUBLISH_REPO / "reports" / "reviews"),
         (ROOT / "reviews", "snapshot_drift_*.md", PUBLISH_REPO / "reports" / "reviews"),
+        (ROOT / "ledger", "bettable_event_stats_*.csv", PUBLISH_REPO / "ledger"),
         (ROOT / "backtests" / "sequential_asian", "sequential_asian_backtest_*.md", PUBLISH_REPO / "backtests" / "sequential_asian"),
         (ROOT / "backtests" / "sequential_asian", "sequential_asian_backtest_*_summary.json", PUBLISH_REPO / "backtests" / "sequential_asian"),
         (ROOT / "backtests" / "sequential_asian", "sequential_asian_backtest_*_intent_matches.csv", PUBLISH_REPO / "backtests" / "sequential_asian"),

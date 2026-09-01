@@ -1293,6 +1293,34 @@ Grouped edge review requirement for strict daily updates:
 - `样本<8` is observation only. `样本>=8` with positive PnL can adjust watchlist ranking. `样本>=15` with positive PnL, stable process notes, and no obvious concentration can be highlighted as a priority pattern. Even a priority pattern still requires the exact market price for the selected market. For Asian handicap, current line/water plus the Micro-Region Tag EV framework, water threshold, same-line veto, risk state, and Kelly/stake rules decide whether it is actionable; missing PM/Betfair data blocks only PM/Betfair execution, not Asian-handicap EV by itself.
 - Final user-facing responses for daily updates must include three paths when produced: daily report, dashboard HTML, and grouped edge review.
 
+### Bettable Slate Filter And Long-Run Tracking
+
+Every dashboard refresh must expose a visible control near the date selector named `筛选当日可投注赛事`.
+
+- When `筛选当日可投注赛事` is enabled, the left match list must show only matches on the selected date whose current strict skill decision is `可投` or `半仓可投`. These matches must be ranked ahead by strict skill plan quality: actionable status first, higher historical/combined win rate next, better current water/value next, then Beijing kickoff time.
+- When the control is disabled, the left match list must restore the original selected-date ordering. Do not permanently overwrite the slate order just because a bettable filter was used.
+- The selected-match red EV badge remains the source of truth. The filter must use the same decision logic as the red badge: current Asian intent, tag history, micro-region history, Bayesian shrinkage if needed, water threshold, same-line veto, and risk-control state.
+- If no match passes the strict skill betting funnel for the selected date, show `当日暂无通过skill漏斗的可投注赛事`, not an empty or misleading list.
+- The date count must reflect the current filter state, for example `81 场` when unfiltered and `5 场可投` when filtered.
+
+From `2026-09-01` onward, every strict daily update and every sequential backtest refresh must generate a separate machine-readable bettable-event tracking file:
+
+`D:\codex\outputs\football_odds_trader\ledger\bettable_event_stats_YYYY-MM-DD.csv`
+
+The file must track only rows that actually pass the strict Asian-handicap betting funnel (`动作=正向` or `动作=反向`) and must be based on walk-forward decisions, not post-match optimal direction. Required stable columns:
+
+`统计日期, 数据源, 地区, 国家, 赛事层级, 水位分层, 样本, 红, 红半, 走水, 黑半, 黑, 有效胜率, 负率, 均注盈亏Unit, 平均水位, ROI, 备注`
+
+Definitions:
+
+- `地区`: micro-region bucket, such as 北美、拉美、东亚、西亚/中亚、欧洲五大、欧洲非五大、其他.
+- `国家`: derive from the competition/league name when reliable; if not reliable, write `未识别`.
+- `赛事层级`: normalize to `顶级联赛`, `非顶级联赛`, `杯赛`, `洲际杯赛`, `国家队正式赛`, or `未知分类`.
+- `水位分层`: bucket the selected current water as `<=0.70`, `0.71-0.80`, `0.81-0.90`, `0.91-1.00`, `1.01-1.10`, or `>1.10`.
+- Red/black accounting must preserve Asian quarter-line results: `红半` and `黑半` are separate counts; effective win rate treats half-win as 0.5 win and half-loss as 0.5 loss.
+
+This file is for long-run threshold discovery. It must be updated after settlements so the system can learn which `地区-国家-赛事层级-水位` combinations trigger durable positive expectation, and which should be downgraded or filtered out.
+
 ## Guardrails
 
 - Do not recommend offshore or unlicensed betting sites.
