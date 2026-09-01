@@ -65,6 +65,18 @@ Risk states:
 - `状态C-熔断/静默观望`: observe only.
 - `状态D-复活机制`: restored to normal after a positive ROI settlement day.
 
+## Bettable Event Stats
+
+Path pattern:
+
+`D:\codex\outputs\football_odds_trader\ledger\bettable_event_stats_YYYY-MM-DD.csv`
+
+Required columns and grouping order:
+
+`统计日期, 数据源, 地区, 国家, 赛事层级, 盘口, 水位分层, 倾向意图, 样本, 红, 红半, 走水, 黑半, 黑, 有效胜率, 负率, 均注盈亏Unit, 平均水位, ROI, 备注`
+
+This table includes only strict walk-forward Asian handicap rows whose action passed as `正向` or `反向` and whose result has settled. It is grouped by `地区-国家-赛事层级-盘口-水位分层-倾向意图`; red/black counts must preserve `红半` and `黑半`.
+
 ## Dashboard Red EV Box
 
 The red EV box must remain compact. It should show:

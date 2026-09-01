@@ -1307,19 +1307,21 @@ From `2026-09-01` onward, every strict daily update and every sequential backtes
 
 `D:\codex\outputs\football_odds_trader\ledger\bettable_event_stats_YYYY-MM-DD.csv`
 
-The file must track only rows that actually pass the strict Asian-handicap betting funnel (`动作=正向` or `动作=反向`) and must be based on walk-forward decisions, not post-match optimal direction. Required stable columns:
+The file must track only rows that actually pass the strict Asian-handicap betting funnel (`动作=正向` or `动作=反向`) and must be based on walk-forward decisions, not post-match optimal direction. It must group by `地区-国家-赛事层级-盘口-水位分层-倾向意图`, then settle red/black outcomes. Required stable columns:
 
-`统计日期, 数据源, 地区, 国家, 赛事层级, 水位分层, 样本, 红, 红半, 走水, 黑半, 黑, 有效胜率, 负率, 均注盈亏Unit, 平均水位, ROI, 备注`
+`统计日期, 数据源, 地区, 国家, 赛事层级, 盘口, 水位分层, 倾向意图, 样本, 红, 红半, 走水, 黑半, 黑, 有效胜率, 负率, 均注盈亏Unit, 平均水位, ROI, 备注`
 
 Definitions:
 
 - `地区`: micro-region bucket, such as 北美、拉美、东亚、西亚/中亚、欧洲五大、欧洲非五大、其他.
 - `国家`: derive from the competition/league name when reliable; if not reliable, write `未识别`.
 - `赛事层级`: normalize to `顶级联赛`, `非顶级联赛`, `杯赛`, `洲际杯赛`, `国家队正式赛`, or `未知分类`.
+- `盘口`: use the selected row's normalized Asian handicap bucket / line bucket, such as `平手`, `平手/半球`, `半球`, `半球/一球`, `一球`, etc. If missing, write `缺盘口`.
 - `水位分层`: bucket the selected current water as `<=0.70`, `0.71-0.80`, `0.81-0.90`, `0.91-1.00`, `1.01-1.10`, or `>1.10`.
+- `倾向意图`: use the normalized Asian intent tag for that row, such as `阻上/诱下`, `诱上/阻下`, `真实示弱/阻下`, `降温保护/诱下`, or `平衡盘/等待临场确认`. If missing, write `缺倾向意图`.
 - Red/black accounting must preserve Asian quarter-line results: `红半` and `黑半` are separate counts; effective win rate treats half-win as 0.5 win and half-loss as 0.5 loss.
 
-This file is for long-run threshold discovery. It must be updated after settlements so the system can learn which `地区-国家-赛事层级-水位` combinations trigger durable positive expectation, and which should be downgraded or filtered out.
+This file is for long-run threshold discovery. It must be updated after settlements so the system can learn which `地区-国家-赛事层级-盘口-水位分层-倾向意图` combinations trigger durable positive expectation, and which should be downgraded or filtered out.
 
 ## Guardrails
 

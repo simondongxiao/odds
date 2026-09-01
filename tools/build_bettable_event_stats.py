@@ -128,6 +128,8 @@ def build_stats(detail_csv: Path, out_date: str) -> Path:
     bets = bets[bets["已结算"].eq("是")].copy()
     bets["国家"] = bets["赛事"].map(country_from_league)
     bets["赛事层级"] = bets.apply(lambda r: tier_from_class(r.get("比赛分类"), r.get("赛事")), axis=1)
+    bets["盘口"] = bets.get("盘口档位", "").fillna("").astype(str).str.strip().replace("", "缺盘口")
+    bets["倾向意图"] = bets.get("盘口意图标签", "").fillna("").astype(str).str.strip().replace("", "缺倾向意图")
     bets["水位分层"] = bets["选中水位"].map(water_bucket)
     bets["选中水位数值"] = pd.to_numeric(bets["选中水位"], errors="coerce")
     bets["实际盈亏Unit数值"] = pd.to_numeric(bets["实际盈亏Unit"], errors="coerce").fillna(0.0)
@@ -135,9 +137,9 @@ def build_stats(detail_csv: Path, out_date: str) -> Path:
     bets["下注金额数值"] = pd.to_numeric(bets["下注金额"], errors="coerce").fillna(0.0)
 
     rows: list[dict[str, object]] = []
-    group_cols = ["微观板块", "国家", "赛事层级", "水位分层"]
+    group_cols = ["微观板块", "国家", "赛事层级", "盘口", "水位分层", "倾向意图"]
     for keys, group in bets.groupby(group_cols, dropna=False, sort=True):
-        region, country, tier, bucket = keys
+        region, country, tier, line_bucket, bucket, intent_tag = keys
         labels = group["结算标签"].astype(str)
         red = int(labels.eq("红").sum())
         red_half = int(labels.eq("红半").sum())
@@ -157,7 +159,9 @@ def build_stats(detail_csv: Path, out_date: str) -> Path:
                 "地区": region,
                 "国家": country,
                 "赛事层级": tier,
+                "盘口": line_bucket,
                 "水位分层": bucket,
+                "倾向意图": intent_tag,
                 "样本": int(len(group)),
                 "红": red,
                 "红半": red_half,
@@ -169,7 +173,7 @@ def build_stats(detail_csv: Path, out_date: str) -> Path:
                 "均注盈亏Unit": pnl_unit,
                 "平均水位": float(group["选中水位数值"].mean()) if group["选中水位数值"].notna().any() else None,
                 "ROI": profit / stake if stake else None,
-                "备注": "仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行",
+                "备注": "仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；按地区-国家-赛事层级-盘口-水位分层-倾向意图统计红黑",
             }
         )
 
@@ -181,7 +185,9 @@ def build_stats(detail_csv: Path, out_date: str) -> Path:
         "地区",
         "国家",
         "赛事层级",
+        "盘口",
         "水位分层",
+        "倾向意图",
         "样本",
         "红",
         "红半",
