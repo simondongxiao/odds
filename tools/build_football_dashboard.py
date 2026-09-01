@@ -2007,7 +2007,9 @@ def html_doc_v2(
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
     default_date = TODAY.isoformat()
     backtest_box = render_sequential_backtest_box(backtest)
-    top5_backtest_box = render_top5_tier_backtest_box(top5_backtest)
+    # Keep the top-five split backtest files generated, but do not render the bulky
+    # table in the dashboard header.
+    top5_backtest_box = ""
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
