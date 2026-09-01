@@ -1,5 +1,8 @@
-# Odds Dashboard
+# Football Odds Dashboard
 
-Static football odds dashboard exported from the local Codex workspace.
+This public snapshot is generated from `D:\codex\outputs\football_odds_trader`.
 
-Open `index.html` or use the repository's GitHub Pages URL after Pages is enabled.
+- Dashboard: `index.html`
+- Latest reports: `reports/`
+- Latest sequential backtest: `backtests/sequential_asian/`
+- Skill and scripts: `skills/`, `tools/`
