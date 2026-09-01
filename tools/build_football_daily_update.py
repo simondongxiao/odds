@@ -351,15 +351,15 @@ def choose_simulation(row: dict[str, str], hist: dict[tuple[str, str], tuple[int
 
     if ah_line is not None and ah_home is not None and ah_away is not None:
         return {
-            "market": "盘口快照-不形成模拟",
-            "pick": "无市场模拟（五板证据未完整）",
+            "market": "亚盘意图框架-待EV筛选",
+            "pick": "待标签/微观/水位框架筛选",
             "price": None,
             "decimal": None,
             "p": 0.0,
             "full_kelly": 0.0,
             "stake": 0.0,
-            "action": "五板证据缺失/真实不投",
-            "bucket": "仅展示亚盘/欧赔/大小球价格，不选方向",
+            "action": "等待HTML红框EV漏斗判断",
+            "bucket": "PM/必发/BTTS缺口只作证据折扣；亚盘按标签+微观+水位+同档+风控判断",
             "hist": "未形成模拟，不计入胜率",
             "sort": (0, 0, 0),
         }
@@ -671,7 +671,7 @@ def asian_intent_candidate(row: dict[str, str]) -> str:
     return (
         f"亚盘意图候选：{'/'.join(candidates)}（{evidence}）；"
         f"依据：{fav}，{line_state}，上盘水位{fav_water:.2f}，下盘水位{under_water:.2f}，{euro_state}；"
-        f"缺{ '、'.join(missing) if missing else 'PM/必发资金流' }，不能定论/不能下注"
+        f"缺{ '、'.join(missing) if missing else 'PM/必发资金流' }；资金流缺口仅作证据折扣，亚盘下注由EV漏斗决定"
     )
 
 
@@ -768,17 +768,17 @@ def main() -> int:
     lines.append(f"- 友谊赛默认忽略：{len(ignored_friendlies)} 场；青年/后备/U系列忽略：{len(ignored_youth_reserve)} 场；层级未知待确认：{len(tier_unknown_rows)} 场；无可验证盘口/赔率字段暂不纳入：{len(no_market_rows)} 场。")
     lines.append("- 赔率源：Titan007即时快照；球探Lineup/Analysis详情已尝试结构化抓取；Polymarket/Betfair/BTTS未接入本次结构化抓取。")
     lines.append(f"- {detail_status_line(rows)}")
-    lines.append("- 严格纪律：未重新读取即时盘口不分析；没有对应市场真实价格不形成模拟；已开赛/已完场不补造赛前模拟。")
-    lines.append("- 本次只允许真实亚盘线+两边水位齐全的未开赛比赛进入亚盘纸面模拟；大小球/BTTS/PM因证据或价格缺失不形成市场方向。")
+    lines.append("- 严格纪律：未重新读取即时盘口不分析；没有对应市场真实价格不形成对应市场模拟；已开赛/已完场不补造赛前模拟。")
+    lines.append("- 真实亚盘线+两边水位齐全的未开赛比赛进入亚盘EV漏斗；PM/必发/BTTS缺口只禁止对应市场主单，不再一票否决亚盘。")
     lines.append("")
 
-    watch_only_count = len([r for r in future if r.get("_sim", {}).get("market") == "盘口快照-不形成模拟"])
-    full_analysis_count = len([r for r in future if r.get("_sim", {}).get("market") not in ("盘口快照-不形成模拟", "亚盘盘口缺失-不形成模拟")])
+    watch_only_count = len([r for r in future if r.get("_sim", {}).get("market") in ("亚盘意图框架-待EV筛选", "盘口快照-不形成模拟")])
+    full_analysis_count = len([r for r in future if r.get("_sim", {}).get("market") not in ("亚盘意图框架-待EV筛选", "盘口快照-不形成模拟", "亚盘盘口缺失-不形成模拟")])
     lines.append("## 覆盖分层（full-analysis / watch-only / no-market）")
     lines.append("| 分层 | 场数 | 处理口径 |")
     lines.append("|---|---:|---|")
-    lines.append(f"| full-analysis candidates | {full_analysis_count} | 五板证据完整且可形成纸面方向/真实下注候选；本次因 PM/必发资金流、公共观点、确认首发缺失，未升级。 |")
-    lines.append(f"| watch-only | {watch_only_count} | 已读取亚盘/欧赔/大小球及球探详情，展示基本面拉力、盘口拉力、候选意图和历史EV，但不选边、不计Kelly。 |")
+    lines.append(f"| full-analysis candidates | {full_analysis_count} | 对应市场价格、基本面和资金流均完整的候选。 |")
+    lines.append(f"| Asian-EV pending | {watch_only_count} | 已读取亚盘/欧赔/大小球及球探详情，进入标签历史+微观组合+水位阈值+同档否决+风控漏斗；PM/必发缺口仅作证据折扣。 |")
     lines.append(f"| no-market / missing-data | {len(no_market_rows)} | 今日球探名单里缺可验证盘口/赔率字段，按 skill 不进入模拟列表；仅保留缺口审计。 |")
     lines.append(f"| abnormal / non-prematch | {len(abnormal)} | 推迟、取消或非赛前状态，只更新状态，不补造赛前结论。 |")
     lines.append("")
@@ -789,7 +789,7 @@ def main() -> int:
     for field, ok, miss, note in completeness_counts(rows):
         lines.append(f"| {field} | {ok} | {miss} | {note} |")
     lines.append("")
-    lines.append("- 结论：Titan007列表快照+球探详情可以补齐部分基本面，但BTTS、PM/必发、公共观点和历史盘口完全归一化仍缺；不能把候选升级成主单或Kelly。")
+    lines.append("- 结论：Titan007列表快照+球探详情可以补齐部分基本面；BTTS、PM/必发和公共观点缺口只阻断对应市场主单。亚盘是否可投以HTML红框EV漏斗为准。")
     lines.append("")
 
     lines.append("## 上一版变动预警")
@@ -823,8 +823,8 @@ def main() -> int:
         sim = r["_sim"]
         fundamental = fundamental_text(r)
         price = f"亚盘 {fmt_ah(r)}；欧赔 {fmt_euro(r)}；大小 {fmt_total(r)}"
-        if sim["market"] == "盘口快照-不形成模拟":
-            conclusion = "盘口快照-五板证据未完整/真实不投"
+        if sim["market"] in ("亚盘意图框架-待EV筛选", "盘口快照-不形成模拟"):
+            conclusion = "亚盘EV漏斗待HTML红框判断；PM/必发缺口不一票否决亚盘"
         elif sim["market"] == "亚盘":
             conclusion = "亚盘纸面模拟-真实不投"
         else:
@@ -835,7 +835,7 @@ def main() -> int:
         )
     lines.append("")
 
-    lines.append("## 未开赛盘口快照（不形成模拟）")
+    lines.append("## 未开赛亚盘EV候选/盘口快照")
     lines.append("| 排名 | 联赛 | 北京时间 | 中文比赛 | 亚盘 | 欧赔去水 | 大小球 | 亚盘意图候选 | 结论 |")
     lines.append("|---:|---|---:|---|---|---|---|---|---|")
     for i, r in enumerate(future_sorted[:40], 1):
@@ -848,17 +848,17 @@ def main() -> int:
     lines.append("")
 
     lines.append("## 今日主单")
-    lines.append("- 亚盘主单：无。原因：Titan007有即时亚盘价格，球探详情补齐部分基本面，但PM/必发真实资金流、BTTS二级盘口和公共观点仍缺，不满足主单证据门槛。")
+    lines.append("- 亚盘主单：以HTML红框EV漏斗为准；若标签历史、微观组合、水位阈值、同档否决和风控全部通过，可标为可投/半仓可投。")
     lines.append("- Polymarket主单：无。原因：本次未抓到对应PM合约、价格、盘口阈值和流动性。")
-    lines.append("- 可执行动作：只做纸面模拟；如后续给出PM截图或我接入PM CLOB，再按同一场比赛重算限价和Kelly。")
+    lines.append("- BTTS/大小球主单：只在该市场真实盘口和价格齐全时给出；不得用进球倾向替代市场价格。")
     lines.append("")
 
     lines.append("## 五板链路总评")
     lines.append("1. 基本面拉力：已纳入球探Lineup/Analysis能抓到的伤停、首发、近况、交锋和综合评分；未抓到或临场未确认的字段继续降权。")
     lines.append("2. 欧赔去水：Titan007欧赔即时已做单场去水；未做跨公司共识，仍不能单独升级主单。")
-    lines.append("3. 亚盘真实意图：阻上/诱上/阻下/诱下用于判断候选可能性；赔率+球探详情可升到中证据候选，但缺PM/必发资金流和公共观点时仍不作为下注依据。")
-    lines.append("4. Polymarket/必发反向情绪：本次缺失，不能给PM主单。")
-    lines.append("5. 最终盘口选择：今天以模拟账本为主，不给真实主单。")
+    lines.append("3. 亚盘真实意图：阻上/诱上/阻下/诱下用于判断候选可能性；是否下注由标签历史、微观组合、贝叶斯合力、水位阈值、同档否决和风控状态决定。")
+    lines.append("4. Polymarket/必发反向情绪：本次缺失，不能给PM/必发主单；该缺口不再自动否决亚盘EV。")
+    lines.append("5. 最终盘口选择：亚盘看HTML红框EV漏斗，PM/BTTS/大小球必须等待各自真实市场价格。")
 
     report_path.write_text("\n".join(lines), encoding="utf-8")
 
@@ -882,12 +882,12 @@ def main() -> int:
                 grade = "待完场"
                 err = "待分类"
                 result = "待赛"
-            elif sim["market"] == "盘口快照-不形成模拟":
-                price_text = "已读取亚盘/欧赔/大小球即时快照；五板证据未完整，禁止选边和Kelly"
+            elif sim["market"] in ("亚盘意图框架-待EV筛选", "盘口快照-不形成模拟"):
+                price_text = "已读取亚盘/欧赔/大小球即时快照；亚盘投注由标签历史+微观组合+水位阈值+同档否决+风控漏斗决定"
                 stake_unit = "0"
                 pnl_status = "不计"
                 grade = "NA"
-                err = "五板证据缺失-不形成模拟"
+                err = "亚盘EV待筛选"
                 result = "待赛"
             elif is_future:
                 price_text = "对应市场真实盘口/水位缺失；不形成模拟"
@@ -918,13 +918,13 @@ def main() -> int:
                 "盘口倾向": f"Titan007亚盘 {fmt_ah(r)}；欧赔 {fmt_euro(r)}；{euro_devig(r)}；大小球 {fmt_total(r)}；{asian_intent_candidate(r)}；{sim['bucket']}",
                 "Polymarket/交易所情绪": "缺失",
                 "流动性": "Titan价格流；PM/必发/BTTS缺",
-                "模拟目的": "严格按skill：展示盘口快照和球探详情；PM/必发真实资金流、BTTS二级盘口、公共观点和完整历史盘口归一化仍缺，不形成主单/Kelly",
+                "模拟目的": "严格按skill：展示盘口快照和球探详情；PM/必发/BTTS缺口只禁止对应市场主单，亚盘按标签+微观+水位+同档+风控漏斗判断",
                 "是否主单": "否",
                 "赛果": result,
                 "模拟盈亏单位": pnl_status,
                 "过程评级": grade,
                 "错误类型": err,
-                "模型更新": "本次更新已重新读取即时盘口；纯盘口压力测试不是skill模拟；缺完整五板证据不选方向、不计胜率、不算Kelly",
+                "模型更新": "本次更新已重新读取即时盘口；亚盘方向由HTML红框EV漏斗给出；PM/BTTS/必发缺口不作为亚盘一票否决",
             }
             sim_rows.append(out_row)
             writer.writerow(out_row)

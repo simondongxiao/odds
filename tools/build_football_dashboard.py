@@ -559,6 +559,92 @@ def load_intent_matrix() -> dict[str, object]:
     }
 
 
+def dashboard_micro_region(league: str) -> str:
+    text = str(league or "")
+    if any(k in text for k in ("美职", "美冠", "美甲", "美乙", "美国", "加拿大", "加拿")):
+        return "北美系列"
+    if any(
+        k in text
+        for k in (
+            "巴西",
+            "巴甲",
+            "巴乙",
+            "阿根",
+            "阿甲",
+            "阿乙",
+            "智利",
+            "厄瓜",
+            "乌拉",
+            "哥伦",
+            "巴拉",
+            "玻利",
+            "秘鲁",
+            "委内",
+            "南美",
+            "解放",
+        )
+    ):
+        return "南美系列"
+    if any(k in text for k in ("日职", "日乙", "日丙", "天皇杯", "日皇", "韩K", "韩职", "韩国", "韩足")):
+        return "日韩系列"
+    if any(k in text for k in ("科威", "哈萨", "卡塔", "阿联", "沙特", "阿曼", "乌兹", "亚冠", "伊朗", "约旦", "巴林")):
+        return "西亚/中亚系列"
+    if text.startswith(("英", "西", "意", "德", "法")):
+        return "欧洲五大系列"
+    if any(
+        k in text
+        for k in (
+            "欧",
+            "荷",
+            "葡",
+            "比",
+            "土",
+            "瑞典",
+            "挪",
+            "俄",
+            "乌克",
+            "丹麦",
+            "瑞士",
+            "捷",
+            "克亚",
+            "冰岛",
+            "罗",
+            "希腊",
+            "苏",
+            "拉脱",
+        )
+    ):
+        return "欧洲非五大系列"
+    return "其他系列"
+
+
+def load_micro_edge() -> dict[str, object]:
+    path = latest_file("micro_region_tag_edge_*.csv", DETAIL_LEDGER)
+    if not path:
+        return {"source": "未生成", "rows": [], "lookup": {}}
+    rows = read_csv(path)
+    lookup = {}
+    for row in rows:
+        region = row.get("微观板块", "").strip()
+        tag = row.get("候选标签", "").strip()
+        if region and tag:
+            lookup[f"{region}||{tag}"] = row
+    return {"source": str(path), "rows": rows, "lookup": lookup}
+
+
+def load_micro_risk() -> dict[str, object]:
+    path = latest_file("micro_region_risk_state_*.csv", DETAIL_LEDGER)
+    if not path:
+        return {"source": "未生成", "rows": [], "lookup": {}}
+    rows = read_csv(path)
+    lookup = {}
+    for row in rows:
+        region = row.get("微观板块", "").strip()
+        if region:
+            lookup[region] = row
+    return {"source": str(path), "rows": rows, "lookup": lookup}
+
+
 def extract_decimal(text: str) -> float | None:
     m = re.search(r"十进制([0-9.]+)", text or "")
     if not m:
@@ -592,6 +678,14 @@ def clean_missing_odds_text(text: str) -> str:
         "开 //；": "开盘缺失；",
         "开 //": "开盘缺失",
         "即 //": "即时缺失",
+        "缺伤停、首发、近5场、H2H、PM/必发资金流，不能定论/不能下注": "缺伤停、首发、近5场、H2H、PM/必发资金流；资金流缺口仅作证据折扣，亚盘是否下注由EV漏斗决定",
+        "缺首发、PM/必发资金流，不能定论/不能下注": "缺首发、PM/必发资金流；资金流缺口仅作证据折扣，亚盘是否下注由EV漏斗决定",
+        "缺伤停、首发、H2H、PM/必发资金流，不能定论/不能下注": "缺伤停、首发、H2H、PM/必发资金流；资金流缺口仅作证据折扣，亚盘是否下注由EV漏斗决定",
+        "五板证据未完整，禁止选边和Kelly": "亚盘进入EV漏斗；Kelly仅在可投且水位/风控通过后计算",
+        "PM/必发真实资金流、BTTS二级盘口、公共观点和完整历史盘口归一化仍缺，不形成主单/Kelly": "PM/必发/BTTS缺口只禁止对应市场主单；亚盘按EV漏斗判断",
+        "纯盘口压力测试不是skill模拟；缺完整五板证据不选方向、不计胜率、不算Kelly": "亚盘方向由HTML红框EV漏斗给出；PM/BTTS/必发缺口不作为亚盘一票否决",
+        "缺伤停/首发/近况/H2H/资金流/完整五板，不形成模拟方向": "缺伤停/首发/近况/H2H/资金流；亚盘按EV漏斗给出投注建议",
+        "仅展示亚盘/欧赔/大小球价格，不选方向": "亚盘进入EV漏斗筛选",
     }
     for old, new in replacements.items():
         cleaned = cleaned.replace(old, new)
@@ -908,7 +1002,7 @@ def asian_intent_candidate(row: dict[str, str] | None) -> str:
     return (
         f"亚盘意图候选：{' / '.join(candidates)}（低证据）。"
         f"依据：{fav}，{line_state}，上盘水位{fav_water:.2f}，下盘水位{under_water:.2f}，{euro_state}。"
-        "缺伤停、首发、近5场、H2H、PM/必发资金流，不能定论/不能下注。"
+        "缺伤停、首发、近5场、H2H、PM/必发资金流；资金流缺口仅作证据折扣，亚盘是否下注由标签/微观EV、水位阈值、同档否决和风控决定。"
     )
 
 
@@ -1017,6 +1111,8 @@ def compute_stats(rows: list[dict[str, str]]) -> dict[str, object]:
         "by_market": table(by_market),
         "by_league": table(by_league)[:12],
         "intent_matrix": load_intent_matrix(),
+        "micro_edge": load_micro_edge(),
+        "micro_risk": load_micro_risk(),
     }
 
 
@@ -1157,6 +1253,10 @@ def odds_summary(
             "total_ok": False,
             "any_odds": False,
             "odds_status": "赔率未匹配",
+            "intent_upper_water": None,
+            "intent_lower_water": None,
+            "intent_forward_water": None,
+            "intent_reverse_water": None,
         }
         return {
             "time": "未匹配",
@@ -1182,6 +1282,10 @@ def odds_summary(
             "total_ok": False,
             "any_odds": False,
             "odds_status": "赔率未匹配",
+            "intent_upper_water": None,
+            "intent_lower_water": None,
+            "intent_forward_water": None,
+            "intent_reverse_water": None,
         }
     ah, ah_ok = odds_triplet_text(row, "ah", "亚盘线/两边水位缺失")
     euro, euro_ok = odds_triplet_text(row, "euro", "欧赔主/平/客缺失")
@@ -1208,6 +1312,24 @@ def odds_summary(
     intent_tag = normalize_intent_tag(intent_text)
     team_fields = intent_team_fields(row, intent_tag)
     current_line = safe_float(row.get("ah_full_current_line_or_draw", ""))
+    ah_home_now = safe_float(row.get("ah_full_current_home_or_over", ""))
+    ah_away_now = safe_float(row.get("ah_full_current_away_or_under", ""))
+    upper_water = None
+    lower_water = None
+    if team_fields.get("intent_upper_side") == "home":
+        upper_water = ah_home_now
+        lower_water = ah_away_now
+    elif team_fields.get("intent_upper_side") == "away":
+        upper_water = ah_away_now
+        lower_water = ah_home_now
+    forward_water = None
+    reverse_water = None
+    if team_fields.get("intent_forward_side") == "upper":
+        forward_water = upper_water
+        reverse_water = lower_water
+    elif team_fields.get("intent_forward_side") == "lower":
+        forward_water = lower_water
+        reverse_water = upper_water
     score = f"{row.get('home_score','')}-{row.get('away_score','')}"
     state = row.get("state", "")
     if final_score:
@@ -1223,6 +1345,10 @@ def odds_summary(
         "intent_line_bucket": asian_line_label(current_line),
         "intent_tag": intent_tag,
         **team_fields,
+        "intent_upper_water": upper_water,
+        "intent_lower_water": lower_water,
+        "intent_forward_water": forward_water,
+        "intent_reverse_water": reverse_water,
         "score": score,
         "state": state,
         "rank": f"{row.get('home_rank_or_stage','')}-{row.get('away_rank_or_stage','')}",
@@ -1257,6 +1383,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
         status = classify_action(r)
         goal_status, goal_detail = goal_model_audit(r, matched)
         data_status, data_detail = data_completeness_audit(r, matched, detail, o)
+        micro_region = dashboard_micro_region(r.get("赛事", ""))
         if "盘口快照" in r.get("市场框架", "") or "五板证据缺失" in r.get("错误类型", ""):
             final_action = "盘口快照/不形成模拟"
         elif "盘口缺失" in r.get("市场框架", "") or "不形成模拟" in r.get("市场框架", "") or "盘口未读取" in r.get("错误类型", ""):
@@ -1284,7 +1411,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "rank": o["rank"],
                 "market": market_from_text(r),
                 "pick": translate_text(r.get("模拟方向", "")),
-                "price": translate_text(r.get("模拟盘口/价格", "")),
+                "price": clean_missing_odds_text(translate_text(r.get("模拟盘口/价格", ""))),
                 "decimal": decimal,
                 "ah": o["ah"],
                 "euro": o["euro"],
@@ -1304,6 +1431,11 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "intent_forward_side": o["intent_forward_side"],
                 "intent_forward_team": o["intent_forward_team"],
                 "intent_reverse_team": o["intent_reverse_team"],
+                "intent_upper_water": o["intent_upper_water"],
+                "intent_lower_water": o["intent_lower_water"],
+                "intent_forward_water": o["intent_forward_water"],
+                "intent_reverse_water": o["intent_reverse_water"],
+                "micro_region": micro_region,
                 "injury": translate_text(detail_injury(detail)),
                 "lineup": translate_text(detail_lineup(detail)),
                 "pull": clean_missing_odds_text(translate_text(r.get("盘口倾向", ""))),
@@ -1334,7 +1466,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "status": status,
                 "grade": r.get("过程评级", ""),
                 "error": r.get("错误类型", ""),
-                "update": translate_text(r.get("模型更新", "")),
+                "update": clean_missing_odds_text(translate_text(r.get("模型更新", ""))),
             }
         )
     cards.sort(key=lambda r: (not r["matched_odds"], str(r["time"]), str(r["league"]), str(r["match"])))
@@ -2453,6 +2585,8 @@ const stats = {js_data(stats)};
 const defaultDate = "{default_date}";
 const intentMatrixData = stats.intent_matrix || {{tags: [], matrix: [], detail: [], source: "未生成"}};
 const tagPerformanceData = intentMatrixData.tag_performance || {{good: [], bad: [], all: [], source: "未生成"}};
+const microEdgeData = stats.micro_edge || {{rows: [], lookup: {{}}, source: "未生成"}};
+const microRiskData = stats.micro_risk || {{rows: [], lookup: {{}}, source: "未生成"}};
 
 function pct(v) {{
   if (v === null || v === undefined || Number.isNaN(v)) return "无";
@@ -2542,60 +2676,151 @@ function positiveTeamText(r, mode) {{
   return `${{team}}（${{direction}}）`;
 }}
 
-function skillBetDecision(r) {{
-  const finalAction = String(r.final_action || "");
-  const dataStatus = String(r.data_complete_status || "");
-  const flowStatus = String(r.flow_source || r.flow || "");
-  const priceText = String(r.price || "");
-  const goalStatus = String(r.goal_model_status || "");
-  const main = String(r.main || "");
-  if (main === "是" && !finalAction.includes("真实不投") && !finalAction.includes("不形成模拟") && !finalAction.includes("盘口快照")) {{
-    return "是否投注：可投候选；仍需确认临场可成交价、资金流/流动性和限价。";
+function microEdgeEntry(r) {{
+  const region = String(r.micro_region || "").trim();
+  const tag = String(r.intent_tag || "").trim();
+  if (!region || !tag) return null;
+  return (microEdgeData.lookup || {{}})[`${{region}}||${{tag}}`] || null;
+}}
+
+function riskEntry(r) {{
+  const region = String(r.micro_region || "").trim();
+  if (!region) return null;
+  return (microRiskData.lookup || {{}})[region] || null;
+}}
+
+function directionMode(v) {{
+  const s = String(v || "");
+  if (s.includes("反向")) return "reverse";
+  if (s.includes("正向")) return "forward";
+  return "none";
+}}
+
+function selectedWater(r, mode) {{
+  const v = mode === "reverse" ? Number(r.intent_reverse_water || 0) : Number(r.intent_forward_water || 0);
+  return Number.isFinite(v) && v > 0 ? v : 0;
+}}
+
+function breakevenThreshold(water) {{
+  return water > 0 ? (1 / (water + 1)) + 0.02 : 0;
+}}
+
+function selectedRate(edge, mode) {{
+  if (!edge) return 0;
+  const combined = rateValue(edge["贝叶斯综合胜率"]);
+  if (combined > 0) return combined;
+  if (mode === "reverse") {{
+    return rateValue(edge["反向有效胜率"] || edge["标签反向胜率"]);
   }}
-  if (finalAction.includes("盘口快照") || priceText.includes("五板证据未完整")) {{
-    return "是否投注：不投；未通过环节：五板证据未完整，缺PM/必发资金流、公共观点或确认首发；只做盘口观察。";
+  return rateValue(edge["正向有效胜率"] || edge["标签正向胜率"]);
+}}
+
+function edgeDirection(edge) {{
+  if (!edge) return "none";
+  const suggested = directionMode(edge["建议动作"]);
+  if (suggested !== "none") return suggested;
+  const microForwardPnl = Number(edge["正向均注盈亏"] || 0);
+  const microReversePnl = Number(edge["反向均注盈亏"] || 0);
+  const tagForwardPnl = Number(edge["标签正向盈亏"] || 0);
+  const tagReversePnl = Number(edge["标签反向盈亏"] || 0);
+  if (microForwardPnl > 0 && tagForwardPnl > 0 && microForwardPnl >= microReversePnl) return "forward";
+  if (microReversePnl > 0 && tagReversePnl > 0 && microReversePnl >= microForwardPnl) return "reverse";
+  if (microForwardPnl > 0 && microForwardPnl >= microReversePnl) return "forward";
+  if (microReversePnl > 0) return "reverse";
+  return "none";
+}}
+
+function sameLineVeto(cell, mode) {{
+  if (!cell || Number(cell.sample || 0) <= 8) return "";
+  const rate = mode === "reverse" ? rateValue(cell.reverse_rate) : rateValue(cell.forward_rate);
+  if (rate > 0 && rate < 0.4) {{
+    return `同盘口同标签样本${{cell.sample}}>8且${{mode === "reverse" ? "反向" : "正向"}}胜率${{pct(rate)}}<40%`;
   }}
-  if (finalAction.includes("盘口缺失")) {{
-    return "是否投注：不投；未通过环节：对应盘口/水位缺失。";
+  return "";
+}}
+
+function frameworkDecision(r, cell = null) {{
+  const line = String(r.intent_line_bucket || "").trim();
+  const tag = String(r.intent_tag || "").trim();
+  const region = String(r.micro_region || "").trim() || "未分类";
+  const details = [];
+  details.push(`1）当前盘口意图：${{line || "缺盘口档位"}} + ${{tag || "缺候选标签"}}；正向=${{positiveTeamText(r, "forward")}}；反向=${{positiveTeamText(r, "reverse")}}。`);
+
+  if (!r.ah_ok) {{
+    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "亚盘盘口/两边水位缺失", details}};
   }}
-  if (finalAction.includes("纸面模拟")) {{
-    return "是否投注：纸面模拟/真实不投；未通过环节：真实资金流、执行价或Kelly。";
+  if (!line || !tag) {{
+    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "盘口档位或候选标签缺失", details}};
   }}
-  if (goalStatus.includes("盘口缺失") || goalStatus.includes("证据不足")) {{
-    return `是否投注：不投；未通过环节：${{clean(goalStatus)}}。`;
+
+  const edge = microEdgeEntry(r);
+  if (!edge) {{
+    details.push(`2）标签历史/微观组合：${{region}} + ${{tag}} 未生成样本。`);
+    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "标签历史或微观组合样本缺失", details}};
   }}
-  if (dataStatus.includes("缺") || dataStatus.includes("未通过") || dataStatus.includes("待核")) {{
-    return `是否投注：不投；未通过环节：${{clean(dataStatus)}}。`;
+
+  const risk = riskEntry(r);
+  const riskState = clean(risk?.["风控状态"] || edge["风控状态"] || "风控未生成");
+  const stakeCoefRaw = String(risk?.["仓位系数"] || "").trim();
+  const stakeCoef = stakeCoefRaw ? Number(stakeCoefRaw) : 1;
+  const mode = edgeDirection(edge);
+  const water = selectedWater(r, mode);
+  const rate = selectedRate(edge, mode);
+  const threshold = breakevenThreshold(water);
+  const team = positiveTeamText(r, mode);
+  const lineVeto = sameLineVeto(cell, mode);
+
+  details.push(`2）标签历史：总样本${{edge["标签总样本"] || "0"}}，正向胜率${{edge["标签正向胜率"] || "无"}}/收益${{signed(edge["标签正向盈亏"] || 0)}}，反向胜率${{edge["标签反向胜率"] || "无"}}/收益${{signed(edge["标签反向盈亏"] || 0)}}。`);
+  details.push(`3）微观组合：${{region}}，样本${{edge["样本数"] || "0"}}，正向胜率${{edge["正向有效胜率"] || "无"}}/收益${{signed(edge["正向均注盈亏"] || 0)}}，反向胜率${{edge["反向有效胜率"] || "无"}}/收益${{signed(edge["反向均注盈亏"] || 0)}}，贝叶斯综合${{edge["贝叶斯综合胜率"] || "无"}}。`);
+  details.push(`4）阈值/同档/风控：当前水位${{water ? water.toFixed(2) : "缺失"}}，盈亏平衡+2%阈值${{threshold ? pct(threshold) : "无法计算"}}；${{cell ? `同档样本${{cell.sample}}，正向${{cell.forward_rate}}/反向${{cell.reverse_rate}}` : "同档样本缺失，仅不触发同档否决"}}；${{riskState}}。`);
+
+  if (mode === "none") {{
+    return {{action: "不投", mode, team: positiveTeamText(r, "none"), reason: "标签历史与微观组合无正期望方向", details, edge, risk, water, threshold, rate}};
   }}
-  if (flowStatus.includes("缺")) {{
-    return "是否投注：不投；未通过环节：PM/必发资金流未通过。";
+  if (riskState.includes("熔断") || riskState.includes("静默") || stakeCoef === 0) {{
+    return {{action: "不投", mode, team, reason: `风控熔断/静默：${{riskState}}`, details, edge, risk, water, threshold, rate}};
   }}
-  return "是否投注：观察；未升级主单。";
+  if (!water) {{
+    return {{action: "不投", mode, team, reason: "当前正期望方水位缺失，无法计算性价比", details, edge, risk, water, threshold, rate}};
+  }}
+  if (!rate) {{
+    return {{action: "不投", mode, team, reason: "历史/综合胜率缺失", details, edge, risk, water, threshold, rate}};
+  }}
+  if (lineVeto) {{
+    return {{action: "不投", mode, team, reason: `同盘口档位风控未通过：${{lineVeto}}`, details, edge, risk, water, threshold, rate}};
+  }}
+  if (rate < threshold) {{
+    return {{action: "不投", mode, team, reason: `综合胜率${{pct(rate)}}低于水位阈值${{pct(threshold)}}`, details, edge, risk, water, threshold, rate}};
+  }}
+
+  const halfStake = riskState.includes("预警") || (Number.isFinite(stakeCoef) && stakeCoef > 0 && stakeCoef < 1);
+  const action = halfStake ? "半仓可投" : "可投";
+  return {{action, mode, team, reason: `通过：综合胜率${{pct(rate)}} >= 阈值${{pct(threshold)}}；风控${{riskState}}`, details, edge, risk, water, threshold, rate}};
+}}
+
+function skillBetDecision(r, cell = null) {{
+  const decision = frameworkDecision(r, cell);
+  if (decision.action === "不投") {{
+    return `是否投注：不投；未通过环节：${{decision.reason}}。`;
+  }}
+  return `是否投注：${{decision.action}}；投注方向：${{decision.mode === "reverse" ? "反向" : "正向"}}；正期望方：${{decision.team}}；${{decision.reason}}。`;
 }}
 
 function intentEvBadge(r) {{
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
-  const betDecision = skillBetDecision(r);
-  if (!line || !tag) {{
-    return `亚盘意图历史EV：当前盘口档位/候选标签缺失，不能据历史矩阵下注；正期望方：无，球队未识别。<br>${{betDecision}}`;
-  }}
   const cell = intentMatrixCell(line, tag);
-  if (!cell) {{
-    return `亚盘意图历史EV：${{line}} + ${{tag}} 无同档样本，历史矩阵无正向/反向依据，不据此下注；正期望方：无同档样本，不能判定。<br>${{tagPerformanceLabel(tag)}}<br>${{betDecision}}`;
-  }}
-  const forward = Number(cell.forward_pnl || 0);
-  const reverse = Number(cell.reverse_pnl || 0);
-  let action = "无正期望/不投";
-  let positiveTeam = positiveTeamText(r, "none");
-  if (forward > 0 && forward >= reverse) {{
-    action = "正向";
-    positiveTeam = positiveTeamText(r, "forward");
-  }} else if (reverse > 0) {{
-    action = smallSampleReverseAlert(cell) ? "反向（小样本反向警戒）" : "反向";
-    positiveTeam = positiveTeamText(r, "reverse");
-  }}
-  return `亚盘意图历史EV：${{line}} + ${{tag}}，结论：${{action}}；正期望方：${{positiveTeam}}；样本${{cell.sample}}（${{sampleWarning(cell.sample)}}），正向胜率${{cell.forward_rate}}/收益${{signed(cell.forward_pnl)}}，反向胜率${{cell.reverse_rate}}/收益${{signed(cell.reverse_pnl)}}。<br>${{tagPerformanceLabel(tag)}}<br>${{betDecision}}`;
+  const decision = frameworkDecision(r, cell);
+  const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
+  const actionText = decision.action === "不投" ? "不投" : `${{decision.action}}（${{modeText}}）`;
+  const cellText = cell
+    ? `同盘口同标签样本${{cell.sample}}（${{sampleWarning(cell.sample)}}），正向胜率${{cell.forward_rate}}/收益${{signed(cell.forward_pnl)}}，反向胜率${{cell.reverse_rate}}/收益${{signed(cell.reverse_pnl)}}。`
+    : "同盘口同标签：无样本或样本未生成，仅不触发同档否决。";
+  const microText = decision.edge
+    ? `微观组合：${{clean(r.micro_region)}} + ${{tag || "缺标签"}}，样本${{decision.edge["样本数"] || "0"}}，正向${{decision.edge["正向有效胜率"] || "无"}}/收益${{signed(decision.edge["正向均注盈亏"] || 0)}}，反向${{decision.edge["反向有效胜率"] || "无"}}/收益${{signed(decision.edge["反向均注盈亏"] || 0)}}，贝叶斯${{decision.edge["贝叶斯综合胜率"] || "无"}}。`
+    : `微观组合：${{clean(r.micro_region)}} + ${{tag || "缺标签"}} 暂无样本。`;
+  const detail = (decision.details || []).map(x => `<div>${{x}}</div>`).join("");
+  return `亚盘意图历史EV：${{line || "缺盘口档位"}} + ${{tag || "缺候选标签"}}，投注建议：${{actionText}}；正期望方：${{decision.team}}。<br>${{cellText}}<br>${{tagPerformanceLabel(tag)}}<br>${{microText}}<br>${{skillBetDecision(r, cell)}}<details class="ev-calc"><summary>查看1-4步测算</summary>${{detail}}</details>`;
 }}
 
 function tagClass(status) {{

@@ -73,7 +73,7 @@ Snapshot stability and drift discipline:
 - Track timing buckets for each snapshot relative to kickoff: `T-24h`, `T-12h`, `T-6h`, `T-3h`, `T-1h`, `T-30m`, and `closing/live`. Settlement reviews must report which timing bucket produced the analyzed direction, so later hit-rate work can answer whether early, late, or closing reads have better expected value.
 - Separate three displayed fields: `候选意图`, `纸面方向`, and `最终结论`. Candidate labels such as `阻上/诱下`, `诱上/阻下`, `真实示弱/阻下`, or `上盘降温` are diagnostics, not bets. The final conclusion shown to the user should be only one of: `正向`, `反向`, `不投`, `观察`, or `本次未刷新到`.
 - The red dashboard EV box should keep its existing compact wording style: `亚盘意图历史EV：... 结论：...；正期望方：...；样本...；正向胜率.../收益...，反向胜率.../收益...。` Do not expand that box into a long semantic derivation. If a conclusion changes from the prior update, add a short separate `变动预警` field outside the red EV box.
-- The red dashboard EV box is a conclusion badge, not a reasoning log. It may show only: current candidate intent tag, tag-level historical sample/win-loss/PnL, micro-region historical sample/win-loss/PnL, final direction (`正向`, `反向`, or `不投`), concrete team name and side, and the failed gate if no bet. If no bet, say exactly which link failed, for example `不投：BTTS/PM/必发资金流未通过`, `不投：综合胜率低于盈亏平衡+安全垫`, `不投：同盘口同标签样本>8且胜率<40%`, or `不投：风控熔断`. Do not put the 1-4 step derivation inside the red box; put it behind an expandable detail button.
+- The red dashboard EV box is a conclusion badge, not a reasoning log. It may show only: current candidate intent tag, tag-level historical sample/win-loss/PnL, micro-region historical sample/win-loss/PnL, final direction (`正向`, `反向`, or `不投`), concrete team name and side, and the failed gate if no bet. If no bet, say exactly which link failed, for example `不投：亚盘盘口/水位缺失`, `不投：综合胜率低于盈亏平衡+安全垫`, `不投：同盘口同标签样本>8且胜率<40%`, or `不投：风控熔断`. PM/Betfair/BTTS flow failure may be used as the no-bet reason only for those exact markets, not as an automatic Asian-handicap veto. Do not put the 1-4 step derivation inside the red box; put it behind an expandable detail button.
 
 ### Micro-Region Tag EV Framework
 
@@ -112,7 +112,7 @@ Dashboard behavior:
 
 - Red box: show only the compact betting conclusion: tag history, micro-region history, threshold pass/fail, selected concrete team/side, and no-bet failed gate.
 - Expandable detail: add a button such as `查看1-4步测算` that opens the full process: current match intent, global tag statistics, micro-region statistics, Bayesian shrinkage calculation, breakeven threshold, same-line veto, and risk-control state.
-- If no BTTS/Polymarket/Betfair/true flow exists, the red box may still show Asian intent paper direction, but real-money action must be `不投：资金流/流动性未通过`.
+- If no BTTS/Polymarket/Betfair/true flow exists, do not give BTTS/Polymarket/Betfair picks. For Asian handicap, that absence is only a displayed evidence/flow gap, not an automatic no-bet. The Asian bet decision must follow the Micro-Region Tag EV framework: current Asian intent -> global tag history -> micro-region history -> Bayesian shrinkage when directions disagree -> current water breakeven plus safety buffer -> same-line veto -> micro-region risk state. If it fails, name the exact failed gate; if it passes, show `可投` / `半仓可投` / `观察` with the concrete team and side.
 
 ### Micro-Region Risk Control
 
@@ -147,10 +147,10 @@ Data completeness gate:
 - If the data source is only Titan007 list-level odds, write `赔率快照已接入；基本面详情未接入` and do not call the output a full analysis.
 - `阻上/诱上/阻下/诱下/降温保护/价格透支` is the core Asian-handicap intent diagnosis, not a placeholder. Always try to express the most likely one or two **candidate intents** when Asian and European prices are available, but separate candidate diagnosis from final betting action.
 - Evidence levels:
-  - `高`: football prior, European de-vig gap, Asian opening-current path, public/flow side, and team news/form have all been compared. Candidate intent may be used in final pick and Kelly.
-  - `中`: football prior is partially known and Asian/European price path is complete, but one of team news, form, or flow is missing. Candidate intent may be used for watchlist/paper simulation only.
-  - `低`: only Titan007/list-level odds, ranking/stage, and opening-current price path are available. Show `亚盘意图候选` with low confidence, explain the missing inputs, and do not turn it into a side, stake, or main pick.
-- If the football prior, public/flow side, and team-news/form are missing, do not write `亚盘意图未判定` as a blank placeholder. Instead write a candidate line such as `亚盘意图候选：降温保护/诱下（低证据）；缺伤停、近况、H2H、PM/必发资金流，不能定论/不能下注`.
+  - `高`: football prior, European de-vig gap, Asian opening-current path, public/flow side, and team news/form have all been compared. Candidate intent may be used in final pick, Kelly, and PM/Betfair/BTTS checks when that exact market price exists.
+  - `中`: football prior is partially known and Asian/European price path is complete, but one of team news, form, or flow is missing. Missing fields must be displayed as evidence haircuts; they do not automatically block the Asian EV framework.
+  - `低`: only Titan007/list-level odds, ranking/stage, and opening-current price path are available. Show `亚盘意图候选` with low confidence, explain the missing inputs, and let the Asian decision be made only by the tag history, micro-region history, current water threshold, same-line veto, and risk-control gates. Do not create PM/BTTS/Betfair picks without their exact prices.
+- If the football prior, public/flow side, and team-news/form are missing, do not write `亚盘意图未判定` as a blank placeholder. Instead write a candidate line such as `亚盘意图候选：降温保护/诱下（低证据）；缺伤停、近况、H2H、PM/必发资金流；资金流缺口仅作证据折扣，亚盘是否下注由标签/微观EV、水位阈值、同档否决和风控决定`.
 - Never display all four labels `阻上/诱上/阻下/诱下` as undifferentiated options. Rank candidates by likelihood and state which data would confirm or overturn them.
 - Four-label interpretation:
   - `阻上`: the book makes the favorite/giving side look uncomfortable, expensive, or harder to cover; this may protect a still-viable favorite.
@@ -206,7 +206,7 @@ Rule updates require evidence thresholds:
 Small-sample reverse-alert discipline:
 
 - If an exact `盘口档位 + 候选标签` bucket reaches at least `5` settled comparable samples and the reverse side has `反向有效胜率 >=80%` with positive reverse flat-stake PnL, while the forward/previous positive-expectation side has failed in recent comparable samples, future matches in the same bucket must be marked `小样本反向警戒`.
-- `小样本反向警戒` means the dashboard and report must explicitly warn that the historical cell currently favors watching or paper-buying the reverse side. It may change sorting/risk flags, but it cannot become a real-money main pick unless the current match also passes fundamentals, odds, flow/liquidity, and Kelly gates.
+- `小样本反向警戒` means the dashboard and report must explicitly warn that the historical cell currently favors watching or paper-buying the reverse side. It may change sorting/risk flags. For Asian handicap, it can become a real-money candidate only if the current Asian line/water exists and the Micro-Region Tag EV framework, water threshold, same-line veto, risk state, and Kelly/stake rules pass. PM/Betfair/BTTS still require their own exact price/liquidity before execution.
 - When the red `亚盘意图历史EV` badge shows this condition, name the concrete reverse-positive team, for example `反向警戒：正期望方改看莱万特（反向=下盘），样本5，反向胜率80%`. Do not merely write `买反向`.
 - Once the same bucket reaches `8` or more comparable samples, use the forward/reverse PnL and effective win rate to adjust model weights. Once it reaches `15` or more samples with stable process evidence, it can be promoted to `优先模式`.
 
@@ -1290,7 +1290,7 @@ Grouped edge review requirement for strict daily updates:
 - `比赛分类` must separate at minimum: `成年联赛T1`, `成年联赛T2`, `成年联赛T3`, `国内杯赛`, `洲际杯赛`, `国家队正式赛`, and `未知分类`. If a competition cannot be classified, mark it `未知分类-不作为强规则`.
 - Every grouped table must use these columns: `分组类型 | 分组 | 样本 | 正向有效胜率 | 正向均注盈亏 | 反向有效胜率 | 反向均注盈亏 | 当前读法/建议 | 备注`. If the source table keeps raw counts, include wins/half-wins/pushes/half-losses/losses in the CSV.
 - The review must explicitly answer which situations currently perform better: positive forward EV, positive reverse EV, both losing, small sample, or no stable edge. Do not simply dump CSV rows.
-- `样本<8` is observation only. `样本>=8` with positive PnL can adjust watchlist ranking. `样本>=15` with positive PnL, stable process notes, and no obvious concentration can be highlighted as a priority pattern. Even a priority pattern still requires current odds, fundamentals, liquidity, and Kelly gates before real-money action.
+- `样本<8` is observation only. `样本>=8` with positive PnL can adjust watchlist ranking. `样本>=15` with positive PnL, stable process notes, and no obvious concentration can be highlighted as a priority pattern. Even a priority pattern still requires the exact market price for the selected market. For Asian handicap, current line/water plus the Micro-Region Tag EV framework, water threshold, same-line veto, risk state, and Kelly/stake rules decide whether it is actionable; missing PM/Betfair data blocks only PM/Betfair execution, not Asian-handicap EV by itself.
 - Final user-facing responses for daily updates must include three paths when produced: daily report, dashboard HTML, and grouped edge review.
 
 ## Guardrails
