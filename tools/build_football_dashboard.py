@@ -2474,15 +2474,47 @@ function positiveTeamText(r, mode) {{
   return `${{team}}（${{direction}}）`;
 }}
 
+function skillBetDecision(r) {{
+  const finalAction = String(r.final_action || "");
+  const dataStatus = String(r.data_complete_status || "");
+  const flowStatus = String(r.flow_source || r.flow || "");
+  const priceText = String(r.price || "");
+  const goalStatus = String(r.goal_model_status || "");
+  const main = String(r.main || "");
+  if (main === "是" && !finalAction.includes("真实不投") && !finalAction.includes("不形成模拟") && !finalAction.includes("盘口快照")) {{
+    return "是否投注：可投候选；仍需确认临场可成交价、资金流/流动性和限价。";
+  }}
+  if (finalAction.includes("盘口快照") || priceText.includes("五板证据未完整")) {{
+    return "是否投注：不投；未通过环节：五板证据未完整，缺PM/必发资金流、公共观点或确认首发；只做盘口观察。";
+  }}
+  if (finalAction.includes("盘口缺失")) {{
+    return "是否投注：不投；未通过环节：对应盘口/水位缺失。";
+  }}
+  if (finalAction.includes("纸面模拟")) {{
+    return "是否投注：纸面模拟/真实不投；未通过环节：真实资金流、执行价或Kelly。";
+  }}
+  if (goalStatus.includes("盘口缺失") || goalStatus.includes("证据不足")) {{
+    return `是否投注：不投；未通过环节：${{clean(goalStatus)}}。`;
+  }}
+  if (dataStatus.includes("缺") || dataStatus.includes("未通过") || dataStatus.includes("待核")) {{
+    return `是否投注：不投；未通过环节：${{clean(dataStatus)}}。`;
+  }}
+  if (flowStatus.includes("缺")) {{
+    return "是否投注：不投；未通过环节：PM/必发资金流未通过。";
+  }}
+  return "是否投注：观察；未升级主单。";
+}}
+
 function intentEvBadge(r) {{
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
+  const betDecision = skillBetDecision(r);
   if (!line || !tag) {{
-    return "亚盘意图历史EV：当前盘口档位/候选标签缺失，不能据历史矩阵下注；正期望方：无，球队未识别。";
+    return `亚盘意图历史EV：当前盘口档位/候选标签缺失，不能据历史矩阵下注；正期望方：无，球队未识别。<br>${{betDecision}}`;
   }}
   const cell = intentMatrixCell(line, tag);
   if (!cell) {{
-    return `亚盘意图历史EV：${{line}} + ${{tag}} 无同档样本，历史矩阵无正向/反向依据，不据此下注；正期望方：无同档样本，不能判定。<br>${{tagPerformanceLabel(tag)}}`;
+    return `亚盘意图历史EV：${{line}} + ${{tag}} 无同档样本，历史矩阵无正向/反向依据，不据此下注；正期望方：无同档样本，不能判定。<br>${{tagPerformanceLabel(tag)}}<br>${{betDecision}}`;
   }}
   const forward = Number(cell.forward_pnl || 0);
   const reverse = Number(cell.reverse_pnl || 0);
@@ -2495,7 +2527,7 @@ function intentEvBadge(r) {{
     action = smallSampleReverseAlert(cell) ? "反向（小样本反向警戒）" : "反向";
     positiveTeam = positiveTeamText(r, "reverse");
   }}
-  return `亚盘意图历史EV：${{line}} + ${{tag}}，结论：${{action}}；正期望方：${{positiveTeam}}；样本${{cell.sample}}（${{sampleWarning(cell.sample)}}），正向胜率${{cell.forward_rate}}/收益${{signed(cell.forward_pnl)}}，反向胜率${{cell.reverse_rate}}/收益${{signed(cell.reverse_pnl)}}。<br>${{tagPerformanceLabel(tag)}}`;
+  return `亚盘意图历史EV：${{line}} + ${{tag}}，结论：${{action}}；正期望方：${{positiveTeam}}；样本${{cell.sample}}（${{sampleWarning(cell.sample)}}），正向胜率${{cell.forward_rate}}/收益${{signed(cell.forward_pnl)}}，反向胜率${{cell.reverse_rate}}/收益${{signed(cell.reverse_pnl)}}。<br>${{tagPerformanceLabel(tag)}}<br>${{betDecision}}`;
 }}
 
 function tagClass(status) {{
