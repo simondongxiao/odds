@@ -108,7 +108,25 @@ def publish(push: bool = True) -> dict[str, object]:
 
     diff = run_git(["diff", "--cached", "--quiet"])
     if diff.returncode == 0:
-        return {"copied": copied, "committed": False, "pushed": False, "message": "no changes"}
+        if not push:
+            return {"copied": copied, "committed": False, "pushed": False, "message": "no changes"}
+        push_result = run_git(["push", "origin", "HEAD"], timeout=180)
+        if push_result.returncode != 0:
+            return {
+                "copied": copied,
+                "committed": False,
+                "pushed": False,
+                "error": push_result.stderr.strip() or push_result.stdout.strip(),
+            }
+        pages_result = run_git(["push", "origin", "HEAD:gh-pages"], timeout=180)
+        if pages_result.returncode != 0:
+            return {
+                "copied": copied,
+                "committed": False,
+                "pushed": False,
+                "error": pages_result.stderr.strip() or pages_result.stdout.strip(),
+            }
+        return {"copied": copied, "committed": False, "pushed": True, "message": "no changes; ensured main and gh-pages"}
 
     message = f"Update football odds dashboard {dt.datetime.now():%Y-%m-%d %H:%M}"
     commit = run_git(["commit", "-m", message])
@@ -126,7 +144,16 @@ def publish(push: bool = True) -> dict[str, object]:
             "pushed": False,
             "error": push_result.stderr.strip() or push_result.stdout.strip(),
         }
-    return {"copied": copied, "committed": True, "pushed": True, "message": push_result.stdout.strip()}
+    pages_result = run_git(["push", "origin", "HEAD:gh-pages"], timeout=180)
+    if pages_result.returncode != 0:
+        return {
+            "copied": copied,
+            "committed": True,
+            "pushed": False,
+            "error": pages_result.stderr.strip() or pages_result.stdout.strip(),
+        }
+    message = "\n".join(x for x in [push_result.stdout.strip(), pages_result.stdout.strip()] if x)
+    return {"copied": copied, "committed": True, "pushed": True, "message": message}
 
 
 def parse_args() -> argparse.Namespace:
