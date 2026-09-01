@@ -478,7 +478,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-09-01 18:09 ｜ 数据目录：D:\codex</div>
+    <div class="source">更新时间：2026-09-01 18:23 ｜ 数据目录：D:\codex</div>
   </header>
 
   <section class="pattern-dock">
@@ -516,9 +516,21 @@
           <div><div class="subcap">板块Top</div><table class='mini-table'><thead><tr><th>分组</th><th>注数</th><th>胜率</th><th>Unit</th><th>ROI</th></tr></thead><tbody><tr><td>海湾</td><td>19</td><td>76.5%</td><td>+8.8500</td><td>38.3%</td></tr><tr><td>其他</td><td>21</td><td>50.0%</td><td>+1.8950</td><td>6.9%</td></tr><tr><td>北美</td><td>6</td><td>50.0%</td><td>+0.1300</td><td>11.6%</td></tr></tbody></table></div>
           <div><div class="subcap">标签Top</div><table class='mini-table'><thead><tr><th>分组</th><th>注数</th><th>胜率</th><th>Unit</th><th>ROI</th></tr></thead><tbody><tr><td>降温保护/诱下</td><td>23</td><td>54.5%</td><td>+5.9450</td><td>22.4%</td></tr><tr><td>阻下/上盘保护</td><td>14</td><td>66.7%</td><td>+3.0350</td><td>26.7%</td></tr><tr><td>诱上/阻下</td><td>57</td><td>55.8%</td><td>-0.3100</td><td>-4.8%</td></tr></tbody></table></div>
         </div>
-        <details class="path-details"><summary>查看本地输出文件</summary><div class='path-line'><strong>明细</strong>：D:\codex\outputs\football_odds_trader\backtests\sequential_asian\sequential_asian_backtest_20260901_164548_detail.csv</div><div class='path-line'><strong>板块</strong>：D:\codex\outputs\football_odds_trader\backtests\sequential_asian\sequential_asian_backtest_20260901_164548_by_region.csv</div><div class='path-line'><strong>标签</strong>：D:\codex\outputs\football_odds_trader\backtests\sequential_asian\sequential_asian_backtest_20260901_164548_by_tag.csv</div><div class='path-line'><strong>报告</strong>：D:\codex\outputs\football_odds_trader\backtests\sequential_asian\sequential_asian_backtest_20260901_164548.md</div></details>
+        <details class="path-details"><summary>查看本地输出文件</summary><div class='path-line'><strong>明细</strong>：D:\codex\outputs\football_odds_trader\backtests\sequential_asian\sequential_asian_backtest_20260901_181419_detail.csv</div><div class='path-line'><strong>板块</strong>：D:\codex\outputs\football_odds_trader\backtests\sequential_asian\sequential_asian_backtest_20260901_181419_by_region.csv</div><div class='path-line'><strong>标签</strong>：D:\codex\outputs\football_odds_trader\backtests\sequential_asian\sequential_asian_backtest_20260901_181419_by_tag.csv</div><div class='path-line'><strong>报告</strong>：D:\codex\outputs\football_odds_trader\backtests\sequential_asian\sequential_asian_backtest_20260901_181419.md</div></details>
       </div>
       <div class="pattern-note">该模块来自顺序回测脚本；每次策略/回测更新必须进入本地HTML并同步GitHub。</div>
+    </div>
+    
+    <div class="pattern-card backtest-card">
+      <div class="panel-title"><span>五大地区拆分回测</span><span>顶级 vs 非顶级</span></div>
+      <div class="pattern-body backtest-body">
+        <table class="mini-table">
+          <thead><tr><th>口径</th><th>方向</th><th>样本</th><th>红/红半/走/黑半/黑</th><th>有效胜率</th><th>Unit</th><th>ROI</th></tr></thead>
+          <tbody><tr><td>五大顶级联赛</td><td>原始意图正向</td><td>26</td><td>11 / 2 / 2 / 1 / 10</td><td>53.3%</td><td>+1.0250</td><td>3.9%</td></tr><tr><td>五大顶级联赛</td><td>原始意图反向</td><td>26</td><td>10 / 1 / 2 / 2 / 11</td><td>46.7%</td><td>-2.6600</td><td>-10.2%</td></tr><tr><td>五大顶级联赛</td><td>最新skill七重漏斗通过后</td><td>4</td><td>1 / 0 / 0 / 0 / 3</td><td>25.0%</td><td>-1.2200</td><td>-30.5%</td></tr><tr><td>五大非顶级/杯赛</td><td>原始意图正向</td><td>74</td><td>32 / 1 / 5 / 9 / 27</td><td>50.8%</td><td>+0.6850</td><td>0.9%</td></tr><tr><td>五大非顶级/杯赛</td><td>原始意图反向</td><td>74</td><td>27 / 9 / 5 / 1 / 32</td><td>49.2%</td><td>-5.7900</td><td>-7.8%</td></tr><tr><td>五大非顶级/杯赛</td><td>最新skill七重漏斗通过后</td><td>9</td><td>4 / 0 / 0 / 0 / 5</td><td>44.4%</td><td>-0.7100</td><td>-7.9%</td></tr></tbody>
+        </table>
+        <details class="path-details"><summary>查看专项回测文件</summary><div class='path-line'><strong>汇总</strong>：D:\codex\outputs\football_odds_trader\backtests\top5_tier_split\top5_tier_split_backtest_20260901_181838.csv</div><div class='path-line'><strong>分赛事</strong>：D:\codex\outputs\football_odds_trader\backtests\top5_tier_split\top5_tier_split_by_league_20260901_181838.csv</div><div class='path-line'><strong>报告</strong>：D:\codex\outputs\football_odds_trader\backtests\top5_tier_split\top5_tier_split_backtest_20260901_181838_clean.md</div></details>
+      </div>
+      <div class="pattern-note">口径：英超/西甲/意甲/德甲/法甲为顶级；同国家次级、次次级和国内杯赛为非顶级/杯赛。</div>
     </div>
   </section>
 

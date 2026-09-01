@@ -15,6 +15,7 @@ DASHBOARD_DIR = ROOT / "dashboard"
 RAW_TITAN = ROOT / "raw" / "titan007"
 DETAIL_LEDGER = ROOT / "ledger"
 SEQUENTIAL_BACKTEST_DIR = ROOT / "backtests" / "sequential_asian"
+TOP5_TIER_BACKTEST_DIR = ROOT / "backtests" / "top5_tier_split"
 TODAY = dt.datetime.now().date()
 
 LINE_ORDER = [
@@ -125,6 +126,24 @@ def latest_sequential_backtest() -> dict[str, object]:
     return payload
 
 
+def latest_top5_tier_backtest() -> dict[str, object]:
+    summary = latest_file("top5_tier_split_backtest_*.csv", TOP5_TIER_BACKTEST_DIR)
+    if not summary:
+        return {"available": False}
+    league = latest_file("top5_tier_split_by_league_*.csv", TOP5_TIER_BACKTEST_DIR)
+    report = latest_file("top5_tier_split_backtest_*_clean.md", TOP5_TIER_BACKTEST_DIR) or latest_file(
+        "top5_tier_split_backtest_*.md", TOP5_TIER_BACKTEST_DIR
+    )
+    rows = read_csv(summary)
+    return {
+        "available": True,
+        "summary_csv": str(summary),
+        "league_csv": str(league) if league else "",
+        "report_md": str(report) if report else "",
+        "rows": rows,
+    }
+
+
 def fmt_rate(value: object) -> str:
     try:
         return f"{float(value) * 100:.1f}%"
@@ -196,6 +215,48 @@ def render_sequential_backtest_box(backtest: dict[str, object]) -> str:
         <details class="path-details"><summary>查看本地输出文件</summary>{path_html}</details>
       </div>
       <div class="pattern-note">该模块来自顺序回测脚本；每次策略/回测更新必须进入本地HTML并同步GitHub。</div>
+    </div>"""
+
+
+def render_top5_tier_backtest_box(backtest: dict[str, object]) -> str:
+    if not backtest.get("available"):
+        return ""
+    rows = backtest.get("rows", []) if isinstance(backtest.get("rows"), list) else []
+    if not rows:
+        return ""
+    tr = "".join(
+        "<tr>"
+        f"<td>{html.escape(str(r.get('口径', '')))}</td>"
+        f"<td>{html.escape(str(r.get('方向', '')))}</td>"
+        f"<td>{html.escape(str(r.get('样本', '')))}</td>"
+        f"<td>{html.escape(str(r.get('红', '')))} / {html.escape(str(r.get('红半', '')))} / {html.escape(str(r.get('走', '')))} / {html.escape(str(r.get('黑半', '')))} / {html.escape(str(r.get('黑', '')))}</td>"
+        f"<td>{fmt_rate(r.get('有效胜率'))}</td>"
+        f"<td>{fmt_num(r.get('均注盈亏'))}</td>"
+        f"<td>{fmt_rate(r.get('ROI'))}</td>"
+        "</tr>"
+        for r in rows
+    )
+    paths = [
+        ("汇总", backtest.get("summary_csv", "")),
+        ("分赛事", backtest.get("league_csv", "")),
+        ("报告", backtest.get("report_md", "")),
+    ]
+    path_html = "".join(
+        f"<div class='path-line'><strong>{html.escape(name)}</strong>：{html.escape(str(path))}</div>"
+        for name, path in paths
+        if path
+    )
+    return f"""
+    <div class="pattern-card backtest-card">
+      <div class="panel-title"><span>五大地区拆分回测</span><span>顶级 vs 非顶级</span></div>
+      <div class="pattern-body backtest-body">
+        <table class="mini-table">
+          <thead><tr><th>口径</th><th>方向</th><th>样本</th><th>红/红半/走/黑半/黑</th><th>有效胜率</th><th>Unit</th><th>ROI</th></tr></thead>
+          <tbody>{tr}</tbody>
+        </table>
+        <details class="path-details"><summary>查看专项回测文件</summary>{path_html}</details>
+      </div>
+      <div class="pattern-note">口径：英超/西甲/意甲/德甲/法甲为顶级；同国家次级、次次级和国内杯赛为非顶级/杯赛。</div>
     </div>"""
 
 
@@ -1803,10 +1864,16 @@ init();
 </html>"""
 
 
-def html_doc_v2(cards: list[dict[str, object]], stats: dict[str, object], backtest: dict[str, object]) -> str:
+def html_doc_v2(
+    cards: list[dict[str, object]],
+    stats: dict[str, object],
+    backtest: dict[str, object],
+    top5_backtest: dict[str, object],
+) -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
     default_date = TODAY.isoformat()
     backtest_box = render_sequential_backtest_box(backtest)
+    top5_backtest_box = render_top5_tier_backtest_box(top5_backtest)
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -2309,6 +2376,7 @@ def html_doc_v2(cards: list[dict[str, object]], stats: dict[str, object], backte
   </section>
   <section class="backtest-dock">
     {backtest_box}
+    {top5_backtest_box}
   </section>
 
   <main class="shell">
@@ -3090,8 +3158,9 @@ def main() -> int:
     DASHBOARD_DIR.mkdir(parents=True, exist_ok=True)
     cards, stats = build_rows()
     backtest = latest_sequential_backtest()
+    top5_backtest = latest_top5_tier_backtest()
     output = DASHBOARD_DIR / "index.html"
-    output.write_text(html_doc_v2(cards, stats, backtest), encoding="utf-8")
+    output.write_text(html_doc_v2(cards, stats, backtest, top5_backtest), encoding="utf-8")
     print(f"dashboard={output}")
     print(f"cards={len(cards)} settled={stats['settled']} win_rate={stats['win_rate']}")
     return 0
