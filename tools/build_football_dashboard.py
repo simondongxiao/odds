@@ -686,6 +686,8 @@ def clean_missing_odds_text(text: str) -> str:
         "纯盘口压力测试不是skill模拟；缺完整五板证据不选方向、不计胜率、不算Kelly": "亚盘方向由HTML红框EV漏斗给出；PM/BTTS/必发缺口不作为亚盘一票否决",
         "缺伤停/首发/近况/H2H/资金流/完整五板，不形成模拟方向": "缺伤停/首发/近况/H2H/资金流；亚盘按EV漏斗给出投注建议",
         "仅展示亚盘/欧赔/大小球价格，不选方向": "亚盘进入EV漏斗筛选",
+        "无市场模拟（五板证据未完整）": "待标签/微观/水位EV筛选",
+        "五板证据缺失-不形成模拟": "亚盘EV待筛选",
     }
     for old, new in replacements.items():
         cleaned = cleaned.replace(old, new)
@@ -1410,7 +1412,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "matched_odds": matched,
                 "rank": o["rank"],
                 "market": market_from_text(r),
-                "pick": translate_text(r.get("模拟方向", "")),
+                "pick": clean_missing_odds_text(translate_text(r.get("模拟方向", ""))),
                 "price": clean_missing_odds_text(translate_text(r.get("模拟盘口/价格", ""))),
                 "decimal": decimal,
                 "ah": o["ah"],
@@ -1465,7 +1467,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "pnl": r.get("模拟盈亏单位", ""),
                 "status": status,
                 "grade": r.get("过程评级", ""),
-                "error": r.get("错误类型", ""),
+                "error": clean_missing_odds_text(r.get("错误类型", "")),
                 "update": clean_missing_odds_text(translate_text(r.get("模型更新", ""))),
             }
         )
