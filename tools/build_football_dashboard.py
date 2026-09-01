@@ -3690,10 +3690,6 @@ function mobileDetailHtml(r) {{
               <tbody>${{oddsRows(r)}}</tbody>
             </table>
             <div class="analysis-line" style="margin-top:8px;">
-              <strong>模拟盘口：</strong>${{clean(r.market)}} ｜ ${{clean(r.pick)}}<br>
-              <strong>价格/赔率：</strong>${{clean(r.price)}}<br>
-              <strong>赔率来源：</strong>${{clean(r.price_source)}}<br>
-              <strong>结算口径：</strong>${{clean(r.settlement)}}
               <div class="intent-ev-badge">${{intentEvBadge(r)}}</div>
             </div>
           </div>
@@ -3788,10 +3784,6 @@ function renderDetail(r) {{
   document.getElementById("marketTag").textContent = r.odds_status || (r.matched_odds ? "Titan007部分赔率已匹配" : "赔率待核");
   document.getElementById("oddsTable").innerHTML = oddsRows(r);
   document.getElementById("pickBox").innerHTML =
-    `<strong>模拟盘口：</strong>${{clean(r.market)}} ｜ ${{clean(r.pick)}}<br>` +
-    `<strong>价格/赔率：</strong>${{clean(r.price)}}<br>` +
-    `<strong>赔率来源：</strong>${{clean(r.price_source)}}<br>` +
-    `<strong>结算口径：</strong>${{clean(r.settlement)}}` +
     `<div class="intent-ev-badge">${{intentEvBadge(r)}}</div>`;
 
   document.getElementById("historyBox").innerHTML = `
