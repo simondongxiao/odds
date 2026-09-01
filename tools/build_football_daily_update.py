@@ -942,14 +942,6 @@ def main() -> int:
         for row in merged:
             writer.writerow({field: row.get(field, "") for field in sim_fields})
 
-    dashboard_script = Path(r"D:\codex\tools\build_football_dashboard.py")
-    if dashboard_script.exists():
-        spec = importlib.util.spec_from_file_location("build_football_dashboard", dashboard_script)
-        if spec and spec.loader:
-            dashboard_module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(dashboard_module)
-            dashboard_module.main()
-
     audit_script = Path(r"D:\codex\tools\audit_asian_intent_history.py")
     grouped_review_path = ROOT / "reviews" / f"grouped_edge_review_{TODAY.isoformat()}.md"
     if audit_script.exists():
@@ -971,6 +963,27 @@ def main() -> int:
             micro_module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(micro_module)
             micro_module.main()
+
+    bettable_stats_script = Path(r"D:\codex\tools\build_bettable_event_stats.py")
+    if bettable_stats_script.exists():
+        spec = importlib.util.spec_from_file_location("build_bettable_event_stats", bettable_stats_script)
+        if spec and spec.loader:
+            bettable_module = importlib.util.module_from_spec(spec)
+            old_argv = sys.argv[:]
+            sys.argv = [str(bettable_stats_script), "--date", TODAY.isoformat()]
+            try:
+                spec.loader.exec_module(bettable_module)
+                bettable_module.main()
+            finally:
+                sys.argv = old_argv
+
+    dashboard_script = Path(r"D:\codex\tools\build_football_dashboard.py")
+    if dashboard_script.exists():
+        spec = importlib.util.spec_from_file_location("build_football_dashboard", dashboard_script)
+        if spec and spec.loader:
+            dashboard_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(dashboard_module)
+            dashboard_module.main()
 
     publish_script = Path(r"D:\codex\tools\publish_football_dashboard_to_github.py")
     if publish_script.exists():
