@@ -1297,7 +1297,7 @@ Grouped edge review requirement for strict daily updates:
 
 Every dashboard refresh must expose a visible control near the date selector named `筛选当日可投注赛事`.
 
-- When `筛选当日可投注赛事` is enabled, the left match list must show only matches on the selected date whose current strict skill decision is `可投` or `半仓可投`. These matches must be ranked ahead by strict skill plan quality: actionable status first, higher historical/combined win rate next, better current water/value next, then Beijing kickoff time.
+- When `筛选当日可投注赛事` is enabled, the left match list must show only matches on the selected date whose current strict skill decision is `可投` or `半仓可投`. These matches must be sorted by Beijing kickoff time ascending. For matches with the same kickoff time, rank by strict skill plan quality: actionable status first, higher historical/combined win rate next, then better current water/value.
 - When the control is disabled, the left match list must restore the original selected-date ordering. Do not permanently overwrite the slate order just because a bettable filter was used.
 - The selected-match red EV badge remains the source of truth. The filter must use the same decision logic as the red badge: current Asian intent, tag history, micro-region history, Bayesian shrinkage if needed, water threshold, same-line veto, and risk-control state.
 - If no match passes the strict skill betting funnel for the selected date, show `当日暂无通过skill漏斗的可投注赛事`, not an empty or misleading list.

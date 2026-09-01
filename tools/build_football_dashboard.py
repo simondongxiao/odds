@@ -3491,6 +3491,13 @@ function bettableSortValue(entry) {{
   return {{ hardAction, rate, water }};
 }}
 
+function kickoffSortValue(r) {{
+  const raw = String(r.time || r.display_time || "");
+  const m = raw.match(/(\\d{{4}})-(\\d{{1,2}})-(\\d{{1,2}})\\s+(\\d{{1,2}}):(\\d{{2}})/);
+  if (!m) return Number.MAX_SAFE_INTEGER;
+  return Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]), Number(m[4]), Number(m[5]));
+}}
+
 function allDates() {{
   return [...new Set(cardsData.map(r => r.date).filter(Boolean))].sort().reverse();
 }}
@@ -3509,10 +3516,10 @@ function rowsForDate() {{
       .sort((a, b) => {{
         const av = bettableSortValue(a);
         const bv = bettableSortValue(b);
-        return (bv.hardAction - av.hardAction)
+        return (kickoffSortValue(a.r) - kickoffSortValue(b.r))
+          || (bv.hardAction - av.hardAction)
           || (bv.rate - av.rate)
           || (bv.water - av.water)
-          || String(a.r.display_time).localeCompare(String(b.r.display_time), "zh-Hans-CN")
           || String(a.r.display_match).localeCompare(String(b.r.display_match), "zh-Hans-CN");
       }})
       .map(x => x.r);
