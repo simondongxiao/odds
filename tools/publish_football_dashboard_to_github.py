@@ -52,6 +52,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "tools" / "rebuild_top5_country_tier_tables.py", PUBLISH_REPO / "tools" / "rebuild_top5_country_tier_tables.py"),
         (WORKSPACE / "tools" / "build_top5_high_win_side_policy.py", PUBLISH_REPO / "tools" / "build_top5_high_win_side_policy.py"),
         (WORKSPACE / "tools" / "export_current_intent_matches.py", PUBLISH_REPO / "tools" / "export_current_intent_matches.py"),
+        (WORKSPACE / "tools" / "build_current_intent_strict_backtest_report.py", PUBLISH_REPO / "tools" / "build_current_intent_strict_backtest_report.py"),
         (WORKSPACE / "tools" / "publish_football_dashboard_to_github.py", PUBLISH_REPO / "tools" / "publish_football_dashboard_to_github.py"),
         (ROOT / "ledger" / "DATA_STRUCTURE.md", PUBLISH_REPO / "docs" / "DATA_STRUCTURE.md"),
     ]
@@ -68,6 +69,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (ROOT / "backtests" / "sequential_asian", "sequential_asian_backtest_*_by_tag.csv", PUBLISH_REPO / "backtests" / "sequential_asian"),
         (ROOT / "backtests" / "sequential_asian", "sequential_asian_backtest_*_by_type.csv", PUBLISH_REPO / "backtests" / "sequential_asian"),
         (ROOT / "backtests" / "sequential_asian", "current_intent_matches_*.csv", PUBLISH_REPO / "backtests" / "sequential_asian"),
+        (ROOT / "backtests" / "sequential_asian", "current_intent_strict_backtest_report_*.md", PUBLISH_REPO / "backtests" / "sequential_asian"),
         (ROOT / "backtests" / "top5_tier_split", "top5_tier_split_backtest_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
         (ROOT / "backtests" / "top5_tier_split", "top5_tier_split_by_league_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
         (ROOT / "backtests" / "top5_tier_split", "top5_tier_split_backtest_*_clean.md", PUBLISH_REPO / "backtests" / "top5_tier_split"),
