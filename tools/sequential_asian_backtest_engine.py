@@ -238,6 +238,7 @@ class MatchRow:
     match_id: str
     league: str
     match: str
+    competition_class: str
     region: str
     tag: str
     line_bucket: str
@@ -292,6 +293,7 @@ def row_from_record(seq: int, record: dict[str, object]) -> MatchRow:
         match_id=str(record.get("比赛ID", "")),
         league=str(record.get("赛事", "")),
         match=str(record.get("比赛", "")),
+        competition_class=str(first_existing(record, ["比赛分类", "赛制阶段", "competition_class"], "")),
         region=str(record.get("微观板块", "")),
         tag=str(record.get("盘口意图标签", "")).strip(),
         line_bucket=str(record.get("盘口档位", "")).strip(),
@@ -379,15 +381,15 @@ def calc_side_stats(rows: list[MatchRow], direction: str) -> SideStats:
 def preferred_direction(forward: SideStats, reverse: SideStats) -> str | None:
     if forward.sample == 0 and reverse.sample == 0:
         return None
-    if forward.flat_pnl > 0 and reverse.flat_pnl <= 0:
-        return FORWARD
-    if reverse.flat_pnl > 0 and forward.flat_pnl <= 0:
-        return REVERSE
     fw = forward.win_rate if forward.win_rate is not None else -1.0
     rv = reverse.win_rate if reverse.win_rate is not None else -1.0
     if fw > rv:
         return FORWARD
     if rv > fw:
+        return REVERSE
+    if forward.flat_pnl > 0 and reverse.flat_pnl <= 0:
+        return FORWARD
+    if reverse.flat_pnl > 0 and forward.flat_pnl <= 0:
         return REVERSE
     return FORWARD if forward.flat_pnl >= reverse.flat_pnl else REVERSE
 
@@ -472,7 +474,9 @@ class Config:
     rolling_min_win_rate: float = 0.40
     rolling_min_flat_pnl: float = -3.0
     severe_loss_count: int = 5
-    min_tag_sample: int = 1
+    min_tag_sample: int = 8
+    min_micro_sample: int = 8
+    intent_only: bool = True
     starting_bankroll: float = 100.0
     standard_stake_rate: float = 0.05
 
@@ -506,6 +510,8 @@ def decide_match(
 
     micro_hist = [r for r in tag_hist if r.region == row.region]
     n = len(micro_hist)
+    if n < config.min_micro_sample:
+        return blocked(row, "1-历史样本", f"微观板块同标签样本不足：n={n}")
     line_tag_hist = [r for r in tag_hist if r.line_bucket == row.line_bucket]
     rolling_hist = tag_hist[-config.rolling_window :]
 
@@ -519,7 +525,7 @@ def decide_match(
     r_reverse = calc_side_stats(rolling_hist, REVERSE)
 
     global_pref = preferred_direction(g_forward, g_reverse)
-    micro_pref = preferred_direction(m_forward, m_reverse) if n > 0 else global_pref
+    micro_pref = preferred_direction(m_forward, m_reverse)
 
     combined_forward = bayes_rate(m_forward.win_rate, n, g_forward.win_rate, M)
     combined_reverse = bayes_rate(m_reverse.win_rate, n, g_reverse.win_rate, M)
@@ -602,6 +608,7 @@ DETAIL_FIELDS = [
     "比赛ID",
     "赛事",
     "比赛",
+    "比赛分类",
     "微观板块",
     "盘口意图标签",
     "盘口档位",
@@ -680,6 +687,7 @@ def make_detail_row(
         "比赛ID": row.match_id,
         "赛事": row.league,
         "比赛": row.match,
+        "比赛分类": row.competition_class,
         "微观板块": row.region,
         "盘口意图标签": row.tag,
         "盘口档位": row.line_bucket,
@@ -775,6 +783,57 @@ def grouped_summary(rows: list[dict[str, object]], key: str) -> list[dict[str, o
     return sorted(out, key=lambda r: (float(r.get("盈亏Unit") or 0.0), float(r.get("胜率") or 0.0)), reverse=True)
 
 
+def grouped_type_summary(rows: list[dict[str, object]]) -> list[dict[str, object]]:
+    specs = [
+        ("微观板块", ["微观板块"]),
+        ("盘口意图标签", ["盘口意图标签"]),
+        ("盘口档位", ["盘口档位"]),
+        ("赛事", ["赛事"]),
+        ("比赛分类", ["比赛分类"]),
+        ("微观板块+标签", ["微观板块", "盘口意图标签"]),
+        ("盘口档位+标签", ["盘口档位", "盘口意图标签"]),
+        ("赛事+标签", ["赛事", "盘口意图标签"]),
+        ("比赛分类+标签", ["比赛分类", "盘口意图标签"]),
+        ("微观板块+盘口档位+标签", ["微观板块", "盘口档位", "盘口意图标签"]),
+    ]
+    out: list[dict[str, object]] = []
+    for group_type, fields in specs:
+        groups: dict[str, list[dict[str, object]]] = defaultdict(list)
+        for row in rows:
+            if row["动作"] not in {FORWARD, REVERSE} or row["已结算"] != "是":
+                continue
+            key = " / ".join(str(row.get(field, "") or "未分类") for field in fields)
+            groups[key].append(row)
+        for key, group in groups.items():
+            stat = summarize_rows(group)
+            out.append(
+                {
+                    "分组类型": group_type,
+                    "分组": key,
+                    "已结算投注数": stat["投注已结算数"],
+                    "胜率": stat["实际总胜率"],
+                    "负率": stat["实际总负率"],
+                    "盈亏Unit": stat["实际总盈亏Unit"],
+                    "ROI": stat["整体资金流水ROI"],
+                    "红": stat["红"],
+                    "红半": stat["红半"],
+                    "走水": stat["走水"],
+                    "黑半": stat["黑半"],
+                    "黑": stat["黑"],
+                }
+            )
+    return sorted(
+        out,
+        key=lambda r: (
+            int(r.get("已结算投注数") or 0) >= 8,
+            float(r.get("盈亏Unit") or 0.0),
+            float(r.get("胜率") or 0.0),
+            int(r.get("已结算投注数") or 0),
+        ),
+        reverse=True,
+    )
+
+
 def csv_value(value: object) -> object:
     if isinstance(value, float):
         return f"{q4(value):.4f}"
@@ -814,13 +873,61 @@ def table_lines(rows: list[dict[str, object]], key: str) -> list[str]:
     return lines
 
 
-def write_report(path: Path, source: Path, detail_csv: Path, summary: dict[str, object], by_region: list[dict[str, object]], by_tag: list[dict[str, object]], block_counts: Counter, config: Config) -> None:
+def type_table_lines(rows: list[dict[str, object]], limit: int = 30, min_sample: int = 3) -> list[str]:
+    shown = [r for r in rows if int(r.get("已结算投注数") or 0) >= min_sample][:limit]
+    lines = [
+        "| 分组类型 | 分组 | 已结算投注数 | 胜率 | 负率 | 盈亏Unit | ROI | 红/红半/走/黑半/黑 |",
+        "|---|---|---:|---:|---:|---:|---:|---|",
+    ]
+    for row in shown:
+        lines.append(
+            "| {gt} | {g} | {bets} | {wr} | {lr} | {pnl} | {roi} | {w}/{wh}/{p}/{lh}/{l} |".format(
+                gt=row["分组类型"],
+                g=row["分组"],
+                bets=row["已结算投注数"],
+                wr=f4(row["胜率"]),
+                lr=f4(row["负率"]),
+                pnl=f4(row["盈亏Unit"]),
+                roi=f4(row["ROI"]),
+                w=row["红"],
+                wh=row["红半"],
+                p=row["走水"],
+                lh=row["黑半"],
+                l=row["黑"],
+            )
+        )
+    return lines
+
+
+def write_report(
+    path: Path,
+    source: Path,
+    detail_csv: Path,
+    intent_csv: Path,
+    type_csv: Path,
+    summary: dict[str, object],
+    by_region: list[dict[str, object]],
+    by_tag: list[dict[str, object]],
+    by_type: list[dict[str, object]],
+    block_counts: Counter,
+    config: Config,
+) -> None:
+    strong_types = [
+        r
+        for r in by_type
+        if int(r.get("已结算投注数") or 0) >= 8
+        and (float(r.get("胜率") or 0.0) >= 0.55)
+        and float(r.get("盈亏Unit") or 0.0) > 0
+    ]
     lines = [
         "# 亚盘量化策略顺序回测",
         "",
         f"- 数据源：`{source}`",
+        f"- 有意图比赛清单：`{intent_csv}`",
         f"- 明细CSV：`{detail_csv}`",
+        f"- 类型拆分CSV：`{type_csv}`",
         "- 口径：严格 walk-forward，每场比赛只读取当前行之前的历史样本；读取后先按 `日期, 开赛时间, 比赛ID` 确定性排序。",
+        f"- 样本门槛：标签历史 M>={config.min_tag_sample}，微观板块同标签 n>={config.min_micro_sample}；低于门槛只观察。",
         f"- 水位阈值：`1 / (Water + 1) + {config.safety_buffer:.4f}`；标准仓位 `{config.standard_stake_rate:.4f}`，昨日负 ROI 半仓，连续负 ROI/严重亏损静默。",
         "",
         "## 总体",
@@ -839,13 +946,18 @@ def write_report(path: Path, source: Path, detail_csv: Path, summary: dict[str, 
 
     lines += ["", "## 分微观板块", *table_lines(by_region, "微观板块")]
     lines += ["", "## 分标签", *table_lines(by_tag, "盘口意图标签")]
+    lines += ["", "## 胜率/收益较好的类型（样本>=8、胜率>=55%、Unit>0）"]
+    lines += type_table_lines(strong_types, limit=40, min_sample=8)
+    lines += ["", "## 全类型拆分Top（样本>=3）"]
+    lines += type_table_lines(by_type, limit=40, min_sample=3)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def run_backtest(input_path: Path, out_dir: Path, config: Config) -> dict[str, Path | dict[str, object]]:
     raw = load_table(input_path)
     df = prepare_dataframe(raw)
-    rows = [row_from_record(i + 1, record) for i, record in enumerate(df.to_dict("records"))]
+    all_rows = [row_from_record(i + 1, record) for i, record in enumerate(df.to_dict("records"))]
+    rows = [row for row in all_rows if not is_no_count_tag(row.tag)] if config.intent_only else all_rows
 
     settled_history: list[MatchRow] = []
     strategy_history: list[dict[str, object]] = []
@@ -878,12 +990,48 @@ def run_backtest(input_path: Path, out_dir: Path, config: Config) -> dict[str, P
 
     stamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir.mkdir(parents=True, exist_ok=True)
+    intent_csv = out_dir / f"sequential_asian_backtest_{stamp}_intent_matches.csv"
     detail_csv = out_dir / f"sequential_asian_backtest_{stamp}_detail.csv"
     region_csv = out_dir / f"sequential_asian_backtest_{stamp}_by_region.csv"
     tag_csv = out_dir / f"sequential_asian_backtest_{stamp}_by_tag.csv"
+    type_csv = out_dir / f"sequential_asian_backtest_{stamp}_by_type.csv"
     summary_json = out_dir / f"sequential_asian_backtest_{stamp}_summary.json"
     report_md = out_dir / f"sequential_asian_backtest_{stamp}.md"
 
+    intent_fields = [
+        "序号",
+        "日期",
+        "开赛时间",
+        "比赛ID",
+        "赛事",
+        "比赛",
+        "比赛分类",
+        "微观板块",
+        "盘口意图标签",
+        "盘口档位",
+        "正向水位",
+        "反向水位",
+        "已结算",
+    ]
+    intent_rows = [
+        {
+            "序号": row.seq,
+            "日期": row.date,
+            "开赛时间": row.kickoff,
+            "比赛ID": row.match_id,
+            "赛事": row.league,
+            "比赛": row.match,
+            "比赛分类": row.competition_class,
+            "微观板块": row.region,
+            "盘口意图标签": row.tag,
+            "盘口档位": row.line_bucket,
+            "正向水位": row.forward_water,
+            "反向水位": row.reverse_water,
+            "已结算": "是" if row.settled else "否",
+        }
+        for row in rows
+    ]
+    write_csv(intent_csv, intent_rows, intent_fields)
     write_csv(detail_csv, details, DETAIL_FIELDS)
     summary = summarize_rows(details)
     summary["期初资金"] = q4(config.starting_bankroll)
@@ -891,15 +1039,19 @@ def run_backtest(input_path: Path, out_dir: Path, config: Config) -> dict[str, P
     summary["资金净盈亏"] = q4(bankroll - config.starting_bankroll)
     by_region = grouped_summary(details, "微观板块")
     by_tag = grouped_summary(details, "盘口意图标签")
+    by_type = grouped_type_summary(details)
     block_counts = Counter(str(r.get("拦截原因") or r.get("拦截阶段")) for r in details if r["动作"] == NO_BET)
     write_csv(region_csv, by_region, ["微观板块", "已结算投注数", "胜率", "负率", "盈亏Unit", "ROI", "红", "红半", "走水", "黑半", "黑"])
     write_csv(tag_csv, by_tag, ["盘口意图标签", "已结算投注数", "胜率", "负率", "盈亏Unit", "ROI", "红", "红半", "走水", "黑半", "黑"])
+    write_csv(type_csv, by_type, ["分组类型", "分组", "已结算投注数", "胜率", "负率", "盈亏Unit", "ROI", "红", "红半", "走水", "黑半", "黑"])
 
     summary_payload = {
         "source": str(input_path),
+        "intent_matches_csv": str(intent_csv),
         "detail_csv": str(detail_csv),
         "region_csv": str(region_csv),
         "tag_csv": str(tag_csv),
+        "type_csv": str(type_csv),
         "report_md": str(report_md),
         "config": {
             "safety_buffer": q4(config.safety_buffer),
@@ -911,18 +1063,24 @@ def run_backtest(input_path: Path, out_dir: Path, config: Config) -> dict[str, P
             "rolling_min_flat_pnl": q4(config.rolling_min_flat_pnl),
             "starting_bankroll": q4(config.starting_bankroll),
             "standard_stake_rate": q4(config.standard_stake_rate),
+            "min_tag_sample": config.min_tag_sample,
+            "min_micro_sample": config.min_micro_sample,
+            "intent_only": config.intent_only,
         },
         "summary": summary,
         "by_region": by_region,
         "by_tag": by_tag,
+        "by_type": by_type,
         "block_counts": dict(block_counts),
     }
     summary_json.write_text(json.dumps(summary_payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    write_report(report_md, input_path, detail_csv, summary, by_region, by_tag, block_counts, config)
+    write_report(report_md, input_path, detail_csv, intent_csv, type_csv, summary, by_region, by_tag, by_type, block_counts, config)
     return {
+        "intent_csv": intent_csv,
         "detail_csv": detail_csv,
         "region_csv": region_csv,
         "tag_csv": tag_csv,
+        "type_csv": type_csv,
         "summary_json": summary_json,
         "report_md": report_md,
         "summary": summary,
@@ -943,7 +1101,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rolling-min-win-rate", type=float, default=0.40)
     parser.add_argument("--rolling-min-flat-pnl", type=float, default=-3.0)
     parser.add_argument("--severe-loss-count", type=int, default=5)
-    parser.add_argument("--min-tag-sample", type=int, default=1)
+    parser.add_argument("--min-tag-sample", type=int, default=8)
+    parser.add_argument("--min-micro-sample", type=int, default=8)
+    parser.add_argument("--include-no-intent", action="store_true", help="Include no-direction/balanced rows in the measured universe.")
     return parser.parse_args()
 
 
@@ -960,6 +1120,8 @@ def main() -> None:
         rolling_min_flat_pnl=args.rolling_min_flat_pnl,
         severe_loss_count=args.severe_loss_count,
         min_tag_sample=args.min_tag_sample,
+        min_micro_sample=args.min_micro_sample,
+        intent_only=not args.include_no_intent,
         starting_bankroll=args.starting_bankroll,
         standard_stake_rate=args.stake_rate,
     )
@@ -968,9 +1130,11 @@ def main() -> None:
     print(f"完整测算比赛数={summary['完整测算比赛数']}")
     print(f"符合投注条件数={summary['符合投注条件数']} 已结算数={summary['已结算数']} 已结算投注数={summary['投注已结算数']} 不投数={summary['不投数']} 熔断拦截数={summary['熔断拦截数']}")
     print(f"胜率={f4(summary['实际总胜率'])} 负率={f4(summary['实际总负率'])} 盈亏Unit={f4(summary['实际总盈亏Unit'])} ROI={f4(summary['整体资金流水ROI'])}")
+    print(f"intent_matches_csv={result['intent_csv']}")
     print(f"detail_csv={result['detail_csv']}")
     print(f"region_csv={result['region_csv']}")
     print(f"tag_csv={result['tag_csv']}")
+    print(f"type_csv={result['type_csv']}")
     print(f"summary_json={result['summary_json']}")
     print(f"report_md={result['report_md']}")
 

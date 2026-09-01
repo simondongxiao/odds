@@ -216,9 +216,11 @@ def render_sequential_backtest_box(backtest: dict[str, object]) -> str:
     top_regions = by_region[:3]
     top_tags = by_tag[:3]
     paths = [
+        ("有意图清单", backtest.get("intent_matches_csv", "")),
         ("明细", backtest.get("detail_csv", "")),
         ("板块", backtest.get("region_csv", "")),
         ("标签", backtest.get("tag_csv", "")),
+        ("类型", backtest.get("type_csv", "")),
         ("报告", backtest.get("report_md", "")),
     ]
 
