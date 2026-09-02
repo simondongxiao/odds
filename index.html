@@ -500,7 +500,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-09-03 07:28 ｜ 数据目录：D:\codex</div>
+    <div class="source">更新时间：2026-09-03 07:44 ｜ 数据目录：D:\codex</div>
   </header>
 
   <section class="pattern-dock">
@@ -551,7 +551,7 @@
       <div class="date-strip">
         <select id="dateSelect"></select>
         <div class="mini-stat" id="dateCount">0 场</div>
-        <label class="bettable-toggle" title="只显示当前日期下通过严格skill漏斗的可投注/半仓可投注赛事">
+        <label class="bettable-toggle" title="只显示当前日期下通过严格skill漏斗的可投注/半仓可投注赛事；已开赛/已结算的候选保留用于回看，不代表可赛后下注">
           <input type="checkbox" id="bettableFilter">
           <span>筛选当日可投注赛事</span>
         </label>
@@ -790,14 +790,15 @@ function fundsFlowAuditText(r) {
   return `资金流状态：${clean(flow)}。`;
 }
 
-function frameworkDecision(r, cell = null) {
+function frameworkDecision(r, cell = null, options = {}) {
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
   const region = String(r.micro_region || "").trim() || "未分类";
+  const ignoreStateGate = Boolean(options?.ignoreStateGate);
   const details = [];
   details.push(`1）当前盘口意图：${line || "缺盘口档位"} + ${tag || "缺候选标签"}；正向=${positiveTeamText(r, "forward")}；反向=${positiveTeamText(r, "reverse")}。`);
 
-  if (String(r.state || "").trim() !== "0") {
+  if (!ignoreStateGate && String(r.state || "").trim() !== "0") {
     details.push("状态门槛：本快照已开赛/完场，只允许更新比分、赛况、结算和复盘，不覆盖赛前投注结论。");
     return {action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "比赛已开赛/完场，本版本只做赛况/复盘，不作为赛前可投", details};
   }
@@ -878,16 +879,21 @@ function top5StatsLine(label, stats) {
   return `${label}：样本${n}，正向胜率${pct(forward.rate)}/收益${signed(forward.pnl)}，反向胜率${pct(reverse.rate)}/收益${signed(reverse.pnl)}。`;
 }
 
-function top5Decision(r) {
+function top5Decision(r, options = {}) {
   const policy = r.top5_policy || null;
   if (!policy || !policy.is_top5) return null;
   const mode = String(policy.selected_mode || "none");
+  const ignoreStateGate = Boolean(options?.ignoreStateGate);
   const details = [];
   details.push(`1）当前盘口意图：${policy.line || "缺盘口档位"} + ${policy.tag || "缺候选标签"}；盘口意图正向=${positiveTeamText(r, "forward")}；反向=${positiveTeamText(r, "reverse")}。`);
   details.push(`2）赛事级历史：${top5StatsLine(policy.league || "赛事级", policy.league_stats)} 选择=${policy.league_choice?.mode === "reverse" ? "反向" : (policy.league_choice?.mode === "forward" ? "正向" : "不投")}；原因=${policy.league_choice?.reason || "无"}。`);
   details.push(`3）盘口标签历史：${top5StatsLine("同赛事同盘口+标签", policy.line_stats)} 选择=${policy.line_choice?.mode === "reverse" ? "反向" : (policy.line_choice?.mode === "forward" ? "正向" : "不投")}；原因=${policy.line_choice?.reason || "无"}。`);
   details.push(`4）合并规则：若方向一致买一致；方向相反买历史胜率更高方；当前=${policy.selected_source || "无"}，${policy.selected_reason || "无"}。`);
 
+  if (!ignoreStateGate && String(r.state || "").trim() !== "0") {
+    details.push("状态门槛：本快照已开赛/完场，只允许更新比分、赛况、结算和复盘，不覆盖赛前投注结论。");
+    return {action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "比赛已开赛/完场，本版本只做赛况/复盘，不作为赛前可投", details};
+  }
   if (!r.ah_ok) {
     return {action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "亚盘盘口/两边水位缺失", details};
   }
@@ -1140,10 +1146,11 @@ function bettableFilterEnabled() {
 
 function plannedSkillDecision(r) {
   const cell = intentMatrixCell(String(r.intent_line_bucket || "").trim(), String(r.intent_tag || "").trim());
+  const filterOptions = { ignoreStateGate: true };
   if (r.top5_policy && r.top5_policy.is_top5) {
-    return top5Decision(r) || frameworkDecision(r, cell);
+    return top5Decision(r, filterOptions) || frameworkDecision(r, cell, filterOptions);
   }
-  return frameworkDecision(r, cell);
+  return frameworkDecision(r, cell, filterOptions);
 }
 
 function isBettableDecision(decision) {
