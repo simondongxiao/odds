@@ -122,7 +122,117 @@ def q4(value: float | int | None) -> str:
     return f"{float(value):.4f}"
 
 
-def build_stats(detail_csv: Path, out_date: str) -> Path:
+def _latest_history_detail() -> Path | None:
+    files = sorted(LEDGER_DIR.glob("asian_intent_history_detail_*.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
+    return files[0] if files else None
+
+
+def _team_from_side(match: object, upper_side: object, side: object) -> str:
+    match_text = str(match or "")
+    if " vs " not in match_text:
+        return ""
+    home, away = [part.strip() for part in match_text.split(" vs ", 1)]
+    upper_text = str(upper_side or "")
+    side_text = str(side or "")
+    if side_text == "上盘":
+        return home if upper_text == "主队" else away if upper_text == "客队" else ""
+    if side_text == "下盘":
+        return away if upper_text == "主队" else home if upper_text == "客队" else ""
+    return ""
+
+
+def build_detail_file(bets: pd.DataFrame, detail_csv: Path, out_date: str) -> Path:
+    """Write the per-match ledger behind the grouped long-run stats."""
+    rows = bets.copy()
+    history_path = _latest_history_detail()
+    if history_path and history_path.exists():
+        history = pd.read_csv(history_path, encoding="utf-8-sig")
+        keep = [
+            "日期",
+            "比赛",
+            "赛果",
+            "比分来源",
+            "即时亚盘",
+            "盘口线",
+            "上盘方",
+            "候选映射方向",
+            "反向方向",
+            "意图水位",
+            "反向水位",
+            "候选依据",
+        ]
+        history = history[[c for c in keep if c in history.columns]].drop_duplicates(["日期", "比赛"], keep="last")
+        rows = rows.merge(history, on=["日期", "比赛"], how="left", suffixes=("", "_历史"))
+
+    if "候选映射方向" not in rows:
+        rows["候选映射方向"] = ""
+    if "反向方向" not in rows:
+        rows["反向方向"] = ""
+    if "上盘方" not in rows:
+        rows["上盘方"] = ""
+
+    rows["投注盘向"] = rows.apply(
+        lambda r: r["候选映射方向"] if r.get("动作") == "正向" else r["反向方向"] if r.get("动作") == "反向" else "",
+        axis=1,
+    )
+    rows["投注球队"] = rows.apply(lambda r: _team_from_side(r.get("比赛"), r.get("上盘方"), r.get("投注盘向")), axis=1)
+
+    detail_fields = [
+        "统计日期",
+        "数据源",
+        "日期",
+        "开赛时间",
+        "比赛ID",
+        "赛事",
+        "比赛",
+        "比赛分类",
+        "微观板块",
+        "国家",
+        "赛事层级",
+        "盘口",
+        "水位分层",
+        "倾向意图",
+        "动作",
+        "选择方向",
+        "投注盘向",
+        "投注球队",
+        "选中水位",
+        "综合胜率",
+        "盈亏平衡胜率",
+        "通过阈值",
+        "同档样本",
+        "同档选中胜率",
+        "风控状态",
+        "仓位系数",
+        "下注金额",
+        "已结算",
+        "结算标签",
+        "实际盈亏Unit",
+        "实际盈亏金额",
+        "赛果",
+        "比分来源",
+        "即时亚盘",
+        "盘口线",
+        "上盘方",
+        "候选映射方向",
+        "反向方向",
+        "候选依据",
+    ]
+    rows["统计日期"] = out_date
+    rows["数据源"] = str(detail_csv)
+    for col in detail_fields:
+        if col not in rows:
+            rows[col] = ""
+    numeric_cols = ["选中水位", "综合胜率", "盈亏平衡胜率", "同档选中胜率", "仓位系数", "下注金额", "实际盈亏Unit", "实际盈亏金额"]
+    for col in numeric_cols:
+        if col in rows:
+            rows[col] = rows[col].map(lambda x: q4(x) if x != "" else "")
+    out = LEDGER_DIR / f"bettable_event_detail_{out_date}.csv"
+    rows[detail_fields].to_csv(out, index=False, encoding="utf-8-sig")
+    return out
+
+
+def build_stats(detail_csv: Path, out_date: str) -> tuple[Path, Path]:
     df = pd.read_csv(detail_csv, encoding="utf-8-sig")
     bets = df[df["动作"].isin(["正向", "反向"])].copy()
     bets = bets[bets["已结算"].eq("是")].copy()
@@ -135,6 +245,7 @@ def build_stats(detail_csv: Path, out_date: str) -> Path:
     bets["实际盈亏Unit数值"] = pd.to_numeric(bets["实际盈亏Unit"], errors="coerce").fillna(0.0)
     bets["实际盈亏金额数值"] = pd.to_numeric(bets["实际盈亏金额"], errors="coerce").fillna(0.0)
     bets["下注金额数值"] = pd.to_numeric(bets["下注金额"], errors="coerce").fillna(0.0)
+    detail_out = build_detail_file(bets, detail_csv, out_date)
 
     rows: list[dict[str, object]] = []
     group_cols = ["微观板块", "国家", "赛事层级", "盘口", "水位分层", "倾向意图"]
@@ -206,7 +317,7 @@ def build_stats(detail_csv: Path, out_date: str) -> Path:
         if col in result:
             result[col] = result[col].map(lambda x: q4(x) if x != "" else "")
     result.to_csv(out, index=False, encoding="utf-8-sig")
-    return out
+    return out, detail_out
 
 
 def parse_args() -> argparse.Namespace:
@@ -219,9 +330,10 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     detail = args.detail or newest(SEQ_DIR, "sequential_asian_backtest_*_detail.csv")
-    out = build_stats(detail, args.date)
+    out, detail_out = build_stats(detail, args.date)
     df = pd.read_csv(out, encoding="utf-8-sig")
     print(out)
+    print(detail_out)
     print(f"rows={len(df)}")
     if not df.empty:
         print(df.sort_values(["均注盈亏Unit", "样本"], ascending=False).head(20).to_string(index=False))

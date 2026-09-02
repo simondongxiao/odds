@@ -1323,6 +1323,16 @@ Definitions:
 
 This file is for long-run threshold discovery. It must be updated after settlements so the system can learn which `地区-国家-赛事层级-盘口-水位分层-倾向意图` combinations trigger durable positive expectation, and which should be downgraded or filtered out.
 
+The grouped stats file is not a match ledger and must not be the only tracking output. Every refresh that writes `bettable_event_stats_YYYY-MM-DD.csv` must also write a per-match audit ledger:
+
+`D:\codex\outputs\football_odds_trader\ledger\bettable_event_detail_YYYY-MM-DD.csv`
+
+This detail file must contain one row per strict-funnel bettable match and preserve the concrete match identity behind each grouped sample. Required stable columns:
+
+`统计日期, 数据源, 日期, 开赛时间, 比赛ID, 赛事, 比赛, 比赛分类, 微观板块, 国家, 赛事层级, 盘口, 水位分层, 倾向意图, 动作, 选择方向, 投注盘向, 投注球队, 选中水位, 综合胜率, 盈亏平衡胜率, 通过阈值, 同档样本, 同档选中胜率, 风控状态, 仓位系数, 下注金额, 已结算, 结算标签, 实际盈亏Unit, 实际盈亏金额, 赛果, 比分来源, 即时亚盘, 盘口线, 上盘方, 候选映射方向, 反向方向, 候选依据`
+
+Use `bettable_event_stats` for threshold discovery and compact dashboard summaries. Use `bettable_event_detail` whenever the user asks which concrete matches contributed to a red/black record, sample count, ROI, or long-run combination.
+
 ## Guardrails
 
 - Do not recommend offshore or unlicensed betting sites.
