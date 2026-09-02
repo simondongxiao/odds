@@ -157,6 +157,31 @@ Data completeness gate:
   - `诱上`: the favorite/giving side looks cheap, smooth, or consensus-friendly; this may be an invitation into an over-taxed favorite.
   - `阻下`: the underdog/receiving side looks uncomfortable, expensive, or lacks enough cushion; this may protect the upper side or deter dog money.
   - `诱下`: the underdog/receiving side looks safer than it really is through line cuts, extra cushion, or public-friendly reversal language.
+- Funds-flow validation overlay:
+  - After the `亚盘意图候选` is created, run `资金流验证` before the final EV gate. This overlay tests whether the block/induce intention actually worked. It may confirm, downgrade, or flip the candidate direction, but it never bypasses the water threshold, same-line veto, micro-region/tag EV, or risk-control gates.
+  - Always store and display these fields when discussing flow: `阻诱目标侧`, `实际资金流向`, `目标侧水位甜头`, `意图成败`, `资金流修正方向`, `资金流修正球队`, `资金流来源`, and `资金流时间戳`.
+  - `阻诱目标侧`: `阻上` and `诱上` target the `上盘`; `阻下` and `诱下` target the `下盘`. For combined tags such as `阻上/诱下`, evaluate both meanings but keep one final `资金流修正方向`.
+  - `实际资金流向`: use Layer 1 exchange volume, Layer 1B Betfair-derived flow, or Layer 2 public bet/money splits when available. If only Titan007/bookmaker price movement exists, write `资金流缺口：只有盘口价格流` and do not pretend volume is known.
+  - If no real betting-flow source is matched, do **not** stop the Asian-handicap process and do **not** flip sides because of the missing flow. Continue with the original Micro-Region Tag EV framework: current Asian intent -> global tag history -> micro-region history -> Bayesian shrinkage when needed -> current-water breakeven threshold -> same-line veto -> risk-control state. The red badge should say `资金流未验证：沿用亚盘EV框架`, not `不投：缺PM/必发`.
+  - `目标侧水位甜头`: target side still has an attractive entry if the current price/line continues to make that side easier or better paid than the risk should allow, for example high HK water, extra handicap cushion, line cut, or water lift that remains playable. Record the numeric opening/current water and line path beside this qualitative label.
+  - Flow-decision matrix:
+
+    | 候选意图 | 目标侧 | 资金是否流向目标侧 | 目标侧是否仍有甜头 | 解读 | 资金流修正方向 |
+    | --- | --- | --- | --- | --- | --- |
+    | `阻上` | 上盘 | 否，资金转向下盘或上盘热度被压住 | 甜头收回/无明显甜头 | 阻上成功，可能保护上盘 | 保持/正向买上盘 |
+    | `阻上` | 上盘 | 是，上盘资金没有被挡住 | 甜头仍在 | 阻上失败或转为诱上，继续给上盘甜头是危险信号 | 反向买下盘 |
+    | `阻下` | 下盘 | 否，资金转向上盘或下盘热度被压住 | 甜头收回/无明显甜头 | 阻下成功，可能保护下盘 | 保持/正向买下盘 |
+    | `阻下` | 下盘 | 是，下盘资金没有被挡住 | 甜头仍在 | 阻下失败或转为诱下，继续给下盘甜头是危险信号 | 反向买上盘 |
+    | `诱上` | 上盘 | 是，资金顺着上盘走 | 甜头仍在/叙事顺滑 | 诱上成功，目标是吸上盘资金 | 反向买下盘 |
+    | `诱上` | 上盘 | 否，资金没有去上盘 | 甜头仍在但无人跟 | 诱上未成，优先回到下盘/基本面校验；若价格继续异常则观察 | 下盘优先或观察 |
+    | `诱下` | 下盘 | 是，资金顺着下盘走 | 甜头仍在/安全垫顺滑 | 诱下成功，目标是吸下盘资金 | 反向买上盘 |
+    | `诱下` | 下盘 | 否，资金没有去下盘 | 下盘无人跟或甜头失效 | 诱下未成，回归上盘；这是用户指定的关键修正规则 | 上盘优先 |
+
+  - Combined-label handling:
+    - `阻上/诱下`: default candidate often maps to `上盘`. If flow concentrates on `下盘`, this confirms `诱下` or successful protection and keeps `上盘`. If flow concentrates on `上盘` while `上盘` still has sweet water/entry, mark `阻上失败-反向警报` and test `下盘`.
+    - `诱上/阻下`: default candidate often maps to `下盘`. If flow concentrates on `上盘`, this confirms `诱上` and keeps `下盘`. If flow concentrates on `下盘` while `下盘` still has sweet water/entry, mark `阻下失败-反向警报` and test `上盘`.
+    - `真实示强/阻上` and `真实示弱/阻下` must still pass the flow audit. A real-strength label is downgraded if public/exchange money keeps chasing the same side and the book continues offering that side a price gift.
+  - If the overlay flips the side, the red EV badge must still say the concrete team: `资金流修正：阻上失败，反向买下盘，正期望方：XXX（下盘）`. If flow is missing, write `资金流未验证：只有盘口价格流，本场不因资金流翻向`.
 - Detail-source ingestion priority for missing football data: Titan007/球探 match detail where accessible, Flashscore/SofaScore/FotMob for H2H/form/lineups, WhoScored/Transfermarkt/Rotowire for injuries and predicted/confirmed lineups, and Polymarket/Betfair for tradeable market flow. Save every successful source snapshot under `D:\codex\outputs\football_odds_trader\raw\`.
 
 Before interpreting any odds move, establish the football prior and run a three-stage filter. Do not linearly average fundamentals, European odds, Asian handicap, and Polymarket. The required order is:
@@ -351,14 +376,7 @@ Main-pick gate:
 
 ### Betting Volume / Flow Data Status
 
-There is no single stable public source for all football betting volume. Treat volume availability by venue:
-
-- **Polymarket**: stable when a market exists. Use Gamma/CLOB for volume, liquidity, bid/ask, spread, orderbook depth, and price history. This is the preferred public prediction-market flow source.
-- **Betfair Exchange**: stable if API/account access is available. Use traded volume and back/lay depth as exchange sentiment. Without API/account, mark `Betfair未接入`.
-- **Other exchanges / prediction markets**: usable only when orderbook, matched volume, and settlement rules are visible and saved.
-- **Bookmakers**: usually do not expose true betting volume. Odds movement and water movement are price signals, not volume. Do not call bookmaker line movement `投注量` unless the source explicitly provides handle/ticket split.
-- **Titan007 / 7M**: stable for odds snapshots and line movement, not true betting volume. Use it as `盘口价格流`, not `投注量`.
-- **Public screenshots / social discussion / tipster consensus**: use only as public sentiment proxy, not reliable money flow.
+There is no single stable public source for all football betting volume. Treat volume availability by venue and never mix the following layers under one generic `投注量` label.
 
 Daily reports must display volume status separately:
 
@@ -371,13 +389,24 @@ If only odds movement is available, write `投注量缺失，只有盘口价格�
 
 ### Betting Flow Source Hierarchy
 
-Use betting-flow data in three separate layers. Never mix them under one generic `投注量` label.
+Use betting-flow data in three separate layers. Save source URL, timestamp, parsed fields, and match-mapping confidence for every non-Titan flow source.
 
-**Layer 1: real exchange matched volume**
+**Layer 1: true exchange / prediction-market flow**
 
-- **Betfair Exchange official**: best source for true matched money when accessible. Record market name, settlement clock, `Total Amount Matched`, back/lay ladder, available depth, and timestamp. This is true exchange matched volume.
-- **Betfair-derived Chinese sources such as 7M/Titan007, 天天盈球, 澳客, or other 必发指数 pages**: usable when they clearly show Betfair matched amount, buy/sell ratio, hot/cold index, or price ladder. Label as `必发衍生数据`, not official Betfair, unless the source is Betfair itself.
-- **Polymarket Gamma/CLOB**: use market volume, liquidity, bid/ask, spread, orderbook depth, and price history. This is true prediction-market flow when the relevant football market exists.
+- **Polymarket Gamma + CLOB**: preferred public source when the exact football market exists. Use Gamma for discovery, event/market metadata, volume, liquidity, recent price activity, and token IDs; use CLOB for executable bid/ask, spread, orderbook depth, last trade, midpoint, and WebSocket updates. Record market slug, market type, settlement clock, token IDs, best bid/ask, spread, liquidity, volume24h, timestamp, and whether the contract maps to the exact match/market.
+- **Betfair Exchange official API**: best source for true matched money when account/API access is available. Record market name, settlement clock, `Total Amount Matched`, traded volume, back/lay ladder, available depth, and timestamp. Without account/API/session access, mark `Betfair官方未接入`, not `无资金流`.
+- **Betfair Historical Data**: official backtest source, not real-time. Use it for historical exchange price/volume research after login/download, and label it `Betfair历史成交数据`.
+- **Other exchanges / prediction markets**: usable only when orderbook, matched volume, settlement rules, and timestamp are visible and saved.
+
+**Layer 1B: Betfair-derived Chinese flow pages**
+
+These are not official Betfair unless the data comes directly from Betfair, but they can be used as `必发衍生数据` when concrete matched amount, buy/sell ratio, hot/cold index, payout/profit index, price ladder, or big-trade detail is visible.
+
+- **出奇数据 / Chuqi 必发**: priority free derived source when listed. The list page exposes match IDs and Chinese team names; single-match pages such as `live-bifa/{match_id}` may embed structured `allData` with `odds`, `amount`, `per`, `profit`, `payout`, `hot`, time-series `echart`, and trade `detail` for 主/和/客. Use it first for J League/K League/竞彩/北单 style matches when the match appears.
+- **足彩网 / SPDEX iframe**: `odds.zgzcw.com/jczq/bf_data.jsp` is a container; the useful football iframe is usually `http://c.spdex.com/vonejc`. When accessible, parse match title, kickoff, SPDEX match ID, Top5 trade ticker, and the per-match iframe viewer. Label as `SPDEX必发衍生`.
+- **7M / 7M.hk Betfair Trading**: useful single-match source when a 7M Betfair ID is known. Parse 成交明细, 必发成交数据, 大额交易, 价位, 成交额/交易量, 交易比例, 庄家盈亏, 盈亏指数, 冷热指数, 市场指数. Main challenge is mapping Titan007/球探 match IDs to 7M Betfair IDs; use Chinese team/time fuzzy matching or source links, not guessed IDs.
+- **bifaw.com**: usable only when free or logged-in pages show concrete 标盘/让球/大小指数, 已成交, 成交量, or big-trade detail. If only homepage teasers are visible, mark `bifaw待登录/待解析`.
+- **澳客必发盈亏 / 天天盈球 / 捷报 / 澳客等**: use as `必发衍生数据` only when the actual table is visible or parseable. If the page describes the method but hides the table behind login/JS/captcha, mark the exact gap.
 
 **Layer 2: public betting splits**
 
@@ -385,7 +414,7 @@ These sources do not usually show exact matched money. They show public ticket s
 
 - **VSiN betting splits**: use when the page shows `% of bets` and `% of money`, especially if sportsbook partner/source is visible.
 - **Action Network public betting percentages**: use for public bet %, money %, line movement, and reverse-line-move signals. Label advanced/pro signals as unavailable unless actually visible.
-- **The Spread public betting charts**: use as public betting share and line-move context when available.
+- **DraftKings betting splits / BetMGM / Covers / The Spread**: use as public split or sportsbook-handle proxy when soccer coverage exists and the table is visible. Label exact coverage gaps; do not infer global football money from US-only books.
 
 Core divergence logic:
 
@@ -408,8 +437,9 @@ Daily output must use four separate columns when flow is discussed:
 
 If a field is missing, write the exact missing field:
 
-- `Betfair未接入`
+- `Betfair官方未接入`
 - `PM无市场`
+- `必发衍生数据未匹配`
 - `注单/资金比例缺失`
 - `只有赔率异动`
 - `只有Titan007盘口价格流`
@@ -1264,6 +1294,7 @@ Asian intent candidate audit discipline:
 
 - `亚盘意图候选` is a diagnostic read, not an official simulated pick. It may be backtested separately to test whether the intent tag implied the right side, but it must not be merged into official simulated-pick win rate unless the row had a pre-match selected side, exact line, price, and settlement clock.
 - Candidate tags must first be mapped to an implied side before audit: examples include `阻上/诱下`, `降温保护/诱下`, `真实示强/阻上`, and `阻下/上盘保护` generally map to `上盘`; `诱上/阻下` and `真实示弱/阻下` generally map to `下盘`; `平衡盘/等待临场确认` or conflicting labels remain `不计`.
+- This mapping is the pre-flow paper direction only. For current-day decisions, apply the `资金流验证` overlay before final action: if a block target is not blocked and the book still leaves that target side a price gift, test the opposite side; if an induce target fails to attract money, return to the opposite side of the induced target, with `诱下未成` defaulting back to `上盘`. The final bettable side is the side that survives the flow overlay plus historical EV, water threshold, same-line veto, and risk-control gates.
 - Before calculating any candidate-intent or reverse-buying PnL, reconcile the match result from a reliable final-score source. Prefer Titan007 final snapshots by match id, then other verified score sources; use the simulation ledger score only as a labeled fallback. If the ledger score conflicts with the final snapshot, replace it and display the score source in the audit output.
 - When the user asks to test candidate intent or reverse-buying, use the **即时亚盘水位** from the stored odds snapshot and calculate flat-stake PnL for both `按意图买入` and `反向买入`. Do not count only direction; include water.
 - Quarter Asian lines must settle with split-line results: `平手/半球` (`±0.25`) can produce `赢半` or `输半`; `半球/一球` (`±0.75`) can produce `赢半` or `输半`; `一球/球半` (`±1.25`) and `球半/两球` (`±1.75`) follow the same half-win/half-loss logic. Report raw counts and effective hit rate where `赢半=0.5 win` and `输半=0.5 loss`.
@@ -1319,9 +1350,16 @@ Definitions:
 - `盘口`: use the selected row's normalized Asian handicap bucket / line bucket, such as `平手`, `平手/半球`, `半球`, `半球/一球`, `一球`, etc. If missing, write `缺盘口`.
 - `水位分层`: bucket the selected current water as `<=0.70`, `0.71-0.80`, `0.81-0.90`, `0.91-1.00`, `1.01-1.10`, or `>1.10`.
 - `倾向意图`: use the normalized Asian intent tag for that row, such as `阻上/诱下`, `诱上/阻下`, `真实示弱/阻下`, `降温保护/诱下`, or `平衡盘/等待临场确认`. If missing, write `缺倾向意图`.
+- `资金流验证`: when Layer 1, Layer 1B, or Layer 2 flow exists, append flow-overlay fields to the per-match detail and any flow-specific grouped audit: `阻诱目标侧`, `实际资金流向`, `目标侧水位甜头`, `意图成败`, `资金流修正方向`, `资金流修正球队`, `资金流来源`, `资金流时间戳`. If no flow source is available, fill explicit gaps such as `资金流缺口-只有盘口价格流`; do not leave blank fields or infer true volume from odds movement.
 - Red/black accounting must preserve Asian quarter-line results: `红半` and `黑半` are separate counts; effective win rate treats half-win as 0.5 win and half-loss as 0.5 loss.
 
 This file is for long-run threshold discovery. It must be updated after settlements so the system can learn which `地区-国家-赛事层级-盘口-水位分层-倾向意图` combinations trigger durable positive expectation, and which should be downgraded or filtered out.
+
+When flow data exists, also generate a flow-overlay grouped file:
+
+`D:\codex\outputs\football_odds_trader\ledger\funds_flow_intent_overlay_YYYY-MM-DD.csv`
+
+Group it by `地区-国家-赛事层级-盘口-水位分层-倾向意图-意图成败-资金流修正方向`, then report sample count, forward/reverse effective win rate, forward/reverse flat-stake PnL, and whether the flow overlay improved or damaged the original Asian-intent read.
 
 The grouped stats file is not a match ledger and must not be the only tracking output. Every refresh that writes `bettable_event_stats_YYYY-MM-DD.csv` must also write a per-match audit ledger:
 
@@ -1329,7 +1367,7 @@ The grouped stats file is not a match ledger and must not be the only tracking o
 
 This detail file must contain one row per strict-funnel bettable match and preserve the concrete match identity behind each grouped sample. Required stable columns:
 
-`统计日期, 数据源, 日期, 开赛时间, 比赛ID, 赛事, 比赛, 比赛分类, 微观板块, 国家, 赛事层级, 盘口, 水位分层, 倾向意图, 动作, 选择方向, 投注盘向, 投注球队, 选中水位, 综合胜率, 盈亏平衡胜率, 通过阈值, 同档样本, 同档选中胜率, 风控状态, 仓位系数, 下注金额, 已结算, 结算标签, 实际盈亏Unit, 实际盈亏金额, 赛果, 比分来源, 即时亚盘, 盘口线, 上盘方, 候选映射方向, 反向方向, 候选依据`
+`统计日期, 数据源, 日期, 开赛时间, 比赛ID, 赛事, 比赛, 比赛分类, 微观板块, 国家, 赛事层级, 盘口, 水位分层, 倾向意图, 阻诱目标侧, 实际资金流向, 目标侧水位甜头, 意图成败, 资金流修正方向, 资金流修正球队, 资金流来源, 资金流时间戳, 动作, 选择方向, 投注盘向, 投注球队, 选中水位, 综合胜率, 盈亏平衡胜率, 通过阈值, 同档样本, 同档选中胜率, 风控状态, 仓位系数, 下注金额, 已结算, 结算标签, 实际盈亏Unit, 实际盈亏金额, 赛果, 比分来源, 即时亚盘, 盘口线, 上盘方, 候选映射方向, 反向方向, 候选依据`
 
 Use `bettable_event_stats` for threshold discovery and compact dashboard summaries. Use `bettable_event_detail` whenever the user asks which concrete matches contributed to a red/black record, sample count, ROI, or long-run combination.
 
