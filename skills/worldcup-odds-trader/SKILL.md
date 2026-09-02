@@ -472,7 +472,7 @@ Use these source tiers for football lineup and injury work. Always save the URL,
 - Rotowire soccer lineups: currently the most script-readable public source among the tested lineup/injury websites. The page can expose predicted/confirmed lineups, injuries, status labels such as `QUES/OUT/SUS`, weather, and some odds in plain HTML. Use it first for leagues it covers, especially Premier League and other major European/US competitions.
 - Flashscore: homepage and JS metadata are readable, and it is useful for broad fixture coverage, lineups, missing players, live match stats, H2H, odds comparison, and previews when the match page exposes them. For automation, treat match-detail parsing as semi-structured and verify endpoint stability before relying on it.
 - LeiSu / 雷速体育: homepage content is readable and useful for Chinese match intelligence, fixture pages, lineups, injuries/news tags, live scores, and local-language coverage of CSL, J/K leagues, Asian competitions, and basketball. It may load anti-bot/captcha scripts, so classify direct automation as semi-structured until a stable endpoint is confirmed.
-- Titan007 / 7M / 球探: usable for schedule, live state, odds, some match context, and Chinese team names. Use it primarily as an odds/schedule source, not as the sole injury source.
+- Titan007 / Win007 / 7M / 球探: usable for schedule, live state, odds, Chinese team names, `数据库`, `比赛情报`, `阵容/Lineup`, H2H, recent 5-10 form, win/loss handicap fragments, totals fragments, and some injury/news context. Use it as the primary Chinese odds/schedule source and as a first-pass H2H/form source; do not use it as the sole injury source for high-stakes main picks unless the injury/lineup item is clearly official or corroborated.
 - NBA Official Injury Report: directly readable for NBA injury work and should be the official source for basketball injury status.
 
 **Tier B: browser/manual verification sources**
@@ -487,7 +487,40 @@ Use these source tiers for football lineup and injury work. Always save the URL,
 - Rotowire: useful for NBA/NFL/MLB and some soccer betting/fantasy news; use as supplemental injury/news source where pages are accessible, especially for US sports.
 - NBA Official Injury Report: authoritative for NBA only. Use official.nba.com injury report pages before media sources.
 - Underdog NBA/X: fast NBA news source, but treat as public/news feed unless confirmed by NBA official report or team source.
-- 懂球帝 / 捷报比分: useful Chinese supplemental sources for quick injury/news/preview checks. Use as corroboration, not as the single source for a main pick unless the underlying item is official/team sourced.
+- 懂球帝 / 直播吧 / 捷报比分: useful Chinese supplemental sources for quick match pages, lineup boards, formation graphics, injury/suspension lists, red/yellow-card bans, recent-form trend, and local-language previews. Use as corroboration, not as the single source for a main pick unless the underlying item is official/team sourced.
+
+### Free Fundamental Source Ingestion Ladder
+
+When a football match is being upgraded from odds-only observation to an actionable simulation or main-pick candidate, collect team news and form in this order. Save every successful raw or summarized snapshot under `D:\codex\outputs\football_odds_trader\raw\` with source URL, timestamp, match id/name, and whether the item is `官方`, `结构化平台`, `预测`, `媒体/社区`, or `未核`.
+
+1. **Domestic Chinese fast sources**
+   - 懂球帝 and 直播吧: use each match detail page's `阵容`, `伤停`, `情报`, and `战绩/走势` areas when available. Extract official or predicted starting XI, formation, absent players, suspension reason, recent five-match W-D-L, goals for/against, home/away split, and any clear tactical or motivation note. If the page only republishes public news, mark it `媒体/社区-待交叉验证`.
+   - Titan007 / Win007 / 球探: use the odds board plus `数据库`, `比赛情报`, `分析`, `Lineup/阵容`, and related detail pages for H2H, recent 5-10 matches, same-home-away H2H, recent handicap record, totals record, score state, ranking/stage, and Chinese name standardization. If 球探 has odds but no lineup/injury board for the match, write `球探赔率已接入；阵容/伤停缺口`.
+2. **Overseas broad coverage sources**
+   - Flashscore and SofaScore: use for broad global coverage, confirmed lineups, missing players, suspensions, H2H, recent form, player ratings, live stats, heat/momentum, and formation diagrams. Treat confirmed lineups as strong evidence; treat predicted or app-derived expected lineups as `预计首发`.
+   - FotMob: use for lineups, injuries, match facts, player ratings, recent form, tactical shapes, and live/event timing. Prefer it when Flashscore/SofaScore data is incomplete.
+3. **Deep football analysis sources**
+   - WhoScored: prioritize for European top-five leagues and major UEFA/MLS/Brazil/Argentina matches where its preview is available. Extract predicted lineups, team news, tactical style, key-player absence, recent form, ratings, and any model score prediction. Label it `WhoScored预览`, not official confirmation unless the page marks lineups confirmed.
+   - Transfermarkt: use for long-term injuries, suspensions, squad absences, player value, squad depth, transfer/rotation context, and whether an absent player is tactically central. For a key player absence, record role (`门将/中卫/后腰/核心前腰/主力中锋`), likely replacement, and whether the absence changes the Asian handicap value.
+4. **Structured APIs and automation**
+   - API-Football / API-Sports: when an API key or free quota is available, use coverage flags before fetching fixtures, injuries, lineups, standings, H2H, team/player statistics, predictions, and odds. Store endpoint name, request time, league coverage flags, and response status.
+   - Football-Data.org: use as a structured fixtures/results/table source where coverage is available. It is not enough for injury/lineup by itself, but it can validate schedule, table position, and recent match results.
+   - GitHub open-source scrapers such as `football match statistics scraper` or `sofascore api python` projects may be used only after reviewing the code path and saving the exact repository/source reference. Treat unofficial endpoints as unstable and label them `开源抓取-待验证`.
+
+Timing discipline:
+
+- **T-24h to T-6h**: collect long-term injuries, suspensions, table/motivation, H2H, and last-five form. Use Transfermarkt, WhoScored previews, Titan007/Win007, Flashscore/SofaScore/FotMob, 懂球帝/直播吧 where available.
+- **T-3h to T-90m**: refresh injury/news and predicted lineups; flag rotation-sensitive cup matches and congested schedules.
+- **T-75m to T-45m**: official starting lineups are usually published around one hour before kickoff. Re-check SofaScore/FotMob/Flashscore, official club/league channels, 懂球帝/直播吧, and 球探 Lineup pages. If official lineups become available after the earlier odds read, rerun the fundamental pull and the Asian handicap EV gate.
+- **After kickoff**: do not create or overwrite prematch recommendations. Only update status, score, settlement, and post-match audit fields.
+
+Field-level requirements:
+
+- Injury/lineup output must distinguish `官方首发`, `预计首发`, `伤停确认`, `停赛确认`, `伤停未核`, and `无明确伤停信息`.
+- Recent-form output must include at minimum recent five W-D-L, goals for/against, home/away split when relevant, and whether the opponents are comparable. Do not reduce form to a generic `状态好/状态差`.
+- H2H output must separate all H2H from same-home-away H2H and mark stale samples or major squad/manager discontinuity.
+- For totals, BTTS, team totals, or goal-count picks, add recent scoring/conceding averages, first-half/second-half goal timing, shot/xG or chance-quality proxy where available, tactical matchup, and post-goal behavior (`继续压上`, `控节奏`, `防反收缩`) before giving any direction.
+- Missing team-news/form data does not automatically block Asian-handicap EV simulation, but it must lower confidence, block high-Kelly/main-pick promotion, and appear visibly in HTML/CSV as the exact missing link.
 
 Main-pick gate:
 
@@ -504,9 +537,9 @@ Minimum source map by data field:
 - **Schedule, Chinese names, live state, score**: Titan007 / 球探 first, then Flashscore, SofaScore, FotMob, ESPN, or league official pages for cross-check.
 - **Asian handicap, European 1X2, totals**: Titan007 / 球探 for opening and current board; cross-check with OddsPortal, BetExplorer, 500.com, API-Football odds, or The Odds API when accessible. If two sources disagree, keep the source labels and use the most recent timestamped source only for current price, not historical price.
 - **BTTS, team totals, corners, halves, exact score**: use Polymarket when the market exists, plus sportsbook/API odds when readable. If BTTS is unavailable from a stable source, mark `BTTS赔率未接入` and do not calculate Kelly on BTTS.
-- **Head-to-head and last-five form**: prefer SofaScore/FotMob/Flashscore/Titan007/league official pages. Record results, goals for/against, home/away split, and whether the sample is comparable. If only generic form is available, label `近况粗略`.
-- **Win/loss handicap record and totals record**: use Titan007/球探, OddsPortal, BetExplorer, 500.com, or a structured odds API with historical lines. Do not infer win盘/输盘 from score alone when the historical closing line is missing.
-- **Lineup, injuries, suspensions, absences**: prefer official club/league lineups and injury lists, then Rotowire, WhoScored, SofaScore, FotMob, Flashscore, Transfermarkt, 雷速/懂球帝/捷报. Separate `官方首发`, `预计首发`, `伤停确认`, and `媒体传闻`.
+- **Head-to-head and last-five form**: prefer Titan007/Win007/球探 `数据库/分析` pages for Chinese-standard H2H and recent-form tables, then SofaScore/FotMob/Flashscore, 懂球帝/直播吧, Football-Data.org, API-Football/API-Sports, or league official pages. Record results, goals for/against, home/away split, opponent comparability, and stale-sample warnings. If only generic form is available, label `近况粗略`.
+- **Win/loss handicap record and totals record**: use Titan007/球探, OddsPortal, BetExplorer, 500.com, API-Football/API-Sports odds endpoints, or another structured odds API with historical lines. Do not infer win盘/输盘 from score alone when the historical closing line is missing.
+- **Lineup, injuries, suspensions, absences**: prefer official club/league lineups and injury lists, then structured or semi-structured providers: Rotowire, WhoScored, SofaScore, FotMob, Flashscore, Transfermarkt, API-Football/API-Sports, Titan007/Win007/球探 Lineup, 雷速, 懂球帝, 直播吧, 捷报. Separate `官方首发`, `预计首发`, `伤停确认`, `停赛确认`, `伤病原因`, `预计复出`, `媒体传闻`, and `未接入/待核`.
 - **Motivation/table state**: use league table, fixture context, cup aggregate score, two-leg state, qualification/relegation pressure, official competition rules, and reliable previews.
 - **Betting volume and flow**: Polymarket Gamma/CLOB and Betfair official/exchange-derived sources are true flow when available. Titan007/球探 odds movement is only `盘口价格流`; OddsPortal dropping odds is `赔率异动代理`; public betting splits such as VSiN/Action Network/TheSpread are `公开投注比例`, not guaranteed global betting volume.
 
