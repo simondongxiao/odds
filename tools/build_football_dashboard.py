@@ -694,6 +694,36 @@ def load_micro_risk() -> dict[str, object]:
     return {"source": str(path), "rows": rows, "lookup": lookup}
 
 
+def flow_overlay_summary(row: dict[str, str]) -> str:
+    summary = (row.get("资金流摘要") or "").strip()
+    if summary:
+        return summary
+    source = (row.get("资金流来源") or "").strip()
+    if not source or "未匹配" in source:
+        return ""
+    return (
+        f"{source}：理论主{row.get('理论资金主队占比','')}/客{row.get('理论资金客队占比','')}；"
+        f"实际主{row.get('实际资金主队占比','')}/客{row.get('实际资金客队占比','')}；"
+        f"偏离主{row.get('资金偏离主队','')}/客{row.get('资金偏离客队','')}；"
+        f"过热侧={row.get('资金过热侧','')}（超过理论占比5pct才算）；"
+        f"意图成败={row.get('意图成败','')}；修正={row.get('资金流修正方向','')} {row.get('资金流修正球队','')}"
+    )
+
+
+def load_flow_overlay() -> dict[tuple[str, str], dict[str, str]]:
+    out: dict[tuple[str, str], dict[str, str]] = {}
+    for path in sorted(DETAIL_LEDGER.glob("funds_flow_intent_overlay_*.csv")):
+        for row in read_csv(path):
+            date = (row.get("日期") or row.get("统计日期") or "").strip()
+            match_id = (row.get("比赛ID") or "").strip()
+            match = clean_team(row.get("比赛", ""))
+            if date and match_id:
+                out[(date, match_id)] = row
+            if date and match:
+                out[(date, match)] = row
+    return out
+
+
 def top5_normalize_league(league: str) -> str:
     text = str(league or "").strip()
     return TOP5_LEAGUE_ALIASES.get(text, text)
@@ -1718,6 +1748,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
     top5_policy = load_top5_walkforward_policy()
     final_scores = load_titan_over_scores()
     details = detail_lookup()
+    flow_overlay = load_flow_overlay()
     cards = []
     for r in today_rows:
         match = r.get("比赛", "")
@@ -1735,6 +1766,17 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
         goal_status, goal_detail = goal_model_audit(r, matched)
         data_status, data_detail = data_completeness_audit(r, matched, detail, o)
         micro_region = dashboard_micro_region(r.get("赛事", ""))
+        overlay_row = (
+            flow_overlay.get((date, str(o.get("match_id", "") or "").strip()))
+            or flow_overlay.get((date, clean_team(match)))
+            or {}
+        )
+        flow_text = flow_overlay_summary(overlay_row) or r.get("Polymarket/交易所情绪", "") or "缺失"
+        flow_source_text = (
+            flow_text
+            if flow_text and "缺" not in flow_text and "未验证" not in flow_text
+            else "PM/必发缺失；Titan007仅作盘口价格流"
+        )
         top5_row_policy = (
             top5_policy.get("by_sim_id", {}).get(r.get("模拟ID", ""))
             or top5_policy.get("by_match_key", {}).get(top5_match_key(r))
@@ -1796,7 +1838,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "injury": translate_text(detail_injury(detail)),
                 "lineup": translate_text(detail_lineup(detail)),
                 "pull": clean_missing_odds_text(translate_text(r.get("盘口倾向", ""))),
-                "flow": translate_text(r.get("Polymarket/交易所情绪", "") or "缺失"),
+                "flow": translate_text(flow_text),
                 "liquidity": translate_text(r.get("流动性", "")),
                 "purpose": clean_missing_odds_text(translate_text(r.get("模拟目的", ""))),
                 "main": r.get("是否主单", ""),
@@ -1816,7 +1858,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "handicap_record_source": "球探Analysis历史盘口片段已抓取，待完全归一化" if detail.get("handicap_record_ok") == "1" else "未接入/待核：需历史盘口收盘线",
                 "lineup_source": f"球探Lineup：{detail.get('lineup_url','')}" if detail.get("lineup_ok") == "1" else "伤停/首发未核",
                 "motivation_source": "账本模拟目的/盘口拉力记录",
-                "flow_source": "PM/必发缺失；Titan007仅作盘口价格流" if not r.get("Polymarket/交易所情绪", "") or "缺" in r.get("Polymarket/交易所情绪", "") else r.get("Polymarket/交易所情绪", ""),
+                "flow_source": flow_source_text,
                 "analyst_source": "未接入/待核：待公共博主/盘口观点交叉验证",
                 "result": translate_text(result),
                 "pnl": r.get("模拟盈亏单位", ""),
