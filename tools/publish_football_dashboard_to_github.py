@@ -64,6 +64,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (ROOT / "reviews", "micro_region_tag_edge_*.md", PUBLISH_REPO / "reports" / "reviews"),
         (ROOT / "reviews", "snapshot_drift_*.md", PUBLISH_REPO / "reports" / "reviews"),
         (ROOT / "ledger", "bettable_event_stats_*.csv", PUBLISH_REPO / "ledger"),
+        (ROOT / "ledger", "bettable_event_detail_*.csv", PUBLISH_REPO / "ledger"),
         (ROOT / "backtests" / "sequential_asian", "sequential_asian_backtest_*.md", PUBLISH_REPO / "backtests" / "sequential_asian"),
         (ROOT / "backtests" / "sequential_asian", "sequential_asian_backtest_*_summary.json", PUBLISH_REPO / "backtests" / "sequential_asian"),
         (ROOT / "backtests" / "sequential_asian", "sequential_asian_backtest_*_intent_matches.csv", PUBLISH_REPO / "backtests" / "sequential_asian"),
