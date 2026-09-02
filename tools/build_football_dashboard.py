@@ -33,7 +33,7 @@ LINE_ORDER = [
 
 TAG_ORDER = [
     "真实示弱/阻下",
-    "阻下/上盘保护",
+    "阻下/下盘保护",
     "降温保护/诱下",
     "阻上/诱下",
     "阻上/降温保护",
@@ -41,6 +41,10 @@ TAG_ORDER = [
     "诱上/阻下",
     "诱下/上盘降温",
 ]
+
+INTENT_TAG_ALIASES = {
+    "阻下/上盘保护": "阻下/下盘保护",
+}
 
 TOP5_LEAGUE_MAP: dict[str, tuple[str, str]] = {
     "英超": ("英格兰", "顶级"),
@@ -452,11 +456,16 @@ def normalize_intent_tag(intent_text: str) -> str:
     match = re.search(r"亚盘意图候选：([^（。]+)", intent_text or "")
     if not match:
         return ""
-    return re.sub(r"\s+", "", match.group(1).strip())
+    return canonical_intent_tag(match.group(1))
+
+
+def canonical_intent_tag(tag: str) -> str:
+    compact = re.sub(r"\s+", "", tag or "")
+    return INTENT_TAG_ALIASES.get(compact, compact)
 
 
 def intent_tag_side(tag: str) -> str:
-    compact = re.sub(r"\s+", "", tag or "")
+    compact = canonical_intent_tag(tag)
     if not compact or "平衡盘" in compact or "等待临场确认" in compact:
         return ""
     upper_patterns = (
@@ -464,12 +473,11 @@ def intent_tag_side(tag: str) -> str:
         "阻上/降温保护",
         "降温保护/诱下",
         "真实示强/阻上",
-        "阻下/上盘保护",
         "诱下/上盘降温",
-        "上盘保护",
         "上盘降温",
     )
     lower_patterns = (
+        "阻下/下盘保护",
         "诱上/阻下",
         "真实示弱/阻下",
     )
@@ -494,9 +502,10 @@ def load_tag_performance(summary_path: Path | None) -> dict[str, object]:
         sample = parse_int(row.get("样本", "0"))
         forward_pnl = safe_float(row.get("均注盈亏", "")) or 0.0
         reverse_pnl = safe_float(row.get("反向均注盈亏", "")) or 0.0
+        tag = canonical_intent_tag(row.get("分组", ""))
         rows.append(
             {
-                "tag": row.get("分组", ""),
+                "tag": tag,
                 "sample": sample,
                 "win_rate": row.get("有效胜率", "") or "无",
                 "forward_pnl": round(forward_pnl, 3),
@@ -550,6 +559,7 @@ def load_intent_matrix() -> dict[str, object]:
         else:
             line = row.get("盘口档位", "")
             tag = row.get("候选标签", "")
+        tag = canonical_intent_tag(tag)
         if not line or not tag:
             continue
         sample = parse_int(row.get("样本", "0"))
@@ -675,7 +685,7 @@ def load_micro_edge() -> dict[str, object]:
     lookup = {}
     for row in rows:
         region = row.get("微观板块", "").strip()
-        tag = row.get("候选标签", "").strip()
+        tag = canonical_intent_tag(row.get("候选标签", ""))
         if region and tag:
             lookup[f"{region}||{tag}"] = row
     return {"source": str(path), "rows": rows, "lookup": lookup}
@@ -1373,7 +1383,7 @@ def asian_intent_candidate(row: dict[str, str] | None) -> str:
     elif fav_water <= 0.84:
         candidates = ["诱上", "阻下"]
     elif under_water >= 1.02:
-        candidates = ["阻下", "上盘保护"]
+        candidates = ["阻下", "下盘保护"]
     elif under_water <= 0.84:
         candidates = ["诱下", "上盘降温"]
     else:

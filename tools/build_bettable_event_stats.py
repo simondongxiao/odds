@@ -11,6 +11,15 @@ ROOT = Path(r"D:\codex\outputs\football_odds_trader")
 SEQ_DIR = ROOT / "backtests" / "sequential_asian"
 LEDGER_DIR = ROOT / "ledger"
 
+TAG_ALIASES = {
+    "阻下/上盘保护": "阻下/下盘保护",
+}
+
+
+def canonical_tag(tag: object) -> str:
+    text = str(tag or "").replace(" ", "").strip()
+    return TAG_ALIASES.get(text, text)
+
 
 def newest(root: Path, pattern: str) -> Path:
     files = sorted(root.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
@@ -239,7 +248,7 @@ def build_stats(detail_csv: Path, out_date: str) -> tuple[Path, Path]:
     bets["国家"] = bets["赛事"].map(country_from_league)
     bets["赛事层级"] = bets.apply(lambda r: tier_from_class(r.get("比赛分类"), r.get("赛事")), axis=1)
     bets["盘口"] = bets.get("盘口档位", "").fillna("").astype(str).str.strip().replace("", "缺盘口")
-    bets["倾向意图"] = bets.get("盘口意图标签", "").fillna("").astype(str).str.strip().replace("", "缺倾向意图")
+    bets["倾向意图"] = bets.get("盘口意图标签", "").fillna("").map(canonical_tag).replace("", "缺倾向意图")
     bets["水位分层"] = bets["选中水位"].map(water_bucket)
     bets["选中水位数值"] = pd.to_numeric(bets["选中水位"], errors="coerce")
     bets["实际盈亏Unit数值"] = pd.to_numeric(bets["实际盈亏Unit"], errors="coerce").fillna(0.0)

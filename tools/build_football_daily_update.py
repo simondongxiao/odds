@@ -1196,7 +1196,7 @@ def asian_intent_candidate(row: dict[str, str]) -> str:
     elif fav_water <= 0.84:
         candidates = ["诱上", "阻下"]
     elif under_water >= 1.02:
-        candidates = ["阻下", "上盘保护"]
+        candidates = ["阻下", "下盘保护"]
     elif under_water <= 0.84:
         candidates = ["诱下", "上盘降温"]
     else:

@@ -18,6 +18,16 @@ ROOT = Path(r"D:\codex\outputs\football_odds_trader")
 LEDGER = ROOT / "ledger"
 OUT_ROOT = ROOT / "backtests" / "sequential_asian"
 
+TAG_ALIASES = {
+    "阻下/上盘保护": "阻下/下盘保护",
+}
+
+
+def canonical_tag(tag: object) -> str:
+    text = str(tag or "").replace(" ", "").strip()
+    return TAG_ALIASES.get(text, text)
+
+
 FORWARD = "正向"
 REVERSE = "反向"
 NO_BET = "不投"
@@ -193,7 +203,7 @@ def prepare_dataframe(df: pd.DataFrame) -> pd.DataFrame:
         league = str(first_existing(row, ["赛事", "联赛", "league", "league_cn"], "")).strip()
         match = str(first_existing(row, ["比赛", "对阵", "match", "match_name"], match_id)).strip()
         region = normalize_region(first_existing(row, ["微观板块", "micro_region", "region"], ""), league)
-        tag = str(first_existing(row, ["盘口意图标签", "意图标签", "候选标签", "tag"], "")).strip()
+        tag = canonical_tag(first_existing(row, ["盘口意图标签", "意图标签", "候选标签", "tag"], ""))
         line_bucket = str(first_existing(row, ["盘口档位", "盘口线", "line_bucket", "handicap_bucket"], "")).strip()
 
         dates.append(date_text)
@@ -295,7 +305,7 @@ def row_from_record(seq: int, record: dict[str, object]) -> MatchRow:
         match=str(record.get("比赛", "")),
         competition_class=str(first_existing(record, ["比赛分类", "赛制阶段", "competition_class"], "")),
         region=str(record.get("微观板块", "")),
-        tag=str(record.get("盘口意图标签", "")).strip(),
+        tag=canonical_tag(record.get("盘口意图标签", "")),
         line_bucket=str(record.get("盘口档位", "")).strip(),
         forward_water=fw,
         reverse_water=rw,
