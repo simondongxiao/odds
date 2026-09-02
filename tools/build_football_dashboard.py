@@ -963,6 +963,10 @@ def load_top5_walkforward_policy() -> dict[str, object]:
         country, tier, league = info
         row = dict(raw)
         row["赛事"] = league
+        row["候选标签"] = canonical_intent_tag(row.get("候选标签", ""))
+        mapped_side = intent_tag_side(row.get("候选标签", ""))
+        if mapped_side:
+            row["候选映射方向"] = "上盘" if mapped_side == "upper" else "下盘"
         row["五大国家"] = country
         row["五大层级"] = tier
         row["比赛ID"] = row.get("比赛ID", "") or top5_match_id(row)
