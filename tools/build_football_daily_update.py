@@ -100,6 +100,48 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(f))
 
 
+def ledger_match_key(row: dict[str, str]) -> tuple[str, str, str]:
+    return (
+        (row.get("日期") or "").strip(),
+        (row.get("赛事") or "").strip(),
+        (row.get("比赛") or "").strip(),
+    )
+
+
+def preserve_started_prematch_rows(
+    sim_rows: list[dict[str, str]],
+    existing_rows: list[dict[str, str]],
+) -> list[dict[str, str]]:
+    """Keep pre-match model fields immutable once a same-day match has kicked off."""
+    prior_prematch: dict[tuple[str, str, str], dict[str, str]] = {}
+    today = TODAY.isoformat()
+    for row in existing_rows:
+        if (row.get("日期") or "").strip() != today:
+            continue
+        market = (row.get("市场框架") or "").strip()
+        if not market or market.startswith("赛况更新"):
+            continue
+        key = ledger_match_key(row)
+        if all(key):
+            prior_prematch[key] = row
+
+    protected: list[dict[str, str]] = []
+    for row in sim_rows:
+        market = (row.get("市场框架") or "").strip()
+        key = ledger_match_key(row)
+        prior = prior_prematch.get(key)
+        if prior and market.startswith("赛况更新"):
+            kept = dict(prior)
+            kept["赛果"] = row.get("赛果", kept.get("赛果", ""))
+            note = "赛况已刷新，只更新比分/状态，不改赛前结论/盘口/标签"
+            old_note = (kept.get("模型更新") or "").strip()
+            kept["模型更新"] = f"{old_note}；{note}" if old_note and note not in old_note else note
+            protected.append(kept)
+        else:
+            protected.append(row)
+    return protected
+
+
 def latest_flow_file() -> Path | None:
     files = sorted(FLOW_DIR.glob("chuqi_bifa_flow_*.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
     return files[0] if files else None
@@ -1246,6 +1288,13 @@ def main() -> int:
             writer.writerow(out_row)
 
     existing_rows = read_csv(LEDGER) if LEDGER.exists() else []
+    sim_rows = preserve_started_prematch_rows(sim_rows, existing_rows)
+    with sim_path.open("w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=sim_fields)
+        writer.writeheader()
+        for row in sim_rows:
+            writer.writerow({field: row.get(field, "") for field in sim_fields})
+
     merged = [row for row in existing_rows if row.get("日期") != TODAY.isoformat()]
     seen = {row.get("模拟ID", "") for row in merged}
     for row in sim_rows:
