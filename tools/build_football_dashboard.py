@@ -3186,6 +3186,10 @@ function frameworkDecision(r, cell = null) {{
   const details = [];
   details.push(`1）当前盘口意图：${{line || "缺盘口档位"}} + ${{tag || "缺候选标签"}}；正向=${{positiveTeamText(r, "forward")}}；反向=${{positiveTeamText(r, "reverse")}}。`);
 
+  if (String(r.state || "").trim() !== "0") {{
+    details.push("状态门槛：本快照已开赛/完场，只允许更新比分、赛况、结算和复盘，不覆盖赛前投注结论。");
+    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "比赛已开赛/完场，本版本只做赛况/复盘，不作为赛前可投", details}};
+  }}
   if (!r.ah_ok) {{
     return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "亚盘盘口/两边水位缺失", details}};
   }}
