@@ -162,24 +162,26 @@ Data completeness gate:
   - Always store and display these fields when discussing flow: `阻诱目标侧`, `实际资金流向`, `目标侧水位甜头`, `意图成败`, `资金流修正方向`, `资金流修正球队`, `资金流来源`, and `资金流时间戳`.
   - `阻诱目标侧`: `阻上` and `诱上` target the `上盘`; `阻下` and `诱下` target the `下盘`. For combined tags such as `阻上/诱下`, evaluate both meanings but keep one final `资金流修正方向`.
   - `实际资金流向`: use Layer 1 exchange volume, Layer 1B Betfair-derived flow, or Layer 2 public bet/money splits when available. If only Titan007/bookmaker price movement exists, write `资金流缺口：只有盘口价格流` and do not pretend volume is known.
+  - `理论资金占比`: when true or derived betting flow is available, first calculate a neutral theoretical team-money share from the odds board before calling any side hot. Use European 1X2 de-vig as the win-probability anchor, then remove the draw for side-vs-side comparison: `理论欧赔主队占比 = P_home / (P_home + P_away)`, `理论欧赔客队占比 = P_away / (P_home + P_away)`. Also calculate an Asian water-implied side share from the two HK waters: `亚盘主队隐含 = (1/(1+home_water)) / [(1/(1+home_water)) + (1/(1+away_water))]`, same for away. If both are available, average the European no-draw share and Asian water-implied share; if only one is available, use the available one and label the basis. This is a comparison baseline, not a true bookmaker liability model.
+  - `资金过热判定`: actual side money must be compared with the theoretical share. Use team-only actual flow for Asian-side judgement: `实际主队占比 = 主队成交额 / (主队成交额 + 客队成交额)`, same for away; draw money is reported separately but excluded from Asian side heat. A side is `过热` only when `实际资金占比 - 理论资金占比 > 5pct`. Deviations within `+5pct` are noise/normal and must not trigger `资金流修正` by themselves.
   - If no real betting-flow source is matched, do **not** stop the Asian-handicap process and do **not** flip sides because of the missing flow. Continue with the original Micro-Region Tag EV framework: current Asian intent -> global tag history -> micro-region history -> Bayesian shrinkage when needed -> current-water breakeven threshold -> same-line veto -> risk-control state. The red badge should say `资金流未验证：沿用亚盘EV框架`, not `不投：缺PM/必发`.
   - `目标侧水位甜头`: target side still has an attractive entry if the current price/line continues to make that side easier or better paid than the risk should allow, for example high HK water, extra handicap cushion, line cut, or water lift that remains playable. Record the numeric opening/current water and line path beside this qualitative label.
   - Flow-decision matrix:
 
     | 候选意图 | 目标侧 | 资金是否流向目标侧 | 目标侧是否仍有甜头 | 解读 | 资金流修正方向 |
     | --- | --- | --- | --- | --- | --- |
-    | `阻上` | 上盘 | 否，资金转向下盘或上盘热度被压住 | 甜头收回/无明显甜头 | 阻上成功，可能保护上盘 | 保持/正向买上盘 |
-    | `阻上` | 上盘 | 是，上盘资金没有被挡住 | 甜头仍在 | 阻上失败或转为诱上，继续给上盘甜头是危险信号 | 反向买下盘 |
-    | `阻下` | 下盘 | 否，资金转向上盘或下盘热度被压住 | 甜头收回/无明显甜头 | 阻下成功，可能保护下盘 | 保持/正向买下盘 |
-    | `阻下` | 下盘 | 是，下盘资金没有被挡住 | 甜头仍在 | 阻下失败或转为诱下，继续给下盘甜头是危险信号 | 反向买上盘 |
-    | `诱上` | 上盘 | 是，资金顺着上盘走 | 甜头仍在/叙事顺滑 | 诱上成功，目标是吸上盘资金 | 反向买下盘 |
-    | `诱上` | 上盘 | 否，资金没有去上盘 | 甜头仍在但无人跟 | 诱上未成，优先回到下盘/基本面校验；若价格继续异常则观察 | 下盘优先或观察 |
-    | `诱下` | 下盘 | 是，资金顺着下盘走 | 甜头仍在/安全垫顺滑 | 诱下成功，目标是吸下盘资金 | 反向买上盘 |
-    | `诱下` | 下盘 | 否，资金没有去下盘 | 下盘无人跟或甜头失效 | 诱下未成，回归上盘；这是用户指定的关键修正规则 | 上盘优先 |
+    | `阻上` | 上盘 | 否，即上盘未超过理论占比+5pct | 甜头收回/无明显甜头 | 阻上成功，可能保护上盘 | 保持/正向买上盘 |
+    | `阻上` | 上盘 | 是，即上盘实际占比高于理论占比>5pct | 甜头仍在 | 阻上失败或转为诱上，继续给上盘甜头是危险信号 | 反向买下盘 |
+    | `阻下` | 下盘 | 否，即下盘未超过理论占比+5pct | 甜头收回/无明显甜头 | 阻下成功，可能保护下盘 | 保持/正向买下盘 |
+    | `阻下` | 下盘 | 是，即下盘实际占比高于理论占比>5pct | 甜头仍在 | 阻下失败或转为诱下，继续给下盘甜头是危险信号 | 反向买上盘 |
+    | `诱上` | 上盘 | 是，即上盘实际占比高于理论占比>5pct | 甜头仍在/叙事顺滑 | 诱上成功，目标是吸上盘资金 | 反向买下盘 |
+    | `诱上` | 上盘 | 否，即上盘未超过理论占比+5pct | 甜头仍在但无人跟 | 诱上未成，优先回到下盘/基本面校验；若价格继续异常则观察 | 下盘优先或观察 |
+    | `诱下` | 下盘 | 是，即下盘实际占比高于理论占比>5pct | 甜头仍在/安全垫顺滑 | 诱下成功，目标是吸下盘资金 | 反向买上盘 |
+    | `诱下` | 下盘 | 否，即下盘未超过理论占比+5pct | 下盘无人跟或甜头失效 | 诱下未成，回归上盘；这是用户指定的关键修正规则 | 上盘优先 |
 
   - Combined-label handling:
-    - `阻上/诱下`: default candidate often maps to `上盘`. If flow concentrates on `下盘`, this confirms `诱下` or successful protection and keeps `上盘`. If flow concentrates on `上盘` while `上盘` still has sweet water/entry, mark `阻上失败-反向警报` and test `下盘`.
-    - `诱上/阻下`: default candidate often maps to `下盘`. If flow concentrates on `上盘`, this confirms `诱上` and keeps `下盘`. If flow concentrates on `下盘` while `下盘` still has sweet water/entry, mark `阻下失败-反向警报` and test `上盘`.
+    - `阻上/诱下`: default candidate often maps to `上盘`. If `下盘` is the only side whose actual money exceeds theoretical share by more than 5pct, this confirms `诱下` or successful protection and keeps `上盘`. If `上盘` is the overheated side and `上盘` still has sweet water/entry, mark `阻上失败-反向警报` and test `下盘`.
+    - `诱上/阻下`: default candidate often maps to `下盘`. If `上盘` is the only side whose actual money exceeds theoretical share by more than 5pct, this confirms `诱上` and keeps `下盘`. If `下盘` is overheated and `下盘` still has sweet water/entry, mark `阻下失败-反向警报` and test `上盘`.
     - `真实示强/阻上` and `真实示弱/阻下` must still pass the flow audit. A real-strength label is downgraded if public/exchange money keeps chasing the same side and the book continues offering that side a price gift.
   - If the overlay flips the side, the red EV badge must still say the concrete team: `资金流修正：阻上失败，反向买下盘，正期望方：XXX（下盘）`. If flow is missing, write `资金流未验证：只有盘口价格流，本场不因资金流翻向`.
 - Detail-source ingestion priority for missing football data: Titan007/球探 match detail where accessible, Flashscore/SofaScore/FotMob for H2H/form/lineups, WhoScored/Transfermarkt/Rotowire for injuries and predicted/confirmed lineups, and Polymarket/Betfair for tradeable market flow. Save every successful source snapshot under `D:\codex\outputs\football_odds_trader\raw\`.
@@ -1350,7 +1352,7 @@ Definitions:
 - `盘口`: use the selected row's normalized Asian handicap bucket / line bucket, such as `平手`, `平手/半球`, `半球`, `半球/一球`, `一球`, etc. If missing, write `缺盘口`.
 - `水位分层`: bucket the selected current water as `<=0.70`, `0.71-0.80`, `0.81-0.90`, `0.91-1.00`, `1.01-1.10`, or `>1.10`.
 - `倾向意图`: use the normalized Asian intent tag for that row, such as `阻上/诱下`, `诱上/阻下`, `真实示弱/阻下`, `降温保护/诱下`, or `平衡盘/等待临场确认`. If missing, write `缺倾向意图`.
-- `资金流验证`: when Layer 1, Layer 1B, or Layer 2 flow exists, append flow-overlay fields to the per-match detail and any flow-specific grouped audit: `阻诱目标侧`, `实际资金流向`, `目标侧水位甜头`, `意图成败`, `资金流修正方向`, `资金流修正球队`, `资金流来源`, `资金流时间戳`. If no flow source is available, fill explicit gaps such as `资金流缺口-只有盘口价格流`; do not leave blank fields or infer true volume from odds movement.
+- `资金流验证`: when Layer 1, Layer 1B, or Layer 2 flow exists, append flow-overlay fields to the per-match detail and any flow-specific grouped audit: `阻诱目标侧`, `理论资金主队占比`, `理论资金客队占比`, `实际资金主队占比`, `实际资金客队占比`, `资金偏离主队`, `资金偏离客队`, `资金过热侧`, `过热阈值`, `理论占比依据`, `实际资金流向`, `目标侧水位甜头`, `意图成败`, `资金流修正方向`, `资金流修正球队`, `资金流来源`, `资金流时间戳`. If no flow source is available, fill explicit gaps such as `资金流缺口-只有盘口价格流`; do not leave blank fields or infer true volume from odds movement.
 - Red/black accounting must preserve Asian quarter-line results: `红半` and `黑半` are separate counts; effective win rate treats half-win as 0.5 win and half-loss as 0.5 loss.
 
 This file is for long-run threshold discovery. It must be updated after settlements so the system can learn which `地区-国家-赛事层级-盘口-水位分层-倾向意图` combinations trigger durable positive expectation, and which should be downgraded or filtered out.
@@ -1367,7 +1369,7 @@ The grouped stats file is not a match ledger and must not be the only tracking o
 
 This detail file must contain one row per strict-funnel bettable match and preserve the concrete match identity behind each grouped sample. Required stable columns:
 
-`统计日期, 数据源, 日期, 开赛时间, 比赛ID, 赛事, 比赛, 比赛分类, 微观板块, 国家, 赛事层级, 盘口, 水位分层, 倾向意图, 阻诱目标侧, 实际资金流向, 目标侧水位甜头, 意图成败, 资金流修正方向, 资金流修正球队, 资金流来源, 资金流时间戳, 动作, 选择方向, 投注盘向, 投注球队, 选中水位, 综合胜率, 盈亏平衡胜率, 通过阈值, 同档样本, 同档选中胜率, 风控状态, 仓位系数, 下注金额, 已结算, 结算标签, 实际盈亏Unit, 实际盈亏金额, 赛果, 比分来源, 即时亚盘, 盘口线, 上盘方, 候选映射方向, 反向方向, 候选依据`
+`统计日期, 数据源, 日期, 开赛时间, 比赛ID, 赛事, 比赛, 比赛分类, 微观板块, 国家, 赛事层级, 盘口, 水位分层, 倾向意图, 阻诱目标侧, 理论资金主队占比, 理论资金客队占比, 实际资金主队占比, 实际资金客队占比, 资金偏离主队, 资金偏离客队, 资金过热侧, 过热阈值, 理论占比依据, 实际资金流向, 目标侧水位甜头, 意图成败, 资金流修正方向, 资金流修正球队, 资金流来源, 资金流时间戳, 动作, 选择方向, 投注盘向, 投注球队, 选中水位, 综合胜率, 盈亏平衡胜率, 通过阈值, 同档样本, 同档选中胜率, 风控状态, 仓位系数, 下注金额, 已结算, 结算标签, 实际盈亏Unit, 实际盈亏金额, 赛果, 比分来源, 即时亚盘, 盘口线, 上盘方, 候选映射方向, 反向方向, 候选依据`
 
 Use `bettable_event_stats` for threshold discovery and compact dashboard summaries. Use `bettable_event_detail` whenever the user asks which concrete matches contributed to a red/black record, sample count, ROI, or long-run combination.
 

@@ -3132,7 +3132,7 @@ function fundsFlowAuditText(r) {{
     return "资金流未验证：沿用亚盘EV框架，不因缺PM/必发自动不投或翻向。";
   }}
   if (flow.includes("Chuqi") || flow.includes("必发")) {{
-    return `资金流已接入：${{clean(flow)}}；按资金流验证矩阵审计阻/诱是否成功。`;
+    return `资金流已接入：${{clean(flow)}}；仅当实际主/客资金占比高于欧赔去水+亚盘水位理论占比5pct以上，才按过热侧进入阻/诱矩阵。`;
   }}
   return `资金流状态：${{clean(flow)}}。`;
 }}

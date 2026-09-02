@@ -20,6 +20,7 @@ SLATE_END_HOUR = 12
 BANKROLL = 500.0
 MIN_STAKE = 20.0
 FRACTIONAL_KELLY = 0.20
+FLOW_HEAT_THRESHOLD = 0.05
 
 
 FRIENDLY_KEYWORDS = ("友谊", "球会友谊", "国际友谊", "热身", "慈善", "表演赛")
@@ -201,13 +202,158 @@ def flow_number(value: str) -> float | None:
         return None
 
 
+def pct_display(value: float | None) -> str:
+    if value is None:
+        return ""
+    return f"{value * 100:.1f}%"
+
+
+def signed_pct_display(value: float | None) -> str:
+    if value is None:
+        return ""
+    return f"{value * 100:+.1f}pct"
+
+
+def euro_no_draw_share(row: dict[str, str]) -> tuple[float, float] | None:
+    home = fnum(row, "euro_full_current_home_or_over")
+    draw = fnum(row, "euro_full_current_line_or_draw")
+    away = fnum(row, "euro_full_current_away_or_under")
+    if home is None or draw is None or away is None or min(home, draw, away) <= 0:
+        return None
+    inv_home = 1.0 / home
+    inv_draw = 1.0 / draw
+    inv_away = 1.0 / away
+    overround = inv_home + inv_draw + inv_away
+    if overround <= 0:
+        return None
+    p_home = inv_home / overround
+    p_away = inv_away / overround
+    side_total = p_home + p_away
+    if side_total <= 0:
+        return None
+    return p_home / side_total, p_away / side_total
+
+
+def asian_water_share(row: dict[str, str]) -> tuple[float, float] | None:
+    home_water = fnum(row, "ah_full_current_home_or_over")
+    away_water = fnum(row, "ah_full_current_away_or_under")
+    if home_water is None or away_water is None or min(home_water, away_water) <= -0.99:
+        return None
+    home_imp = 1.0 / (1.0 + home_water)
+    away_imp = 1.0 / (1.0 + away_water)
+    total = home_imp + away_imp
+    if total <= 0:
+        return None
+    return home_imp / total, away_imp / total
+
+
+def theoretical_flow_share(row: dict[str, str]) -> dict[str, object]:
+    parts: list[tuple[str, float, float]] = []
+    euro = euro_no_draw_share(row)
+    if euro:
+        parts.append(("欧赔去水非平", euro[0], euro[1]))
+    asian = asian_water_share(row)
+    if asian:
+        parts.append(("亚盘水位", asian[0], asian[1]))
+    if not parts:
+        return {"home": None, "away": None, "basis": "缺欧赔/亚盘可用价格"}
+    home = sum(part[1] for part in parts) / len(parts)
+    away = sum(part[2] for part in parts) / len(parts)
+    return {"home": home, "away": away, "basis": "+".join(part[0] for part in parts)}
+
+
+def actual_team_flow_share(row: dict[str, str]) -> dict[str, object]:
+    flow_rows = row.get("_flow") if isinstance(row.get("_flow"), list) else []
+    home_amount = away_amount = draw_amount = 0.0
+    home_pct = away_pct = draw_pct = None
+    for item in flow_rows:
+        side = (item.get("市场项") or "").strip()
+        amount = flow_number(item.get("交易量", ""))
+        pct = flow_number(item.get("交易比例", ""))
+        if side == "主":
+            if amount is not None:
+                home_amount += amount
+            home_pct = pct if pct is not None else home_pct
+        elif side == "客":
+            if amount is not None:
+                away_amount += amount
+            away_pct = pct if pct is not None else away_pct
+        elif side == "和":
+            if amount is not None:
+                draw_amount += amount
+            draw_pct = pct if pct is not None else draw_pct
+    amount_total = home_amount + away_amount
+    if amount_total > 0:
+        return {
+            "home": home_amount / amount_total,
+            "away": away_amount / amount_total,
+            "draw": draw_amount,
+            "basis": "主客成交额归一",
+            "home_raw": home_amount,
+            "away_raw": away_amount,
+            "draw_raw": draw_amount,
+        }
+    pct_total = (home_pct or 0.0) + (away_pct or 0.0)
+    if pct_total > 0:
+        return {
+            "home": (home_pct or 0.0) / pct_total,
+            "away": (away_pct or 0.0) / pct_total,
+            "draw": draw_pct,
+            "basis": "主客交易比例归一",
+            "home_raw": home_pct,
+            "away_raw": away_pct,
+            "draw_raw": draw_pct,
+        }
+    return {"home": None, "away": None, "draw": draw_pct, "basis": "缺主客资金"}
+
+
+def flow_heat_audit(row: dict[str, str]) -> dict[str, object]:
+    theory = theoretical_flow_share(row)
+    actual = actual_team_flow_share(row)
+    t_home = theory.get("home")
+    t_away = theory.get("away")
+    a_home = actual.get("home")
+    a_away = actual.get("away")
+    if not isinstance(t_home, float) or not isinstance(t_away, float) or not isinstance(a_home, float) or not isinstance(a_away, float):
+        return {
+            "theory_home": t_home if isinstance(t_home, float) else None,
+            "theory_away": t_away if isinstance(t_away, float) else None,
+            "actual_home": a_home if isinstance(a_home, float) else None,
+            "actual_away": a_away if isinstance(a_away, float) else None,
+            "delta_home": None,
+            "delta_away": None,
+            "overheat_side": "",
+            "threshold": FLOW_HEAT_THRESHOLD,
+            "basis": str(theory.get("basis") or ""),
+            "actual_basis": str(actual.get("basis") or ""),
+        }
+    delta_home = a_home - t_home
+    delta_away = a_away - t_away
+    if delta_home > FLOW_HEAT_THRESHOLD and delta_home >= delta_away:
+        overheat = "home"
+    elif delta_away > FLOW_HEAT_THRESHOLD:
+        overheat = "away"
+    else:
+        overheat = ""
+    return {
+        "theory_home": t_home,
+        "theory_away": t_away,
+        "actual_home": a_home,
+        "actual_away": a_away,
+        "delta_home": delta_home,
+        "delta_away": delta_away,
+        "overheat_side": overheat,
+        "threshold": FLOW_HEAT_THRESHOLD,
+        "basis": str(theory.get("basis") or ""),
+        "actual_basis": str(actual.get("basis") or ""),
+    }
+
+
 def summarize_flow(row: dict[str, str], compact: bool = False) -> str:
     flow_rows = row.get("_flow") if isinstance(row.get("_flow"), list) else []
     if not flow_rows:
         return "资金流未验证：沿用亚盘EV框架（无PM/必发匹配）"
     items = []
-    max_side = ""
-    max_amount = -1.0
     total = ""
     source_url = ""
     for item in flow_rows:
@@ -220,12 +366,17 @@ def summarize_flow(row: dict[str, str], compact: bool = False) -> str:
         source_url = source_url or (item.get("source_url") or "").strip()
         if side:
             items.append(f"{side}{amount or '无量'}({pct or '无比例'},价{price or 'NA'},盈亏{profit or 'NA'})")
-        amount_num = flow_number(amount)
-        if amount_num is not None and amount_num > max_amount and side in {"主", "客"}:
-            max_amount = amount_num
-            max_side = side
-    direction = {"主": "主队", "客": "客队"}.get(max_side, "未判定")
-    base = f"Chuqi必发衍生：实际资金流向={direction}；总成交{total or '未列'}；" + "；".join(items)
+    audit = flow_heat_audit(row)
+    overheat_side = str(audit.get("overheat_side") or "")
+    direction = side_team(row, overheat_side) if overheat_side else "无过热侧"
+    theory = f"理论主{pct_display(audit.get('theory_home') if isinstance(audit.get('theory_home'), float) else None)}/客{pct_display(audit.get('theory_away') if isinstance(audit.get('theory_away'), float) else None)}"
+    actual = f"实际主{pct_display(audit.get('actual_home') if isinstance(audit.get('actual_home'), float) else None)}/客{pct_display(audit.get('actual_away') if isinstance(audit.get('actual_away'), float) else None)}"
+    delta = f"偏离主{signed_pct_display(audit.get('delta_home') if isinstance(audit.get('delta_home'), float) else None)}/客{signed_pct_display(audit.get('delta_away') if isinstance(audit.get('delta_away'), float) else None)}"
+    base = (
+        f"Chuqi必发衍生：{theory}；{actual}；{delta}；"
+        f"过热侧={direction}（超过理论占比5pct才算）；总成交{total or '未列'}；"
+        + "；".join(items)
+    )
     if compact:
         return base if len(base) <= 130 else base[:130] + "..."
     if source_url:
@@ -286,16 +437,7 @@ def asian_upper_home_away(row: dict[str, str]) -> str:
 
 
 def flow_direction_home_away(row: dict[str, str]) -> str:
-    flow_rows = row.get("_flow") if isinstance(row.get("_flow"), list) else []
-    best_side = ""
-    best_amount = -1.0
-    for item in flow_rows:
-        side = (item.get("市场项") or "").strip()
-        amount = flow_number(item.get("交易量", ""))
-        if amount is not None and amount > best_amount and side in {"主", "客"}:
-            best_amount = amount
-            best_side = side
-    return {"主": "home", "客": "away"}.get(best_side, "")
+    return str(flow_heat_audit(row).get("overheat_side") or "")
 
 
 def target_home_away(row: dict[str, str], target_side: str) -> str:
@@ -334,7 +476,8 @@ def target_water_status(row: dict[str, str], target_side: str) -> str:
 
 def flow_overlay_fields(row: dict[str, str]) -> dict[str, str]:
     intent = normalize_intent_from_text(asian_intent_candidate(row))
-    flow_ha = flow_direction_home_away(row)
+    heat = flow_heat_audit(row)
+    flow_ha = str(heat.get("overheat_side") or "")
     upper = asian_upper_home_away(row)
     lower = "away" if upper == "home" else "home" if upper == "away" else ""
     upper_water_status = target_water_status(row, "上盘")
@@ -347,6 +490,15 @@ def flow_overlay_fields(row: dict[str, str]) -> dict[str, str]:
         return {
             "候选标签": intent,
             "阻诱目标侧": target_side or "未识别",
+            "理论资金主队占比": pct_display(heat.get("theory_home") if isinstance(heat.get("theory_home"), float) else None),
+            "理论资金客队占比": pct_display(heat.get("theory_away") if isinstance(heat.get("theory_away"), float) else None),
+            "实际资金主队占比": "",
+            "实际资金客队占比": "",
+            "资金偏离主队": "",
+            "资金偏离客队": "",
+            "资金过热侧": "未验证",
+            "过热阈值": "+5.0pct",
+            "理论占比依据": str(heat.get("basis") or ""),
             "实际资金流向": "未验证",
             "目标侧水位甜头": water_status,
             "意图成败": "资金流缺口-沿用亚盘EV框架",
@@ -404,7 +556,16 @@ def flow_overlay_fields(row: dict[str, str]) -> dict[str, str]:
     return {
         "候选标签": intent,
         "阻诱目标侧": target_side or "未识别",
-        "实际资金流向": side_team(row, flow_ha) or "未判定",
+        "理论资金主队占比": pct_display(heat.get("theory_home") if isinstance(heat.get("theory_home"), float) else None),
+        "理论资金客队占比": pct_display(heat.get("theory_away") if isinstance(heat.get("theory_away"), float) else None),
+        "实际资金主队占比": pct_display(heat.get("actual_home") if isinstance(heat.get("actual_home"), float) else None),
+        "实际资金客队占比": pct_display(heat.get("actual_away") if isinstance(heat.get("actual_away"), float) else None),
+        "资金偏离主队": signed_pct_display(heat.get("delta_home") if isinstance(heat.get("delta_home"), float) else None),
+        "资金偏离客队": signed_pct_display(heat.get("delta_away") if isinstance(heat.get("delta_away"), float) else None),
+        "资金过热侧": side_team(row, flow_ha) if flow_ha else "无（均未超过理论占比+5pct）",
+        "过热阈值": "+5.0pct",
+        "理论占比依据": str(heat.get("basis") or ""),
+        "实际资金流向": side_team(row, flow_ha) or "无过热侧",
         "目标侧水位甜头": water_status,
         "意图成败": result,
         "资金流修正方向": fix_side or "不修正",
@@ -420,6 +581,8 @@ def write_flow_overlay(rows: list[dict[str, str]], source: Path | None) -> Path:
     fields = [
         "统计日期", "资金流源文件", "日期", "开赛时间", "比赛ID", "赛事", "比赛",
         "盘口", "亚盘即时", "欧赔即时", "大小球即时", "候选标签", "阻诱目标侧",
+        "理论资金主队占比", "理论资金客队占比", "实际资金主队占比", "实际资金客队占比",
+        "资金偏离主队", "资金偏离客队", "资金过热侧", "过热阈值", "理论占比依据",
         "实际资金流向", "目标侧水位甜头", "意图成败", "资金流修正方向",
         "资金流修正球队", "资金流来源", "资金流时间戳", "资金流摘要",
     ]
