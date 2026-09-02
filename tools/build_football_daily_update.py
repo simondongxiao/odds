@@ -368,10 +368,21 @@ def summarize_flow(row: dict[str, str], compact: bool = False) -> str:
             items.append(f"{side}{amount or '无量'}({pct or '无比例'},价{price or 'NA'},盈亏{profit or 'NA'})")
     audit = flow_heat_audit(row)
     overheat_side = str(audit.get("overheat_side") or "")
-    direction = side_team(row, overheat_side) if overheat_side else "无过热侧"
-    theory = f"理论主{pct_display(audit.get('theory_home') if isinstance(audit.get('theory_home'), float) else None)}/客{pct_display(audit.get('theory_away') if isinstance(audit.get('theory_away'), float) else None)}"
-    actual = f"实际主{pct_display(audit.get('actual_home') if isinstance(audit.get('actual_home'), float) else None)}/客{pct_display(audit.get('actual_away') if isinstance(audit.get('actual_away'), float) else None)}"
-    delta = f"偏离主{signed_pct_display(audit.get('delta_home') if isinstance(audit.get('delta_home'), float) else None)}/客{signed_pct_display(audit.get('delta_away') if isinstance(audit.get('delta_away'), float) else None)}"
+    t_home = audit.get("theory_home") if isinstance(audit.get("theory_home"), float) else None
+    t_away = audit.get("theory_away") if isinstance(audit.get("theory_away"), float) else None
+    a_home = audit.get("actual_home") if isinstance(audit.get("actual_home"), float) else None
+    a_away = audit.get("actual_away") if isinstance(audit.get("actual_away"), float) else None
+    d_home = audit.get("delta_home") if isinstance(audit.get("delta_home"), float) else None
+    d_away = audit.get("delta_away") if isinstance(audit.get("delta_away"), float) else None
+    if a_home is None or a_away is None:
+        direction = "资金字段缺口"
+        actual = "实际主客资金缺失"
+        delta = "偏离无法计算"
+    else:
+        direction = side_team(row, overheat_side) if overheat_side else "无过热侧"
+        actual = f"实际主{pct_display(a_home)}/客{pct_display(a_away)}"
+        delta = f"偏离主{signed_pct_display(d_home)}/客{signed_pct_display(d_away)}"
+    theory = f"理论主{pct_display(t_home)}/客{pct_display(t_away)}"
     base = (
         f"Chuqi必发衍生：{theory}；{actual}；{delta}；"
         f"过热侧={direction}（超过理论占比5pct才算）；总成交{total or '未列'}；"
@@ -507,6 +518,28 @@ def flow_overlay_fields(row: dict[str, str]) -> dict[str, str]:
             "资金流来源": "未匹配Chuqi/PM/Betfair",
             "资金流时间戳": "",
         }
+    actual_missing = not isinstance(heat.get("actual_home"), float) or not isinstance(heat.get("actual_away"), float)
+    if actual_missing:
+        return {
+            "候选标签": intent,
+            "阻诱目标侧": target_side or "未识别",
+            "理论资金主队占比": pct_display(heat.get("theory_home") if isinstance(heat.get("theory_home"), float) else None),
+            "理论资金客队占比": pct_display(heat.get("theory_away") if isinstance(heat.get("theory_away"), float) else None),
+            "实际资金主队占比": "",
+            "实际资金客队占比": "",
+            "资金偏离主队": "",
+            "资金偏离客队": "",
+            "资金过热侧": "资金字段缺口",
+            "过热阈值": "+5.0pct",
+            "理论占比依据": str(heat.get("basis") or ""),
+            "实际资金流向": "资金字段缺口",
+            "目标侧水位甜头": water_status,
+            "意图成败": "资金流字段缺口-沿用亚盘EV框架",
+            "资金流修正方向": "不因资金流修正",
+            "资金流修正球队": "",
+            "资金流来源": "Chuqi必发衍生页面匹配但缺主客资金",
+            "资金流时间戳": (flow_rows[0].get("抓取时间") or "") if flow_rows else "",
+        }
 
     if "阻上" in intent and "诱下" in intent:
         if flow_ha == upper and upper_water_status == "甜头仍在":
@@ -562,10 +595,10 @@ def flow_overlay_fields(row: dict[str, str]) -> dict[str, str]:
         "实际资金客队占比": pct_display(heat.get("actual_away") if isinstance(heat.get("actual_away"), float) else None),
         "资金偏离主队": signed_pct_display(heat.get("delta_home") if isinstance(heat.get("delta_home"), float) else None),
         "资金偏离客队": signed_pct_display(heat.get("delta_away") if isinstance(heat.get("delta_away"), float) else None),
-        "资金过热侧": side_team(row, flow_ha) if flow_ha else "无（均未超过理论占比+5pct）",
+        "资金过热侧": "资金字段缺口" if actual_missing else (side_team(row, flow_ha) if flow_ha else "无（均未超过理论占比+5pct）"),
         "过热阈值": "+5.0pct",
         "理论占比依据": str(heat.get("basis") or ""),
-        "实际资金流向": side_team(row, flow_ha) or "无过热侧",
+        "实际资金流向": "资金字段缺口" if actual_missing else (side_team(row, flow_ha) or "无过热侧"),
         "目标侧水位甜头": water_status,
         "意图成败": result,
         "资金流修正方向": fix_side or "不修正",
