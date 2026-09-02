@@ -3126,6 +3126,17 @@ function sameLineVeto(cell, mode) {{
   return "";
 }}
 
+function fundsFlowAuditText(r) {{
+  const flow = String(r.flow || "").trim();
+  if (!flow || flow.includes("未验证") || flow.includes("未匹配") || flow.includes("无PM/必发匹配") || flow.includes("缺失")) {{
+    return "资金流未验证：沿用亚盘EV框架，不因缺PM/必发自动不投或翻向。";
+  }}
+  if (flow.includes("Chuqi") || flow.includes("必发")) {{
+    return `资金流已接入：${{clean(flow)}}；按资金流验证矩阵审计阻/诱是否成功。`;
+  }}
+  return `资金流状态：${{clean(flow)}}。`;
+}}
+
 function frameworkDecision(r, cell = null) {{
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
@@ -3188,9 +3199,9 @@ function frameworkDecision(r, cell = null) {{
 function skillBetDecision(r, cell = null) {{
   const decision = frameworkDecision(r, cell);
   if (decision.action === "不投") {{
-    return `是否投注：不投；未通过环节：${{decision.reason}}。`;
+    return `是否投注：不投；未通过环节：${{decision.reason}}。${{fundsFlowAuditText(r)}}`;
   }}
-  return `是否投注：${{decision.action}}；投注方向：${{decision.mode === "reverse" ? "反向" : "正向"}}；正期望方：${{decision.team}}；${{decision.reason}}。`;
+  return `是否投注：${{decision.action}}；投注方向：${{decision.mode === "reverse" ? "反向" : "正向"}}；正期望方：${{decision.team}}；${{decision.reason}}。${{fundsFlowAuditText(r)}}`;
 }}
 
 function top5RateText(stats, mode) {{
@@ -3302,7 +3313,7 @@ function isOddsUnavailable(v) {{
 function sourceStatus(v) {{
   const s = clean(v);
   if (s.includes("冲突")) return "冲突待核";
-  if (s.includes("未接入") || s.includes("未匹配") || s.includes("未核") || s.includes("缺失")) return "未接入/待核";
+  if (s.includes("未接入") || s.includes("未匹配") || s.includes("未核") || s.includes("缺失") || s.includes("未验证")) return "未接入/待核";
   if (s.includes("部分") || s.includes("账本")) return "部分接入";
   return "已接入";
 }}

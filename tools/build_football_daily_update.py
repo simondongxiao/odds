@@ -4,6 +4,7 @@ import csv
 import datetime as dt
 import math
 import importlib.util
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -13,6 +14,7 @@ ROOT = Path(r"D:\codex\outputs\football_odds_trader")
 RAW = ROOT / "raw" / "titan007"
 DAILY = ROOT / "daily"
 LEDGER = ROOT / "ledger" / "simulated_bets.csv"
+FLOW_DIR = ROOT / "flows"
 TODAY = dt.datetime.now().date()
 SLATE_END_HOUR = 12
 BANKROLL = 500.0
@@ -96,6 +98,289 @@ def latest_snapshot() -> Path:
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open("r", encoding="utf-8-sig", newline="") as f:
         return list(csv.DictReader(f))
+
+
+def latest_flow_file() -> Path | None:
+    files = sorted(FLOW_DIR.glob("chuqi_bifa_flow_*.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
+    return files[0] if files else None
+
+
+def norm_team(value: str) -> str:
+    text = re.sub(r"\[[^\]]+\]", "", value or "")
+    text = re.sub(r"\([^)]*\)", "", text)
+    text = re.sub(r"[\s　·・.．,，、/\\-]+", "", text)
+    return text.strip().lower()
+
+
+def norm_flow_time(value: str) -> str:
+    text = (value or "").strip()
+    m = re.search(r"(\d{4})-(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})", text)
+    if m:
+        return f"{int(m.group(2)):02d}-{int(m.group(3)):02d} {int(m.group(4)):02d}:{m.group(5)}"
+    m = re.search(r"(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})", text)
+    if m:
+        return f"{int(m.group(1)):02d}-{int(m.group(2)):02d} {int(m.group(3)):02d}:{m.group(4)}"
+    m = re.search(r"(\d{1,2}):(\d{2})", text)
+    if m:
+        return f"{TODAY.month:02d}-{TODAY.day:02d} {int(m.group(1)):02d}:{m.group(2)}"
+    return text
+
+
+def flow_key(home: str, away: str, when: str) -> tuple[str, str, str]:
+    return (norm_flow_time(when), norm_team(home), norm_team(away))
+
+
+def load_flow_lookup() -> tuple[Path | None, dict[tuple[str, str, str], list[dict[str, str]]]]:
+    path = latest_flow_file()
+    if not path:
+        return None, {}
+    lookup: dict[tuple[str, str, str], list[dict[str, str]]] = defaultdict(list)
+    for row in read_csv(path):
+        home = row.get("主队", "")
+        away = row.get("客队", "")
+        when = row.get("开赛时间_北京时间", "") or row.get("列表时间", "")
+        if not (home and away and when):
+            continue
+        lookup[flow_key(home, away, when)].append(row)
+    return path, dict(lookup)
+
+
+def attach_flow(row: dict[str, str], flow_lookup: dict[tuple[str, str, str], list[dict[str, str]]]) -> None:
+    row["_flow"] = flow_lookup.get(flow_key(row.get("home_cn", ""), row.get("away_cn", ""), row.get("bj_time", "")), [])
+
+
+def flow_number(value: str) -> float | None:
+    text = (value or "").replace(",", "").replace("%", "").strip()
+    if not text:
+        return None
+    try:
+        return float(text)
+    except ValueError:
+        return None
+
+
+def summarize_flow(row: dict[str, str], compact: bool = False) -> str:
+    flow_rows = row.get("_flow") if isinstance(row.get("_flow"), list) else []
+    if not flow_rows:
+        return "资金流未验证：沿用亚盘EV框架（无PM/必发匹配）"
+    items = []
+    max_side = ""
+    max_amount = -1.0
+    total = ""
+    source_url = ""
+    for item in flow_rows:
+        side = (item.get("市场项") or "").strip()
+        amount = (item.get("交易量") or "").strip()
+        pct = (item.get("交易比例") or "").strip()
+        price = (item.get("必发价位") or "").strip()
+        profit = (item.get("庄家盈亏") or "").strip()
+        total = total or (item.get("总交易量_三项合计") or "").strip()
+        source_url = source_url or (item.get("source_url") or "").strip()
+        if side:
+            items.append(f"{side}{amount or '无量'}({pct or '无比例'},价{price or 'NA'},盈亏{profit or 'NA'})")
+        amount_num = flow_number(amount)
+        if amount_num is not None and amount_num > max_amount and side in {"主", "客"}:
+            max_amount = amount_num
+            max_side = side
+    direction = {"主": "主队", "客": "客队"}.get(max_side, "未判定")
+    base = f"Chuqi必发衍生：实际资金流向={direction}；总成交{total or '未列'}；" + "；".join(items)
+    if compact:
+        return base if len(base) <= 130 else base[:130] + "..."
+    if source_url:
+        base += f"；来源{source_url}"
+    return base
+
+
+def summarize_liquidity(row: dict[str, str]) -> str:
+    flow_rows = row.get("_flow") if isinstance(row.get("_flow"), list) else []
+    if not flow_rows:
+        return "Titan价格流；PM/必发/BTTS未匹配；资金流未验证不改变亚盘EV流程"
+    max_trade = ""
+    max_trade_time = ""
+    latest_time = ""
+    for item in flow_rows:
+        latest_time = latest_time or (item.get("最新曲线时间") or "")
+        amount = flow_number(item.get("最大明细成交额", ""))
+        if amount is not None and (not max_trade or amount > (flow_number(max_trade) or -1)):
+            max_trade = item.get("最大明细成交额", "")
+            max_trade_time = item.get("最大明细时间", "")
+    return f"Chuqi必发衍生流动性；最新曲线{latest_time or '未列'}；最大明细成交{max_trade or '未列'}@{max_trade_time or '未列'}；Titan盘口价格流"
+
+
+def normalize_intent_from_text(value: str) -> str:
+    text = value or ""
+    marker = "亚盘意图候选："
+    if marker in text:
+        text = text.split(marker, 1)[1]
+    text = text.split("（", 1)[0].split("；", 1)[0].strip()
+    return text.replace(" / ", "/").replace(" ", "")
+
+
+def intent_target_side(intent_tag: str) -> str:
+    tag = intent_tag or ""
+    if "阻上" in tag or "诱上" in tag:
+        return "上盘"
+    if "阻下" in tag or "诱下" in tag:
+        return "下盘"
+    return ""
+
+
+def asian_upper_home_away(row: dict[str, str]) -> str:
+    ah_now = fnum(row, "ah_full_current_line_or_draw")
+    euro_home = fnum(row, "euro_full_current_home_or_over")
+    euro_away = fnum(row, "euro_full_current_away_or_under")
+    if ah_now is None:
+        return ""
+    if ah_now > 0:
+        return "home"
+    if ah_now < 0:
+        return "away"
+    if euro_home and euro_away:
+        if euro_home < euro_away:
+            return "home"
+        if euro_away < euro_home:
+            return "away"
+    return ""
+
+
+def flow_direction_home_away(row: dict[str, str]) -> str:
+    flow_rows = row.get("_flow") if isinstance(row.get("_flow"), list) else []
+    best_side = ""
+    best_amount = -1.0
+    for item in flow_rows:
+        side = (item.get("市场项") or "").strip()
+        amount = flow_number(item.get("交易量", ""))
+        if amount is not None and amount > best_amount and side in {"主", "客"}:
+            best_amount = amount
+            best_side = side
+    return {"主": "home", "客": "away"}.get(best_side, "")
+
+
+def target_home_away(row: dict[str, str], target_side: str) -> str:
+    upper = asian_upper_home_away(row)
+    if not upper or target_side not in {"上盘", "下盘"}:
+        return ""
+    if target_side == "上盘":
+        return upper
+    return "away" if upper == "home" else "home"
+
+
+def side_team(row: dict[str, str], side: str) -> str:
+    if side == "home":
+        return row.get("home_cn", "")
+    if side == "away":
+        return row.get("away_cn", "")
+    return ""
+
+
+def target_water_status(row: dict[str, str], target_side: str) -> str:
+    upper = asian_upper_home_away(row)
+    home_water = fnum(row, "ah_full_current_home_or_over")
+    away_water = fnum(row, "ah_full_current_away_or_under")
+    if upper not in {"home", "away"} or home_water is None or away_water is None or target_side not in {"上盘", "下盘"}:
+        return "水位无法判定"
+    upper_water = home_water if upper == "home" else away_water
+    lower_water = away_water if upper == "home" else home_water
+    target_water = upper_water if target_side == "上盘" else lower_water
+    other_water = lower_water if target_side == "上盘" else upper_water
+    if target_water >= 0.90 or target_water >= other_water + 0.06:
+        return "甜头仍在"
+    if target_water <= 0.84 or target_water <= other_water - 0.06:
+        return "甜头收回"
+    return "无明显甜头"
+
+
+def flow_overlay_fields(row: dict[str, str]) -> dict[str, str]:
+    intent = normalize_intent_from_text(asian_intent_candidate(row))
+    target_side = intent_target_side(intent)
+    target_ha = target_home_away(row, target_side)
+    flow_ha = flow_direction_home_away(row)
+    water_status = target_water_status(row, target_side)
+    flow_rows = row.get("_flow") if isinstance(row.get("_flow"), list) else []
+    if not flow_rows:
+        return {
+            "候选标签": intent,
+            "阻诱目标侧": target_side or "未识别",
+            "实际资金流向": "未验证",
+            "目标侧水位甜头": water_status,
+            "意图成败": "资金流缺口-沿用亚盘EV框架",
+            "资金流修正方向": "不因资金流修正",
+            "资金流修正球队": "",
+            "资金流来源": "未匹配Chuqi/PM/Betfair",
+            "资金流时间戳": "",
+        }
+    flow_on_target = bool(flow_ha and target_ha and flow_ha == target_ha)
+    if "阻上" in intent:
+        success = not flow_on_target
+        reverse = flow_on_target and water_status == "甜头仍在"
+        fix_side = "下盘" if reverse else "上盘"
+        result = "阻上成功/保护上盘" if success else ("阻上失败-反向警报" if reverse else "阻上未完全验证")
+    elif "阻下" in intent:
+        success = not flow_on_target
+        reverse = flow_on_target and water_status == "甜头仍在"
+        fix_side = "上盘" if reverse else "下盘"
+        result = "阻下成功/保护下盘" if success else ("阻下失败-反向警报" if reverse else "阻下未完全验证")
+    elif "诱上" in intent:
+        fix_side = "下盘"
+        result = "诱上成功-反向下盘" if flow_on_target else "诱上未成-回归下盘/观察"
+    elif "诱下" in intent:
+        fix_side = "上盘"
+        result = "诱下成功-反向上盘" if flow_on_target else "诱下未成-回归上盘"
+    else:
+        fix_side = ""
+        result = "非阻诱标签-仅记录资金流"
+    upper = asian_upper_home_away(row)
+    if fix_side == "上盘":
+        fix_ha = upper
+    elif fix_side == "下盘":
+        fix_ha = "away" if upper == "home" else "home" if upper == "away" else ""
+    else:
+        fix_ha = ""
+    return {
+        "候选标签": intent,
+        "阻诱目标侧": target_side or "未识别",
+        "实际资金流向": side_team(row, flow_ha) or "未判定",
+        "目标侧水位甜头": water_status,
+        "意图成败": result,
+        "资金流修正方向": fix_side or "不修正",
+        "资金流修正球队": side_team(row, fix_ha),
+        "资金流来源": "Chuqi必发衍生",
+        "资金流时间戳": (flow_rows[0].get("抓取时间") or "") if flow_rows else "",
+    }
+
+
+def write_flow_overlay(rows: list[dict[str, str]], source: Path | None) -> Path:
+    out = ROOT / "ledger" / f"funds_flow_intent_overlay_{TODAY.isoformat()}.csv"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fields = [
+        "统计日期", "资金流源文件", "日期", "开赛时间", "比赛ID", "赛事", "比赛",
+        "盘口", "亚盘即时", "欧赔即时", "大小球即时", "候选标签", "阻诱目标侧",
+        "实际资金流向", "目标侧水位甜头", "意图成败", "资金流修正方向",
+        "资金流修正球队", "资金流来源", "资金流时间戳", "资金流摘要",
+    ]
+    with out.open("w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fields)
+        writer.writeheader()
+        for row in rows:
+            fields_row = flow_overlay_fields(row)
+            writer.writerow(
+                {
+                    "统计日期": TODAY.isoformat(),
+                    "资金流源文件": str(source or ""),
+                    "日期": TODAY.isoformat(),
+                    "开赛时间": f"2026-{row.get('bj_time','')}",
+                    "比赛ID": row.get("match_id", ""),
+                    "赛事": row.get("league_cn", ""),
+                    "比赛": f"{row.get('home_cn','')} vs {row.get('away_cn','')}",
+                    "盘口": row.get("ah_full_current_line_or_draw", ""),
+                    "亚盘即时": fmt_ah(row),
+                    "欧赔即时": fmt_euro(row),
+                    "大小球即时": fmt_total(row),
+                    **fields_row,
+                    "资金流摘要": summarize_flow(row),
+                }
+            )
+    return out
 
 
 def load_details() -> dict[str, dict[str, str]]:
@@ -561,7 +846,7 @@ def completeness_counts(rows: list[dict[str, str]]) -> list[tuple[str, int, int,
         ("近5场", lambda r: bool(detail_for(r).get("recent_form_summary")), "Titan007/球探Analysis状态/近况摘要"),
         ("H2H", lambda r: bool(detail_for(r).get("h2h_summary")), "Titan007/球探Analysis交锋摘要"),
         ("赢盘/输盘记录", lambda r: detail_for(r).get("handicap_record_ok") == "1", "Titan007/球探历史盘口片段已抓取，未完全归一化"),
-        ("PM/必发资金流", lambda _r: False, "未接入合约/orderbook/成交量"),
+        ("PM/必发资金流", lambda r: bool(r.get("_flow")), "Chuqi必发衍生精确匹配；未匹配则沿用亚盘EV框架，不作翻向依据"),
         ("公共分析观点", lambda _r: False, "未接入博主/盘口观点交叉验证"),
     ]
     total = len(rows)
@@ -667,11 +952,13 @@ def asian_intent_candidate(row: dict[str, str]) -> str:
         missing.append("近5场")
     if not detail.get("h2h_summary"):
         missing.append("H2H")
-    missing.extend(["PM/必发资金流"])
+    flow_text = summarize_flow(row, compact=True)
+    if not row.get("_flow"):
+        missing.extend(["PM/必发资金流"])
     return (
         f"亚盘意图候选：{'/'.join(candidates)}（{evidence}）；"
         f"依据：{fav}，{line_state}，上盘水位{fav_water:.2f}，下盘水位{under_water:.2f}，{euro_state}；"
-        f"缺{ '、'.join(missing) if missing else 'PM/必发资金流' }；资金流缺口仅作证据折扣，亚盘下注由EV漏斗决定"
+        f"{'缺' + '、'.join(missing) + '；' if missing else ''}{flow_text}；亚盘下注由EV漏斗决定"
     )
 
 
@@ -715,6 +1002,7 @@ def detail_status_line(rows: list[dict[str, str]]) -> str:
 def main() -> int:
     snapshot = latest_snapshot()
     details = load_details()
+    flow_path, flow_lookup = load_flow_lookup()
     all_snapshot_rows = [r for r in read_csv(snapshot) if in_target_list_date(r)]
     ignored_friendlies = [r for r in all_snapshot_rows if is_friendy_or_ignored(r)]
     ignored_youth_reserve = [
@@ -740,9 +1028,11 @@ def main() -> int:
     sims = []
     for r in rows:
         r["_detail"] = details.get((r.get("match_id") or "").strip(), {})
+        attach_flow(r, flow_lookup)
         sim = choose_simulation(r, hist)
         r["_sim"] = sim
         sims.append(r)
+    flow_overlay_path = write_flow_overlay(rows, flow_path)
     prior_snapshot, drift_rows = snapshot_drift(rows, snapshot)
     drift_path, drift_csv_path = write_drift_files(snapshot, prior_snapshot, drift_rows)
 
@@ -766,10 +1056,12 @@ def main() -> int:
     lines.append(f"- 交易日窗口：{TODAY.isoformat()} 00:00 至 {(TODAY + dt.timedelta(days=1)).isoformat()} {SLATE_END_HOUR:02d}:00 北京时间。")
     lines.append(f"- 球探列表日成年正式比赛覆盖：{len(rows)} 场；已完场 {len(ended)}，进行中/待确认 {len(live)}，异常/改期 {len(abnormal)}，未开赛 {len(future)}。")
     lines.append(f"- 友谊赛默认忽略：{len(ignored_friendlies)} 场；青年/后备/U系列忽略：{len(ignored_youth_reserve)} 场；层级未知待确认：{len(tier_unknown_rows)} 场；无可验证盘口/赔率字段暂不纳入：{len(no_market_rows)} 场。")
-    lines.append("- 赔率源：Titan007即时快照；球探Lineup/Analysis详情已尝试结构化抓取；Polymarket/Betfair/BTTS未接入本次结构化抓取。")
+    matched_flow_count = sum(1 for r in rows if r.get("_flow"))
+    lines.append(f"- 赔率源：Titan007即时快照；球探Lineup/Analysis详情已尝试结构化抓取；资金流源：`{flow_path or '未抓到Chuqi必发衍生文件'}`，精确匹配 {matched_flow_count}/{len(rows)} 场；未匹配则沿用亚盘EV框架。")
+    lines.append(f"- 资金流验证底稿：`{flow_overlay_path}`。")
     lines.append(f"- {detail_status_line(rows)}")
     lines.append("- 严格纪律：未重新读取即时盘口不分析；没有对应市场真实价格不形成对应市场模拟；已开赛/已完场不补造赛前模拟。")
-    lines.append("- 真实亚盘线+两边水位齐全的未开赛比赛进入亚盘EV漏斗；PM/必发/BTTS缺口只禁止对应市场主单，不再一票否决亚盘。")
+    lines.append("- 真实亚盘线+两边水位齐全的未开赛比赛进入亚盘EV漏斗；PM/必发/BTTS缺口只禁止对应市场主单，不再一票否决亚盘；有资金流时按新增资金流验证矩阵确认或修正方向。")
     lines.append("")
 
     watch_only_count = len([r for r in future if r.get("_sim", {}).get("market") in ("亚盘意图框架-待EV筛选", "盘口快照-不形成模拟")])
@@ -789,7 +1081,7 @@ def main() -> int:
     for field, ok, miss, note in completeness_counts(rows):
         lines.append(f"| {field} | {ok} | {miss} | {note} |")
     lines.append("")
-    lines.append("- 结论：Titan007列表快照+球探详情可以补齐部分基本面；BTTS、PM/必发和公共观点缺口只阻断对应市场主单。亚盘是否可投以HTML红框EV漏斗为准。")
+    lines.append("- 结论：Titan007列表快照+球探详情可以补齐部分基本面；BTTS和公共观点缺口只阻断对应市场主单；PM/必发未匹配时亚盘不被自动否决，PM/必发匹配时作为资金流验证层。亚盘是否可投以HTML红框EV漏斗为准。")
     lines.append("")
 
     lines.append("## 上一版变动预警")
@@ -829,9 +1121,10 @@ def main() -> int:
             conclusion = "亚盘纸面模拟-真实不投"
         else:
             conclusion = "盘口缺失-不形成模拟"
+        flow_text = summarize_flow(r, compact=True)
         lines.append(
             f"| {r['league_cn']} | 2026-{r['bj_time']} | {r['home_cn']} vs {r['away_cn']} | "
-            f"{fundamental} | {price} | {euro_devig(r)} | {asian_intent_candidate(r)} | PM/BTTS缺；Titan价格流 | {conclusion} |"
+            f"{fundamental} | {price} | {euro_devig(r)} | {asian_intent_candidate(r)} | {flow_text} | {conclusion} |"
         )
     lines.append("")
 
@@ -916,15 +1209,15 @@ def main() -> int:
                 "虚拟仓位单位": stake_unit,
                 "基本面拉力": fundamental_text(r),
                 "盘口倾向": f"Titan007亚盘 {fmt_ah(r)}；欧赔 {fmt_euro(r)}；{euro_devig(r)}；大小球 {fmt_total(r)}；{asian_intent_candidate(r)}；{sim['bucket']}",
-                "Polymarket/交易所情绪": "缺失",
-                "流动性": "Titan价格流；PM/必发/BTTS缺",
+                "Polymarket/交易所情绪": summarize_flow(r),
+                "流动性": summarize_liquidity(r),
                 "模拟目的": "严格按skill：展示盘口快照和球探详情；PM/必发/BTTS缺口只禁止对应市场主单，亚盘按标签+微观+水位+同档+风控漏斗判断",
                 "是否主单": "否",
                 "赛果": result,
                 "模拟盈亏单位": pnl_status,
                 "过程评级": grade,
                 "错误类型": err,
-                "模型更新": "本次更新已重新读取即时盘口；亚盘方向由HTML红框EV漏斗给出；PM/BTTS/必发缺口不作为亚盘一票否决",
+                "模型更新": "本次更新已重新读取即时盘口；亚盘方向由HTML红框EV漏斗给出；无投注数据时沿用原亚盘EV框架，有Chuqi/必发匹配时按资金流验证矩阵审计",
             }
             sim_rows.append(out_row)
             writer.writerow(out_row)
@@ -1002,6 +1295,7 @@ def main() -> int:
     print(f"report={report_path}")
     print(f"sim_csv={sim_path}")
     print(f"grouped_review={grouped_review_path}")
+    print(f"flow_overlay={flow_overlay_path}")
     print(f"drift_report={drift_path}")
     print(f"drift_csv={drift_csv_path}")
     print(f"covered_today={len(rows)} ended={len(ended)} live={len(live)} future={len(future)}")
