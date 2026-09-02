@@ -464,6 +464,12 @@ def canonical_intent_tag(tag: str) -> str:
     return INTENT_TAG_ALIASES.get(compact, compact)
 
 
+def canonical_display_text(text: str) -> str:
+    out = str(text or "")
+    out = re.sub(r"阻下\s*/\s*上盘保护", "阻下/下盘保护", out)
+    return out
+
+
 def intent_tag_side(tag: str) -> str:
     compact = canonical_intent_tag(tag)
     if not compact or "平衡盘" in compact or "等待临场确认" in compact:
@@ -1050,7 +1056,7 @@ def translate_text(text: str) -> str:
     out = out.replace("BTTS No", "双方不进球")
     out = out.replace("U2.5", "小2.5")
     out = out.replace("O2.5", "大2.5")
-    return out
+    return canonical_display_text(out)
 
 
 def clean_missing_odds_text(text: str) -> str:
@@ -1079,7 +1085,7 @@ def clean_missing_odds_text(text: str) -> str:
     }
     for old, new in replacements.items():
         cleaned = cleaned.replace(old, new)
-    return cleaned
+    return canonical_display_text(cleaned)
 
 
 def display_time(value: str, matched: bool, date: str) -> str:
