@@ -292,9 +292,13 @@ def target_water_status(row: dict[str, str], target_side: str) -> str:
 
 def flow_overlay_fields(row: dict[str, str]) -> dict[str, str]:
     intent = normalize_intent_from_text(asian_intent_candidate(row))
+    flow_ha = flow_direction_home_away(row)
+    upper = asian_upper_home_away(row)
+    lower = "away" if upper == "home" else "home" if upper == "away" else ""
+    upper_water_status = target_water_status(row, "上盘")
+    lower_water_status = target_water_status(row, "下盘")
     target_side = intent_target_side(intent)
     target_ha = target_home_away(row, target_side)
-    flow_ha = flow_direction_home_away(row)
     water_status = target_water_status(row, target_side)
     flow_rows = row.get("_flow") if isinstance(row.get("_flow"), list) else []
     if not flow_rows:
@@ -309,27 +313,46 @@ def flow_overlay_fields(row: dict[str, str]) -> dict[str, str]:
             "资金流来源": "未匹配Chuqi/PM/Betfair",
             "资金流时间戳": "",
         }
-    flow_on_target = bool(flow_ha and target_ha and flow_ha == target_ha)
-    if "阻上" in intent:
-        success = not flow_on_target
-        reverse = flow_on_target and water_status == "甜头仍在"
-        fix_side = "下盘" if reverse else "上盘"
-        result = "阻上成功/保护上盘" if success else ("阻上失败-反向警报" if reverse else "阻上未完全验证")
-    elif "阻下" in intent:
-        success = not flow_on_target
-        reverse = flow_on_target and water_status == "甜头仍在"
-        fix_side = "上盘" if reverse else "下盘"
-        result = "阻下成功/保护下盘" if success else ("阻下失败-反向警报" if reverse else "阻下未完全验证")
-    elif "诱上" in intent:
-        fix_side = "下盘"
-        result = "诱上成功-反向下盘" if flow_on_target else "诱上未成-回归下盘/观察"
-    elif "诱下" in intent:
-        fix_side = "上盘"
-        result = "诱下成功-反向上盘" if flow_on_target else "诱下未成-回归上盘"
+
+    if "阻上" in intent and "诱下" in intent:
+        if flow_ha == upper and upper_water_status == "甜头仍在":
+            fix_side = "下盘"
+            result = "阻上失败-反向警报"
+        else:
+            fix_side = "上盘"
+            result = "诱下/保护上盘得到资金流验证" if flow_ha == lower else "阻上/诱下未完全验证-默认上盘"
+        target_side = "上盘/下盘"
+        water_status = f"上盘{upper_water_status};下盘{lower_water_status}"
+    elif "诱上" in intent and "阻下" in intent:
+        if flow_ha == lower and lower_water_status == "甜头仍在":
+            fix_side = "上盘"
+            result = "阻下失败-反向警报"
+        else:
+            fix_side = "下盘"
+            result = "诱上得到资金流验证" if flow_ha == upper else "诱上/阻下未完全验证-默认下盘"
+        target_side = "上盘/下盘"
+        water_status = f"上盘{upper_water_status};下盘{lower_water_status}"
     else:
-        fix_side = ""
-        result = "非阻诱标签-仅记录资金流"
-    upper = asian_upper_home_away(row)
+        flow_on_target = bool(flow_ha and target_ha and flow_ha == target_ha)
+        if "阻上" in intent:
+            success = not flow_on_target
+            reverse = flow_on_target and water_status == "甜头仍在"
+            fix_side = "下盘" if reverse else "上盘"
+            result = "阻上成功/保护上盘" if success else ("阻上失败-反向警报" if reverse else "阻上未完全验证")
+        elif "阻下" in intent:
+            success = not flow_on_target
+            reverse = flow_on_target and water_status == "甜头仍在"
+            fix_side = "上盘" if reverse else "下盘"
+            result = "阻下成功/保护下盘" if success else ("阻下失败-反向警报" if reverse else "阻下未完全验证")
+        elif "诱上" in intent:
+            fix_side = "下盘"
+            result = "诱上成功-反向下盘" if flow_on_target else "诱上未成-回归下盘/观察"
+        elif "诱下" in intent:
+            fix_side = "上盘"
+            result = "诱下成功-反向上盘" if flow_on_target else "诱下未成-回归上盘"
+        else:
+            fix_side = ""
+            result = "非阻诱标签-仅记录资金流"
     if fix_side == "上盘":
         fix_ha = upper
     elif fix_side == "下盘":
