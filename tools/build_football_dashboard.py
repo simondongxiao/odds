@@ -1126,6 +1126,8 @@ def display_time(value: str, matched: bool, date: str) -> str:
 
 
 def display_score(score: str, result: str, matched: bool) -> str:
+    if matched and score and score != "未匹配" and score != "-" and re.search(r"\d+\s*-\s*\d+", str(score)):
+        return strip_html(score)
     if result and result not in {"待赛", "待填"}:
         return strip_html(result)
     if matched and score and score != "未匹配" and score != "-":
@@ -1168,6 +1170,8 @@ def titan_state_name(state: str) -> str:
 def titan_state_label(state: str, matched: bool, result: str) -> str:
     if result and ("未匹配" in result or "待人工核验" in result):
         return "待核"
+    if state == "-1":
+        return "已结算" if result and result not in {"待赛", "待填"} else "完场"
     if result and result not in {"待赛", "待填"}:
         if is_titan_abnormal_state(state):
             return titan_state_name(state)
@@ -1176,8 +1180,6 @@ def titan_state_label(state: str, matched: bool, result: str) -> str:
         return "已结算"
     if not matched:
         return "待核"
-    if state == "-1":
-        return "完场"
     if state == "0":
         return "未开赛"
     if is_titan_live_state(state):
