@@ -740,6 +740,31 @@ def load_flow_overlay() -> dict[tuple[str, str], dict[str, str]]:
     return out
 
 
+def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
+    """Frozen walk-forward bettable rows used for started/settled audit views."""
+    out: dict[str, dict[str, str]] = {}
+    files = sorted(DETAIL_LEDGER.glob("bettable_event_detail_*.csv"), key=lambda p: p.stat().st_mtime)
+    for path in files:
+        for row in read_csv(path):
+            action = str(row.get("动作", "") or "").strip()
+            if action not in {"正向", "反向"}:
+                continue
+            match_id = match_id_from_row(row)
+            sim_id = str(row.get("比赛ID", "") or "").strip()
+            date = str(row.get("日期", "") or "").strip()
+            match = clean_team(row.get("比赛", ""))
+            row = {**row, "_source_file": str(path)}
+            if match_id:
+                out[f"id:{match_id}"] = row
+            if sim_id:
+                out[f"sim:{sim_id}"] = row
+            if date and match:
+                out[f"date_match:{date}|{match}"] = row
+            if match:
+                out[f"match:{match}"] = row
+    return out
+
+
 def top5_normalize_league(league: str) -> str:
     text = str(league or "").strip()
     return TOP5_LEAGUE_ALIASES.get(text, text)
@@ -1769,6 +1794,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
     final_scores = load_titan_over_scores()
     details = detail_lookup()
     flow_overlay = load_flow_overlay()
+    frozen_bettable = load_frozen_bettable_lookup()
     cards = []
     for r in today_rows:
         match = r.get("比赛", "")
@@ -1802,6 +1828,19 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
             or top5_policy.get("by_match_key", {}).get(top5_match_key(r))
             or {}
         )
+        match_id = str(o.get("match_id", "") or match_id_from_row(r)).strip()
+        sim_id = str(r.get("模拟ID", "") or "").strip()
+        frozen = (
+            (frozen_bettable.get(f"id:{match_id}") if match_id else None)
+            or (frozen_bettable.get(f"sim:{sim_id}") if sim_id else None)
+            or frozen_bettable.get(f"date_match:{date}|{clean_team(match)}")
+            or frozen_bettable.get(f"match:{clean_team(match)}")
+            or {}
+        )
+        frozen_action = str(frozen.get("动作", "") or "").strip()
+        frozen_mode = "reverse" if frozen_action == "反向" else ("forward" if frozen_action == "正向" else "none")
+        frozen_stake_coef = safe_float(frozen.get("仓位系数", ""))
+        frozen_bettable_action = "半仓可投" if frozen_stake_coef is not None and 0 < frozen_stake_coef < 1 else "可投"
         if "盘口快照" in r.get("市场框架", "") or "五板证据缺失" in r.get("错误类型", ""):
             final_action = "盘口快照/不形成模拟"
         elif "盘口缺失" in r.get("市场框架", "") or "不形成模拟" in r.get("市场框架", "") or "盘口未读取" in r.get("错误类型", ""):
@@ -1825,6 +1864,19 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "state": o["state"],
                 "state_label": titan_state_name(o["state"]),
                 "display_status": shown_status,
+                "match_id": match_id,
+                "sim_id": sim_id,
+                "frozen_bettable": frozen_mode != "none",
+                "frozen_bettable_mode": frozen_mode,
+                "frozen_bettable_action": frozen_bettable_action if frozen_mode != "none" else "",
+                "frozen_bettable_team": translate_text(frozen.get("投注球队", "")),
+                "frozen_bettable_side": translate_text(frozen.get("投注盘向", "")),
+                "frozen_bettable_water": safe_float(frozen.get("选中水位", "")),
+                "frozen_bettable_rate": safe_float(frozen.get("综合胜率", "")),
+                "frozen_bettable_threshold": safe_float(frozen.get("通过阈值", "")),
+                "frozen_bettable_settlement": translate_text(frozen.get("结算标签", "")),
+                "frozen_bettable_pnl": safe_float(frozen.get("实际盈亏Unit", "")),
+                "frozen_bettable_source": frozen.get("_source_file", ""),
                 "matched_odds": matched,
                 "rank": o["rank"],
                 "market": market_from_text(r),
@@ -3125,6 +3177,37 @@ function positiveTeamText(r, mode) {{
   return `${{team}}（${{direction}}）`;
 }}
 
+function frozenSkillDecision(r) {{
+  if (!r.frozen_bettable) return null;
+  const mode = String(r.frozen_bettable_mode || "none");
+  if (mode !== "forward" && mode !== "reverse") return null;
+  const action = String(r.frozen_bettable_action || "可投");
+  const teamName = clean(r.frozen_bettable_team || "");
+  const sideName = clean(r.frozen_bettable_side || "");
+  const team = teamName ? `${{teamName}}（${{mode === "reverse" ? "反向=" : ""}}${{sideName || "盘口方向"}}）` : positiveTeamText(r, mode);
+  const water = Number(r.frozen_bettable_water || 0);
+  const rate = Number(r.frozen_bettable_rate || 0);
+  const threshold = Number(r.frozen_bettable_threshold || 0);
+  const settlement = clean(r.frozen_bettable_settlement || "");
+  const pnl = Number(r.frozen_bettable_pnl || 0);
+  const details = [
+    `冻结赛前可投记录：${{action}}，方向=${{mode === "reverse" ? "反向" : "正向"}}，球队=${{teamName || "未识别"}}，盘口=${{sideName || "未识别"}}。`,
+    `冻结参数：选中水位${{water ? water.toFixed(2) : "缺失"}}，综合胜率${{rate ? pct(rate) : "缺失"}}，通过阈值${{threshold ? pct(threshold) : "缺失"}}。`,
+    `赛后跟踪：结算=${{settlement || "待结算"}}，盈亏=${{Number.isFinite(pnl) ? signed(pnl) : "待结算"}}；来源=${{clean(r.frozen_bettable_source || "bettable_event_detail")}}。`
+  ];
+  return {{
+    action,
+    mode,
+    team,
+    reason: `冻结赛前记录通过：综合胜率${{rate ? pct(rate) : "已通过"}} >= 阈值${{threshold ? pct(threshold) : "已通过"}}；状态不参与可投/不可投判断`,
+    details,
+    frozen: true,
+    water,
+    threshold,
+    rate
+  }};
+}}
+
 function microEdgeEntry(r) {{
   const region = String(r.micro_region || "").trim();
   const tag = String(r.intent_tag || "").trim();
@@ -3203,13 +3286,11 @@ function frameworkDecision(r, cell = null, options = {{}}) {{
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
   const region = String(r.micro_region || "").trim() || "未分类";
-  const ignoreStateGate = Boolean(options?.ignoreStateGate);
   const details = [];
   details.push(`1）当前盘口意图：${{line || "缺盘口档位"}} + ${{tag || "缺候选标签"}}；正向=${{positiveTeamText(r, "forward")}}；反向=${{positiveTeamText(r, "reverse")}}。`);
 
-  if (!ignoreStateGate && String(r.state || "").trim() !== "0") {{
-    details.push("状态门槛：本快照已开赛/完场，只允许更新比分、赛况、结算和复盘，不覆盖赛前投注结论。");
-    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "比赛已开赛/完场，本版本只做赛况/复盘，不作为赛前可投", details}};
+  if (String(r.state || "").trim() !== "0") {{
+    details.push("赛况提示：本快照已开赛/完场；只影响当前是否还能执行，不改变赛前skill可投/不可投结论。");
   }}
   if (!r.ah_ok) {{
     return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "亚盘盘口/两边水位缺失", details}};
@@ -3263,8 +3344,8 @@ function frameworkDecision(r, cell = null, options = {{}}) {{
   return {{action, mode, team, reason: `通过：综合胜率${{pct(rate)}} >= 阈值${{pct(threshold)}}；风控${{riskState}}`, details, edge, risk, water, threshold, rate}};
 }}
 
-function skillBetDecision(r, cell = null) {{
-  const decision = frameworkDecision(r, cell);
+function skillBetDecision(r, cell = null, decisionOverride = null) {{
+  const decision = decisionOverride || frameworkDecision(r, cell);
   if (decision.action === "不投") {{
     return `是否投注：不投；未通过环节：${{decision.reason}}。${{fundsFlowAuditText(r)}}`;
   }}
@@ -3292,16 +3373,14 @@ function top5Decision(r, options = {{}}) {{
   const policy = r.top5_policy || null;
   if (!policy || !policy.is_top5) return null;
   const mode = String(policy.selected_mode || "none");
-  const ignoreStateGate = Boolean(options?.ignoreStateGate);
   const details = [];
   details.push(`1）当前盘口意图：${{policy.line || "缺盘口档位"}} + ${{policy.tag || "缺候选标签"}}；盘口意图正向=${{positiveTeamText(r, "forward")}}；反向=${{positiveTeamText(r, "reverse")}}。`);
   details.push(`2）赛事级历史：${{top5StatsLine(policy.league || "赛事级", policy.league_stats)}} 选择=${{policy.league_choice?.mode === "reverse" ? "反向" : (policy.league_choice?.mode === "forward" ? "正向" : "不投")}}；原因=${{policy.league_choice?.reason || "无"}}。`);
   details.push(`3）盘口标签历史：${{top5StatsLine("同赛事同盘口+标签", policy.line_stats)}} 选择=${{policy.line_choice?.mode === "reverse" ? "反向" : (policy.line_choice?.mode === "forward" ? "正向" : "不投")}}；原因=${{policy.line_choice?.reason || "无"}}。`);
   details.push(`4）合并规则：若方向一致买一致；方向相反买历史胜率更高方；当前=${{policy.selected_source || "无"}}，${{policy.selected_reason || "无"}}。`);
 
-  if (!ignoreStateGate && String(r.state || "").trim() !== "0") {{
-    details.push("状态门槛：本快照已开赛/完场，只允许更新比分、赛况、结算和复盘，不覆盖赛前投注结论。");
-    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "比赛已开赛/完场，本版本只做赛况/复盘，不作为赛前可投", details}};
+  if (String(r.state || "").trim() !== "0") {{
+    details.push("赛况提示：本快照已开赛/完场；只影响当前是否还能执行，不改变赛前skill可投/不可投结论。");
   }}
   if (!r.ah_ok) {{
     return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "亚盘盘口/两边水位缺失", details}};
@@ -3328,7 +3407,7 @@ function top5Decision(r, options = {{}}) {{
 
 function top5PolicyBadge(r, cell = null) {{
   const policy = r.top5_policy || {{}};
-  const decision = top5Decision(r);
+  const decision = frozenSkillDecision(r) || top5Decision(r);
   if (!decision) return "";
   const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
   const actionText = decision.action === "不投" ? "不投" : `${{decision.action}}（${{modeText}}）`;
@@ -3350,7 +3429,7 @@ function intentEvBadge(r) {{
   if (r.top5_policy && r.top5_policy.is_top5) {{
     return top5PolicyBadge(r, cell);
   }}
-  const decision = frameworkDecision(r, cell);
+  const decision = frozenSkillDecision(r) || frameworkDecision(r, cell);
   const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
   const actionText = decision.action === "不投" ? "不投" : `${{decision.action}}（${{modeText}}）`;
   const cellText = cell
@@ -3360,7 +3439,7 @@ function intentEvBadge(r) {{
     ? `微观组合：${{clean(r.micro_region)}} + ${{tag || "缺标签"}}，样本${{decision.edge["样本数"] || "0"}}，正向${{decision.edge["正向有效胜率"] || "无"}}/收益${{signed(decision.edge["正向均注盈亏"] || 0)}}，反向${{decision.edge["反向有效胜率"] || "无"}}/收益${{signed(decision.edge["反向均注盈亏"] || 0)}}，贝叶斯${{decision.edge["贝叶斯综合胜率"] || "无"}}。`
     : `微观组合：${{clean(r.micro_region)}} + ${{tag || "缺标签"}} 暂无样本。`;
   const detail = (decision.details || []).map(x => `<div>${{x}}</div>`).join("");
-  return `亚盘意图历史EV：${{line || "缺盘口档位"}} + ${{tag || "缺候选标签"}}，投注建议：${{actionText}}；正期望方：${{decision.team}}。<br>${{cellText}}<br>${{tagPerformanceLabel(tag)}}<br>${{microText}}<br>${{skillBetDecision(r, cell)}}<details class="ev-calc"><summary>查看1-4步测算</summary>${{detail}}</details>`;
+  return `亚盘意图历史EV：${{line || "缺盘口档位"}} + ${{tag || "缺候选标签"}}，投注建议：${{actionText}}；正期望方：${{decision.team}}。<br>${{cellText}}<br>${{tagPerformanceLabel(tag)}}<br>${{microText}}<br>${{skillBetDecision(r, cell, decision)}}<details class="ev-calc"><summary>查看1-4步测算</summary>${{detail}}</details>`;
 }}
 
 function tagClass(status) {{
@@ -3554,6 +3633,8 @@ function bettableFilterEnabled() {{
 }}
 
 function plannedSkillDecision(r) {{
+  const frozen = frozenSkillDecision(r);
+  if (frozen) return frozen;
   const cell = intentMatrixCell(String(r.intent_line_bucket || "").trim(), String(r.intent_tag || "").trim());
   const filterOptions = {{ ignoreStateGate: true }};
   if (r.top5_policy && r.top5_policy.is_top5) {{
