@@ -3405,9 +3405,9 @@ function top5Decision(r, options = {{}}) {{
   return {{action: "可投", mode, team, reason: `通过：赛前历史胜率${{pct(rate)}} >= 阈值${{pct(threshold)}}`, details, rate, water, threshold}};
 }}
 
-function top5PolicyBadge(r, cell = null) {{
+function top5PolicyBadge(r, cell = null, decisionOverride = null) {{
   const policy = r.top5_policy || {{}};
-  const decision = frozenSkillDecision(r) || top5Decision(r);
+  const decision = decisionOverride || frozenSkillDecision(r) || top5Decision(r);
   if (!decision) return "";
   const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
   const actionText = decision.action === "不投" ? "不投" : `${{decision.action}}（${{modeText}}）`;
@@ -3426,10 +3426,10 @@ function intentEvBadge(r) {{
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
   const cell = intentMatrixCell(line, tag);
+  const decision = plannedSkillDecision(r);
   if (r.top5_policy && r.top5_policy.is_top5) {{
-    return top5PolicyBadge(r, cell);
+    return top5PolicyBadge(r, cell, decision);
   }}
-  const decision = frozenSkillDecision(r) || frameworkDecision(r, cell);
   const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
   const actionText = decision.action === "不投" ? "不投" : `${{decision.action}}（${{modeText}}）`;
   const cellText = cell

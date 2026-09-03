@@ -500,7 +500,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-09-03 08:06 ｜ 数据目录：D:\codex</div>
+    <div class="source">更新时间：2026-09-03 08:09 ｜ 数据目录：D:\codex</div>
   </header>
 
   <section class="pattern-dock">
@@ -944,9 +944,9 @@ function top5Decision(r, options = {}) {
   return {action: "可投", mode, team, reason: `通过：赛前历史胜率${pct(rate)} >= 阈值${pct(threshold)}`, details, rate, water, threshold};
 }
 
-function top5PolicyBadge(r, cell = null) {
+function top5PolicyBadge(r, cell = null, decisionOverride = null) {
   const policy = r.top5_policy || {};
-  const decision = frozenSkillDecision(r) || top5Decision(r);
+  const decision = decisionOverride || frozenSkillDecision(r) || top5Decision(r);
   if (!decision) return "";
   const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
   const actionText = decision.action === "不投" ? "不投" : `${decision.action}（${modeText}）`;
@@ -965,10 +965,10 @@ function intentEvBadge(r) {
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
   const cell = intentMatrixCell(line, tag);
+  const decision = plannedSkillDecision(r);
   if (r.top5_policy && r.top5_policy.is_top5) {
-    return top5PolicyBadge(r, cell);
+    return top5PolicyBadge(r, cell, decision);
   }
-  const decision = frozenSkillDecision(r) || frameworkDecision(r, cell);
   const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
   const actionText = decision.action === "不投" ? "不投" : `${decision.action}（${modeText}）`;
   const cellText = cell
