@@ -743,8 +743,20 @@ def load_flow_overlay() -> dict[tuple[str, str], dict[str, str]]:
 def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
     """Frozen walk-forward bettable rows used for started/settled audit views."""
     out: dict[str, dict[str, str]] = {}
-    files = sorted(DETAIL_LEDGER.glob("bettable_event_detail_*.csv"), key=lambda p: p.stat().st_mtime)
+    files = sorted(
+        DETAIL_LEDGER.glob("bettable_event_detail_*.csv"),
+        key=lambda p: (0 if "frozen" not in p.name.lower() else 1, p.stat().st_mtime),
+    )
+
+    def keep_or_set(key: str, row: dict[str, str], source_is_frozen: bool) -> None:
+        existing = out.get(key)
+        existing_is_frozen = "frozen" in str(existing.get("_source_file", "")).lower() if existing else False
+        if existing_is_frozen and not source_is_frozen:
+            return
+        out[key] = row
+
     for path in files:
+        source_is_frozen = "frozen" in path.name.lower()
         for row in read_csv(path):
             action = str(row.get("动作", "") or "").strip()
             if action not in {"正向", "反向"}:
@@ -755,13 +767,13 @@ def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
             match = clean_team(row.get("比赛", ""))
             row = {**row, "_source_file": str(path)}
             if match_id:
-                out[f"id:{match_id}"] = row
+                keep_or_set(f"id:{match_id}", row, source_is_frozen)
             if sim_id:
-                out[f"sim:{sim_id}"] = row
+                keep_or_set(f"sim:{sim_id}", row, source_is_frozen)
             if date and match:
-                out[f"date_match:{date}|{match}"] = row
+                keep_or_set(f"date_match:{date}|{match}", row, source_is_frozen)
             if match:
-                out[f"match:{match}"] = row
+                keep_or_set(f"match:{match}", row, source_is_frozen)
     return out
 
 
