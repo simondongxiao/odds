@@ -3191,11 +3191,13 @@ function frozenSkillDecision(r) {{
   const rate = Number(r.frozen_bettable_rate || 0);
   const threshold = Number(r.frozen_bettable_threshold || 0);
   const settlement = clean(r.frozen_bettable_settlement || "");
-  const pnl = Number(r.frozen_bettable_pnl || 0);
+  const pnlRaw = r.frozen_bettable_pnl;
+  const pnl = Number(pnlRaw);
+  const hasPnl = pnlRaw !== null && pnlRaw !== undefined && String(pnlRaw).trim() !== "" && Number.isFinite(pnl);
   const details = [
     `冻结赛前可投记录：${{action}}，方向=${{mode === "reverse" ? "反向" : "正向"}}，球队=${{teamName || "未识别"}}，盘口=${{sideName || "未识别"}}。`,
     `冻结参数：选中水位${{water ? water.toFixed(2) : "缺失"}}，综合胜率${{rate ? pct(rate) : "缺失"}}，通过阈值${{threshold ? pct(threshold) : "缺失"}}。`,
-    `赛后跟踪：结算=${{settlement || "待结算"}}，盈亏=${{Number.isFinite(pnl) ? signed(pnl) : "待结算"}}；来源=${{clean(r.frozen_bettable_source || "bettable_event_detail")}}。`
+    `赛后跟踪：结算=${{settlement || "待结算"}}，盈亏=${{hasPnl ? signed(pnl) : "待结算"}}；来源=${{clean(r.frozen_bettable_source || "bettable_event_detail")}}。`
   ];
   return {{
     action,
