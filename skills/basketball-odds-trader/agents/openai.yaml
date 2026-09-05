@@ -1,0 +1,6 @@
+interface:
+  display_name: "Basketball Odds Trader"
+  short_description: "Basketball spread/totals workflow with 55% p_low, K-threshold, steam, and 1/4 Kelly gates"
+  default_prompt: "Use $basketball-odds-trader to cover NBA, WNBA, CBA, NBA G League, FIBA/national-team, and other readable basketball slates, then analyze spread and totals through injuries/minutes, rest/travel, pace/efficiency, opening-current-closing line path, public/steam flow, p_low >= 55%, EV > 2.5%, K >= 2.5-4.0 points, final-hour volatility fuse, and strict quarter-Kelly Zero Action gates."
+policy:
+  allow_implicit_invocation: true
