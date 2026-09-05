@@ -2,9 +2,7 @@
 
 This public snapshot is generated from `D:\codex\outputs\football_odds_trader`.
 
-- Football dashboard: `index.html`
-- Basketball dashboard: `basketball/index.html`
-- Basketball skill: `skills/basketball-odds-trader/`
+- Dashboard: `index.html`
 - Latest reports: `reports/`
 - Latest sequential backtest: `backtests/sequential_asian/`
 - Skill and scripts: `skills/`, `tools/`
