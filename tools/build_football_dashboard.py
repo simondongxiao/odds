@@ -1180,6 +1180,8 @@ def titan_state_name(state: str) -> str:
 
 
 def titan_state_label(state: str, matched: bool, result: str) -> str:
+    if result and any(term in result for term in ("取消", "延期", "推迟", "腰斩", "中断")):
+        return "取消/延期"
     if result and ("未匹配" in result or "待人工核验" in result):
         return "待核"
     if state == "-1":
