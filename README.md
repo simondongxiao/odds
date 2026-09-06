@@ -1,8 +1,11 @@
-# Football Odds Dashboard
+# Odds Dashboards
 
-This public snapshot is generated from `D:\codex\outputs\football_odds_trader`.
+This public snapshot is generated from local Codex outputs.
 
-- Dashboard: `index.html`
+- Football dashboard: `index.html`
+- Basketball dashboard: `basketball.html`
+- Basketball dashboard folder entry: `basketball/index.html`
 - Latest reports: `reports/`
+- Basketball raw/ledger: `basketball/raw/`, `basketball/ledger/`
 - Latest sequential backtest: `backtests/sequential_asian/`
 - Skill and scripts: `skills/`, `tools/`
