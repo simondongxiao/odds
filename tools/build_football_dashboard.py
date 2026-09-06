@@ -2875,6 +2875,13 @@ def html_doc_v2(
       overflow: auto;
       background: #fff;
     }}
+    .left.short-list {{
+      align-self: start;
+      min-height: 0;
+    }}
+    .left.short-list .match-list {{
+      overflow: visible;
+    }}
     .match-item {{
       width: 100%;
       display: grid;
@@ -3048,6 +3055,7 @@ def html_doc_v2(
       .pattern-dock {{ grid-template-columns: 1fr; }}
       .shell {{ grid-template-columns: 1fr; height: auto; }}
       .left {{ min-height: 420px; }}
+      .left.short-list {{ min-height: 0; }}
       .right {{ overflow: visible; }}
       .detail-grid {{ overflow: visible; }}
       .detail-grid {{ grid-template-columns: 1fr; }}
@@ -3894,9 +3902,14 @@ function renderDates() {{
 function renderList(selectedMatch = null) {{
   const rows = rowsForDate();
   const list = document.getElementById("matchList");
+  const left = list.closest(".left");
   const onlyBettable = bettableFilterEnabled();
+  const isShortBettableList = onlyBettable && rows.length > 0 && rows.length <= 8;
+  if (left) left.classList.toggle("short-list", isShortBettableList);
+  list.scrollTop = 0;
   document.getElementById("dateCount").textContent = onlyBettable ? `${{rows.length}} 场可投` : `${{rows.length}} 场`;
   if (!rows.length) {{
+    if (left) left.classList.remove("short-list");
     list.innerHTML = onlyBettable
       ? '<div class="empty">当日暂无通过skill漏斗的可投注赛事</div>'
       : '<div class="empty">该日期暂无模拟比赛</div>';
