@@ -25,6 +25,14 @@ def copy_file(src: Path, dst: Path) -> bool:
     return True
 
 
+def copy_dir(src: Path, dst: Path) -> bool:
+    if not src.exists():
+        return False
+    dst.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(src, dst, dirs_exist_ok=True)
+    return True
+
+
 def run_git(args: list[str], timeout: int = 120) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         ["git", "-C", str(PUBLISH_REPO), *args],
@@ -97,6 +105,9 @@ def publish(push: bool = True) -> dict[str, object]:
     for src, dst in pairs:
         if copy_file(src, dst):
             copied.append(str(dst))
+
+    if copy_dir(ROOT / "dashboard" / "snapshots", PUBLISH_REPO / "snapshots"):
+        copied.append(str(PUBLISH_REPO / "snapshots"))
 
     readme = PUBLISH_REPO / "README.md"
     readme.write_text(

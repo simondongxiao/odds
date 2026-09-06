@@ -5,6 +5,7 @@ import datetime as dt
 import html
 import json
 import re
+import shutil
 from collections import defaultdict
 from pathlib import Path
 
@@ -1636,11 +1637,16 @@ def titan_lookup() -> dict[str, dict[str, str]]:
         for row in read_csv(path):
             key = f"{row.get('home_cn','')} vs {row.get('away_cn','')}"
             match_id = (row.get("match_id") or "").strip()
+            list_date = (row.get("list_date") or "").strip()
             if key.strip() != "vs":
                 out[key] = row
                 out[f"match:{key}"] = row
+                if list_date:
+                    out[f"date_match:{list_date}|{key}"] = row
             if match_id:
                 out[f"id:{match_id}"] = row
+                if list_date:
+                    out[f"date_id:{list_date}|{match_id}"] = row
     return out
 
 
@@ -1730,8 +1736,11 @@ def odds_summary(
 ) -> dict[str, str]:
     final_scores = final_scores or {}
     match_id = match_id_from_row(ledger_row or {})
+    ledger_date = (ledger_row or {}).get("日期", "").strip()
     row = (
-        (odds.get(f"id:{match_id}") if match_id else None)
+        (odds.get(f"date_id:{ledger_date}|{match_id}") if ledger_date and match_id else None)
+        or (odds.get(f"date_match:{ledger_date}|{match}") if ledger_date else None)
+        or (odds.get(f"id:{match_id}") if match_id else None)
         or odds.get(f"match:{match}")
         or odds.get(match)
     )
@@ -4161,7 +4170,11 @@ def main() -> int:
     top5_backtest = latest_top5_tier_backtest()
     output = DASHBOARD_DIR / "index.html"
     output.write_text(html_doc_v2(cards, stats, backtest, top5_backtest), encoding="utf-8")
+    snapshot_dir = DASHBOARD_DIR / "snapshots" / f"{TODAY.isoformat()}_{dt.datetime.now():%H%M%S}"
+    snapshot_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(output, snapshot_dir / "index.html")
     print(f"dashboard={output}")
+    print(f"dashboard_snapshot={snapshot_dir / 'index.html'}")
     print(f"cards={len(cards)} settled={stats['settled']} win_rate={stats['win_rate']}")
     return 0
 

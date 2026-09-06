@@ -113,23 +113,29 @@ def preserve_started_prematch_rows(
     sim_rows: list[dict[str, str]],
     existing_rows: list[dict[str, str]],
 ) -> list[dict[str, str]]:
-    """Keep pre-match model fields immutable once a same-day match has kicked off."""
+    """Keep same-day pre-match model fields immutable and never drop locked rows."""
     prior_prematch: dict[tuple[str, str, str], dict[str, str]] = {}
+    existing_today: dict[tuple[str, str, str], dict[str, str]] = {}
     today = TODAY.isoformat()
     for row in existing_rows:
         if (row.get("日期") or "").strip() != today:
             continue
+        key = ledger_match_key(row)
+        if all(key):
+            existing_today[key] = row
         market = (row.get("市场框架") or "").strip()
         if not market or market.startswith("赛况更新"):
             continue
-        key = ledger_match_key(row)
         if all(key):
             prior_prematch[key] = row
 
     protected: list[dict[str, str]] = []
+    seen_keys: set[tuple[str, str, str]] = set()
     for row in sim_rows:
         market = (row.get("市场框架") or "").strip()
         key = ledger_match_key(row)
+        if all(key):
+            seen_keys.add(key)
         prior = prior_prematch.get(key)
         if prior and market.startswith("赛况更新"):
             kept = dict(prior)
@@ -140,6 +146,15 @@ def preserve_started_prematch_rows(
             protected.append(kept)
         else:
             protected.append(row)
+
+    for key, prior in existing_today.items():
+        if key in seen_keys:
+            continue
+        kept = dict(prior)
+        note = "本次未刷新到-保留上一版快照；不改赛前结论/盘口/标签/可投状态"
+        old_note = (kept.get("模型更新") or "").strip()
+        kept["模型更新"] = f"{old_note}；{note}" if old_note and note not in old_note else note
+        protected.append(kept)
     return protected
 
 
@@ -1262,6 +1277,7 @@ def detail_status_line(rows: list[dict[str, str]]) -> str:
 
 def main() -> int:
     snapshot = latest_snapshot()
+    existing_rows = read_csv(LEDGER) if LEDGER.exists() else []
     details = load_details()
     flow_path, flow_lookup = load_flow_lookup()
     all_snapshot_rows = [r for r in read_csv(snapshot) if in_target_list_date(r)]
@@ -1285,6 +1301,17 @@ def main() -> int:
         and not has_verifiable_market(r)
     ]
     rows = [r for r in all_snapshot_rows if eligible_competitive_row(r)]
+    existing_today_keys = {
+        ledger_match_key(row)
+        for row in existing_rows
+        if (row.get("日期") or "").strip() == TODAY.isoformat() and all(ledger_match_key(row))
+    }
+    incoming_today_keys = {
+        (TODAY.isoformat(), r.get("league_cn", "").strip(), f"{r.get('home_cn','').strip()} vs {r.get('away_cn','').strip()}")
+        for r in rows
+        if r.get("league_cn") and r.get("home_cn") and r.get("away_cn")
+    }
+    locked_missing_count = len(existing_today_keys - incoming_today_keys)
     hist = load_history()
     sims = []
     for r in rows:
@@ -1317,6 +1344,8 @@ def main() -> int:
     lines.append(f"- 交易日窗口：{TODAY.isoformat()} 00:00 至 {(TODAY + dt.timedelta(days=1)).isoformat()} {SLATE_END_HOUR:02d}:00 北京时间。")
     lines.append(f"- 球探列表日成年正式比赛覆盖：{len(rows)} 场；已完场 {len(ended)}，进行中/待确认 {len(live)}，异常/改期 {len(abnormal)}，未开赛 {len(future)}。")
     lines.append(f"- 友谊赛默认忽略：{len(ignored_friendlies)} 场；青年/后备/U系列忽略：{len(ignored_youth_reserve)} 场；层级未知待确认：{len(tier_unknown_rows)} 场；无可验证盘口/赔率字段暂不纳入：{len(no_market_rows)} 场。")
+    if locked_missing_count:
+        lines.append(f"- Snapshot Lock预警：本次源数据未刷新到当天旧账本 {locked_missing_count} 场；合并时保留上一版赛前记录，只补赛况/结算，不允许删行或把可投清零。")
     matched_flow_count = sum(1 for r in rows if r.get("_flow"))
     lines.append(f"- 赔率源：Titan007即时快照；球探Lineup/Analysis详情已尝试结构化抓取；资金流源：`{flow_path or '未抓到Chuqi必发衍生文件'}`，精确匹配 {matched_flow_count}/{len(rows)} 场；未匹配则沿用亚盘EV框架。")
     lines.append(f"- 资金流验证底稿：`{flow_overlay_path}`。")
@@ -1483,7 +1512,6 @@ def main() -> int:
             sim_rows.append(out_row)
             writer.writerow(out_row)
 
-    existing_rows = read_csv(LEDGER) if LEDGER.exists() else []
     sim_rows = preserve_started_prematch_rows(sim_rows, existing_rows)
     with sim_path.open("w", encoding="utf-8-sig", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=sim_fields)
