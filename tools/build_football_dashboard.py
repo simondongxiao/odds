@@ -743,17 +743,17 @@ def load_flow_overlay() -> dict[tuple[str, str], dict[str, str]]:
 def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
     """Frozen walk-forward bettable rows used for started/settled audit views."""
     out: dict[str, dict[str, str]] = {}
+    frozen_detail_files = [
+        p
+        for p in DETAIL_LEDGER.glob("bettable_event_detail_*.csv")
+        if "frozen" in p.name.lower() or "freeze" in p.name.lower()
+    ]
     files = sorted(
         [
-            *DETAIL_LEDGER.glob("bettable_event_detail_*.csv"),
+            *frozen_detail_files,
             *DETAIL_LEDGER.glob("bettable_signal_freeze_*.csv"),
         ],
-        key=lambda p: (
-            0
-            if ("frozen" not in p.name.lower() and "freeze" not in p.name.lower())
-            else 1,
-            p.stat().st_mtime,
-        ),
+        key=lambda p: p.name,
     )
 
     def keep_or_set(key: str, row: dict[str, str], source_is_frozen: bool) -> None:
