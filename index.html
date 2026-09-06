@@ -501,7 +501,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-09-06 23:12 ｜ 数据目录：D:\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
+    <div class="source">更新时间：2026-09-06 23:52 ｜ 数据目录：D:\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
   </header>
 
   <section class="pattern-dock">
@@ -1235,6 +1235,12 @@ function rowsForDate() {
     const latestDate = allDates()[0] || "";
     const isHistorical = Boolean(latestDate && d < latestDate);
     const frozenRows = isHistorical ? filtered.filter(r => r.frozen_bettable) : [];
+    if (frozenRows.length > 0) {
+      return frozenRows.sort((a, b) => {
+        return (kickoffSortValue(a) - kickoffSortValue(b))
+          || String(a.display_match).localeCompare(String(b.display_match), "zh-Hans-CN");
+      });
+    }
     const shouldRebuildLegacy = isHistorical && frozenRows.length === 0 && legacyComputedBettableDates.has(d);
     const bettableBase = isHistorical && !shouldRebuildLegacy ? frozenRows : filtered;
     return bettableBase
