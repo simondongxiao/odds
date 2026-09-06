@@ -1412,6 +1412,19 @@ This detail file must contain one row per strict-funnel bettable match and prese
 
 Use `bettable_event_stats` for threshold discovery and compact dashboard summaries. Use `bettable_event_detail` whenever the user asks which concrete matches contributed to a red/black record, sample count, ROI, or long-run combination.
 
+### Frozen Bettable Denominator For Settlement Reviews
+
+When reviewing yesterday's bettable slate or any past-date bettable performance, the denominator must be the frozen same-day/pre-match bettable population, not a fresh post-match recomputation.
+
+- The frozen same-day bettable source is the latest pre-kickoff/page-level ledger for that list date, such as `today_page_bettable_events_YYYY-MM-DD_<timestamp>.xlsx/csv`, a timestamped dashboard snapshot, or a dedicated immutable file named like `bettable_signal_freeze_YYYY-MM-DD_<timestamp>.csv`. It records what was actually shown as `可投` or `半仓可投` before or during the trading window.
+- `bettable_event_stats_YYYY-MM-DD.csv` is grouped long-run statistics, not a per-match same-day bettable denominator. Never interpret its row count as the number of bettable matches.
+- `bettable_event_detail_YYYY-MM-DD.csv` may be a long-run settled walk-forward detail file. Unless it explicitly contains the selected list date plus a same-day freeze timestamp/source field, it must not replace the frozen same-day bettable ledger for yesterday/today review.
+- Settlement/review jobs must merge final score, match status, red/black/half/push settlement, and PnL onto the frozen rows append-only. They must not drop rows because the match is finished, live, canceled, no longer appears on Titan007's current page, has missing current odds, has a different current model decision, or fails a later risk-control recomputation.
+- If the frozen same-day source is missing, state `冻结可投底稿缺失，不能声称可投回顾完整`, then reconstruct from timestamped exports/dashboard backups if possible and label the output `重建冻结名单`. Do not silently substitute the current dashboard filter, current strict-funnel output, or long-run settled detail.
+- Every bettable review must output a reconciliation block before win-rate/PnL: `赛前冻结可投数`, `本次找到的冻结可投数`, `已结算`, `进行中/待核`, `取消/延期`, `纳入胜率分母`, `排除及原因`. If a prior export/screenshot count is known and the review count is lower without explicit canceled/duplicate reasons, stop and report `可投名单缩表错误` before updating dashboard, ledger, or GitHub.
+- A later count shrink such as `103 -> 43` is treated as a ledger semantics bug by default. The usual causes are: using grouped stats as match rows, using a historical settled-only detail file as the same-day ledger, filtering out live/finished rows, or rerunning `plannedSkillDecision()` after kickoff. Fix the source selection first; do not reinterpret the smaller count as the real bettable slate.
+- Dashboard `筛选当日可投注赛事`, Excel export, yesterday settlement, and red EV detail must all read the same frozen recommendation identity for started/settled rows: `比赛ID` first, then `日期+比赛`, then snapshot key. They may refresh only result/status/settlement/PnL fields after kickoff.
+
 ## Guardrails
 
 - Do not recommend offshore or unlicensed betting sites.

@@ -243,18 +243,20 @@ def build_detail_file(bets: pd.DataFrame, detail_csv: Path, out_date: str) -> Pa
 
 def build_stats(detail_csv: Path, out_date: str) -> tuple[Path, Path]:
     df = pd.read_csv(detail_csv, encoding="utf-8-sig")
-    bets = df[df["动作"].isin(["正向", "反向"])].copy()
-    bets = bets[bets["已结算"].eq("是")].copy()
-    bets["国家"] = bets["赛事"].map(country_from_league)
-    bets["赛事层级"] = bets.apply(lambda r: tier_from_class(r.get("比赛分类"), r.get("赛事")), axis=1)
-    bets["盘口"] = bets.get("盘口档位", "").fillna("").astype(str).str.strip().replace("", "缺盘口")
-    bets["倾向意图"] = bets.get("盘口意图标签", "").fillna("").map(canonical_tag).replace("", "缺倾向意图")
-    bets["水位分层"] = bets["选中水位"].map(water_bucket)
-    bets["选中水位数值"] = pd.to_numeric(bets["选中水位"], errors="coerce")
-    bets["实际盈亏Unit数值"] = pd.to_numeric(bets["实际盈亏Unit"], errors="coerce").fillna(0.0)
-    bets["实际盈亏金额数值"] = pd.to_numeric(bets["实际盈亏金额"], errors="coerce").fillna(0.0)
-    bets["下注金额数值"] = pd.to_numeric(bets["下注金额"], errors="coerce").fillna(0.0)
-    detail_out = build_detail_file(bets, detail_csv, out_date)
+    all_bets = df[df["动作"].isin(["正向", "反向"])].copy()
+    all_bets["国家"] = all_bets["赛事"].map(country_from_league)
+    all_bets["赛事层级"] = all_bets.apply(lambda r: tier_from_class(r.get("比赛分类"), r.get("赛事")), axis=1)
+    all_bets["盘口"] = all_bets.get("盘口档位", "").fillna("").astype(str).str.strip().replace("", "缺盘口")
+    all_bets["倾向意图"] = all_bets.get("盘口意图标签", "").fillna("").map(canonical_tag).replace("", "缺倾向意图")
+    all_bets["水位分层"] = all_bets["选中水位"].map(water_bucket)
+    all_bets["选中水位数值"] = pd.to_numeric(all_bets["选中水位"], errors="coerce")
+    all_bets["实际盈亏Unit数值"] = pd.to_numeric(all_bets["实际盈亏Unit"], errors="coerce").fillna(0.0)
+    all_bets["实际盈亏金额数值"] = pd.to_numeric(all_bets["实际盈亏金额"], errors="coerce").fillna(0.0)
+    all_bets["下注金额数值"] = pd.to_numeric(all_bets["下注金额"], errors="coerce").fillna(0.0)
+
+    # The per-match ledger is the frozen denominator for future reviews, so keep unsettled rows.
+    detail_out = build_detail_file(all_bets, detail_csv, out_date)
+    bets = all_bets[all_bets["已结算"].eq("是")].copy()
 
     rows: list[dict[str, object]] = []
     group_cols = ["微观板块", "国家", "赛事层级", "盘口", "水位分层", "倾向意图"]
@@ -293,7 +295,7 @@ def build_stats(detail_csv: Path, out_date: str) -> tuple[Path, Path]:
                 "均注盈亏Unit": pnl_unit,
                 "平均水位": float(group["选中水位数值"].mean()) if group["选中水位数值"].notna().any() else None,
                 "ROI": profit / stake if stake else None,
-                "备注": "仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；按地区-国家-赛事层级-盘口-水位分层-倾向意图统计红黑",
+                "备注": "分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母",
             }
         )
 
