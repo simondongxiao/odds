@@ -3177,6 +3177,7 @@ const tagPerformanceData = intentMatrixData.tag_performance || {{good: [], bad: 
 const microEdgeData = stats.micro_edge || {{rows: [], lookup: {{}}, source: "未生成"}};
 const microRiskData = stats.micro_risk || {{rows: [], lookup: {{}}, source: "未生成"}};
 const top5MinActionSample = {MIN_TOP5_ACTION_SAMPLE};
+const legacyComputedBettableDates = new Set(["2026-09-04"]);
 
 function pct(v) {{
   if (v === null || v === undefined || Number.isNaN(v)) return "无";
@@ -3767,9 +3768,10 @@ function rowsForDate() {{
 
   if (bettableFilterEnabled()) {{
     const latestDate = allDates()[0] || "";
-    const bettableBase = latestDate && d < latestDate
-      ? filtered.filter(r => r.frozen_bettable)
-      : filtered;
+    const isHistorical = Boolean(latestDate && d < latestDate);
+    const frozenRows = isHistorical ? filtered.filter(r => r.frozen_bettable) : [];
+    const shouldRebuildLegacy = isHistorical && frozenRows.length === 0 && legacyComputedBettableDates.has(d);
+    const bettableBase = isHistorical && !shouldRebuildLegacy ? frozenRows : filtered;
     return bettableBase
       .map(r => ({{ r, decision: plannedSkillDecision(r) }}))
       .filter(x => isBettableDecision(x.decision))
