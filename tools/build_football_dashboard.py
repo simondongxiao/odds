@@ -3701,7 +3701,11 @@ function rowsForDate() {{
     .filter(r => !q || Object.values(r).join(" ").toLowerCase().includes(q));
 
   if (bettableFilterEnabled()) {{
-    return filtered
+    const latestDate = allDates()[0] || "";
+    const bettableBase = latestDate && d < latestDate
+      ? filtered.filter(r => r.frozen_bettable)
+      : filtered;
+    return bettableBase
       .map(r => ({{ r, decision: plannedSkillDecision(r) }}))
       .filter(x => isBettableDecision(x.decision))
       .sort((a, b) => {{
