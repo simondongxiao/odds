@@ -340,6 +340,30 @@ def clean_team(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
+def normalize_date_key(value: str) -> str:
+    value = strip_html(str(value or ""))
+    m = re.search(r"(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})", value)
+    if not m:
+        return value.strip()
+    return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+
+
+def frozen_match_keys(date: str, match: str) -> list[str]:
+    date_key = normalize_date_key(date)
+    variants: list[str] = []
+    for text in (match, translate_text(match)):
+        key = clean_team(text)
+        if key and key not in variants:
+            variants.append(key)
+    keys: list[str] = []
+    for key in variants:
+        if date_key:
+            keys.append(f"date_match:{date_key}|{key}")
+        else:
+            keys.append(f"match:{key}")
+    return keys
+
+
 def match_id_from_row(row: dict[str, str]) -> str:
     for key in ("match_id", "比赛ID", "模拟ID"):
         value = row.get(key, "")
@@ -749,7 +773,8 @@ def extract_dashboard_cards(path: Path) -> list[dict[str, object]]:
         text = path.read_text(encoding="utf-8")
         needle = "const cardsData = "
         start = text.index(needle) + len(needle)
-        end = text.index("\nconst stats", start)
+        end_marker = "\ncardsData.forEach"
+        end = text.index(end_marker, start) if end_marker in text[start:] else text.index("\nconst stats", start)
         payload = text[start:end].strip().rstrip(";").strip()
         return json.loads(payload)
     except Exception:
@@ -760,7 +785,7 @@ def legacy_frozen_bettable_rows() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for path, target_date in LEGACY_FROZEN_DASHBOARDS:
         for card in extract_dashboard_cards(path):
-            if str(card.get("date", "")).strip() != target_date:
+            if normalize_date_key(card.get("date", "")) != normalize_date_key(target_date):
                 continue
             if not card.get("frozen_bettable"):
                 continue
@@ -800,17 +825,31 @@ def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
         for p in DETAIL_LEDGER.glob("bettable_event_detail_*.csv")
         if "frozen" in p.name.lower() or "freeze" in p.name.lower()
     ]
-    files = sorted(
-        [
-            *frozen_detail_files,
-            *DETAIL_LEDGER.glob("bettable_signal_freeze_*.csv"),
-        ],
-        key=lambda p: p.name,
-    )
+    signal_files = list(DETAIL_LEDGER.glob("bettable_signal_freeze_*.csv"))
+    canonical_signal_dates: set[str] = set()
+    for p in signal_files:
+        m = re.search(r"bettable_signal_freeze_(\d{4}-\d{2}-\d{2})_", p.name)
+        if m and "restored" not in p.name.lower():
+            canonical_signal_dates.add(m.group(1))
+    selected_signal_files = []
+    for p in signal_files:
+        m = re.search(r"bettable_signal_freeze_(\d{4}-\d{2}-\d{2})_", p.name)
+        date_key = m.group(1) if m else ""
+        if "restored" in p.name.lower() and date_key in canonical_signal_dates:
+            continue
+        selected_signal_files.append(p)
+    files = sorted([*frozen_detail_files, *selected_signal_files], key=lambda p: p.name)
 
     def keep_or_set(key: str, row: dict[str, str], source_is_frozen: bool) -> None:
         existing = out.get(key)
-        existing_is_frozen = "frozen" in str(existing.get("_source_file", "")).lower() if existing else False
+        existing_source = str(existing.get("_source_file", "")).lower() if existing else ""
+        existing_is_frozen = (
+            "frozen" in existing_source
+            or "freeze" in existing_source
+            or "bettable_signal_freeze" in existing_source
+        )
+        if existing_is_frozen and source_is_frozen:
+            return
         if existing_is_frozen and not source_is_frozen:
             return
         out[key] = row
@@ -823,30 +862,26 @@ def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
                 continue
             match_id = match_id_from_row(row)
             sim_id = str(row.get("比赛ID", "") or "").strip()
-            date = str(row.get("日期", "") or "").strip()
+            date = normalize_date_key(row.get("日期", "") or row.get("统计日期", ""))
             match = clean_team(row.get("比赛", ""))
             row = {**row, "_source_file": str(path)}
             if match_id:
                 keep_or_set(f"id:{match_id}", row, source_is_frozen)
             if sim_id:
                 keep_or_set(f"sim:{sim_id}", row, source_is_frozen)
-            if date and match:
-                keep_or_set(f"date_match:{date}|{match}", row, source_is_frozen)
-            if match:
-                keep_or_set(f"match:{match}", row, source_is_frozen)
+            for key in frozen_match_keys(date, match):
+                keep_or_set(key, row, source_is_frozen)
     for row in legacy_frozen_bettable_rows():
         match_id = match_id_from_row(row)
         sim_id = str(row.get("比赛ID", "") or "").strip()
-        date = str(row.get("日期", "") or "").strip()
+        date = normalize_date_key(row.get("日期", ""))
         match = clean_team(row.get("比赛", ""))
         if match_id:
             keep_or_set(f"id:{match_id}", row, True)
         if sim_id:
             keep_or_set(f"sim:{sim_id}", row, True)
-        if date and match:
-            keep_or_set(f"date_match:{date}|{match}", row, True)
-        if match:
-            keep_or_set(f"match:{match}", row, True)
+        for key in frozen_match_keys(date, match):
+            keep_or_set(key, row, True)
     return out
 
 
@@ -1898,7 +1933,8 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
         o = odds_summary(match, odds, final_scores, r)
         detail = details.get(o.get("match_id", "")) or details.get(match) or {}
         matched = o["time"] != "未匹配"
-        date = r.get("日期", "")
+        raw_date = r.get("日期", "")
+        date = normalize_date_key(raw_date)
         result = r.get("赛果", "")
         shown_match = translate_text(match)
         shown_time = display_time(o["time"], matched, date)
@@ -1911,7 +1947,10 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
         micro_region = dashboard_micro_region(r.get("赛事", ""))
         overlay_row = (
             flow_overlay.get((date, str(o.get("match_id", "") or "").strip()))
+            or flow_overlay.get((raw_date, str(o.get("match_id", "") or "").strip()))
             or flow_overlay.get((date, clean_team(match)))
+            or flow_overlay.get((date, clean_team(shown_match)))
+            or flow_overlay.get((raw_date, clean_team(match)))
             or {}
         )
         flow_text = flow_overlay_summary(overlay_row) or r.get("Polymarket/交易所情绪", "") or "缺失"
@@ -1927,11 +1966,15 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
         )
         match_id = str(o.get("match_id", "") or match_id_from_row(r)).strip()
         sim_id = str(r.get("模拟ID", "") or "").strip()
+        raw_match_key = clean_team(match)
+        shown_match_key = clean_team(shown_match)
         frozen = (
             (frozen_bettable.get(f"id:{match_id}") if match_id else None)
             or (frozen_bettable.get(f"sim:{sim_id}") if sim_id else None)
-            or frozen_bettable.get(f"date_match:{date}|{clean_team(match)}")
-            or frozen_bettable.get(f"match:{clean_team(match)}")
+            or frozen_bettable.get(f"date_match:{date}|{raw_match_key}")
+            or frozen_bettable.get(f"date_match:{date}|{shown_match_key}")
+            or frozen_bettable.get(f"match:{raw_match_key}")
+            or frozen_bettable.get(f"match:{shown_match_key}")
             or {}
         )
         frozen_action = str(frozen.get("动作", "") or "").strip()
@@ -3793,6 +3836,12 @@ function rowsForDate() {{
     const latestDate = allDates()[0] || "";
     const isHistorical = Boolean(latestDate && d < latestDate);
     const frozenRows = isHistorical ? filtered.filter(r => r.frozen_bettable) : [];
+    if (frozenRows.length > 0) {{
+      return frozenRows.sort((a, b) => {{
+        return (kickoffSortValue(a) - kickoffSortValue(b))
+          || String(a.display_match).localeCompare(String(b.display_match), "zh-Hans-CN");
+      }});
+    }}
     const shouldRebuildLegacy = isHistorical && frozenRows.length === 0 && legacyComputedBettableDates.has(d);
     const bettableBase = isHistorical && !shouldRebuildLegacy ? frozenRows : filtered;
     return bettableBase
