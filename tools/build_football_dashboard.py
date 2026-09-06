@@ -13,6 +13,9 @@ ROOT = Path(r"D:\codex\outputs\football_odds_trader")
 LEDGER = ROOT / "ledger" / "simulated_bets.csv"
 DASHBOARD_DIR = ROOT / "dashboard"
 RAW_TITAN = ROOT / "raw" / "titan007"
+LEGACY_FROZEN_DASHBOARDS = [
+    (ROOT / "backups" / "strict_update_20260904_retry_20260904_184454" / "index.html", "2026-09-04"),
+]
 DETAIL_LEDGER = ROOT / "ledger"
 SEQUENTIAL_BACKTEST_DIR = ROOT / "backtests" / "sequential_asian"
 TOP5_TIER_BACKTEST_DIR = ROOT / "backtests" / "top5_tier_split"
@@ -740,6 +743,54 @@ def load_flow_overlay() -> dict[tuple[str, str], dict[str, str]]:
     return out
 
 
+def extract_dashboard_cards(path: Path) -> list[dict[str, object]]:
+    try:
+        text = path.read_text(encoding="utf-8")
+        needle = "const cardsData = "
+        start = text.index(needle) + len(needle)
+        end = text.index("\nconst stats", start)
+        payload = text[start:end].strip().rstrip(";").strip()
+        return json.loads(payload)
+    except Exception:
+        return []
+
+
+def legacy_frozen_bettable_rows() -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for path, target_date in LEGACY_FROZEN_DASHBOARDS:
+        for card in extract_dashboard_cards(path):
+            if str(card.get("date", "")).strip() != target_date:
+                continue
+            if not card.get("frozen_bettable"):
+                continue
+            mode = str(card.get("frozen_bettable_mode", "") or "").strip()
+            if mode not in {"forward", "reverse"}:
+                continue
+            action = "反向" if mode == "reverse" else "正向"
+            action_text = str(card.get("frozen_bettable_action", "") or "可投").strip()
+            rows.append(
+                {
+                    "日期": target_date,
+                    "比赛ID": str(card.get("match_id") or card.get("sim_id") or "").strip(),
+                    "赛事": str(card.get("league") or "").strip(),
+                    "比赛": str(card.get("display_match") or card.get("match") or "").strip(),
+                    "动作": action,
+                    "选择方向": action,
+                    "投注盘向": str(card.get("frozen_bettable_side") or "").strip(),
+                    "投注球队": str(card.get("frozen_bettable_team") or "").strip(),
+                    "选中水位": str(card.get("frozen_bettable_water") or "").strip(),
+                    "综合胜率": str(card.get("frozen_bettable_rate") or "").strip(),
+                    "通过阈值": str(card.get("frozen_bettable_threshold") or "").strip(),
+                    "仓位系数": "0.5" if "半仓" in action_text else "1.0",
+                    "结算标签": str(card.get("frozen_bettable_settlement") or "").strip(),
+                    "实际盈亏Unit": str(card.get("frozen_bettable_pnl") or "").strip(),
+                    "赛果": str(card.get("display_score") or card.get("score") or "").strip(),
+                    "_source_file": f"legacy_frozen_dashboard:{path}",
+                }
+            )
+    return rows
+
+
 def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
     """Frozen walk-forward bettable rows used for started/settled audit views."""
     out: dict[str, dict[str, str]] = {}
@@ -782,6 +833,19 @@ def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
                 keep_or_set(f"date_match:{date}|{match}", row, source_is_frozen)
             if match:
                 keep_or_set(f"match:{match}", row, source_is_frozen)
+    for row in legacy_frozen_bettable_rows():
+        match_id = match_id_from_row(row)
+        sim_id = str(row.get("比赛ID", "") or "").strip()
+        date = str(row.get("日期", "") or "").strip()
+        match = clean_team(row.get("比赛", ""))
+        if match_id:
+            keep_or_set(f"id:{match_id}", row, True)
+        if sim_id:
+            keep_or_set(f"sim:{sim_id}", row, True)
+        if date and match:
+            keep_or_set(f"date_match:{date}|{match}", row, True)
+        if match:
+            keep_or_set(f"match:{match}", row, True)
     return out
 
 
@@ -2548,6 +2612,7 @@ def html_doc_v2(
     h1 {{ margin: 0; font-size: 18px; line-height: 1.2; }}
     .topbar .sub {{ color: #d8ecff; margin-top: 3px; }}
     .source {{ color: #eaf6ff; white-space: nowrap; }}
+    .source a {{ color: #fff; font-weight: 800; text-decoration: underline; }}
     .pattern-dock {{
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(330px, .72fr) minmax(330px, .72fr);
@@ -3005,7 +3070,7 @@ def html_doc_v2(
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：{html.escape(now)} ｜ 数据目录：D:\\codex</div>
+    <div class="source">更新时间：{html.escape(now)} ｜ 数据目录：D:\\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
   </header>
 
   <section class="pattern-dock">
