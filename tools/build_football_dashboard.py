@@ -3215,7 +3215,7 @@ function smallSampleReverseAlert(cell) {{
   const reverseRate = rateValue(cell?.reverse_rate);
   const forwardPnl = Number(cell?.forward_pnl || 0);
   const reversePnl = Number(cell?.reverse_pnl || 0);
-  return n >= 5 && n < 8 && reverseRate >= 0.8 && reversePnl > 0 && reversePnl > forwardPnl;
+  return n >= 5 && reverseRate >= 0.8 && reversePnl > 0 && reversePnl > forwardPnl;
 }}
 
 function intentMatrixCell(line, tag) {{
@@ -3410,47 +3410,54 @@ function frameworkDecision(r, cell = null, options = {{}}) {{
   const riskState = clean(risk?.["风控状态"] || edge["风控状态"] || "风控未生成");
   const stakeCoefRaw = String(risk?.["仓位系数"] || "").trim();
   const stakeCoef = stakeCoefRaw ? Number(stakeCoefRaw) : 1;
-  const mode = edgeDirection(edge);
+  const baseMode = edgeDirection(edge);
+  const reverseAlert = smallSampleReverseAlert(cell);
+  const mode = reverseAlert ? "reverse" : baseMode;
   const water = selectedWater(r, mode);
-  const rate = selectedRate(edge, mode);
+  const rate = reverseAlert ? rateValue(cell?.reverse_rate) : selectedRate(edge, mode);
   const threshold = breakevenThreshold(water);
   const team = positiveTeamText(r, mode);
   const lineVeto = sameLineVeto(cell, mode);
 
   details.push(`2）标签历史：总样本${{edge["标签总样本"] || "0"}}，正向胜率${{edge["标签正向胜率"] || "无"}}/收益${{signed(edge["标签正向盈亏"] || 0)}}，反向胜率${{edge["标签反向胜率"] || "无"}}/收益${{signed(edge["标签反向盈亏"] || 0)}}。`);
   details.push(`3）微观组合：${{region}}，样本${{edge["样本数"] || "0"}}，正向胜率${{edge["正向有效胜率"] || "无"}}/收益${{signed(edge["正向均注盈亏"] || 0)}}，反向胜率${{edge["反向有效胜率"] || "无"}}/收益${{signed(edge["反向均注盈亏"] || 0)}}，贝叶斯综合${{edge["贝叶斯综合胜率"] || "无"}}。`);
+  if (reverseAlert) {{
+    details.push(`小样本反向警戒：同盘口同标签样本${{cell.sample}}，反向胜率${{cell.reverse_rate}}/收益${{signed(cell.reverse_pnl)}}，正向收益${{signed(cell.forward_pnl)}}；本场先修正为反向=${{team}}，再继续过水位、同档、风控和Kelly。`);
+  }}
   details.push(`4）阈值/同档/风控：当前水位${{water ? water.toFixed(2) : "缺失"}}，盈亏平衡+2%阈值${{threshold ? pct(threshold) : "无法计算"}}；${{cell ? `同档样本${{cell.sample}}，正向${{cell.forward_rate}}/反向${{cell.reverse_rate}}` : "同档样本缺失，仅不触发同档否决"}}；${{riskState}}。`);
 
   if (mode === "none") {{
-    return {{action: "不投", mode, team: positiveTeamText(r, "none"), reason: "标签历史与微观组合无正期望方向", details, edge, risk, water, threshold, rate}};
+    return {{action: "不投", mode, team: positiveTeamText(r, "none"), reason: "标签历史与微观组合无正期望方向", details, edge, risk, water, threshold, rate, reverseAlert, baseMode}};
   }}
   if (riskState.includes("熔断") || riskState.includes("静默") || stakeCoef === 0) {{
-    return {{action: "不投", mode, team, reason: `风控熔断/静默：${{riskState}}`, details, edge, risk, water, threshold, rate}};
+    return {{action: "不投", mode, team, reason: `风控熔断/静默：${{riskState}}`, details, edge, risk, water, threshold, rate, reverseAlert, baseMode}};
   }}
   if (!water) {{
-    return {{action: "不投", mode, team, reason: "当前正期望方水位缺失，无法计算性价比", details, edge, risk, water, threshold, rate}};
+    return {{action: "不投", mode, team, reason: "当前正期望方水位缺失，无法计算性价比", details, edge, risk, water, threshold, rate, reverseAlert, baseMode}};
   }}
   if (!rate) {{
-    return {{action: "不投", mode, team, reason: "历史/综合胜率缺失", details, edge, risk, water, threshold, rate}};
+    return {{action: "不投", mode, team, reason: "历史/综合胜率缺失", details, edge, risk, water, threshold, rate, reverseAlert, baseMode}};
   }}
   if (lineVeto) {{
-    return {{action: "不投", mode, team, reason: `同盘口档位风控未通过：${{lineVeto}}`, details, edge, risk, water, threshold, rate}};
+    return {{action: "不投", mode, team, reason: `同盘口档位风控未通过：${{lineVeto}}`, details, edge, risk, water, threshold, rate, reverseAlert, baseMode}};
   }}
   if (rate < threshold) {{
-    return {{action: "不投", mode, team, reason: `综合胜率${{pct(rate)}}低于水位阈值${{pct(threshold)}}`, details, edge, risk, water, threshold, rate}};
+    return {{action: "不投", mode, team, reason: `综合胜率${{pct(rate)}}低于水位阈值${{pct(threshold)}}`, details, edge, risk, water, threshold, rate, reverseAlert, baseMode}};
   }}
 
   const halfStake = riskState.includes("预警") || (Number.isFinite(stakeCoef) && stakeCoef > 0 && stakeCoef < 1);
   const action = halfStake ? "半仓可投" : "可投";
-  return {{action, mode, team, reason: `通过：综合胜率${{pct(rate)}} >= 阈值${{pct(threshold)}}；风控${{riskState}}`, details, edge, risk, water, threshold, rate}};
+  const alertPrefix = reverseAlert ? "小样本反向警戒触发，已按反向修正；" : "";
+  return {{action, mode, team, reason: `${{alertPrefix}}通过：综合胜率${{pct(rate)}} >= 阈值${{pct(threshold)}}；风控${{riskState}}`, details, edge, risk, water, threshold, rate, reverseAlert, baseMode}};
 }}
 
 function skillBetDecision(r, cell = null, decisionOverride = null) {{
   const decision = decisionOverride || frameworkDecision(r, cell);
+  const alertText = decision.reverseAlert ? `小样本反向警戒触发，正期望方先改看${{decision.team}}；` : "";
   if (decision.action === "不投") {{
-    return `是否投注：不投；未通过环节：${{decision.reason}}。${{fundsFlowAuditText(r)}}`;
+    return `是否投注：不投；${{alertText}}未通过环节：${{decision.reason}}。${{fundsFlowAuditText(r)}}`;
   }}
-  return `是否投注：${{decision.action}}；投注方向：${{decision.mode === "reverse" ? "反向" : "正向"}}；正期望方：${{decision.team}}；${{decision.reason}}。${{fundsFlowAuditText(r)}}`;
+  return `是否投注：${{decision.action}}；投注方向：${{decision.mode === "reverse" ? "反向" : "正向"}}；正期望方：${{decision.team}}；${{alertText}}${{decision.reason}}。${{fundsFlowAuditText(r)}}`;
 }}
 
 function top5RateText(stats, mode) {{
@@ -3470,45 +3477,51 @@ function top5StatsLine(label, stats) {{
   return `${{label}}：样本${{n}}，正向胜率${{pct(forward.rate)}}/收益${{signed(forward.pnl)}}，反向胜率${{pct(reverse.rate)}}/收益${{signed(reverse.pnl)}}。`;
 }}
 
-function top5Decision(r, options = {{}}) {{
+function top5Decision(r, cell = null, options = {{}}) {{
   const policy = r.top5_policy || null;
   if (!policy || !policy.is_top5) return null;
-  const mode = String(policy.selected_mode || "none");
+  const baseMode = String(policy.selected_mode || "none");
+  const reverseAlert = smallSampleReverseAlert(cell);
+  const mode = reverseAlert ? "reverse" : baseMode;
   const details = [];
   details.push(`1）当前盘口意图：${{policy.line || "缺盘口档位"}} + ${{policy.tag || "缺候选标签"}}；盘口意图正向=${{positiveTeamText(r, "forward")}}；反向=${{positiveTeamText(r, "reverse")}}。`);
   details.push(`2）赛事级历史：${{top5StatsLine(policy.league || "赛事级", policy.league_stats)}} 选择=${{policy.league_choice?.mode === "reverse" ? "反向" : (policy.league_choice?.mode === "forward" ? "正向" : "不投")}}；原因=${{policy.league_choice?.reason || "无"}}。`);
   details.push(`3）盘口标签历史：${{top5StatsLine("同赛事同盘口+标签", policy.line_stats)}} 选择=${{policy.line_choice?.mode === "reverse" ? "反向" : (policy.line_choice?.mode === "forward" ? "正向" : "不投")}}；原因=${{policy.line_choice?.reason || "无"}}。`);
   details.push(`4）合并规则：若方向一致买一致；方向相反买历史胜率更高方；当前=${{policy.selected_source || "无"}}，${{policy.selected_reason || "无"}}。`);
+  if (reverseAlert) {{
+    details.push(`小样本反向警戒：全局同盘口同标签样本${{cell.sample}}，反向胜率${{cell.reverse_rate}}/收益${{signed(cell.reverse_pnl)}}，正向收益${{signed(cell.forward_pnl)}}；本场先修正为反向=${{positiveTeamText(r, "reverse")}}，再继续过水位和风控。`);
+  }}
 
   if (String(r.state || "").trim() !== "0") {{
     details.push("赛况提示：本快照已开赛/完场；只影响当前是否还能执行，不改变赛前skill可投/不可投结论。");
   }}
   if (!r.ah_ok) {{
-    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "亚盘盘口/两边水位缺失", details}};
+    return {{action: "不投", mode: "none", team: positiveTeamText(r, "none"), reason: "亚盘盘口/两边水位缺失", details, reverseAlert, baseMode}};
   }}
   if (mode === "none") {{
-    return {{action: "不投", mode, team: positiveTeamText(r, "none"), reason: policy.selected_reason || "赛前历史样本不足或同档否决", details}};
+    return {{action: "不投", mode, team: positiveTeamText(r, "none"), reason: policy.selected_reason || "赛前历史样本不足或同档否决", details, reverseAlert, baseMode}};
   }}
-  const rate = Number(policy.selected_rate || 0);
+  const rate = reverseAlert ? rateValue(cell?.reverse_rate) : Number(policy.selected_rate || 0);
   const water = selectedWater(r, mode);
   const threshold = breakevenThreshold(water);
   const team = positiveTeamText(r, mode);
   details.push(`5）水位阈值：当前水位${{water ? water.toFixed(2) : "缺失"}}，盈亏平衡+2%阈值${{threshold ? pct(threshold) : "无法计算"}}；赛前历史选中胜率${{rate ? pct(rate) : "无"}}。`);
   if (!water) {{
-    return {{action: "不投", mode, team, reason: "当前正期望方水位缺失，无法计算性价比", details, rate, water, threshold}};
+    return {{action: "不投", mode, team, reason: "当前正期望方水位缺失，无法计算性价比", details, rate, water, threshold, reverseAlert, baseMode}};
   }}
   if (!rate) {{
-    return {{action: "不投", mode, team, reason: "赛前历史胜率缺失", details, rate, water, threshold}};
+    return {{action: "不投", mode, team, reason: "赛前历史胜率缺失", details, rate, water, threshold, reverseAlert, baseMode}};
   }}
   if (rate < threshold) {{
-    return {{action: "不投", mode, team, reason: `赛前历史胜率${{pct(rate)}}低于水位阈值${{pct(threshold)}}`, details, rate, water, threshold}};
+    return {{action: "不投", mode, team, reason: `赛前历史胜率${{pct(rate)}}低于水位阈值${{pct(threshold)}}`, details, rate, water, threshold, reverseAlert, baseMode}};
   }}
-  return {{action: "可投", mode, team, reason: `通过：赛前历史胜率${{pct(rate)}} >= 阈值${{pct(threshold)}}`, details, rate, water, threshold}};
+  const alertPrefix = reverseAlert ? "小样本反向警戒触发，已按反向修正；" : "";
+  return {{action: "可投", mode, team, reason: `${{alertPrefix}}通过：赛前历史胜率${{pct(rate)}} >= 阈值${{pct(threshold)}}`, details, rate, water, threshold, reverseAlert, baseMode}};
 }}
 
 function top5PolicyBadge(r, cell = null, decisionOverride = null) {{
   const policy = r.top5_policy || {{}};
-  const decision = decisionOverride || frozenSkillDecision(r) || top5Decision(r);
+  const decision = decisionOverride || frozenSkillDecision(r) || top5Decision(r, cell);
   if (!decision) return "";
   const modeText = decision.mode === "reverse" ? "反向" : (decision.mode === "forward" ? "正向" : "无");
   const actionText = decision.action === "不投" ? "不投" : `${{decision.action}}（${{modeText}}）`;
@@ -3520,7 +3533,8 @@ function top5PolicyBadge(r, cell = null, decisionOverride = null) {{
       ? `全局同盘口同标签：样本${{cell.sample}}（<${{top5MinActionSample}}，仅作旁证）；正向收益${{signed(cell.forward_pnl)}}，反向收益${{signed(cell.reverse_pnl)}}。`
       : `全局同盘口同标签：样本${{cell.sample}}，正向胜率${{cell.forward_rate}}/收益${{signed(cell.forward_pnl)}}，反向胜率${{cell.reverse_rate}}/收益${{signed(cell.reverse_pnl)}}。`)
     : "全局同盘口同标签：无样本或样本未生成。";
-  return `五大地区赛前EV：${{policy.country || "五大地区"}}/${{policy.tier || "未分层"}}/${{policy.league || clean(r.league)}}，${{lineText}} + ${{tagText}}，投注建议：${{actionText}}；正期望方：${{decision.team}}。<br>${{top5StatsLine("赛事级赛前历史", policy.league_stats)}}<br>${{top5StatsLine("同赛事同盘口+标签赛前历史", policy.line_stats)}}<br>${{sameLine}}<br>是否投注：${{decision.action === "不投" ? "不投" : decision.action}}；${{decision.action === "不投" ? `未通过环节：${{decision.reason}}` : `投注方向：${{modeText}}；${{decision.reason}}`}}。<details class="ev-calc"><summary>查看1-4步测算</summary>${{detail}}</details>`;
+  const alertText = decision.reverseAlert ? `小样本反向警戒触发，正期望方先改看${{decision.team}}；` : "";
+  return `五大地区赛前EV：${{policy.country || "五大地区"}}/${{policy.tier || "未分层"}}/${{policy.league || clean(r.league)}}，${{lineText}} + ${{tagText}}，投注建议：${{actionText}}；正期望方：${{decision.team}}。<br>${{top5StatsLine("赛事级赛前历史", policy.league_stats)}}<br>${{top5StatsLine("同赛事同盘口+标签赛前历史", policy.line_stats)}}<br>${{sameLine}}<br>是否投注：${{decision.action === "不投" ? "不投" : decision.action}}；${{decision.action === "不投" ? `${{alertText}}未通过环节：${{decision.reason}}` : `投注方向：${{modeText}}；${{alertText}}${{decision.reason}}`}}。<details class="ev-calc"><summary>查看1-4步测算</summary>${{detail}}</details>`;
 }}
 
 function intentEvBadge(r) {{
@@ -3739,7 +3753,7 @@ function plannedSkillDecision(r) {{
   const cell = intentMatrixCell(String(r.intent_line_bucket || "").trim(), String(r.intent_tag || "").trim());
   const filterOptions = {{ ignoreStateGate: true }};
   if (r.top5_policy && r.top5_policy.is_top5) {{
-    return top5Decision(r, filterOptions) || frameworkDecision(r, cell, filterOptions);
+    return top5Decision(r, cell, filterOptions) || frameworkDecision(r, cell, filterOptions);
   }}
   return frameworkDecision(r, cell, filterOptions);
 }}

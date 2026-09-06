@@ -93,6 +93,7 @@ For every current match with a readable Asian handicap board, evaluate Asian int
    - Case B: if one points forward and one points reverse, calculate one combined direction using Bayesian shrinkage:
      `综合胜率 = ((n * 局部胜率) + (M * 全局胜率)) / (n + M)`,
      where `n` is the micro-region sample size and `M` is the global tag sample size. Use the direction whose combined win rate is higher. If the combined win rate fails the threshold, choose `不投`.
+   - Small-sample Reverse Alert / 小样本反向警戒: before defaulting to the forward candidate or the tag/micro blended direction, inspect the exact `盘口档位 + 候选标签` historical cell. If settled comparable sample size is at least `5`, reverse effective win rate is `>=80%`, reverse flat-stake PnL is positive and better than forward flat-stake PnL, set `小样本反向警戒=触发` and correct the candidate to `反向`. This is a direction correction, not a free pass: the corrected reverse side must still pass current-water breakeven + safety buffer, same-line veto, micro-region risk state, and Kelly/stake gates. If it fails any later gate, the final conclusion is still `不投`, but the red EV badge must say the reverse-alert side and the failed gate.
    - Price threshold: `Breakeven_Rate = 1 / (Water + 1)`. A direction may pass only when `历史/综合胜率 > Breakeven_Rate + 安全垫`; the default safety buffer is `+2%`. Example: HK water `0.80` requires `55.56% + 2.00% = 57.56%`.
    - Same-line veto: if the exact `盘口档位 + 候选标签` sample size is greater than `8` and the selected direction's effective win rate is below `40%`, choose `不投` even if the global tag or micro-region bucket is positive.
 
@@ -238,10 +239,10 @@ Rule updates require evidence thresholds:
 
 Small-sample reverse-alert discipline:
 
-- If an exact `盘口档位 + 候选标签` bucket reaches at least `5` settled comparable samples and the reverse side has `反向有效胜率 >=80%` with positive reverse flat-stake PnL, while the forward/previous positive-expectation side has failed in recent comparable samples, future matches in the same bucket must be marked `小样本反向警戒`.
-- `小样本反向警戒` means the dashboard and report must explicitly warn that the historical cell currently favors watching or paper-buying the reverse side. It may change sorting/risk flags. For Asian handicap, it can become a real-money candidate only if the current Asian line/water exists and the Micro-Region Tag EV framework, water threshold, same-line veto, risk state, and Kelly/stake rules pass. PM/Betfair/BTTS still require their own exact price/liquidity before execution.
-- When the red `亚盘意图历史EV` badge shows this condition, name the concrete reverse-positive team, for example `反向警戒：正期望方改看莱万特（反向=下盘），样本5，反向胜率80%`. Do not merely write `买反向`.
-- Once the same bucket reaches `8` or more comparable samples, use the forward/reverse PnL and effective win rate to adjust model weights. Once it reaches `15` or more samples with stable process evidence, it can be promoted to `优先模式`.
+- If an exact `盘口档位 + 候选标签` bucket reaches at least `5` settled comparable samples and the reverse side has `反向有效胜率 >=80%`, positive reverse flat-stake PnL, and reverse PnL greater than forward PnL, future matches in the same bucket must trigger `小样本反向警戒（Reverse Alert）`.
+- `小样本反向警戒` is an active direction correction. When it triggers, do not keep the old forward logic merely because the original candidate intent pointed forward. First change the Asian EV candidate to `反向`, name the concrete reverse-positive team and side, then continue the normal funnel: current Asian line/water -> dynamic breakeven + 2% safety buffer -> same-line veto -> micro-region/day risk state -> Kelly/stake rule. Passing Reverse Alert alone is never enough to create a bet; failing a later gate must still output `不投`.
+- When the red `亚盘意图历史EV` badge shows this condition, keep the compact red-box style and write the actual team, for example `小样本反向警戒：同盘口同标签样本5，反向胜率80%/收益+2.30，正期望方改看莱万特（反向=下盘）；是否投注：按反向继续过水位/风控`. Do not merely write `买反向`, and do not bury the team name in the expandable detail.
+- Once the same bucket reaches `8` or more comparable samples, the exact-cell forward/reverse win rate and PnL become regular same-line evidence; if the reverse side still dominates, it remains a reverse correction rather than being reset to the original candidate. Once it reaches `15` or more samples with stable process evidence, it can be promoted to `优先模式`.
 
 Historical immutability discipline:
 
