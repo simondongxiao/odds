@@ -2082,7 +2082,39 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
             }
         )
     cards.sort(key=lambda r: (not r["matched_odds"], str(r["time"]), str(r["league"]), str(r["match"])))
-    return cards, compute_stats(ledger_rows)
+    return apply_saved_dashboard_decisions(cards), compute_stats(ledger_rows)
+
+
+def apply_saved_dashboard_decisions(cards: list[dict]) -> list[dict]:
+    def key(card):
+        return str(card.get("date", "")) + "|" + str(card.get("sim_id") or card.get("match_id") or card.get("match"))
+    locks = sorted((ROOT / "ledger").glob("dashboard_plan_lock_*.json"))
+    by_key = {key(card): card for card in cards}
+    if locks:
+        lock = json.loads(locks[-1].read_text(encoding="utf-8"))
+        cutoff_date = lock["cutoff"][:10]
+        for record in lock["records"]:
+            old = record["card"]
+            if str(old.get("date", "")) >= cutoff_date:
+                continue
+            fresh = by_key.get(key(old), {})
+            merged = dict(old)
+            fields = ("score", "display_score", "state", "state_label", "display_status", "result", "pnl", "status", "grade", "error", "update")
+            if not (str(old.get("state")) == "-1" and str(fresh.get("state")) != "-1"):
+                merged.update({field: fresh[field] for field in fields if field in fresh})
+            merged["saved_skill_decision"] = record["decision"]
+            merged["frozen_bettable"] = record["decision"].get("action") in ("可投", "半仓可投")
+            merged["saved_ev_badge"] = record["badge"]
+            merged["decision_lock_source"] = lock["source"]
+            by_key[key(old)] = merged
+    for gate_file in sorted((ROOT / "ledger").glob("current_v3_gate_*.json")):
+        gates = json.loads(gate_file.read_text(encoding="utf-8"))
+        for card in by_key.values():
+            gate = gates.get(str(card.get("date", "")) + "|" + str(card.get("match_id", "")))
+            if gate and not card.get("saved_skill_decision"):
+                card["saved_skill_decision"] = gate
+                card["v3_gate_status"] = "DATA_PENDING" if gate["action"] == "不投" else "READY"
+    return list(by_key.values())
 
 
 def gateway_card_fields(row: dict, frozen: dict) -> dict:
@@ -3179,6 +3211,7 @@ def html_doc_v2(
     <p><a href="audits/cup-rotation-gateway-20260907/cup-rotation-gateway.html">赛制、主客场与轮换网关：字段方案及完整Python代码</a></p>
     <p><a href="audits/market-move-20260908/market-move-weekend.html">最新：单次临场改向与被动调价审查</a>；周末统一加严10%-15%已取消。规则与参考代码已更新，旧比赛不重算。</p>
   </details>
+  <div class="note" id="strictUpdate20260908">9/8数据更新：52场盘口观察；确认可执行0场。双方赛程/轮换/战意及独立Delta模型校验未齐，本轮完整分析尚未完成；周末不加严。历史结论已冻结，只更新赛果与结算。</div>
   <main class="shell">
     <aside class="left">
       <div class="section-title">日期与比赛</div>
@@ -3352,6 +3385,7 @@ function positiveTeamText(r, mode) {{
 }}
 
 function frozenSkillDecision(r) {{
+  if (r.saved_skill_decision) return r.saved_skill_decision;
   if (!r.frozen_bettable) return null;
   const mode = String(r.frozen_bettable_mode || "none");
   if (mode !== "forward" && mode !== "reverse") return null;
@@ -3613,6 +3647,7 @@ function top5PolicyBadge(r, cell = null, decisionOverride = null) {{
 }}
 
 function intentEvBadge(r) {{
+  if (r.saved_ev_badge) return r.saved_ev_badge;
   const line = String(r.intent_line_bucket || "").trim();
   const tag = String(r.intent_tag || "").trim();
   const cell = intentMatrixCell(line, tag);

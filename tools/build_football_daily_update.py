@@ -1575,7 +1575,7 @@ def main() -> int:
             dashboard_module.main()
 
     publish_script = Path(r"D:\codex\tools\publish_football_dashboard_to_github.py")
-    if publish_script.exists():
+    if publish_script.exists() and "--no-publish" not in sys.argv:
         spec = importlib.util.spec_from_file_location("publish_football_dashboard_to_github", publish_script)
         if spec and spec.loader:
             publish_module = importlib.util.module_from_spec(spec)
