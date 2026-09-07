@@ -3159,6 +3159,7 @@ def html_doc_v2(
     <summary>9/4选边变化审计与风控升级</summary>
     <p>皇马、巴黎改向由水位分档切换历史标签触发；早版五大地区7场可投均为上盘。v3规则与计算模块已建立，待结构化证据适配及样本外校准；本页原计划仍保留其历史版本。</p>
     <a href="audits/direction-audit-20260907/report.html">查看版本对比、原因与新规则</a>
+    <p><a href="audits/execution-workflow-v31-20260907/v3-implementation-contract.html">v3.1完整执行工作流：数据、双检、仓位与冷却</a>（规则/计算模块已更新，实盘日更接入待验收）</p>
   </details>
   <main class="shell">
     <aside class="left">

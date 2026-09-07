@@ -5,7 +5,7 @@ import math
 from datetime import datetime
 from typing import Mapping
 
-VERSION = "asian-risk-v3-20260907"
+VERSION = "asian-risk-v3.1-20260907"
 OUTCOMES = ("win", "half_win", "push", "half_loss", "loss")
 
 
@@ -28,6 +28,44 @@ def aware_time(value: str) -> datetime:
     if result.utcoffset() is None:
         raise ValueError("Timezone-aware timestamps required")
     return result
+
+
+def de_vig_1x2(home: float, draw: float, away: float) -> dict[str, float]:
+    odds = [finite(x, "decimal_odds") for x in (home, draw, away)]
+    if min(odds) <= 1:
+        raise ValueError("Decimal odds must exceed one")
+    raw = [1 / x for x in odds]
+    total = sum(raw)
+    return dict(zip(("home", "draw", "away", "overround"),
+                    [x / total for x in raw] + [total - 1]))
+
+
+def quote_alignment(quotes: list[Mapping], decision_at: str, *,
+                    max_age_seconds: int = 600, max_skew_seconds: int = 120) -> dict:
+    """Check one bookmaker's current 90-minute panel, not its opening prices."""
+    cutoff = aware_time(decision_at)
+    errors, times = [], []
+    if len(quotes) != 3 or {q.get("kind") for q in quotes} != {"1x2", "ah", "total"}:
+        errors.append("missing_or_duplicate_market")
+    for field in ("match_id", "bookmaker_id"):
+        if len({q.get(field) for q in quotes}) != 1 or any(not q.get(field) for q in quotes):
+            errors.append(field + "_mismatch")
+    for q in quotes:
+        label = str(q.get("kind", "unknown"))
+        if q.get("period") != "90m" or q.get("state") != "pre":
+            errors.append(label + ".market_not_pre_90m")
+        try:
+            event, observed, available = (aware_time(q[k]) for k in ("quoted_at", "observed_at", "available_at"))
+            times.append(event)
+            if not event <= observed <= available <= cutoff:
+                errors.append(label + ".clock_or_future_data")
+            if (cutoff - event).total_seconds() > max_age_seconds:
+                errors.append(label + ".stale_quote")
+        except (KeyError, TypeError, ValueError):
+            errors.append(label + ".timestamp_missing")
+    if times and (max(times) - min(times)).total_seconds() > max_skew_seconds:
+        errors.append("cross_market_skew")
+    return {"Quote_Status": "PASS" if not errors else "DATA_PENDING", "Quote_Failed_Gates": errors}
 
 
 def split_line(line: float) -> tuple[float, float]:
@@ -101,6 +139,30 @@ def combined_rate(local_rate: float, local_n: int, global_rate: float, global_n:
         raise ValueError("Positive integer sample sizes required")
     return (local_n * probability(local_rate, "local_rate")
             + global_n * probability(global_rate, "global_rate")) / (local_n + global_n)
+
+
+def conservative_masses(masses: Mapping[str, float], history_rate: float) -> dict[str, float]:
+    """Cap model effective probability by history; preserve pushes and within-side half/full mix."""
+    validate_masses(masses)
+    p = probability(history_rate, "history_rate")
+    a = masses["win"] + .5 * masses["half_win"]
+    b = masses["loss"] + .5 * masses["half_loss"]
+    if a + b == 0:
+        raise ValueError("Push-only distribution has no effective rate")
+    if p >= a / (a + b):
+        return dict(masses)
+    winning = masses["win"] + masses["half_win"]
+    losing = masses["loss"] + masses["half_loss"]
+    if winning == 0 or losing == 0:
+        raise ValueError("Cannot infer unseen settlement states from a degenerate model")
+    win_weight, loss_weight = a / winning, b / losing
+    win_share = p * loss_weight / (win_weight * (1 - p) + p * loss_weight)
+    active = 1 - masses["push"]
+    return {"win": active * win_share * masses["win"] / winning,
+            "half_win": active * win_share * masses["half_win"] / winning,
+            "push": masses["push"],
+            "half_loss": active * (1 - win_share) * masses["half_loss"] / losing,
+            "loss": active * (1 - win_share) * masses["loss"] / losing}
 
 
 def fundamental_gate(teams: Mapping[str, Mapping], decision_at: str, selected_team: str | None = None) -> dict:
@@ -229,18 +291,21 @@ def execution_plan(*, masses: Mapping[str, float], water: float, effective_rate:
     if finite(remaining_capacity, "remaining_capacity") < 0 or finite(costs, "costs") < 0:
         raise ValueError("Capacity and costs cannot be negative")
     threshold = 1 / (1 + water) + safety_buffer
-    a = masses["win"] + .5 * masses["half_win"]
-    b = masses["loss"] + .5 * masses["half_loss"]
+    sizing_masses = conservative_masses(masses, effective_rate)
+    a = sizing_masses["win"] + .5 * sizing_masses["half_win"]
+    b = sizing_masses["loss"] + .5 * sizing_masses["half_loss"]
+    sizing_rate = a / (a + b)
     ev = a * water - b - costs
     blind = .75 <= abs(signed_handicap) <= 1.0
-    reason = ("FUNDAMENTALS_PENDING" if fundamental_status not in {"pass", "reduced"}
+    reason = ("FUNDAMENTALS_VETO" if fundamental_status == "veto"
+              else "FUNDAMENTALS_PENDING" if fundamental_status not in {"pass", "reduced"}
               else "VETO_UPPER" if upper_vetoed else "SAME_LINE_VETO" if same_line_vetoed
               else "CONV_CONFLICT" if not conversion_passed
               else "SHADOW_UNVALIDATED" if not calibration_passed
               else "COOLDOWN" if day_multiplier == 0
               else "BLIND_SPOT_UNVALIDATED" if blind and not blind_validated
-              else "PRICE_EDGE_FAILED" if effective_rate <= threshold or ev <= 0 else "")
-    kelly = generalized_kelly(masses, water, costs)
+              else "PRICE_EDGE_FAILED" if sizing_rate <= threshold or ev <= 0 else "")
+    kelly = generalized_kelly(sizing_masses, water, costs)
     blind_mult = .25 if blind and blind_validated else 0.0 if blind else 1.0
     signal_mult = 1.5 if high_confidence and fundamental_status == "pass" else 1.0
     fundamental_mult = .5 if fundamental_status == "reduced" else 1.0
@@ -252,4 +317,33 @@ def execution_plan(*, masses: Mapping[str, float], water: float, effective_rate:
     return {"rule_version": VERSION, "Execution_Status": reason or "READY",
             "Stake": stake, "Threshold": round(threshold, 4), "EV_Current": round(ev, 4),
             "Kelly_Full": round(kelly, 4), "Blind_Multiplier": blind_mult,
-            "Signal_Multiplier": signal_mult, "Fundamental_Multiplier": fundamental_mult}
+            "Signal_Multiplier": signal_mult, "Fundamental_Multiplier": fundamental_mult,
+            "Sizing_Effective_Rate": round(sizing_rate, 4)}
+
+
+def execution_recheck(plan: Mapping, quote: Mapping, now: str, *,
+                      receipt_states: tuple[str, ...] = (), authorized: bool = False) -> str:
+    """Read-only preflight. Never sends an order or mutates a frozen plan."""
+    clock = aware_time(now)
+    if plan.get("Execution_Status") != "READY" or not plan.get("decision_id"):
+        return "PLAN_NOT_READY"
+    if any(state in {"PENDING", "UNKNOWN", "FILLED", "PARTIAL"} for state in receipt_states):
+        return "DUPLICATE_OR_UNCERTAIN_EXECUTION"
+    if clock >= aware_time(plan["kickoff_at"]) or quote.get("state") != "pre":
+        return "MATCH_STARTED"
+    if clock > aware_time(plan["valid_until"]):
+        return "EXPIRED"
+    for key in ("match_id", "bookmaker_id", "team_id", "signed_handicap", "period"):
+        if key not in plan or key not in quote or quote[key] != plan[key]:
+            return "MARKET_CHANGED_NEW_DECISION_REQUIRED"
+    try:
+        quoted, available = aware_time(quote["quoted_at"]), aware_time(quote["available_at"])
+        if not quoted <= available <= clock or (clock - quoted).total_seconds() > 120:
+            return "QUOTE_STALE_OR_FUTURE"
+        if finite(quote["water"], "water") < finite(plan["minimum_water"], "minimum_water"):
+            return "PRICE_BELOW_LIMIT"
+        if finite(plan["Stake"], "Stake") <= 0:
+            return "INVALID_STAKE"
+    except (KeyError, TypeError, ValueError):
+        return "EXECUTION_DATA_PENDING"
+    return "READY_FOR_AUTHORIZED_EXECUTOR" if authorized else "AUTHORIZATION_REQUIRED"

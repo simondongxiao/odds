@@ -11,6 +11,8 @@ description: Global senior football odds analysis, daily slate updates and seque
 
 For new analysis, read [亚盘选边、隐性基本面与欧亚偏离度工作流](references/asian-side-risk-v3.md). This standard takes precedence over older passages that allow odds-only labels to qualify as executable bets. Existing frozen decisions retain their original rule version.
 
+For implementation and HTML/Feishu integration, also read [v3.1数据契约、执行状态与验收](references/v3-implementation-contract.md). This defines the four modules, typed fields, as-of evidence, conservative sizing, idempotent execution, and rollout gates. Use `asian-risk-v3.1-20260907` for new reference calculations. A documented gate is not a deployed collector or order service.
+
 Four required stages apply before an Asian-handicap bet is approved:
 
 1. **Hidden fundamentals first**: record both teams' fixture density, rest/travel, key absences, rotation/bench depth, last-five home/away defensive and attacking form, and competition incentives with source timestamps before classifying intent. Missing core assessments mean `待核/仅盘口候选`; adverse schedule plus inadequate depth or a material unresolved absence blocks execution. A predicted lineup is not a confirmed lineup.
@@ -142,10 +144,10 @@ After each settlement update, calculate same-day settled performance for every m
 
 Risk states:
 
-- **State A / 正常态**: yesterday's settled ROI for the micro-region is greater than `0`. Today's qualifying matches keep standard stake sizing.
-- **State B / 预警-降半仓**: yesterday's settled ROI is below `0` and the micro-region had at least three consecutive losses/half-loss equivalents. Today's qualifying matches in that micro-region must be forced to half stake.
-- **State C / 熔断-静默观望**: the micro-region has two consecutive negative-ROI settlement days, or cumulative recent losses exceed five matches. The next match day for that micro-region is observation-only; red box must say `不投：风控熔断`.
-- **State D / 复活机制**: during State B or State C, if a settlement day for that micro-region turns ROI positive, restore State A on the next day.
+- **State A / 正常态**: keep standard sizing when no downgrade is active. Zero ROI or a no-game day does not clear an active downgrade.
+- **State B / 预警-降半仓**: previous completed active-day ROI below `0`, or at least three consecutive full-loss equivalents, triggers half stake on the next active day. Full loss counts as 1, half loss as 0.5; a push does not clear the sequence, a profit does.
+- **State C / 熔断-静默观望**: two consecutive negative-ROI active settlement days, or at least five consecutive full-loss equivalents, triggers observation-only on the next active day. Track league, line bucket, and micro-region separately; apply the most restrictive state.
+- **State D / 复活机制**: an active downgrade clears next day only after a full shadow day with at least three settled eligible shadow decisions and ROI above `0`. This v3 initial recovery parameter must be validated; no-match days are not negative or recovery days. Keep actual and shadow PnL separate.
 - If an already kicked-off or settled match is refreshed later, never change its original pre-match direction, candidate tag, line, water, or timestamp. Add only append-only review fields such as `最新快照`, `赛况更新`, `变动原因`, or `按当前模型回看`.
 
 Market-price availability gate:
@@ -170,7 +172,7 @@ Data completeness gate:
 - `阻上/诱上/阻下/诱下/降温保护/价格透支` is the core Asian-handicap intent diagnosis, not a placeholder. Always try to express the most likely one or two **candidate intents** when Asian and European prices are available, but separate candidate diagnosis from final betting action.
 - Evidence levels:
   - `高`: football prior, European de-vig gap, Asian opening-current path, public/flow side, and team news/form have all been compared. Candidate intent may be used in final pick, Kelly, and PM/Betfair/BTTS checks when that exact market price exists.
-  - `中`: football prior is partially known and Asian/European price path is complete, but one of team news, form, or flow is missing. Missing fields must be displayed as evidence haircuts; they do not automatically block the Asian EV framework.
+  - `中`: football prior is partially known and Asian/European price path is complete. Missing optional flow lowers evidence strength but alone does not block Asian EV. Missing the required schedule, core absences, rotation/depth or motivation assessment blocks v3 execution; do not bypass it with a medium-confidence label.
   - `低`: only Titan007/list-level odds, ranking/stage, and opening-current price path are available. Show `盘口原始候选（低证据）`; the 2026-09-07 hidden-fundamentals and conversion checks remain pending, so executable approval is blocked. This is a fundamentals/conversion failure, not an automatic veto for missing PM/Betfair flow. Do not create PM/BTTS/Betfair picks without their exact prices.
 - If the football prior and team-news/form are missing, show `盘口原始候选：待基本面验证；不可执行：隐性基本面前置门未通过` with the exact missing fields. Missing public/flow data alone still does not automatically stop the Asian-handicap framework.
 - Never display all four labels `阻上/诱上/阻下/诱下` as undifferentiated options. Rank candidates by likelihood and state which data would confirm or overturn them.
@@ -184,8 +186,8 @@ Data completeness gate:
   - Always store and display these fields when discussing flow: `阻诱目标侧`, `实际资金流向`, `目标侧水位甜头`, `意图成败`, `资金流修正方向`, `资金流修正球队`, `资金流来源`, and `资金流时间戳`.
   - `阻诱目标侧`: `阻上` and `诱上` target the `上盘`; `阻下` and `诱下` target the `下盘`. For combined tags such as `阻上/诱下`, evaluate both meanings but keep one final `资金流修正方向`.
   - `实际资金流向`: use Layer 1 exchange volume, Layer 1B Betfair-derived flow, or Layer 2 public bet/money splits when available. If only Titan007/bookmaker price movement exists, write `资金流缺口：只有盘口价格流` and do not pretend volume is known.
-  - `理论资金占比`: when true or derived betting flow is available, first calculate a neutral theoretical team-money share from the odds board before calling any side hot. Use European 1X2 de-vig as the win-probability anchor, then remove the draw for side-vs-side comparison: `理论欧赔主队占比 = P_home / (P_home + P_away)`, `理论欧赔客队占比 = P_away / (P_home + P_away)`. Also calculate an Asian water-implied side share from the two HK waters: `亚盘主队隐含 = (1/(1+home_water)) / [(1/(1+home_water)) + (1/(1+away_water))]`, same for away. If both are available, average the European no-draw share and Asian water-implied share; if only one is available, use the available one and label the basis. This is a comparison baseline, not a true bookmaker liability model.
-  - `资金过热判定`: actual side money must be compared with the theoretical share. Use team-only actual flow for Asian-side judgement: `实际主队占比 = 主队成交额 / (主队成交额 + 客队成交额)`, same for away; draw money is reported separately but excluded from Asian side heat. A side is `过热` only when `实际资金占比 - 理论资金占比 > 5pct`. Deviations within `+5pct` are noise/normal and must not trigger `资金流修正` by themselves.
+  - `理论资金占比`: retain this legacy column but label its value `同市场价格隐含基准（代理）`, not measured money or a liability model. For Asian handicap, normalize the two implied prices at the same line and timestamp. European no-draw team probability is a different event and must not be averaged with handicap cover probability. Without a comparable market baseline, heat is unverified.
+  - `资金过热判定`: only compare matched actual money/bet shares with the same market/line/period/window baseline. Define the proxy excess as `实际该侧资金占比 - 同市场价格隐含基准`; strictly greater than 5 percentage points triggers a heat alert, subject to source and liquidity quality. Bet counts and money volumes are different fields. Moneyline Betfair volume cannot by itself establish Asian-side heat. Price-derived values without actual flow cannot establish actual money shares.
   - If no real betting-flow source is matched, do **not** stop the Asian-handicap process and do **not** flip sides because of the missing flow. Continue with the original Micro-Region Tag EV framework: current Asian intent -> global tag history -> micro-region history -> Bayesian shrinkage when needed -> current-water breakeven threshold -> same-line veto -> risk-control state. The red badge should say `资金流未验证：沿用亚盘EV框架`, not `不投：缺PM/必发`.
   - `目标侧水位甜头`: target side still has an attractive entry if the current price/line continues to make that side easier or better paid than the risk should allow, for example high HK water, extra handicap cushion, line cut, or water lift that remains playable. Record the numeric opening/current water and line path beside this qualitative label.
   - Flow-decision matrix:
@@ -363,7 +365,7 @@ For every API pull, save raw snapshots under `D:\codex\outputs\football_odds_tra
 
 ### Fundamental Evidence Minimum
 
-Do not let market formulas replace football work. Before any simulation or recommendation, record at least one concrete fundamental input and one market-pull input:
+Do not let market formulas replace football work. For v3 intent approval, assess BOTH teams' schedule/rest, key absences, rotation/bench depth and motivation before reading the intent label, with source and available-at timestamps. Also document recent form/tactical support. One arbitrary football fact plus a price change no longer satisfies the gate. The categories below are evidence examples, not interchangeable substitutes for the four mandatory assessments:
 
 - fundamental input: lineup/injury, rest/travel, table motivation, tactical matchup, xG/shot profile, defensive leakage, weather/surface, cup aggregate state, or rotation risk;
 - market-pull input: public/story side, European de-vig gap, Asian handicap depth/water movement, exchange/Polymarket heat, liquidity, or bookmaker price drift.
@@ -542,7 +544,7 @@ Field-level requirements:
 - Recent-form output must include at minimum recent five W-D-L, goals for/against, home/away split when relevant, and whether the opponents are comparable. Do not reduce form to a generic `状态好/状态差`.
 - H2H output must separate all H2H from same-home-away H2H and mark stale samples or major squad/manager discontinuity.
 - For totals, BTTS, team totals, or goal-count picks, add recent scoring/conceding averages, first-half/second-half goal timing, shot/xG or chance-quality proxy where available, tactical matchup, and post-goal behavior (`继续压上`, `控节奏`, `防反收缩`) before giving any direction.
-- Missing team-news/form data does not automatically block Asian-handicap EV simulation, but it must lower confidence, block high-Kelly/main-pick promotion, and appear visibly in HTML/CSV as the exact missing link.
+- Missing optional flow alone does not block Asian-handicap analysis. Missing core team-news/schedule/rotation/motivation assessment leaves only a raw price candidate; v3 execution is blocked with the exact missing link. Research-only legacy simulations remain labeled with their original rule version.
 
 Main-pick gate:
 
@@ -1047,7 +1049,7 @@ The final recommendation must choose an entry type:
 - **Live-only**: when pre-match price is fair but the first 15-30 minutes can reveal tempo, lineup intent, or pressing quality.
 - **No bet**: when boards conflict or the edge is below cost.
 
-Use Kelly only after estimating true probability:
+Use Kelly only after estimating true probability. The binary formulas below apply only to two-outcome contracts; Asian quarter/integer lines with push or half outcomes use the v3 five-state generalized Kelly. For Asian sizing, cap model effective probability by the historical/combined effective probability (and a validated lower bound when supplied), preserve push and conditional half/full settlement structure, then recompute EV and Kelly. Delta remains calculated from the independent original conversion model, not from this historical sizing adjustment.
 
 - Decimal odds: `f* = (p * O - 1) / (O - 1)`.
 - Polymarket Yes share at price `c`: `f* = (p - c) / (1 - c)`.
@@ -1088,7 +1090,7 @@ Recommend only defensive fractional Kelly:
 
 - Normal edge: `0.15-0.25 Kelly`.
 - Do not use `0.5 Kelly` in football betting markets.
-- High-variance cup, derby, low-liquidity, travel-heavy, or lineup-uncertain bets: cap single-match exposure at `0.25%-1.0%` of bankroll unless the user asks otherwise. Liquid top-league matches with verified team news can use `0.5%-1.5%` caps when the edge survives price checks.
+- For v3 Asian handicaps, standard 5% is a planning unit, not a compulsory stake. The actual amount is capped by quarter-Kelly, single-match and daily capacity limits, and all risk multipliers. Optional smaller venue/competition caps can only reduce it. The older 0.25%-1.5% sizing guidance is not a competing automatic v3 unit.
 - For Polymarket handicap contracts, do not use point-estimate Kelly. Use the lower bound of the fair-probability range after uncertainty haircut. If `p_low - executable_price` is below the edge buffer, stake is zero.
 - Cap Polymarket handicap exposure at `0.25%-0.75%` of bankroll by default, even when the model likes the side. Increase only when the price is stale versus sportsbook fair value, liquidity is real, and the edge survives a conservative haircut.
 - Prefer limit orders. Never recommend chasing a Polymarket handicap after the price moves past the stated max entry.
@@ -1295,7 +1297,7 @@ Do not fabricate Betway, Pinnacle, Polymarket, Betfair, or other venue prices fr
 
 For Kelly calculations from Titan007 Asian handicap or totals, convert Hong Kong water to decimal odds as `decimal = 1 + HK_water` when the quoted water is positive. If the row uses European odds, use the displayed decimal odds directly.
 
-If Titan007 has odds but the fundamental minimum is missing, the row may be simulated, but real-money action must be downgraded to `仅模拟-基本面未核`. A main pick requires at least one concrete football input and one market-pull input.
+If Titan007 has odds but the v3 fundamental gate is missing, keep the row as `盘口原始候选-基本面待核`, not a v3 executable pick. Do not fill unknown absences with zero. Legacy research simulations keep their original version and must not be counted as v3 approvals.
 
 ### Local Backup And Dashboard Update Workflow
 

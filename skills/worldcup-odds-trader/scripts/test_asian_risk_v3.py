@@ -119,6 +119,100 @@ class RiskTests(unittest.TestCase):
         self.assertEqual(result["Execution_Status"], "READY")
         self.assertEqual(args, before)
 
+    def test_european_devig(self):
+        result = risk.de_vig_1x2(2, 3, 4)
+        self.assertAlmostEqual(sum(result[k] for k in ("home", "draw", "away")), 1)
+        self.assertAlmostEqual(result["home"], 6 / 13)
+        with self.assertRaises(ValueError):
+            risk.de_vig_1x2(1, 3, 4)
+
+    def quotes(self):
+        return [{"kind": kind, "match_id": "example", "bookmaker_id": "book-a", "period": "90m", "state": "pre",
+                 "quoted_at": "2026-09-07T10:59:00+08:00", "observed_at": "2026-09-07T10:59:10+08:00",
+                 "available_at": "2026-09-07T10:59:15+08:00"} for kind in ("1x2", "ah", "total")]
+
+    def test_quote_alignment(self):
+        self.assertEqual(risk.quote_alignment(self.quotes(), "2026-09-07T11:00:00+08:00")["Quote_Status"], "PASS")
+        quotes = self.quotes()
+        quotes[0]["quoted_at"] = "2026-09-07T10:55:00+08:00"
+        self.assertIn("cross_market_skew", risk.quote_alignment(quotes, "2026-09-07T11:00:00+08:00")["Quote_Failed_Gates"])
+
+    def test_future_stale_and_duplicate_quotes(self):
+        for quotes, now in [(self.quotes(), "2026-09-07T10:00:00+08:00"),
+                            (self.quotes(), "2026-09-07T12:00:00+08:00"),
+                            (self.quotes()[:2], "2026-09-07T11:00:00+08:00")]:
+            self.assertEqual(risk.quote_alignment(quotes, now)["Quote_Status"], "DATA_PENDING")
+
+    def test_history_caps_model_sizing(self):
+        args = self.proposal()
+        args.update(bankroll=10000, effective_rate=.55, remaining_capacity=1000)
+        low = risk.execution_plan(**args)
+        args["effective_rate"] = .65
+        high = risk.execution_plan(**args)
+        self.assertLess(low["Stake"], high["Stake"])
+        self.assertAlmostEqual(low["Kelly_Full"], .1)
+        self.assertEqual(low["Sizing_Effective_Rate"], .55)
+
+    def test_model_caps_optimistic_history(self):
+        args = self.proposal()
+        args["masses"] = dict(zip(risk.OUTCOMES, [.51, 0, 0, 0, .49]))
+        self.assertEqual(risk.execution_plan(**args)["Execution_Status"], "PRICE_EDGE_FAILED")
+
+    def test_mass_adjustment_preserves_push_and_half_mix(self):
+        masses = dict(zip(risk.OUTCOMES, [.3, .2, .1, .1, .3]))
+        adjusted = risk.conservative_masses(masses, .4)
+        risk.validate_masses(adjusted)
+        self.assertEqual(adjusted["push"], .1)
+        self.assertAlmostEqual(adjusted["win"] / adjusted["half_win"], 1.5)
+        self.assertAlmostEqual(adjusted["loss"] / adjusted["half_loss"], 3)
+        a = adjusted["win"] + .5 * adjusted["half_win"]
+        b = adjusted["loss"] + .5 * adjusted["half_loss"]
+        self.assertAlmostEqual(a / (a + b), .4)
+
+    def test_fundamental_veto_has_distinct_reason(self):
+        args = self.proposal()
+        args["fundamental_status"] = "veto"
+        self.assertEqual(risk.execution_plan(**args)["Execution_Status"], "FUNDAMENTALS_VETO")
+
+    def preflight(self):
+        plan = {"Execution_Status": "READY", "decision_id": "synthetic-1", "match_id": "example",
+                "bookmaker_id": "book-a", "team_id": "home", "signed_handicap": -.5, "period": "90m",
+                "kickoff_at": "2026-09-07T12:00:00+08:00", "valid_until": "2026-09-07T11:02:00+08:00",
+                "minimum_water": .9, "Stake": 50}
+        quote = {k: plan[k] for k in ("match_id", "bookmaker_id", "team_id", "signed_handicap", "period")}
+        quote.update(state="pre", water=.92, quoted_at="2026-09-07T10:59:00+08:00", available_at="2026-09-07T10:59:30+08:00")
+        return plan, quote, "2026-09-07T11:00:00+08:00"
+
+    def test_no_automatic_bet_authorization(self):
+        plan, quote, now = self.preflight()
+        self.assertEqual(risk.execution_recheck(plan, quote, now), "AUTHORIZATION_REQUIRED")
+        self.assertEqual(risk.execution_recheck(plan, quote, now, authorized=True), "READY_FOR_AUTHORIZED_EXECUTOR")
+
+    def test_uncertain_receipts_never_retry_blindly(self):
+        for state in ("UNKNOWN", "PENDING", "FILLED", "PARTIAL"):
+            plan, quote, now = self.preflight()
+            self.assertEqual(risk.execution_recheck(plan, quote, now, receipt_states=(state,)), "DUPLICATE_OR_UNCERTAIN_EXECUTION")
+
+    def test_preflight_does_not_change_started_pick(self):
+        plan, quote, now = self.preflight()
+        before = deepcopy(plan)
+        quote["state"] = "live"
+        self.assertEqual(risk.execution_recheck(plan, quote, now), "MATCH_STARTED")
+        self.assertEqual(plan, before)
+
+    def test_reprice_and_line_changes_block_execution(self):
+        plan, quote, now = self.preflight()
+        quote["water"] = .8
+        self.assertEqual(risk.execution_recheck(plan, quote, now), "PRICE_BELOW_LIMIT")
+        quote["signed_handicap"] = -.75
+        self.assertEqual(risk.execution_recheck(plan, quote, now), "MARKET_CHANGED_NEW_DECISION_REQUIRED")
+
+    def test_expired_plan_and_future_execution_quote(self):
+        plan, quote, now = self.preflight()
+        self.assertEqual(risk.execution_recheck(plan, quote, "2026-09-07T11:03:00+08:00"), "EXPIRED")
+        quote["available_at"] = "2026-09-07T11:01:00+08:00"
+        self.assertEqual(risk.execution_recheck(plan, quote, now), "QUOTE_STALE_OR_FUTURE")
+
 
 if __name__ == "__main__":
     unittest.main()
