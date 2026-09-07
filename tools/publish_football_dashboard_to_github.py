@@ -109,6 +109,13 @@ def publish(push: bool = True) -> dict[str, object]:
     if copy_dir(ROOT / "dashboard" / "snapshots", PUBLISH_REPO / "snapshots"):
         copied.append(str(PUBLISH_REPO / "snapshots"))
 
+    if copy_dir(ROOT / "dashboard" / "audits", PUBLISH_REPO / "audits"):
+        copied.append(str(PUBLISH_REPO / "audits"))
+    risk_skill = WORKSPACE / "skills" / "worldcup-odds-trader"
+    for name in ("references/asian-side-risk-v3.md", "scripts/asian_risk_v3.py", "scripts/test_asian_risk_v3.py"):
+        if copy_file(risk_skill / name, PUBLISH_REPO / "skills" / "worldcup-odds-trader" / name):
+            copied.append(str(PUBLISH_REPO / "skills" / "worldcup-odds-trader" / name))
+
     readme = PUBLISH_REPO / "README.md"
     readme.write_text(
         "# Football Odds Dashboard\n\n"

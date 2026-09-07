@@ -1,11 +1,26 @@
 ---
 name: worldcup-odds-trader
-description: Global football betting-market analysis for World Cup, European top-five leagues, their second divisions and cups, Portuguese Primeira Liga, Belgian Pro League, German Telekom Cup, Turkish Super Lig, J3 League, German 2. Bundesliga, French Ligue 2, EFL Championship, EFL League One, Dutch Eredivisie, Eerste Divisie, Spanish Segunda Division, Swiss Cup, Coppa Italia, Turkish 1. Lig, Liga Portugal 2, Swedish Allsvenskan, Norwegian Eliteserien, Russian Premier League, UEFA Champions League, Europa League, Conference League, AFC Champions League, Copa Sudamericana, Chinese Super League, K League, J1, J2, A-League, Brazil Serie A/B, Argentina Primera, MLS, USL Championship, and Australia Cup. Use the mandatory chain of 基本面拉力 to 欧赔去水 to 亚盘真实意图 to Polymarket/必发反向情绪 to 最终盘口选择, with daily slate listing, prior-day review, simulated bets for every readable match, market/league/cup-format segmented win-rate tracking, public analyst/blogger sentiment checks, high-hit-rate pattern logging, Kelly staking, Polymarket execution gates, and bookmaker-style trader interpretation. Use when Codex needs 足球盘口分析, 欧赔/亚盘转换, 阻上/诱下判断, Polymarket/必发 sentiment mismatch, handicap prices, Kelly仓位, 模拟投注验证, 博主盘口观点交叉验证, or senior odds-trader style match predictions.
+description: Global senior football odds analysis, daily slate updates and sequential backtests. Use for Asian handicap intent, European de-vig, fundamentals and rotation, Polymarket/Betfair sentiment, executable price/Kelly, historical settlement and HTML dashboards. Follow the five-board chain, hidden-fundamentals and Delta_Conv checks, tag/micro-region EV, hot-favorite and exposure controls, and immutable pre-match snapshots. Covers domestic top-three-tier leagues, senior cups and international competitions; excludes youth and friendlies.
 ---
 
 # Global Football Odds Trader
 
 ## Operating Standard
+
+### 2026-09-07 Risk Standard (Authoritative)
+
+For new analysis, read [亚盘选边、隐性基本面与欧亚偏离度工作流](references/asian-side-risk-v3.md). This standard takes precedence over older passages that allow odds-only labels to qualify as executable bets. Existing frozen decisions retain their original rule version.
+
+Four required stages apply before an Asian-handicap bet is approved:
+
+1. **Hidden fundamentals first**: record both teams' fixture density, rest/travel, key absences, rotation/bench depth, last-five home/away defensive and attacking form, and competition incentives with source timestamps before classifying intent. Missing core assessments mean `待核/仅盘口候选`; adverse schedule plus inadequate depth or a material unresolved absence blocks execution. A predicted lineup is not a confirmed lineup.
+2. **European/Asian cross-check**: calculate `Theo_Water`, signed `Delta_Conv`, and exact quarter-line expected return using the reference's definitions. `升盘+某一水位区间` alone cannot establish `真实示强` or `真实有效阻上`. Treat labels as testable hypotheses. Preserve raw price candidates separately from verified intent; use evidence and persistence before changing direction.
+3. **Hot-favorite and underdog review**: verified high favorite heat plus independently supported lack of resistance, inducement or fatigue triggers `上盘否决`. Evaluate the underdog with its own form, tactics, handicap and EV gates; if it fails, do not bet. `降温保护` is not synonymous with `诱上`; deep lines or famous teams alone do not prove heat. Missing actual flow stays a disclosed gap, not invented money percentages.
+4. **Portfolio and execution risk**: measure upper/lower counts AND stake exposure by whole slate, region, country, league/cup and weekend/weekday. Sustained upper exposure above 80% triggers a documented review, tighter upper-side margin and reduced concentration, never quota-driven underdog selection. Apply exact-line blind-spot sizing, sequentially available evidence, day-batch cooling, and minimum-stake rules before `可执行`.
+
+Use the stable fields and implementation contract in the reference. The reusable calculation module is `scripts/asian_risk_v3.py`; test it before use. Its provisional Delta thresholds are research parameters until chronological out-of-sample validation passes. Do not claim the live collectors, Feishu writer or dashboard decision engine has adopted v3 solely because this skill or the reference module was edited; report deployment status explicitly.
+
+Historical audit must replay the saved page's own code AND statistics. Track `rule_version`, `snapshot_id`, `decision_id`, `decision_at`, `history_cutoff`, `list_date` together with team/side, line/water and tag. Display one whole frozen version at a time. Never combine an early selected team with a later tag/water, or replace a settled pick with the best-performing later version. Exact odds-change time is unknown when only two snapshots bound the change.
 
 Act as a senior odds compiler and risk trader. Separate three questions at all times:
 
@@ -85,7 +100,7 @@ Snapshot stability and drift discipline:
 
 For every current match with a readable Asian handicap board, evaluate Asian intent and staking direction in this fixed order. The same field names and order must be preserved in future CSV/JSON/HTML outputs so the dashboard does not drift:
 
-1. **Current match intent**: first calculate the match's Asian-handicap candidate intent from the current odds board: handicap line, upper/lower water, opening-current line movement, European de-vig anchor, and football-prior context. Store `候选标签`, `候选映射方向`, `上盘方`, `下盘方`, `盘口档位`, `即时亚盘`, and `水位`.
+1. **Current match intent**: first complete the hidden-fundamentals gate in the 2026-09-07 Risk Standard, then cross-check the current Asian/European board using Delta_Conv. Store raw price candidate and verified intent separately. Preserve `候选标签`, `候选映射方向`, `上盘方`, `下盘方`, `盘口档位`, `即时亚盘`, and `水位`, and append v3 fields without changing old columns. If evidence is pending, a raw candidate may be displayed but may not pass as executable intent.
 2. **Global tag history**: look up the settled historical performance of the same `候选标签` across all covered matches. Store `标签样本`, `标签正向胜率`, `标签负率`, `标签正向盈亏`, `标签反向胜率`, `标签反向盈亏`, and `标签优先方向`. Keep the previous red-box expression style for this global tag line.
 3. **Micro-region history**: map the match's competition into a micro-region bucket, then calculate that micro-region plus the same `候选标签`: sample size, forward/reverse effective win rate, win/loss/push counts, and forward/reverse flat-stake PnL. The micro-region result is a local prior; do not replace the global tag result with it.
 4. **Consensus, shrinkage, and veto gates**:
@@ -94,7 +109,7 @@ For every current match with a readable Asian handicap board, evaluate Asian int
      `综合胜率 = ((n * 局部胜率) + (M * 全局胜率)) / (n + M)`,
      where `n` is the micro-region sample size and `M` is the global tag sample size. Use the direction whose combined win rate is higher. If the combined win rate fails the threshold, choose `不投`.
    - Small-sample Reverse Alert / 小样本反向警戒: before defaulting to the forward candidate or the tag/micro blended direction, inspect the exact `盘口档位 + 候选标签` historical cell. If settled comparable sample size is at least `5`, reverse effective win rate is `>=80%`, reverse flat-stake PnL is positive and better than forward flat-stake PnL, set `小样本反向警戒=触发` and correct the candidate to `反向`. This is a direction correction, not a free pass: the corrected reverse side must still pass current-water breakeven + safety buffer, same-line veto, micro-region risk state, and Kelly/stake gates. If it fails any later gate, the final conclusion is still `不投`, but the red EV badge must say the reverse-alert side and the failed gate.
-   - Price threshold: `Breakeven_Rate = 1 / (Water + 1)`. A direction may pass only when `历史/综合胜率 > Breakeven_Rate + 安全垫`; the default safety buffer is `+2%`. Example: HK water `0.80` requires `55.56% + 2.00% = 57.56%`.
+   - Price threshold: `Breakeven_Rate = 1 / (Water + 1)`. Compare it to settlement-exposure-adjusted probability, not the fraction of matches with any profit. Use `A=红+0.5*红半`, `B=黑+0.5*黑半`, `p_eff=A/(A+B)`, excluding pushes. A direction may pass only when the historical/combined `p_eff > Breakeven_Rate + 安全垫`, AND exact current-water EV is positive after costs. Keep old displayed hit-rate figures under their original name/version, adding `结算权重胜率` for the new gate. Default buffer is `+2%`; concentration may increase it. HK water `0.80` therefore requires `p_eff >57.56%` at the default buffer.
    - Same-line veto: if the exact `盘口档位 + 候选标签` sample size is greater than `8` and the selected direction's effective win rate is below `40%`, choose `不投` even if the global tag or micro-region bucket is positive.
 
 Micro-region buckets:
@@ -156,8 +171,8 @@ Data completeness gate:
 - Evidence levels:
   - `高`: football prior, European de-vig gap, Asian opening-current path, public/flow side, and team news/form have all been compared. Candidate intent may be used in final pick, Kelly, and PM/Betfair/BTTS checks when that exact market price exists.
   - `中`: football prior is partially known and Asian/European price path is complete, but one of team news, form, or flow is missing. Missing fields must be displayed as evidence haircuts; they do not automatically block the Asian EV framework.
-  - `低`: only Titan007/list-level odds, ranking/stage, and opening-current price path are available. Show `亚盘意图候选` with low confidence, explain the missing inputs, and let the Asian decision be made only by the tag history, micro-region history, current water threshold, same-line veto, and risk-control gates. Do not create PM/BTTS/Betfair picks without their exact prices.
-- If the football prior, public/flow side, and team-news/form are missing, do not write `亚盘意图未判定` as a blank placeholder. Instead write a candidate line such as `亚盘意图候选：降温保护/诱下（低证据）；缺伤停、近况、H2H、PM/必发资金流；资金流缺口仅作证据折扣，亚盘是否下注由标签/微观EV、水位阈值、同档否决和风控决定`.
+  - `低`: only Titan007/list-level odds, ranking/stage, and opening-current price path are available. Show `盘口原始候选（低证据）`; the 2026-09-07 hidden-fundamentals and conversion checks remain pending, so executable approval is blocked. This is a fundamentals/conversion failure, not an automatic veto for missing PM/Betfair flow. Do not create PM/BTTS/Betfair picks without their exact prices.
+- If the football prior and team-news/form are missing, show `盘口原始候选：待基本面验证；不可执行：隐性基本面前置门未通过` with the exact missing fields. Missing public/flow data alone still does not automatically stop the Asian-handicap framework.
 - Never display all four labels `阻上/诱上/阻下/诱下` as undifferentiated options. Rank candidates by likelihood and state which data would confirm or overturn them.
 - Four-label interpretation:
   - `阻上`: the book makes the favorite/giving side look uncomfortable, expensive, or harder to cover; this may protect a still-viable favorite.
