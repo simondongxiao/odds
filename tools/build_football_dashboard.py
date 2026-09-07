@@ -2088,12 +2088,15 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
 def gateway_card_fields(row: dict, frozen: dict) -> dict:
     # Never mix new context with a different, older frozen decision.
     source = frozen if frozen else row
-    if not source.get("Guardrail_Version"):
+    if not source.get("Guardrail_Version") and not source.get("Move_Guard_Version"):
         return {}
     names = ("Match_Nature", "Schedule_Density", "Rotation_Risk", "Strategic_Intent",
              "Assessment_Team_ID", "Assessment_Team_Name", "Selected_Venue",
              "Adjusted_Confidence", "Gateway_Status", "Guardrail_Version",
-             "First_Leg_Lead", "First_Leg_Leader_ID", "Stake_Cap_Units")
+             "First_Leg_Lead", "First_Leg_Leader_ID", "Stake_Cap_Units",
+             "Move_Guard_Version", "Move_Status", "Move_Reason", "Public_Evidence_Kind",
+             "Public_Heat_Excess", "previous_decision_id", "Current_Execution_Status",
+             "Previous_Snapshot_ID", "Current_Snapshot_ID", "Is_Weekend", "Weekend_Policy")
     return {name: source[name] for name in names if name in source and source[name] not in (None, "")}
 
 
@@ -3174,6 +3177,7 @@ def html_doc_v2(
     <a href="audits/direction-audit-20260907/report.html">查看版本对比、原因与新规则</a>
     <p><a href="audits/execution-workflow-v31-20260907/v3-implementation-contract.html">v3.1完整执行工作流：数据、双检、仓位与冷却</a>（规则/计算模块已更新，实盘日更接入待验收）</p>
     <p><a href="audits/cup-rotation-gateway-20260907/cup-rotation-gateway.html">赛制、主客场与轮换网关：字段方案及完整Python代码</a></p>
+    <p><a href="audits/market-move-20260908/market-move-weekend.html">最新：单次临场改向与被动调价审查</a>；周末统一加严10%-15%已取消。规则与参考代码已更新，旧比赛不重算。</p>
   </details>
   <main class="shell">
     <aside class="left">
@@ -3651,7 +3655,31 @@ function cupContextRows(r) {{
     const node = document.createElement("span");
     node.textContent = String(value);
     return `<div class="kv cup-context" data-context-field="${{key}}"><div class="k">${{label}}</div><div class="v">${{node.innerHTML}}</div></div>`;
+  }}).join("") + marketMoveRows(r);
+}}
+
+function marketMoveRows(r) {{
+  if (!r.Move_Guard_Version) return "";
+  const fields = [["Move_Status", "临场变盘检查"], ["Move_Reason", "变盘依据"],
+    ["Public_Evidence_Kind", "公众证据类型"], ["Public_Heat_Excess", "资金超理论占比"],
+    ["Current_Execution_Status", "当前执行资格"], ["previous_decision_id", "前一计划版本"],
+    ["Weekend_Policy", "周末处理"]];
+  const labels = {{COUNTER_PUBLIC_CONFIRMED:"逆公众阻力通过", PASSIVE_PUBLIC_MOVE:"被动跟热调价，不据此改向",
+    PUBLIC_EVIDENCE_PENDING:"公众证据待核", PUBLIC_HEAT_NOT_ESTABLISHED:"未达到量化过热标准",
+    RESISTANCE_PENDING:"阻力证据待核", RESISTANCE_UNCONFIRMED:"逆公众阻力未确认",
+    DATA_PENDING:"数据待核", UNCHANGED:"盘口未变", DIRECTION_CHANGE_BLOCKED:"改向被拦截，当前暂停执行",
+    HISTORICAL_LOCK:"历史计划冻结", READY:"通过原策略校验", COOLDOWN:"风控冷却",
+    actual_money_share:"真实同市场资金占比", public_consensus:"定性公众证据，资金比例未知",
+    AUDIT_ONLY:"仅分组复盘，不加严"}};
+  const rows = fields.map(([key, label]) => {{
+    let value = r[key];
+    if (key === "Public_Heat_Excess" && value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value))) value = (Number(value)*100).toFixed(2) + "个百分点";
+    else value = labels[value] || value;
+    if (value === null || value === undefined || value === "") value = "未采集/待核";
+    const node = document.createElement("span"); node.textContent = String(value);
+    return `<div class="kv" data-move-field="${{key}}"><div class="k">${{label}}</div><div class="v">${{node.innerHTML}}</div></div>`;
   }}).join("");
+  return `<details class="move-review"><summary>临场改向检查</summary>${{rows}}</details>`;
 }}
 
 function isOddsUnavailable(v) {{

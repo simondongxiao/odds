@@ -2,10 +2,10 @@
 from __future__ import annotations
 
 import math
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Mapping
 
-VERSION = "asian-risk-v3.1-20260907"
+VERSION = "asian-risk-v3.2.1-20260908"
 OUTCOMES = ("win", "half_win", "push", "half_loss", "loss")
 
 
@@ -204,8 +204,9 @@ def intent_crosscheck(delta_upper: float, *, fundamental_status: str, snapshots:
         return "DATA_OR_MODEL_CONFLICT"
     if fundamental_status not in {"pass", "reduced"}:
         return "FUNDAMENTALS_PENDING"
-    if snapshots < 2 or bookmakers < 2 or minimum_spacing_minutes < 5:
-        return "PERSISTENCE_PENDING"
+    # Keep old call arguments, but remove the two-snapshot/five-minute delay.
+    if snapshots < 1 or bookmakers < 2 or minimum_spacing_minutes < 0:
+        return "QUOTE_CONFIRMATION_PENDING"
     if -.08 <= delta_upper <= -.03 and resistance_verified and not heat_verified:
         return "BLOCK_UPPER_VALIDATION_CANDIDATE"
     if delta_upper >= .03 and heat_verified and inducement_verified:
@@ -279,7 +280,8 @@ def execution_plan(*, masses: Mapping[str, float], water: float, effective_rate:
                    safety_buffer: float = .02, unit_rate: float = .05,
                    single_cap: float = .05, minimum: float = 20.0,
                    remaining_capacity: float = 100.0, costs: float = 0.0,
-                   upper_vetoed: bool = False, same_line_vetoed: bool = False) -> dict:
+                   upper_vetoed: bool = False, same_line_vetoed: bool = False,
+                   kickoff_at: str | None = None) -> dict:
     validate_masses(masses)
     split_line(signed_handicap)
     effective_rate = probability(effective_rate, "effective_rate")
@@ -291,6 +293,11 @@ def execution_plan(*, masses: Mapping[str, float], water: float, effective_rate:
     if finite(remaining_capacity, "remaining_capacity") < 0 or finite(costs, "costs") < 0:
         raise ValueError("Capacity and costs cannot be negative")
     threshold = 1 / (1 + water) + safety_buffer
+    calendar = {}
+    if kickoff_at is not None:
+        kickoff = aware_time(kickoff_at).astimezone(timezone(timedelta(hours=8)))
+        calendar = {"Is_Weekend": kickoff.weekday() >= 5, "Kickoff_Date_BJ": kickoff.date().isoformat(),
+                    "Weekend_Policy": "AUDIT_ONLY"}
     sizing_masses = conservative_masses(masses, effective_rate)
     a = sizing_masses["win"] + .5 * sizing_masses["half_win"]
     b = sizing_masses["loss"] + .5 * sizing_masses["half_loss"]
@@ -315,7 +322,7 @@ def execution_plan(*, masses: Mapping[str, float], water: float, effective_rate:
     if not reason and stake < minimum:
         reason, stake = "BELOW_MIN_STAKE", 0.0
     return {"rule_version": VERSION, "Execution_Status": reason or "READY",
-            "Stake": stake, "Threshold": round(threshold, 4), "EV_Current": round(ev, 4),
+            **calendar, "Stake": stake, "Threshold": round(threshold, 4), "EV_Current": round(ev, 4),
             "Kelly_Full": round(kelly, 4), "Blind_Multiplier": blind_mult,
             "Signal_Multiplier": signal_mult, "Fundamental_Multiplier": fundamental_mult,
             "Sizing_Effective_Rate": round(sizing_rate, 4)}

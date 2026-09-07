@@ -69,7 +69,10 @@ class RiskTests(unittest.TestCase):
         self.assertEqual(risk.intent_crosscheck(-.045, **args), "BLOCK_UPPER_VALIDATION_CANDIDATE")
         self.assertEqual(risk.intent_crosscheck(-.15, **args), "DATA_OR_MODEL_CONFLICT")
         args["snapshots"] = 1
-        self.assertEqual(risk.intent_crosscheck(-.045, **args), "PERSISTENCE_PENDING")
+        args["minimum_spacing_minutes"] = 0
+        self.assertEqual(risk.intent_crosscheck(-.045, **args), "BLOCK_UPPER_VALIDATION_CANDIDATE")
+        args["resistance_verified"] = False
+        self.assertEqual(risk.intent_crosscheck(-.045, **args), "UNCONFIRMED")
 
     def test_exposure_no_quota_flip(self):
         small = risk.exposure_gate(4, 0, active_days=1)
@@ -91,7 +94,8 @@ class RiskTests(unittest.TestCase):
     def proposal(self):
         return dict(masses=dict(zip(risk.OUTCOMES, [.7, 0, 0, 0, .3])), water=1.,
                     effective_rate=.7, bankroll=500., signed_handicap=-.5,
-                    fundamental_status="pass", conversion_passed=True, calibration_passed=True)
+                    fundamental_status="pass", conversion_passed=True, calibration_passed=True,
+                    kickoff_at="2026-09-07T20:00:00+08:00")
 
     def test_minimum_stake_never_rounded_up(self):
         args = self.proposal()
