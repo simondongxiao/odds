@@ -2078,10 +2078,23 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "grade": r.get("过程评级", ""),
                 "error": clean_missing_odds_text(r.get("错误类型", "")),
                 "update": clean_missing_odds_text(translate_text(r.get("模型更新", ""))),
+                **gateway_card_fields(r, frozen),
             }
         )
     cards.sort(key=lambda r: (not r["matched_odds"], str(r["time"]), str(r["league"]), str(r["match"])))
     return cards, compute_stats(ledger_rows)
+
+
+def gateway_card_fields(row: dict, frozen: dict) -> dict:
+    # Never mix new context with a different, older frozen decision.
+    source = frozen if frozen else row
+    if not source.get("Guardrail_Version"):
+        return {}
+    names = ("Match_Nature", "Schedule_Density", "Rotation_Risk", "Strategic_Intent",
+             "Assessment_Team_ID", "Assessment_Team_Name", "Selected_Venue",
+             "Adjusted_Confidence", "Gateway_Status", "Guardrail_Version",
+             "First_Leg_Lead", "First_Leg_Leader_ID", "Stake_Cap_Units")
+    return {name: source[name] for name in names if name in source and source[name] not in (None, "")}
 
 
 def js_data(obj: object) -> str:
@@ -3160,6 +3173,7 @@ def html_doc_v2(
     <p>皇马、巴黎改向由水位分档切换历史标签触发；早版五大地区7场可投均为上盘。v3规则与计算模块已建立，待结构化证据适配及样本外校准；本页原计划仍保留其历史版本。</p>
     <a href="audits/direction-audit-20260907/report.html">查看版本对比、原因与新规则</a>
     <p><a href="audits/execution-workflow-v31-20260907/v3-implementation-contract.html">v3.1完整执行工作流：数据、双检、仓位与冷却</a>（规则/计算模块已更新，实盘日更接入待验收）</p>
+    <p><a href="audits/cup-rotation-gateway-20260907/cup-rotation-gateway.html">赛制、主客场与轮换网关：字段方案及完整Python代码</a></p>
   </details>
   <main class="shell">
     <aside class="left">
@@ -3625,6 +3639,21 @@ function clean(v) {{
   return String(v || "").trim() || "未接入/待核";
 }}
 
+function cupContextRows(r) {{
+  const fields = [["Assessment_Team_Name", "网关评估球队"], ["Match_Nature", "赛事属性"],
+    ["Schedule_Density", "赛程密度"], ["Rotation_Risk", "轮换风险"],
+    ["Strategic_Intent", "战意评级"], ["Selected_Venue", "所选侧主客场"],
+    ["Adjusted_Confidence", "调整后信心评分"], ["Gateway_Status", "赛制与轮换网关"]];
+  return fields.map(([key, label]) => {{
+    let value = key === "Assessment_Team_Name" ? (r[key] || r.Assessment_Team_ID) : r[key];
+    if (key === "Gateway_Status") value = ({{PASS:"前置通过，待后续校验", QUARTER_CAP:"最多0.25标准仓", SKIP:"强制跳过", DATA_PENDING:"资料待核"}})[value] || value;
+    if (value === null || value === undefined || value === "") value = "未采集（旧版未计算）";
+    const node = document.createElement("span");
+    node.textContent = String(value);
+    return `<div class="kv cup-context" data-context-field="${{key}}"><div class="k">${{label}}</div><div class="v">${{node.innerHTML}}</div></div>`;
+  }}).join("");
+}}
+
 function isOddsUnavailable(v) {{
   const s = String(v || "").trim();
   if (!s) return true;
@@ -4066,6 +4095,7 @@ function mobileDetailHtml(r) {{
         <section class="panel wide">
           <div class="panel-title"><span>3. 本场基本面、拉力与资金流</span><span>五板链路</span></div>
           <div class="panel-body">
+            ${{cupContextRows(r)}}
             <div class="kv"><div class="k">伤停/首发</div><div class="v">${{clean(r.lineup)}}<br>${{clean(r.injury)}}</div></div>
             <div class="kv"><div class="k">战意/场景</div><div class="v">${{clean(r.purpose)}}</div></div>
             <div class="kv"><div class="k">盘口拉力</div><div class="v">${{clean(r.pull)}}</div></div>
@@ -4154,6 +4184,7 @@ function renderDetail(r) {{
   `;
 
   document.getElementById("fundamentalBox").innerHTML = `
+    ${{cupContextRows(r)}}
     <div class="kv"><div class="k">伤停/首发</div><div class="v">${{clean(r.lineup)}}<br>${{clean(r.injury)}}</div></div>
     <div class="kv"><div class="k">战意/场景</div><div class="v">${{clean(r.purpose)}}</div></div>
     <div class="kv"><div class="k">盘口拉力</div><div class="v">${{clean(r.pull)}}</div></div>
