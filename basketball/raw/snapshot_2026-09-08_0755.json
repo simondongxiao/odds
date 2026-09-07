@@ -1,0 +1,291 @@
+{
+  "version": "v3.16",
+  "as_of": "2026-09-08T07:55:00+08:00",
+  "capture_window": "2026-09-08 07:45-07:55 +08:00",
+  "status": "partial",
+  "reason": "官方赛果及可读盘口已更新；全球覆盖、同源变盘、分钟投射与独立校准概率仍不完整。",
+  "result_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+  "results": [
+    [
+      "fiba-wwc-hungary-korea-20260907",
+      82,
+      73
+    ],
+    [
+      "fiba-wwc-nigeria-france-20260907",
+      56,
+      111
+    ],
+    [
+      "fiba-wwc-japan-spain-20260907",
+      59,
+      79
+    ],
+    [
+      "fiba-wwc-germany-mali-20260907",
+      83,
+      58
+    ],
+    [
+      "fiba-wwc-usa-czechia-20260908",
+      105,
+      64
+    ],
+    [
+      "fiba-wwc-italy-china-20260908",
+      51,
+      71
+    ]
+  ],
+  "fixtures": [
+    {
+      "id": "nbl-preseason-sem-nzl-20260908",
+      "date": "2026-09-08",
+      "time": "17:30",
+      "home": "东南墨尔本凤凰",
+      "away": "新西兰破坏者",
+      "league": "NBL季前赛",
+      "source": "https://www.nbl.com.au/club-schedule/sem",
+      "source_local_time": "2026-09-08 19:30 AEST",
+      "injury": "季前赛轮换及核心上场时间未公布或未核实。",
+      "travel": "凤凰9/5、破坏者9/6有赛程；非北京时间连续两日比赛。具体飞行与负荷未核。",
+      "matchup": "季前赛不能直接套常规赛残差；轮换变化可能超过盘口优势。",
+      "motivation": "季前赛磨合，不将强队名气等同全力出战。",
+      "attempts": [
+        "OddsPortal/Oddspedia: South East Melbourne Phoenix New Zealand Breakers September 8 2026 odds",
+        "Oddschecker/Betfair: Phoenix Breakers September 8 2026 handicap"
+      ],
+      "note": "盘口源未发现：两组独立市场检索未取得对应场次让分及总分赔率，轮换亦未知，不模拟投注。",
+      "quotes": [],
+      "ml": "未取得"
+    },
+    {
+      "id": "island-games-chiba-perth-20260908",
+      "date": "2026-09-08",
+      "time": "18:35",
+      "home": "千叶喷射机",
+      "away": "珀斯野猫",
+      "league": "B.League/NBL国际季前赛",
+      "source": "https://goldenkings.jp/ticket/pages/id%3D26067",
+      "source_local_time": "2026-09-08 19:35 JST",
+      "injury": "热身赛首发、外援轮换及分钟投射未核实。",
+      "travel": "千叶9/7在同一赛事有比赛，属于背靠背；冲绳赛会制。珀斯跨国行程的具体航班和恢复时间未知。",
+      "matchup": "背靠背不是自动买对手的依据；必须先有可信盘口及分钟负荷。",
+      "motivation": "ISLAND GAMES季前磨合，比赛地点为冲绳，不冒称千叶物理主场。",
+      "attempts": [
+        "OddsPortal: Chiba Jets Perth Wildcats September 8 2026 odds",
+        "Oddspedia: Chiba Jets Perth Wildcats September 8 2026 handicap total"
+      ],
+      "note": "盘口源未发现：OddsPortal/Oddspedia针对本场检索未获得可核对价格；千叶背靠背且轮换未知，零仓位。",
+      "quotes": [],
+      "ml": "未取得"
+    },
+    {
+      "id": "fiba-wwc-hungary-japan-20260908",
+      "date": "2026-09-08",
+      "time": "23:45",
+      "home": "匈牙利女篮",
+      "away": "日本女篮",
+      "league": "FIBA女篮世界杯",
+      "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128145-HUN-JPN",
+      "source_local_time": "2026-09-08 15:45 UTC",
+      "injury": "本场伤停与首发分钟未取得可信确认；名单和上一场出场不代表本场分钟承诺。",
+      "travel": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+      "matchup": "FIBA赛前统计：匈牙利篮板43.7、日本31.7；失误23对12.7。篮板优势与控球劣势并存，不能直接换算让分胜率。",
+      "motivation": "晋级资格赛，胜者下一轮对美国；战意明确但不保证核心打满。",
+      "attempts": [
+        "Action Network/Covers exact Hungary Japan September 8 2026: 未读到精确盘口",
+        "Oddschecker与Caliente: 已读取两源数值",
+        "Betfair sportsbook: 页面壳；Polymarket: 未发现可读精确合约"
+      ],
+      "note": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+      "ml": "Oddschecker日本-130/匈牙利+115为比较价；Caliente同页日本1.70/匈牙利2.10，去水日本胜率55.26%，仅胜负背景，非让分胜率。",
+      "quotes": [
+        {
+          "book": "Oddschecker比较价",
+          "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+          "market": "spread",
+          "selections": [
+            [
+              "日本",
+              -2.5,
+              -105,
+              "american"
+            ],
+            [
+              "匈牙利",
+              2.5,
+              -120,
+              "american"
+            ]
+          ]
+        },
+        {
+          "book": "Oddschecker比较价",
+          "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+          "market": "total",
+          "selections": [
+            [
+              "大分",
+              149.5,
+              -110,
+              "american"
+            ],
+            [
+              "小分",
+              149.5,
+              -110,
+              "american"
+            ]
+          ]
+        },
+        {
+          "book": "Caliente",
+          "url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+          "market": "spread",
+          "selections": [
+            [
+              "匈牙利",
+              2.5,
+              1.87,
+              "decimal"
+            ],
+            [
+              "日本",
+              -2.5,
+              1.87,
+              "decimal"
+            ]
+          ]
+        },
+        {
+          "book": "Caliente",
+          "url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+          "market": "total",
+          "selections": [
+            [
+              "大分",
+              150,
+              1.87,
+              "decimal"
+            ],
+            [
+              "小分",
+              150,
+              1.87,
+              "decimal"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fiba-wwc-germany-korea-20260909",
+      "date": "2026-09-09",
+      "time": "02:45",
+      "home": "德国女篮",
+      "away": "韩国女篮",
+      "league": "FIBA女篮世界杯",
+      "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128144-GER-KOR",
+      "source_local_time": "2026-09-08 18:45 UTC",
+      "injury": "德国篮协确认Peterson-Smalls在对马里比赛中已出场，撤销当前感染缺阵假设；本场是否首发及分钟仍待核。",
+      "injury_source": "https://www.basketball-bund.de/wwc-2026-dbb-damen-im-achtelfinale/",
+      "travel": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+      "matchup": "FIBA统计德国篮板47.3、韩国23.7；韩国三分43.4%、德国26.9%。德国内线优势与韩国外线波动并存，深盘须防末节回补。",
+      "motivation": "晋级资格赛，胜者下一轮对比利时；无证据证明德国所有核心将打满。",
+      "attempts": [
+        "Action Network/Covers exact Germany Korea September 8 2026: 未读到精确盘口",
+        "Oddschecker与Caliente: 已取得让分、总分、ML",
+        "Betfair为Sportsbook非交易所；未得到精确合约资金与流动性"
+      ],
+      "note": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+      "ml": "Oddschecker德国-900/韩国+575仅比较价；Caliente德国1.10/韩国6.25，同页去水德国胜率85.03%，不得作让分cover概率。",
+      "quotes": [
+        {
+          "book": "Oddschecker比较价",
+          "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+          "market": "spread",
+          "selections": [
+            [
+              "德国",
+              -13.5,
+              -115,
+              "american"
+            ],
+            [
+              "韩国",
+              13.5,
+              -105,
+              "american"
+            ]
+          ]
+        },
+        {
+          "book": "Oddschecker比较价",
+          "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+          "market": "total",
+          "selections": [
+            [
+              "大分",
+              150.5,
+              -108,
+              "american"
+            ],
+            [
+              "小分",
+              150.5,
+              -112,
+              "american"
+            ]
+          ]
+        },
+        {
+          "book": "Caliente",
+          "url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+          "market": "spread",
+          "selections": [
+            [
+              "德国",
+              -14,
+              1.85,
+              "decimal"
+            ],
+            [
+              "韩国",
+              14,
+              1.9,
+              "decimal"
+            ]
+          ]
+        },
+        {
+          "book": "Caliente",
+          "url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+          "market": "total",
+          "selections": [
+            [
+              "大分",
+              150.5,
+              1.87,
+              "decimal"
+            ],
+            [
+              "小分",
+              150.5,
+              1.87,
+              "decimal"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "audit_notes": [
+    "价格为07:45-07:51读取快照，源更新时间未知；07:53 Caliente复查返回工具访问错误，保留先前成功读取，不冒称07:55刷新成交价。",
+    "1/赔率是盈亏平衡而非去水胜率；1.91对应52.356%，标准-110对应52.381%。",
+    "整数让分和总分存在走盘；未校准push概率，不使用无走盘二元EV伪造收益。",
+    "FIBA默认边际缓冲6个百分点、季前赛12个百分点；模型缺失仍不可投，不因采到盘口自动成为纸面单。",
+    "所有本轮回填赛果原本均无投注；不新增正确/错误样本，历史已冻结记录保持原样。",
+    "SofaScore与NBAStats失败仅是对应源缺口；ESPN空赛程和TheSportsDB不全不能证明全球无赛。"
+  ]
+}

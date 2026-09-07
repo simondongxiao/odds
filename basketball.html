@@ -5446,6 +5446,201 @@
       };
     });
 
+    const morning20260908 = {
+      version: 'v3.16', as_of: '2026-09-08T07:55:00+08:00', capture_window: '2026-09-08 07:45-07:55 +08:00',
+      status: 'partial',
+      reason: '官方赛果及可读盘口已更新；全球覆盖、同源变盘、分钟投射与独立校准概率仍不完整。',
+      result_source: 'https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026',
+      results: [
+        ['fiba-wwc-hungary-korea-20260907', 82, 73],
+        ['fiba-wwc-nigeria-france-20260907', 56, 111],
+        ['fiba-wwc-japan-spain-20260907', 59, 79],
+        ['fiba-wwc-germany-mali-20260907', 83, 58],
+        ['fiba-wwc-usa-czechia-20260908', 105, 64],
+        ['fiba-wwc-italy-china-20260908', 51, 71]
+      ],
+      fixtures: [
+        {id: 'nbl-preseason-sem-nzl-20260908', date: '2026-09-08', time: '17:30',
+          home: '东南墨尔本凤凰', away: '新西兰破坏者', league: 'NBL季前赛',
+          source: 'https://www.nbl.com.au/club-schedule/sem', source_local_time: '2026-09-08 19:30 AEST',
+          injury: '季前赛轮换及核心上场时间未公布或未核实。',
+          travel: '凤凰9/5、破坏者9/6有赛程；非北京时间连续两日比赛。具体飞行与负荷未核。',
+          matchup: '季前赛不能直接套常规赛残差；轮换变化可能超过盘口优势。',
+          motivation: '季前赛磨合，不将强队名气等同全力出战。',
+          attempts: ['OddsPortal/Oddspedia: South East Melbourne Phoenix New Zealand Breakers September 8 2026 odds', 'Oddschecker/Betfair: Phoenix Breakers September 8 2026 handicap'],
+          note: '盘口源未发现：两组独立市场检索未取得对应场次让分及总分赔率，轮换亦未知，不模拟投注。', quotes: [], ml: '未取得'},
+        {id: 'island-games-chiba-perth-20260908', date: '2026-09-08', time: '18:35',
+          home: '千叶喷射机', away: '珀斯野猫', league: 'B.League/NBL国际季前赛',
+          source: 'https://goldenkings.jp/ticket/pages/id%3D26067', source_local_time: '2026-09-08 19:35 JST',
+          injury: '热身赛首发、外援轮换及分钟投射未核实。',
+          travel: '千叶9/7在同一赛事有比赛，属于背靠背；冲绳赛会制。珀斯跨国行程的具体航班和恢复时间未知。',
+          matchup: '背靠背不是自动买对手的依据；必须先有可信盘口及分钟负荷。',
+          motivation: 'ISLAND GAMES季前磨合，比赛地点为冲绳，不冒称千叶物理主场。',
+          attempts: ['OddsPortal: Chiba Jets Perth Wildcats September 8 2026 odds', 'Oddspedia: Chiba Jets Perth Wildcats September 8 2026 handicap total'],
+          note: '盘口源未发现：OddsPortal/Oddspedia针对本场检索未获得可核对价格；千叶背靠背且轮换未知，零仓位。', quotes: [], ml: '未取得'},
+        {id: 'fiba-wwc-hungary-japan-20260908', date: '2026-09-08', time: '23:45',
+          home: '匈牙利女篮', away: '日本女篮', league: 'FIBA女篮世界杯',
+          source: 'https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128145-HUN-JPN', source_local_time: '2026-09-08 15:45 UTC',
+          injury: '本场伤停与首发分钟未取得可信确认；名单和上一场出场不代表本场分钟承诺。',
+          travel: '柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。',
+          matchup: 'FIBA赛前统计：匈牙利篮板43.7、日本31.7；失误23对12.7。篮板优势与控球劣势并存，不能直接换算让分胜率。',
+          motivation: '晋级资格赛，胜者下一轮对美国；战意明确但不保证核心打满。',
+          attempts: ['Action Network/Covers exact Hungary Japan September 8 2026: 未读到精确盘口', 'Oddschecker与Caliente: 已读取两源数值', 'Betfair sportsbook: 页面壳；Polymarket: 未发现可读精确合约'],
+          note: '日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。',
+          ml: 'Oddschecker日本-130/匈牙利+115为比较价；Caliente同页日本1.70/匈牙利2.10，去水日本胜率55.26%，仅胜负背景，非让分胜率。',
+          quotes: [
+            {book: 'Oddschecker比较价', url: 'https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women', market: 'spread', selections: [['日本', -2.5, -105, 'american'], ['匈牙利', 2.5, -120, 'american']]},
+            {book: 'Oddschecker比较价', url: 'https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women', market: 'total', selections: [['大分', 149.5, -110, 'american'], ['小分', 149.5, -110, 'american']]},
+            {book: 'Caliente', url: 'https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres', market: 'spread', selections: [['匈牙利', 2.5, 1.87, 'decimal'], ['日本', -2.5, 1.87, 'decimal']]},
+            {book: 'Caliente', url: 'https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres', market: 'total', selections: [['大分', 150, 1.87, 'decimal'], ['小分', 150, 1.87, 'decimal']]}
+          ]},
+        {id: 'fiba-wwc-germany-korea-20260909', date: '2026-09-09', time: '02:45',
+          home: '德国女篮', away: '韩国女篮', league: 'FIBA女篮世界杯',
+          source: 'https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128144-GER-KOR', source_local_time: '2026-09-08 18:45 UTC',
+          injury: '德国篮协确认Peterson-Smalls在对马里比赛中已出场，撤销当前感染缺阵假设；本场是否首发及分钟仍待核。',
+          injury_source: 'https://www.basketball-bund.de/wwc-2026-dbb-damen-im-achtelfinale/',
+          travel: '柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。',
+          matchup: 'FIBA统计德国篮板47.3、韩国23.7；韩国三分43.4%、德国26.9%。德国内线优势与韩国外线波动并存，深盘须防末节回补。',
+          motivation: '晋级资格赛，胜者下一轮对比利时；无证据证明德国所有核心将打满。',
+          attempts: ['Action Network/Covers exact Germany Korea September 8 2026: 未读到精确盘口', 'Oddschecker与Caliente: 已取得让分、总分、ML', 'Betfair为Sportsbook非交易所；未得到精确合约资金与流动性'],
+          note: '德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。',
+          ml: 'Oddschecker德国-900/韩国+575仅比较价；Caliente德国1.10/韩国6.25，同页去水德国胜率85.03%，不得作让分cover概率。',
+          quotes: [
+            {book: 'Oddschecker比较价', url: 'https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women', market: 'spread', selections: [['德国', -13.5, -115, 'american'], ['韩国', 13.5, -105, 'american']]},
+            {book: 'Oddschecker比较价', url: 'https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women', market: 'total', selections: [['大分', 150.5, -108, 'american'], ['小分', 150.5, -112, 'american']]},
+            {book: 'Caliente', url: 'https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres', market: 'spread', selections: [['德国', -14, 1.85, 'decimal'], ['韩国', 14, 1.90, 'decimal']]},
+            {book: 'Caliente', url: 'https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres', market: 'total', selections: [['大分', 150.5, 1.87, 'decimal'], ['小分', 150.5, 1.87, 'decimal']]}
+          ]}
+      ],
+      audit_notes: [
+        '价格为07:45-07:51读取快照，源更新时间未知；07:53 Caliente复查返回工具访问错误，保留先前成功读取，不冒称07:55刷新成交价。',
+        '1/赔率是盈亏平衡而非去水胜率；1.91对应52.356%，标准-110对应52.381%。',
+        '整数让分和总分存在走盘；未校准push概率，不使用无走盘二元EV伪造收益。',
+        'FIBA默认边际缓冲6个百分点、季前赛12个百分点；模型缺失仍不可投，不因采到盘口自动成为纸面单。',
+        '所有本轮回填赛果原本均无投注；不新增正确/错误样本，历史已冻结记录保持原样。',
+        'SofaScore与NBAStats失败仅是对应源缺口；ESPN空赛程和TheSportsDB不全不能证明全球无赛。'
+      ]
+    };
+    const priorStamp20260908 = DATA.updatedAt;
+    DATA.updatedAt = '2026-09-08 07:55 北京时间 | v3.16 晨间更新（部分：盘口已抓，预测证据未齐）';
+    DATA.defaultDate = '2026-09-08';
+    DATA.sources = [
+      ['FIBA官方', '已获取', '<a href="' + morning20260908.result_source + '">赛程/结果</a>；回填6场官方终场，两场资格赛已校准北京时间'],
+      ['Oddschecker / Caliente', '已获取', '2场世界杯、2类盘口、两源共16个方向价格；源更新时间和可成交性未知，初盘/终盘未取得'],
+      ['NBL / 冲绳赛事官方', '已获取', '<a href="https://www.nbl.com.au/schedule">NBL赛程</a>；凤凰-破坏者17:30，千叶-珀斯18:35'],
+      ['季前赛盘口', '未发现', '分别检索OddsPortal、Oddspedia及额外比较源；未得到上述两场准确让分/总分价格'],
+      ['NBA / WNBA / G League / NCAA', '未发现赛程', 'ESPN四联赛9/7、9/8、9/9查询均0场；NBA Stats G League请求超时'],
+      ['SofaScore / TheSportsDB', '覆盖不全', 'SofaScore9/8 TLS错误、9/9 HTTP403；后备源9/8为空、9/9仅一场且在36小时外'],
+      ['CBA含夏季联赛', '待核', '<a href="https://m.qiumiwu.com/league/cba/game">球迷屋</a>当前仍显示9/6终场；青岛站结束，未核到9/8新场，不宣称CBA全量无赛'],
+      ['德国篮协', '已获取', '<a href="https://www.basketball-bund.de/wwc-2026-dbb-damen-im-achtelfinale/">Peterson已在对马里复出</a>；本场分钟待核'],
+      ['Action / Covers / Odds API', '部分缺口', '精确场次检索未取得盘口；环境无THE_ODDS_API_KEY，不伪称API已抓'],
+      ['公众资金 / 交易所', '未取得', '无精确让分/大小分tickets、money、可执行bid/ask和流动性；Sportsbook不能替代交易所'],
+      ['其他全球联赛', '覆盖待补', '跨联赛主源受阻，未保证全量覆盖；不把空列表作为无赛证明']
+    ];
+    DATA.gates = [
+      ['本轮更新', '部分', '官方结果及可读盘口已更新；模型/盘口轨迹缺口明确保留'],
+      ['备份/首写', '完成', '07:45备份；原始盘前方向、盘口、赔率及首次时间不修改'],
+      ['今日赛程', '完成', '9/8确认5场：美捷、中意已完赛；2场季前赛及匈日待赛'],
+      ['相邻36小时', '完成', '9/9 02:45德韩已抓两源盘口，不计入9/8场数'],
+      ['比分顺序', '完成', '本轮按官方球队列序；美国105-64捷克，意大利51-71中国'],
+      ['盘口赔率', '完成', '匈日与德韩共16个方向快照；两场季前赛盘口未发现'],
+      ['概率/分钟', '缺失', 'Pred与校准p区间未知；不以ML胜率冒充让分胜率'],
+      ['量化准入', '硬规则', 'p_low>=55%、EV>2.5%、同向gap>=3.5、FIBA边际6pp/季前赛12pp；缺失归零'],
+      ['临场/熔断', '待核', '待赛均在2小时外；最后1小时同源振幅和Steam未知；不视为通过'],
+      ['模拟/实投', '完成', '本轮新增模拟0、实投0；未形成投注不得计入胜率'],
+      ['CBA及其他联赛', '待核', '已尝试主源/后备/官方补查，仍不能保证全量覆盖'],
+      ['仓位规则', '硬规则', '1/4 Kelly并受上限约束；没有合格基础仓位，不启用0.5U或Middle对冲']
+    ];
+    DATA.intentMatrix = [
+      ['匈牙利-日本', '日本-2.5', '篮板与失误结构相反', '缺分钟和独立概率；不判诱盘', '不可投'],
+      ['德国-韩国', '德国-13.5/-14', '篮板优势不等于深盘覆盖', '核心分钟和末节尾部风险未核', '不可投'],
+      ['两场季前赛', '盘口未取得', '轮换和负荷不确定', '没有具体价格不模拟', '不可投'],
+      ['本轮终场', '6场回填', '只有赛果，不产生新投注', '原盘口冻结，不赛后改方向', '不计胜率']
+    ];
+    DATA.matches = DATA.matches.map(m => {
+      const result = morning20260908.results.find(r => r[0] === m.id);
+      if (!result) return m;
+      const status = '已完赛 ' + result[1] + '-' + result[2];
+      const note = m.home + result[1] + '-' + result[2] + m.away + '，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。';
+      return {...m, status, tag: '复盘', tier: 'D', bet_status: '不可投', bet_reason: note,
+        score_1: result[1], score_2: result[2], score_is_final: true,
+        score_order: 'official_source_order', official_order_team_1: m.home, official_order_team_2: m.away,
+        score_source: morning20260908.result_source, score_verified_at: morning20260908.as_of,
+        prior_snapshots: [...(m.prior_snapshots || []), {updatedAt: priorStamp20260908, status: m.status,
+          market: m.market, current_quotes: m.current_quotes, quant_checks: m.quant_checks, quant: m.quant,
+          execution: m.execution, review: m.review}],
+        conclusion: note, current_quotes: [], quant_checks: [],
+        market: m.market.map(r => [r[0], r[1], '历史观察（非当前盘）：' + r[2], '终盘未核，不用赛果倒填', '原投注字段冻结']),
+        completeness: {...m.completeness, '比分源': '<a href="' + morning20260908.result_source + '">FIBA官方</a>；' + note,
+          '盘口路径': '原观察价格留档；终盘未核；赛后不补建仓'},
+        quant: {...m.quant, '时间锁/熔断': '比赛结束；禁止补盘前单', 'breakeven/EV': '原记录无投注，不计算赛后EV',
+          'Zero Action原因': note, '仓位/样本': 'stake=0；no-action；无新结算样本'},
+        spreadAudit: {...m.spreadAudit, '盘口意图': '仅回填赛果，不重构盘前判断', '可打线': '无'},
+        execution: {...m.execution, '主单': '不投', 'Kelly': '0', '备注': note},
+        review: ['无真实下注', '无纸面单', '终盘未核', status, '不计胜率', '按原记录：无投注，不补单']};
+    });
+    for (const s of morning20260908.fixtures) {
+      const hours = (new Date(s.date + 'T' + s.time + ':00+08:00') - new Date(morning20260908.as_of)) / 3600000;
+      const timeLock = '距开赛' + hours.toFixed(2) + '小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据';
+      const quotes = s.quotes.map(q => ({...q, captured_window_bj: '2026-09-08 07:45-07:51 +08:00',
+        source_updated_at: null, executable_verified: false, opening: null, closing: null,
+        selections: q.selections.map(([side, line, price, format]) => ({side, line, price, format,
+          decimal_odds: format === 'decimal' ? price : price > 0 ? 1 + price / 100 : 1 + 100 / Math.abs(price)}))}));
+      const bases = quotes.length ? quotes.flatMap(q => q.selections.map(x => ({...x, market: q.market, source: q.book, source_url: q.url})))
+        : ['spread', 'total'].map(market => ({market, side: null, line: null, price: null, decimal_odds: null, source: null}));
+      const checks = bases.map(x => ({...x, pred_margin_or_total: null, sigma: null,
+        sigma_prior_range: x.market === 'spread' ? [11, 13] : [15, 18], p_low: null, p_mid: null, p_high: null,
+        breakeven: x.decimal_odds ? 1 / x.decimal_odds : null, breakeven_basis: Number.isInteger(x.line) && x.line !== null ? 'conditional_on_no_push' : 'binary_if_terms_confirmed',
+        push_probability: null, ev_multiplier: null, edge: null, K: 3.5, line_pred_gap: null,
+        min_buffer: s.league.includes('季前') ? 0.12 : 0.06, time_lock_status: timeLock, volatility_fuse: 'unknown',
+        steam_alignment: 'unknown', minutes_projection_status: 'unverified', travel_fatigue_tag: s.travel,
+        garbage_time_guard: 'unverified', quarter_kelly: 0, stake_cap: 0, stake: 0,
+        final_zero_action_reason: s.note, bet_status: '不可投', count_bucket: 'no-action',
+        pass_fail_gates: {probability: 'missing', EV: 'missing', directional_K: 'missing', time: 'fail',
+          volatility: 'unknown', steam: 'unknown', minutes: 'missing', garbage_time: 'missing',
+          executable_price: quotes.length ? 'unverified' : 'missing', settlement_terms: 'unverified', path: 'missing'}}));
+      const quoteText = market => quotes.filter(q => q.market === market).map(q => q.book + '：' +
+        q.selections.map(x => x.side + ' ' + (market === 'spread' && x.line > 0 ? '+' : '') + x.line +
+          ' @' + (x.format === 'american' && x.price > 0 ? '+' : '') + x.price + (x.format === 'american' ? '（美盘）' : '（小数）')).join(' / ')).join('<br>') || '盘口源未发现；详见检索记录';
+      const market = [
+        ['ML', '未取得', s.ml, '终盘待回填', '仅背景；不同书价格不混作去水对'],
+        ['让分', '未取得开盘', quoteText('spread'), '终盘待回填', '两书价差非同源变盘；整数线可能走盘'],
+        ['大小分', '未取得开盘', quoteText('total'), '终盘待回填', '无Pace/效率预测，不能判大/小价值'],
+        ['公众/资金', '未取得', '无精确票数/资金/合约流动性', '待核', '不能从价格推造资金方向']
+      ];
+      const m = {...s, status: s.date === '2026-09-08' ? '待赛' : '相邻预告', tag: '风险', tier: quotes.length ? 'C' : 'D',
+        bet_status: '不可投', bet_reason: s.note, conclusion: s.note, ev: '无投注，Kelly=0',
+        bj_time: s.date + ' ' + s.time, source_date: '2026-09-08', captured_at: morning20260908.as_of,
+        official_order_team_1: s.home, official_order_team_2: s.away, score_order: 'official_source_order',
+        score_1: null, score_2: null, score_is_final: false, score_source: s.source,
+        original_side: null, original_line: null, original_price: null, first_recorded_at: morning20260908.as_of,
+        trigger_condition: '未形成投注；需所有硬闸在赛前通过后另行首写', real_bet_flag: false,
+        kelly: 0, stake_cap: 0, count_bucket: 'no-action', current_quotes: quotes, quant_checks: checks, market,
+        completeness: {'比分源': '<a href="' + s.source + '">官方赛程</a>；' + s.source_local_time,
+          '盘口路径': quotes.length ? '双源当前快照；开盘、同源连续轨迹、成交性未核' : '盘口源未发现；' + s.attempts.join('；'),
+          '伤停首发': s.injury, '公众资金': '未知，不推断', '节奏效率': '回合数与独立校准ORtg/DRtg缺失'},
+        fundamentals: {'轮换伤停': s.injury + (s.injury_source ? ' <a href="' + s.injury_source + '">德国篮协</a>' : ''),
+          '休息赛程': s.travel, '战意': s.motivation, '对位': s.matchup,
+          '节奏': 'Pace_expected=(Pace1+Pace2)/2；输入未齐，Pred=null，场均得分不是Pace。',
+          '公众拉力': '无可核实tickets/money；市场热度不等于Sharp Money'},
+        spreadAudit: {'意图标签': '盘口观察，未形成投注方向', '正反向验证': '无首写单，不计正确/错误',
+          '盘口意图': s.note, '可打线': '无', '停止线': '任何硬闸缺失即停止', '临场防线': '需同源轨迹、分钟和独立p_low；不预设重仓'},
+        totalAudit: {'盘口意图': '独立于让分判断，Pace/ORtg/DRtg输入未齐', '可打线': '无',
+          '停止线': '概率/EV/K未过即不投', '临场防线': '1小时振幅>5分熔断；未知不视为通过'},
+        execution: {'主单': '不投', '备选': '无', 'Kelly': '0', '最大入场': '无', '备注': s.note,
+          '证据链接': [...new Set(quotes.map(q => '<a href="' + q.url + '">' + q.book + '</a>'))].join('；') || s.attempts.join('；')},
+        quant: {'p_low/p_mid/p_high': 'null / null / null；未取得独立校准概率，不能声称真实胜率>=55%',
+          'breakeven/EV': checks.filter(q => q.breakeven).map(q => q.side + ' ' + q.line + ' @' + q.decimal_odds.toFixed(3) + '：' + (q.breakeven*100).toFixed(2) + '%').join('；') + '。EV/edge=null；整数线需另处理push。',
+          'K差值': 'K=3.5；Pred/gap=null，未通过', '时间锁/熔断': timeLock + '；1小时振幅未知',
+          'Steam同向': '未知；不同书快照差异不是Steam', '1/4 Kelly': '0', 'Zero Action原因': s.note,
+          'Pred / sigma': 'Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间',
+          '分钟/旅行': s.injury + '；' + s.travel, '末节/罚球': '缺第四节净效率、替补稳定性及末段罚球模型',
+          '仓位/样本': '0U；stake_cap=0；no-action；未形成0.5U基础仓位或Middle'},
+        review: ['无真实下注', '无纸面单', '终盘待回填', '未开赛', '未建仓', '保留采集时间和原价格；不可赛后补单']};
+      if (DATA.matches.some(x => x.id === s.id)) throw new Error('Duplicate daily match: ' + s.id);
+      DATA.matches.push(m);
+    }
+
     const qs = (id) => document.getElementById(id);
     const isCoverageRow = (m) => (
       m.id.startsWith("coverage-") ||
