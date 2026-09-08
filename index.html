@@ -509,7 +509,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-09-08 07:58 ｜ 数据目录：D:\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
+    <div class="source">更新时间：2026-09-08 08:04 ｜ 数据目录：D:\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
   </header>
 
   <section class="pattern-dock">
@@ -980,6 +980,35 @@ function top5Decision(r, cell = null, options = {}) {
   return {action: "可投", mode, team, reason: `${alertPrefix}通过：赛前历史胜率${pct(rate)} >= 阈值${pct(threshold)}`, details, rate, water, threshold, reverseAlert, baseMode};
 }
 
+function fourStepCalculation(r, cell, decision) {
+  const tag = String(r.intent_tag || "");
+  const edge = decision.edge || microEdgeEntry(r);
+  const policy = r.top5_policy?.is_top5 ? r.top5_policy : null;
+  const rows = [
+    `1）意图及同盘口历史EV：${r.intent_line_bucket || "缺盘口档位"} + ${tag || "缺标签"}；正向=${positiveTeamText(r, "forward")}，反向=${positiveTeamText(r, "reverse")}。` +
+    (cell ? `同档样本${cell.sample}；正向胜率${cell.forward_rate}/收益${signed(cell.forward_pnl)}，反向胜率${cell.reverse_rate}/收益${signed(cell.reverse_pnl)}。` : "同档样本未生成，不虚构EV。"),
+    `2）标签整体表现：${tagPerformanceLabel(tag)}`
+  ];
+  if (policy) {
+    rows.push(`3）五大地区赛事分支：${top5StatsLine(policy.league || "同赛事", policy.league_stats)}；${top5StatsLine("同赛事同盘口+标签", policy.line_stats)}。原版采用同向跟随、异向选历史胜率较高方，不称作贝叶斯加权；本场依据：${policy.selected_reason || "样本待核"}。`);
+  } else if (edge) {
+    rows.push(`3）微观组合加权：${r.micro_region} + ${tag}；局部n=${edge["样本数"] || 0}，全局M=${edge["标签总样本"] || 0}；局部正/反=${edge["正向有效胜率"] || "缺失"}/${edge["反向有效胜率"] || "缺失"}，全局正/反=${edge["标签正向胜率"] || "缺失"}/${edge["标签反向胜率"] || "缺失"}。方向分歧时按同一方向的(n×局部胜率+M×全局胜率)/(n+M)；已存综合胜率=${edge["贝叶斯综合胜率"] || "未生成"}。微观板块不等于单一联赛。`);
+  } else {
+    rows.push(`3）微观组合：${r.micro_region || "未分类"} + ${tag} 无可用样本，不能计算加权胜率。`);
+  }
+  const mode = decision.mode || "none";
+  const water = Number(decision.water || selectedWater(r, mode) || 0);
+  const rate = Number(decision.rate || 0);
+  const threshold = water > 0 ? breakevenThreshold(water) : 0;
+  const veto = sameLineVeto(cell, mode);
+  const risk = riskEntry(r);
+  rows.push(`4）价格及风控：选中方向=${decision.team}；水位=${water > 0 ? water.toFixed(4) : "缺失"}；阈值=1/(1+水位)+2%=${threshold ? pct(threshold) : "无法计算"}；采用胜率=${rate ? pct(rate) : "未形成"}；同档检查=${veto || "未触发否决/样本不足不触发"}；板块风控=${risk?.["风控状态"] || "未生成"}。最终：${decision.action}；${decision.reason}。`);
+  if (decision.reverseAlert) rows.push("小样本反向警戒已触发：先修正候选方向，再检查选中方向的水位与风控，不是直接放行。");
+  rows.push("Kelly仓位校验：先确定方向及适用概率，再按选中球队的盘口、水位计算。旧版红框未调用独立Kelly模块，不能称为已通过Kelly；全赢/全输二项合约使用f=(水位×p-(1-p))/水位，有走水或半赢半输的亚盘须用完整结算分布计算。未完成精确Kelly或缺本金/限额时仅标仓位待核，不因此取消已通过EV的可投计划，也不虚构下单金额。");
+  if (r.supplementary_evidence_gap) rows.push(`补充信息缺口（不自动否决）：${r.supplementary_evidence_gap}。`);
+  return rows.map(x => `<div>${x}</div>`).join("");
+}
+
 function top5PolicyBadge(r, cell = null, decisionOverride = null) {
   const policy = r.top5_policy || {};
   const decision = decisionOverride || frozenSkillDecision(r) || top5Decision(r, cell);
@@ -988,7 +1017,7 @@ function top5PolicyBadge(r, cell = null, decisionOverride = null) {
   const actionText = decision.action === "不投" ? "不投" : `${decision.action}（${modeText}）`;
   const lineText = policy.line || r.intent_line_bucket || "缺盘口档位";
   const tagText = policy.tag || r.intent_tag || "缺候选标签";
-  const detail = (decision.details || []).map(x => `<div>${x}</div>`).join("");
+  const detail = fourStepCalculation(r, cell, decision);
   const sameLine = cell
     ? (Number(cell.sample || 0) < top5MinActionSample
       ? `全局同盘口同标签：样本${cell.sample}（<${top5MinActionSample}，仅作旁证）；正向收益${signed(cell.forward_pnl)}，反向收益${signed(cell.reverse_pnl)}。`
@@ -1015,7 +1044,7 @@ function intentEvBadge(r) {
   const microText = decision.edge
     ? `微观组合：${clean(r.micro_region)} + ${tag || "缺标签"}，样本${decision.edge["样本数"] || "0"}，正向${decision.edge["正向有效胜率"] || "无"}/收益${signed(decision.edge["正向均注盈亏"] || 0)}，反向${decision.edge["反向有效胜率"] || "无"}/收益${signed(decision.edge["反向均注盈亏"] || 0)}，贝叶斯${decision.edge["贝叶斯综合胜率"] || "无"}。`
     : `微观组合：${clean(r.micro_region)} + ${tag || "缺标签"} 暂无样本。`;
-  const detail = (decision.details || []).map(x => `<div>${x}</div>`).join("");
+  const detail = fourStepCalculation(r, cell, decision);
   return `亚盘意图历史EV：${line || "缺盘口档位"} + ${tag || "缺候选标签"}，投注建议：${actionText}；正期望方：${decision.team}。<br>${cellText}<br>${tagPerformanceLabel(tag)}<br>${microText}<br>${skillBetDecision(r, cell, decision)}<details class="ev-calc"><summary>查看1-4步测算</summary>${detail}</details>`;
 }
 
