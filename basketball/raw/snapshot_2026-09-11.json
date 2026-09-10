@@ -1,0 +1,648 @@
+{
+  "version": "v3.18",
+  "as_of": "2026-09-11T07:51:00+08:00",
+  "capture_window": "2026-09-11 07:43-07:51 +08:00",
+  "status": "partial",
+  "sources": [
+    [
+      "FIBA官方",
+      "已核验",
+      "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026；美国108-56匈牙利、中国61-90法国、比利时74-93德国、澳大利亚66-89西班牙"
+    ],
+    [
+      "NBL官方",
+      "已核验",
+      "https://www.nbl.com.au/schedule；墨尔本86-90破坏者、琉球82-110珀斯；9/12两场预告"
+    ],
+    [
+      "ESPN",
+      "查询完成",
+      "NBA/WNBA/G League/NCAA查询9/10-9/12共12次均0场；不代表全球无赛"
+    ],
+    [
+      "SofaScore / NBA Stats",
+      "源受限",
+      "SofaScore两日403；NBA Stats G League超时，不能视为无赛"
+    ],
+    [
+      "TheSportsDB",
+      "部分",
+      "9/11及9/12各3场；已按UTC转北京时间，后备源非全量"
+    ],
+    [
+      "CBA含夏季联赛",
+      "待核",
+      "https://m.qiumiwu.com/league/cba/game；仍列9/6四场，未核到今天新赛程，不声称全量无赛"
+    ],
+    [
+      "盘口",
+      "部分",
+      "DashBet/BetNova同平台；Stake汉堡含加时；Interbet用于对阵/时间复核。缺用户可成交价和源更新时间"
+    ],
+    [
+      "其他市场尝试",
+      "缺口",
+      "Fonbet公开页旧抓取；Cloudbet空页；Caliente/Betfair/比较站补查未补齐独立当前盘；THE_ODDS_API_KEY未配置"
+    ],
+    [
+      "公众/效率",
+      "缺口",
+      "未取得精确tickets/money、双边深度及联赛校准残差；不编造p区间"
+    ],
+    [
+      "德国杯赛果",
+      "部分",
+      "哈根官方确认客胜93-86；不来梅港官网失败、布伦瑞克限流，比分页无可靠终场，不以0-0占位或第三节当终场"
+    ]
+  ],
+  "gates": [
+    [
+      "备份与冻结",
+      "完成",
+      "今日更新前完整备份；最初方向/盘口/赔率/首写时间/触发条件不变"
+    ],
+    [
+      "赛程覆盖",
+      "部分",
+      "今日9场；未来36小时7场新增预告；全球与CBA覆盖缺口保留"
+    ],
+    [
+      "赛果回填",
+      "部分",
+      "9场配对回填；不来梅港-布伦瑞克赛果待核，不计模拟胜率"
+    ],
+    [
+      "盘口及赔率",
+      "部分",
+      "8场取得让分与总分新快照；其余逐场记录双源检索缺口"
+    ],
+    [
+      "独立预测",
+      "未通过",
+      "Pred、校准sigma、p_low/mid/high、Pace/效率输入不足；不把盘口反推成预测"
+    ],
+    [
+      "准入",
+      "硬规则",
+      "p_low>=55%、EV>2.5%、同向gap>=K3.5、联赛缓冲与1/4 Kelly；缺项归零"
+    ],
+    [
+      "时间与Steam",
+      "未通过",
+      "仅最后2小时变盘可触发；最后1小时连续报价缺失，无法确认振幅<=5或末跳同向"
+    ],
+    [
+      "模拟投注",
+      "0U",
+      "本轮新增模拟0、实际投注0；无合格基础仓位，不开Middle对冲"
+    ],
+    [
+      "历史行情",
+      "完成",
+      "昨日报价归档；间隔一天的同书差值不当开盘变化或1小时波动"
+    ],
+    [
+      "完整性",
+      "部分",
+      "这是数据更新与不投筛选，不是数据完整的量化预测；不承诺55%真实胜率"
+    ]
+  ],
+  "results": [
+    {
+      "id": "fiba-wwc-usa-hungary-20260910",
+      "score": [
+        108,
+        56
+      ],
+      "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128151-USA-HUN"
+    },
+    {
+      "id": "fiba-wwc-china-france-20260910",
+      "score": [
+        61,
+        90
+      ],
+      "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128149-CHN-FRA"
+    },
+    {
+      "id": "fiba-wwc-belgium-germany-20260910",
+      "score": [
+        74,
+        93
+      ],
+      "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128150-BEL-GER"
+    },
+    {
+      "id": "fiba-wwc-australia-spain-20260911",
+      "score": [
+        66,
+        89
+      ],
+      "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128148-AUS-ESP"
+    },
+    {
+      "id": "nbl-preseason-mel-nzl-20260910",
+      "score": [
+        86,
+        90
+      ],
+      "source": "https://www.nbl.com.au/news/mennenga-nz-finish-pre-season-on-a-high"
+    },
+    {
+      "id": "island-games-ryukyu-perth-20260910",
+      "score": [
+        82,
+        110
+      ],
+      "source": "https://www.nbl.com.au/news/jla-again-stars-for-cats-in-japan"
+    },
+    {
+      "id": "lnbp-mineros-diablos-20260910",
+      "score": [
+        75,
+        81
+      ],
+      "source": "https://www.diablosrojosbasquetbol.com.mx/"
+    },
+    {
+      "id": "vba-nhatrang-saigon-20260910",
+      "score": [
+        75,
+        77
+      ],
+      "source": "https://nhandan.vn/saigon-heat-cham-tran-hanoi-buffaloes-tai-chung-ket-vba-2026-post987752.html"
+    },
+    {
+      "id": "bbl-crailsheim-hagen-20260911",
+      "score": [
+        86,
+        93
+      ],
+      "source": "https://www.phoenix-hagen.de/"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "lnbp-abejas-gambusinos-20260911",
+      "date": "2026-09-11",
+      "time": "09:00",
+      "home": "莱昂蜜蜂",
+      "away": "弗雷斯尼洛矿工",
+      "league": "墨西哥LNBP",
+      "source": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+      "schedule_status": "provisional",
+      "note": "已抓本场新报价；缺独立校准Pred、p区间、分钟投射及最后1小时连续报价，所有硬闸未齐，模拟0U。 同品牌昨日/今日快照：主让分-4.5至-4.5，总分167至167.5；不是初盘或连续轨迹，不能据此判定Steam/熔断。",
+      "quotes": [
+        {
+          "book": "DashBet",
+          "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": -4.5,
+          "home_odds": 1.84,
+          "away_odds": 1.84,
+          "total": 167.5,
+          "over": 1.86,
+          "under": 1.8,
+          "ml": [
+            1.5,
+            2.38
+          ]
+        },
+        {
+          "book": "BetNova（可能同源）",
+          "url": "https://m.betnova.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": -4.5,
+          "home_odds": 1.84,
+          "away_odds": 1.84,
+          "total": 167.5,
+          "over": 1.86,
+          "under": 1.8,
+          "ml": [
+            1.5,
+            2.38
+          ]
+        }
+      ],
+      "attempts": [
+        "DashBet/BetNova今晨读取本场具体让分、大小分和ML；共同GenerationWeb平台，不算两独立源",
+        "Interbet篮球列表读取同日对阵和ML线索；Fonbet/Cloudbet/Caliente补查，未取得可验证更新时点的独立让分总分"
+      ]
+    },
+    {
+      "id": "lnbp-correcaminos-dorados-20260911",
+      "date": "2026-09-11",
+      "time": "09:15",
+      "home": "维多利亚走鹃",
+      "away": "奇瓦瓦多拉多斯",
+      "league": "墨西哥LNBP",
+      "source": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-11&s=Basketball",
+      "note": "已抓本场新报价；缺独立校准Pred、p区间、分钟投射及最后1小时连续报价，所有硬闸未齐，模拟0U。 同品牌昨日/今日快照：主让分5.5至6，总分176.5至176.5；不是初盘或连续轨迹，不能据此判定Steam/熔断。",
+      "attempts": [
+        "DashBet/BetNova今晨读取本场具体让分、大小分和ML；共同GenerationWeb平台，不算两独立源",
+        "Interbet篮球列表读取同日对阵和ML线索；Fonbet/Cloudbet/Caliente补查，未取得可验证更新时点的独立让分总分"
+      ],
+      "quotes": [
+        {
+          "book": "DashBet",
+          "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": 6,
+          "home_odds": 1.82,
+          "away_odds": 1.91,
+          "total": 176.5,
+          "over": 1.81,
+          "under": 1.85,
+          "ml": [
+            2.8,
+            1.37
+          ]
+        },
+        {
+          "book": "BetNova（可能同源）",
+          "url": "https://m.betnova.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": 6,
+          "home_odds": 1.82,
+          "away_odds": 1.91,
+          "total": 176.5,
+          "over": 1.81,
+          "under": 1.85,
+          "ml": [
+            2.8,
+            1.37
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lnbp-calor-panteras-20260911",
+      "date": "2026-09-11",
+      "time": "09:15",
+      "home": "坎昆热力",
+      "away": "阿瓜斯卡连特斯黑豹",
+      "league": "墨西哥LNBP",
+      "source": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-11&s=Basketball",
+      "note": "已抓本场新报价；缺独立校准Pred、p区间、分钟投射及最后1小时连续报价，所有硬闸未齐，模拟0U。 同品牌昨日/今日快照：主让分4至5，总分174至171；不是初盘或连续轨迹，不能据此判定Steam/熔断。",
+      "quotes": [
+        {
+          "book": "DashBet",
+          "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": 5,
+          "home_odds": 1.85,
+          "away_odds": 1.88,
+          "total": 171,
+          "over": 1.8,
+          "under": 1.86,
+          "ml": [
+            2.58,
+            1.44
+          ]
+        },
+        {
+          "book": "BetNova（可能同源）",
+          "url": "https://m.betnova.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": 5,
+          "home_odds": 1.85,
+          "away_odds": 1.88,
+          "total": 171,
+          "over": 1.8,
+          "under": 1.86,
+          "ml": [
+            2.58,
+            1.44
+          ]
+        }
+      ],
+      "attempts": [
+        "DashBet/BetNova今晨读取本场具体让分、大小分和ML；共同GenerationWeb平台，不算两独立源",
+        "Interbet篮球列表读取同日对阵和ML线索；Fonbet/Cloudbet/Caliente补查，未取得可验证更新时点的独立让分总分"
+      ]
+    },
+    {
+      "id": "lnbp-lobos-freseros-20260911",
+      "date": "2026-09-11",
+      "time": "10:00",
+      "home": "普埃布拉银狼",
+      "away": "伊拉普阿托草莓人",
+      "league": "墨西哥LNBP",
+      "source": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+      "schedule_status": "provisional",
+      "note": "已抓本场新报价；缺独立校准Pred、p区间、分钟投射及最后1小时连续报价，所有硬闸未齐，模拟0U。 同品牌昨日/今日快照：主让分-6.5至-7，总分172.5至172.5；不是初盘或连续轨迹，不能据此判定Steam/熔断。",
+      "quotes": [
+        {
+          "book": "DashBet",
+          "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": -7,
+          "home_odds": 1.79,
+          "away_odds": 1.95,
+          "total": 172.5,
+          "over": 1.91,
+          "under": 1.75,
+          "ml": [
+            1.28,
+            3.3
+          ]
+        },
+        {
+          "book": "BetNova（可能同源）",
+          "url": "https://m.betnova.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": -7,
+          "home_odds": 1.79,
+          "away_odds": 1.95,
+          "total": 172.5,
+          "over": 1.91,
+          "under": 1.75,
+          "ml": [
+            1.28,
+            3.3
+          ]
+        }
+      ],
+      "attempts": [
+        "DashBet/BetNova今晨读取本场具体让分、大小分和ML；共同GenerationWeb平台，不算两独立源",
+        "Interbet篮球列表读取同日对阵和ML线索；Fonbet/Cloudbet/Caliente补查，未取得可验证更新时点的独立让分总分"
+      ]
+    },
+    {
+      "id": "lnbp-santos-fuerza-20260911",
+      "date": "2026-09-11",
+      "time": "10:00",
+      "home": "圣路易斯圣徒",
+      "away": "蒙特雷富尔萨",
+      "league": "墨西哥LNBP",
+      "source": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-11&s=Basketball",
+      "note": "已抓本场新报价；缺独立校准Pred、p区间、分钟投射及最后1小时连续报价，所有硬闸未齐，模拟0U。 同品牌昨日/今日快照：主让分3至5.5，总分173至176；不是初盘或连续轨迹，不能据此判定Steam/熔断。",
+      "quotes": [
+        {
+          "book": "DashBet",
+          "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": 5.5,
+          "home_odds": 1.86,
+          "away_odds": 1.87,
+          "total": 176,
+          "over": 1.76,
+          "under": 1.91,
+          "ml": [
+            2.54,
+            1.45
+          ]
+        },
+        {
+          "book": "BetNova（可能同源）",
+          "url": "https://m.betnova.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": 5.5,
+          "home_odds": 1.86,
+          "away_odds": 1.87,
+          "total": 176,
+          "over": 1.76,
+          "under": 1.91,
+          "ml": [
+            2.54,
+            1.45
+          ]
+        }
+      ],
+      "attempts": [
+        "DashBet/BetNova今晨读取本场具体让分、大小分和ML；共同GenerationWeb平台，不算两独立源",
+        "Interbet篮球列表读取同日对阵和ML线索；Fonbet/Cloudbet/Caliente补查，未取得可验证更新时点的独立让分总分"
+      ]
+    },
+    {
+      "id": "lnbp-mineros-diablos-20260911",
+      "date": "2026-09-11",
+      "time": "10:05",
+      "home": "萨卡特卡斯矿工",
+      "away": "墨西哥红魔",
+      "league": "墨西哥LNBP",
+      "source": "https://www.diablosrojosbasquetbol.com.mx/",
+      "schedule_status": "official_checked",
+      "note": "已抓本场新报价；缺独立校准Pred、p区间、分钟投射及最后1小时连续报价，所有硬闸未齐，模拟0U。",
+      "attempts": [
+        "DashBet/BetNova今晨读取本场具体让分、大小分和ML；共同GenerationWeb平台，不算两独立源",
+        "Interbet篮球列表读取同日对阵和ML线索；Fonbet/Cloudbet/Caliente补查，未取得可验证更新时点的独立让分总分"
+      ],
+      "quotes": [
+        {
+          "book": "DashBet",
+          "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": -7,
+          "home_odds": 1.93,
+          "away_odds": 1.8,
+          "total": 168.5,
+          "over": 1.84,
+          "under": 1.82,
+          "ml": [
+            1.36,
+            2.85
+          ]
+        },
+        {
+          "book": "BetNova（可能同源）",
+          "url": "https://m.betnova.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": -7,
+          "home_odds": 1.93,
+          "away_odds": 1.8,
+          "total": 168.5,
+          "over": 1.84,
+          "under": 1.82,
+          "ml": [
+            1.36,
+            2.85
+          ]
+        }
+      ],
+      "travel": "同一主场连续两天对阵，双方背靠背；不是东西部跨区长途背靠背。核心恢复与轮换分钟未知。",
+      "matchup": "上一场矿工75-81红魔，末节14-24；矿工让7不能仅按输后反弹建仓。该赛果不用于补写昨天推荐。"
+    },
+    {
+      "id": "bbl-hamburg-rostock-20260912",
+      "date": "2026-09-12",
+      "time": "02:00",
+      "home": "汉堡塔",
+      "away": "罗斯托克",
+      "league": "德国BBL杯",
+      "source": "https://inselparkarena.de/event/pokal-veolia-towers-hamburg-rostock-seawolves/",
+      "quotes": [
+        {
+          "book": "Stake（含加时）",
+          "url": "https://stake.com/fr/sports/basketball/germany/bbl-pokal/46870629-hamburg-towers-rostock-seawolves",
+          "spread": -1.5,
+          "home_odds": 1.84,
+          "away_odds": 1.83,
+          "total": 169.5,
+          "over": 1.83,
+          "under": 1.84,
+          "ml": [
+            1.75,
+            1.93
+          ],
+          "overtime": true
+        }
+      ],
+      "note": "取得分源盘口快照，但概率、分钟及临场轨迹不足，不投。",
+      "attempts": [
+        "Stake本场含加时让分和总分已读取",
+        "Betfair搜索返回4个月前旧场；SportyTrader同日页仅赛程，未作为第二盘口"
+      ],
+      "travel": "德国国内比赛；主客已由场馆确认，完整休息天数/连续客场负荷未核。"
+    },
+    {
+      "id": "lnbp-abejas-gambusinos-20260912",
+      "date": "2026-09-12",
+      "time": "09:00",
+      "home": "莱昂蜜蜂",
+      "away": "弗雷斯尼洛矿工",
+      "league": "墨西哥LNBP",
+      "source": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-12&s=Basketball",
+      "quotes": [],
+      "note": "盘口源未发现；没有精确本场可核验让分/总分报价，不投。",
+      "attempts": [
+        "DashBet/BetNova次日页面：当前所见该对阵仅9/11，不搬用到9/12",
+        "Fonbet/Caliente及精确9/12对阵检索未取得本场让分/总分"
+      ],
+      "travel": "来源列连续两天同对阵，双方背靠背；9/11未赛，不能预先假设分钟负荷。"
+    },
+    {
+      "id": "lnbp-correcaminos-dorados-20260912",
+      "date": "2026-09-12",
+      "time": "09:15",
+      "home": "维多利亚走鹃",
+      "away": "奇瓦瓦多拉多斯",
+      "league": "墨西哥LNBP",
+      "source": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-12&s=Basketball",
+      "quotes": [],
+      "note": "盘口源未发现；没有精确本场可核验让分/总分报价，不投。",
+      "attempts": [
+        "DashBet/BetNova次日页面：当前所见该对阵仅9/11，不搬用到9/12",
+        "Fonbet/Caliente及精确9/12对阵检索未取得本场让分/总分"
+      ],
+      "travel": "来源列连续两天同对阵，双方背靠背；9/11未赛，不能预先假设分钟负荷。"
+    },
+    {
+      "id": "lnbp-calor-panteras-20260912",
+      "date": "2026-09-12",
+      "time": "09:15",
+      "home": "坎昆热力",
+      "away": "阿瓜斯卡连特斯黑豹",
+      "league": "墨西哥LNBP",
+      "source": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-12&s=Basketball",
+      "quotes": [],
+      "note": "盘口源未发现；没有精确本场可核验让分/总分报价，不投。",
+      "attempts": [
+        "DashBet/BetNova次日页面：当前所见该对阵仅9/11，不搬用到9/12",
+        "Fonbet/Caliente及精确9/12对阵检索未取得本场让分/总分"
+      ],
+      "travel": "来源列连续两天同对阵，双方背靠背；9/11未赛，不能预先假设分钟负荷。"
+    },
+    {
+      "id": "lnbp-astros-soles-20260912",
+      "date": "2026-09-12",
+      "time": "10:15",
+      "home": "哈利斯科星队",
+      "away": "墨西卡利太阳",
+      "league": "墨西哥LNBP",
+      "source": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+      "quotes": [
+        {
+          "book": "DashBet",
+          "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": -2.5,
+          "home_odds": 1.86,
+          "away_odds": 1.83,
+          "total": 157.5,
+          "over": 1.82,
+          "under": 1.84,
+          "ml": [
+            1.66,
+            2.06
+          ]
+        },
+        {
+          "book": "BetNova（可能同源）",
+          "url": "https://m.betnova.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+          "spread": -2.5,
+          "home_odds": 1.86,
+          "away_odds": 1.83,
+          "total": 157.5,
+          "over": 1.82,
+          "under": 1.84,
+          "ml": [
+            1.66,
+            2.06
+          ]
+        }
+      ],
+      "note": "已抓星队-2.5与总分157.5；来源时区对照一致，但官方比赛时间仍待核。概率/阵容/轨迹缺失，不投。",
+      "schedule_status": "provisional",
+      "attempts": [
+        "DashBet/BetNova明确9/12澳东12:15，折算北京时间10:15",
+        "Interbet列9/12南非04:15及ML，独立确认对阵；Caliente精确检索未读到本场让分总分"
+      ]
+    },
+    {
+      "id": "nbl-preseason-tas-syd-20260912",
+      "date": "2026-09-12",
+      "time": "16:00",
+      "home": "塔斯马尼亚蚂蚁",
+      "away": "悉尼国王",
+      "league": "NBL季前赛",
+      "source": "https://www.nbl.com.au/club-schedule/syd",
+      "quotes": [],
+      "note": "盘口源未发现；没有精确本场可核验让分/总分报价，不投。",
+      "attempts": [
+        "OddsPortal精确9/12塔斯马尼亚-悉尼检索未取得本场价格",
+        "Oddspedia同队页面仍是1/22旧场，不使用旧赔率"
+      ],
+      "injury": "NBL 9/10伤病表列Kendric Davis个人原因待定、Leaupepe赛季缺阵、Ben Ayre髋屈肌待评估、Bryce Hamilton膝伤待定；本场最终名单与分钟未确认。",
+      "context_source": "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "travel": "悉尼赴霍巴特；不是东西部跨区背靠背，完整训练与旅行负荷待核。"
+    },
+    {
+      "id": "nbl-preseason-bri-cns-20260912",
+      "date": "2026-09-12",
+      "time": "16:30",
+      "home": "布里斯班子弹",
+      "away": "凯恩斯太攀蛇",
+      "league": "NBL季前赛",
+      "source": "https://www.nbl.com.au/club-schedule/bri",
+      "quotes": [],
+      "note": "盘口源未发现；没有精确本场可核验让分/总分报价，不投。",
+      "attempts": [
+        "Oddspedia精确9/12布里斯班-凯恩斯检索未取得本场价格",
+        "OddsPortal独立补查仅旧赛季信息，未取得精确报价"
+      ],
+      "injury": "NBL 9/10伤病表列Sam McDaniel手伤约4周、Taine Murray下肢伤约4-6周；赛前完整名单和分钟仍未核。",
+      "context_source": "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "travel": "阳光海岸季前赛，客队旅行与负荷待核；不假定季前主力打满。"
+    }
+  ],
+  "audit_notes": [
+    "原始盘口和首写字段永久保留；当前报价追加快照，不重写历史样本。",
+    "仅公开报价线索，源更新时间与用户可成交性未知。",
+    "昨日到今日同书两点快照不是最后1小时完整振幅；不得据此断言Steam。",
+    "世界杯半决赛在9/12当地举行，超出本轮早晨未来36小时窗口，未混入今天。",
+    "CBA、其他国际友谊赛及小联赛覆盖仍不全。"
+  ],
+  "updated_ids": [
+    "lnbp-abejas-gambusinos-20260911",
+    "lnbp-correcaminos-dorados-20260911",
+    "lnbp-calor-panteras-20260911",
+    "lnbp-lobos-freseros-20260911",
+    "lnbp-santos-fuerza-20260911",
+    "lnbp-mineros-diablos-20260911",
+    "bbl-hamburg-rostock-20260912",
+    "lnbp-abejas-gambusinos-20260912",
+    "lnbp-correcaminos-dorados-20260912",
+    "lnbp-calor-panteras-20260912",
+    "lnbp-astros-soles-20260912",
+    "nbl-preseason-tas-syd-20260912",
+    "nbl-preseason-bri-cns-20260912",
+    "fiba-wwc-usa-hungary-20260910",
+    "fiba-wwc-china-france-20260910",
+    "fiba-wwc-belgium-germany-20260910",
+    "fiba-wwc-australia-spain-20260911",
+    "nbl-preseason-mel-nzl-20260910",
+    "island-games-ryukyu-perth-20260910",
+    "lnbp-mineros-diablos-20260910",
+    "vba-nhatrang-saigon-20260910",
+    "bbl-crailsheim-hagen-20260911",
+    "bbl-bremerhaven-braunschweig-20260911"
+  ]
+}
