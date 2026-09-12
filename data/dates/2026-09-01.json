@@ -1,1 +1,338 @@
-{"list_date": "2026-09-01", "matches": [{"identity": {"match_id": "3040357", "list_date": "2026-09-01", "kickoff": "2026-9-1 19:35", "competition": "中协杯", "home": "北京国安", "away": "兰州陇原竞技"}, "market": {"line_bucket": "两球/两球半", "candidate_side": "上盘", "candidate_team": "北京国安", "water": 0.99, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "北京国安", "side": "上盘", "intent": "真实示强/阻上", "probability": "0.527", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "北京国安", "side": "giving", "p_ev_gt_0": 0.8075, "ev_mean": 0.039281632346297106, "ev_p10": -0.017219519075266088, "credible_interval": 0.05940959769792392, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "黑半", "pnl_1u": "-0.5"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3008192", "list_date": "2026-09-01", "kickoff": "2026-9-2 02:45", "competition": "英冠", "home": "谢菲尔德联队", "away": "博尔顿"}, "market": {"line_bucket": "半球/一球", "candidate_side": "上盘", "candidate_team": "谢菲尔德联队", "water": 0.79, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "谢菲尔德联队", "side": "上盘", "intent": "诱上/阻下", "probability": "0.6429", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "谢菲尔德联队", "side": "giving", "p_ev_gt_0": 0.028, "ev_mean": -0.0706837901239723, "ev_p10": -0.118216422852223, "credible_interval": 0.0559477503212944, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红半", "pnl_1u": "0.395"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3008194", "list_date": "2026-09-01", "kickoff": "2026-9-2 02:45", "competition": "英冠", "home": "西汉姆联", "away": "狼队"}, "market": {"line_bucket": "平手/半球", "candidate_side": "下盘", "candidate_team": "狼队", "water": 1.08, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "狼队", "side": "下盘", "intent": "降温保护/诱下", "probability": "0.5556", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "西汉姆联", "side": "giving", "p_ev_gt_0": 0.037, "ev_mean": -0.06622097682103012, "ev_p10": -0.11531297168858612, "credible_interval": 0.056729716941704256, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "黑", "pnl_1u": "-1.0"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3074163", "list_date": "2026-09-01", "kickoff": "2026-9-2 03:00", "competition": "巴拉甲秋", "home": "鲁毕奥", "away": "圣罗伦素体育会"}, "market": {"line_bucket": "半球/一球", "candidate_side": "上盘", "candidate_team": "鲁毕奥", "water": 0.98, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "鲁毕奥", "side": "上盘", "intent": "诱下/上盘降温", "probability": "0.547", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "鲁毕奥", "side": "giving", "p_ev_gt_0": 0.6615, "ev_mean": 0.017360649182968348, "ev_p10": -0.03663940560492834, "credible_interval": 0.056260765185655426, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红", "pnl_1u": "0.98"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "2940151", "list_date": "2026-09-01", "kickoff": "2026-9-2 06:30", "competition": "巴西乙", "home": "隆迪那", "away": "尤文图德"}, "market": {"line_bucket": "平手/半球", "candidate_side": "上盘", "candidate_team": "尤文图德", "water": 1.07, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "尤文图德", "side": "上盘", "intent": "阻上/诱下", "probability": "0.513", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "B_RESEARCH", "team": "尤文图德", "side": "giving", "p_ev_gt_0": 0.91, "ev_mean": 0.058003313880623006, "ev_p10": 0.0029459398542815984, "credible_interval": 0.056266633042394154, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "进行中", "pnl_1u": ""}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}]}
+{
+  "list_date": "2026-09-01",
+  "matches": [
+    {
+      "identity": {
+        "match_id": "3040357",
+        "list_date": "2026-09-01",
+        "kickoff": "2026-9-1 19:35",
+        "competition": "中协杯",
+        "home": "北京国安",
+        "away": "兰州陇原竞技"
+      },
+      "market": {
+        "line_bucket": "两球/两球半",
+        "candidate_side": "上盘",
+        "candidate_team": "北京国安",
+        "water": 0.99,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "北京国安",
+        "side": "上盘",
+        "intent": "真实示强/阻上",
+        "probability": "0.527",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "北京国安",
+        "side": "giving",
+        "p_ev_gt_0": 0.8075,
+        "ev_mean": 0.039281632346297106,
+        "ev_p10": -0.017219519075266088,
+        "credible_interval": 0.05940959769792392,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "黑半",
+        "pnl_1u": "-0.5"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3008192",
+        "list_date": "2026-09-01",
+        "kickoff": "2026-9-2 02:45",
+        "competition": "英冠",
+        "home": "谢菲尔德联队",
+        "away": "博尔顿"
+      },
+      "market": {
+        "line_bucket": "半球/一球",
+        "candidate_side": "上盘",
+        "candidate_team": "谢菲尔德联队",
+        "water": 0.79,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "谢菲尔德联队",
+        "side": "上盘",
+        "intent": "诱上/阻下",
+        "probability": "0.6429",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "谢菲尔德联队",
+        "side": "giving",
+        "p_ev_gt_0": 0.028,
+        "ev_mean": -0.0706837901239723,
+        "ev_p10": -0.118216422852223,
+        "credible_interval": 0.0559477503212944,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红半",
+        "pnl_1u": "0.395"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3008194",
+        "list_date": "2026-09-01",
+        "kickoff": "2026-9-2 02:45",
+        "competition": "英冠",
+        "home": "西汉姆联",
+        "away": "狼队"
+      },
+      "market": {
+        "line_bucket": "平手/半球",
+        "candidate_side": "下盘",
+        "candidate_team": "狼队",
+        "water": 1.08,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "狼队",
+        "side": "下盘",
+        "intent": "降温保护/诱下",
+        "probability": "0.5556",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "西汉姆联",
+        "side": "giving",
+        "p_ev_gt_0": 0.037,
+        "ev_mean": -0.06622097682103012,
+        "ev_p10": -0.11531297168858612,
+        "credible_interval": 0.056729716941704256,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "黑",
+        "pnl_1u": "-1.0"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3074163",
+        "list_date": "2026-09-01",
+        "kickoff": "2026-9-2 03:00",
+        "competition": "巴拉甲秋",
+        "home": "鲁毕奥",
+        "away": "圣罗伦素体育会"
+      },
+      "market": {
+        "line_bucket": "半球/一球",
+        "candidate_side": "上盘",
+        "candidate_team": "鲁毕奥",
+        "water": 0.98,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "鲁毕奥",
+        "side": "上盘",
+        "intent": "诱下/上盘降温",
+        "probability": "0.547",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "鲁毕奥",
+        "side": "giving",
+        "p_ev_gt_0": 0.6615,
+        "ev_mean": 0.017360649182968348,
+        "ev_p10": -0.03663940560492834,
+        "credible_interval": 0.056260765185655426,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红",
+        "pnl_1u": "0.98"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "2940151",
+        "list_date": "2026-09-01",
+        "kickoff": "2026-9-2 06:30",
+        "competition": "巴西乙",
+        "home": "隆迪那",
+        "away": "尤文图德"
+      },
+      "market": {
+        "line_bucket": "平手/半球",
+        "candidate_side": "上盘",
+        "candidate_team": "尤文图德",
+        "water": 1.07,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "尤文图德",
+        "side": "上盘",
+        "intent": "阻上/诱下",
+        "probability": "0.513",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "B_RESEARCH",
+        "team": "尤文图德",
+        "side": "giving",
+        "p_ev_gt_0": 0.91,
+        "ev_mean": 0.058003313880623006,
+        "ev_p10": 0.0029459398542815984,
+        "credible_interval": 0.056266633042394154,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "进行中",
+        "pnl_1u": ""
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    }
+  ],
+  "historical_summary": {
+    "roster_count": 5,
+    "v3_recovered": 0,
+    "v3_bettable": 0,
+    "v3_half": 0,
+    "v3_missing_frozen": 5,
+    "settled": 0
+  }
+}

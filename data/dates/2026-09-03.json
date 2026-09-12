@@ -1,1 +1,598 @@
-{"list_date": "2026-09-03", "matches": [{"identity": {"match_id": "2937911", "list_date": "2026-09-03", "kickoff": "2026-9-3 08:00", "competition": "厄瓜甲", "home": "瓜亚基尔巴塞罗那", "away": "山谷独立"}, "market": {"line_bucket": "平手/半球", "candidate_side": "下盘", "candidate_team": "瓜亚基尔巴塞罗那", "water": 0.94, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "瓜亚基尔巴塞罗那", "side": "下盘", "intent": "诱上/阻下", "probability": "0.571", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "瓜亚基尔巴塞罗那", "side": "receiving", "p_ev_gt_0": 0.37425, "ev_mean": -0.012727103023165515, "ev_p10": -0.06271907518818631, "credible_interval": 0.05453884940230708, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红", "pnl_1u": "0.94"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "2921198", "list_date": "2026-09-03", "kickoff": "2026-9-3 08:30", "competition": "智利甲", "home": "利马切颜色", "away": "奴伯伦斯"}, "market": {"line_bucket": "平手", "candidate_side": "平手/待核", "candidate_team": "利马切颜色", "water": 0.82, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "利马切颜色", "side": "平手/待核", "intent": "降温保护/诱下", "probability": "0.584", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "奴伯伦斯", "side": "giving", "p_ev_gt_0": 0.6475, "ev_mean": 0.014523238351434656, "ev_p10": -0.03372772967242499, "credible_interval": 0.05107672098209437, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红", "pnl_1u": "0.82"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3073014", "list_date": "2026-09-03", "kickoff": "2026-9-3 09:00", "competition": "中北美杯", "home": "托卢卡", "away": "莱昂"}, "market": {"line_bucket": "半球", "candidate_side": "上盘", "candidate_team": "托卢卡", "water": 0.88, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "托卢卡", "side": "上盘", "intent": "降温保护/诱下", "probability": "0.573", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "托卢卡", "side": "giving", "p_ev_gt_0": 0.182, "ev_mean": -0.03210256674618027, "ev_p10": -0.07606855555999753, "credible_interval": 0.05028840333181839, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红", "pnl_1u": "0.88"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3046967", "list_date": "2026-09-03", "kickoff": "2026-9-3 23:55", "competition": "沙特联", "home": "费哈", "away": "拉斯永恒"}, "market": {"line_bucket": "平手/半球", "candidate_side": "上盘", "candidate_team": "拉斯永恒", "water": 1.06, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "拉斯永恒", "side": "上盘", "intent": "阻上/诱下", "probability": "0.549", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "B_RESEARCH", "team": "拉斯永恒", "side": "giving", "p_ev_gt_0": 0.8785, "ev_mean": 0.046087936481271366, "ev_p10": -0.004157765562314397, "credible_interval": 0.050503784413829855, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "黑半", "pnl_1u": "-0.5"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3072750", "list_date": "2026-09-03", "kickoff": "2026-9-4 00:00", "competition": "意杯", "home": "巴勒莫", "away": "曼托瓦"}, "market": {"line_bucket": "半球/一球", "candidate_side": "上盘", "candidate_team": "巴勒莫", "water": 0.82, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "巴勒莫", "side": "上盘", "intent": "诱上/阻下", "probability": "0.596", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "巴勒莫", "side": "giving", "p_ev_gt_0": 0.0315, "ev_mean": -0.0629231363272631, "ev_p10": -0.10723358189593474, "credible_interval": 0.05016039519744547, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红", "pnl_1u": "0.82"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3046968", "list_date": "2026-09-03", "kickoff": "2026-9-4 00:30", "competition": "沙特联", "home": "新未来城体育", "away": "塞哈特海湾"}, "market": {"line_bucket": "半球/一球", "candidate_side": "上盘", "candidate_team": "新未来城体育", "water": 0.85, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "新未来城体育", "side": "上盘", "intent": "诱上/阻下", "probability": "0.612", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "新未来城体育", "side": "giving", "p_ev_gt_0": 0.07875, "ev_mean": -0.049351202346176945, "ev_p10": -0.09629142889389891, "credible_interval": 0.0512500527130052, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红", "pnl_1u": "0.85"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3000808", "list_date": "2026-09-03", "kickoff": "2026-9-4 02:30", "competition": "瑞士超", "home": "卢加诺", "away": "塞尔维特"}, "market": {"line_bucket": "半球", "candidate_side": "上盘", "candidate_team": "卢加诺", "water": 0.96, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "卢加诺", "side": "上盘", "intent": "真实示强/阻上", "probability": "0.574", "breakeven": "", "stake": "0.5", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "卢加诺", "side": "giving", "p_ev_gt_0": 0.49625, "ev_mean": -0.000600796325766543, "ev_p10": -0.0482440081786481, "credible_interval": 0.05078168228981622, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红", "pnl_1u": "0.96"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3003544", "list_date": "2026-09-03", "kickoff": "2026-9-4 02:30", "competition": "比甲", "home": "安德莱赫特", "away": "科特赖克"}, "market": {"line_bucket": "一球/球半", "candidate_side": "上盘", "candidate_team": "安德莱赫特", "water": 0.99, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "安德莱赫特", "side": "上盘", "intent": "真实示强/阻上", "probability": "0.574", "breakeven": "", "stake": "0.5", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "安德莱赫特", "side": "giving", "p_ev_gt_0": 0.64925, "ev_mean": 0.014629244580522513, "ev_p10": -0.03413310567006972, "credible_interval": 0.05155109602441543, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "黑半", "pnl_1u": "-0.5"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}, {"identity": {"match_id": "3011837", "list_date": "2026-09-03", "kickoff": "2026-9-4 05:00", "competition": "哥伦甲秋", "home": "卡利美洲", "away": "阿利安萨"}, "market": {"line_bucket": "一球/球半", "candidate_side": "上盘", "candidate_team": "卡利美洲", "water": 0.82, "giving_team": null, "receiving_team": null, "giving_water": null, "receiving_water": null, "euro_open": null, "euro_current": null, "totals": null}, "fundamentals": {"form": "未接入/待核", "h2h": "未接入/待核", "injuries": "未接入/待核", "lineup": "赛前约1小时复核", "schedule_rotation": "未接入/待核", "motivation": "未接入/待核", "flow": "未匹配则沿用亚盘EV框架"}, "v3_decision": {"status": "不投", "team": "卡利美洲", "side": "上盘", "intent": "诱上/阻下", "probability": "0.601", "breakeven": "", "stake": "1.0", "reason": ""}, "v4_shadow": {"grade": "C_RESEARCH", "team": "卡利美洲", "side": "giving", "p_ev_gt_0": 0.032, "ev_mean": -0.063957638771951, "ev_p10": -0.10756137839868596, "credible_interval": 0.050493908573829904, "rank": null, "kappa": 20, "reverse_status": "REVERSE_WATCH"}, "settlement": {"result": "红", "pnl_1u": "0.82"}, "audit": {"prior_snapshot_id": "v4_dataset_lock_20260912", "decision_at": null, "previous_decision": "未接入/待核", "changed_inputs": "未接入/待核", "flip_reason": "未接入/待核"}}]}
+{
+  "list_date": "2026-09-03",
+  "matches": [
+    {
+      "identity": {
+        "match_id": "2937911",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-3 08:00",
+        "competition": "厄瓜甲",
+        "home": "瓜亚基尔巴塞罗那",
+        "away": "山谷独立"
+      },
+      "market": {
+        "line_bucket": "平手/半球",
+        "candidate_side": "下盘",
+        "candidate_team": "瓜亚基尔巴塞罗那",
+        "water": 0.94,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "瓜亚基尔巴塞罗那",
+        "side": "下盘",
+        "intent": "诱上/阻下",
+        "probability": "0.571",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "瓜亚基尔巴塞罗那",
+        "side": "receiving",
+        "p_ev_gt_0": 0.37425,
+        "ev_mean": -0.012727103023165515,
+        "ev_p10": -0.06271907518818631,
+        "credible_interval": 0.05453884940230708,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红",
+        "pnl_1u": "0.94"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "2921198",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-3 08:30",
+        "competition": "智利甲",
+        "home": "利马切颜色",
+        "away": "奴伯伦斯"
+      },
+      "market": {
+        "line_bucket": "平手",
+        "candidate_side": "平手/待核",
+        "candidate_team": "利马切颜色",
+        "water": 0.82,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "利马切颜色",
+        "side": "平手/待核",
+        "intent": "降温保护/诱下",
+        "probability": "0.584",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "奴伯伦斯",
+        "side": "giving",
+        "p_ev_gt_0": 0.6475,
+        "ev_mean": 0.014523238351434656,
+        "ev_p10": -0.03372772967242499,
+        "credible_interval": 0.05107672098209437,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红",
+        "pnl_1u": "0.82"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3073014",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-3 09:00",
+        "competition": "中北美杯",
+        "home": "托卢卡",
+        "away": "莱昂"
+      },
+      "market": {
+        "line_bucket": "半球",
+        "candidate_side": "上盘",
+        "candidate_team": "托卢卡",
+        "water": 0.88,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "托卢卡",
+        "side": "上盘",
+        "intent": "降温保护/诱下",
+        "probability": "0.573",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "托卢卡",
+        "side": "giving",
+        "p_ev_gt_0": 0.182,
+        "ev_mean": -0.03210256674618027,
+        "ev_p10": -0.07606855555999753,
+        "credible_interval": 0.05028840333181839,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红",
+        "pnl_1u": "0.88"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3046967",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-3 23:55",
+        "competition": "沙特联",
+        "home": "费哈",
+        "away": "拉斯永恒"
+      },
+      "market": {
+        "line_bucket": "平手/半球",
+        "candidate_side": "上盘",
+        "candidate_team": "拉斯永恒",
+        "water": 1.06,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "拉斯永恒",
+        "side": "上盘",
+        "intent": "阻上/诱下",
+        "probability": "0.549",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "B_RESEARCH",
+        "team": "拉斯永恒",
+        "side": "giving",
+        "p_ev_gt_0": 0.8785,
+        "ev_mean": 0.046087936481271366,
+        "ev_p10": -0.004157765562314397,
+        "credible_interval": 0.050503784413829855,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "黑半",
+        "pnl_1u": "-0.5"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3072750",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-4 00:00",
+        "competition": "意杯",
+        "home": "巴勒莫",
+        "away": "曼托瓦"
+      },
+      "market": {
+        "line_bucket": "半球/一球",
+        "candidate_side": "上盘",
+        "candidate_team": "巴勒莫",
+        "water": 0.82,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "巴勒莫",
+        "side": "上盘",
+        "intent": "诱上/阻下",
+        "probability": "0.596",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "巴勒莫",
+        "side": "giving",
+        "p_ev_gt_0": 0.0315,
+        "ev_mean": -0.0629231363272631,
+        "ev_p10": -0.10723358189593474,
+        "credible_interval": 0.05016039519744547,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红",
+        "pnl_1u": "0.82"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3046968",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-4 00:30",
+        "competition": "沙特联",
+        "home": "新未来城体育",
+        "away": "塞哈特海湾"
+      },
+      "market": {
+        "line_bucket": "半球/一球",
+        "candidate_side": "上盘",
+        "candidate_team": "新未来城体育",
+        "water": 0.85,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "新未来城体育",
+        "side": "上盘",
+        "intent": "诱上/阻下",
+        "probability": "0.612",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "新未来城体育",
+        "side": "giving",
+        "p_ev_gt_0": 0.07875,
+        "ev_mean": -0.049351202346176945,
+        "ev_p10": -0.09629142889389891,
+        "credible_interval": 0.0512500527130052,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红",
+        "pnl_1u": "0.85"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3000808",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-4 02:30",
+        "competition": "瑞士超",
+        "home": "卢加诺",
+        "away": "塞尔维特"
+      },
+      "market": {
+        "line_bucket": "半球",
+        "candidate_side": "上盘",
+        "candidate_team": "卢加诺",
+        "water": 0.96,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "卢加诺",
+        "side": "上盘",
+        "intent": "真实示强/阻上",
+        "probability": "0.574",
+        "breakeven": "",
+        "stake": "0.5",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "卢加诺",
+        "side": "giving",
+        "p_ev_gt_0": 0.49625,
+        "ev_mean": -0.000600796325766543,
+        "ev_p10": -0.0482440081786481,
+        "credible_interval": 0.05078168228981622,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红",
+        "pnl_1u": "0.96"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3003544",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-4 02:30",
+        "competition": "比甲",
+        "home": "安德莱赫特",
+        "away": "科特赖克"
+      },
+      "market": {
+        "line_bucket": "一球/球半",
+        "candidate_side": "上盘",
+        "candidate_team": "安德莱赫特",
+        "water": 0.99,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "安德莱赫特",
+        "side": "上盘",
+        "intent": "真实示强/阻上",
+        "probability": "0.574",
+        "breakeven": "",
+        "stake": "0.5",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "安德莱赫特",
+        "side": "giving",
+        "p_ev_gt_0": 0.64925,
+        "ev_mean": 0.014629244580522513,
+        "ev_p10": -0.03413310567006972,
+        "credible_interval": 0.05155109602441543,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "黑半",
+        "pnl_1u": "-0.5"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    },
+    {
+      "identity": {
+        "match_id": "3011837",
+        "list_date": "2026-09-03",
+        "kickoff": "2026-9-4 05:00",
+        "competition": "哥伦甲秋",
+        "home": "卡利美洲",
+        "away": "阿利安萨"
+      },
+      "market": {
+        "line_bucket": "一球/球半",
+        "candidate_side": "上盘",
+        "candidate_team": "卡利美洲",
+        "water": 0.82,
+        "giving_team": null,
+        "receiving_team": null,
+        "giving_water": null,
+        "receiving_water": null,
+        "euro_open": null,
+        "euro_current": null,
+        "totals": null
+      },
+      "fundamentals": {
+        "form": "未接入/待核",
+        "h2h": "未接入/待核",
+        "injuries": "未接入/待核",
+        "lineup": "赛前约1小时复核",
+        "schedule_rotation": "未接入/待核",
+        "motivation": "未接入/待核",
+        "flow": "未匹配则沿用亚盘EV框架"
+      },
+      "v3_decision": {
+        "status": "不投",
+        "team": "卡利美洲",
+        "side": "上盘",
+        "intent": "诱上/阻下",
+        "probability": "0.601",
+        "breakeven": "",
+        "stake": "1.0",
+        "reason": ""
+      },
+      "v4_shadow": {
+        "grade": "C_RESEARCH",
+        "team": "卡利美洲",
+        "side": "giving",
+        "p_ev_gt_0": 0.032,
+        "ev_mean": -0.063957638771951,
+        "ev_p10": -0.10756137839868596,
+        "credible_interval": 0.050493908573829904,
+        "rank": null,
+        "kappa": 20,
+        "reverse_status": "REVERSE_WATCH"
+      },
+      "settlement": {
+        "result": "红",
+        "pnl_1u": "0.82"
+      },
+      "audit": {
+        "prior_snapshot_id": "v4_dataset_lock_20260912",
+        "decision_at": null,
+        "previous_decision": "未接入/待核",
+        "changed_inputs": "未接入/待核",
+        "flip_reason": "未接入/待核"
+      }
+    }
+  ],
+  "historical_summary": {
+    "roster_count": 9,
+    "v3_recovered": 0,
+    "v3_bettable": 0,
+    "v3_half": 0,
+    "v3_missing_frozen": 9,
+    "settled": 0
+  }
+}
