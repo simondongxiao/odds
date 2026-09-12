@@ -1,0 +1,1 @@
+fetch('./data/current.json').then(r=>r.json()).then(x=>{document.querySelector('#summary').innerHTML=Object.entries(x).map(([k,v])=>`<div class=card><b>${k}</b><div>${typeof v==='object'?JSON.stringify(v):v}</div></div>`).join('')})

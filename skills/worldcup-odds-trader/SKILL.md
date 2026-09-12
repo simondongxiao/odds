@@ -5,7 +5,25 @@ description: Global senior football odds analysis, daily slate updates and seque
 
 # Global Football Odds Trader
 
+## V4 Shadow Separation (2026-09-13)
+
+V3 remains the only Production decision authority. V4 is `Forward Shadow` only and must never overwrite V3 actions, frozen decisions, dashboard production fields, or production Kelly. Use `references/v4-shadow-policy.md`, `references/v4-data-contract.md`, and `references/v4-promotion-gate.md`. V4 action candidates require authoritative `giving` or `receiving`; neutral and conditional rows are research-only. Historical replay and forward shadow performance must remain separate. Promotion is never automatic: the status stays `KEEP_V3_PRODUCTION` until the forward promotion gate passes and the user explicitly approves.
+
+Deprecated research semantics are not active rules: old fake Bayesian blends, the v4 five-sample reverse alert, historical upper/lower legacy meanings, HTML `cardsData` as a decision source, and dashboard-side action calculation. The render-only dashboard may display V3 and V4 side by side, but it cannot create or mutate a decision.
+
 ## Operating Standard
+
+### Continental Competition Isolation (2026-09-08)
+
+欧冠 and 欧联 are separate competition scopes: `欧冠独立赛事` and `欧联独立赛事`. Resolve aliases (`欧冠杯`, `欧罗巴杯`, `欧联杯`) before domestic region rules. Neither belongs to 欧洲非五大 or 欧洲五大 merely due to its name or participating teams. Rebuild local tag statistics and daily risk separately for each competition from historical settled rows; retain global tag history as the explicitly labeled global prior. Never inherit another region's ROI, losing streak, stake reduction or circuit breaker. Insufficient same-competition/tag history must be shown as that specific sample gap, not substituted with European non-top-five data and not auto-approved. Preserve all frozen historical and in-play plans; only new eligible pre-match decisions adopt this classification. Shared implementation: `D:\codex\tools\european_competition_scope.py`.
+
+### 2026-09-08 Missing-Evidence Override (Latest User Rule)
+
+**Four-step display audit:** the prior deployed dashboard (`0b2f8d4`) uses intent/same-line EV -> global tag history -> micro-region history with direction reconciliation -> water threshold and risk controls. Its top-five-region branch instead compares same-competition history with same-competition/line/tag history; it is not the micro-region Bayesian formula. Display the actual branch, samples, rates and chosen inputs in `查看1-4步测算`, including explicit missing or failed steps rather than replacing the calculation with evidence-source notes. Kelly was a separate legacy display, not a function called by the old red-box eligibility decision. Do not claim eligibility already passed Kelly. Compute exact settlement-aware Kelly only for sizing when the required distribution and execution inputs exist; otherwise mark sizing pending without erasing an EV-qualified plan. Restoring explanatory detail must not alter frozen conclusions or silently change current selections.
+
+For AH plans, incomplete schedule, rotation, motivation, lineups, public flow or independent Delta calibration is an evidence gap, NOT an automatic no-bet gate. This rule overrides conflicting mandatory-evidence wording in the v3 references. Continue the existing tag-history / micro-region alignment or Bayesian combination / selected-water breakeven + 2% / same-line veto / rolling and day-risk funnel. A passing match must remain `可投` or `半仓可投` in the red box and daily filter, with its concrete team and direction, even when supplementary information is incomplete. Keep missing fields null and disclose them in expanded details; never mark Delta or fundamentals verified when absent.
+
+Missing necessary AH line, selected-team mapping, water or usable decision statistics still blocks the corresponding calculation. Verified adverse cup/rotation/heat facts and triggered risk controls still apply; unknown is not adverse. This does not authorize automatic orders or invent Kelly inputs. Price-triggered reversals retain their separate evidence review. Historical/in-play plans, list_date and original odds remain immutable. Do not publish zero bettable merely because the optional evidence adapter is unavailable. The live legacy dashboard funnel remains the operational fallback; v3 verification is a separate status, not a replacement recommendation.
 
 ### 2026-09-07 Risk Standard (Authoritative)
 
@@ -1461,3 +1479,36 @@ When reviewing yesterday's bettable slate or any past-date bettable performance,
 - Do not present betting advice as guaranteed profit.
 - Do not overfit recent misses. Use them to adjust interpretation rules, not to flip every recommendation.
 - Always distinguish "winner probability" from "handicap value".
+
+### v4 STEP 2A: Intraday Prior and Decision Immutability
+
+This layer freezes version identity without changing the odds model, Bayesian formula, Reverse Alert, historical settlement, or stake framework.
+
+- For each `list_date`, create `ledger/prior_freeze/prior_snapshot_YYYY-MM-DD.json` on the first successful strict pre-match refresh. Reuse it for later same-list-date refreshes. Same-day newly settled matches do not enter that day's prior. `--rebuild-prior` creates a separate rebuild file and must not silently replace live decisions.
+- Every pre-match analysis is append-only under `ledger/decisions/YYYY-MM-DD/<match_id>.jsonl`, with `decision_id`, `prior_snapshot_id`, `odds_snapshot_id`, `evidence_snapshot_id`, input market/evidence fields, action, direction, team, probability, threshold, stake, reason codes, and `rule_version`.
+- A new decision is allowed only when a material market/evidence input changes: Asian line, selected water, European odds, lineup/injury, fundamental, verified flow, competition state, or factual correction. Script reruns, dashboard rebuilds, statistics refreshes, or other matches settling are not decision changes.
+- If key inputs and `prior_snapshot_id` are unchanged but action, direction, displayed probability, threshold, or stake changes, stop as `ERROR_DECISION_DRIFT`, write `ledger/decision_drift_audit_YYYY-MM-DD.csv`, and do not publish dashboard/GitHub output.
+- Any forward/reverse flip requires `flip_reason` in the approved material-change set. Unsupported flips are blocked.
+- After kickoff, lock the latest pre-match decision as `final_pre_match_decision_id`. Only status, score, settlement, red/half/push/black result, PnL, score source, settlement timestamp, and post-match notes may change.
+- Legacy HTML `cardsData` recovery is migration/emergency-only. Normal refreshes must prefer immutable decision ledger and frozen signal ledger. Any legacy recovery must be marked `source_status=LEGACY_RECOVERED` and audited.
+- Every refresh writes `reviews/intraday_stability_YYYY-MM-DD.md`, including prior id, counts, changed matches, legal changes, illegal drifts, unchanged matches, and started/settled locks.
+
+### v4 STEP 2B: Unified Classification, Intent, and Final Decision Boundary
+
+- `tools/football_competition_normalizer.py` is the only competition classifier. Daily update, dashboard, backtest, grouped review, and bettable statistics must consume its stable fields; they must not maintain substring-based copies. Champions League, Europa League, and Conference League remain separate official competitions and must never be folded into Europe non-top-five.
+- `tools/football_intent_engine.py` is the only raw-label canonicalizer. It owns aliases, candidate/display labels, forward/reverse mapping, and line buckets.
+- `tools/football_decision_engine.py` is the only final action boundary. Its `DecisionResult` is the contract for `可投`, `半仓可投`, `不投`, direction, team, probability, threshold, same-line veto, Reverse Alert, risk state, Kelly/stake, reason codes, and flip reason. The legacy funnel may provide inputs, but it cannot bypass this boundary.
+- Dashboard is render-only: it reads `DecisionResult` from the immutable decision/frozen ledgers and must not recompute or change a pre-match action. Freeze/review code reads the same result; missing valid pre-match result is `NO_VALID_PREMATCH_DECISION`.
+- Sequential backtest must call the same final decision engine for every row. It may preserve historical math for compatibility, but the action returned to reports must be the engine result.
+- The engine rejects started/live/finished/settled matches as decision candidates and returns `STARTED_MATCH_IMMUTABLE` while preserving the existing final pre-match decision id. Legacy HTML recovery is explicit only and marked `LEGACY_RECOVERED`.
+- Step 2B stops at unified-engine parity. Do not add empirical-Bayes, Reverse Alert, or portfolio-optimization changes in this step; those remain later stages and must not alter the existing decision math.
+
+### v4 STEP 3A: Historical Research Dataset and Bayesian Shadow Only
+
+- Build research outputs separately under `outputs/football_odds_trader/research/`; never replace v3 action, frozen decisions, formal direction, Kelly, or dashboard bettable filtering.
+- Research rows must be match-level, source-traceable, deduplicated by `research_match_key`, and classified through the unified competition and intent engines. Keep earliest/mid/closing snapshots as timing metadata, but use one latest verified pre-match snapshot for the main research row.
+- A row enters chronological walk-forward only when odds, line, water, and intent are proven to exist before kickoff. Score-only, post-match dashboard, retro-calculated intent, or reconstructed post-match odds are `RETRO_NOT_FORWARD_VALID` and excluded from OOS posterior calibration.
+- Use five-state Dirichlet settlement `[W, HW, P, HL, L]`; compute EV from the selected current HK water: `p_W*w + p_HW*0.5*w - p_HL*0.5 - p_L`. Reverse mapping is `[L, HL, P, HW, W]`; without verified reverse water, reverse EV is research-only.
+- Hierarchical shadow backoff is `global -> intent -> line×intent -> micro×line×intent -> competition×line×intent`. Parent posterior means enter child priors through κ; do not duplicate parent observations as child samples. κ must be evaluated chronologically by log loss/calibration, not selected by highest ROI.
+- Weekend, league effect, shadow rank, and rank buckets are research diagnostics only. They must not create or alter formal action, Reverse Alert, risk state, or portfolio Kelly.
+- If forward-valid sample is insufficient, report `INSUFFICIENT_FORWARD_SAMPLE`; never use retro rows to claim model validity.
