@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "date_bj": "2026-09-12",
+  "last_updated": "2026-09-12T23:59:59+08:00",
+  "status": {"discovery": "READY", "market_feed": "MVP READY", "pricing": "READY", "paper_mode": true, "real_execution_disabled": true},
+  "funnel": {"events": 2, "market": 0, "enrichment_complete": 0, "priceable": 0, "edge": 0, "lean": 0, "watch": 0, "pass": 2, "blocked": 0},
+  "calibration": {"forward_priced": 0, "market_tape": 0, "coupled": 0, "settled": 0, "clv_samples": 0},
+  "source_health": "../sources/health.json",
+  "events": [
+    {"event":{"canonical_event_id":"FIBA_WOMEN:France-Germany-2026-09-12T14:30:00+00:00","tip_time_bj":"2026-09-12T22:30:00+08:00","league":"FIBA Women World Cup","match":"France vs Germany"},"discovery":{"status":"READY","source":"FIBA official","method":"event_landing"},"enrichment":{"status":"MISSING"},"pricing":{"status":"UNPRICEABLE","model_state":"PASS","fair_spread":{"raw":null,"structural":null,"market":null,"blended":null},"fair_total":{"raw":null,"structural":null,"market":null,"blended":null},"quality":0},"market":{"status":"NO_MARKET","source":null,"tape":[]},"execution":{"shadow_action":"PASS","blocker":"historical display only","no_chase":"YES"},"ledger":{"paper_record":false,"real_stake":0},"settlement":null}
+  ]
+}
