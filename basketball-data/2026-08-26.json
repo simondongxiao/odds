@@ -1,0 +1,540 @@
+{
+  "schema_version": 2,
+  "date_bj": "2026-08-26",
+  "last_updated": "2026-09-13T01:52:46.750077+08:00",
+  "status": "LEGACY_MIGRATED",
+  "funnel": {
+    "events": 3,
+    "market": 0,
+    "enrichment_complete": 0,
+    "priceable": 0,
+    "coupled": 0,
+    "edge": 0,
+    "lean": 0,
+    "watch": 0,
+    "blocked": 0,
+    "pass": 0
+  },
+  "calibration": {
+    "generation": "LEGACY_MIGRATED",
+    "pricing": "null"
+  },
+  "source_health": [],
+  "events": [
+    {
+      "event": {
+        "canonical_event_id": "chi-con-20260826",
+        "league": "WNBA",
+        "match": "康涅狄格太阳 vs 芝加哥天空",
+        "tip_time_bj": "2026-08-26 07:00",
+        "status": "已完赛 87-81",
+        "home_team": "康涅狄格太阳",
+        "away_team": "芝加哥天空",
+        "official_order_team_1": "康涅狄格太阳",
+        "official_order_team_2": "芝加哥天空"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取同源初盘",
+          "Action 赛后页：芝加哥 -300 / 康涅狄格 +240",
+          "Action 赛后页同栏显示芝加哥 -300 / 康涅狄格 +240",
+          "ML 只作为赛后价格参考，不能还原开盘去水差"
+        ],
+        [
+          "让分",
+          "VegasInsider：芝加哥 -4.5 -105 / 康涅狄格 +4.5",
+          "Action/EVAnalytics：芝加哥 -7.5 附近 / 康涅狄格 +7.5 附近",
+          "赛后可读终盘候选：芝加哥 -7.5 / 康涅狄格 +7.5",
+          "热门线走深 3 分且热门输球，诱上/价格透支"
+        ],
+        [
+          "大小分",
+          "Action 表格 open total 字段解析歧义；文章线可读 169.5",
+          "Action/EVAnalytics：171.5 附近",
+          "赛后终分 168，按 169.5/171.5 均 Under",
+          "不能把歧义 open 字段写成确定初盘"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "Action projections：Bet% 约 65/35 偏芝加哥；Money% 空白/歧义",
+          "赛后不回填虚构资金",
+          "只有 Bet% 是公众热度，不等于聪明钱"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "诱上/价格透支",
+        "direction": "正向=买下盘康涅狄格太阳 +7.5；反向=买上盘芝加哥天空 -7.5",
+        "sample": "历史样本库未建立；本场只做赛后复盘，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "已完赛 87-81",
+        "tag": "复盘",
+        "conclusion": "芝加哥从 -4.5 附近走到 -7.5 附近，Action 投注人数显示约 65% 偏芝加哥，最终康涅狄格 87-81 赢球。按 skill 复盘，这不是可以追的上盘保护，更像热门价格被推深后的诱上/价格透支。",
+        "ev": "真实下注：无。比赛已完赛，缺完整同源 Money% 和逐时终盘，Kelly=0；只把康涅狄格 +7.5 作为正向复盘命中记录。",
+        "review": [
+          "无真实下注",
+          "无",
+          "芝加哥 -7.5 / 171.5 候选",
+          "康涅狄格 87-81；总分 168",
+          "不可计算",
+          "方向复盘命中，流程未达下注级"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 87-81"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "chi-con-20260826",
+        "date": "2026-08-26",
+        "league": "WNBA",
+        "time": "07:00",
+        "home": "康涅狄格太阳",
+        "away": "芝加哥天空",
+        "status": "已完赛 87-81",
+        "tag": "复盘",
+        "intent": {
+          "label": "诱上/价格透支",
+          "direction": "正向=买下盘康涅狄格太阳 +7.5；反向=买上盘芝加哥天空 -7.5",
+          "sample": "历史样本库未建立；本场只做赛后复盘，不生成胜率或 PnL"
+        },
+        "conclusion": "芝加哥从 -4.5 附近走到 -7.5 附近，Action 投注人数显示约 65% 偏芝加哥，最终康涅狄格 87-81 赢球。按 skill 复盘，这不是可以追的上盘保护，更像热门价格被推深后的诱上/价格透支。",
+        "ev": "真实下注：无。比赛已完赛，缺完整同源 Money% 和逐时终盘，Kelly=0；只把康涅狄格 +7.5 作为正向复盘命中记录。",
+        "completeness": {
+          "比分源": "ESPN、NBA Stats、TheSportsDB 多源一致确认康涅狄格太阳 87-81 芝加哥天空",
+          "盘口路径": "VegasInsider 显示芝加哥开 -4.5；Action/EVAnalytics 赛后页显示芝加哥约 -7.5、总分 171.5；缺逐时 sharp close",
+          "伤停首发": "Action injury 字段：芝加哥 Skylar Diggins out、Natasha Cloud DTD、Courtney Vandersloot DTD、Rickea Jackson out season、Jacy Sheldon out season；康涅狄格 Brittney Griner out、Olivia Nelson-Ododa out、Leila Lacan out",
+          "公众资金": "Action projections 可读 Bet% 约 65/35 偏芝加哥；Money% 未可靠显示，不写资金占比",
+          "节奏效率": "未接入 CTG/NBA Stats 高阶 pace；Action box score 显示终分 168，三分与罚球结构支持赛后小分结果"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取同源初盘",
+            "Action 赛后页：芝加哥 -300 / 康涅狄格 +240",
+            "Action 赛后页同栏显示芝加哥 -300 / 康涅狄格 +240",
+            "ML 只作为赛后价格参考，不能还原开盘去水差"
+          ],
+          [
+            "让分",
+            "VegasInsider：芝加哥 -4.5 -105 / 康涅狄格 +4.5",
+            "Action/EVAnalytics：芝加哥 -7.5 附近 / 康涅狄格 +7.5 附近",
+            "赛后可读终盘候选：芝加哥 -7.5 / 康涅狄格 +7.5",
+            "热门线走深 3 分且热门输球，诱上/价格透支"
+          ],
+          [
+            "大小分",
+            "Action 表格 open total 字段解析歧义；文章线可读 169.5",
+            "Action/EVAnalytics：171.5 附近",
+            "赛后终分 168，按 169.5/171.5 均 Under",
+            "不能把歧义 open 字段写成确定初盘"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "Action projections：Bet% 约 65/35 偏芝加哥；Money% 空白/歧义",
+            "赛后不回填虚构资金",
+            "只有 Bet% 是公众热度，不等于聪明钱"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "双方均有缺阵和 DTD，且缺官方临场时间戳；赛前若交易必须 60-90 分钟内重核",
+          "休息赛程": "未自动建模背靠背/旅行；只做赛后盘口复盘",
+          "节奏": "终分 168，低于可读 169.5/171.5；未用假 pace 数字占位",
+          "对位": "Action box score：康涅狄格篮板 37-34、罚球 20-27 对 15-18，末端兑现更好",
+          "公众拉力": "芝加哥为热门且 Bet% 偏热，走深后未覆盖"
+        },
+        "spreadAudit": {
+          "意图标签": "诱上/价格透支",
+          "正反向验证": "正向=康涅狄格太阳 +7.5 命中；反向=芝加哥天空 -7.5 未命中；历史样本库未建立",
+          "盘口意图": "热门从 -4.5 到 -7.5，价格已经吸收公众叙事，结果支持反热门而非追热门",
+          "可打线": "赛前若有 +7.5 且伤停未恶化才可观察；赛后不补单",
+          "停止线": "低于 +6.5 或缺终盘/伤停确认不入",
+          "临场防线": "官方伤报、首发、第一节节奏与犯规率"
+        },
+        "totalAudit": {
+          "盘口意图": "小分保护候选；终分 168 支持 Under 169.5/171.5",
+          "可打线": "赛前需同源总分和水位；本场赛后不追认下注",
+          "停止线": "若 open total 字段无法确认，不做 CLV 结论",
+          "临场防线": "pace、罚球尺度、核心后卫出勤"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "赛后复盘：康涅狄格 +7.5 与 Under 169.5/171.5 命中",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "缺 Money%/同源终盘；不生成统计胜率"
+        },
+        "review": [
+          "无真实下注",
+          "无",
+          "芝加哥 -7.5 / 171.5 候选",
+          "康涅狄格 87-81；总分 168",
+          "不可计算",
+          "方向复盘命中，流程未达下注级"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "por-dal-20260826",
+        "league": "WNBA",
+        "match": "达拉斯飞翼 vs 波特兰火焰",
+        "tip_time_bj": "2026-08-26 08:00",
+        "status": "已完赛 96-78",
+        "home_team": "达拉斯飞翼",
+        "away_team": "波特兰火焰",
+        "official_order_team_1": "达拉斯飞翼",
+        "official_order_team_2": "波特兰火焰"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取同源初盘",
+          "Action 赛后页：波特兰 +310 / 达拉斯 -400",
+          "Action 赛后页同栏显示波特兰 +310 / 达拉斯 -400",
+          "强弱差最终由达拉斯大胜确认，但 ML 开盘未可靠获取"
+        ],
+        [
+          "让分",
+          "Action：波特兰 +7.5 / 达拉斯 -7.5",
+          "Action：波特兰 +8.5 -105 / 达拉斯 -8.5 -115",
+          "赛后可读终盘候选：达拉斯 -8.5",
+          "狗方热度下仍不给便宜受让，达拉斯真实示强"
+        ],
+        [
+          "大小分",
+          "Action open 字段显示 176.5 附近；文章线 176.5",
+          "Action 赛后页：177.5",
+          "终分 174，按 176.5/177.5 均 Under",
+          "小分保护兑现；缺完整逐时水位"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "Action projections：Bet% 约 58/42 偏波特兰；Money% 空白/歧义",
+          "赛后不回填虚构资金",
+          "Bet% 只解释公开拉力，不能替代 Money%"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "真实示强/阻下",
+        "direction": "正向=买上盘达拉斯飞翼 -8.5；反向=买下盘波特兰火焰 +8.5",
+        "sample": "历史样本库未建立；本场只做赛后复盘，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "已完赛 96-78",
+        "tag": "复盘",
+        "conclusion": "Action 显示盘口由达拉斯 -7.5 走到 -8.5 附近，同时公开 Bet% 可读约 58% 偏波特兰。狗方有公开拉力但盘口仍走深，且达拉斯 96-78 大胜，赛后应修正为达拉斯真实示强/阻下，而不是波特兰受让保护。",
+        "ev": "真实下注：无。赛前 gate 不全且比赛已完赛，Kelly=0；正向复盘为达拉斯 -8.5 命中，大小分 Under 命中。",
+        "review": [
+          "无真实下注",
+          "无",
+          "达拉斯 -8.5 / 177.5 候选",
+          "达拉斯 96-78；总分 174",
+          "不可计算",
+          "方向复盘命中，流程未达下注级"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 96-78"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "por-dal-20260826",
+        "date": "2026-08-26",
+        "league": "WNBA",
+        "time": "08:00",
+        "home": "达拉斯飞翼",
+        "away": "波特兰火焰",
+        "status": "已完赛 96-78",
+        "tag": "复盘",
+        "intent": {
+          "label": "真实示强/阻下",
+          "direction": "正向=买上盘达拉斯飞翼 -8.5；反向=买下盘波特兰火焰 +8.5",
+          "sample": "历史样本库未建立；本场只做赛后复盘，不生成胜率或 PnL"
+        },
+        "conclusion": "Action 显示盘口由达拉斯 -7.5 走到 -8.5 附近，同时公开 Bet% 可读约 58% 偏波特兰。狗方有公开拉力但盘口仍走深，且达拉斯 96-78 大胜，赛后应修正为达拉斯真实示强/阻下，而不是波特兰受让保护。",
+        "ev": "真实下注：无。赛前 gate 不全且比赛已完赛，Kelly=0；正向复盘为达拉斯 -8.5 命中，大小分 Under 命中。",
+        "completeness": {
+          "比分源": "ESPN、NBA Stats、TheSportsDB 确认达拉斯飞翼 96-78 波特兰火焰",
+          "盘口路径": "Action：开盘波特兰 +7.5/达拉斯 -7.5，即时/赛后约波特兰 +8.5、达拉斯 -8.5；文章线和 BetUS/其它源在 176.5-177.5 总分区间",
+          "伤停首发": "Action injury 字段：达拉斯 Odyssey Sims DTD、李月汝 DTD、Haley Jones DTD、Aziaha James out、Azzi Fudd out season、Costanza Verona DTD；波特兰 Nyadiew Puoch DTD、Sarah Ashlee Barker out season、Sania Feagin out、Jordan Harrison out",
+          "公众资金": "Action projections 可读 Bet% 约 58/42 偏波特兰；Money% 空白/歧义，不写资金占比",
+          "节奏效率": "未接入高阶 pace；Action box score 显示达拉斯命中率 54%、三分 11-24，终分 174 低于可读总分"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取同源初盘",
+            "Action 赛后页：波特兰 +310 / 达拉斯 -400",
+            "Action 赛后页同栏显示波特兰 +310 / 达拉斯 -400",
+            "强弱差最终由达拉斯大胜确认，但 ML 开盘未可靠获取"
+          ],
+          [
+            "让分",
+            "Action：波特兰 +7.5 / 达拉斯 -7.5",
+            "Action：波特兰 +8.5 -105 / 达拉斯 -8.5 -115",
+            "赛后可读终盘候选：达拉斯 -8.5",
+            "狗方热度下仍不给便宜受让，达拉斯真实示强"
+          ],
+          [
+            "大小分",
+            "Action open 字段显示 176.5 附近；文章线 176.5",
+            "Action 赛后页：177.5",
+            "终分 174，按 176.5/177.5 均 Under",
+            "小分保护兑现；缺完整逐时水位"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "Action projections：Bet% 约 58/42 偏波特兰；Money% 空白/歧义",
+            "赛后不回填虚构资金",
+            "Bet% 只解释公开拉力，不能替代 Money%"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "双方伤停名单较长，达拉斯仍打出 54% 投篮和 26 次助攻；赛前需要官方临场核验",
+          "休息赛程": "未自动建模旅行；达拉斯主场且季后赛席位/动机叙事更强",
+          "节奏": "终分 174，低于 176.5/177.5；达拉斯效率高但波特兰进攻未跟上",
+          "对位": "达拉斯投篮 37-68 对波特兰 27-72，篮板 38-33、助攻 26-20，结果不像受让保护",
+          "公众拉力": "公开 Bet% 偏波特兰，最终盘口和赛果都支持反向达拉斯"
+        },
+        "spreadAudit": {
+          "意图标签": "真实示强/阻下",
+          "正反向验证": "正向=达拉斯飞翼 -8.5 命中；反向=波特兰火焰 +8.5 未命中；历史样本库未建立",
+          "盘口意图": "狗方看似安全但盘口继续走深，说明受让垫子不是便宜货",
+          "可打线": "赛前若达拉斯 -8.5 且核心出勤无恶化才可观察；赛后不补单",
+          "停止线": "升过 -9.5 或 Money% 缺失时只观察",
+          "临场防线": "达拉斯后场 DTD、李月汝状态、波特兰轮换缺口"
+        },
+        "totalAudit": {
+          "盘口意图": "小分保护；终分 174 低于 176.5/177.5",
+          "可打线": "赛前需同源 over/under 水位；本场只复盘",
+          "停止线": "若总分降到 175 以下且水位无优势，不追 Under",
+          "临场防线": "达拉斯高效率能否被波特兰 pace 跟住"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "赛后复盘：达拉斯 -8.5 与 Under 176.5/177.5 命中",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "缺 Money%/官方伤停时间戳；不生成真实下注"
+        },
+        "review": [
+          "无真实下注",
+          "无",
+          "达拉斯 -8.5 / 177.5 候选",
+          "达拉斯 96-78；总分 174",
+          "不可计算",
+          "方向复盘命中，流程未达下注级"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "wsh-phx-20260826",
+        "league": "WNBA",
+        "match": "菲尼克斯水星 vs 华盛顿神秘人",
+        "tip_time_bj": "2026-08-26 10:00",
+        "status": "已完赛 84-94",
+        "home_team": "菲尼克斯水星",
+        "away_team": "华盛顿神秘人",
+        "official_order_team_1": "菲尼克斯水星",
+        "official_order_team_2": "华盛顿神秘人"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取同源初盘",
+          "Action 赛后页：华盛顿 -130 / 菲尼克斯 +110",
+          "Action 赛后页同栏显示华盛顿 -130 / 菲尼克斯 +110",
+          "ML 与小热门方向一致，但不可还原开盘去水"
+        ],
+        [
+          "让分",
+          "Action：华盛顿 -1.5 / 菲尼克斯 +1.5",
+          "Action：华盛顿 -2 -110；文章线约 -2.5",
+          "赛后可读终盘候选：华盛顿 -2/-2.5",
+          "小幅走深后客队强方兑现，真实示强"
+        ],
+        [
+          "大小分",
+          "Action open 字段显示 166.5 附近",
+          "Action 赛后页：168.5；文章线 166.5",
+          "终分 178，按 166.5/168.5 均 Over",
+          "上一版 Under 候选失败，赛后修正为真实示大"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "Action projections：Bet% 约 70/30 偏华盛顿；Money% 空白/歧义",
+          "赛后不回填虚构资金",
+          "公众偏热但盘口只小幅走深，不能单独判断诱上"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "真实示强",
+        "direction": "正向=买上盘华盛顿神秘人 -2/-2.5；反向=买下盘菲尼克斯水星 +分",
+        "sample": "历史样本库未建立；本场只做赛后复盘，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "已完赛 84-94",
+        "tag": "复盘",
+        "conclusion": "华盛顿从 -1.5 小幅走到 -2/-2.5，可读 Bet% 约 70% 偏华盛顿，最终 94-84 客胜并覆盖。上一版对大小分偏 Under 的候选被否定，正确复盘应是让分真实示强、总分真实示大。",
+        "ev": "真实下注：无。比赛已完赛，Kelly=0；正向复盘为华盛顿 -2/-2.5 命中，Over 166.5/168.5 命中。",
+        "review": [
+          "无真实下注",
+          "无",
+          "华盛顿 -2/-2.5 / 168.5 候选",
+          "华盛顿 94-84；总分 178",
+          "不可计算",
+          "让分/大分方向复盘命中，流程未达下注级"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 84-94"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "wsh-phx-20260826",
+        "date": "2026-08-26",
+        "league": "WNBA",
+        "time": "10:00",
+        "home": "菲尼克斯水星",
+        "away": "华盛顿神秘人",
+        "status": "已完赛 84-94",
+        "tag": "复盘",
+        "intent": {
+          "label": "真实示强",
+          "direction": "正向=买上盘华盛顿神秘人 -2/-2.5；反向=买下盘菲尼克斯水星 +分",
+          "sample": "历史样本库未建立；本场只做赛后复盘，不生成胜率或 PnL"
+        },
+        "conclusion": "华盛顿从 -1.5 小幅走到 -2/-2.5，可读 Bet% 约 70% 偏华盛顿，最终 94-84 客胜并覆盖。上一版对大小分偏 Under 的候选被否定，正确复盘应是让分真实示强、总分真实示大。",
+        "ev": "真实下注：无。比赛已完赛，Kelly=0；正向复盘为华盛顿 -2/-2.5 命中，Over 166.5/168.5 命中。",
+        "completeness": {
+          "比分源": "ESPN、NBA Stats、TheSportsDB 确认华盛顿神秘人 94-84 菲尼克斯水星",
+          "盘口路径": "Action：开盘华盛顿 -1.5，即时约 -2；Action 文章/FanDuel 线约 -2.5；终盘候选 -2/-2.5",
+          "伤停首发": "Action injury 字段：华盛顿 Darianna Littlepage-Buggs out；菲尼克斯 Natasha Mack DTD foot、Marta Suarez out concussion",
+          "公众资金": "Action projections 可读 Bet% 约 70/30 偏华盛顿；Money% 空白/歧义，不写资金占比",
+          "节奏效率": "未接入 CTG/官方 pace；Action box score 显示华盛顿投篮 51%，终分 178 明显 Over"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取同源初盘",
+            "Action 赛后页：华盛顿 -130 / 菲尼克斯 +110",
+            "Action 赛后页同栏显示华盛顿 -130 / 菲尼克斯 +110",
+            "ML 与小热门方向一致，但不可还原开盘去水"
+          ],
+          [
+            "让分",
+            "Action：华盛顿 -1.5 / 菲尼克斯 +1.5",
+            "Action：华盛顿 -2 -110；文章线约 -2.5",
+            "赛后可读终盘候选：华盛顿 -2/-2.5",
+            "小幅走深后客队强方兑现，真实示强"
+          ],
+          [
+            "大小分",
+            "Action open 字段显示 166.5 附近",
+            "Action 赛后页：168.5；文章线 166.5",
+            "终分 178，按 166.5/168.5 均 Over",
+            "上一版 Under 候选失败，赛后修正为真实示大"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "Action projections：Bet% 约 70/30 偏华盛顿；Money% 空白/歧义",
+            "赛后不回填虚构资金",
+            "公众偏热但盘口只小幅走深，不能单独判断诱上"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "Action 最新页面只确认华盛顿一名 out、菲尼克斯 Mack DTD 和 Suarez out；其它预览源伤停说法不一致，不写入确定字段",
+          "休息赛程": "未自动建模旅行；华盛顿客场但阵容可用性更清晰",
+          "节奏": "终分 178，大于 166.5/168.5；不能沿用赛前小分候选",
+          "对位": "华盛顿投篮 51% 且三分效率更好，覆盖不是末节运气球",
+          "公众拉力": "Bet% 偏华盛顿，但缺 Money%，所以只是公开热度，不定性聪明钱"
+        },
+        "spreadAudit": {
+          "意图标签": "真实示强",
+          "正反向验证": "正向=华盛顿神秘人 -2/-2.5 命中；反向=菲尼克斯水星 +分 未命中；历史样本库未建立",
+          "盘口意图": "小热门走深幅度有限且结果兑现，属于基本面和盘口同向，而非反热门",
+          "可打线": "赛前若 -2.5 以下且伤停确认才可观察；赛后不补单",
+          "停止线": "高于 -3.5 或菲尼克斯核心确认回归时重算",
+          "临场防线": "Mack 状态、菲尼克斯防守篮板和华盛顿客场体能"
+        },
+        "totalAudit": {
+          "盘口意图": "真实示大；总分从 166.5 到 168.5 后仍打出 178",
+          "可打线": "赛前需确认伤停对防守端影响和同源 over/under 水位",
+          "停止线": "若总分被抬高到 169.5 以上且无水位优势，只观察",
+          "临场防线": "首节 pace、三分出手质量、犯规尺度"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "赛后复盘：华盛顿 -2/-2.5 与 Over 166.5/168.5 命中",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "上一版大小分候选修正；不生成统计胜率"
+        },
+        "review": [
+          "无真实下注",
+          "无",
+          "华盛顿 -2/-2.5 / 168.5 候选",
+          "华盛顿 94-84；总分 178",
+          "不可计算",
+          "让分/大分方向复盘命中，流程未达下注级"
+        ]
+      }
+    }
+  ],
+  "generation": "LEGACY_MIGRATED",
+  "legacy_imported": true
+}

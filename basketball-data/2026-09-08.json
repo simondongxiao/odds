@@ -1,0 +1,3240 @@
+{
+  "schema_version": 2,
+  "date_bj": "2026-09-08",
+  "last_updated": "2026-09-13T01:52:46.766573+08:00",
+  "status": "LEGACY_MIGRATED",
+  "funnel": {
+    "events": 5,
+    "market": 0,
+    "enrichment_complete": 0,
+    "priceable": 0,
+    "coupled": 0,
+    "edge": 0,
+    "lean": 0,
+    "watch": 0,
+    "blocked": 0,
+    "pass": 0
+  },
+  "calibration": {
+    "generation": "LEGACY_MIGRATED",
+    "pricing": "null"
+  },
+  "source_health": [],
+  "events": [
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-usa-czechia-20260908",
+        "league": "FIBA女篮世界杯",
+        "match": "美国女篮 vs 捷克女篮",
+        "tip_time_bj": "2026-09-08 02:45",
+        "status": "已完赛 105-64",
+        "home_team": "美国女篮",
+        "away_team": "捷克女篮",
+        "official_order_team_1": "美国女篮",
+        "official_order_team_2": "捷克女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddspedia美国FanDuel -5000 / 捷克DraftKings +2000为不同书，不做同书去水，不用于cover概率。",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddschecker比较价: 美国 -35.5 @1.909（原价-110） / 捷克 +35.5 @1.909（原价-110）<br>Oddspedia：美国DK/捷克FanDuel，非同书: 美国 -33.5 @1.952（原价-105） / 捷克 +33.5 @1.833（原价-120）",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddschecker比较价: 大分 154.5 @1.926（原价-108） / 小分 154.5 @1.893（原价-112）<br>Oddspedia：DraftKings: 大分 152.5 @1.926（原价-108） / 小分 152.5 @1.893（原价-112）",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "历史观察（非当前盘）：未取得精确合约/买卖价/成交量",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "9/8预告",
+        "direction": "等待盘口",
+        "sample": "不计今日"
+      },
+      "original_first_write": {
+        "status": "已完赛 105-64",
+        "tag": "复盘",
+        "conclusion": "美国女篮105-64捷克女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 105-64",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 105-64"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-usa-czechia-20260908",
+        "date": "2026-09-08",
+        "league": "FIBA女篮世界杯",
+        "time": "02:45",
+        "home": "美国女篮",
+        "away": "捷克女篮",
+        "status": "已完赛 105-64",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "美国女篮105-64捷克女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "原记录无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "比赛结束；禁止补盘前单",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "美国女篮105-64捷克女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "本场首发、主力休息及替补分钟未核；深盘所需末节/罚球稳定性未建立。；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake=0；no-action；无新结算样本"
+        },
+        "intent": {
+          "label": "9/8预告",
+          "direction": "等待盘口",
+          "sample": "不计今日"
+        },
+        "conclusion": "美国女篮105-64捷克女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">FIBA官方</a>；美国女篮105-64捷克女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "盘口路径": "原观察价格留档；终盘未核；赛后不补建仓",
+          "伤停首发": "本场首发、主力休息及替补分钟未核；深盘所需末节/罚球稳定性未建立。",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddspedia美国FanDuel -5000 / 捷克DraftKings +2000为不同书，不做同书去水，不用于cover概率。",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddschecker比较价: 美国 -35.5 @1.909（原价-110） / 捷克 +35.5 @1.909（原价-110）<br>Oddspedia：美国DK/捷克FanDuel，非同书: 美国 -33.5 @1.952（原价-105） / 捷克 +33.5 @1.833（原价-120）",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddschecker比较价: 大分 154.5 @1.926（原价-108） / 小分 154.5 @1.893（原价-112）<br>Oddspedia：DraftKings: 大分 152.5 @1.926（原价-108） / 小分 152.5 @1.893（原价-112）",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "历史观察（非当前盘）：未取得精确合约/买卖价/成交量",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "本场首发、主力休息及替补分钟未核；深盘所需末节/罚球稳定性未建立。",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "FIBA官方确认美国锁定小组第一、捷克锁定第四；不能假设强队战意和上场时间拉满。",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/来源时效待核",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "仅回填赛果，不重构盘前判断",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "美国女篮105-64捷克女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women\">Oddschecker比较价</a>；<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women\">Oddschecker比较价</a>；<a href=\"https://oddspedia.com/basketball/czech-republic-women-usa-women-285326\">Oddspedia：美国DK/捷克FanDuel，非同书</a>；<a href=\"https://oddspedia.com/basketball/czech-republic-women-usa-women-285326\">Oddspedia：DraftKings</a>"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 105-64",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-07",
+        "bj_time": "2026-09-08 02:45",
+        "score_order": "official_source_order",
+        "official_order_team_1": "美国女篮",
+        "official_order_team_2": "捷克女篮",
+        "score_1": 105,
+        "score_2": 64,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "待盘口/已完赛",
+                "终盘待回填",
+                "仅作强弱背景"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "未取得完整同源路径",
+                "终盘待回填",
+                "缺线或缺p_low不投"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "未取得完整同源路径",
+                "终盘待回填",
+                "缺Pred/K不投"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未形成可执行资金闭环",
+                "未获取",
+                "不替代cover概率"
+              ]
+            ],
+            "status": "相邻预告",
+            "bet_status": "临场观察",
+            "execution": {
+              "主单": "不投",
+              "备选": "临场观察",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "9/8预告"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "相邻预告",
+              "待结算",
+              "观察"
+            ]
+          },
+          {
+            "updatedAt": "2026-09-07 22:25 北京时间 | v3.15 晚间核查（部分更新）",
+            "status": "相邻预告",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Oddspedia美国FanDuel -5000 / 捷克DraftKings +2000为不同书，不做同书去水，不用于cover概率。",
+                "终盘待回填",
+                "胜负背景不用于让分p_low"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker比较价: 美国 -35.5 @1.909（原价-110） / 捷克 +35.5 @1.909（原价-110）<br>Oddspedia：美国DK/捷克FanDuel，非同书: 美国 -33.5 @1.952（原价-105） / 捷克 +33.5 @1.833（原价-120）",
+                "终盘待回填",
+                "采集22:16–22:25；书商更新时间未知，非确认成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker比较价: 大分 154.5 @1.926（原价-108） / 小分 154.5 @1.893（原价-112）<br>Oddspedia：DraftKings: 大分 152.5 @1.926（原价-108） / 小分 152.5 @1.893（原价-112）",
+                "终盘待回填",
+                "独立测算未过；整数盘口走盘概率未知"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未取得精确合约/买卖价/成交量",
+                "待回填",
+                "不能从市场价反推资金方向"
+              ]
+            ],
+            "current_quotes": [
+              {
+                "market": "spread",
+                "line": -35.5,
+                "source": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "美国",
+                    "line": -35.5,
+                    "price": -110,
+                    "decimal_odds": 1.9090909090909092
+                  },
+                  {
+                    "side": "捷克",
+                    "line": 35.5,
+                    "price": -110,
+                    "decimal_odds": 1.9090909090909092
+                  }
+                ]
+              },
+              {
+                "market": "total",
+                "line": 154.5,
+                "source": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": null,
+                    "price": -108,
+                    "decimal_odds": 1.925925925925926
+                  },
+                  {
+                    "side": "小分",
+                    "line": null,
+                    "price": -112,
+                    "decimal_odds": 1.8928571428571428
+                  }
+                ]
+              },
+              {
+                "market": "spread",
+                "line": -33.5,
+                "source": "Oddspedia：美国DK/捷克FanDuel，非同书",
+                "url": "https://oddspedia.com/basketball/czech-republic-women-usa-women-285326",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "美国",
+                    "line": -33.5,
+                    "price": -105,
+                    "decimal_odds": 1.9523809523809523
+                  },
+                  {
+                    "side": "捷克",
+                    "line": 33.5,
+                    "price": -120,
+                    "decimal_odds": 1.8333333333333335
+                  }
+                ]
+              },
+              {
+                "market": "total",
+                "line": 152.5,
+                "source": "Oddspedia：DraftKings",
+                "url": "https://oddspedia.com/basketball/czech-republic-women-usa-women-285326",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": null,
+                    "price": -108,
+                    "decimal_odds": 1.925925925925926
+                  },
+                  {
+                    "side": "小分",
+                    "line": null,
+                    "price": -112,
+                    "decimal_odds": 1.8928571428571428
+                  }
+                ]
+              }
+            ],
+            "quant_checks": [
+              {
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women",
+                "side": "美国",
+                "line": -35.5,
+                "decimal_odds": 1.9090909090909092,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5238095238095238,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women",
+                "side": "捷克",
+                "line": 35.5,
+                "decimal_odds": 1.9090909090909092,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5238095238095238,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women",
+                "side": "大分",
+                "line": 154.5,
+                "decimal_odds": 1.925925925925926,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5192307692307692,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women",
+                "side": "小分",
+                "line": 154.5,
+                "decimal_odds": 1.8928571428571428,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5283018867924528,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Oddspedia：美国DK/捷克FanDuel，非同书",
+                "source_url": "https://oddspedia.com/basketball/czech-republic-women-usa-women-285326",
+                "side": "美国",
+                "line": -33.5,
+                "decimal_odds": 1.9523809523809523,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5121951219512195,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Oddspedia：美国DK/捷克FanDuel，非同书",
+                "source_url": "https://oddspedia.com/basketball/czech-republic-women-usa-women-285326",
+                "side": "捷克",
+                "line": 33.5,
+                "decimal_odds": 1.8333333333333335,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5454545454545454,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddspedia：DraftKings",
+                "source_url": "https://oddspedia.com/basketball/czech-republic-women-usa-women-285326",
+                "side": "大分",
+                "line": 152.5,
+                "decimal_odds": 1.925925925925926,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5192307692307692,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddspedia：DraftKings",
+                "source_url": "https://oddspedia.com/basketball/czech-republic-women-usa-women-285326",
+                "side": "小分",
+                "line": 152.5,
+                "decimal_odds": 1.8928571428571428,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5283018867924528,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              }
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+              "breakeven/EV": "美国-35.5 @1.909：盈亏平衡52.38%；捷克35.5 @1.909：盈亏平衡52.38%；大分154.5总分 @1.926：盈亏平衡51.92%；小分154.5总分 @1.893：盈亏平衡52.83%；美国-33.5 @1.952：盈亏平衡51.22%；捷克33.5 @1.833：盈亏平衡54.55%；大分152.5总分 @1.926：盈亏平衡51.92%；小分152.5总分 @1.893：盈亏平衡52.83%。p_low未知，EV/edge=null。",
+              "K差值": "K=3.5；Pred及同向gap=null，未过",
+              "时间锁/熔断": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝；同源最后1小时振幅未知，不视为熔断通过",
+              "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+              "分钟/旅行": "本场首发、主力休息及替补分钟未核；深盘所需末节/罚球稳定性未建立。；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+              "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+              "仓位/样本": "stake_cap=0；stake=0；Tier C；no-action"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "已补美国-35.5/-33.5及152.5/154.5总分；美国已锁定组首，捷克已出局，超深盘分钟风险未过。",
+              "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women\">Oddschecker比较价</a>；<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/czech-republic-women-at-usa-women\">Oddschecker比较价</a>；<a href=\"https://oddspedia.com/basketball/czech-republic-women-usa-women-285326\">Oddspedia：美国DK/捷克FanDuel，非同书</a>；<a href=\"https://oddspedia.com/basketball/czech-republic-women-usa-women-285326\">Oddspedia：DraftKings</a>"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘未取得",
+              "相邻预告",
+              "未建仓",
+              "保留早晨首写，不补单"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": [],
+        "score_verified_at": "2026-09-08T07:55:00+08:00"
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-italy-china-20260908",
+        "league": "FIBA女篮世界杯",
+        "match": "意大利女篮 vs 中国女篮",
+        "tip_time_bj": "2026-09-08 02:45",
+        "status": "已完赛 51-71",
+        "home_team": "意大利女篮",
+        "away_team": "中国女篮",
+        "official_order_team_1": "意大利女篮",
+        "official_order_team_2": "中国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddspedia意大利DK -270 / 中国bet365 +240为不同书；Caliente同页1.615/2.20去水意大利57.67%，仅背景，二者时效分歧待核。",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddspedia：意大利FanDuel/中国DK，非同书: 意大利 -6.5 @1.833（原价-120） / 中国 +6.5 @2.000（原价100）<br>Caliente搜索片段，源更新时间未知: 意大利 -3 @1.850（原价1.85） / 中国 +3 @1.800（原价1.8）",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddspedia：大DK/小BetMGM，非同书: 大分 141.5 @2.000（原价100） / 小分 141.5 @1.980（原价-102）<br>Caliente搜索片段，源更新时间未知: 大分 142 @1.850（原价1.85） / 小分 142 @1.900（原价1.9）",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "历史观察（非当前盘）：未取得精确合约/买卖价/成交量",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "9/8预告/五五盘",
+        "direction": "等待临场",
+        "sample": "不计今日"
+      },
+      "original_first_write": {
+        "status": "已完赛 51-71",
+        "tag": "复盘",
+        "conclusion": "意大利女篮51-71中国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 51-71",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 51-71"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-italy-china-20260908",
+        "date": "2026-09-08",
+        "league": "FIBA女篮世界杯",
+        "time": "02:45",
+        "home": "意大利女篮",
+        "away": "中国女篮",
+        "status": "已完赛 51-71",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "意大利女篮51-71中国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "原记录无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "比赛结束；禁止补盘前单",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "意大利女篮51-71中国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "中国前场消耗、控卫状态及意大利短休轮换均需正式确认；未拿到可用分钟投射。；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake=0；no-action；无新结算样本"
+        },
+        "intent": {
+          "label": "9/8预告/五五盘",
+          "direction": "等待临场",
+          "sample": "不计今日"
+        },
+        "conclusion": "意大利女篮51-71中国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">FIBA官方</a>；意大利女篮51-71中国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "盘口路径": "原观察价格留档；终盘未核；赛后不补建仓",
+          "伤停首发": "中国前场消耗、控卫状态及意大利短休轮换均需正式确认；未拿到可用分钟投射。",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddspedia意大利DK -270 / 中国bet365 +240为不同书；Caliente同页1.615/2.20去水意大利57.67%，仅背景，二者时效分歧待核。",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddspedia：意大利FanDuel/中国DK，非同书: 意大利 -6.5 @1.833（原价-120） / 中国 +6.5 @2.000（原价100）<br>Caliente搜索片段，源更新时间未知: 意大利 -3 @1.850（原价1.85） / 中国 +3 @1.800（原价1.8）",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddspedia：大DK/小BetMGM，非同书: 大分 141.5 @2.000（原价100） / 小分 141.5 @1.980（原价-102）<br>Caliente搜索片段，源更新时间未知: 大分 142 @1.850（原价1.85） / 小分 142 @1.900（原价1.9）",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "历史观察（非当前盘）：未取得精确合约/买卖价/成交量",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "中国前场消耗、控卫状态及意大利短休轮换均需正式确认；未拿到可用分钟投射。",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "意大利和中国均已获晋级附加赛位置，本场决定组内第二/第三；不能误写为输球立即出局。",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/来源时效待核",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "仅回填赛果，不重构盘前判断",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "意大利女篮51-71中国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "证据链接": "<a href=\"https://oddspedia.com/basketball/italy-women-china-women-1950188\">Oddspedia：意大利FanDuel/中国DK，非同书</a>；<a href=\"https://oddspedia.com/basketball/italy-women-china-women-1950188\">Oddspedia：大DK/小BetMGM，非同书</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres\">Caliente搜索片段，源更新时间未知</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres\">Caliente搜索片段，源更新时间未知</a>"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 51-71",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-07",
+        "bj_time": "2026-09-08 02:45",
+        "score_order": "official_source_order",
+        "official_order_team_1": "意大利女篮",
+        "official_order_team_2": "中国女篮",
+        "score_1": 51,
+        "score_2": 71,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Stake Italy 1.81/China 1.86；Olimp Italy 1.87/China 1.94",
+                "终盘待回填",
+                "五五盘"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Stake Italy -1.5 1.90/China +1.5 1.77；Olimp Italy -1.5 1.98/China +1.5 1.83",
+                "终盘待回填",
+                "缺p_low/Steam"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Stake 142.5 O1.86/U1.81；141.5-143.5区间",
+                "终盘待回填",
+                "缺Pred/K"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未获取",
+                "未获取",
+                "无"
+              ]
+            ],
+            "status": "相邻预告",
+            "bet_status": "临场观察",
+            "execution": {
+              "主单": "不投",
+              "备选": "临场观察",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "9/8预告"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "相邻预告",
+              "待结算",
+              "观察"
+            ]
+          },
+          {
+            "updatedAt": "2026-09-07 22:25 北京时间 | v3.15 晚间核查（部分更新）",
+            "status": "相邻预告",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Oddspedia意大利DK -270 / 中国bet365 +240为不同书；Caliente同页1.615/2.20去水意大利57.67%，仅背景，二者时效分歧待核。",
+                "终盘待回填",
+                "胜负背景不用于让分p_low"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddspedia：意大利FanDuel/中国DK，非同书: 意大利 -6.5 @1.833（原价-120） / 中国 +6.5 @2.000（原价100）<br>Caliente搜索片段，源更新时间未知: 意大利 -3 @1.850（原价1.85） / 中国 +3 @1.800（原价1.8）",
+                "终盘待回填",
+                "采集22:16–22:25；书商更新时间未知，非确认成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddspedia：大DK/小BetMGM，非同书: 大分 141.5 @2.000（原价100） / 小分 141.5 @1.980（原价-102）<br>Caliente搜索片段，源更新时间未知: 大分 142 @1.850（原价1.85） / 小分 142 @1.900（原价1.9）",
+                "终盘待回填",
+                "独立测算未过；整数盘口走盘概率未知"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未取得精确合约/买卖价/成交量",
+                "待回填",
+                "不能从市场价反推资金方向"
+              ]
+            ],
+            "current_quotes": [
+              {
+                "market": "spread",
+                "line": -6.5,
+                "source": "Oddspedia：意大利FanDuel/中国DK，非同书",
+                "url": "https://oddspedia.com/basketball/italy-women-china-women-1950188",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "意大利",
+                    "line": -6.5,
+                    "price": -120,
+                    "decimal_odds": 1.8333333333333335
+                  },
+                  {
+                    "side": "中国",
+                    "line": 6.5,
+                    "price": 100,
+                    "decimal_odds": 2
+                  }
+                ]
+              },
+              {
+                "market": "total",
+                "line": 141.5,
+                "source": "Oddspedia：大DK/小BetMGM，非同书",
+                "url": "https://oddspedia.com/basketball/italy-women-china-women-1950188",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": null,
+                    "price": 100,
+                    "decimal_odds": 2
+                  },
+                  {
+                    "side": "小分",
+                    "line": null,
+                    "price": -102,
+                    "decimal_odds": 1.9803921568627452
+                  }
+                ]
+              },
+              {
+                "market": "spread",
+                "line": -3,
+                "source": "Caliente搜索片段，源更新时间未知",
+                "url": "https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "意大利",
+                    "line": -3,
+                    "price": 1.85,
+                    "decimal_odds": 1.85
+                  },
+                  {
+                    "side": "中国",
+                    "line": 3,
+                    "price": 1.8,
+                    "decimal_odds": 1.8
+                  }
+                ]
+              },
+              {
+                "market": "total",
+                "line": 142,
+                "source": "Caliente搜索片段，源更新时间未知",
+                "url": "https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": null,
+                    "price": 1.85,
+                    "decimal_odds": 1.85
+                  },
+                  {
+                    "side": "小分",
+                    "line": null,
+                    "price": 1.9,
+                    "decimal_odds": 1.9
+                  }
+                ]
+              }
+            ],
+            "quant_checks": [
+              {
+                "market": "spread",
+                "source": "Oddspedia：意大利FanDuel/中国DK，非同书",
+                "source_url": "https://oddspedia.com/basketball/italy-women-china-women-1950188",
+                "side": "意大利",
+                "line": -6.5,
+                "decimal_odds": 1.8333333333333335,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5454545454545454,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Oddspedia：意大利FanDuel/中国DK，非同书",
+                "source_url": "https://oddspedia.com/basketball/italy-women-china-women-1950188",
+                "side": "中国",
+                "line": 6.5,
+                "decimal_odds": 2,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddspedia：大DK/小BetMGM，非同书",
+                "source_url": "https://oddspedia.com/basketball/italy-women-china-women-1950188",
+                "side": "大分",
+                "line": 141.5,
+                "decimal_odds": 2,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddspedia：大DK/小BetMGM，非同书",
+                "source_url": "https://oddspedia.com/basketball/italy-women-china-women-1950188",
+                "side": "小分",
+                "line": 141.5,
+                "decimal_odds": 1.9803921568627452,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.504950495049505,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Caliente搜索片段，源更新时间未知",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres",
+                "side": "意大利",
+                "line": -3,
+                "decimal_odds": 1.85,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5405405405405405,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Caliente搜索片段，源更新时间未知",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres",
+                "side": "中国",
+                "line": 3,
+                "decimal_odds": 1.8,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5555555555555556,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Caliente搜索片段，源更新时间未知",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres",
+                "side": "大分",
+                "line": 142,
+                "decimal_odds": 1.85,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5405405405405405,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Caliente搜索片段，源更新时间未知",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres",
+                "side": "小分",
+                "line": 142,
+                "decimal_odds": 1.9,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5263157894736842,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              }
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+              "breakeven/EV": "意大利-6.5 @1.833：盈亏平衡54.55%；中国6.5 @2.000：盈亏平衡50.00%；大分141.5总分 @2.000：盈亏平衡50.00%；小分141.5总分 @1.980：盈亏平衡50.50%；意大利-3 @1.850：盈亏平衡54.05%；中国3 @1.800：盈亏平衡55.56%；大分142总分 @1.850：盈亏平衡54.05%；小分142总分 @1.900：盈亏平衡52.63%。p_low未知，EV/edge=null。",
+              "K差值": "K=3.5；Pred及同向gap=null，未过",
+              "时间锁/熔断": "距开赛4.33小时，变盘建仓等待2小时内；非因跨日而拒绝；同源最后1小时振幅未知，不视为熔断通过",
+              "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+              "分钟/旅行": "中国前场消耗、控卫状态及意大利短休轮换均需正式确认；未拿到可用分钟投射。；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+              "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+              "仓位/样本": "stake_cap=0；stake=0；Tier C；no-action"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "新读Oddspedia意大利-6.5，与此前搜索片段-3/-1.5不一致；来源时效待核，不能推断同源Steam。",
+              "证据链接": "<a href=\"https://oddspedia.com/basketball/italy-women-china-women-1950188\">Oddspedia：意大利FanDuel/中国DK，非同书</a>；<a href=\"https://oddspedia.com/basketball/italy-women-china-women-1950188\">Oddspedia：大DK/小BetMGM，非同书</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres\">Caliente搜索片段，源更新时间未知</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33048129/Italia-Mujeres-vs-China-Mujeres\">Caliente搜索片段，源更新时间未知</a>"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘未取得",
+              "相邻预告",
+              "未建仓",
+              "保留早晨首写，不补单"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": [],
+        "score_verified_at": "2026-09-08T07:55:00+08:00"
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "nbl-preseason-sem-nzl-20260908",
+        "league": "NBL季前赛",
+        "match": "东南墨尔本凤凰 vs 新西兰破坏者",
+        "tip_time_bj": "2026-09-08 17:30",
+        "status": "已完赛 100-103",
+        "home_team": "东南墨尔本凤凰",
+        "away_team": "新西兰破坏者",
+        "official_order_team_1": "东南墨尔本凤凰",
+        "official_order_team_2": "新西兰破坏者"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.nbl.com.au/club-schedule/sem",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得",
+          "历史观察，非当前盘：未取得",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：盘口源未发现；详见检索记录",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：盘口源未发现；详见检索记录",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确票数/资金/合约流动性",
+          "终盘未核",
+          "不补写赛前方向"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 100-103",
+        "tag": "复盘",
+        "conclusion": "东南墨尔本凤凰 100-103 新西兰破坏者；原记录未投注，只回填官方赛果，不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "原记录无实投",
+          "原记录无模拟",
+          "终盘未取得",
+          "已完赛 100-103",
+          "不计胜率",
+          "原盘口/方向冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 100-103"
+      },
+      "source_notes": [
+        "https://www.nbl.com.au/club-schedule/sem",
+        null,
+        "盘口源未发现：两组独立市场检索未取得对应场次让分及总分赔率，轮换亦未知，不模拟投注。"
+      ],
+      "legacy_record": {
+        "id": "nbl-preseason-sem-nzl-20260908",
+        "date": "2026-09-08",
+        "time": "17:30",
+        "home": "东南墨尔本凤凰",
+        "away": "新西兰破坏者",
+        "league": "NBL季前赛",
+        "source": "https://www.nbl.com.au/club-schedule/sem",
+        "source_local_time": "2026-09-08 19:30 AEST",
+        "injury": "季前赛轮换及核心上场时间未公布或未核实。",
+        "travel": "凤凰9/5、破坏者9/6有赛程；非北京时间连续两日比赛。具体飞行与负荷未核。",
+        "matchup": "季前赛不能直接套常规赛残差；轮换变化可能超过盘口优势。",
+        "motivation": "季前赛磨合，不将强队名气等同全力出战。",
+        "attempts": [
+          "OddsPortal/Oddspedia: South East Melbourne Phoenix New Zealand Breakers September 8 2026 odds",
+          "Oddschecker/Betfair: Phoenix Breakers September 8 2026 handicap"
+        ],
+        "note": "盘口源未发现：两组独立市场检索未取得对应场次让分及总分赔率，轮换亦未知，不模拟投注。",
+        "quotes": [],
+        "ml": "未取得",
+        "status": "已完赛 100-103",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "东南墨尔本凤凰 100-103 新西兰破坏者；原记录未投注，只回填官方赛果，不计胜率。",
+        "conclusion": "东南墨尔本凤凰 100-103 新西兰破坏者；原记录未投注，只回填官方赛果，不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "bj_time": "2026-09-08 17:30",
+        "source_date": "2026-09-08",
+        "captured_at": "2026-09-08T07:55:00+08:00",
+        "official_order_team_1": "东南墨尔本凤凰",
+        "official_order_team_2": "新西兰破坏者",
+        "score_order": "official_source_order",
+        "score_1": 100,
+        "score_2": 103,
+        "score_is_final": true,
+        "score_source": "https://www.nbl.com.au/schedule",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "first_recorded_at": "2026-09-08T07:55:00+08:00",
+        "trigger_condition": "未形成投注；需所有硬闸在赛前通过后另行首写",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得",
+            "历史观察，非当前盘：未取得",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：盘口源未发现；详见检索记录",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：盘口源未发现；详见检索记录",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确票数/资金/合约流动性",
+            "终盘未核",
+            "不补写赛前方向"
+          ]
+        ],
+        "completeness": {
+          "比分源": "<a href=\"https://www.nbl.com.au/schedule\">官方结果</a>；东南墨尔本凤凰 100-103 新西兰破坏者；原记录未投注，只回填官方赛果，不计胜率。",
+          "盘口路径": "原观察留档，终盘未取得",
+          "伤停首发": "季前赛轮换及核心上场时间未公布或未核实。",
+          "公众资金": "未知，不推断",
+          "节奏效率": "回合数与独立校准ORtg/DRtg缺失"
+        },
+        "fundamentals": {
+          "轮换伤停": "季前赛轮换及核心上场时间未公布或未核实。",
+          "休息赛程": "凤凰9/5、破坏者9/6有赛程；非北京时间连续两日比赛。具体飞行与负荷未核。",
+          "战意": "季前赛磨合，不将强队名气等同全力出战。",
+          "对位": "季前赛不能直接套常规赛残差；轮换变化可能超过盘口优势。",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入未齐，Pred=null，场均得分不是Pace。",
+          "公众拉力": "无可核实tickets/money；市场热度不等于Sharp Money"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口观察，未形成投注方向",
+          "正反向验证": "无首写单，不计正确/错误",
+          "盘口意图": "赛果回填，未建仓",
+          "可打线": "无",
+          "停止线": "任何硬闸缺失即停止",
+          "临场防线": "需同源轨迹、分钟和独立p_low；不预设重仓"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分判断，Pace/ORtg/DRtg输入未齐",
+          "可打线": "无",
+          "停止线": "概率/EV/K未过即不投",
+          "临场防线": "1小时振幅>5分熔断；未知不视为通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "东南墨尔本凤凰 100-103 新西兰破坏者；原记录未投注，只回填官方赛果，不计胜率。",
+          "证据链接": "OddsPortal/Oddspedia: South East Melbourne Phoenix New Zealand Breakers September 8 2026 odds；Oddschecker/Betfair: Phoenix Breakers September 8 2026 handicap"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；未取得独立校准概率，不能声称真实胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred/gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "未知；不同书快照差异不是Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "东南墨尔本凤凰 100-103 新西兰破坏者；原记录未投注，只回填官方赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间",
+          "分钟/旅行": "季前赛轮换及核心上场时间未公布或未核实。；凤凰9/5、破坏者9/6有赛程；非北京时间连续两日比赛。具体飞行与负荷未核。",
+          "末节/罚球": "缺第四节净效率、替补稳定性及末段罚球模型",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "原记录无实投",
+          "原记录无模拟",
+          "终盘未取得",
+          "已完赛 100-103",
+          "不计胜率",
+          "原盘口/方向冻结"
+        ],
+        "score_verified_at": "2026-09-10T07:30:00+08:00",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-08 07:55 北京时间 | v3.16 晨间更新（部分：盘口已抓，预测证据未齐）",
+            "status": "待赛",
+            "bet_status": "不可投",
+            "market": [
+              [
+                "ML",
+                "未取得",
+                "未取得",
+                "终盘待回填",
+                "仅背景；不同书价格不混作去水对"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "盘口源未发现；详见检索记录",
+                "终盘待回填",
+                "两书价差非同源变盘；整数线可能走盘"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "盘口源未发现；详见检索记录",
+                "终盘待回填",
+                "无Pace/效率预测，不能判大/小价值"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确票数/资金/合约流动性",
+                "待核",
+                "不能从价格推造资金方向"
+              ]
+            ],
+            "current_quotes": [],
+            "quant_checks": [
+              {
+                "market": "spread",
+                "side": null,
+                "line": null,
+                "price": null,
+                "decimal_odds": null,
+                "source": null,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": null,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.12,
+                "time_lock_status": "距开赛9.58小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "凤凰9/5、破坏者9/6有赛程；非北京时间连续两日比赛。具体飞行与负荷未核。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "盘口源未发现：两组独立市场检索未取得对应场次让分及总分赔率，轮换亦未知，不模拟投注。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "missing",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "market": "total",
+                "side": null,
+                "line": null,
+                "price": null,
+                "decimal_odds": null,
+                "source": null,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": null,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.12,
+                "time_lock_status": "距开赛9.58小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "凤凰9/5、破坏者9/6有赛程；非北京时间连续两日比赛。具体飞行与负荷未核。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "盘口源未发现：两组独立市场检索未取得对应场次让分及总分赔率，轮换亦未知，不模拟投注。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "missing",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              }
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；未取得独立校准概率，不能声称真实胜率>=55%",
+              "breakeven/EV": "。EV/edge=null；整数线需另处理push。",
+              "K差值": "K=3.5；Pred/gap=null，未通过",
+              "时间锁/熔断": "距开赛9.58小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据；1小时振幅未知",
+              "Steam同向": "未知；不同书快照差异不是Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "盘口源未发现：两组独立市场检索未取得对应场次让分及总分赔率，轮换亦未知，不模拟投注。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间",
+              "分钟/旅行": "季前赛轮换及核心上场时间未公布或未核实。；凤凰9/5、破坏者9/6有赛程；非北京时间连续两日比赛。具体飞行与负荷未核。",
+              "末节/罚球": "缺第四节净效率、替补稳定性及末段罚球模型",
+              "仓位/样本": "0U；stake_cap=0；no-action；未形成0.5U基础仓位或Middle"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "盘口源未发现：两组独立市场检索未取得对应场次让分及总分赔率，轮换亦未知，不模拟投注。",
+              "证据链接": "OddsPortal/Oddspedia: South East Melbourne Phoenix New Zealand Breakers September 8 2026 odds；Oddschecker/Betfair: Phoenix Breakers September 8 2026 handicap"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "未开赛",
+              "未建仓",
+              "保留采集时间和原价格；不可赛后补单"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "island-games-chiba-perth-20260908",
+        "league": "B.League/NBL国际季前赛",
+        "match": "千叶喷射机 vs 珀斯野猫",
+        "tip_time_bj": "2026-09-08 18:35",
+        "status": "已完赛 45-98",
+        "home_team": "千叶喷射机",
+        "away_team": "珀斯野猫",
+        "official_order_team_1": "千叶喷射机",
+        "official_order_team_2": "珀斯野猫"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://goldenkings.jp/ticket/pages/id%3D26067",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得",
+          "历史观察，非当前盘：未取得",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：盘口源未发现；详见检索记录",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：盘口源未发现；详见检索记录",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确票数/资金/合约流动性",
+          "终盘未核",
+          "不补写赛前方向"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 45-98",
+        "tag": "复盘",
+        "conclusion": "千叶喷射机 45-98 珀斯野猫；原记录未投注，只回填官方赛果，不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "原记录无实投",
+          "原记录无模拟",
+          "终盘未取得",
+          "已完赛 45-98",
+          "不计胜率",
+          "原盘口/方向冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 45-98"
+      },
+      "source_notes": [
+        "https://goldenkings.jp/ticket/pages/id%3D26067",
+        null,
+        "盘口源未发现：OddsPortal/Oddspedia针对本场检索未获得可核对价格；千叶背靠背且轮换未知，零仓位。"
+      ],
+      "legacy_record": {
+        "id": "island-games-chiba-perth-20260908",
+        "date": "2026-09-08",
+        "time": "18:35",
+        "home": "千叶喷射机",
+        "away": "珀斯野猫",
+        "league": "B.League/NBL国际季前赛",
+        "source": "https://goldenkings.jp/ticket/pages/id%3D26067",
+        "source_local_time": "2026-09-08 19:35 JST",
+        "injury": "热身赛首发、外援轮换及分钟投射未核实。",
+        "travel": "千叶9/7在同一赛事有比赛，属于背靠背；冲绳赛会制。珀斯跨国行程的具体航班和恢复时间未知。",
+        "matchup": "背靠背不是自动买对手的依据；必须先有可信盘口及分钟负荷。",
+        "motivation": "ISLAND GAMES季前磨合，比赛地点为冲绳，不冒称千叶物理主场。",
+        "attempts": [
+          "OddsPortal: Chiba Jets Perth Wildcats September 8 2026 odds",
+          "Oddspedia: Chiba Jets Perth Wildcats September 8 2026 handicap total"
+        ],
+        "note": "盘口源未发现：OddsPortal/Oddspedia针对本场检索未获得可核对价格；千叶背靠背且轮换未知，零仓位。",
+        "quotes": [],
+        "ml": "未取得",
+        "status": "已完赛 45-98",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "千叶喷射机 45-98 珀斯野猫；原记录未投注，只回填官方赛果，不计胜率。",
+        "conclusion": "千叶喷射机 45-98 珀斯野猫；原记录未投注，只回填官方赛果，不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "bj_time": "2026-09-08 18:35",
+        "source_date": "2026-09-08",
+        "captured_at": "2026-09-08T07:55:00+08:00",
+        "official_order_team_1": "千叶喷射机",
+        "official_order_team_2": "珀斯野猫",
+        "score_order": "official_source_order",
+        "score_1": 45,
+        "score_2": 98,
+        "score_is_final": true,
+        "score_source": "https://league.nbl.com.au/news/jla-dominates-for-cats-in-japan",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "first_recorded_at": "2026-09-08T07:55:00+08:00",
+        "trigger_condition": "未形成投注；需所有硬闸在赛前通过后另行首写",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得",
+            "历史观察，非当前盘：未取得",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：盘口源未发现；详见检索记录",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：盘口源未发现；详见检索记录",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确票数/资金/合约流动性",
+            "终盘未核",
+            "不补写赛前方向"
+          ]
+        ],
+        "completeness": {
+          "比分源": "<a href=\"https://league.nbl.com.au/news/jla-dominates-for-cats-in-japan\">官方结果</a>；千叶喷射机 45-98 珀斯野猫；原记录未投注，只回填官方赛果，不计胜率。",
+          "盘口路径": "原观察留档，终盘未取得",
+          "伤停首发": "热身赛首发、外援轮换及分钟投射未核实。",
+          "公众资金": "未知，不推断",
+          "节奏效率": "回合数与独立校准ORtg/DRtg缺失"
+        },
+        "fundamentals": {
+          "轮换伤停": "热身赛首发、外援轮换及分钟投射未核实。",
+          "休息赛程": "千叶9/7在同一赛事有比赛，属于背靠背；冲绳赛会制。珀斯跨国行程的具体航班和恢复时间未知。",
+          "战意": "ISLAND GAMES季前磨合，比赛地点为冲绳，不冒称千叶物理主场。",
+          "对位": "背靠背不是自动买对手的依据；必须先有可信盘口及分钟负荷。",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入未齐，Pred=null，场均得分不是Pace。",
+          "公众拉力": "无可核实tickets/money；市场热度不等于Sharp Money"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口观察，未形成投注方向",
+          "正反向验证": "无首写单，不计正确/错误",
+          "盘口意图": "赛果回填，未建仓",
+          "可打线": "无",
+          "停止线": "任何硬闸缺失即停止",
+          "临场防线": "需同源轨迹、分钟和独立p_low；不预设重仓"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分判断，Pace/ORtg/DRtg输入未齐",
+          "可打线": "无",
+          "停止线": "概率/EV/K未过即不投",
+          "临场防线": "1小时振幅>5分熔断；未知不视为通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "千叶喷射机 45-98 珀斯野猫；原记录未投注，只回填官方赛果，不计胜率。",
+          "证据链接": "OddsPortal: Chiba Jets Perth Wildcats September 8 2026 odds；Oddspedia: Chiba Jets Perth Wildcats September 8 2026 handicap total"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；未取得独立校准概率，不能声称真实胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred/gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "未知；不同书快照差异不是Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "千叶喷射机 45-98 珀斯野猫；原记录未投注，只回填官方赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间",
+          "分钟/旅行": "热身赛首发、外援轮换及分钟投射未核实。；千叶9/7在同一赛事有比赛，属于背靠背；冲绳赛会制。珀斯跨国行程的具体航班和恢复时间未知。",
+          "末节/罚球": "缺第四节净效率、替补稳定性及末段罚球模型",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "原记录无实投",
+          "原记录无模拟",
+          "终盘未取得",
+          "已完赛 45-98",
+          "不计胜率",
+          "原盘口/方向冻结"
+        ],
+        "score_verified_at": "2026-09-10T07:30:00+08:00",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-08 07:55 北京时间 | v3.16 晨间更新（部分：盘口已抓，预测证据未齐）",
+            "status": "待赛",
+            "bet_status": "不可投",
+            "market": [
+              [
+                "ML",
+                "未取得",
+                "未取得",
+                "终盘待回填",
+                "仅背景；不同书价格不混作去水对"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "盘口源未发现；详见检索记录",
+                "终盘待回填",
+                "两书价差非同源变盘；整数线可能走盘"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "盘口源未发现；详见检索记录",
+                "终盘待回填",
+                "无Pace/效率预测，不能判大/小价值"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确票数/资金/合约流动性",
+                "待核",
+                "不能从价格推造资金方向"
+              ]
+            ],
+            "current_quotes": [],
+            "quant_checks": [
+              {
+                "market": "spread",
+                "side": null,
+                "line": null,
+                "price": null,
+                "decimal_odds": null,
+                "source": null,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": null,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.12,
+                "time_lock_status": "距开赛10.67小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "千叶9/7在同一赛事有比赛，属于背靠背；冲绳赛会制。珀斯跨国行程的具体航班和恢复时间未知。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "盘口源未发现：OddsPortal/Oddspedia针对本场检索未获得可核对价格；千叶背靠背且轮换未知，零仓位。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "missing",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "market": "total",
+                "side": null,
+                "line": null,
+                "price": null,
+                "decimal_odds": null,
+                "source": null,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": null,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.12,
+                "time_lock_status": "距开赛10.67小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "千叶9/7在同一赛事有比赛，属于背靠背；冲绳赛会制。珀斯跨国行程的具体航班和恢复时间未知。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "盘口源未发现：OddsPortal/Oddspedia针对本场检索未获得可核对价格；千叶背靠背且轮换未知，零仓位。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "missing",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              }
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；未取得独立校准概率，不能声称真实胜率>=55%",
+              "breakeven/EV": "。EV/edge=null；整数线需另处理push。",
+              "K差值": "K=3.5；Pred/gap=null，未通过",
+              "时间锁/熔断": "距开赛10.67小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据；1小时振幅未知",
+              "Steam同向": "未知；不同书快照差异不是Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "盘口源未发现：OddsPortal/Oddspedia针对本场检索未获得可核对价格；千叶背靠背且轮换未知，零仓位。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间",
+              "分钟/旅行": "热身赛首发、外援轮换及分钟投射未核实。；千叶9/7在同一赛事有比赛，属于背靠背；冲绳赛会制。珀斯跨国行程的具体航班和恢复时间未知。",
+              "末节/罚球": "缺第四节净效率、替补稳定性及末段罚球模型",
+              "仓位/样本": "0U；stake_cap=0；no-action；未形成0.5U基础仓位或Middle"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "盘口源未发现：OddsPortal/Oddspedia针对本场检索未获得可核对价格；千叶背靠背且轮换未知，零仓位。",
+              "证据链接": "OddsPortal: Chiba Jets Perth Wildcats September 8 2026 odds；Oddspedia: Chiba Jets Perth Wildcats September 8 2026 handicap total"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "未开赛",
+              "未建仓",
+              "保留采集时间和原价格；不可赛后补单"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-hungary-japan-20260908",
+        "league": "FIBA女篮世界杯",
+        "match": "匈牙利女篮 vs 日本女篮",
+        "tip_time_bj": "2026-09-08 23:45",
+        "status": "已完赛 84-63",
+        "home_team": "匈牙利女篮",
+        "away_team": "日本女篮",
+        "official_order_team_1": "匈牙利女篮",
+        "official_order_team_2": "日本女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128145-HUN-JPN",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得",
+          "历史观察，非当前盘：Oddschecker日本-130/匈牙利+115为比较价；Caliente同页日本1.70/匈牙利2.10，去水日本胜率55.26%，仅胜负背景，非让分胜率。",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：Oddschecker比较价：日本 -2.5 @-105（美盘） / 匈牙利 +2.5 @-120（美盘）<br>Caliente：匈牙利 +2.5 @1.87（小数） / 日本 -2.5 @1.87（小数）",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：Oddschecker比较价：大分 149.5 @-110（美盘） / 小分 149.5 @-110（美盘）<br>Caliente：大分 150 @1.87（小数） / 小分 150 @1.87（小数）",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确票数/资金/合约流动性",
+          "终盘未核",
+          "不补写赛前方向"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 84-63",
+        "tag": "复盘",
+        "conclusion": "匈牙利女篮 84-63 日本女篮；原记录未投注，只回填官方赛果，不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "原记录无实投",
+          "原记录无模拟",
+          "终盘未取得",
+          "已完赛 84-63",
+          "不计胜率",
+          "原盘口/方向冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 84-63"
+      },
+      "source_notes": [
+        "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128145-HUN-JPN",
+        null,
+        "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。"
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-hungary-japan-20260908",
+        "date": "2026-09-08",
+        "time": "23:45",
+        "home": "匈牙利女篮",
+        "away": "日本女篮",
+        "league": "FIBA女篮世界杯",
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128145-HUN-JPN",
+        "source_local_time": "2026-09-08 15:45 UTC",
+        "injury": "本场伤停与首发分钟未取得可信确认；名单和上一场出场不代表本场分钟承诺。",
+        "travel": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+        "matchup": "FIBA赛前统计：匈牙利篮板43.7、日本31.7；失误23对12.7。篮板优势与控球劣势并存，不能直接换算让分胜率。",
+        "motivation": "晋级资格赛，胜者下一轮对美国；战意明确但不保证核心打满。",
+        "attempts": [
+          "Action Network/Covers exact Hungary Japan September 8 2026: 未读到精确盘口",
+          "Oddschecker与Caliente: 已读取两源数值",
+          "Betfair sportsbook: 页面壳；Polymarket: 未发现可读精确合约"
+        ],
+        "note": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+        "ml": "Oddschecker日本-130/匈牙利+115为比较价；Caliente同页日本1.70/匈牙利2.10，去水日本胜率55.26%，仅胜负背景，非让分胜率。",
+        "quotes": [
+          {
+            "book": "Oddschecker比较价",
+            "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+            "market": "spread",
+            "selections": [
+              [
+                "日本",
+                -2.5,
+                -105,
+                "american"
+              ],
+              [
+                "匈牙利",
+                2.5,
+                -120,
+                "american"
+              ]
+            ]
+          },
+          {
+            "book": "Oddschecker比较价",
+            "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+            "market": "total",
+            "selections": [
+              [
+                "大分",
+                149.5,
+                -110,
+                "american"
+              ],
+              [
+                "小分",
+                149.5,
+                -110,
+                "american"
+              ]
+            ]
+          },
+          {
+            "book": "Caliente",
+            "url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+            "market": "spread",
+            "selections": [
+              [
+                "匈牙利",
+                2.5,
+                1.87,
+                "decimal"
+              ],
+              [
+                "日本",
+                -2.5,
+                1.87,
+                "decimal"
+              ]
+            ]
+          },
+          {
+            "book": "Caliente",
+            "url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+            "market": "total",
+            "selections": [
+              [
+                "大分",
+                150,
+                1.87,
+                "decimal"
+              ],
+              [
+                "小分",
+                150,
+                1.87,
+                "decimal"
+              ]
+            ]
+          }
+        ],
+        "status": "已完赛 84-63",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "匈牙利女篮 84-63 日本女篮；原记录未投注，只回填官方赛果，不计胜率。",
+        "conclusion": "匈牙利女篮 84-63 日本女篮；原记录未投注，只回填官方赛果，不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "bj_time": "2026-09-08 23:45",
+        "source_date": "2026-09-08",
+        "captured_at": "2026-09-08T07:55:00+08:00",
+        "official_order_team_1": "匈牙利女篮",
+        "official_order_team_2": "日本女篮",
+        "score_order": "official_source_order",
+        "score_1": 84,
+        "score_2": 63,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128145-HUN-JPN",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "first_recorded_at": "2026-09-08T07:55:00+08:00",
+        "trigger_condition": "未形成投注；需所有硬闸在赛前通过后另行首写",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得",
+            "历史观察，非当前盘：Oddschecker日本-130/匈牙利+115为比较价；Caliente同页日本1.70/匈牙利2.10，去水日本胜率55.26%，仅胜负背景，非让分胜率。",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：Oddschecker比较价：日本 -2.5 @-105（美盘） / 匈牙利 +2.5 @-120（美盘）<br>Caliente：匈牙利 +2.5 @1.87（小数） / 日本 -2.5 @1.87（小数）",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：Oddschecker比较价：大分 149.5 @-110（美盘） / 小分 149.5 @-110（美盘）<br>Caliente：大分 150 @1.87（小数） / 小分 150 @1.87（小数）",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确票数/资金/合约流动性",
+            "终盘未核",
+            "不补写赛前方向"
+          ]
+        ],
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128145-HUN-JPN\">官方结果</a>；匈牙利女篮 84-63 日本女篮；原记录未投注，只回填官方赛果，不计胜率。",
+          "盘口路径": "原观察留档，终盘未取得",
+          "伤停首发": "本场伤停与首发分钟未取得可信确认；名单和上一场出场不代表本场分钟承诺。",
+          "公众资金": "未知，不推断",
+          "节奏效率": "回合数与独立校准ORtg/DRtg缺失"
+        },
+        "fundamentals": {
+          "轮换伤停": "本场伤停与首发分钟未取得可信确认；名单和上一场出场不代表本场分钟承诺。",
+          "休息赛程": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+          "战意": "晋级资格赛，胜者下一轮对美国；战意明确但不保证核心打满。",
+          "对位": "FIBA赛前统计：匈牙利篮板43.7、日本31.7；失误23对12.7。篮板优势与控球劣势并存，不能直接换算让分胜率。",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入未齐，Pred=null，场均得分不是Pace。",
+          "公众拉力": "无可核实tickets/money；市场热度不等于Sharp Money"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口观察，未形成投注方向",
+          "正反向验证": "无首写单，不计正确/错误",
+          "盘口意图": "赛果回填，未建仓",
+          "可打线": "无",
+          "停止线": "任何硬闸缺失即停止",
+          "临场防线": "需同源轨迹、分钟和独立p_low；不预设重仓"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分判断，Pace/ORtg/DRtg输入未齐",
+          "可打线": "无",
+          "停止线": "概率/EV/K未过即不投",
+          "临场防线": "1小时振幅>5分熔断；未知不视为通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "匈牙利女篮 84-63 日本女篮；原记录未投注，只回填官方赛果，不计胜率。",
+          "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women\">Oddschecker比较价</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres\">Caliente</a>"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；未取得独立校准概率，不能声称真实胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred/gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "未知；不同书快照差异不是Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "匈牙利女篮 84-63 日本女篮；原记录未投注，只回填官方赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间",
+          "分钟/旅行": "本场伤停与首发分钟未取得可信确认；名单和上一场出场不代表本场分钟承诺。；柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+          "末节/罚球": "缺第四节净效率、替补稳定性及末段罚球模型",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "原记录无实投",
+          "原记录无模拟",
+          "终盘未取得",
+          "已完赛 84-63",
+          "不计胜率",
+          "原盘口/方向冻结"
+        ],
+        "score_verified_at": "2026-09-10T07:30:00+08:00",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-08 07:55 北京时间 | v3.16 晨间更新（部分：盘口已抓，预测证据未齐）",
+            "status": "待赛",
+            "bet_status": "不可投",
+            "market": [
+              [
+                "ML",
+                "未取得",
+                "Oddschecker日本-130/匈牙利+115为比较价；Caliente同页日本1.70/匈牙利2.10，去水日本胜率55.26%，仅胜负背景，非让分胜率。",
+                "终盘待回填",
+                "仅背景；不同书价格不混作去水对"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker比较价：日本 -2.5 @-105（美盘） / 匈牙利 +2.5 @-120（美盘）<br>Caliente：匈牙利 +2.5 @1.87（小数） / 日本 -2.5 @1.87（小数）",
+                "终盘待回填",
+                "两书价差非同源变盘；整数线可能走盘"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker比较价：大分 149.5 @-110（美盘） / 小分 149.5 @-110（美盘）<br>Caliente：大分 150 @1.87（小数） / 小分 150 @1.87（小数）",
+                "终盘待回填",
+                "无Pace/效率预测，不能判大/小价值"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确票数/资金/合约流动性",
+                "待核",
+                "不能从价格推造资金方向"
+              ]
+            ],
+            "current_quotes": [
+              {
+                "book": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+                "market": "spread",
+                "selections": [
+                  {
+                    "side": "日本",
+                    "line": -2.5,
+                    "price": -105,
+                    "format": "american",
+                    "decimal_odds": 1.9523809523809523
+                  },
+                  {
+                    "side": "匈牙利",
+                    "line": 2.5,
+                    "price": -120,
+                    "format": "american",
+                    "decimal_odds": 1.8333333333333335
+                  }
+                ],
+                "captured_window_bj": "2026-09-08 07:45-07:51 +08:00",
+                "source_updated_at": null,
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+                "market": "total",
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": 149.5,
+                    "price": -110,
+                    "format": "american",
+                    "decimal_odds": 1.9090909090909092
+                  },
+                  {
+                    "side": "小分",
+                    "line": 149.5,
+                    "price": -110,
+                    "format": "american",
+                    "decimal_odds": 1.9090909090909092
+                  }
+                ],
+                "captured_window_bj": "2026-09-08 07:45-07:51 +08:00",
+                "source_updated_at": null,
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "Caliente",
+                "url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+                "market": "spread",
+                "selections": [
+                  {
+                    "side": "匈牙利",
+                    "line": 2.5,
+                    "price": 1.87,
+                    "format": "decimal",
+                    "decimal_odds": 1.87
+                  },
+                  {
+                    "side": "日本",
+                    "line": -2.5,
+                    "price": 1.87,
+                    "format": "decimal",
+                    "decimal_odds": 1.87
+                  }
+                ],
+                "captured_window_bj": "2026-09-08 07:45-07:51 +08:00",
+                "source_updated_at": null,
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "Caliente",
+                "url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+                "market": "total",
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": 150,
+                    "price": 1.87,
+                    "format": "decimal",
+                    "decimal_odds": 1.87
+                  },
+                  {
+                    "side": "小分",
+                    "line": 150,
+                    "price": 1.87,
+                    "format": "decimal",
+                    "decimal_odds": 1.87
+                  }
+                ],
+                "captured_window_bj": "2026-09-08 07:45-07:51 +08:00",
+                "source_updated_at": null,
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              }
+            ],
+            "quant_checks": [
+              {
+                "side": "日本",
+                "line": -2.5,
+                "price": -105,
+                "format": "american",
+                "decimal_odds": 1.9523809523809523,
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5121951219512195,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "匈牙利",
+                "line": 2.5,
+                "price": -120,
+                "format": "american",
+                "decimal_odds": 1.8333333333333335,
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5454545454545454,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "大分",
+                "line": 149.5,
+                "price": -110,
+                "format": "american",
+                "decimal_odds": 1.9090909090909092,
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5238095238095238,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "小分",
+                "line": 149.5,
+                "price": -110,
+                "format": "american",
+                "decimal_odds": 1.9090909090909092,
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5238095238095238,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "匈牙利",
+                "line": 2.5,
+                "price": 1.87,
+                "format": "decimal",
+                "decimal_odds": 1.87,
+                "market": "spread",
+                "source": "Caliente",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.53475935828877,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "日本",
+                "line": -2.5,
+                "price": 1.87,
+                "format": "decimal",
+                "decimal_odds": 1.87,
+                "market": "spread",
+                "source": "Caliente",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.53475935828877,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "大分",
+                "line": 150,
+                "price": 1.87,
+                "format": "decimal",
+                "decimal_odds": 1.87,
+                "market": "total",
+                "source": "Caliente",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.53475935828877,
+                "breakeven_basis": "conditional_on_no_push",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "小分",
+                "line": 150,
+                "price": 1.87,
+                "format": "decimal",
+                "decimal_odds": 1.87,
+                "market": "total",
+                "source": "Caliente",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.53475935828877,
+                "breakeven_basis": "conditional_on_no_push",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              }
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；未取得独立校准概率，不能声称真实胜率>=55%",
+              "breakeven/EV": "日本 -2.5 @1.952：51.22%；匈牙利 2.5 @1.833：54.55%；大分 149.5 @1.909：52.38%；小分 149.5 @1.909：52.38%；匈牙利 2.5 @1.870：53.48%；日本 -2.5 @1.870：53.48%；大分 150 @1.870：53.48%；小分 150 @1.870：53.48%。EV/edge=null；整数线需另处理push。",
+              "K差值": "K=3.5；Pred/gap=null，未通过",
+              "时间锁/熔断": "距开赛15.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据；1小时振幅未知",
+              "Steam同向": "未知；不同书快照差异不是Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间",
+              "分钟/旅行": "本场伤停与首发分钟未取得可信确认；名单和上一场出场不代表本场分钟承诺。；柏林赛会制；双方当地9/7比赛后9/8再战，连续作战负荷需逐人分钟核验；NBA跨区/Circus Trip不适用。",
+              "末节/罚球": "缺第四节净效率、替补稳定性及末段罚球模型",
+              "仓位/样本": "0U；stake_cap=0；no-action；未形成0.5U基础仓位或Middle"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "日本让2.5、总分149.5-150已抓取；缺独立Pred/p区间、分钟安排及同源轨迹，未通过量化准入，模拟0U。",
+              "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/japan-women-at-hungary-women\">Oddschecker比较价</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33073336/Hungria-Mujeres-vs-Japon-Mujeres\">Caliente</a>"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "未开赛",
+              "未建仓",
+              "保留采集时间和原价格；不可赛后补单"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "generation": "LEGACY_MIGRATED",
+  "legacy_imported": true
+}

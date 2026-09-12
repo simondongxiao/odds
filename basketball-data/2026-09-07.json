@@ -1,0 +1,2984 @@
+{
+  "schema_version": 2,
+  "date_bj": "2026-09-07",
+  "last_updated": "2026-09-13T01:52:46.763998+08:00",
+  "status": "LEGACY_MIGRATED",
+  "funnel": {
+    "events": 7,
+    "market": 0,
+    "enrichment_complete": 0,
+    "priceable": 0,
+    "coupled": 0,
+    "edge": 0,
+    "lean": 0,
+    "watch": 0,
+    "blocked": 0,
+    "pass": 0
+  },
+  "calibration": {
+    "generation": "LEGACY_MIGRATED",
+    "pricing": "null"
+  },
+  "source_health": [],
+  "events": [
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-italy-usa-20260907",
+        "league": "FIBA女篮世界杯",
+        "match": "意大利女篮 vs 美国女篮",
+        "tip_time_bj": "2026-09-07 02:45",
+        "status": "已完赛 52-55",
+        "home_team": "意大利女篮",
+        "away_team": "美国女篮",
+        "official_order_team_1": "意大利女篮",
+        "official_order_team_2": "美国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "07:30赛前观察留档：待盘口/已完赛",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "07:30赛前观察留档：未取得完整同源路径",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "07:30赛前观察留档：未取得完整同源路径",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "07:30赛前观察留档：未形成可执行资金闭环",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "已完赛覆盖",
+        "direction": "无投注方向",
+        "sample": "不进入胜率"
+      },
+      "original_first_write": {
+        "status": "已完赛 52-55",
+        "tag": "复盘",
+        "conclusion": "意大利52-55美国，官方首页确认；晨更已回填，本轮不产生投注结算。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "已完赛 52-55",
+          "不计胜率",
+          "保留早晨首写，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 52-55"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-italy-usa-20260907",
+        "date": "2026-09-07",
+        "league": "FIBA女篮世界杯",
+        "time": "02:45",
+        "home": "意大利女篮",
+        "away": "美国女篮",
+        "status": "已完赛 52-55",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "意大利52-55美国，官方首页确认；晨更已回填，本轮不产生投注结算。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "无原始投注，不计算盈利或EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "已开赛，禁止补盘前单；同源最后1小时振幅未知，不视为熔断通过",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "意大利52-55美国，官方首页确认；晨更已回填，本轮不产生投注结算。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "已过盘前窗口；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake_cap=0；stake=0；Tier D；no-action"
+        },
+        "intent": {
+          "label": "已完赛覆盖",
+          "direction": "无投注方向",
+          "sample": "不进入胜率"
+        },
+        "conclusion": "意大利52-55美国，官方首页确认；晨更已回填，本轮不产生投注结算。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">来源</a>；意大利52-55美国，官方首页确认；晨更已回填，本轮不产生投注结算。",
+          "盘口路径": "早晨留档；终盘未核",
+          "伤停首发": "赛前证据不足，不赛后补齐",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "07:30赛前观察留档：待盘口/已完赛",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "07:30赛前观察留档：未取得完整同源路径",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "07:30赛前观察留档：未取得完整同源路径",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "07:30赛前观察留档：未形成可执行资金闭环",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "无本轮赛前决策",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "只回填已发生赛况，不重构盘前判断",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "赛况覆盖",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "意大利52-55美国，官方首页确认；晨更已回填，本轮不产生投注结算。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "意大利52-55美国，官方首页确认；晨更已回填，本轮不产生投注结算。",
+          "证据链接": "仅赛况回填"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "已完赛 52-55",
+          "不计胜率",
+          "保留早晨首写，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-06",
+        "bj_time": "2026-09-07 02:45",
+        "score_order": "official_source_order",
+        "official_order_team_1": "意大利女篮",
+        "official_order_team_2": "美国女篮",
+        "score_1": 52,
+        "score_2": 55,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "待盘口/已完赛",
+                "终盘待回填",
+                "仅作强弱背景"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "未取得完整同源路径",
+                "终盘待回填",
+                "缺线或缺p_low不投"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "未取得完整同源路径",
+                "终盘待回填",
+                "缺Pred/K不投"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未形成可执行资金闭环",
+                "未获取",
+                "不替代cover概率"
+              ]
+            ],
+            "status": "已完赛 52-55",
+            "bet_status": "不可投",
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "已完赛"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "未取得",
+              "意大利52-55美国",
+              "N/A",
+              "赛后回填"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": []
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-belgium-australia-20260907",
+        "league": "FIBA女篮世界杯",
+        "match": "比利时女篮 vs 澳大利亚女篮",
+        "tip_time_bj": "2026-09-07 17:30",
+        "status": "已完赛 80-68",
+        "home_team": "比利时女篮",
+        "away_team": "澳大利亚女篮",
+        "official_order_team_1": "比利时女篮",
+        "official_order_team_2": "澳大利亚女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "07:30赛前观察留档：Oddschecker Australia +120 / Belgium -142；Caliente Belgium 1.727 / Australia 2.05",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "07:30赛前观察留档：Oddschecker AUS +2.5/BEL -2.5 -110；Caliente BEL -2 1.90/AUS +2 1.85",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "07:30赛前观察留档：Oddschecker 148.5 -110/-110；Caliente 150 O1.85/U1.90",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "07:30赛前观察留档：Polymarket/Kalshi低量，未形成资金闭环",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "强强小让/排名战",
+        "direction": "Belgium -2以下或Australia +3.5以上才观察",
+        "sample": "不进入first_write_paper"
+      },
+      "original_first_write": {
+        "status": "已完赛 80-68",
+        "tag": "复盘",
+        "conclusion": "比利时80-68澳大利亚。早晨仅观察，无首写投注，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "已完赛 80-68",
+          "不计胜率",
+          "保留早晨首写，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 80-68"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-belgium-australia-20260907",
+        "date": "2026-09-07",
+        "league": "FIBA女篮世界杯",
+        "time": "17:30",
+        "home": "比利时女篮",
+        "away": "澳大利亚女篮",
+        "status": "已完赛 80-68",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "比利时80-68澳大利亚。早晨仅观察，无首写投注，不计胜率。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "无原始投注，不计算盈利或EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "已开赛，禁止补盘前单；同源最后1小时振幅未知，不视为熔断通过",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "比利时80-68澳大利亚。早晨仅观察，无首写投注，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "已过盘前窗口；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake_cap=0；stake=0；Tier D；no-action"
+        },
+        "intent": {
+          "label": "强强小让/排名战",
+          "direction": "Belgium -2以下或Australia +3.5以上才观察",
+          "sample": "不进入first_write_paper"
+        },
+        "conclusion": "比利时80-68澳大利亚。早晨仅观察，无首写投注，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">来源</a>；比利时80-68澳大利亚。早晨仅观察，无首写投注，不计胜率。",
+          "盘口路径": "早晨留档；终盘未核",
+          "伤停首发": "赛前证据不足，不赛后补齐",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "07:30赛前观察留档：Oddschecker Australia +120 / Belgium -142；Caliente Belgium 1.727 / Australia 2.05",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "07:30赛前观察留档：Oddschecker AUS +2.5/BEL -2.5 -110；Caliente BEL -2 1.90/AUS +2 1.85",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "07:30赛前观察留档：Oddschecker 148.5 -110/-110；Caliente 150 O1.85/U1.90",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "07:30赛前观察留档：Polymarket/Kalshi低量，未形成资金闭环",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "无本轮赛前决策",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "只回填已发生赛况，不重构盘前判断",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "赛况覆盖",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "比利时80-68澳大利亚。早晨仅观察，无首写投注，不计胜率。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "比利时80-68澳大利亚。早晨仅观察，无首写投注，不计胜率。",
+          "证据链接": "仅赛况回填"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "已完赛 80-68",
+          "不计胜率",
+          "保留早晨首写，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-07",
+        "bj_time": "2026-09-07 17:30",
+        "score_order": "official_source_order",
+        "official_order_team_1": "比利时女篮",
+        "official_order_team_2": "澳大利亚女篮",
+        "score_1": 80,
+        "score_2": 68,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Oddschecker Australia +120 / Belgium -142；Caliente Belgium 1.727 / Australia 2.05",
+                "终盘待回填",
+                "Belgium小热"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker AUS +2.5/BEL -2.5 -110；Caliente BEL -2 1.90/AUS +2 1.85",
+                "终盘待回填",
+                "缺p_low/Steam"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker 148.5 -110/-110；Caliente 150 O1.85/U1.90",
+                "终盘待回填",
+                "缺Pred/K"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "Polymarket/Kalshi低量，未形成资金闭环",
+                "未取得",
+                "只作热度"
+              ]
+            ],
+            "status": "待赛",
+            "bet_status": "临场观察",
+            "execution": {
+              "主单": "不投",
+              "备选": "临场观察",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "未过时间锁/Steam/p_low"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "待赛",
+              "待结算",
+              "观察"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": []
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-puerto-rico-turkey-20260907",
+        "league": "FIBA女篮世界杯",
+        "match": "波多黎各女篮 vs 土耳其女篮",
+        "tip_time_bj": "2026-09-07 17:30",
+        "status": "已完赛 75-71",
+        "home_team": "波多黎各女篮",
+        "away_team": "土耳其女篮",
+        "official_order_team_1": "波多黎各女篮",
+        "official_order_team_2": "土耳其女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "07:30赛前观察留档：SportyTrader Puerto Rico约3.5-4.2 / Turkey约1.20-1.24",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "07:30赛前观察留档：BetNow Puerto Rico +8.5 1.86 / Turkey -8.5 1.86",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "07:30赛前观察留档：BetNow 140.5 O1.76/U1.91",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "07:30赛前观察留档：未获取",
+          "终盘未取得",
+          "非当前可交易盘口；不回填首写单"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "弱队对冲/保级压力",
+        "direction": "等待Turkey -8.5以下或Puerto Rico +10.5以上",
+        "sample": "不进入first_write_paper"
+      },
+      "original_first_write": {
+        "status": "已完赛 75-71",
+        "tag": "复盘",
+        "conclusion": "波多黎各75-71土耳其。早晨仅观察，无首写投注，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "已完赛 75-71",
+          "不计胜率",
+          "保留早晨首写，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 75-71"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-puerto-rico-turkey-20260907",
+        "date": "2026-09-07",
+        "league": "FIBA女篮世界杯",
+        "time": "17:30",
+        "home": "波多黎各女篮",
+        "away": "土耳其女篮",
+        "status": "已完赛 75-71",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "波多黎各75-71土耳其。早晨仅观察，无首写投注，不计胜率。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "无原始投注，不计算盈利或EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "已开赛，禁止补盘前单；同源最后1小时振幅未知，不视为熔断通过",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "波多黎各75-71土耳其。早晨仅观察，无首写投注，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "已过盘前窗口；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake_cap=0；stake=0；Tier D；no-action"
+        },
+        "intent": {
+          "label": "弱队对冲/保级压力",
+          "direction": "等待Turkey -8.5以下或Puerto Rico +10.5以上",
+          "sample": "不进入first_write_paper"
+        },
+        "conclusion": "波多黎各75-71土耳其。早晨仅观察，无首写投注，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">来源</a>；波多黎各75-71土耳其。早晨仅观察，无首写投注，不计胜率。",
+          "盘口路径": "早晨留档；终盘未核",
+          "伤停首发": "赛前证据不足，不赛后补齐",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "07:30赛前观察留档：SportyTrader Puerto Rico约3.5-4.2 / Turkey约1.20-1.24",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "07:30赛前观察留档：BetNow Puerto Rico +8.5 1.86 / Turkey -8.5 1.86",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "07:30赛前观察留档：BetNow 140.5 O1.76/U1.91",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "07:30赛前观察留档：未获取",
+            "终盘未取得",
+            "非当前可交易盘口；不回填首写单"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "无本轮赛前决策",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "只回填已发生赛况，不重构盘前判断",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "赛况覆盖",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "波多黎各75-71土耳其。早晨仅观察，无首写投注，不计胜率。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "波多黎各75-71土耳其。早晨仅观察，无首写投注，不计胜率。",
+          "证据链接": "仅赛况回填"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "已完赛 75-71",
+          "不计胜率",
+          "保留早晨首写，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-07",
+        "bj_time": "2026-09-07 17:30",
+        "score_order": "official_source_order",
+        "official_order_team_1": "波多黎各女篮",
+        "official_order_team_2": "土耳其女篮",
+        "score_1": 75,
+        "score_2": 71,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "SportyTrader Puerto Rico约3.5-4.2 / Turkey约1.20-1.24",
+                "终盘待回填",
+                "Turkey胜负热"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "BetNow Puerto Rico +8.5 1.86 / Turkey -8.5 1.86",
+                "终盘待回填",
+                "单源不足"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "BetNow 140.5 O1.76/U1.91",
+                "终盘待回填",
+                "缺Pred/K"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未获取",
+                "未获取",
+                "无"
+              ]
+            ],
+            "status": "待赛",
+            "bet_status": "临场观察",
+            "execution": {
+              "主单": "不投",
+              "备选": "临场观察",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "单源+非建仓窗口"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "待赛",
+              "待结算",
+              "观察"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": []
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-hungary-korea-20260907",
+        "league": "FIBA女篮世界杯",
+        "match": "匈牙利女篮 vs 韩国女篮",
+        "tip_time_bj": "2026-09-07 20:30",
+        "status": "已完赛 82-73",
+        "home_team": "匈牙利女篮",
+        "away_team": "韩国女篮",
+        "official_order_team_1": "匈牙利女篮",
+        "official_order_team_2": "韩国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察（非当前盘）：07:30赛前观察留档：Betfair Hungary 1.33 / Korea 3.00；Olimp 1.32/3.43",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察（非当前盘）：07:30赛前观察留档：Betfair HUN -6.5 1.80/KOR +6.5 1.91；Olimp HUN -7.5 1.97/KOR +7.5 1.83",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察（非当前盘）：07:30赛前观察留档：Betfair 144.5 O1.91/U1.80",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "历史观察（非当前盘）：07:30赛前观察留档：未形成资金闭环",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "中盘/韩国节奏税",
+        "direction": "等待HUN -6.5以下或KOR +8.5以上",
+        "sample": "不进入first_write_paper"
+      },
+      "original_first_write": {
+        "status": "已完赛 82-73",
+        "tag": "复盘",
+        "conclusion": "匈牙利女篮82-73韩国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 82-73",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 82-73"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-hungary-korea-20260907",
+        "date": "2026-09-07",
+        "league": "FIBA女篮世界杯",
+        "time": "20:30",
+        "home": "匈牙利女篮",
+        "away": "韩国女篮",
+        "status": "已完赛 82-73",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "匈牙利女篮82-73韩国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "原记录无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "比赛结束；禁止补盘前单",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "匈牙利女篮82-73韩国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "已过盘前窗口；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake=0；no-action；无新结算样本"
+        },
+        "intent": {
+          "label": "中盘/韩国节奏税",
+          "direction": "等待HUN -6.5以下或KOR +8.5以上",
+          "sample": "不进入first_write_paper"
+        },
+        "conclusion": "匈牙利女篮82-73韩国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">FIBA官方</a>；匈牙利女篮82-73韩国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "盘口路径": "原观察价格留档；终盘未核；赛后不补建仓",
+          "伤停首发": "赛前证据不足，不赛后补齐",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察（非当前盘）：07:30赛前观察留档：Betfair Hungary 1.33 / Korea 3.00；Olimp 1.32/3.43",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察（非当前盘）：07:30赛前观察留档：Betfair HUN -6.5 1.80/KOR +6.5 1.91；Olimp HUN -7.5 1.97/KOR +7.5 1.83",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察（非当前盘）：07:30赛前观察留档：Betfair 144.5 O1.91/U1.80",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "历史观察（非当前盘）：07:30赛前观察留档：未形成资金闭环",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "无本轮赛前决策",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "只回填已发生赛况，不重构盘前判断",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "赛况覆盖",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "仅回填赛果，不重构盘前判断",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "匈牙利女篮82-73韩国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "证据链接": "仅赛况回填"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 82-73",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-07",
+        "bj_time": "2026-09-07 20:30",
+        "score_order": "official_source_order",
+        "official_order_team_1": "匈牙利女篮",
+        "official_order_team_2": "韩国女篮",
+        "score_1": 82,
+        "score_2": 73,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Betfair Hungary 1.33 / Korea 3.00；Olimp 1.32/3.43",
+                "终盘待回填",
+                "Hungary小热"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Betfair HUN -6.5 1.80/KOR +6.5 1.91；Olimp HUN -7.5 1.97/KOR +7.5 1.83",
+                "终盘待回填",
+                "缺p_low/Steam"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Betfair 144.5 O1.91/U1.80",
+                "终盘待回填",
+                "缺Pred/K"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未形成资金闭环",
+                "未获取",
+                "无"
+              ]
+            ],
+            "status": "待赛",
+            "bet_status": "临场观察",
+            "execution": {
+              "主单": "不投",
+              "备选": "临场观察",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "未过硬闸"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "待赛",
+              "待结算",
+              "观察"
+            ]
+          },
+          {
+            "updatedAt": "2026-09-07 22:25 北京时间 | v3.15 晚间核查（部分更新）",
+            "status": "进行中 Q4快照 64-62（终场待核）",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "07:30赛前观察留档：Betfair Hungary 1.33 / Korea 3.00；Olimp 1.32/3.43",
+                "终盘未取得",
+                "非当前可交易盘口；不回填首写单"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "07:30赛前观察留档：Betfair HUN -6.5 1.80/KOR +6.5 1.91；Olimp HUN -7.5 1.97/KOR +7.5 1.83",
+                "终盘未取得",
+                "非当前可交易盘口；不回填首写单"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "07:30赛前观察留档：Betfair 144.5 O1.91/U1.80",
+                "终盘未取得",
+                "非当前可交易盘口；不回填首写单"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "07:30赛前观察留档：未形成资金闭环",
+                "终盘未取得",
+                "非当前可交易盘口；不回填首写单"
+              ]
+            ],
+            "current_quotes": [],
+            "quant_checks": [],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+              "breakeven/EV": "无原始投注，不计算盈利或EV",
+              "K差值": "K=3.5；Pred及同向gap=null，未过",
+              "时间锁/熔断": "已开赛，禁止补盘前单；同源最后1小时振幅未知，不视为熔断通过",
+              "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "Oddspedia页面Q4快照64-62；采集时官方正文未返回当前比分，快照可能滞后，终场待核。不得再作盘前投注。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+              "分钟/旅行": "已过盘前窗口；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+              "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+              "仓位/样本": "stake_cap=0；stake=0；Tier D；no-action"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "Oddspedia页面Q4快照64-62；采集时官方正文未返回当前比分，快照可能滞后，终场待核。不得再作盘前投注。",
+              "证据链接": "仅赛况回填"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘未取得",
+              "进行中 Q4快照 64-62（终场待核）",
+              "不计胜率",
+              "保留早晨首写，不补单"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": [],
+        "score_verified_at": "2026-09-08T07:55:00+08:00"
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-nigeria-france-20260907",
+        "league": "FIBA女篮世界杯",
+        "match": "尼日利亚女篮 vs 法国女篮",
+        "tip_time_bj": "2026-09-07 20:30",
+        "status": "已完赛 56-111",
+        "home_team": "尼日利亚女篮",
+        "away_team": "法国女篮",
+        "official_order_team_1": "尼日利亚女篮",
+        "official_order_team_2": "法国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察（非当前盘）：07:30赛前观察留档：Oddschecker France -3250至-5000 / Nigeria +1050至+1500",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察（非当前盘）：07:30赛前观察留档：Oddschecker France -21 -120/Nigeria +21 -110；搜索结果France -23.5 -110；betPawa +20.5/+21.5区间",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察（非当前盘）：07:30赛前观察留档：betPawa 155.5 O1.81/U1.89，156.5 O1.90/U1.80",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "历史观察（非当前盘）：07:30赛前观察留档：未形成资金闭环",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "强队深盘/分歧",
+        "direction": "France -21以下才观察；Nigeria +24.5以上才观察",
+        "sample": "不进入first_write_paper"
+      },
+      "original_first_write": {
+        "status": "已完赛 56-111",
+        "tag": "复盘",
+        "conclusion": "尼日利亚女篮56-111法国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 56-111",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 56-111"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-nigeria-france-20260907",
+        "date": "2026-09-07",
+        "league": "FIBA女篮世界杯",
+        "time": "20:30",
+        "home": "尼日利亚女篮",
+        "away": "法国女篮",
+        "status": "已完赛 56-111",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "尼日利亚女篮56-111法国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "原记录无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "比赛结束；禁止补盘前单",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "尼日利亚女篮56-111法国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "已过盘前窗口；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake=0；no-action；无新结算样本"
+        },
+        "intent": {
+          "label": "强队深盘/分歧",
+          "direction": "France -21以下才观察；Nigeria +24.5以上才观察",
+          "sample": "不进入first_write_paper"
+        },
+        "conclusion": "尼日利亚女篮56-111法国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">FIBA官方</a>；尼日利亚女篮56-111法国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "盘口路径": "原观察价格留档；终盘未核；赛后不补建仓",
+          "伤停首发": "赛前证据不足，不赛后补齐",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察（非当前盘）：07:30赛前观察留档：Oddschecker France -3250至-5000 / Nigeria +1050至+1500",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察（非当前盘）：07:30赛前观察留档：Oddschecker France -21 -120/Nigeria +21 -110；搜索结果France -23.5 -110；betPawa +20.5/+21.5区间",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察（非当前盘）：07:30赛前观察留档：betPawa 155.5 O1.81/U1.89，156.5 O1.90/U1.80",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "历史观察（非当前盘）：07:30赛前观察留档：未形成资金闭环",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "无本轮赛前决策",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "只回填已发生赛况，不重构盘前判断",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "赛况覆盖",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "仅回填赛果，不重构盘前判断",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "尼日利亚女篮56-111法国女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "证据链接": "仅赛况回填"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 56-111",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-07",
+        "bj_time": "2026-09-07 20:30",
+        "score_order": "official_source_order",
+        "official_order_team_1": "尼日利亚女篮",
+        "official_order_team_2": "法国女篮",
+        "score_1": 56,
+        "score_2": 111,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Oddschecker France -3250至-5000 / Nigeria +1050至+1500",
+                "终盘待回填",
+                "胜负无价值"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker France -21 -120/Nigeria +21 -110；搜索结果France -23.5 -110；betPawa +20.5/+21.5区间",
+                "终盘待回填",
+                "深盘分歧"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "betPawa 155.5 O1.81/U1.89，156.5 O1.90/U1.80",
+                "终盘待回填",
+                "缺Pred/K"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未形成资金闭环",
+                "未获取",
+                "无"
+              ]
+            ],
+            "status": "待赛",
+            "bet_status": "临场观察",
+            "execution": {
+              "主单": "不投",
+              "备选": "临场观察",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "深盘硬闸未过"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "待赛",
+              "待结算",
+              "观察"
+            ]
+          },
+          {
+            "updatedAt": "2026-09-07 22:25 北京时间 | v3.15 晚间核查（部分更新）",
+            "status": "进行中 半场快照 26-65（终场待核）",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "07:30赛前观察留档：Oddschecker France -3250至-5000 / Nigeria +1050至+1500",
+                "终盘未取得",
+                "非当前可交易盘口；不回填首写单"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "07:30赛前观察留档：Oddschecker France -21 -120/Nigeria +21 -110；搜索结果France -23.5 -110；betPawa +20.5/+21.5区间",
+                "终盘未取得",
+                "非当前可交易盘口；不回填首写单"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "07:30赛前观察留档：betPawa 155.5 O1.81/U1.89，156.5 O1.90/U1.80",
+                "终盘未取得",
+                "非当前可交易盘口；不回填首写单"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "07:30赛前观察留档：未形成资金闭环",
+                "终盘未取得",
+                "非当前可交易盘口；不回填首写单"
+              ]
+            ],
+            "current_quotes": [],
+            "quant_checks": [],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+              "breakeven/EV": "无原始投注，不计算盈利或EV",
+              "K差值": "K=3.5；Pred及同向gap=null，未过",
+              "时间锁/熔断": "已开赛，禁止补盘前单；同源最后1小时振幅未知，不视为熔断通过",
+              "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "Oddspedia半场快照26-65；页面可能滞后，终场待官方核实。早晨无投注，不能用赛中盘补作赛前单。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+              "分钟/旅行": "已过盘前窗口；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+              "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+              "仓位/样本": "stake_cap=0；stake=0；Tier D；no-action"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "Oddspedia半场快照26-65；页面可能滞后，终场待官方核实。早晨无投注，不能用赛中盘补作赛前单。",
+              "证据链接": "仅赛况回填"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘未取得",
+              "进行中 半场快照 26-65（终场待核）",
+              "不计胜率",
+              "保留早晨首写，不补单"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": [],
+        "score_verified_at": "2026-09-08T07:55:00+08:00"
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-japan-spain-20260907",
+        "league": "FIBA女篮世界杯",
+        "match": "日本女篮 vs 西班牙女篮",
+        "tip_time_bj": "2026-09-07 23:50",
+        "status": "已完赛 59-79",
+        "home_team": "日本女篮",
+        "away_team": "西班牙女篮",
+        "official_order_team_1": "日本女篮",
+        "official_order_team_2": "西班牙女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddschecker西班牙-830 / 日本+575为跨书最优价，不配成同书去水；Stake同页1.12/5.40仅背景，去水西班牙82.82%，不是让分概率。",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddschecker比较价: 日本 +12.5 @1.971（原价-103） / 西班牙 -12.5 @1.833（原价-120）<br>Stake仅盘口线索，不作执行渠道: 日本 +12.5 @1.850（原价1.85） / 西班牙 -12.5 @1.850（原价1.85）",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddschecker比较价: 大分 149.5 @1.870（原价-115） / 小分 149.5 @1.952（原价-105）<br>Stake仅盘口线索，不作执行渠道: 大分 149.5 @1.850（原价1.85） / 小分 149.5 @1.860（原价1.86）",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "历史观察（非当前盘）：未取得精确合约/买卖价/成交量",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "深盘分歧/日本三分波动",
+        "direction": "等待盘口收敛，不追Spain",
+        "sample": "不进入first_write_paper"
+      },
+      "original_first_write": {
+        "status": "已完赛 59-79",
+        "tag": "复盘",
+        "conclusion": "日本女篮59-79西班牙女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 59-79",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 59-79"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-japan-spain-20260907",
+        "date": "2026-09-07",
+        "league": "FIBA女篮世界杯",
+        "time": "23:50",
+        "home": "日本女篮",
+        "away": "西班牙女篮",
+        "status": "已完赛 59-79",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "日本女篮59-79西班牙女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "原记录无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "比赛结束；禁止补盘前单",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "日本女篮59-79西班牙女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "已查FIBA比赛页与bet365阵容前瞻；名单不等于首发或分钟承诺，本场伤停/分钟仍未确认。；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake=0；no-action；无新结算样本"
+        },
+        "intent": {
+          "label": "深盘分歧/日本三分波动",
+          "direction": "等待盘口收敛，不追Spain",
+          "sample": "不进入first_write_paper"
+        },
+        "conclusion": "日本女篮59-79西班牙女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">FIBA官方</a>；日本女篮59-79西班牙女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "盘口路径": "原观察价格留档；终盘未核；赛后不补建仓",
+          "伤停首发": "已查FIBA比赛页与bet365阵容前瞻；名单不等于首发或分钟承诺，本场伤停/分钟仍未确认。",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddschecker西班牙-830 / 日本+575为跨书最优价，不配成同书去水；Stake同页1.12/5.40仅背景，去水西班牙82.82%，不是让分概率。",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddschecker比较价: 日本 +12.5 @1.971（原价-103） / 西班牙 -12.5 @1.833（原价-120）<br>Stake仅盘口线索，不作执行渠道: 日本 +12.5 @1.850（原价1.85） / 西班牙 -12.5 @1.850（原价1.85）",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddschecker比较价: 大分 149.5 @1.870（原价-115） / 小分 149.5 @1.952（原价-105）<br>Stake仅盘口线索，不作执行渠道: 大分 149.5 @1.850（原价1.85） / 小分 149.5 @1.860（原价1.86）",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "历史观察（非当前盘）：未取得精确合约/买卖价/成交量",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "已查FIBA比赛页与bet365阵容前瞻；名单不等于首发或分钟承诺，本场伤停/分钟仍未确认。",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "A组四队均1胜1负，末轮决定晋级位置；有争胜动力，但不能据此推定主力打满。",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/来源时效待核",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "仅回填赛果，不重构盘前判断",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "日本女篮59-79西班牙女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women\">Oddschecker比较价</a>；<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women\">Oddschecker比较价</a>；<a href=\"https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain\">Stake仅盘口线索，不作执行渠道</a>；<a href=\"https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain\">Stake仅盘口线索，不作执行渠道</a>"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 59-79",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-07",
+        "bj_time": "2026-09-07 23:50",
+        "score_order": "official_source_order",
+        "official_order_team_1": "日本女篮",
+        "official_order_team_2": "西班牙女篮",
+        "score_1": 59,
+        "score_2": 79,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Oddschecker Spain -340 / Japan +280；Stake Spain 1.25/Japan 3.45；Caliente Spain 1.10/Japan 6.25",
+                "终盘待回填",
+                "胜负热但差异大"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker Spain -8.5 -110；Caliente Spain -13.5 1.85；Stake -8.5 1.83",
+                "终盘待回填",
+                "线差5分"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker 149 -115；Caliente 149.5 O1.85/U1.90；Stake 148.5附近",
+                "终盘待回填",
+                "缺Pred/K"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未形成资金闭环",
+                "未获取",
+                "无"
+              ]
+            ],
+            "status": "待赛",
+            "bet_status": "临场观察",
+            "execution": {
+              "主单": "不投",
+              "备选": "临场观察",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "盘口分歧过大"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "待赛",
+              "待结算",
+              "观察"
+            ]
+          },
+          {
+            "updatedAt": "2026-09-07 22:25 北京时间 | v3.15 晚间核查（部分更新）",
+            "status": "待赛",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Oddschecker西班牙-830 / 日本+575为跨书最优价，不配成同书去水；Stake同页1.12/5.40仅背景，去水西班牙82.82%，不是让分概率。",
+                "终盘待回填",
+                "胜负背景不用于让分p_low"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker比较价: 日本 +12.5 @1.971（原价-103） / 西班牙 -12.5 @1.833（原价-120）<br>Stake仅盘口线索，不作执行渠道: 日本 +12.5 @1.850（原价1.85） / 西班牙 -12.5 @1.850（原价1.85）",
+                "终盘待回填",
+                "采集22:16–22:25；书商更新时间未知，非确认成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker比较价: 大分 149.5 @1.870（原价-115） / 小分 149.5 @1.952（原价-105）<br>Stake仅盘口线索，不作执行渠道: 大分 149.5 @1.850（原价1.85） / 小分 149.5 @1.860（原价1.86）",
+                "终盘待回填",
+                "独立测算未过；整数盘口走盘概率未知"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未取得精确合约/买卖价/成交量",
+                "待回填",
+                "不能从市场价反推资金方向"
+              ]
+            ],
+            "current_quotes": [
+              {
+                "market": "spread",
+                "line": 12.5,
+                "source": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "日本",
+                    "line": 12.5,
+                    "price": -103,
+                    "decimal_odds": 1.970873786407767
+                  },
+                  {
+                    "side": "西班牙",
+                    "line": -12.5,
+                    "price": -120,
+                    "decimal_odds": 1.8333333333333335
+                  }
+                ]
+              },
+              {
+                "market": "total",
+                "line": 149.5,
+                "source": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": null,
+                    "price": -115,
+                    "decimal_odds": 1.8695652173913042
+                  },
+                  {
+                    "side": "小分",
+                    "line": null,
+                    "price": -105,
+                    "decimal_odds": 1.9523809523809523
+                  }
+                ]
+              },
+              {
+                "market": "spread",
+                "line": 12.5,
+                "source": "Stake仅盘口线索，不作执行渠道",
+                "url": "https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "日本",
+                    "line": 12.5,
+                    "price": 1.85,
+                    "decimal_odds": 1.85
+                  },
+                  {
+                    "side": "西班牙",
+                    "line": -12.5,
+                    "price": 1.85,
+                    "decimal_odds": 1.85
+                  }
+                ]
+              },
+              {
+                "market": "total",
+                "line": 149.5,
+                "source": "Stake仅盘口线索，不作执行渠道",
+                "url": "https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": null,
+                    "price": 1.85,
+                    "decimal_odds": 1.85
+                  },
+                  {
+                    "side": "小分",
+                    "line": null,
+                    "price": 1.86,
+                    "decimal_odds": 1.86
+                  }
+                ]
+              }
+            ],
+            "quant_checks": [
+              {
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women",
+                "side": "日本",
+                "line": 12.5,
+                "decimal_odds": 1.970873786407767,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5073891625615764,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women",
+                "side": "西班牙",
+                "line": -12.5,
+                "decimal_odds": 1.8333333333333335,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5454545454545454,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women",
+                "side": "大分",
+                "line": 149.5,
+                "decimal_odds": 1.8695652173913042,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5348837209302326,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women",
+                "side": "小分",
+                "line": 149.5,
+                "decimal_odds": 1.9523809523809523,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5121951219512195,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Stake仅盘口线索，不作执行渠道",
+                "source_url": "https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain",
+                "side": "日本",
+                "line": 12.5,
+                "decimal_odds": 1.85,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5405405405405405,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Stake仅盘口线索，不作执行渠道",
+                "source_url": "https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain",
+                "side": "西班牙",
+                "line": -12.5,
+                "decimal_odds": 1.85,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5405405405405405,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Stake仅盘口线索，不作执行渠道",
+                "source_url": "https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain",
+                "side": "大分",
+                "line": 149.5,
+                "decimal_odds": 1.85,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5405405405405405,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Stake仅盘口线索，不作执行渠道",
+                "source_url": "https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain",
+                "side": "小分",
+                "line": 149.5,
+                "decimal_odds": 1.86,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5376344086021505,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              }
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+              "breakeven/EV": "日本12.5 @1.971：盈亏平衡50.74%；西班牙-12.5 @1.833：盈亏平衡54.55%；大分149.5总分 @1.870：盈亏平衡53.49%；小分149.5总分 @1.952：盈亏平衡51.22%；日本12.5 @1.850：盈亏平衡54.05%；西班牙-12.5 @1.850：盈亏平衡54.05%；大分149.5总分 @1.850：盈亏平衡54.05%；小分149.5总分 @1.860：盈亏平衡53.76%。p_low未知，EV/edge=null。",
+              "K差值": "K=3.5；Pred及同向gap=null，未过",
+              "时间锁/熔断": "已进入2小时窗口；仅时间条件合格，其他硬闸未过；同源最后1小时振幅未知，不视为熔断通过",
+              "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+              "分钟/旅行": "已查FIBA比赛页与bet365阵容前瞻；名单不等于首发或分钟承诺，本场伤停/分钟仍未确认。；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+              "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+              "仓位/样本": "stake_cap=0；stake=0；Tier C；no-action"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "西班牙-12.5两源快照一致，但没有同源完整轨迹、首发分钟和独立校准p_low，仍不可投。",
+              "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women\">Oddschecker比较价</a>；<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/spain-women-at-japan-women\">Oddschecker比较价</a>；<a href=\"https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain\">Stake仅盘口线索，不作执行渠道</a>；<a href=\"https://stake.com/sports/basketball/international/fiba-world-cup-women/46810061-japan-spain\">Stake仅盘口线索，不作执行渠道</a>"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘未取得",
+              "待赛",
+              "未建仓",
+              "保留早晨首写，不补单"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": [],
+        "score_verified_at": "2026-09-08T07:55:00+08:00"
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-germany-mali-20260907",
+        "league": "FIBA女篮世界杯",
+        "match": "德国女篮 vs 马里女篮",
+        "tip_time_bj": "2026-09-07 23:50",
+        "status": "已完赛 83-58",
+        "home_team": "德国女篮",
+        "away_team": "马里女篮",
+        "official_order_team_1": "德国女篮",
+        "official_order_team_2": "马里女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddschecker德国-375 / 马里+320为跨书最优价，不能假装同书去水；Loto-Quebec同页1.13/3.90去水德国77.53%，仅胜负背景。",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddschecker比较价: 德国 -9 @1.833（原价-120） / 马里 +9 @1.833（原价-120）<br>Loto-Quebec搜索快照，正文读取失败: 德国 -10.5 @1.750（原价1.75） / 马里 +10.5 @1.750（原价1.75）",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察（非当前盘）：Oddschecker比较价: 大分 146.5 @1.909（原价-110） / 小分 146.5 @2.000（原价100）<br>Loto-Quebec搜索快照，正文读取失败: 大分 144.5 @1.650（原价1.65） / 小分 144.5 @1.850（原价1.85）",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "历史观察（非当前盘）：未取得精确合约/买卖价/成交量",
+          "终盘未核，不用赛果倒填",
+          "原投注字段冻结"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "东道主中深盘/Mali爆冷修正",
+        "direction": "等待Germany -9.5以下或Mali +12.5以上",
+        "sample": "不进入first_write_paper"
+      },
+      "original_first_write": {
+        "status": "已完赛 83-58",
+        "tag": "复盘",
+        "conclusion": "德国女篮83-58马里女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 83-58",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 83-58"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-germany-mali-20260907",
+        "date": "2026-09-07",
+        "league": "FIBA女篮世界杯",
+        "time": "23:50",
+        "home": "德国女篮",
+        "away": "马里女篮",
+        "status": "已完赛 83-58",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "德国女篮83-58马里女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+          "breakeven/EV": "原记录无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred及同向gap=null，未过",
+          "时间锁/熔断": "比赛结束；禁止补盘前单",
+          "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "德国女篮83-58马里女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+          "分钟/旅行": "DBB官方上一篇赛报：Alexis Peterson急性感染缺席对日本比赛，Britta Daub首发。本场是否复出与分钟上限未确认。；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+          "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+          "仓位/样本": "stake=0；no-action；无新结算样本"
+        },
+        "intent": {
+          "label": "东道主中深盘/Mali爆冷修正",
+          "direction": "等待Germany -9.5以下或Mali +12.5以上",
+          "sample": "不进入first_write_paper"
+        },
+        "conclusion": "德国女篮83-58马里女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+        "ev": "本轮无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">FIBA官方</a>；德国女篮83-58马里女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "盘口路径": "原观察价格留档；终盘未核；赛后不补建仓",
+          "伤停首发": "DBB官方上一篇赛报：Alexis Peterson急性感染缺席对日本比赛，Britta Daub首发。本场是否复出与分钟上限未确认。",
+          "公众资金": "未取得可执行盘口资金/价差/流动性",
+          "节奏效率": "Pace/ORtg/DRtg与分钟调整未完成；得分均值不能替代回合数"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddschecker德国-375 / 马里+320为跨书最优价，不能假装同书去水；Loto-Quebec同页1.13/3.90去水德国77.53%，仅胜负背景。",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddschecker比较价: 德国 -9 @1.833（原价-120） / 马里 +9 @1.833（原价-120）<br>Loto-Quebec搜索快照，正文读取失败: 德国 -10.5 @1.750（原价1.75） / 马里 +10.5 @1.750（原价1.75）",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察（非当前盘）：Oddschecker比较价: 大分 146.5 @1.909（原价-110） / 小分 146.5 @2.000（原价100）<br>Loto-Quebec搜索快照，正文读取失败: 大分 144.5 @1.650（原价1.65） / 小分 144.5 @1.850（原价1.85）",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "历史观察（非当前盘）：未取得精确合约/买卖价/成交量",
+            "终盘未核，不用赛果倒填",
+            "原投注字段冻结"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "DBB官方上一篇赛报：Alexis Peterson急性感染缺席对日本比赛，Britta Daub首发。本场是否复出与分钟上限未确认。",
+          "休息赛程": "柏林赛会制；跨区长途与4+场Circus Trip不适用；分钟负荷未核",
+          "战意": "德国为东道主，但此处球队排列采用官方列序；A组末轮存在晋级压力。",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2，输入缺失，Pred=null",
+          "对位": "仅有近期赛果不足以校准让分残差及总分分布",
+          "公众拉力": "未获取精确票数/资金；不以热门叙事替代数据"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/来源时效待核",
+          "正反向验证": "未形成新投注，不结算正反向命中",
+          "盘口意图": "仅回填赛果，不重构盘前判断",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即不投",
+          "临场防线": "已开赛不追补；无同源Steam、分钟和p_low不建仓"
+        },
+        "totalAudit": {
+          "盘口意图": "与让分独立；缺Pace和效率输入，不能判定大/小价值",
+          "可打线": "无",
+          "停止线": "p_low、EV或K未过即不投",
+          "临场防线": "缺数据不以上一场总分代替预测"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "德国女篮83-58马里女篮，FIBA官方终场。原记录无投注，仅回填赛果，不计胜率。",
+          "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women\">Oddschecker比较价</a>；<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women\">Oddschecker比较价</a>；<a href=\"https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936\">Loto-Quebec搜索快照，正文读取失败</a>；<a href=\"https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936\">Loto-Quebec搜索快照，正文读取失败</a>"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 83-58",
+          "不计胜率",
+          "按原记录：无投注，不补单"
+        ],
+        "tier": "D",
+        "count_bucket": "no-action",
+        "real_bet_flag": false,
+        "captured_at": "2026-09-07T22:25:23+08:00",
+        "source_date": "2026-09-07",
+        "bj_time": "2026-09-07 23:50",
+        "score_order": "official_source_order",
+        "official_order_team_1": "德国女篮",
+        "official_order_team_2": "马里女篮",
+        "score_1": 83,
+        "score_2": 58,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-07 07:30 BJ v3.14 严格skill今日更新",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Olimp Germany 1.18/Mali 4.92；Stake 1.18/4.40；NEO 1.19/4.4",
+                "终盘待回填",
+                "Germany胜负热"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Olimp Germany -10.5 1.91/Mali +10.5 1.90；Stake -10.5 1.88/+10.5 1.82",
+                "终盘待回填",
+                "缺p_low/Steam"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Stake 145.5 O1.79/U1.91，146.5 O1.88/U1.82；NEO 145.5 O1.80/U1.90",
+                "终盘待回填",
+                "缺Pred/K"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未形成资金闭环",
+                "未获取",
+                "无"
+              ]
+            ],
+            "status": "待赛",
+            "bet_status": "临场观察",
+            "execution": {
+              "主单": "不投",
+              "备选": "临场观察",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "未过硬闸"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "待赛",
+              "待结算",
+              "观察"
+            ]
+          },
+          {
+            "updatedAt": "2026-09-07 22:25 北京时间 | v3.15 晚间核查（部分更新）",
+            "status": "待赛",
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Oddschecker德国-375 / 马里+320为跨书最优价，不能假装同书去水；Loto-Quebec同页1.13/3.90去水德国77.53%，仅胜负背景。",
+                "终盘待回填",
+                "胜负背景不用于让分p_low"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker比较价: 德国 -9 @1.833（原价-120） / 马里 +9 @1.833（原价-120）<br>Loto-Quebec搜索快照，正文读取失败: 德国 -10.5 @1.750（原价1.75） / 马里 +10.5 @1.750（原价1.75）",
+                "终盘待回填",
+                "采集22:16–22:25；书商更新时间未知，非确认成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker比较价: 大分 146.5 @1.909（原价-110） / 小分 146.5 @2.000（原价100）<br>Loto-Quebec搜索快照，正文读取失败: 大分 144.5 @1.650（原价1.65） / 小分 144.5 @1.850（原价1.85）",
+                "终盘待回填",
+                "独立测算未过；整数盘口走盘概率未知"
+              ],
+              [
+                "公众/资金",
+                "未获取",
+                "未取得精确合约/买卖价/成交量",
+                "待回填",
+                "不能从市场价反推资金方向"
+              ]
+            ],
+            "current_quotes": [
+              {
+                "market": "spread",
+                "line": -9,
+                "source": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "德国",
+                    "line": -9,
+                    "price": -120,
+                    "decimal_odds": 1.8333333333333335
+                  },
+                  {
+                    "side": "马里",
+                    "line": 9,
+                    "price": -120,
+                    "decimal_odds": 1.8333333333333335
+                  }
+                ]
+              },
+              {
+                "market": "total",
+                "line": 146.5,
+                "source": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": null,
+                    "price": -110,
+                    "decimal_odds": 1.9090909090909092
+                  },
+                  {
+                    "side": "小分",
+                    "line": null,
+                    "price": 100,
+                    "decimal_odds": 2
+                  }
+                ]
+              },
+              {
+                "market": "spread",
+                "line": -10.5,
+                "source": "Loto-Quebec搜索快照，正文读取失败",
+                "url": "https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "德国",
+                    "line": -10.5,
+                    "price": 1.75,
+                    "decimal_odds": 1.75
+                  },
+                  {
+                    "side": "马里",
+                    "line": 10.5,
+                    "price": 1.75,
+                    "decimal_odds": 1.75
+                  }
+                ]
+              },
+              {
+                "market": "total",
+                "line": 144.5,
+                "source": "Loto-Quebec搜索快照，正文读取失败",
+                "url": "https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936",
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-07 22:16–22:25 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null,
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": null,
+                    "price": 1.65,
+                    "decimal_odds": 1.65
+                  },
+                  {
+                    "side": "小分",
+                    "line": null,
+                    "price": 1.85,
+                    "decimal_odds": 1.85
+                  }
+                ]
+              }
+            ],
+            "quant_checks": [
+              {
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women",
+                "side": "德国",
+                "line": -9,
+                "decimal_odds": 1.8333333333333335,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5454545454545454,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women",
+                "side": "马里",
+                "line": 9,
+                "decimal_odds": 1.8333333333333335,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5454545454545454,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women",
+                "side": "大分",
+                "line": 146.5,
+                "decimal_odds": 1.9090909090909092,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5238095238095238,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women",
+                "side": "小分",
+                "line": 146.5,
+                "decimal_odds": 2,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Loto-Quebec搜索快照，正文读取失败",
+                "source_url": "https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936",
+                "side": "德国",
+                "line": -10.5,
+                "decimal_odds": 1.75,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5714285714285714,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "spread",
+                "source": "Loto-Quebec搜索快照，正文读取失败",
+                "source_url": "https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936",
+                "side": "马里",
+                "line": 10.5,
+                "decimal_odds": 1.75,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5714285714285714,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Loto-Quebec搜索快照，正文读取失败",
+                "source_url": "https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936",
+                "side": "大分",
+                "line": 144.5,
+                "decimal_odds": 1.65,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.6060606060606061,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              },
+              {
+                "market": "total",
+                "source": "Loto-Quebec搜索快照，正文读取失败",
+                "source_url": "https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936",
+                "side": "小分",
+                "line": 144.5,
+                "decimal_odds": 1.85,
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5405405405405405,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "已进入2小时窗口；仅时间条件合格，其他硬闸未过",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "Berlin tournament; NBA cross-conference/circus-trip N/A; rest load unverified",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "final_zero_action_reason": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "pass",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "executable_price": "unverified"
+                }
+              }
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；缺独立校准数据，不输出伪胜率",
+              "breakeven/EV": "德国-9 @1.833：盈亏平衡54.55%；马里9 @1.833：盈亏平衡54.55%；大分146.5总分 @1.909：盈亏平衡52.38%；小分146.5总分 @2.000：盈亏平衡50.00%；德国-10.5 @1.750：盈亏平衡57.14%；马里10.5 @1.750：盈亏平衡57.14%；大分144.5总分 @1.650：盈亏平衡60.61%；小分144.5总分 @1.850：盈亏平衡54.05%。p_low未知，EV/edge=null。",
+              "K差值": "K=3.5；Pred及同向gap=null，未过",
+              "时间锁/熔断": "已进入2小时窗口；仅时间条件合格，其他硬闸未过；同源最后1小时振幅未知，不视为熔断通过",
+              "Steam同向": "未知；禁止用跨网站/无更新时间的差价代替Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11–13、总分15–18仅参数范围",
+              "分钟/旅行": "DBB官方上一篇赛报：Alexis Peterson急性感染缺席对日本比赛，Britta Daub首发。本场是否复出与分钟上限未确认。；柏林赛会制，NBA跨区和Circus Trip不适用，负荷待核",
+              "末节/罚球": "缺可用第四节净效率、替补和罚球稳定性模型，未通过",
+              "仓位/样本": "stake_cap=0；stake=0；Tier C；no-action"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "德国-9与Loto-Quebec搜索快照-10.5存在分歧；更深旧片段不当成实时成交价，也不当成一小时波动。",
+              "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women\">Oddschecker比较价</a>；<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/mali-women-at-germany-women\">Oddschecker比较价</a>；<a href=\"https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936\">Loto-Quebec搜索快照，正文读取失败</a>；<a href=\"https://miseojeu.espacejeux.com/fr/offre-de-paris/basketball/coupe-du-monde-feminine/matchs?idEve=1025936\">Loto-Quebec搜索快照，正文读取失败</a>"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘未取得",
+              "待赛",
+              "未建仓",
+              "保留早晨首写，不补单"
+            ]
+          }
+        ],
+        "current_quotes": [],
+        "quant_checks": [],
+        "score_verified_at": "2026-09-08T07:55:00+08:00"
+      }
+    }
+  ],
+  "generation": "LEGACY_MIGRATED",
+  "legacy_imported": true
+}

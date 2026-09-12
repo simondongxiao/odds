@@ -1,0 +1,2250 @@
+{
+  "schema_version": 2,
+  "date_bj": "2026-08-30",
+  "last_updated": "2026-09-13T01:52:46.756666+08:00",
+  "status": "LEGACY_MIGRATED",
+  "funnel": {
+    "events": 13,
+    "market": 0,
+    "enrichment_complete": 0,
+    "priceable": 0,
+    "coupled": 0,
+    "edge": 0,
+    "lean": 0,
+    "watch": 0,
+    "blocked": 0,
+    "pass": 0
+  },
+  "calibration": {
+    "generation": "LEGACY_MIGRATED",
+    "pricing": "null"
+  },
+  "source_health": [],
+  "events": [
+    {
+      "event": {
+        "canonical_event_id": "chi-ny-20260830",
+        "league": "WNBA",
+        "match": "纽约自由人 vs 芝加哥天空",
+        "tip_time_bj": "2026-08-30 01:00",
+        "status": "已完赛 85-66",
+        "home_team": "纽约自由人",
+        "away_team": "芝加哥天空",
+        "official_order_team_1": "纽约自由人",
+        "official_order_team_2": "芝加哥天空"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取同源初盘",
+          "Action：芝加哥 +320 / 纽约 -425；去水纽约约77.3%",
+          "纽约 -425 候选",
+          "ML 与强队优势一致"
+        ],
+        [
+          "让分",
+          "芝加哥 +9.5 / 纽约 -9.5",
+          "芝加哥 +8.5 -105 / 纽约 -8.5 -115",
+          "纽约 -8.5 候选",
+          "热门降温后仍打穿"
+        ],
+        [
+          "大小分",
+          "179.5 候选",
+          "181",
+          "181 候选",
+          "终分151，Under 命中"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "Action 56/44",
+          "不回填虚构资金",
+          "只作拉力提示"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "降温保护/真实示强",
+        "direction": "正向=买上盘纽约自由人 -8.5；反向=买下盘芝加哥天空 +8.5",
+        "sample": "n=1：正向命中，反向未命中；昨日受让观察方向纠偏"
+      },
+      "original_first_write": {
+        "status": "已完赛 85-66",
+        "tag": "复盘",
+        "conclusion": "赛前盘口从纽约 -9.5 降到 -8.5，看似给芝加哥更多保护，但纽约在多名核心缺阵背景下仍以 85-66 打穿。按 skill 复盘，这不是简单下盘保护，而是热门降温后真实示强；昨日只在芝加哥 +9.5 观察的方向需要修正。",
+        "ev": "真实下注：无。赛后复盘，不补单；Kelly=0。",
+        "review": [
+          "无真实下注",
+          "昨日观察芝加哥 +9.5 未执行",
+          "纽约 -8.5 / 181 候选",
+          "纽约85-66，总分151",
+          "CLV无法按真实入场计算",
+          "纠偏：降温后的热门仍可真实示强"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 85-66"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "chi-ny-20260830",
+        "date": "2026-08-30",
+        "league": "WNBA",
+        "time": "01:00",
+        "home": "纽约自由人",
+        "away": "芝加哥天空",
+        "status": "已完赛 85-66",
+        "tag": "复盘",
+        "intent": {
+          "label": "降温保护/真实示强",
+          "direction": "正向=买上盘纽约自由人 -8.5；反向=买下盘芝加哥天空 +8.5",
+          "sample": "n=1：正向命中，反向未命中；昨日受让观察方向纠偏"
+        },
+        "conclusion": "赛前盘口从纽约 -9.5 降到 -8.5，看似给芝加哥更多保护，但纽约在多名核心缺阵背景下仍以 85-66 打穿。按 skill 复盘，这不是简单下盘保护，而是热门降温后真实示强；昨日只在芝加哥 +9.5 观察的方向需要修正。",
+        "ev": "真实下注：无。赛后复盘，不补单；Kelly=0。",
+        "completeness": {
+          "比分源": "ESPN 源日 20260829、NBA Stats LeagueID=10、Action 均确认纽约 85-66 芝加哥",
+          "盘口路径": "Action：芝加哥 open +9.5，收于 +8.5 -105；纽约 -8.5 -115；ML 芝加哥 +320 / 纽约 -425；总分 open 179.5 候选，当前/收盘 181",
+          "伤停首发": "Action injury：芝加哥 Skylar Diggins out、Natasha Cloud DTD、Courtney Vandersloot DTD、Rickea Jackson OFS、Jacy Sheldon OFS；纽约 Rebecca Allen DTD、Breanna Stewart out、Satou Sabally out、Raquel Carrera out、Pauline Astier DTD",
+          "公众资金": "Action Public 显示 56% Bets / 44% Money；侧向归属不稳定，只作热度提示",
+          "节奏效率": "Action team stats/box：芝加哥 25-66、三分4-18；纽约 27-70、三分11-27、篮板44-29；终分151"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取同源初盘",
+            "Action：芝加哥 +320 / 纽约 -425；去水纽约约77.3%",
+            "纽约 -425 候选",
+            "ML 与强队优势一致"
+          ],
+          [
+            "让分",
+            "芝加哥 +9.5 / 纽约 -9.5",
+            "芝加哥 +8.5 -105 / 纽约 -8.5 -115",
+            "纽约 -8.5 候选",
+            "热门降温后仍打穿"
+          ],
+          [
+            "大小分",
+            "179.5 候选",
+            "181",
+            "181 候选",
+            "终分151，Under 命中"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "Action 56/44",
+            "不回填虚构资金",
+            "只作拉力提示"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "两边伤停都重，纽约缺 Stewart/Sabally 等前场，但芝加哥后场同样受损且投射低效",
+          "休息赛程": "纽约主场，盘口降温后入场门槛降低",
+          "节奏": "总分被推高到181但终分151，纽约用篮板和外线效率压低芝加哥回合质量",
+          "对位": "纽约篮板44-29、三分11-27，芝加哥三分4-18，受让容错被快速打掉",
+          "公众拉力": "纽约品牌和主场有自然拉力，但盘口回落未造成热门失效"
+        },
+        "spreadAudit": {
+          "意图标签": "降温保护/真实示强",
+          "正反向验证": "正向=纽约 -8.5 命中；反向=芝加哥 +8.5 未命中",
+          "盘口意图": "纽约从 -9.5 回落到 -8.5，市场降温反而给上盘更好的门槛",
+          "可打线": "赛后复盘不补单；赛前若纽约 -8.5 且芝加哥后场继续缺口，才可进入纸面审计",
+          "停止线": "回深到 -10 或纽约再新增主力缺阵则不追",
+          "临场防线": "纽约前场缺口、芝加哥后场可用性、首节篮板"
+        },
+        "totalAudit": {
+          "盘口意图": "总分从179.5候选推到181但最终151，属于诱大/小分保护复盘",
+          "可打线": "赛后不补；赛前需 181+ 且双方核心缺口确认才看 Under",
+          "停止线": "低于 179 不追小",
+          "临场防线": "纽约篮板、芝加哥三分和罚球尺度"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "赛后复盘：纽约 -8.5 与 Under 181 命中",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "已完赛回填，不追补"
+        },
+        "review": [
+          "无真实下注",
+          "昨日观察芝加哥 +9.5 未执行",
+          "纽约 -8.5 / 181 候选",
+          "纽约85-66，总分151",
+          "CLV无法按真实入场计算",
+          "纠偏：降温后的热门仍可真实示强"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "sen-ang-20260830",
+        "league": "FIBA世预赛非洲区",
+        "match": "塞内加尔 vs 安哥拉",
+        "tip_time_bj": "2026-08-30 02:30",
+        "status": "已完赛 84-82",
+        "home_team": "塞内加尔",
+        "away_team": "安哥拉",
+        "official_order_team_1": "塞内加尔",
+        "official_order_team_2": "安哥拉"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "已完赛 84-82",
+        "tag": "观察",
+        "conclusion": "FIBA官方确认真实比赛，但365Scores 片段可见安哥拉 +10.5 与 Over 158.5，但缺稳定初终盘路径；赛后只做记录，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "已完赛 84-82",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 84-82"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "sen-ang-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛非洲区",
+        "time": "02:30",
+        "home": "塞内加尔",
+        "away": "安哥拉",
+        "status": "已完赛 84-82",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方确认真实比赛，但365Scores 片段可见安哥拉 +10.5 与 Over 158.5，但缺稳定初终盘路径；赛后只做记录，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方确认塞内加尔 84-82 安哥拉",
+          "盘口路径": "365Scores 片段可见安哥拉 +10.5 与 Over 158.5，但缺稳定初终盘路径；赛后只做记录",
+          "伤停首发": "未获取",
+          "公众资金": "未获取可靠公众资金",
+          "节奏效率": "终分166，Over 158.5 快照命中"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "未获取",
+          "休息赛程": "未获取",
+          "节奏": "终分166，Over 158.5 快照命中",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取可靠公众资金"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "365Scores 片段可见安哥拉 +10.5 与 Over 158.5，但缺稳定初终盘路径；赛后只做记录",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "365Scores 片段可见安哥拉 +10.5 与 Over 158.5，但缺稳定初终盘路径；赛后只做记录",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "已完赛 84-82",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "tor-phx-20260830",
+        "league": "WNBA",
+        "match": "菲尼克斯水星 vs 多伦多节奏",
+        "tip_time_bj": "2026-08-30 10:00",
+        "status": "已完赛 101-69",
+        "home_team": "菲尼克斯水星",
+        "away_team": "多伦多节奏",
+        "official_order_team_1": "菲尼克斯水星",
+        "official_order_team_2": "多伦多节奏"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取同源初盘",
+          "Action：多伦多 +270 / 菲尼克斯 -355；去水菲尼克斯约74.3%",
+          "菲尼克斯 -355 候选",
+          "ML 支持主队强势"
+        ],
+        [
+          "让分",
+          "多伦多 +9.5 / 菲尼克斯 -9.5",
+          "多伦多 +8.5 -115 / 菲尼克斯 -8.5 -106",
+          "菲尼克斯 -8.5 候选",
+          "降盘后热门仍赢32分"
+        ],
+        [
+          "大小分",
+          "177.5 候选",
+          "171.5",
+          "171.5 候选",
+          "终分170，Under 小幅命中"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "Action 49/51；Polymarket 无 exact market",
+          "不回填虚构资金",
+          "只作热度提示"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "降温保护/真实示强",
+        "direction": "正向=买上盘菲尼克斯水星 -8.5；反向=买下盘多伦多节奏 +8.5",
+        "sample": "n=1：正向命中，反向未命中；总分小分命中"
+      },
+      "original_first_write": {
+        "status": "已完赛 101-69",
+        "tag": "复盘",
+        "conclusion": "Action 完赛页显示多伦多从 +9.5 收窄到 +8.5，菲尼克斯强队/主场门槛变浅，但最终 101-69 大胜。结合多伦多背靠背和伤停，盘口降温没有形成受让价值，而是菲尼克斯真实示强。总分从 177.5 降到 171.5，终分170，小分保护兑现。",
+        "ev": "真实下注：无。赛后复盘，不补单；Kelly=0。",
+        "review": [
+          "无真实下注",
+          "昨日只观察未执行",
+          "菲尼克斯 -8.5 / 171.5 候选",
+          "菲尼克斯101-69，总分170",
+          "CLV无法按真实入场计算",
+          "降温保护与小分保护均兑现"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 101-69"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "tor-phx-20260830",
+        "date": "2026-08-30",
+        "league": "WNBA",
+        "time": "10:00",
+        "home": "菲尼克斯水星",
+        "away": "多伦多节奏",
+        "status": "已完赛 101-69",
+        "tag": "复盘",
+        "intent": {
+          "label": "降温保护/真实示强",
+          "direction": "正向=买上盘菲尼克斯水星 -8.5；反向=买下盘多伦多节奏 +8.5",
+          "sample": "n=1：正向命中，反向未命中；总分小分命中"
+        },
+        "conclusion": "Action 完赛页显示多伦多从 +9.5 收窄到 +8.5，菲尼克斯强队/主场门槛变浅，但最终 101-69 大胜。结合多伦多背靠背和伤停，盘口降温没有形成受让价值，而是菲尼克斯真实示强。总分从 177.5 降到 171.5，终分170，小分保护兑现。",
+        "ev": "真实下注：无。赛后复盘，不补单；Kelly=0。",
+        "completeness": {
+          "比分源": "ESPN 源日 20260829、NBA Stats LeagueID=10、TheSportsDB、Action 均确认菲尼克斯 101-69 多伦多",
+          "盘口路径": "Action：多伦多 open +9.5，收于 +8.5 -115；菲尼克斯 -8.5 -106；ML 多伦多 +270 / 菲尼克斯 -355；总分 open 177.5 候选，当前/收盘 171.5",
+          "伤停首发": "Action injury：菲尼克斯 Kelsey Plum out、Kahleah Copper DTD、Natasha Mack DTD、Marta Suarez DTD；多伦多 Isabelle Harrison DTD、Marina Mabrey out、Nyara Sabally out、Aneesah Morrow out、Teonni Key DTD",
+          "公众资金": "Action Public 显示 49% Bets / 51% Money；Polymarket exact market 未发现",
+          "节奏效率": "Action box：多伦多三分4-22、失误17；菲尼克斯三分15-34、助攻27、抢断12；终分170"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取同源初盘",
+            "Action：多伦多 +270 / 菲尼克斯 -355；去水菲尼克斯约74.3%",
+            "菲尼克斯 -355 候选",
+            "ML 支持主队强势"
+          ],
+          [
+            "让分",
+            "多伦多 +9.5 / 菲尼克斯 -9.5",
+            "多伦多 +8.5 -115 / 菲尼克斯 -8.5 -106",
+            "菲尼克斯 -8.5 候选",
+            "降盘后热门仍赢32分"
+          ],
+          [
+            "大小分",
+            "177.5 候选",
+            "171.5",
+            "171.5 候选",
+            "终分170，Under 小幅命中"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "Action 49/51；Polymarket 无 exact market",
+            "不回填虚构资金",
+            "只作热度提示"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "多伦多伤停更集中且背靠背，Mabrey/Sabally/Morrow 均缺阵；菲尼克斯虽有 Plum out 与多名 DTD，但主场进攻质量更稳",
+          "休息赛程": "多伦多北京时间 8/29 刚打拉斯维加斯，8/30 再客战菲尼克斯，体能劣势兑现",
+          "节奏": "总分大幅下修后只打170，盘口方向与伤停/背靠背一致",
+          "对位": "菲尼克斯三分15-34、助攻27，完全压过多伦多外线和失误控制",
+          "公众拉力": "主队强势与多伦多背靠背是自然拉力，盘口降温没有伤害上盘"
+        },
+        "spreadAudit": {
+          "意图标签": "降温保护/真实示强",
+          "正反向验证": "正向=菲尼克斯 -8.5 命中；反向=多伦多 +8.5 未命中",
+          "盘口意图": "菲尼克斯从 -9.5 到 -8.5，门槛下降后仍打穿，说明受让保护是假象",
+          "可打线": "赛后复盘不补；赛前 -8.5 或更浅且多伦多伤停不改善才可审计",
+          "停止线": "高于 -10.5 或菲尼克斯 DTD 大面积缺阵则放弃",
+          "临场防线": "Copper/Mack 状态、多伦多后场缺口、背靠背腿感"
+        },
+        "totalAudit": {
+          "盘口意图": "177.5 大幅降至171.5后仍小分，属于小分保护兑现",
+          "可打线": "赛后不补；赛前 172+ 才有 Under 观察价值",
+          "停止线": "低于 170.5 不追小",
+          "临场防线": "菲尼克斯外线手感、多伦多失误率、罚球尺度"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "赛后复盘：菲尼克斯 -8.5 与 Under 171.5 命中",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "已完赛回填，不追补"
+        },
+        "review": [
+          "无真实下注",
+          "昨日只观察未执行",
+          "菲尼克斯 -8.5 / 171.5 候选",
+          "菲尼克斯101-69，总分170",
+          "CLV无法按真实入场计算",
+          "降温保护与小分保护均兑现"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "nzl-syr-20260830",
+        "league": "FIBA世预赛亚洲区",
+        "match": "新西兰 vs 叙利亚",
+        "tip_time_bj": "2026-08-30 14:00",
+        "status": "待赛",
+        "home_team": "新西兰",
+        "away_team": "叙利亚",
+        "official_order_team_1": "新西兰",
+        "official_order_team_2": "叙利亚"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "nzl-syr-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛亚洲区",
+        "time": "14:00",
+        "home": "新西兰",
+        "away": "叙利亚",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload：New Zealand vs Syrian Arab Republic，北京时间 14:00",
+          "盘口路径": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "aus-jor-20260830",
+        "league": "FIBA世预赛亚洲区",
+        "match": "澳大利亚 vs 约旦",
+        "tip_time_bj": "2026-08-30 17:00",
+        "status": "待赛",
+        "home_team": "澳大利亚",
+        "away_team": "约旦",
+        "official_order_team_1": "澳大利亚",
+        "official_order_team_2": "约旦"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方确认真实比赛，但Tips.gg/FanDuel 搜索片段仅能证明有比赛或市场关注，未给可审计完整盘口路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "aus-jor-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛亚洲区",
+        "time": "17:00",
+        "home": "澳大利亚",
+        "away": "约旦",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方确认真实比赛，但Tips.gg/FanDuel 搜索片段仅能证明有比赛或市场关注，未给可审计完整盘口路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload：Australia vs Jordan，北京时间 17:00",
+          "盘口路径": "Tips.gg/FanDuel 搜索片段仅能证明有比赛或市场关注，未给可审计完整盘口路径",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "Tips.gg/FanDuel 搜索片段仅能证明有比赛或市场关注，未给可审计完整盘口路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "Tips.gg/FanDuel 搜索片段仅能证明有比赛或市场关注，未给可审计完整盘口路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "phi-iri-20260830",
+        "league": "FIBA世预赛亚洲区",
+        "match": "菲律宾 vs 伊朗",
+        "tip_time_bj": "2026-08-30 20:00",
+        "status": "待赛",
+        "home_team": "菲律宾",
+        "away_team": "伊朗",
+        "official_order_team_1": "菲律宾",
+        "official_order_team_2": "伊朗"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "phi-iri-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛亚洲区",
+        "time": "20:00",
+        "home": "菲律宾",
+        "away": "伊朗",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload：Philippines vs Iran，北京时间 20:00",
+          "盘口路径": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "ngr-cpv-20260830",
+        "league": "FIBA世预赛非洲区",
+        "match": "尼日利亚 vs 佛得角",
+        "tip_time_bj": "2026-08-30 20:00",
+        "status": "待赛",
+        "home_team": "尼日利亚",
+        "away_team": "佛得角",
+        "official_order_team_1": "尼日利亚",
+        "official_order_team_2": "佛得角"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方确认真实比赛，但FanDuel 搜索片段可见尼日利亚 -17.5 -106，但缺同源开收盘曲线；不形成强推荐，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "ngr-cpv-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛非洲区",
+        "time": "20:00",
+        "home": "尼日利亚",
+        "away": "佛得角",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方确认真实比赛，但FanDuel 搜索片段可见尼日利亚 -17.5 -106，但缺同源开收盘曲线；不形成强推荐，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload：Nigeria vs Cape Verde，北京时间 20:00",
+          "盘口路径": "FanDuel 搜索片段可见尼日利亚 -17.5 -106，但缺同源开收盘曲线；不形成强推荐",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "FanDuel 搜索片段可见尼日利亚 -17.5 -106，但缺同源开收盘曲线；不形成强推荐",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "FanDuel 搜索片段可见尼日利亚 -17.5 -106，但缺同源开收盘曲线；不形成强推荐",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "egy-cod-20260830",
+        "league": "FIBA世预赛非洲区",
+        "match": "埃及 vs 刚果民主共和国",
+        "tip_time_bj": "2026-08-30 20:30",
+        "status": "待赛",
+        "home_team": "埃及",
+        "away_team": "刚果民主共和国",
+        "official_order_team_1": "埃及",
+        "official_order_team_2": "刚果民主共和国"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "egy-cod-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛非洲区",
+        "time": "20:30",
+        "home": "埃及",
+        "away": "刚果民主共和国",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload：Egypt vs Democratic Republic of the Congo，北京时间 20:30",
+          "盘口路径": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "ned-cro-20260830",
+        "league": "FIBA世预赛欧洲区",
+        "match": "荷兰 vs 克罗地亚",
+        "tip_time_bj": "2026-08-30 20:30",
+        "status": "待赛",
+        "home_team": "荷兰",
+        "away_team": "克罗地亚",
+        "official_order_team_1": "荷兰",
+        "official_order_team_2": "克罗地亚"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方/NBA.com确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "ned-cro-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛欧洲区",
+        "time": "20:30",
+        "home": "荷兰",
+        "away": "克罗地亚",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方/NBA.com确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload 与 NBA.com 赛程均确认 Croatia at Netherlands，北京时间 20:30",
+          "盘口路径": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "pol-ger-20260830",
+        "league": "FIBA世预赛欧洲区",
+        "match": "波兰 vs 德国",
+        "tip_time_bj": "2026-08-30 20:45",
+        "status": "待赛",
+        "home_team": "波兰",
+        "away_team": "德国",
+        "official_order_team_1": "波兰",
+        "official_order_team_2": "德国"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方/NBA.com确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "pol-ger-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛欧洲区",
+        "time": "20:45",
+        "home": "波兰",
+        "away": "德国",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方/NBA.com确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload 与 NBA.com 赛程均确认 Germany at Poland，北京时间 20:45",
+          "盘口路径": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "gui-cmr-20260830",
+        "league": "FIBA世预赛非洲区",
+        "match": "几内亚 vs 喀麦隆",
+        "tip_time_bj": "2026-08-30 23:00",
+        "status": "待赛",
+        "home_team": "几内亚",
+        "away_team": "喀麦隆",
+        "official_order_team_1": "几内亚",
+        "official_order_team_2": "喀麦隆"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "gui-cmr-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛非洲区",
+        "time": "23:00",
+        "home": "几内亚",
+        "away": "喀麦隆",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload：Guinea vs Cameroon，北京时间 23:00",
+          "盘口路径": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "swe-fra-20260830",
+        "league": "FIBA世预赛欧洲区",
+        "match": "瑞典 vs 法国",
+        "tip_time_bj": "2026-08-30 23:30",
+        "status": "待赛",
+        "home_team": "瑞典",
+        "away_team": "法国",
+        "official_order_team_1": "瑞典",
+        "official_order_team_2": "法国"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方/NBA.com确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "swe-fra-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛欧洲区",
+        "time": "23:30",
+        "home": "瑞典",
+        "away": "法国",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方/NBA.com确认真实比赛，但未获取稳定 ML/让分/大小分 opening-current-closing 路径，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload 与 NBA.com 赛程均确认 France at Sweden，北京时间 23:30",
+          "盘口路径": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "未获取稳定 ML/让分/大小分 opening-current-closing 路径",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "ang-civ-20260830",
+        "league": "FIBA世预赛非洲区",
+        "match": "安哥拉 vs 科特迪瓦",
+        "tip_time_bj": "2026-08-30 23:30",
+        "status": "待赛",
+        "home_team": "安哥拉",
+        "away_team": "科特迪瓦",
+        "official_order_team_1": "安哥拉",
+        "official_order_team_2": "科特迪瓦"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无去水基础"
+        ],
+        [
+          "让分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 spread 不判断诱上阻下"
+        ],
+        [
+          "大小分",
+          "未获取",
+          "未获取",
+          "终盘待回填",
+          "无 total 不判断大小分"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无可靠比例"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "盘口缺失",
+        "direction": "正向=未形成；反向=未形成",
+        "sample": "无盘口样本，不生成胜率或 PnL"
+      },
+      "original_first_write": {
+        "status": "待赛",
+        "tag": "观察",
+        "conclusion": "FIBA官方确认真实比赛，但FanDuel 搜索片段可见安哥拉 -10.5/-600 一类市场片段，但缺完整盘口路径；不形成强推荐，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      },
+      "settlement": {
+        "score": null
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "ang-civ-20260830",
+        "date": "2026-08-30",
+        "league": "FIBA世预赛非洲区",
+        "time": "23:30",
+        "home": "安哥拉",
+        "away": "科特迪瓦",
+        "status": "待赛",
+        "tag": "观察",
+        "intent": {
+          "label": "盘口缺失",
+          "direction": "正向=未形成；反向=未形成",
+          "sample": "无盘口样本，不生成胜率或 PnL"
+        },
+        "conclusion": "FIBA官方确认真实比赛，但FanDuel 搜索片段可见安哥拉 -10.5/-600 一类市场片段，但缺完整盘口路径；不形成强推荐，按 skill 只做覆盖/复盘，不形成预测。",
+        "ev": "真实下注：无。盘口路径或临场基本面缺失，Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方 payload：Angola vs Cote d'Ivoire，北京时间 23:30",
+          "盘口路径": "FanDuel 搜索片段可见安哥拉 -10.5/-600 一类市场片段，但缺完整盘口路径；不形成强推荐",
+          "伤停首发": "国家队最终名单未全量核验",
+          "公众资金": "未获取",
+          "节奏效率": "未获取可靠赛前 pace"
+        },
+        "market": [
+          [
+            "ML",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无去水基础"
+          ],
+          [
+            "让分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 spread 不判断诱上阻下"
+          ],
+          [
+            "大小分",
+            "未获取",
+            "未获取",
+            "终盘待回填",
+            "无 total 不判断大小分"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无可靠比例"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "国家队最终名单未全量核验",
+          "休息赛程": "未获取",
+          "节奏": "未获取可靠赛前 pace",
+          "对位": "盘口、伤停、公众资金未形成完整链条",
+          "公众拉力": "未获取"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口缺失",
+          "正反向验证": "未形成",
+          "盘口意图": "FanDuel 搜索片段可见安哥拉 -10.5/-600 一类市场片段，但缺完整盘口路径；不形成强推荐",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需盘口、伤停、比分源同步"
+        },
+        "totalAudit": {
+          "盘口意图": "FanDuel 搜索片段可见安哥拉 -10.5/-600 一类市场片段，但缺完整盘口路径；不形成强推荐",
+          "可打线": "未形成",
+          "停止线": "未形成",
+          "临场防线": "需 total、pace、伤停"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "只观察",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "真实赛程但数据链不足"
+        },
+        "review": [
+          "无",
+          "无",
+          "终盘待回填",
+          "待赛",
+          "无",
+          "No grade"
+        ]
+      }
+    }
+  ],
+  "generation": "LEGACY_MIGRATED",
+  "legacy_imported": true
+}

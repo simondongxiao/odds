@@ -1,0 +1,906 @@
+{
+  "schema_version": 2,
+  "date_bj": "2026-09-06",
+  "last_updated": "2026-09-13T01:52:46.763998+08:00",
+  "status": "LEGACY_MIGRATED",
+  "funnel": {
+    "events": 9,
+    "market": 0,
+    "enrichment_complete": 0,
+    "priceable": 0,
+    "coupled": 0,
+    "edge": 0,
+    "lean": 0,
+    "watch": 0,
+    "blocked": 0,
+    "pass": 0
+  },
+  "calibration": {
+    "generation": "LEGACY_MIGRATED",
+    "pricing": "null"
+  },
+  "source_health": [],
+  "events": [
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-germany-japan-20260906",
+        "league": "FIBA女篮世界杯",
+        "match": "德国女篮 vs 日本女篮",
+        "tip_time_bj": "2026-09-06 00:00",
+        "status": "已完赛 74-58",
+        "home_team": "德国女篮",
+        "away_team": "日本女篮",
+        "official_order_team_1": "德国女篮",
+        "official_order_team_2": "日本女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "赛后",
+          "未取得",
+          "不补盘"
+        ],
+        [
+          "让分",
+          "未取得首写",
+          "赛后德国赢16",
+          "未取得",
+          "不结算"
+        ],
+        [
+          "大小分",
+          "152.5快照",
+          "总分132",
+          "未取得",
+          "未首写不结算"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "9/6凌晨赛果",
+        "direction": "无投注方向",
+        "sample": "不进入胜率"
+      },
+      "original_first_write": {
+        "status": "已完赛 74-58",
+        "tag": "复盘",
+        "conclusion": "德国74-58日本已完赛，德国赢16分。昨日记录只是观察，未写可执行让分/总分首单，不能用赛果倒推。",
+        "ev": "真实下注：无；纸面模拟：无；Kelly=0。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "德国74-58日本",
+          "N/A",
+          "赛后回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 74-58"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-germany-japan-20260906",
+        "date": "2026-09-06",
+        "league": "FIBA女篮世界杯",
+        "time": "00:00",
+        "home": "德国女篮",
+        "away": "日本女篮",
+        "status": "已完赛 74-58",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "已完赛；昨日仅观察，无首写可执行盘口",
+        "quant": {
+          "量化硬闸": "p_low>=55%；EV>2.5%；Line-Pred>=K(2.5-4.0)；2小时窗口；1小时>5分熔断；Steam同向；1/4 Kelly",
+          "p_low/p_mid/p_high": "昨日缺让分/p_low/Steam",
+          "breakeven/EV": "缺可执行价格或p_low，EV不可算",
+          "K差值": "缺同一市场Pred与Line，K不可算",
+          "时间锁/熔断": "已完赛",
+          "Steam同向": "未知或未确认，不允许真实下注",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "已完赛且昨日未形成Tier A/B，赛果不补单"
+        },
+        "intent": {
+          "label": "9/6凌晨赛果",
+          "direction": "无投注方向",
+          "sample": "不进入胜率"
+        },
+        "conclusion": "德国74-58日本已完赛，德国赢16分。昨日记录只是观察，未写可执行让分/总分首单，不能用赛果倒推。",
+        "ev": "真实下注：无；纸面模拟：无；Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方",
+          "盘口路径": "昨日WinComparator ML/总分快照，缺完整让分路径",
+          "伤停首发": "未完整",
+          "公众资金": "无可执行让分资金",
+          "节奏效率": "总分132，德国首节建立优势"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "赛后",
+            "未取得",
+            "不补盘"
+          ],
+          [
+            "让分",
+            "未取得首写",
+            "赛后德国赢16",
+            "未取得",
+            "不结算"
+          ],
+          [
+            "大小分",
+            "152.5快照",
+            "总分132",
+            "未取得",
+            "未首写不结算"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "赛前未完整",
+          "休息赛程": "小组赛第二轮",
+          "节奏": "德国防守压低日本三分",
+          "对位": "德国身材和篮板兑现",
+          "公众拉力": "东道主热度"
+        },
+        "spreadAudit": {
+          "意图标签": "赛后回填",
+          "正反向验证": "无首写线",
+          "盘口意图": "不可赛后重构",
+          "可打线": "无",
+          "停止线": "无",
+          "临场防线": "无"
+        },
+        "totalAudit": {
+          "盘口意图": "无首写总分单",
+          "可打线": "无",
+          "停止线": "无",
+          "临场防线": "无"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "赛后回填"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "德国74-58日本",
+          "N/A",
+          "赛后回填"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-france-korea-20260906",
+        "league": "FIBA女篮世界杯",
+        "match": "法国女篮 vs 韩国女篮",
+        "tip_time_bj": "2026-09-06 02:45",
+        "status": "已完赛 95-69",
+        "home_team": "法国女篮",
+        "away_team": "韩国女篮",
+        "official_order_team_1": "法国女篮",
+        "official_order_team_2": "韩国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "赛后",
+          "未取得",
+          "不补盘"
+        ],
+        [
+          "让分",
+          "未取得",
+          "赛后法国赢26",
+          "未取得",
+          "不结算"
+        ],
+        [
+          "大小分",
+          "152.5/153.5快照",
+          "总分164",
+          "未取得",
+          "未首写不结算"
+        ],
+        [
+          "公众/资金",
+          "未获取",
+          "未获取",
+          "未获取",
+          "无"
+        ]
+      ],
+      "legacy_intent_audit": {
+        "label": "9/6凌晨赛果",
+        "direction": "无投注方向",
+        "sample": "不进入胜率"
+      },
+      "original_first_write": {
+        "status": "已完赛 95-69",
+        "tag": "复盘",
+        "conclusion": "法国95-69韩国已完赛，法国赢26分。昨日没有首写让分或总分模拟单，按skill只回填事实。",
+        "ev": "真实下注：无；纸面模拟：无；Kelly=0。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "法国95-69韩国",
+          "N/A",
+          "赛后回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 95-69"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-france-korea-20260906",
+        "date": "2026-09-06",
+        "league": "FIBA女篮世界杯",
+        "time": "02:45",
+        "home": "法国女篮",
+        "away": "韩国女篮",
+        "status": "已完赛 95-69",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "已完赛；昨日仅观察，无首写可执行盘口",
+        "quant": {
+          "量化硬闸": "p_low>=55%；EV>2.5%；Line-Pred>=K(2.5-4.0)；2小时窗口；1小时>5分熔断；Steam同向；1/4 Kelly",
+          "p_low/p_mid/p_high": "昨日缺让分/p_low/Steam",
+          "breakeven/EV": "缺可执行价格或p_low，EV不可算",
+          "K差值": "缺同一市场Pred与Line，K不可算",
+          "时间锁/熔断": "已完赛",
+          "Steam同向": "未知或未确认，不允许真实下注",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "已完赛且昨日未形成Tier A/B，赛果不补单"
+        },
+        "intent": {
+          "label": "9/6凌晨赛果",
+          "direction": "无投注方向",
+          "sample": "不进入胜率"
+        },
+        "conclusion": "法国95-69韩国已完赛，法国赢26分。昨日没有首写让分或总分模拟单，按skill只回填事实。",
+        "ev": "真实下注：无；纸面模拟：无；Kelly=0。",
+        "completeness": {
+          "比分源": "FIBA官方",
+          "盘口路径": "昨日WinComparator ML/总分快照，缺让分和终盘",
+          "伤停首发": "未完整",
+          "公众资金": "无可执行资金",
+          "节奏效率": "总分164，法国二三节压制"
+        },
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "赛后",
+            "未取得",
+            "不补盘"
+          ],
+          [
+            "让分",
+            "未取得",
+            "赛后法国赢26",
+            "未取得",
+            "不结算"
+          ],
+          [
+            "大小分",
+            "152.5/153.5快照",
+            "总分164",
+            "未取得",
+            "未首写不结算"
+          ],
+          [
+            "公众/资金",
+            "未获取",
+            "未获取",
+            "未获取",
+            "无"
+          ]
+        ],
+        "fundamentals": {
+          "轮换伤停": "赛前未完整",
+          "休息赛程": "小组赛第二轮",
+          "节奏": "韩国首节31分后被法国防守压制",
+          "对位": "法国锋线和效率优势兑现",
+          "公众拉力": "法国强队热"
+        },
+        "spreadAudit": {
+          "意图标签": "赛后回填",
+          "正反向验证": "无首写线",
+          "盘口意图": "不可赛后重构",
+          "可打线": "无",
+          "停止线": "无",
+          "临场防线": "无"
+        },
+        "totalAudit": {
+          "盘口意图": "无首写总分单",
+          "可打线": "无",
+          "停止线": "无",
+          "临场防线": "无"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "赛后回填"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "法国95-69韩国",
+          "N/A",
+          "赛后回填"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "cba-summer-tianjin-guangsha-20260906",
+        "league": "CBA夏季联赛青岛站",
+        "match": "天津先行者 vs 浙江广厦",
+        "tip_time_bj": "2026-09-06 11:00",
+        "status": "已完赛 83-75",
+        "home_team": "天津先行者",
+        "away_team": "浙江广厦",
+        "official_order_team_1": "天津先行者",
+        "official_order_team_2": "浙江广厦"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": null,
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 83-75",
+        "tag": "复盘",
+        "conclusion": "天津83-75广厦已完赛，球迷屋按天津主队在前展示。无盘口链，不入胜率。",
+        "ev": null,
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "未取得",
+          "天津83-75广厦",
+          "N/A",
+          "T+1回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 83-75"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "cba-summer-tianjin-guangsha-20260906",
+        "date": "2026-09-06",
+        "league": "CBA夏季联赛青岛站",
+        "time": "11:00",
+        "home": "天津先行者",
+        "away": "浙江广厦",
+        "status": "已完赛 83-75",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "CBA夏联无盘前完整盘口；T+1只回填比分",
+        "conclusion": "天津83-75广厦已完赛，球迷屋按天津主队在前展示。无盘口链，不入胜率。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "未取得",
+          "天津83-75广厦",
+          "N/A",
+          "T+1回填"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "cba-summer-fujian-liaoning-20260906",
+        "league": "CBA夏季联赛青岛站",
+        "match": "福建晋江文旅 vs 辽宁本钢",
+        "tip_time_bj": "2026-09-06 13:30",
+        "status": "已完赛 66-72",
+        "home_team": "福建晋江文旅",
+        "away_team": "辽宁本钢",
+        "official_order_team_1": "福建晋江文旅",
+        "official_order_team_2": "辽宁本钢"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": null,
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 66-72",
+        "tag": "复盘",
+        "conclusion": "福建66-72辽宁已完赛。无盘口链，不入胜率。",
+        "ev": null,
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "未取得",
+          "福建66-72辽宁",
+          "N/A",
+          "T+1回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 66-72"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "cba-summer-fujian-liaoning-20260906",
+        "date": "2026-09-06",
+        "league": "CBA夏季联赛青岛站",
+        "time": "13:30",
+        "home": "福建晋江文旅",
+        "away": "辽宁本钢",
+        "status": "已完赛 66-72",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "CBA夏联无盘前完整盘口；T+1只回填比分",
+        "conclusion": "福建66-72辽宁已完赛。无盘口链，不入胜率。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "未取得",
+          "福建66-72辽宁",
+          "N/A",
+          "T+1回填"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-turkey-australia-20260906",
+        "league": "FIBA女篮世界杯",
+        "match": "土耳其女篮 vs 澳大利亚女篮",
+        "tip_time_bj": "2026-09-06 17:30",
+        "status": "已完赛 71-87",
+        "home_team": "土耳其女篮",
+        "away_team": "澳大利亚女篮",
+        "official_order_team_1": "土耳其女篮",
+        "official_order_team_2": "澳大利亚女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": null,
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 71-87",
+        "tag": "复盘",
+        "conclusion": "土耳其71-87澳大利亚已完赛。昨日澳大利亚-8.5只是观察，缺p_low和Steam，不计纸面或真实下注。",
+        "ev": null,
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "土耳其71-87澳大利亚",
+          "N/A",
+          "T+1回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 71-87"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-turkey-australia-20260906",
+        "date": "2026-09-06",
+        "league": "FIBA女篮世界杯",
+        "time": "17:30",
+        "home": "土耳其女篮",
+        "away": "澳大利亚女篮",
+        "status": "已完赛 71-87",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "9/6仅临场观察，无Tier A/B首写；赛果不入胜率",
+        "quant": {
+          "量化硬闸": "p_low>=55%；EV>2.5%；Line-Pred>=K(2.5-4.0)；2小时窗口；1小时>5分熔断；Steam同向；1/4 Kelly",
+          "p_low/p_mid/p_high": "昨日未形成可投p_low",
+          "breakeven/EV": "缺开盘-即时-终盘路径、p_low或可执行价格，EV不可算",
+          "K差值": "缺同一市场Pred与Line，K不可算",
+          "时间锁/熔断": "已完赛",
+          "Steam同向": "未知或未确认，不允许真实下注",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "T+1回填赛果；原始行未过p_low/K/Steam/时间锁，不补单"
+        },
+        "conclusion": "土耳其71-87澳大利亚已完赛。昨日澳大利亚-8.5只是观察，缺p_low和Steam，不计纸面或真实下注。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "土耳其71-87澳大利亚",
+          "N/A",
+          "T+1回填"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "cba-summer-shandong-shanxi-20260906",
+        "league": "CBA夏季联赛青岛站",
+        "match": "山东高速 vs 山西汾酒",
+        "tip_time_bj": "2026-09-06 17:30",
+        "status": "已完赛 86-80",
+        "home_team": "山东高速",
+        "away_team": "山西汾酒",
+        "official_order_team_1": "山东高速",
+        "official_order_team_2": "山西汾酒"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": null,
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 86-80",
+        "tag": "复盘",
+        "conclusion": "山东86-80山西已完赛。无盘口链，不入胜率。",
+        "ev": null,
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "未取得",
+          "山东86-80山西",
+          "N/A",
+          "T+1回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 86-80"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "cba-summer-shandong-shanxi-20260906",
+        "date": "2026-09-06",
+        "league": "CBA夏季联赛青岛站",
+        "time": "17:30",
+        "home": "山东高速",
+        "away": "山西汾酒",
+        "status": "已完赛 86-80",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "CBA夏联无盘前完整盘口；T+1只回填比分",
+        "conclusion": "山东86-80山西已完赛。无盘口链，不入胜率。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "未取得",
+          "山东86-80山西",
+          "N/A",
+          "T+1回填"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "cba-summer-qingdao-beijing-20260906",
+        "league": "CBA夏季联赛青岛站",
+        "match": "青岛崂山啤酒 vs 北京北汽",
+        "tip_time_bj": "2026-09-06 20:00",
+        "status": "已完赛 78-83",
+        "home_team": "青岛崂山啤酒",
+        "away_team": "北京北汽",
+        "official_order_team_1": "青岛崂山啤酒",
+        "official_order_team_2": "北京北汽"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": null,
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 78-83",
+        "tag": "复盘",
+        "conclusion": "青岛78-83北京已完赛。无盘口链，不入胜率。",
+        "ev": null,
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "未取得",
+          "青岛78-83北京",
+          "N/A",
+          "T+1回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 78-83"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "cba-summer-qingdao-beijing-20260906",
+        "date": "2026-09-06",
+        "league": "CBA夏季联赛青岛站",
+        "time": "20:00",
+        "home": "青岛崂山啤酒",
+        "away": "北京北汽",
+        "status": "已完赛 78-83",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "CBA夏联无盘前完整盘口；T+1只回填比分",
+        "conclusion": "青岛78-83北京已完赛。无盘口链，不入胜率。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "未取得",
+          "青岛78-83北京",
+          "N/A",
+          "T+1回填"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-china-czechia-20260906",
+        "league": "FIBA女篮世界杯",
+        "match": "中国女篮 vs 捷克女篮",
+        "tip_time_bj": "2026-09-06 20:30",
+        "status": "已完赛 74-70 OT",
+        "home_team": "中国女篮",
+        "away_team": "捷克女篮",
+        "official_order_team_1": "中国女篮",
+        "official_order_team_2": "捷克女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": null,
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 74-70 OT",
+        "tag": "复盘",
+        "conclusion": "中国74-70加时胜捷克，比分顺序中国-捷克。昨日-9.5/-11.5线差未收敛，不能用中国赢球倒推让分。",
+        "ev": null,
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "中国74-70捷克OT",
+          "N/A",
+          "T+1回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 74-70 OT"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-china-czechia-20260906",
+        "date": "2026-09-06",
+        "league": "FIBA女篮世界杯",
+        "time": "20:30",
+        "home": "中国女篮",
+        "away": "捷克女篮",
+        "status": "已完赛 74-70 OT",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "9/6仅临场观察；SkyBet/FanDuel线差未收敛，无首写模拟",
+        "quant": {
+          "量化硬闸": "p_low>=55%；EV>2.5%；Line-Pred>=K(2.5-4.0)；2小时窗口；1小时>5分熔断；Steam同向；1/4 Kelly",
+          "p_low/p_mid/p_high": "昨日未形成可投p_low",
+          "breakeven/EV": "缺开盘-即时-终盘路径、p_low或可执行价格，EV不可算",
+          "K差值": "缺同一市场Pred与Line，K不可算",
+          "时间锁/熔断": "已完赛",
+          "Steam同向": "未知或未确认，不允许真实下注",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "T+1回填赛果；昨日线差和Steam未过硬闸"
+        },
+        "conclusion": "中国74-70加时胜捷克，比分顺序中国-捷克。昨日-9.5/-11.5线差未收敛，不能用中国赢球倒推让分。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "中国74-70捷克OT",
+          "N/A",
+          "T+1回填"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-puerto-rico-belgium-20260906",
+        "league": "FIBA女篮世界杯",
+        "match": "波多黎各女篮 vs 比利时女篮",
+        "tip_time_bj": "2026-09-06 23:45",
+        "status": "已完赛 64-76",
+        "home_team": "波多黎各女篮",
+        "away_team": "比利时女篮",
+        "official_order_team_1": "波多黎各女篮",
+        "official_order_team_2": "比利时女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "legacy dashboard",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": null,
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 64-76",
+        "tag": "复盘",
+        "conclusion": "波多黎各64-76比利时已完赛。比利时赢12但未穿昨日观察深盘，正好说明不能把胜负强弱替代让分cover。",
+        "ev": null,
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "波多黎各64-76比利时",
+          "N/A",
+          "T+1回填"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 64-76"
+      },
+      "source_notes": [
+        null,
+        null,
+        null
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-puerto-rico-belgium-20260906",
+        "date": "2026-09-06",
+        "league": "FIBA女篮世界杯",
+        "time": "23:45",
+        "home": "波多黎各女篮",
+        "away": "比利时女篮",
+        "status": "已完赛 64-76",
+        "tag": "复盘",
+        "bet_status": "不可投",
+        "bet_reason": "9/6深盘观察未过垃圾时间/分钟/Steam硬闸",
+        "quant": {
+          "量化硬闸": "p_low>=55%；EV>2.5%；Line-Pred>=K(2.5-4.0)；2小时窗口；1小时>5分熔断；Steam同向；1/4 Kelly",
+          "p_low/p_mid/p_high": "昨日未形成可投p_low",
+          "breakeven/EV": "缺开盘-即时-终盘路径、p_low或可执行价格，EV不可算",
+          "K差值": "缺同一市场Pred与Line，K不可算",
+          "时间锁/熔断": "已完赛",
+          "Steam同向": "未知或未确认，不允许真实下注",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "T+1回填赛果；比利时强弱正确但深盘不补单"
+        },
+        "conclusion": "波多黎各64-76比利时已完赛。比利时赢12但未穿昨日观察深盘，正好说明不能把胜负强弱替代让分cover。",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未取得",
+          "波多黎各64-76比利时",
+          "N/A",
+          "T+1回填"
+        ]
+      }
+    }
+  ],
+  "generation": "LEGACY_MIGRATED",
+  "legacy_imported": true
+}

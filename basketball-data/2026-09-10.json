@@ -1,0 +1,2341 @@
+{
+  "schema_version": 2,
+  "date_bj": "2026-09-10",
+  "last_updated": "2026-09-13T01:52:46.769692+08:00",
+  "status": "LEGACY_MIGRATED",
+  "funnel": {
+    "events": 8,
+    "market": 0,
+    "enrichment_complete": 0,
+    "priceable": 0,
+    "coupled": 0,
+    "edge": 0,
+    "lean": 0,
+    "watch": 0,
+    "blocked": 0,
+    "pass": 0
+  },
+  "calibration": {
+    "generation": "LEGACY_MIGRATED",
+    "pricing": "null"
+  },
+  "source_health": [],
+  "events": [
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-italy-australia-20260910",
+        "league": "FIBA女篮世界杯",
+        "match": "意大利女篮 vs 澳大利亚女篮",
+        "tip_time_bj": "2026-09-10 02:45",
+        "status": "已完赛 80-82",
+        "home_team": "意大利女篮",
+        "away_team": "澳大利亚女篮",
+        "official_order_team_1": "意大利女篮",
+        "official_order_team_2": "澳大利亚女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+          "终盘未核",
+          "仅胜负背景，不作让分概率"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "首次记录已赛后，无盘前单",
+          "终盘未核",
+          "不同书不拼成时间轨迹；未验证可成交"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "首次记录已赛后，无盘前单",
+          "终盘未核",
+          "整数线存在push；与让分独立判断"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "无精确tickets/money或交易所深度",
+          "未取得",
+          "不从价格推造资金方向"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 80-82",
+        "tag": "复盘",
+        "conclusion": "意大利80-82澳大利亚；首次采集已完赛，不补预测、不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 80-82",
+          "不计胜率",
+          "只保留原始记录，不赛后补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 80-82"
+      },
+      "source_notes": [
+        "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        null,
+        "意大利80-82澳大利亚；首次采集已完赛，不补预测、不计胜率。"
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-italy-australia-20260910",
+        "date": "2026-09-10",
+        "time": "02:45",
+        "home": "意大利女篮",
+        "away": "澳大利亚女篮",
+        "league": "FIBA女篮世界杯",
+        "score": [
+          80,
+          82
+        ],
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "note": "意大利80-82澳大利亚；首次采集已完赛，不补预测、不计胜率。",
+        "quotes": [],
+        "status": "已完赛 80-82",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "意大利80-82澳大利亚；首次采集已完赛，不补预测、不计胜率。",
+        "source_date": "2026-09-09",
+        "bj_time": "2026-09-10 02:45",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "意大利女篮",
+        "official_order_team_2": "澳大利亚女篮",
+        "score_1": 80,
+        "score_2": 82,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "首次记录在赛后，不能补盘前单",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+            "终盘未核",
+            "仅胜负背景，不作让分概率"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "首次记录已赛后，无盘前单",
+            "终盘未核",
+            "不同书不拼成时间轨迹；未验证可成交"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "首次记录已赛后，无盘前单",
+            "终盘未核",
+            "整数线存在push；与让分独立判断"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "无精确tickets/money或交易所深度",
+            "未取得",
+            "不从价格推造资金方向"
+          ]
+        ],
+        "conclusion": "意大利80-82澳大利亚；首次采集已完赛，不补预测、不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">赛程/结果来源</a>；已完赛 80-82",
+          "盘口路径": "首次记录已完赛，不补盘前价格",
+          "伤停首发": "赛后覆盖不重构伤停判断",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "赛后覆盖不重构伤停判断",
+          "休息赛程": "仅赛果覆盖",
+          "战意": "赛后仅覆盖",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "缺可靠对位/第四节与替补效率样本",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "赛果覆盖",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "意大利80-82澳大利亚；首次采集已完赛，不补预测、不计胜率。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "意大利80-82澳大利亚；首次采集已完赛，不补预测、不计胜率。",
+          "证据链接": ""
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "；EV/edge=null，整数线需push模型。",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前投注；最后1小时同源振幅未知",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "意大利80-82澳大利亚；首次采集已完赛，不补预测、不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "赛后覆盖不重构伤停判断；仅赛果覆盖",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 80-82",
+          "不计胜率",
+          "只保留原始记录，不赛后补单"
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "lnbp-mineros-diablos-20260910",
+        "league": "墨西哥LNBP",
+        "match": "萨卡特卡斯矿工 vs 墨西哥红魔",
+        "tip_time_bj": "2026-09-10 10:05",
+        "status": "已完赛 75-81",
+        "home_team": "萨卡特卡斯矿工",
+        "away_team": "墨西哥红魔",
+        "official_order_team_1": "萨卡特卡斯矿工",
+        "official_order_team_2": "墨西哥红魔"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-10&s=Basketball",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察，非当前盘：Caliente 萨卡特卡斯矿工 @1.4 / 墨西哥红魔 @2.8；同页去水胜率66.67%/33.33%（非cover概率）<br>DashBet 萨卡特卡斯矿工 @1.32 / 墨西哥红魔 @2.9；同页去水胜率68.72%/31.28%（非cover概率）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：Caliente：萨卡特卡斯矿工 -5.5 @1.85 / 墨西哥红魔 +5.5 @1.9（小数）<br>DashBet：萨卡特卡斯矿工 -5.5 @1.84 / 墨西哥红魔 +5.5 @1.85（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：Caliente：170.5 大@1.9 / 小@1.85（小数）<br>DashBet：170 大@1.75 / 小@1.92（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确tickets/money或交易所深度",
+          "终盘未核",
+          "不补盘前投注"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 75-81",
+        "tag": "复盘",
+        "conclusion": "萨卡特卡斯矿工 75-81 墨西哥红魔；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 75-81",
+          "不计胜率",
+          "首写冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 75-81"
+      },
+      "source_notes": [
+        "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-10&s=Basketball",
+        null,
+        "矿工-5.5两源已抓；缺联赛校准概率、分钟与连续盘口轨迹，零仓位。"
+      ],
+      "legacy_record": {
+        "id": "lnbp-mineros-diablos-20260910",
+        "date": "2026-09-10",
+        "time": "10:05",
+        "home": "萨卡特卡斯矿工",
+        "away": "墨西哥红魔",
+        "league": "墨西哥LNBP",
+        "source": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-09-10&s=Basketball",
+        "note": "矿工-5.5两源已抓；缺联赛校准概率、分钟与连续盘口轨迹，零仓位。",
+        "quotes": [
+          {
+            "book": "Caliente",
+            "url": "https://sports.caliente.mx/es_MX/e/33060858/Mineros-de-Zacatecas-vs-Diablos-Rojos-Del-Mexico",
+            "spread": -5.5,
+            "home_odds": 1.85,
+            "away_odds": 1.9,
+            "total": 170.5,
+            "over": 1.9,
+            "under": 1.85,
+            "ml": [
+              1.4,
+              2.8
+            ]
+          },
+          {
+            "book": "DashBet",
+            "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+            "spread": -5.5,
+            "home_odds": 1.84,
+            "away_odds": 1.85,
+            "total": 170,
+            "over": 1.75,
+            "under": 1.92,
+            "ml": [
+              1.32,
+              2.9
+            ]
+          }
+        ],
+        "status": "已完赛 75-81",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "萨卡特卡斯矿工 75-81 墨西哥红魔；仅补赛果，原始记录未投注，不计正确/错误。",
+        "source_date": "2026-09-10",
+        "bj_time": "2026-09-10 10:05",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "萨卡特卡斯矿工",
+        "official_order_team_2": "墨西哥红魔",
+        "score_1": 75,
+        "score_2": 81,
+        "score_is_final": true,
+        "score_source": "https://www.diablosrojosbasquetbol.com.mx/",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "未形成投注，须完整硬闸通过后在盘前另行首写",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察，非当前盘：Caliente 萨卡特卡斯矿工 @1.4 / 墨西哥红魔 @2.8；同页去水胜率66.67%/33.33%（非cover概率）<br>DashBet 萨卡特卡斯矿工 @1.32 / 墨西哥红魔 @2.9；同页去水胜率68.72%/31.28%（非cover概率）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：Caliente：萨卡特卡斯矿工 -5.5 @1.85 / 墨西哥红魔 +5.5 @1.9（小数）<br>DashBet：萨卡特卡斯矿工 -5.5 @1.84 / 墨西哥红魔 +5.5 @1.85（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：Caliente：170.5 大@1.9 / 小@1.85（小数）<br>DashBet：170 大@1.75 / 小@1.92（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确tickets/money或交易所深度",
+            "终盘未核",
+            "不补盘前投注"
+          ]
+        ],
+        "conclusion": "萨卡特卡斯矿工 75-81 墨西哥红魔；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.diablosrojosbasquetbol.com.mx/\">结果来源</a>；萨卡特卡斯矿工 75-81 墨西哥红魔；仅补赛果，原始记录未投注，不计正确/错误。",
+          "盘口路径": "历史快照保留；终盘未取得",
+          "伤停首发": "未取得本场可信首发/轮换分钟确认",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "未取得本场可信首发/轮换分钟确认",
+          "休息赛程": "背靠背、3-in-4、长途飞行和连续4+客场负荷未完整核验，不假定无疲劳",
+          "战意": "比赛动力不能替代分钟和价格证据",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "缺可靠对位/第四节与替补效率样本",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/信息不足",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "矿工-5.5两源已抓；缺联赛校准概率、分钟与连续盘口轨迹，零仓位。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "萨卡特卡斯矿工 75-81 墨西哥红魔；仅补赛果，原始记录未投注，不计正确/错误。",
+          "证据链接": "<a href=\"https://sports.caliente.mx/es_MX/e/33060858/Mineros-de-Zacatecas-vs-Diablos-Rojos-Del-Mexico\">Caliente</a>；<a href=\"https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches\">DashBet</a>"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "萨卡特卡斯矿工 75-81 墨西哥红魔；仅补赛果，原始记录未投注，不计正确/错误。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "未取得本场可信首发/轮换分钟确认；背靠背、3-in-4、长途飞行和连续4+客场负荷未完整核验，不假定无疲劳",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 75-81",
+          "不计胜率",
+          "首写冻结"
+        ],
+        "score_verified_at": "2026-09-11T07:51:00+08:00",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-10 07:30 北京时间 | v3.17 晨间更新（部分：盘口已补，概率/轨迹缺口保留）",
+            "current_quotes": [
+              {
+                "book": "Caliente",
+                "url": "https://sports.caliente.mx/es_MX/e/33060858/Mineros-de-Zacatecas-vs-Diablos-Rojos-Del-Mexico",
+                "spread": -5.5,
+                "home_odds": 1.85,
+                "away_odds": 1.9,
+                "total": 170.5,
+                "over": 1.9,
+                "under": 1.85,
+                "ml": [
+                  1.4,
+                  2.8
+                ],
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-10 07:25-07:30 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "DashBet",
+                "url": "https://m.dashbet.com.au/Sport/Basketball/Mexican_LNBP/Matches",
+                "spread": -5.5,
+                "home_odds": 1.84,
+                "away_odds": 1.85,
+                "total": 170,
+                "over": 1.75,
+                "under": 1.92,
+                "ml": [
+                  1.32,
+                  2.9
+                ],
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-10 07:25-07:30 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              }
+            ],
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Caliente 萨卡特卡斯矿工 @1.4 / 墨西哥红魔 @2.8；同页去水胜率66.67%/33.33%（非cover概率）<br>DashBet 萨卡特卡斯矿工 @1.32 / 墨西哥红魔 @2.9；同页去水胜率68.72%/31.28%（非cover概率）",
+                "终盘待回填",
+                "仅胜负背景，不作让分概率"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Caliente：萨卡特卡斯矿工 -5.5 @1.85 / 墨西哥红魔 +5.5 @1.9（小数）<br>DashBet：萨卡特卡斯矿工 -5.5 @1.84 / 墨西哥红魔 +5.5 @1.85（小数）",
+                "终盘待回填",
+                "不同书不拼成时间轨迹；未验证可成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Caliente：170.5 大@1.9 / 小@1.85（小数）<br>DashBet：170 大@1.75 / 小@1.92（小数）",
+                "终盘待回填",
+                "整数线存在push；与让分独立判断"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确tickets/money或交易所深度",
+                "未取得",
+                "不从价格推造资金方向"
+              ]
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+              "breakeven/EV": "萨卡特卡斯矿工 -5.5 @1.850：盈亏平衡54.05%；墨西哥红魔 5.5 @1.900：盈亏平衡52.63%；大分 170.5 @1.900：盈亏平衡52.63%；小分 170.5 @1.850：盈亏平衡54.05%；萨卡特卡斯矿工 -5.5 @1.840：盈亏平衡54.35%；墨西哥红魔 5.5 @1.850：盈亏平衡54.05%；大分 170 @1.750：盈亏平衡57.14%；小分 170 @1.920：盈亏平衡52.08%；EV/edge=null，整数线需push模型。",
+              "K差值": "K=3.5；Pred和同向gap=null，未通过",
+              "时间锁/熔断": "距开赛2.58小时；变盘建仓仅限最后2小时；最后1小时同源振幅未知",
+              "Steam同向": "unknown；无连续报价不判同向",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "矿工-5.5两源已抓；缺联赛校准概率、分钟与连续盘口轨迹，零仓位。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+              "分钟/旅行": "未取得本场可信首发/轮换分钟确认；背靠背、3-in-4、长途飞行和连续4+客场负荷未完整核验，不假定无疲劳",
+              "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+              "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "nbl-preseason-mel-nzl-20260910",
+        "league": "NBL季前赛",
+        "match": "墨尔本联 vs 新西兰破坏者",
+        "tip_time_bj": "2026-09-10 16:30",
+        "status": "已完赛 86-90",
+        "home_team": "墨尔本联",
+        "away_team": "新西兰破坏者",
+        "official_order_team_1": "墨尔本联",
+        "official_order_team_2": "新西兰破坏者"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.melbourneutd.com.au/news/nbl27-preview---preseason-v-new-zealand-breakers",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察，非当前盘：未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：盘口源未发现",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：盘口源未发现",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确tickets/money或交易所深度",
+          "终盘未核",
+          "不补盘前投注"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 86-90",
+        "tag": "复盘",
+        "conclusion": "墨尔本联 86-90 新西兰破坏者；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 86-90",
+          "不计胜率",
+          "首写冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 86-90"
+      },
+      "source_notes": [
+        "https://www.melbourneutd.com.au/news/nbl27-preview---preseason-v-new-zealand-breakers",
+        null,
+        "官方轮休已确认，不能按完整阵容推强队；未取得本场精确让分/总分赔率，不模拟。"
+      ],
+      "legacy_record": {
+        "id": "nbl-preseason-mel-nzl-20260910",
+        "date": "2026-09-10",
+        "time": "16:30",
+        "home": "墨尔本联",
+        "away": "新西兰破坏者",
+        "league": "NBL季前赛",
+        "source": "https://www.melbourneutd.com.au/news/nbl27-preview---preseason-v-new-zealand-breakers",
+        "injury": "墨尔本联官方表示管理Cole Anthony、Josh Oduro、Sam Waardenburg、Shea Ili负荷，公布名单未列四人；Ingles在名单。本场其他球员分钟未定。",
+        "travel": "破坏者9/8打过凤凰，休整一日；非背靠背。具体旅行和体能负荷未核。",
+        "note": "官方轮休已确认，不能按完整阵容推强队；未取得本场精确让分/总分赔率，不模拟。",
+        "attempts": [
+          "OddsPortal: Melbourne United New Zealand Breakers 10 September 2026 odds",
+          "Oddspedia: Melbourne United Breakers 10 September 2026 spread total"
+        ],
+        "quotes": [],
+        "status": "已完赛 86-90",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "墨尔本联 86-90 新西兰破坏者；仅补赛果，原始记录未投注，不计正确/错误。",
+        "source_date": "2026-09-10",
+        "bj_time": "2026-09-10 16:30",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "墨尔本联",
+        "official_order_team_2": "新西兰破坏者",
+        "score_1": 86,
+        "score_2": 90,
+        "score_is_final": true,
+        "score_source": "https://www.nbl.com.au/news/mennenga-nz-finish-pre-season-on-a-high",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "未形成投注，须完整硬闸通过后在盘前另行首写",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察，非当前盘：未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：盘口源未发现",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：盘口源未发现",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确tickets/money或交易所深度",
+            "终盘未核",
+            "不补盘前投注"
+          ]
+        ],
+        "conclusion": "墨尔本联 86-90 新西兰破坏者；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.nbl.com.au/news/mennenga-nz-finish-pre-season-on-a-high\">结果来源</a>；墨尔本联 86-90 新西兰破坏者；仅补赛果，原始记录未投注，不计正确/错误。",
+          "盘口路径": "历史快照保留；终盘未取得",
+          "伤停首发": "墨尔本联官方表示管理Cole Anthony、Josh Oduro、Sam Waardenburg、Shea Ili负荷，公布名单未列四人；Ingles在名单。本场其他球员分钟未定。",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "墨尔本联官方表示管理Cole Anthony、Josh Oduro、Sam Waardenburg、Shea Ili负荷，公布名单未列四人；Ingles在名单。本场其他球员分钟未定。",
+          "休息赛程": "破坏者9/8打过凤凰，休整一日；非背靠背。具体旅行和体能负荷未核。",
+          "战意": "季前磨合，不假定核心打满",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "缺可靠对位/第四节与替补效率样本",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/信息不足",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "官方轮休已确认，不能按完整阵容推强队；未取得本场精确让分/总分赔率，不模拟。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "墨尔本联 86-90 新西兰破坏者；仅补赛果，原始记录未投注，不计正确/错误。",
+          "证据链接": "OddsPortal: Melbourne United New Zealand Breakers 10 September 2026 odds；Oddspedia: Melbourne United Breakers 10 September 2026 spread total"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "墨尔本联 86-90 新西兰破坏者；仅补赛果，原始记录未投注，不计正确/错误。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "墨尔本联官方表示管理Cole Anthony、Josh Oduro、Sam Waardenburg、Shea Ili负荷，公布名单未列四人；Ingles在名单。本场其他球员分钟未定。；破坏者9/8打过凤凰，休整一日；非背靠背。具体旅行和体能负荷未核。",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 86-90",
+          "不计胜率",
+          "首写冻结"
+        ],
+        "score_verified_at": "2026-09-11T07:51:00+08:00",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-10 07:30 北京时间 | v3.17 晨间更新（部分：盘口已补，概率/轨迹缺口保留）",
+            "current_quotes": [],
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+                "终盘待回填",
+                "仅胜负背景，不作让分概率"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "盘口源未发现",
+                "终盘待回填",
+                "不同书不拼成时间轨迹；未验证可成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "盘口源未发现",
+                "终盘待回填",
+                "整数线存在push；与让分独立判断"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确tickets/money或交易所深度",
+                "未取得",
+                "不从价格推造资金方向"
+              ]
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+              "breakeven/EV": "；EV/edge=null，整数线需push模型。",
+              "K差值": "K=3.5；Pred和同向gap=null，未通过",
+              "时间锁/熔断": "距开赛9.00小时；变盘建仓仅限最后2小时；最后1小时同源振幅未知",
+              "Steam同向": "unknown；无连续报价不判同向",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "官方轮休已确认，不能按完整阵容推强队；未取得本场精确让分/总分赔率，不模拟。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+              "分钟/旅行": "墨尔本联官方表示管理Cole Anthony、Josh Oduro、Sam Waardenburg、Shea Ili负荷，公布名单未列四人；Ingles在名单。本场其他球员分钟未定。；破坏者9/8打过凤凰，休整一日；非背靠背。具体旅行和体能负荷未核。",
+              "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+              "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-usa-hungary-20260910",
+        "league": "FIBA女篮世界杯",
+        "match": "美国女篮 vs 匈牙利女篮",
+        "tip_time_bj": "2026-09-10 17:30",
+        "status": "已完赛 108-56",
+        "home_team": "美国女篮",
+        "away_team": "匈牙利女篮",
+        "official_order_team_1": "美国女篮",
+        "official_order_team_2": "匈牙利女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128151-USA-HUN",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察，非当前盘：未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：Oddschecker比较价（时间字段冲突）：美国女篮 -30.5 @-112 / 匈牙利女篮 +30.5 @-120（美盘）<br>Caliente：美国女篮 -32.5 @1.85 / 匈牙利女篮 +32.5 @1.8（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：Oddschecker比较价（时间字段冲突）：155.5 大@-108 / 小@-112（美盘）<br>Caliente：156 大@1.87 / 小@1.87（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确tickets/money或交易所深度",
+          "终盘未核",
+          "不补盘前投注"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 108-56",
+        "tag": "复盘",
+        "conclusion": "美国女篮 108-56 匈牙利女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 108-56",
+          "不计胜率",
+          "首写冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 108-56"
+      },
+      "source_notes": [
+        "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128151-USA-HUN",
+        null,
+        "美国-30.5与-32.5为分源快照；部分市场开赛时间与官方冲突，且深盘分钟、概率和Steam未过，零仓位。"
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-usa-hungary-20260910",
+        "date": "2026-09-10",
+        "time": "17:30",
+        "home": "美国女篮",
+        "away": "匈牙利女篮",
+        "league": "FIBA女篮世界杯",
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128151-USA-HUN",
+        "context_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/news/qf-preview-can-hungarys-bigs-threaten-usa",
+        "travel": "柏林赛会制，美国上场当地9/7、匈牙利9/8；无跨区长途背靠背，累计分钟需核。",
+        "matchup": "美国深盘要独立检查核心分钟、领先后保护及替补防守；匈牙利晋级不意味着受让自动有价值。",
+        "note": "美国-30.5与-32.5为分源快照；部分市场开赛时间与官方冲突，且深盘分钟、概率和Steam未过，零仓位。",
+        "quotes": [
+          {
+            "book": "Oddschecker比较价（时间字段冲突）",
+            "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/hungary-women-at-usa-women",
+            "format": "american",
+            "spread": -30.5,
+            "home_odds": -112,
+            "away_odds": -120,
+            "total": 155.5,
+            "over": -108,
+            "under": -112
+          },
+          {
+            "book": "Caliente",
+            "url": "https://sports.caliente.mx/es_MX/e/33090140/EE.UU-Mujeres-vs-Hungria-Mujeres",
+            "spread": -32.5,
+            "home_odds": 1.85,
+            "away_odds": 1.8,
+            "total": 156,
+            "over": 1.87,
+            "under": 1.87
+          }
+        ],
+        "status": "已完赛 108-56",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "美国女篮 108-56 匈牙利女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "source_date": "2026-09-10",
+        "bj_time": "2026-09-10 17:30",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "美国女篮",
+        "official_order_team_2": "匈牙利女篮",
+        "score_1": 108,
+        "score_2": 56,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128151-USA-HUN",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "未形成投注，须完整硬闸通过后在盘前另行首写",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察，非当前盘：未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：Oddschecker比较价（时间字段冲突）：美国女篮 -30.5 @-112 / 匈牙利女篮 +30.5 @-120（美盘）<br>Caliente：美国女篮 -32.5 @1.85 / 匈牙利女篮 +32.5 @1.8（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：Oddschecker比较价（时间字段冲突）：155.5 大@-108 / 小@-112（美盘）<br>Caliente：156 大@1.87 / 小@1.87（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确tickets/money或交易所深度",
+            "终盘未核",
+            "不补盘前投注"
+          ]
+        ],
+        "conclusion": "美国女篮 108-56 匈牙利女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128151-USA-HUN\">结果来源</a>；美国女篮 108-56 匈牙利女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "盘口路径": "历史快照保留；终盘未取得",
+          "伤停首发": "未取得本场可信首发/轮换分钟确认",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "未取得本场可信首发/轮换分钟确认",
+          "休息赛程": "柏林赛会制，美国上场当地9/7、匈牙利9/8；无跨区长途背靠背，累计分钟需核。",
+          "战意": "比赛动力不能替代分钟和价格证据",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "美国深盘要独立检查核心分钟、领先后保护及替补防守；匈牙利晋级不意味着受让自动有价值。 <a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/news/qf-preview-can-hungarys-bigs-threaten-usa\">官方背景</a>",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/信息不足",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "美国-30.5与-32.5为分源快照；部分市场开赛时间与官方冲突，且深盘分钟、概率和Steam未过，零仓位。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "美国女篮 108-56 匈牙利女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/hungary-women-at-usa-women\">Oddschecker比较价（时间字段冲突）</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33090140/EE.UU-Mujeres-vs-Hungria-Mujeres\">Caliente</a>"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "美国女篮 108-56 匈牙利女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "未取得本场可信首发/轮换分钟确认；柏林赛会制，美国上场当地9/7、匈牙利9/8；无跨区长途背靠背，累计分钟需核。",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 108-56",
+          "不计胜率",
+          "首写冻结"
+        ],
+        "score_verified_at": "2026-09-11T07:51:00+08:00",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-10 07:30 北京时间 | v3.17 晨间更新（部分：盘口已补，概率/轨迹缺口保留）",
+            "current_quotes": [
+              {
+                "book": "Oddschecker比较价（时间字段冲突）",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/hungary-women-at-usa-women",
+                "format": "american",
+                "spread": -30.5,
+                "home_odds": -112,
+                "away_odds": -120,
+                "total": 155.5,
+                "over": -108,
+                "under": -112,
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-10 07:25-07:30 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "Caliente",
+                "url": "https://sports.caliente.mx/es_MX/e/33090140/EE.UU-Mujeres-vs-Hungria-Mujeres",
+                "spread": -32.5,
+                "home_odds": 1.85,
+                "away_odds": 1.8,
+                "total": 156,
+                "over": 1.87,
+                "under": 1.87,
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-10 07:25-07:30 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              }
+            ],
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+                "终盘待回填",
+                "仅胜负背景，不作让分概率"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker比较价（时间字段冲突）：美国女篮 -30.5 @-112 / 匈牙利女篮 +30.5 @-120（美盘）<br>Caliente：美国女篮 -32.5 @1.85 / 匈牙利女篮 +32.5 @1.8（小数）",
+                "终盘待回填",
+                "不同书不拼成时间轨迹；未验证可成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker比较价（时间字段冲突）：155.5 大@-108 / 小@-112（美盘）<br>Caliente：156 大@1.87 / 小@1.87（小数）",
+                "终盘待回填",
+                "整数线存在push；与让分独立判断"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确tickets/money或交易所深度",
+                "未取得",
+                "不从价格推造资金方向"
+              ]
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+              "breakeven/EV": "美国女篮 -30.5 @1.893：盈亏平衡52.83%；匈牙利女篮 30.5 @1.833：盈亏平衡54.55%；大分 155.5 @1.926：盈亏平衡51.92%；小分 155.5 @1.893：盈亏平衡52.83%；美国女篮 -32.5 @1.850：盈亏平衡54.05%；匈牙利女篮 32.5 @1.800：盈亏平衡55.56%；大分 156 @1.870：盈亏平衡53.48%；小分 156 @1.870：盈亏平衡53.48%；EV/edge=null，整数线需push模型。",
+              "K差值": "K=3.5；Pred和同向gap=null，未通过",
+              "时间锁/熔断": "距开赛10.00小时；变盘建仓仅限最后2小时；最后1小时同源振幅未知",
+              "Steam同向": "unknown；无连续报价不判同向",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "美国-30.5与-32.5为分源快照；部分市场开赛时间与官方冲突，且深盘分钟、概率和Steam未过，零仓位。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+              "分钟/旅行": "未取得本场可信首发/轮换分钟确认；柏林赛会制，美国上场当地9/7、匈牙利9/8；无跨区长途背靠背，累计分钟需核。",
+              "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+              "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "island-games-ryukyu-perth-20260910",
+        "league": "B.League/NBL国际季前赛",
+        "match": "琉球黄金帝王 vs 珀斯野猫",
+        "tip_time_bj": "2026-09-10 18:35",
+        "status": "已完赛 82-110",
+        "home_team": "琉球黄金帝王",
+        "away_team": "珀斯野猫",
+        "official_order_team_1": "琉球黄金帝王",
+        "official_order_team_2": "珀斯野猫"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.nbl.com.au/schedule",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察，非当前盘：YesPlay（含加时） 琉球黄金帝王 @2.65 / 珀斯野猫 @1.37；同页去水胜率34.08%/65.92%（非cover概率）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：YesPlay（含加时）：琉球黄金帝王 +6.5 @1.76 / 珀斯野猫 -6.5 @1.85（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：YesPlay（含加时）：166.5 大@1.81 / 小@1.79（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确tickets/money或交易所深度",
+          "终盘未核",
+          "不补盘前投注"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 82-110",
+        "tag": "复盘",
+        "conclusion": "琉球黄金帝王 82-110 珀斯野猫；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 82-110",
+          "不计胜率",
+          "首写冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 82-110"
+      },
+      "source_notes": [
+        "https://www.nbl.com.au/schedule",
+        null,
+        "已抓含加时珀斯-6.5和总分166.5；仅单源具体盘，轮换不明且无校准概率，不投。"
+      ],
+      "legacy_record": {
+        "id": "island-games-ryukyu-perth-20260910",
+        "date": "2026-09-10",
+        "time": "18:35",
+        "home": "琉球黄金帝王",
+        "away": "珀斯野猫",
+        "league": "B.League/NBL国际季前赛",
+        "source": "https://www.nbl.com.au/schedule",
+        "context_source": "https://league.nbl.com.au/news/jla-dominates-for-cats-in-japan",
+        "injury": "珀斯9/8缺Rillie、Wagstaff及第三外援；仅为上一场事实，9/10状态和分钟需重新确认。",
+        "travel": "冲绳同站比赛，珀斯9/8出赛、琉球9/7出赛；具体恢复负荷待核。",
+        "note": "已抓含加时珀斯-6.5和总分166.5；仅单源具体盘，轮换不明且无校准概率，不投。",
+        "attempts": [
+          "YesPlay exact Ryukyu Perth 10 September 2026: 有明确含加时盘口",
+          "SportyTrader exact match: ML比较价，未取得让分/总分第二源"
+        ],
+        "quotes": [
+          {
+            "book": "YesPlay（含加时）",
+            "url": "https://yesplay.bet/sports/events/ryukyu-golden-kings-okinawa-perth-wildcats-74406164",
+            "spread": 6.5,
+            "home_odds": 1.76,
+            "away_odds": 1.85,
+            "total": 166.5,
+            "over": 1.81,
+            "under": 1.79,
+            "ml": [
+              2.65,
+              1.37
+            ],
+            "overtime": true
+          }
+        ],
+        "status": "已完赛 82-110",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "琉球黄金帝王 82-110 珀斯野猫；仅补赛果，原始记录未投注，不计正确/错误。",
+        "source_date": "2026-09-10",
+        "bj_time": "2026-09-10 18:35",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "琉球黄金帝王",
+        "official_order_team_2": "珀斯野猫",
+        "score_1": 82,
+        "score_2": 110,
+        "score_is_final": true,
+        "score_source": "https://www.nbl.com.au/news/jla-again-stars-for-cats-in-japan",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "未形成投注，须完整硬闸通过后在盘前另行首写",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察，非当前盘：YesPlay（含加时） 琉球黄金帝王 @2.65 / 珀斯野猫 @1.37；同页去水胜率34.08%/65.92%（非cover概率）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：YesPlay（含加时）：琉球黄金帝王 +6.5 @1.76 / 珀斯野猫 -6.5 @1.85（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：YesPlay（含加时）：166.5 大@1.81 / 小@1.79（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确tickets/money或交易所深度",
+            "终盘未核",
+            "不补盘前投注"
+          ]
+        ],
+        "conclusion": "琉球黄金帝王 82-110 珀斯野猫；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.nbl.com.au/news/jla-again-stars-for-cats-in-japan\">结果来源</a>；琉球黄金帝王 82-110 珀斯野猫；仅补赛果，原始记录未投注，不计正确/错误。",
+          "盘口路径": "历史快照保留；终盘未取得",
+          "伤停首发": "珀斯9/8缺Rillie、Wagstaff及第三外援；仅为上一场事实，9/10状态和分钟需重新确认。",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "珀斯9/8缺Rillie、Wagstaff及第三外援；仅为上一场事实，9/10状态和分钟需重新确认。",
+          "休息赛程": "冲绳同站比赛，珀斯9/8出赛、琉球9/7出赛；具体恢复负荷待核。",
+          "战意": "季前磨合，不假定核心打满",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "缺可靠对位/第四节与替补效率样本 <a href=\"https://league.nbl.com.au/news/jla-dominates-for-cats-in-japan\">官方背景</a>",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/信息不足",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "已抓含加时珀斯-6.5和总分166.5；仅单源具体盘，轮换不明且无校准概率，不投。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "琉球黄金帝王 82-110 珀斯野猫；仅补赛果，原始记录未投注，不计正确/错误。",
+          "证据链接": "<a href=\"https://yesplay.bet/sports/events/ryukyu-golden-kings-okinawa-perth-wildcats-74406164\">YesPlay（含加时）</a>"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "琉球黄金帝王 82-110 珀斯野猫；仅补赛果，原始记录未投注，不计正确/错误。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "珀斯9/8缺Rillie、Wagstaff及第三外援；仅为上一场事实，9/10状态和分钟需重新确认。；冲绳同站比赛，珀斯9/8出赛、琉球9/7出赛；具体恢复负荷待核。",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 82-110",
+          "不计胜率",
+          "首写冻结"
+        ],
+        "score_verified_at": "2026-09-11T07:51:00+08:00",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-10 07:30 北京时间 | v3.17 晨间更新（部分：盘口已补，概率/轨迹缺口保留）",
+            "current_quotes": [
+              {
+                "book": "YesPlay（含加时）",
+                "url": "https://yesplay.bet/sports/events/ryukyu-golden-kings-okinawa-perth-wildcats-74406164",
+                "spread": 6.5,
+                "home_odds": 1.76,
+                "away_odds": 1.85,
+                "total": 166.5,
+                "over": 1.81,
+                "under": 1.79,
+                "ml": [
+                  2.65,
+                  1.37
+                ],
+                "overtime": true,
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-10 07:25-07:30 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              }
+            ],
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "YesPlay（含加时） 琉球黄金帝王 @2.65 / 珀斯野猫 @1.37；同页去水胜率34.08%/65.92%（非cover概率）",
+                "终盘待回填",
+                "仅胜负背景，不作让分概率"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "YesPlay（含加时）：琉球黄金帝王 +6.5 @1.76 / 珀斯野猫 -6.5 @1.85（小数）",
+                "终盘待回填",
+                "不同书不拼成时间轨迹；未验证可成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "YesPlay（含加时）：166.5 大@1.81 / 小@1.79（小数）",
+                "终盘待回填",
+                "整数线存在push；与让分独立判断"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确tickets/money或交易所深度",
+                "未取得",
+                "不从价格推造资金方向"
+              ]
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+              "breakeven/EV": "琉球黄金帝王 6.5 @1.760：盈亏平衡56.82%；珀斯野猫 -6.5 @1.850：盈亏平衡54.05%；大分 166.5 @1.810：盈亏平衡55.25%；小分 166.5 @1.790：盈亏平衡55.87%；EV/edge=null，整数线需push模型。",
+              "K差值": "K=3.5；Pred和同向gap=null，未通过",
+              "时间锁/熔断": "距开赛11.08小时；变盘建仓仅限最后2小时；最后1小时同源振幅未知",
+              "Steam同向": "unknown；无连续报价不判同向",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "已抓含加时珀斯-6.5和总分166.5；仅单源具体盘，轮换不明且无校准概率，不投。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+              "分钟/旅行": "珀斯9/8缺Rillie、Wagstaff及第三外援；仅为上一场事实，9/10状态和分钟需重新确认。；冲绳同站比赛，珀斯9/8出赛、琉球9/7出赛；具体恢复负荷待核。",
+              "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+              "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-china-france-20260910",
+        "league": "FIBA女篮世界杯",
+        "match": "中国女篮 vs 法国女篮",
+        "tip_time_bj": "2026-09-10 20:30",
+        "status": "已完赛 61-90",
+        "home_team": "中国女篮",
+        "away_team": "法国女篮",
+        "official_order_team_1": "中国女篮",
+        "official_order_team_2": "法国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128149-CHN-FRA",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察，非当前盘：未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：Betfair Sportsbook（口径待核）：中国女篮 +23.5 @1.91 / 法国女篮 -23.5 @1.8（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：Betfair Sportsbook（口径待核）：150.5 大@1.91 / 小@1.8（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确tickets/money或交易所深度",
+          "终盘未核",
+          "不补盘前投注"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 61-90",
+        "tag": "复盘",
+        "conclusion": "中国女篮 61-90 法国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 61-90",
+          "不计胜率",
+          "首写冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 61-90"
+      },
+      "source_notes": [
+        "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128149-CHN-FRA",
+        null,
+        "Betfair Sportsbook法国-23.5、总分150.5为单源片段，含加时口径待核；中国背靠背、分钟和p_low缺失，不投。"
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-china-france-20260910",
+        "date": "2026-09-10",
+        "time": "20:30",
+        "home": "中国女篮",
+        "away": "法国女篮",
+        "league": "FIBA女篮世界杯",
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128149-CHN-FRA",
+        "context_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/news/qf-preview-can-france-keep-cooking-against-china",
+        "matchup": "法国场均利用失误得分32、中国7；韩旭与Malonga的内线对位重要。不能把两队场均得分差直接当预测净胜分。",
+        "travel": "中国当地9/9刚打资格赛，9/10背靠背；法国小组直通、休息更多。柏林同站，非长途飞行背靠背。",
+        "note": "Betfair Sportsbook法国-23.5、总分150.5为单源片段，含加时口径待核；中国背靠背、分钟和p_low缺失，不投。",
+        "attempts": [
+          "Oddschecker/Caliente/Action/Covers精确中法检索未读到盘口",
+          "Betfair Sportsbook exact e-36053576: 读取数值，非交易所资金"
+        ],
+        "quotes": [
+          {
+            "book": "Betfair Sportsbook（口径待核）",
+            "url": "https://www.betfair.com/betting/basketball/fiba-world-cup-womens/china-women-v-france-women/e-36053576",
+            "spread": 23.5,
+            "home_odds": 1.91,
+            "away_odds": 1.8,
+            "total": 150.5,
+            "over": 1.91,
+            "under": 1.8
+          }
+        ],
+        "status": "已完赛 61-90",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "中国女篮 61-90 法国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "source_date": "2026-09-10",
+        "bj_time": "2026-09-10 20:30",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "中国女篮",
+        "official_order_team_2": "法国女篮",
+        "score_1": 61,
+        "score_2": 90,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128149-CHN-FRA",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "未形成投注，须完整硬闸通过后在盘前另行首写",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察，非当前盘：未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：Betfair Sportsbook（口径待核）：中国女篮 +23.5 @1.91 / 法国女篮 -23.5 @1.8（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：Betfair Sportsbook（口径待核）：150.5 大@1.91 / 小@1.8（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确tickets/money或交易所深度",
+            "终盘未核",
+            "不补盘前投注"
+          ]
+        ],
+        "conclusion": "中国女篮 61-90 法国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128149-CHN-FRA\">结果来源</a>；中国女篮 61-90 法国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "盘口路径": "历史快照保留；终盘未取得",
+          "伤停首发": "未取得本场可信首发/轮换分钟确认",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "未取得本场可信首发/轮换分钟确认",
+          "休息赛程": "中国当地9/9刚打资格赛，9/10背靠背；法国小组直通、休息更多。柏林同站，非长途飞行背靠背。",
+          "战意": "比赛动力不能替代分钟和价格证据",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "法国场均利用失误得分32、中国7；韩旭与Malonga的内线对位重要。不能把两队场均得分差直接当预测净胜分。 <a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/news/qf-preview-can-france-keep-cooking-against-china\">官方背景</a>",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/信息不足",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "Betfair Sportsbook法国-23.5、总分150.5为单源片段，含加时口径待核；中国背靠背、分钟和p_low缺失，不投。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "中国女篮 61-90 法国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "证据链接": "<a href=\"https://www.betfair.com/betting/basketball/fiba-world-cup-womens/china-women-v-france-women/e-36053576\">Betfair Sportsbook（口径待核）</a>"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "中国女篮 61-90 法国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "未取得本场可信首发/轮换分钟确认；中国当地9/9刚打资格赛，9/10背靠背；法国小组直通、休息更多。柏林同站，非长途飞行背靠背。",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 61-90",
+          "不计胜率",
+          "首写冻结"
+        ],
+        "score_verified_at": "2026-09-11T07:51:00+08:00",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-10 07:30 北京时间 | v3.17 晨间更新（部分：盘口已补，概率/轨迹缺口保留）",
+            "current_quotes": [
+              {
+                "book": "Betfair Sportsbook（口径待核）",
+                "url": "https://www.betfair.com/betting/basketball/fiba-world-cup-womens/china-women-v-france-women/e-36053576",
+                "spread": 23.5,
+                "home_odds": 1.91,
+                "away_odds": 1.8,
+                "total": 150.5,
+                "over": 1.91,
+                "under": 1.8,
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-10 07:25-07:30 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              }
+            ],
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+                "终盘待回填",
+                "仅胜负背景，不作让分概率"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Betfair Sportsbook（口径待核）：中国女篮 +23.5 @1.91 / 法国女篮 -23.5 @1.8（小数）",
+                "终盘待回填",
+                "不同书不拼成时间轨迹；未验证可成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Betfair Sportsbook（口径待核）：150.5 大@1.91 / 小@1.8（小数）",
+                "终盘待回填",
+                "整数线存在push；与让分独立判断"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确tickets/money或交易所深度",
+                "未取得",
+                "不从价格推造资金方向"
+              ]
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+              "breakeven/EV": "中国女篮 23.5 @1.910：盈亏平衡52.36%；法国女篮 -23.5 @1.800：盈亏平衡55.56%；大分 150.5 @1.910：盈亏平衡52.36%；小分 150.5 @1.800：盈亏平衡55.56%；EV/edge=null，整数线需push模型。",
+              "K差值": "K=3.5；Pred和同向gap=null，未通过",
+              "时间锁/熔断": "距开赛13.00小时；变盘建仓仅限最后2小时；最后1小时同源振幅未知",
+              "Steam同向": "unknown；无连续报价不判同向",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "Betfair Sportsbook法国-23.5、总分150.5为单源片段，含加时口径待核；中国背靠背、分钟和p_low缺失，不投。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+              "分钟/旅行": "未取得本场可信首发/轮换分钟确认；中国当地9/9刚打资格赛，9/10背靠背；法国小组直通、休息更多。柏林同站，非长途飞行背靠背。",
+              "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+              "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "vba-nhatrang-saigon-20260910",
+        "league": "越南VBA",
+        "match": "芽庄海豚 vs 西贡热火",
+        "tip_time_bj": "2026-09-10 20:30",
+        "status": "已完赛 75-77",
+        "home_team": "芽庄海豚",
+        "away_team": "西贡热火",
+        "official_order_team_1": "芽庄海豚",
+        "official_order_team_2": "西贡热火"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://scores24.live/en/basketball/m-10-09-2026-nha-trang-dolphins-xigong-heat",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察，非当前盘：未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：盘口源未发现",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：盘口源未发现",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确tickets/money或交易所深度",
+          "终盘未核",
+          "不补盘前投注"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 75-77",
+        "tag": "复盘",
+        "conclusion": "芽庄海豚 75-77 西贡热火；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 75-77",
+          "不计胜率",
+          "首写冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 75-77"
+      },
+      "source_notes": [
+        "https://scores24.live/en/basketball/m-10-09-2026-nha-trang-dolphins-xigong-heat",
+        null,
+        "赛程源列12:30 UTC；球队售票页显示12:00但未标时区，开赛时间待官方复核。未取得精确盘口，不投。"
+      ],
+      "legacy_record": {
+        "id": "vba-nhatrang-saigon-20260910",
+        "date": "2026-09-10",
+        "time": "20:30",
+        "home": "芽庄海豚",
+        "away": "西贡热火",
+        "league": "越南VBA",
+        "source": "https://scores24.live/en/basketball/m-10-09-2026-nha-trang-dolphins-xigong-heat",
+        "schedule_status": "provisional",
+        "note": "赛程源列12:30 UTC；球队售票页显示12:00但未标时区，开赛时间待官方复核。未取得精确盘口，不投。",
+        "attempts": [
+          "Wincomparator exact Nha Trang Saigon 10 September 2026: 无赔率",
+          "Interbet/SportyTrader exact Nha Trang Saigon: 发现赛程，未读到准确让分总分"
+        ],
+        "quotes": [],
+        "status": "已完赛 75-77",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "芽庄海豚 75-77 西贡热火；仅补赛果，原始记录未投注，不计正确/错误。",
+        "source_date": "2026-09-10",
+        "bj_time": "2026-09-10 20:30",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "芽庄海豚",
+        "official_order_team_2": "西贡热火",
+        "score_1": 75,
+        "score_2": 77,
+        "score_is_final": true,
+        "score_source": "https://nhandan.vn/saigon-heat-cham-tran-hanoi-buffaloes-tai-chung-ket-vba-2026-post987752.html",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "未形成投注，须完整硬闸通过后在盘前另行首写",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察，非当前盘：未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：盘口源未发现",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：盘口源未发现",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确tickets/money或交易所深度",
+            "终盘未核",
+            "不补盘前投注"
+          ]
+        ],
+        "conclusion": "芽庄海豚 75-77 西贡热火；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://nhandan.vn/saigon-heat-cham-tran-hanoi-buffaloes-tai-chung-ket-vba-2026-post987752.html\">结果来源</a>；芽庄海豚 75-77 西贡热火；仅补赛果，原始记录未投注，不计正确/错误。",
+          "盘口路径": "历史快照保留；终盘未取得",
+          "伤停首发": "未取得本场可信首发/轮换分钟确认",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "未取得本场可信首发/轮换分钟确认",
+          "休息赛程": "背靠背、3-in-4、长途飞行和连续4+客场负荷未完整核验，不假定无疲劳",
+          "战意": "比赛动力不能替代分钟和价格证据",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "缺可靠对位/第四节与替补效率样本",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/信息不足",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "赛程源列12:30 UTC；球队售票页显示12:00但未标时区，开赛时间待官方复核。未取得精确盘口，不投。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "芽庄海豚 75-77 西贡热火；仅补赛果，原始记录未投注，不计正确/错误。",
+          "证据链接": "Wincomparator exact Nha Trang Saigon 10 September 2026: 无赔率；Interbet/SportyTrader exact Nha Trang Saigon: 发现赛程，未读到准确让分总分"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "芽庄海豚 75-77 西贡热火；仅补赛果，原始记录未投注，不计正确/错误。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "未取得本场可信首发/轮换分钟确认；背靠背、3-in-4、长途飞行和连续4+客场负荷未完整核验，不假定无疲劳",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 75-77",
+          "不计胜率",
+          "首写冻结"
+        ],
+        "score_verified_at": "2026-09-11T07:51:00+08:00",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-10 07:30 北京时间 | v3.17 晨间更新（部分：盘口已补，概率/轨迹缺口保留）",
+            "current_quotes": [],
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+                "终盘待回填",
+                "仅胜负背景，不作让分概率"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "盘口源未发现",
+                "终盘待回填",
+                "不同书不拼成时间轨迹；未验证可成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "盘口源未发现",
+                "终盘待回填",
+                "整数线存在push；与让分独立判断"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确tickets/money或交易所深度",
+                "未取得",
+                "不从价格推造资金方向"
+              ]
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+              "breakeven/EV": "；EV/edge=null，整数线需push模型。",
+              "K差值": "K=3.5；Pred和同向gap=null，未通过",
+              "时间锁/熔断": "距开赛13.00小时；变盘建仓仅限最后2小时；最后1小时同源振幅未知",
+              "Steam同向": "unknown；无连续报价不判同向",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "赛程源列12:30 UTC；球队售票页显示12:00但未标时区，开赛时间待官方复核。未取得精确盘口，不投。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+              "分钟/旅行": "未取得本场可信首发/轮换分钟确认；背靠背、3-in-4、长途飞行和连续4+客场负荷未完整核验，不假定无疲劳",
+              "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+              "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-belgium-germany-20260910",
+        "league": "FIBA女篮世界杯",
+        "match": "比利时女篮 vs 德国女篮",
+        "tip_time_bj": "2026-09-10 23:45",
+        "status": "已完赛 74-93",
+        "home_team": "比利时女篮",
+        "away_team": "德国女篮",
+        "official_order_team_1": "比利时女篮",
+        "official_order_team_2": "德国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128150-BEL-GER",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "历史观察，非当前盘：Caliente 比利时女篮 @1.4 / 德国女篮 @2.8；同页去水胜率66.67%/33.33%（非cover概率）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：Oddschecker比较价：比利时女篮 -5.5 @-110 / 德国女篮 +5.5 @-110（美盘）<br>Caliente：比利时女篮 -5.5 @1.833 / 德国女篮 +5.5 @1.9（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：Oddschecker比较价：145.5 大@100 / 小@-120（美盘）<br>Caliente：145 大@1.87 / 小@1.87（小数）",
+          "终盘未核",
+          "不补盘前投注"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确tickets/money或交易所深度",
+          "终盘未核",
+          "不补盘前投注"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 74-93",
+        "tag": "复盘",
+        "conclusion": "比利时女篮 74-93 德国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 74-93",
+          "不计胜率",
+          "首写冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 74-93"
+      },
+      "source_notes": [
+        "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128150-BEL-GER",
+        null,
+        "比利时-5.5双源确认，145-145.5总分分源保存；无独立Pred、分钟和同源变盘证据，模拟0U。"
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-belgium-germany-20260910",
+        "date": "2026-09-10",
+        "time": "23:45",
+        "home": "比利时女篮",
+        "away": "德国女篮",
+        "league": "FIBA女篮世界杯",
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128150-BEL-GER",
+        "context_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/news/qf-preview-can-hosts-germany-tame-the-belgian-cats",
+        "injury": "德国篮协9/8比赛记录显示Peterson已出场并得7分，不能继续列感染缺阵；本场分钟仍待确认。",
+        "matchup": "德国替补场均42分、比利时20.7；比利时三分38.1%、德国25.2%。板凳深度与外线效率拉力相反，不能仅按强队胜负买让分。",
+        "travel": "德国东道主，官方列序不代表比利时物理主场；德国9/8出赛、比利时9/7，非背靠背。",
+        "note": "比利时-5.5双源确认，145-145.5总分分源保存；无独立Pred、分钟和同源变盘证据，模拟0U。",
+        "quotes": [
+          {
+            "book": "Oddschecker比较价",
+            "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/germany-women-at-belgium-women",
+            "format": "american",
+            "spread": -5.5,
+            "home_odds": -110,
+            "away_odds": -110,
+            "total": 145.5,
+            "over": 100,
+            "under": -120
+          },
+          {
+            "book": "Caliente",
+            "url": "https://sports.caliente.mx/es_MX/e/33090142/B%C3%A9lgica-Mujeres-vs-Alemania-Mujeres",
+            "spread": -5.5,
+            "home_odds": 1.833,
+            "away_odds": 1.9,
+            "total": 145,
+            "over": 1.87,
+            "under": 1.87,
+            "ml": [
+              1.4,
+              2.8
+            ]
+          }
+        ],
+        "status": "已完赛 74-93",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "比利时女篮 74-93 德国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "source_date": "2026-09-10",
+        "bj_time": "2026-09-10 23:45",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "比利时女篮",
+        "official_order_team_2": "德国女篮",
+        "score_1": 74,
+        "score_2": 93,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128150-BEL-GER",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "未形成投注，须完整硬闸通过后在盘前另行首写",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "历史观察，非当前盘：Caliente 比利时女篮 @1.4 / 德国女篮 @2.8；同页去水胜率66.67%/33.33%（非cover概率）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：Oddschecker比较价：比利时女篮 -5.5 @-110 / 德国女篮 +5.5 @-110（美盘）<br>Caliente：比利时女篮 -5.5 @1.833 / 德国女篮 +5.5 @1.9（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：Oddschecker比较价：145.5 大@100 / 小@-120（美盘）<br>Caliente：145 大@1.87 / 小@1.87（小数）",
+            "终盘未核",
+            "不补盘前投注"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确tickets/money或交易所深度",
+            "终盘未核",
+            "不补盘前投注"
+          ]
+        ],
+        "conclusion": "比利时女篮 74-93 德国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128150-BEL-GER\">结果来源</a>；比利时女篮 74-93 德国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "盘口路径": "历史快照保留；终盘未取得",
+          "伤停首发": "德国篮协9/8比赛记录显示Peterson已出场并得7分，不能继续列感染缺阵；本场分钟仍待确认。",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "德国篮协9/8比赛记录显示Peterson已出场并得7分，不能继续列感染缺阵；本场分钟仍待确认。",
+          "休息赛程": "德国东道主，官方列序不代表比利时物理主场；德国9/8出赛、比利时9/7，非背靠背。",
+          "战意": "比赛动力不能替代分钟和价格证据",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "德国替补场均42分、比利时20.7；比利时三分38.1%、德国25.2%。板凳深度与外线效率拉力相反，不能仅按强队胜负买让分。 <a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/news/qf-preview-can-hosts-germany-tame-the-belgian-cats\">官方背景</a>",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "等待临场/信息不足",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "比利时-5.5双源确认，145-145.5总分分源保存；无独立Pred、分钟和同源变盘证据，模拟0U。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "比利时女篮 74-93 德国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/germany-women-at-belgium-women\">Oddschecker比较价</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33090142/B%C3%A9lgica-Mujeres-vs-Alemania-Mujeres\">Caliente</a>"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "比利时女篮 74-93 德国女篮；仅补赛果，原始记录未投注，不计正确/错误。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "德国篮协9/8比赛记录显示Peterson已出场并得7分，不能继续列感染缺阵；本场分钟仍待确认。；德国东道主，官方列序不代表比利时物理主场；德国9/8出赛、比利时9/7，非背靠背。",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 74-93",
+          "不计胜率",
+          "首写冻结"
+        ],
+        "score_verified_at": "2026-09-11T07:51:00+08:00",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-10 07:30 北京时间 | v3.17 晨间更新（部分：盘口已补，概率/轨迹缺口保留）",
+            "current_quotes": [
+              {
+                "book": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/germany-women-at-belgium-women",
+                "format": "american",
+                "spread": -5.5,
+                "home_odds": -110,
+                "away_odds": -110,
+                "total": 145.5,
+                "over": 100,
+                "under": -120,
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-10 07:25-07:30 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "Caliente",
+                "url": "https://sports.caliente.mx/es_MX/e/33090142/B%C3%A9lgica-Mujeres-vs-Alemania-Mujeres",
+                "spread": -5.5,
+                "home_odds": 1.833,
+                "away_odds": 1.9,
+                "total": 145,
+                "over": 1.87,
+                "under": 1.87,
+                "ml": [
+                  1.4,
+                  2.8
+                ],
+                "source_updated_at": null,
+                "capture_window_bj": "2026-09-10 07:25-07:30 +08:00",
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              }
+            ],
+            "market": [
+              [
+                "ML",
+                "未取得开盘",
+                "Caliente 比利时女篮 @1.4 / 德国女篮 @2.8；同页去水胜率66.67%/33.33%（非cover概率）",
+                "终盘待回填",
+                "仅胜负背景，不作让分概率"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker比较价：比利时女篮 -5.5 @-110 / 德国女篮 +5.5 @-110（美盘）<br>Caliente：比利时女篮 -5.5 @1.833 / 德国女篮 +5.5 @1.9（小数）",
+                "终盘待回填",
+                "不同书不拼成时间轨迹；未验证可成交"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker比较价：145.5 大@100 / 小@-120（美盘）<br>Caliente：145 大@1.87 / 小@1.87（小数）",
+                "终盘待回填",
+                "整数线存在push；与让分独立判断"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确tickets/money或交易所深度",
+                "未取得",
+                "不从价格推造资金方向"
+              ]
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+              "breakeven/EV": "比利时女篮 -5.5 @1.909：盈亏平衡52.38%；德国女篮 5.5 @1.909：盈亏平衡52.38%；大分 145.5 @2.000：盈亏平衡50.00%；小分 145.5 @1.833：盈亏平衡54.55%；比利时女篮 -5.5 @1.833：盈亏平衡54.56%；德国女篮 5.5 @1.900：盈亏平衡52.63%；大分 145 @1.870：盈亏平衡53.48%；小分 145 @1.870：盈亏平衡53.48%；EV/edge=null，整数线需push模型。",
+              "K差值": "K=3.5；Pred和同向gap=null，未通过",
+              "时间锁/熔断": "距开赛16.25小时；变盘建仓仅限最后2小时；最后1小时同源振幅未知",
+              "Steam同向": "unknown；无连续报价不判同向",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "比利时-5.5双源确认，145-145.5总分分源保存；无独立Pred、分钟和同源变盘证据，模拟0U。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+              "分钟/旅行": "德国篮协9/8比赛记录显示Peterson已出场并得7分，不能继续列感染缺阵；本场分钟仍待确认。；德国东道主，官方列序不代表比利时物理主场；德国9/8出赛、比利时9/7，非背靠背。",
+              "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+              "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "generation": "LEGACY_MIGRATED",
+  "legacy_imported": true
+}

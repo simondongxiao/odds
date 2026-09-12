@@ -1,0 +1,1129 @@
+{
+  "schema_version": 2,
+  "date_bj": "2026-09-09",
+  "last_updated": "2026-09-13T01:52:46.768678+08:00",
+  "status": "LEGACY_MIGRATED",
+  "funnel": {
+    "events": 2,
+    "market": 0,
+    "enrichment_complete": 0,
+    "priceable": 0,
+    "coupled": 0,
+    "edge": 0,
+    "lean": 0,
+    "watch": 0,
+    "blocked": 0,
+    "pass": 0
+  },
+  "calibration": {
+    "generation": "LEGACY_MIGRATED",
+    "pricing": "null"
+  },
+  "source_health": [],
+  "events": [
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-germany-korea-20260909",
+        "league": "FIBA女篮世界杯",
+        "match": "德国女篮 vs 韩国女篮",
+        "tip_time_bj": "2026-09-09 02:45",
+        "status": "已完赛 94-56",
+        "home_team": "德国女篮",
+        "away_team": "韩国女篮",
+        "official_order_team_1": "德国女篮",
+        "official_order_team_2": "韩国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128144-GER-KOR",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得",
+          "历史观察，非当前盘：Oddschecker德国-900/韩国+575仅比较价；Caliente德国1.10/韩国6.25，同页去水德国胜率85.03%，不得作让分cover概率。",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "历史观察，非当前盘：Oddschecker比较价：德国 -13.5 @-115（美盘） / 韩国 +13.5 @-105（美盘）<br>Caliente：德国 -14 @1.85（小数） / 韩国 +14 @1.9（小数）",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "历史观察，非当前盘：Oddschecker比较价：大分 150.5 @-108（美盘） / 小分 150.5 @-112（美盘）<br>Caliente：大分 150.5 @1.87（小数） / 小分 150.5 @1.87（小数）",
+          "终盘未核",
+          "不补写赛前方向"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "历史观察，非当前盘：无精确票数/资金/合约流动性",
+          "终盘未核",
+          "不补写赛前方向"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 94-56",
+        "tag": "复盘",
+        "conclusion": "德国女篮 94-56 韩国女篮；原记录未投注，只回填官方赛果，不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "原记录无实投",
+          "原记录无模拟",
+          "终盘未取得",
+          "已完赛 94-56",
+          "不计胜率",
+          "原盘口/方向冻结"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 94-56"
+      },
+      "source_notes": [
+        "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128144-GER-KOR",
+        null,
+        "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。"
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-germany-korea-20260909",
+        "date": "2026-09-09",
+        "time": "02:45",
+        "home": "德国女篮",
+        "away": "韩国女篮",
+        "league": "FIBA女篮世界杯",
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128144-GER-KOR",
+        "source_local_time": "2026-09-08 18:45 UTC",
+        "injury": "德国篮协确认Peterson-Smalls在对马里比赛中已出场，撤销当前感染缺阵假设；本场是否首发及分钟仍待核。",
+        "injury_source": "https://www.basketball-bund.de/wwc-2026-dbb-damen-im-achtelfinale/",
+        "travel": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+        "matchup": "FIBA统计德国篮板47.3、韩国23.7；韩国三分43.4%、德国26.9%。德国内线优势与韩国外线波动并存，深盘须防末节回补。",
+        "motivation": "晋级资格赛，胜者下一轮对比利时；无证据证明德国所有核心将打满。",
+        "attempts": [
+          "Action Network/Covers exact Germany Korea September 8 2026: 未读到精确盘口",
+          "Oddschecker与Caliente: 已取得让分、总分、ML",
+          "Betfair为Sportsbook非交易所；未得到精确合约资金与流动性"
+        ],
+        "note": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+        "ml": "Oddschecker德国-900/韩国+575仅比较价；Caliente德国1.10/韩国6.25，同页去水德国胜率85.03%，不得作让分cover概率。",
+        "quotes": [
+          {
+            "book": "Oddschecker比较价",
+            "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+            "market": "spread",
+            "selections": [
+              [
+                "德国",
+                -13.5,
+                -115,
+                "american"
+              ],
+              [
+                "韩国",
+                13.5,
+                -105,
+                "american"
+              ]
+            ]
+          },
+          {
+            "book": "Oddschecker比较价",
+            "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+            "market": "total",
+            "selections": [
+              [
+                "大分",
+                150.5,
+                -108,
+                "american"
+              ],
+              [
+                "小分",
+                150.5,
+                -112,
+                "american"
+              ]
+            ]
+          },
+          {
+            "book": "Caliente",
+            "url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+            "market": "spread",
+            "selections": [
+              [
+                "德国",
+                -14,
+                1.85,
+                "decimal"
+              ],
+              [
+                "韩国",
+                14,
+                1.9,
+                "decimal"
+              ]
+            ]
+          },
+          {
+            "book": "Caliente",
+            "url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+            "market": "total",
+            "selections": [
+              [
+                "大分",
+                150.5,
+                1.87,
+                "decimal"
+              ],
+              [
+                "小分",
+                150.5,
+                1.87,
+                "decimal"
+              ]
+            ]
+          }
+        ],
+        "status": "已完赛 94-56",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "德国女篮 94-56 韩国女篮；原记录未投注，只回填官方赛果，不计胜率。",
+        "conclusion": "德国女篮 94-56 韩国女篮；原记录未投注，只回填官方赛果，不计胜率。",
+        "ev": "无投注，Kelly=0",
+        "bj_time": "2026-09-09 02:45",
+        "source_date": "2026-09-08",
+        "captured_at": "2026-09-08T07:55:00+08:00",
+        "official_order_team_1": "德国女篮",
+        "official_order_team_2": "韩国女篮",
+        "score_order": "official_source_order",
+        "score_1": 94,
+        "score_2": 56,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128144-GER-KOR",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "first_recorded_at": "2026-09-08T07:55:00+08:00",
+        "trigger_condition": "未形成投注；需所有硬闸在赛前通过后另行首写",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得",
+            "历史观察，非当前盘：Oddschecker德国-900/韩国+575仅比较价；Caliente德国1.10/韩国6.25，同页去水德国胜率85.03%，不得作让分cover概率。",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "历史观察，非当前盘：Oddschecker比较价：德国 -13.5 @-115（美盘） / 韩国 +13.5 @-105（美盘）<br>Caliente：德国 -14 @1.85（小数） / 韩国 +14 @1.9（小数）",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "历史观察，非当前盘：Oddschecker比较价：大分 150.5 @-108（美盘） / 小分 150.5 @-112（美盘）<br>Caliente：大分 150.5 @1.87（小数） / 小分 150.5 @1.87（小数）",
+            "终盘未核",
+            "不补写赛前方向"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "历史观察，非当前盘：无精确票数/资金/合约流动性",
+            "终盘未核",
+            "不补写赛前方向"
+          ]
+        ],
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026/games/128144-GER-KOR\">官方结果</a>；德国女篮 94-56 韩国女篮；原记录未投注，只回填官方赛果，不计胜率。",
+          "盘口路径": "原观察留档，终盘未取得",
+          "伤停首发": "德国篮协确认Peterson-Smalls在对马里比赛中已出场，撤销当前感染缺阵假设；本场是否首发及分钟仍待核。",
+          "公众资金": "未知，不推断",
+          "节奏效率": "回合数与独立校准ORtg/DRtg缺失"
+        },
+        "fundamentals": {
+          "轮换伤停": "德国篮协确认Peterson-Smalls在对马里比赛中已出场，撤销当前感染缺阵假设；本场是否首发及分钟仍待核。 <a href=\"https://www.basketball-bund.de/wwc-2026-dbb-damen-im-achtelfinale/\">德国篮协</a>",
+          "休息赛程": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+          "战意": "晋级资格赛，胜者下一轮对比利时；无证据证明德国所有核心将打满。",
+          "对位": "FIBA统计德国篮板47.3、韩国23.7；韩国三分43.4%、德国26.9%。德国内线优势与韩国外线波动并存，深盘须防末节回补。",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入未齐，Pred=null，场均得分不是Pace。",
+          "公众拉力": "无可核实tickets/money；市场热度不等于Sharp Money"
+        },
+        "spreadAudit": {
+          "意图标签": "盘口观察，未形成投注方向",
+          "正反向验证": "无首写单，不计正确/错误",
+          "盘口意图": "赛果回填，未建仓",
+          "可打线": "无",
+          "停止线": "任何硬闸缺失即停止",
+          "临场防线": "需同源轨迹、分钟和独立p_low；不预设重仓"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分判断，Pace/ORtg/DRtg输入未齐",
+          "可打线": "无",
+          "停止线": "概率/EV/K未过即不投",
+          "临场防线": "1小时振幅>5分熔断；未知不视为通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "德国女篮 94-56 韩国女篮；原记录未投注，只回填官方赛果，不计胜率。",
+          "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women\">Oddschecker比较价</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres\">Caliente</a>"
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；未取得独立校准概率，不能声称真实胜率>=55%",
+          "breakeven/EV": "无投注，不计算赛后EV",
+          "K差值": "K=3.5；Pred/gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前单",
+          "Steam同向": "未知；不同书快照差异不是Steam",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "德国女篮 94-56 韩国女篮；原记录未投注，只回填官方赛果，不计胜率。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间",
+          "分钟/旅行": "德国篮协确认Peterson-Smalls在对马里比赛中已出场，撤销当前感染缺阵假设；本场是否首发及分钟仍待核。；柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+          "末节/罚球": "缺第四节净效率、替补稳定性及末段罚球模型",
+          "仓位/样本": "0U；no-action"
+        },
+        "review": [
+          "原记录无实投",
+          "原记录无模拟",
+          "终盘未取得",
+          "已完赛 94-56",
+          "不计胜率",
+          "原盘口/方向冻结"
+        ],
+        "score_verified_at": "2026-09-10T07:30:00+08:00",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "prior_snapshots": [
+          {
+            "updatedAt": "2026-09-08 07:55 北京时间 | v3.16 晨间更新（部分：盘口已抓，预测证据未齐）",
+            "status": "相邻预告",
+            "bet_status": "不可投",
+            "market": [
+              [
+                "ML",
+                "未取得",
+                "Oddschecker德国-900/韩国+575仅比较价；Caliente德国1.10/韩国6.25，同页去水德国胜率85.03%，不得作让分cover概率。",
+                "终盘待回填",
+                "仅背景；不同书价格不混作去水对"
+              ],
+              [
+                "让分",
+                "未取得开盘",
+                "Oddschecker比较价：德国 -13.5 @-115（美盘） / 韩国 +13.5 @-105（美盘）<br>Caliente：德国 -14 @1.85（小数） / 韩国 +14 @1.9（小数）",
+                "终盘待回填",
+                "两书价差非同源变盘；整数线可能走盘"
+              ],
+              [
+                "大小分",
+                "未取得开盘",
+                "Oddschecker比较价：大分 150.5 @-108（美盘） / 小分 150.5 @-112（美盘）<br>Caliente：大分 150.5 @1.87（小数） / 小分 150.5 @1.87（小数）",
+                "终盘待回填",
+                "无Pace/效率预测，不能判大/小价值"
+              ],
+              [
+                "公众/资金",
+                "未取得",
+                "无精确票数/资金/合约流动性",
+                "待核",
+                "不能从价格推造资金方向"
+              ]
+            ],
+            "current_quotes": [
+              {
+                "book": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+                "market": "spread",
+                "selections": [
+                  {
+                    "side": "德国",
+                    "line": -13.5,
+                    "price": -115,
+                    "format": "american",
+                    "decimal_odds": 1.8695652173913042
+                  },
+                  {
+                    "side": "韩国",
+                    "line": 13.5,
+                    "price": -105,
+                    "format": "american",
+                    "decimal_odds": 1.9523809523809523
+                  }
+                ],
+                "captured_window_bj": "2026-09-08 07:45-07:51 +08:00",
+                "source_updated_at": null,
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "Oddschecker比较价",
+                "url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+                "market": "total",
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": 150.5,
+                    "price": -108,
+                    "format": "american",
+                    "decimal_odds": 1.925925925925926
+                  },
+                  {
+                    "side": "小分",
+                    "line": 150.5,
+                    "price": -112,
+                    "format": "american",
+                    "decimal_odds": 1.8928571428571428
+                  }
+                ],
+                "captured_window_bj": "2026-09-08 07:45-07:51 +08:00",
+                "source_updated_at": null,
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "Caliente",
+                "url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+                "market": "spread",
+                "selections": [
+                  {
+                    "side": "德国",
+                    "line": -14,
+                    "price": 1.85,
+                    "format": "decimal",
+                    "decimal_odds": 1.85
+                  },
+                  {
+                    "side": "韩国",
+                    "line": 14,
+                    "price": 1.9,
+                    "format": "decimal",
+                    "decimal_odds": 1.9
+                  }
+                ],
+                "captured_window_bj": "2026-09-08 07:45-07:51 +08:00",
+                "source_updated_at": null,
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              },
+              {
+                "book": "Caliente",
+                "url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+                "market": "total",
+                "selections": [
+                  {
+                    "side": "大分",
+                    "line": 150.5,
+                    "price": 1.87,
+                    "format": "decimal",
+                    "decimal_odds": 1.87
+                  },
+                  {
+                    "side": "小分",
+                    "line": 150.5,
+                    "price": 1.87,
+                    "format": "decimal",
+                    "decimal_odds": 1.87
+                  }
+                ],
+                "captured_window_bj": "2026-09-08 07:45-07:51 +08:00",
+                "source_updated_at": null,
+                "executable_verified": false,
+                "opening": null,
+                "closing": null
+              }
+            ],
+            "quant_checks": [
+              {
+                "side": "德国",
+                "line": -13.5,
+                "price": -115,
+                "format": "american",
+                "decimal_odds": 1.8695652173913042,
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5348837209302326,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "韩国",
+                "line": 13.5,
+                "price": -105,
+                "format": "american",
+                "decimal_odds": 1.9523809523809523,
+                "market": "spread",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5121951219512195,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "大分",
+                "line": 150.5,
+                "price": -108,
+                "format": "american",
+                "decimal_odds": 1.925925925925926,
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5192307692307692,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "小分",
+                "line": 150.5,
+                "price": -112,
+                "format": "american",
+                "decimal_odds": 1.8928571428571428,
+                "market": "total",
+                "source": "Oddschecker比较价",
+                "source_url": "https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5283018867924528,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "德国",
+                "line": -14,
+                "price": 1.85,
+                "format": "decimal",
+                "decimal_odds": 1.85,
+                "market": "spread",
+                "source": "Caliente",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5405405405405405,
+                "breakeven_basis": "conditional_on_no_push",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "韩国",
+                "line": 14,
+                "price": 1.9,
+                "format": "decimal",
+                "decimal_odds": 1.9,
+                "market": "spread",
+                "source": "Caliente",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  11,
+                  13
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.5263157894736842,
+                "breakeven_basis": "conditional_on_no_push",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "大分",
+                "line": 150.5,
+                "price": 1.87,
+                "format": "decimal",
+                "decimal_odds": 1.87,
+                "market": "total",
+                "source": "Caliente",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.53475935828877,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              },
+              {
+                "side": "小分",
+                "line": 150.5,
+                "price": 1.87,
+                "format": "decimal",
+                "decimal_odds": 1.87,
+                "market": "total",
+                "source": "Caliente",
+                "source_url": "https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres",
+                "pred_margin_or_total": null,
+                "sigma": null,
+                "sigma_prior_range": [
+                  15,
+                  18
+                ],
+                "p_low": null,
+                "p_mid": null,
+                "p_high": null,
+                "breakeven": 0.53475935828877,
+                "breakeven_basis": "binary_if_terms_confirmed",
+                "push_probability": null,
+                "ev_multiplier": null,
+                "edge": null,
+                "K": 3.5,
+                "line_pred_gap": null,
+                "min_buffer": 0.06,
+                "time_lock_status": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据",
+                "volatility_fuse": "unknown",
+                "steam_alignment": "unknown",
+                "minutes_projection_status": "unverified",
+                "travel_fatigue_tag": "柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+                "garbage_time_guard": "unverified",
+                "quarter_kelly": 0,
+                "stake_cap": 0,
+                "stake": 0,
+                "final_zero_action_reason": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+                "bet_status": "不可投",
+                "count_bucket": "no-action",
+                "pass_fail_gates": {
+                  "probability": "missing",
+                  "EV": "missing",
+                  "directional_K": "missing",
+                  "time": "fail",
+                  "volatility": "unknown",
+                  "steam": "unknown",
+                  "minutes": "missing",
+                  "garbage_time": "missing",
+                  "executable_price": "unverified",
+                  "settlement_terms": "unverified",
+                  "path": "missing"
+                }
+              }
+            ],
+            "quant": {
+              "p_low/p_mid/p_high": "null / null / null；未取得独立校准概率，不能声称真实胜率>=55%",
+              "breakeven/EV": "德国 -13.5 @1.870：53.49%；韩国 13.5 @1.952：51.22%；大分 150.5 @1.926：51.92%；小分 150.5 @1.893：52.83%；德国 -14 @1.850：54.05%；韩国 14 @1.900：52.63%；大分 150.5 @1.870：53.48%；小分 150.5 @1.870：53.48%。EV/edge=null；整数线需另处理push。",
+              "K差值": "K=3.5；Pred/gap=null，未通过",
+              "时间锁/熔断": "距开赛18.83小时；变盘入场仅限最后2小时，5小时以前波动不作建仓依据；1小时振幅未知",
+              "Steam同向": "未知；不同书快照差异不是Steam",
+              "1/4 Kelly": "0",
+              "Zero Action原因": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+              "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13、总分15-18仅待验证参数，不是预测概率区间",
+              "分钟/旅行": "德国篮协确认Peterson-Smalls在对马里比赛中已出场，撤销当前感染缺阵假设；本场是否首发及分钟仍待核。；柏林赛会制；双方当地9/7打完小组赛后9/8再战，负荷需核实；德国东道主优势不等于NBA主场参数。",
+              "末节/罚球": "缺第四节净效率、替补稳定性及末段罚球模型",
+              "仓位/样本": "0U；stake_cap=0；no-action；未形成0.5U基础仓位或Middle"
+            },
+            "execution": {
+              "主单": "不投",
+              "备选": "无",
+              "Kelly": "0",
+              "最大入场": "无",
+              "备注": "德国让13.5-14、总分150.5已抓取；深盘分钟/垃圾时间过滤与p_low未通过，距开赛仍超2小时，模拟0U。",
+              "证据链接": "<a href=\"https://www.oddschecker.com/us/basketball/fiba-world-cup-womens/south-korea-women-at-germany-women\">Oddschecker比较价</a>；<a href=\"https://sports.caliente.mx/es_MX/e/33073341/Alemania-Mujeres-vs-Corea-del-Sur-Mujeres\">Caliente</a>"
+            },
+            "review": [
+              "无真实下注",
+              "无纸面单",
+              "终盘待回填",
+              "未开赛",
+              "未建仓",
+              "保留采集时间和原价格；不可赛后补单"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "canonical_event_id": "fiba-wwc-puerto-rico-china-20260909",
+        "league": "FIBA女篮世界杯",
+        "match": "波多黎各女篮 vs 中国女篮",
+        "tip_time_bj": "2026-09-09 23:45",
+        "status": "已完赛 72-75",
+        "home_team": "波多黎各女篮",
+        "away_team": "中国女篮",
+        "official_order_team_1": "波多黎各女篮",
+        "official_order_team_2": "中国女篮"
+      },
+      "pricing": null,
+      "market": null,
+      "enrichment": null,
+      "execution": null,
+      "discovery": {
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "status": "LEGACY_IMPORTED"
+      },
+      "record_generation": "LEGACY_MIGRATED",
+      "legacy_imported": true,
+      "historical_display_status": "旧版历史记录",
+      "legacy_market_audit": [
+        [
+          "ML",
+          "未取得开盘",
+          "未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+          "终盘未核",
+          "仅胜负背景，不作让分概率"
+        ],
+        [
+          "让分",
+          "未取得开盘",
+          "首次记录已赛后，无盘前单",
+          "终盘未核",
+          "不同书不拼成时间轨迹；未验证可成交"
+        ],
+        [
+          "大小分",
+          "未取得开盘",
+          "首次记录已赛后，无盘前单",
+          "终盘未核",
+          "整数线存在push；与让分独立判断"
+        ],
+        [
+          "公众/资金",
+          "未取得",
+          "无精确tickets/money或交易所深度",
+          "未取得",
+          "不从价格推造资金方向"
+        ]
+      ],
+      "legacy_intent_audit": null,
+      "original_first_write": {
+        "status": "已完赛 72-75",
+        "tag": "复盘",
+        "conclusion": "首次采集已终场，仅覆盖赛果，禁止补盘前单。",
+        "ev": "无投注，Kelly=0",
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 72-75",
+          "不计胜率",
+          "只保留原始记录，不赛后补单"
+        ]
+      },
+      "settlement": {
+        "score": "已完赛 72-75"
+      },
+      "source_notes": [
+        "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        null,
+        "首次采集已终场，仅覆盖赛果，禁止补盘前单。"
+      ],
+      "legacy_record": {
+        "id": "fiba-wwc-puerto-rico-china-20260909",
+        "date": "2026-09-09",
+        "time": "23:45",
+        "home": "波多黎各女篮",
+        "away": "中国女篮",
+        "league": "FIBA女篮世界杯",
+        "score": [
+          72,
+          75
+        ],
+        "source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "note": "首次采集已终场，仅覆盖赛果，禁止补盘前单。",
+        "quotes": [],
+        "status": "已完赛 72-75",
+        "tag": "复盘",
+        "tier": "D",
+        "bet_status": "不可投",
+        "bet_reason": "首次采集已终场，仅覆盖赛果，禁止补盘前单。",
+        "source_date": "2026-09-09",
+        "bj_time": "2026-09-09 23:45",
+        "captured_at": "2026-09-10T07:30:00+08:00",
+        "score_order": "official_source_order",
+        "official_order_team_1": "波多黎各女篮",
+        "official_order_team_2": "中国女篮",
+        "score_1": 72,
+        "score_2": 75,
+        "score_is_final": true,
+        "score_source": "https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026",
+        "first_recorded_at": "2026-09-10T07:30:00+08:00",
+        "original_side": null,
+        "original_line": null,
+        "original_price": null,
+        "trigger_condition": "首次记录在赛后，不能补盘前单",
+        "source_update_file": "snapshot_2026-09-10.json",
+        "real_bet_flag": false,
+        "kelly": 0,
+        "stake": 0,
+        "stake_cap": 0,
+        "count_bucket": "no-action",
+        "settlement_status": "已结算（无投注）",
+        "settlement_result": "no-action",
+        "CLV": null,
+        "process_grade": "No grade",
+        "current_quotes": [],
+        "quant_checks": [],
+        "market": [
+          [
+            "ML",
+            "未取得开盘",
+            "未取得可用同书二项ML；不以三项常规时间胜负冒充含加时ML",
+            "终盘未核",
+            "仅胜负背景，不作让分概率"
+          ],
+          [
+            "让分",
+            "未取得开盘",
+            "首次记录已赛后，无盘前单",
+            "终盘未核",
+            "不同书不拼成时间轨迹；未验证可成交"
+          ],
+          [
+            "大小分",
+            "未取得开盘",
+            "首次记录已赛后，无盘前单",
+            "终盘未核",
+            "整数线存在push；与让分独立判断"
+          ],
+          [
+            "公众/资金",
+            "未取得",
+            "无精确tickets/money或交易所深度",
+            "未取得",
+            "不从价格推造资金方向"
+          ]
+        ],
+        "conclusion": "首次采集已终场，仅覆盖赛果，禁止补盘前单。",
+        "ev": "无投注，Kelly=0",
+        "completeness": {
+          "比分源": "<a href=\"https://www.fiba.basketball/en/events/fiba-womens-basketball-world-cup-2026\">赛程/结果来源</a>；已完赛 72-75",
+          "盘口路径": "首次记录已完赛，不补盘前价格",
+          "伤停首发": "赛后覆盖不重构伤停判断",
+          "公众资金": "未取得精确盘口资金与深度",
+          "节奏效率": "Pace/ORtg/DRtg校准不足；Pred与概率区间未产生"
+        },
+        "fundamentals": {
+          "轮换伤停": "赛后覆盖不重构伤停判断",
+          "休息赛程": "仅赛果覆盖",
+          "战意": "赛后仅覆盖",
+          "节奏": "Pace_expected=(Pace1+Pace2)/2；输入与对手修正不足，不用场均得分替代Pace",
+          "对位": "缺可靠对位/第四节与替补效率样本",
+          "公众拉力": "无精确资金/票数，不据叙事反买"
+        },
+        "spreadAudit": {
+          "意图标签": "赛果覆盖",
+          "正反向验证": "未形成具体方向，均未建仓；不计正确/错误",
+          "盘口意图": "首次采集已终场，仅覆盖赛果，禁止补盘前单。",
+          "可打线": "无",
+          "停止线": "任一硬闸缺失即零仓位",
+          "临场防线": "不反向追单，不把跨书价差解释为资金砸盘"
+        },
+        "totalAudit": {
+          "盘口意图": "独立于让分；缺回合数、效率和罚球尾部校准",
+          "可打线": "无",
+          "停止线": "p_low/EV/K未过即不投",
+          "临场防线": "同源最后1小时振幅>5分熔断；未知不算通过"
+        },
+        "execution": {
+          "主单": "不投",
+          "备选": "无",
+          "Kelly": "0",
+          "最大入场": "无",
+          "备注": "首次采集已终场，仅覆盖赛果，禁止补盘前单。",
+          "证据链接": ""
+        },
+        "quant": {
+          "p_low/p_mid/p_high": "null / null / null；没有校准概率，不能声称胜率>=55%",
+          "breakeven/EV": "；EV/edge=null，整数线需push模型。",
+          "K差值": "K=3.5；Pred和同向gap=null，未通过",
+          "时间锁/熔断": "已完赛，禁止补盘前投注；最后1小时同源振幅未知",
+          "Steam同向": "unknown；无连续报价不判同向",
+          "1/4 Kelly": "0",
+          "Zero Action原因": "首次采集已终场，仅覆盖赛果，禁止补盘前单。",
+          "Pred / sigma": "Pred=null；校准sigma=null；先验让分11-13/总分15-18，不是已验证概率分布",
+          "分钟/旅行": "赛后覆盖不重构伤停判断；仅赛果覆盖",
+          "末节/罚球": "未形成可校准末节/替补/罚球风险模型，不能宣称已通过",
+          "仓位/样本": "0U；stake_cap=0；no-action；无合格基础仓位，不启用Middle对冲"
+        },
+        "review": [
+          "无真实下注",
+          "无纸面单",
+          "终盘未核",
+          "已完赛 72-75",
+          "不计胜率",
+          "只保留原始记录，不赛后补单"
+        ]
+      }
+    }
+  ],
+  "generation": "LEGACY_MIGRATED",
+  "legacy_imported": true
+}
