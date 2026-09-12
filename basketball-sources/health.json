@@ -1,0 +1,6 @@
+[
+  {"source":"FIBA","reachable":true,"last_success":"2026-09-12T16:54:05Z","events_parsed":1,"market_quotes":0,"parse_errors":0,"latency":0.8,"status":"READY"},
+  {"source":"7M","reachable":true,"last_success":"2026-09-12T16:43:15Z","events_parsed":1,"market_quotes":2,"parse_errors":0,"latency":1.4,"status":"MARKET FEED MVP READY","ot_contract":"UNKNOWN"},
+  {"source":"SofaScore","reachable":false,"last_success":null,"events_parsed":0,"market_quotes":0,"parse_errors":1,"latency":null,"status":"UNAVAILABLE"},
+  {"source":"ESPN","reachable":false,"last_success":null,"events_parsed":0,"market_quotes":0,"parse_errors":0,"latency":null,"status":"NOT USED"}
+]

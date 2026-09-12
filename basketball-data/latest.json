@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "date_bj": "2026-09-13",
+  "last_updated": "2026-09-13T00:54:05+08:00",
+  "status": {
+    "discovery": "READY",
+    "market_feed": "MVP READY",
+    "pricing": "READY",
+    "paper_mode": true,
+    "real_execution_disabled": true
+  },
+  "funnel": {
+    "events": 2,
+    "market": 1,
+    "enrichment_complete": 1,
+    "priceable": 1,
+    "edge": 0,
+    "lean": 0,
+    "watch": 2,
+    "pass": 0,
+    "blocked": 0,
+    "coupled": 0
+  },
+  "calibration": {
+    "forward_priced": 1,
+    "market_tape": 1,
+    "coupled": 0,
+    "settled": 0,
+    "clv_samples": 0
+  },
+  "source_health": "../sources/health.json",
+  "events": [
+    {
+      "event": {
+        "canonical_event_id": "FIBA_WOMEN:Spain-USA-2026-09-12T18:00:00+00:00",
+        "tip_time_bj": "2026-09-13T02:00:00+08:00",
+        "league": "FIBA Women World Cup",
+        "match": "Spain vs USA"
+      },
+      "discovery": {
+        "status": "READY",
+        "source": "FIBA official",
+        "method": "event_landing"
+      },
+      "enrichment": {
+        "status": "COMPLETE",
+        "prior": "READY",
+        "roster": "READY",
+        "role_minutes": "DEGRADED",
+        "injury": "UNKNOWN",
+        "recent_form": "READY",
+        "schedule_rest": "READY"
+      },
+      "pricing": {
+        "status": "PRICED_LOW_CONFIDENCE",
+        "model_state": "WATCH",
+        "fair_spread": {
+          "raw": 4.5,
+          "structural": 1.71,
+          "market": null,
+          "blended": null
+        },
+        "fair_total": {
+          "raw": 153.0,
+          "structural": 153.0,
+          "market": null,
+          "blended": null
+        },
+        "quality": 38,
+        "uncertainty": "spread 12.0 / total 17.0"
+      },
+      "market": {
+        "status": "NO_MARKET",
+        "source": null,
+        "tape": []
+      },
+      "execution": {
+        "shadow_action": "WATCH",
+        "blocker": "NO_MARKET",
+        "playable_line": null,
+        "min_odds": null,
+        "no_chase": "YES"
+      },
+      "ledger": {
+        "paper_record": true,
+        "real_stake": 0
+      },
+      "settlement": null
+    },
+    {
+      "event": {
+        "canonical_event_id": "FIBA_MEN:7m-1360887-2026-09-13T12:00:00+00:00",
+        "tip_time_bj": "2026-09-13T20:00:00+08:00",
+        "league": "FIBA Asian Games",
+        "match": "中国台北 vs 卡塔尔"
+      },
+      "discovery": {
+        "status": "READY",
+        "source": "7M",
+        "method": "direct_id"
+      },
+      "enrichment": {
+        "status": "MISSING",
+        "prior": "MISSING",
+        "roster": "MISSING",
+        "role_minutes": "MISSING",
+        "injury": "UNKNOWN",
+        "recent_form": "MISSING",
+        "schedule_rest": "MISSING"
+      },
+      "pricing": {
+        "status": "UNPRICEABLE",
+        "model_state": "BLOCKED",
+        "fair_spread": {
+          "raw": null,
+          "structural": null,
+          "market": 5.5,
+          "blended": null
+        },
+        "fair_total": {
+          "raw": null,
+          "structural": null,
+          "market": 147.5,
+          "blended": null
+        },
+        "quality": 0,
+        "uncertainty": "not available"
+      },
+      "market": {
+        "status": "REAL_MARKET",
+        "source": "7M aggregate",
+        "tape": [
+          {
+            "timestamp": "2026-09-13T00:33:01+08:00",
+            "selection": "home",
+            "spread": 5.5,
+            "spread_price": 1.9,
+            "total": 147.5,
+            "total_price": 1.88
+          }
+        ],
+        "tape_note": "single snapshot; insufficient for trend"
+      },
+      "execution": {
+        "shadow_action": "WATCH",
+        "blocker": "UNPRICEABLE + UNKNOWN_OT_RULE",
+        "playable_line": null,
+        "min_odds": null,
+        "no_chase": "YES"
+      },
+      "ledger": {
+        "paper_record": true,
+        "real_stake": 0
+      },
+      "settlement": null
+    }
+  ],
+  "sample_counters": {
+    "forward_priced": 1,
+    "market_tape": 1,
+    "coupled": 0,
+    "settled": 0,
+    "clv_samples": 0
+  },
+  "generated_at": "2026-09-12T17:12:24.061791+00:00",
+  "pipeline_version": "step6b-daily-v1"
+}
