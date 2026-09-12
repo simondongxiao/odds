@@ -11,6 +11,10 @@ V3 remains the only Production decision authority. V4 is `Forward Shadow` only a
 
 Deprecated research semantics are not active rules: old fake Bayesian blends, the v4 five-sample reverse alert, historical upper/lower legacy meanings, HTML `cardsData` as a decision source, and dashboard-side action calculation. The render-only dashboard may display V3 and V4 side by side, but it cannot create or mutate a decision.
 
+### V4 Slim Publish Hard Rule
+
+After every strict daily update, the current homepage must be rendered by the single V4 slim renderer and mirrored to the actual GitHub Pages source (`gh-pages` branch, repository root). A legacy monolithic dashboard is never the current homepage. Before push, require `index.html < 2 MB`, no `const cardsData` or inline historical cards payload, and presence of `assets/app.js`, `assets/style.css`, `data/current.json`, and `data/model_status.json`. If any check fails, status is `PUBLISH_BLOCKED_LEGACY_DASHBOARD`; do not push and do not report the update complete.
+
 ## Operating Standard
 
 ### Continental Competition Isolation (2026-09-08)
