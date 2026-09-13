@@ -1,113 +1,125 @@
 {
-  "generated_at": "2026-09-13T00:00:00+08:00",
   "dates": [
     {
-      "date": "2026-09-13",
-      "file": "2026-09-13.json",
-      "event_count": 2,
-      "data_generation": "V2_FORWARD_NATIVE"
-    },
-    {
-      "date": "2026-09-12",
-      "file": "2026-09-12.json",
-      "event_count": 8,
-      "data_generation": "V2_FORWARD_NATIVE"
-    },
-    {
-      "date": "2026-09-11",
-      "file": "2026-09-11.json",
-      "event_count": 9,
-      "data_generation": "LEGACY_MIGRATED"
-    },
-    {
-      "date": "2026-09-10",
-      "file": "2026-09-10.json",
-      "event_count": 8,
-      "data_generation": "LEGACY_MIGRATED"
-    },
-    {
-      "date": "2026-09-09",
-      "file": "2026-09-09.json",
-      "event_count": 2,
-      "data_generation": "LEGACY_MIGRATED"
-    },
-    {
-      "date": "2026-09-08",
-      "file": "2026-09-08.json",
-      "event_count": 5,
-      "data_generation": "LEGACY_MIGRATED"
-    },
-    {
-      "date": "2026-09-07",
-      "file": "2026-09-07.json",
-      "event_count": 7,
-      "data_generation": "LEGACY_MIGRATED"
-    },
-    {
-      "date": "2026-09-06",
-      "file": "2026-09-06.json",
-      "event_count": 9,
-      "data_generation": "LEGACY_MIGRATED"
-    },
-    {
-      "date": "2026-09-05",
-      "file": "2026-09-05.json",
-      "event_count": 8,
-      "data_generation": "LEGACY_MIGRATED"
-    },
-    {
-      "date": "2026-09-04",
-      "file": "2026-09-04.json",
+      "archive_type": "FORWARD_NATIVE",
+      "date": "2026-09-15",
       "event_count": 10,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-09-15.json"
     },
     {
+      "archive_type": "FORWARD_NATIVE",
+      "date": "2026-09-14",
+      "event_count": 22,
+      "file": "2026-09-14.json"
+    },
+    {
+      "archive_type": "FORWARD_NATIVE",
+      "date": "2026-09-13",
+      "event_count": 61,
+      "file": "2026-09-13.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-12",
+      "event_count": 8,
+      "file": "2026-09-12.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-11",
+      "event_count": 9,
+      "file": "2026-09-11.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-10",
+      "event_count": 8,
+      "file": "2026-09-10.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-09",
+      "event_count": 2,
+      "file": "2026-09-09.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-08",
+      "event_count": 5,
+      "file": "2026-09-08.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-07",
+      "event_count": 7,
+      "file": "2026-09-07.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-06",
+      "event_count": 9,
+      "file": "2026-09-06.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-05",
+      "event_count": 8,
+      "file": "2026-09-05.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
+      "date": "2026-09-04",
+      "event_count": 10,
+      "file": "2026-09-04.json"
+    },
+    {
+      "archive_type": "LEGACY_MIGRATED",
       "date": "2026-09-03",
-      "file": "2026-09-03.json",
       "event_count": 4,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-09-03.json"
     },
     {
+      "archive_type": "LEGACY_MIGRATED",
       "date": "2026-09-01",
-      "file": "2026-09-01.json",
       "event_count": 11,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-09-01.json"
     },
     {
+      "archive_type": "LEGACY_MIGRATED",
       "date": "2026-08-31",
-      "file": "2026-08-31.json",
       "event_count": 8,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-08-31.json"
     },
     {
+      "archive_type": "LEGACY_MIGRATED",
       "date": "2026-08-30",
-      "file": "2026-08-30.json",
       "event_count": 13,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-08-30.json"
     },
     {
+      "archive_type": "LEGACY_MIGRATED",
       "date": "2026-08-29",
-      "file": "2026-08-29.json",
       "event_count": 12,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-08-29.json"
     },
     {
+      "archive_type": "LEGACY_MIGRATED",
       "date": "2026-08-28",
-      "file": "2026-08-28.json",
       "event_count": 24,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-08-28.json"
     },
     {
+      "archive_type": "LEGACY_MIGRATED",
       "date": "2026-08-27",
-      "file": "2026-08-27.json",
       "event_count": 8,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-08-27.json"
     },
     {
+      "archive_type": "LEGACY_MIGRATED",
       "date": "2026-08-26",
-      "file": "2026-08-26.json",
       "event_count": 3,
-      "data_generation": "LEGACY_MIGRATED"
+      "file": "2026-08-26.json"
     }
-  ]
+  ],
+  "generated_at": "2026-09-13T15:08:33.167686+00:00"
 }
