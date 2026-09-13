@@ -52,7 +52,10 @@ def publish(push: bool = True) -> dict[str, object]:
 
     copied: list[str] = []
     pairs = [
-        (ROOT / "dashboard" / "index.html", PUBLISH_REPO / "index.html"),
+        # V3 Legacy and V4 Shadow are separate public pages.  Do not replace
+        # either with a generated root dashboard during daily publication.
+        (WORKSPACE / "v3_legacy" / "dashboard" / "index.html", PUBLISH_REPO / "v3-legacy" / "index.html"),
+        (WORKSPACE / "v4" / "dashboard" / "index.html", PUBLISH_REPO / "v4" / "index.html"),
         (WORKSPACE / "skills" / "worldcup-odds-trader" / "SKILL.md", PUBLISH_REPO / "skills" / "worldcup-odds-trader" / "SKILL.md"),
         (WORKSPACE / "tools" / "sequential_asian_backtest_engine.py", PUBLISH_REPO / "tools" / "sequential_asian_backtest_engine.py"),
         (WORKSPACE / "tools" / "build_football_dashboard.py", PUBLISH_REPO / "tools" / "build_football_dashboard.py"),
@@ -101,6 +104,9 @@ def publish(push: bool = True) -> dict[str, object]:
         src = latest_file(root, pattern)
         if src:
             pairs.append((src, dst_dir / src.name))
+    v4_daily = latest_file(WORKSPACE / "v4" / "outputs", "v4_decisions_*.json")
+    if v4_daily:
+        pairs.append((v4_daily, PUBLISH_REPO / "v4" / "data" / v4_daily.name.removeprefix("v4_decisions_")))
 
     for src, dst in pairs:
         if copy_file(src, dst):
