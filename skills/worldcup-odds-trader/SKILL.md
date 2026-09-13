@@ -27,9 +27,9 @@ The phrase `按照 Skill 做今天更新`, `严格按照 Skill 更新`, or an eq
 
 Deprecated research semantics are not active rules: old fake Bayesian blends, the v4 five-sample reverse alert, historical upper/lower legacy meanings, HTML `cardsData` as a decision source, and dashboard-side action calculation. The render-only dashboard may display V3 and V4 side by side, but it cannot create or mutate a decision.
 
-### V4 Slim Publish Hard Rule
+### Dual-Page Publish Hard Rule
 
-After every strict daily update, the current homepage must be rendered by the single V4 slim renderer and mirrored to the actual GitHub Pages source (`gh-pages` branch, repository root). A legacy monolithic dashboard is never the current homepage. Before push, require `index.html < 2 MB`, no `const cardsData` or inline historical cards payload, and presence of `assets/app.js`, `assets/style.css`, `data/current.json`, and `data/model_status.json`. If any check fails, status is `PUBLISH_BLOCKED_LEGACY_DASHBOARD`; do not push and do not report the update complete.
+After every strict daily update, preserve and publish the two independent version pages: `v3-legacy/index.html` for V3 Legacy Production and `v4/index.html` for V4 Shadow. Do not replace them with a newly generated root dashboard. The V3 page may retain its legacy `cardsData` payload because it is a frozen compatibility view; it must not be used as a new decision source. The V4 page must load only its own date data and show `SHADOW ONLY` / `real_money=false`. Before push, verify both page files, their date data, the V3/V4 source separation, and the actual GitHub Pages branch. If either page or its data is missing, mark `PUBLISH_BLOCKED_VERSION_PAGE_MISSING`; do not report the update complete.
 
 ## Operating Standard
 
