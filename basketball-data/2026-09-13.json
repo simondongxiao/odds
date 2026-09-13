@@ -4,7 +4,7 @@
   "last_updated": "2026-09-13T00:54:05+08:00",
   "status": {
     "discovery": "LIVE READY",
-    "market_feed": "STALE / NO FRESH QUOTE",
+    "market_feed": "FRESH READY",
     "pricing": "READY",
     "paper_mode": true,
     "real_execution_disabled": true
@@ -21,7 +21,7 @@
     "blocked": 0,
     "coupled": 0,
     "events_discovered": 132,
-    "fresh_market_events": 0,
+    "fresh_market_events": 27,
     "priceable_events": 0,
     "coupled_events": 0,
     "EDGE": 0,
@@ -171,22 +171,22 @@
     "settled": 0,
     "clv_samples": 0
   },
-  "generated_at": "2026-09-13T05:11:28.194842+00:00",
+  "generated_at": "2026-09-13T05:29:31.225094+00:00",
   "pipeline_version": "live-refresh-hotfix-v1",
   "freshness": {
-    "run_started_at": "2026-09-13T05:11:14.758439+00:00",
-    "run_finished_at": "2026-09-13T05:11:28.194842+00:00",
+    "run_started_at": "2026-09-13T05:29:08.152053+00:00",
+    "run_finished_at": "2026-09-13T05:29:31.225094+00:00",
     "discovery_status": "LIVE_SUCCESS",
-    "market_feed_status": "STALE_OR_UNAVAILABLE",
-    "capture_session_id": "ae8d6c383394451a8002918be81d4002",
-    "captured_at": "2026-09-13T05:11:26.180080+00:00",
+    "market_feed_status": "FRESH",
+    "capture_session_id": "45e262e6c6984eecb14a48acfcaa5265",
+    "captured_at": "2026-09-13T05:29:21.485557+00:00",
     "source_buckets": [
       "2026-09-12",
       "2026-09-13",
       "2026-09-14"
     ],
-    "quote_age_seconds": null,
-    "market_freshness": "STALE"
+    "quote_age_seconds": 0,
+    "market_freshness": "FRESH"
   },
   "update_status": "PARTIAL",
   "update_message": "今日尚无“模型+实时盘口”的同场完整数据，暂无法进行价值筛选。"
