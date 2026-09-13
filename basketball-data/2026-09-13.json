@@ -3,8 +3,8 @@
   "date_bj": "2026-09-13",
   "last_updated": "2026-09-13T00:54:05+08:00",
   "status": {
-    "discovery": "READY",
-    "market_feed": "MVP READY",
+    "discovery": "LIVE READY",
+    "market_feed": "STALE / NO FRESH QUOTE",
     "pricing": "READY",
     "paper_mode": true,
     "real_execution_disabled": true
@@ -171,21 +171,21 @@
     "settled": 0,
     "clv_samples": 0
   },
-  "generated_at": "2026-09-13T04:45:55.955310+00:00",
+  "generated_at": "2026-09-13T05:11:28.194842+00:00",
   "pipeline_version": "live-refresh-hotfix-v1",
   "freshness": {
-    "run_started_at": "2026-09-13T04:45:40.347000+00:00",
-    "run_finished_at": "2026-09-13T04:45:55.955310+00:00",
+    "run_started_at": "2026-09-13T05:11:14.758439+00:00",
+    "run_finished_at": "2026-09-13T05:11:28.194842+00:00",
     "discovery_status": "LIVE_SUCCESS",
     "market_feed_status": "STALE_OR_UNAVAILABLE",
-    "capture_session_id": "54d8069872054af6b45e81813aeb3b85",
-    "captured_at": "2026-09-13T04:45:54.518801+00:00",
+    "capture_session_id": "ae8d6c383394451a8002918be81d4002",
+    "captured_at": "2026-09-13T05:11:26.180080+00:00",
     "source_buckets": [
       "2026-09-12",
       "2026-09-13",
       "2026-09-14"
     ],
-    "quote_age_seconds": 0,
+    "quote_age_seconds": null,
     "market_freshness": "STALE"
   },
   "update_status": "PARTIAL",
