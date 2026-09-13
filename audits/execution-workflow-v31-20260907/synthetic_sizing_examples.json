@@ -1,0 +1,52 @@
+{
+  "synthetic_only": true,
+  "not_real_matches_or_orders": true,
+  "one_percent_unit_normal": {
+    "rule_version": "asian-risk-v3.1-20260907",
+    "Execution_Status": "READY",
+    "Stake": 100.0,
+    "Threshold": 0.5302,
+    "EV_Current": 0.0584,
+    "Kelly_Full": 0.0608,
+    "Blind_Multiplier": 1.0,
+    "Signal_Multiplier": 1.0,
+    "Fundamental_Multiplier": 1.0,
+    "Sizing_Effective_Rate": 0.54
+  },
+  "one_percent_unit_high": {
+    "rule_version": "asian-risk-v3.1-20260907",
+    "Execution_Status": "READY",
+    "Stake": 150.0,
+    "Threshold": 0.5302,
+    "EV_Current": 0.0584,
+    "Kelly_Full": 0.0608,
+    "Blind_Multiplier": 1.0,
+    "Signal_Multiplier": 1.5,
+    "Fundamental_Multiplier": 1.0,
+    "Sizing_Effective_Rate": 0.54
+  },
+  "five_percent_unit_normal": {
+    "rule_version": "asian-risk-v3.1-20260907",
+    "Execution_Status": "READY",
+    "Stake": 152.08,
+    "Threshold": 0.5302,
+    "EV_Current": 0.0584,
+    "Kelly_Full": 0.0608,
+    "Blind_Multiplier": 1.0,
+    "Signal_Multiplier": 1.0,
+    "Fundamental_Multiplier": 1.0,
+    "Sizing_Effective_Rate": 0.54
+  },
+  "five_percent_unit_high": {
+    "rule_version": "asian-risk-v3.1-20260907",
+    "Execution_Status": "READY",
+    "Stake": 152.08,
+    "Threshold": 0.5302,
+    "EV_Current": 0.0584,
+    "Kelly_Full": 0.0608,
+    "Blind_Multiplier": 1.0,
+    "Signal_Multiplier": 1.5,
+    "Fundamental_Multiplier": 1.0,
+    "Sizing_Effective_Rate": 0.54
+  }
+}

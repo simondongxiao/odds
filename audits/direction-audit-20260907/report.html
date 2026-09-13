@@ -1,0 +1,126 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>9/4选边变化审计</title><style>body{margin:0;background:#f2f7fc;color:#173c58;font:16px/1.7 'Microsoft YaHei',Arial,sans-serif;letter-spacing:0}main{max-width:1100px;margin:auto;padding:24px}h1{font-size:26px;line-height:1.4;color:#155b96}h2{font-size:20px;color:#155b96;margin-top:28px;border-bottom:1px solid #bed3e5}a{color:#075da5}table{width:100%;border-collapse:collapse;font-size:14px;background:#fff}th,td{padding:9px;border:1px solid #bed3e5;vertical-align:top;overflow-wrap:anywhere}th{background:#dcecf9}pre{overflow:auto;background:#e7eef5;padding:12px}code{overflow-wrap:anywhere}p,li{overflow-wrap:anywhere}.table-wrap{overflow-x:auto}@media(max-width:600px){main{padding:14px}h1{font-size:23px}table{min-width:660px}}</style></head><body><main><h1>9月4日五大地区选边变化审计与风控升级</h1>
+<p>审计日期：2026-09-07。依据：原始Titan007快照、Git发布版本、各版本内嵌历史统计与原JavaScript函数。本文解释当时决策，不用比赛结果重新挑选推荐。</p>
+<h2>结论</h2>
+<p>用户记忆准确：9/4早版和18:44版选择皇马、巴黎；19:03版选择皇家贝蒂斯、摩纳哥。原因是水位跨过程序的硬分档，改变候选标签，继而切换历史统计分组。两场没有伤停/轮换/近5场/H2H或真实资金流作为该次改向的依据。</p>
+<h2>原版本还原</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>比赛</th>
+<th>07:49至18:44版本</th>
+<th>19:03版本（18:50:16抓取）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>皇家贝蒂斯 vs 皇家马德里</td>
+<td>皇马 -1.25，HK 0.82；贝蒂斯 +1.25，1.06；诱上/阻下；反向选皇马；综合58.7%，门槛56.945%</td>
+<td>皇马 -1.25，0.93；贝蒂斯 +1.25，0.96；真实示强/阻上；反向选贝蒂斯；综合54.5%，门槛53.020%</td>
+</tr>
+<tr>
+<td>巴黎圣日耳曼 vs 摩纳哥</td>
+<td>巴黎 -1.5，1.00；摩纳哥 +1.5，0.88；阻上/诱下；正向选巴黎；综合54.1%，门槛52.000%</td>
+<td>巴黎 -1.5，0.90；摩纳哥 +1.5，0.99；真实示强/阻上；反向选摩纳哥；综合54.5%，门槛52.251%</td>
+</tr>
+</tbody>
+</table></div>
+<p>注意：以上“综合胜率”为旧版保存的算法输出，不能理解为已经校准的实际穿盘概率。</p>
+<p>实际代码规则为：让球较初盘加深且上盘水&lt;=0.86 -&gt; 诱上/阻下；&gt;=1.00 -&gt; 阻上/诱下；位于中间 -&gt; 真实示强/阻上。因此两场水位一升一降，却都进入“真实示强/阻上”统计组。</p>
+<p>新标签当时的全局样本55场：正向46.3%，反向53.7%；五大地区同标签12场：正向41.7%，反向58.3%。既定加权得到反向54.5%，两场下盘当前水位均过旧门槛，所以都改选下盘。</p>
+<p>皇马即时欧赔1.58没有变化，巴黎1.39也没有变化；即时去水锚点变化很小。让球档位均未改变。供应商欧赔“初赔”在两次快照中却变化：皇马1.40-&gt;1.44、巴黎1.37-&gt;1.35，属于必须单列的源数据修订，不能当新的即时变盘。</p>
+<h2>因果核验</h2>
+<p>07:49发布<code>40fc6d2</code>、08:24发布<code>0f2577d</code>、18:44发布<code>3867a15</code>中两场结论一致。19:03发布<code>a7fa39a</code>首次在已找到的赛前发布中改向。</p>
+<p>18:44与19:03版的frameworkDecision函数SHA256完全一致：</p>
+<p><code>d54a725c87fabd57a429f3c9a302cd73af26d61135f2f5ace0abb6daeb2b7237</code></p>
+<p>将晚版两场完整卡片送入早版函数及早版历史统计，仍复现贝蒂斯、摩纳哥。这说明此次改向由卡片/标签改变即可解释，不需要后来的赛果，也不是该函数代码替换。</p>
+<p>源快照时间分别为07:43:55和18:50:16；只能确认变化发生在其间，不能声称精确发生在18:50或“开赛前最后多久”。按保存开球时间，晚版抓取仍距开赛约8小时，并非最后一小时首发确认。</p>
+<h2>上盘比例</h2>
+<p>上下盘采用真实让球方向，平手盘独立计数；每版可投注计划统计，不等于真实成交。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>版本及范围</th>
+<th style="text-align: right;">可投总数</th>
+<th style="text-align: right;">上盘</th>
+<th style="text-align: right;">下盘</th>
+<th style="text-align: right;">平手</th>
+<th style="text-align: right;">有让球决策上盘占比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9/4早版全部</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">94.1%（16/17）</td>
+</tr>
+<tr>
+<td>9/4早版五大地区</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">100%（7/7）</td>
+</tr>
+<tr>
+<td>9/4晚版全部</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">83.3%（20/24）</td>
+</tr>
+<tr>
+<td>9/4晚版五大地区</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40.0%（2/5）</td>
+</tr>
+<tr>
+<td>9/7 07:45版当日</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">100%（4/4，小样本）</td>
+</tr>
+</tbody>
+</table></div>
+<p>五大地区含顶级、非顶级和杯赛。晚版总覆盖从74增至119，全部比例同时受名册变化影响，不能归因于同一组球队全部改向。五大晚版新增下盘还包括里昂对欧塞尔的欧塞尔。</p>
+<h2>另外查到的问题</h2>
+<ol>
+<li>基本面与标签计算脱节：旧函数计算完标签后才读取详情，主要改变“中/低证据”描述；没有通过伤停、体能和轮换先否决上盘。</li>
+<li>标签断点放大方向波动：微小越界导致整组统计先验改变；上涨水位和下跌水位都可落入同一个分组。</li>
+<li>旧命中率把红半当一场命中、黑半当一场未命中。它可作场次命中指标，但不能直接与二元盈亏平衡概率比较。v3添加结算权重胜率和当前水位真实EV。</li>
+<li>历史显示版本混用：9/5 18:06页面用新赛事级统计把这两场改为不投；9/7恢复早版冻结后又显示皇马和巴黎。当前卡片候选/水位仍可来自晚版，冻结选择来自18:44，形成组合不一致。需要按完整decision_id显示，而不是分别拿“最新盘口”和“最早可投”。本次审计没有重写任何原始赛前记录。</li>
+</ol>
+<h2>已写入技能的优化</h2>
+<ul>
+<li>基本面先行：双方赛程密度、核心伤停、替代深度、轮换、战意先核验。缺核心证据为待核，不能再用历史标签直接代替。</li>
+<li>高热上盘否决：有可核实热度，且阻力不足/诱上/疲劳薄阵容等证据成立时，拦截上盘。下盘必须独立过收益与风险门槛，否则不投。</li>
+<li>下盘主动审查：主场防守、对手质量、战术抗压、丢球后策略和真实受让水位路径；不因深盘就认定下盘有价值。</li>
+<li>集中度审查：平手分列、笔数与金额分列；长期&gt;80%触发更严格上盘阈值和降仓，不强制凑上下盘比例。</li>
+<li>欧亚偏离度：统一定义Delta_Conv，按净胜球分布和精确半盘结算计算Theo_Water。3-8pp等区间只作待校准初值。</li>
+<li>仓位与冷却：广义1/4 Kelly、0.75-1.0盲区限制、3次/5次反例分级、按日结算、影子恢复、低于最低投注额不凑仓。</li>
+<li>历史一致性：按当时版本代码+统计回放，原始决策保留；页面和表格只读同一份固化decision。</li>
+</ul>
+<p><code>降温保护</code>可能支持上盘，不与<code>诱上</code>混同。上盘&gt;80%是审查信号，不证明下盘有价值。两场实例不能证明周末整体下滑原因，周末需另按同联赛/盘口/水位/时段/版本统计。</p>
+<h2>交付与上线状态</h2>
+<ul>
+<li>Skill与完整中文工作流已升级；纯计算模块已通过16项验证，覆盖半盘、正反向对称、未来证据拦截、Delta、集中度、冷却、广义Kelly、最低金额。</li>
+<li>新阈值没有完成真实历史样本外校准，当前为影子验证设计；现有日更/HTML决策函数尚未切换到v3。此次HTML新增本审计入口，不重新计算历史或9/7的投注方向。</li>
+<li>飞书字段及同步流程已设计；尚未绑定app/table，不宣称已写入飞书或完成自动执行。</li>
+</ul>
+<p>完整规则：<a href="asian-side-risk-v3.html">亚盘选边与欧亚转换工作流</a>。</p>
+<p>审计数据：<a href="version_comparison.json">各版本完整比较</a>、<a href="counterfactual.json">旧代码旧统计反事实验证</a>。</p>
+<p>本地原始赔率文件：</p>
+<ul>
+<li><code>D:\codex\outputs\football_odds_trader\raw\titan007\20260904\20260904_074355_titan007_odds_snapshot.csv</code></li>
+<li><code>D:\codex\outputs\football_odds_trader\raw\titan007\20260904\20260904_185016_titan007_odds_snapshot.csv</code></li>
+</ul>
+<p>本地原始冻结文件：<code>D:\codex\outputs\football_odds_trader\ledger\bettable_signal_freeze_2026-09-04_20260904_184454.csv</code>。</p>
+<p>相关来源：<a href="https://www.pinnacle.com/en/future/betting-rules/">Pinnacle半盘结算</a>、<a href="https://www.research.lancs.ac.uk/portal/en/publications/modelling-association-football-scores-and-inefficiencies-in-the-football-betting-market%28d16276a2-d6e0-483b-a708-1d29663f1992%29.html">Dixon-Coles比分建模</a>、<a href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_create">飞书记录新增</a>与<a href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_update">更新</a>。这些来源不背书本项目新阈值或盈利能力。</p></main></body></html>

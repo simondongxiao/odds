@@ -1,0 +1,421 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>杯赛与轮换前置网关</title><style>body{margin:0;background:#f2f7fc;color:#173c58;font:16px/1.7 'Microsoft YaHei',Arial,sans-serif;letter-spacing:0}main{max-width:1100px;margin:auto;padding:24px}h1{font-size:26px;line-height:1.4;color:#155b96}h2{font-size:20px;color:#155b96;margin-top:28px;border-bottom:1px solid #bed3e5}a{color:#075da5}table{width:100%;border-collapse:collapse;font-size:14px;background:#fff}th,td{padding:9px;border:1px solid #bed3e5;vertical-align:top;overflow-wrap:anywhere}th{background:#dcecf9}pre{overflow:auto;background:#e7eef5;padding:12px}code{overflow-wrap:anywhere}p,li{overflow-wrap:anywhere}.table-wrap{overflow-x:auto}@media(max-width:600px){main{padding:14px}h1{font-size:23px}table{min-width:660px}}</style></head><body><main><h1>赛制、主客场与轮换前置网关</h1>
+<p>版本：cup-rotation-v1-20260907。适用于新赛前决策；保留原有v3.1的Delta、历史EV、同档风控、冷却及Kelly规则。新增门只能拦截或收紧，不能把原策略的不投改成可投。</p>
+<h2>1. 四个字段及配套数据</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>新增字段</th>
+<th>飞书建议类型</th>
+<th>取值/含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Match_Nature</td>
+<td>单选</td>
+<td>联赛 / 单场杯赛 / 两回合首回合 / 两回合次回合</td>
+</tr>
+<tr>
+<td>Schedule_Density</td>
+<td>单选</td>
+<td>正常 / 一周双赛 / 一周三赛；主字段对应Assessment_Team_ID</td>
+</tr>
+<tr>
+<td>Rotation_Risk</td>
+<td>单选</td>
+<td>低 / 中 / 高；主字段对应Assessment_Team_ID</td>
+</tr>
+<tr>
+<td>Strategic_Intent</td>
+<td>单选</td>
+<td>正常 / 战意成疑 / 必须全力争胜；主字段对应Assessment_Team_ID</td>
+</tr>
+</tbody>
+</table></div>
+<p>四个字段只描述风险，不能替代其证据。Match_Nature由该赛季、阶段的正式赛制和赛程确认，不能凭“杯”字推导单场或两回合。小组赛、混合赛制或阶段未核清时保留空值，网关待核。</p>
+<p>配套字段是避免计算歧义所必需的：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段组</th>
+<th>飞书建议类型/用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Match_ID、Tie_ID、First_Leg_Match_ID</td>
+<td>文本；比赛/两回合对阵唯一关联，不只用队名匹配</td>
+</tr>
+<tr>
+<td>Home_Team_ID、Away_Team_ID、Selected_Team_ID</td>
+<td>文本；本场主客队和原策略拟评估球队</td>
+</tr>
+<tr>
+<td>Assessment_Team_ID / Name</td>
+<td>文本；当前让球方，平手时为拟评估方；红框所选球队可能不同</td>
+</tr>
+<tr>
+<td>First_Leg_Home_Team_ID / Away_Team_ID、First_Leg_Home_Goals / Away_Goals</td>
+<td>文本/整数；首回合的真实身份及比分，绝不按本场主客位置直接相减</td>
+</tr>
+<tr>
+<td>First_Leg_Leader_ID、First_Leg_Lead</td>
+<td>文本/数字；程序计算领先方和净胜差，不含点球大战</td>
+</tr>
+<tr>
+<td>Home_Handicap、Neutral_Venue、Selected_Venue</td>
+<td>数字/复选框/单选；主队给让为负；场地必须核验，不能因列在主队就当主场</td>
+</tr>
+<tr>
+<td>Home_Schedule_Density、Away_Schedule_Density</td>
+<td>单选；分别保存双方赛程，防止拿主队风险套给客队</td>
+</tr>
+<tr>
+<td>Home_Rotation_Risk、Away_Rotation_Risk</td>
+<td>单选；分别保存双方轮换风险</td>
+</tr>
+<tr>
+<td>Home_Strategic_Intent、Away_Strategic_Intent</td>
+<td>单选；分别保存双方战意</td>
+</tr>
+<tr>
+<td>Base_Confidence、Adjusted_Confidence、Confidence_Factor</td>
+<td>数字；0-100评分及折扣，不是新的历史胜率</td>
+</tr>
+<tr>
+<td>Confidence_Basis</td>
+<td>文本；必须为before_context_adjustment，防止重复扣分</td>
+</tr>
+<tr>
+<td>Strategic_Factor、Fatigue_Factor、Rotation_Factor</td>
+<td>数字；保留本次实际采用的系数</td>
+</tr>
+<tr>
+<td>Gateway_Status、Execution_Code、Execution_Status、Failed_Gate</td>
+<td>单选/文本；网关状态、机器原因码、用户状态和具体失败环节</td>
+</tr>
+<tr>
+<td>Stake_Cap_Units、Stake_Before_Context_Cap、Stake</td>
+<td>数字；最多几标准仓、原策略金额和最终金额</td>
+</tr>
+<tr>
+<td>Nature/Team/Venue/FirstLeg_Source、Available_At</td>
+<td>文本/日期时间；分别记录赛制、人员、场地和首回合赛果证据</td>
+</tr>
+<tr>
+<td>Guardrail_Version、Decision_ID、Decision_At</td>
+<td>文本/时间；按整份决策留底，与HTML相同</td>
+</tr>
+</tbody>
+</table></div>
+<p>Python输入按Teams[team_id]保存双方三项评级；飞书适配层展开为Home_/Away_列。原有Fundamental_Evidence继续分别保存双方schedule、absences、rotation_depth、motivation的状态、来源及可用时间。任何未来证据不得用于当前决策。</p>
+<p>Schedule_Density按开赛前滚动7天、该队去重的赛事，再加本场计算：总1场为正常，2场双赛，&gt;=3场三赛。休息小时、旅途、过去加时消耗仍单独保存。未来已公布赛程可以作为当时已知计划使用，但不能把尚未踢完的体能或首发写成已确认事实。</p>
+<p>飞书只追加字段，不删除或改名旧列。赛制归入名册/赛事阶段资料，人员评级及信心归入决策快照；后续修订不能覆盖过去决策。通过<a href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/create">官方字段新增接口</a>实施时先读取已有字段，按名称和类型检查，避免重复创建。当前未配置具体飞书表，因此本次交付字段方案，不声称已改云端表。</p>
+<h2>2. 硬性拦截</h2>
+<h3>两回合次回合</h3>
+<p>Match_Nature为两回合次回合时，先核验Tie_ID、首回合比赛ID、双方球队ID、比分及赛果可用时间。</p>
+<p>将首回合两个球队ID映射到同一组本场球队，取首回合净胜差。这里将“优势方”明确为首回合比分领先方，不将“首回合客队”误当作“本场客队”。任一方首回合净胜&gt;=2（包含恰好2球），整场执行：</p>
+<pre><code class="language-text">Execution_Code = SKIP_SECOND_LEG_LEAD
+Execution_Status = 强制跳过（警惕轮换与功利控盘）
+Stake = 0
+Delta_Conv = null（被前置拦截，不计算）
+</code></pre>
+<p>整场跳过，不自动转投落后方。该规则是用户指定的风险排除，不代表领先队必输盘。单场杯赛和首回合不套此规则；领先1球也不自动触发，但仍继续全部其他检查。首回合未知不当作0-0。</p>
+<h3>密集赛程深盘</h3>
+<p>当前真实让球方按Home_Handicap符号识别，与主客名称或纸面排名无关。绝对让球在0.75至1.0（含端点），且让球方一周双赛/三赛、Rotation_Risk=高：</p>
+<ul>
+<li>默认dense_deep_action=skip：强制跳过；Delta再好也不得覆盖。</li>
+<li>明确配置quarter：最多0.25标准仓；其他基本面、置信度、EV、盲区验证、日风控未过仍为0。</li>
+<li>quarter是原策略之后的绝对金额上限，不是再次把已经0.25仓的金额乘0.25；1.5倍高置信度也不能突破此上限。</li>
+<li>例如资金10000、标准单位5%=500，最终最多125；原策略只给80则保留80，不能补足125。</li>
+</ul>
+<p>0.5或1.25以上不触发这条精确区间规则，但仍受一般深盘、伤停及赛制风控。不能把“未触发此门”解释为可投。</p>
+<h3>核心伤停不得后置</h3>
+<p>网关同步调用既有fundamental_gate。所选侧核心缺席且无替代等adverse状态直接跳过；双方四项核心资料缺失或晚于决策时间，先待核，均不进入Delta。原策略仍负责风险折扣与概率模型，不能只靠三项评级取代球员伤停事实。</p>
+<h2>3. 主客场与信心调整</h2>
+<p>采用可审计、只降不升的初始系数：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>状态</th>
+<th style="text-align: right;">系数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>战意</td>
+<td>正常 / 必须全力争胜 / 战意成疑</td>
+<td style="text-align: right;">1.00 / 1.00 / 0.85</td>
+</tr>
+<tr>
+<td>赛程-主场</td>
+<td>正常 / 双赛 / 三赛</td>
+<td style="text-align: right;">1.00 / 0.95 / 0.90</td>
+</tr>
+<tr>
+<td>赛程-客场</td>
+<td>正常 / 双赛 / 三赛</td>
+<td style="text-align: right;">1.00 / 0.90 / 0.85</td>
+</tr>
+<tr>
+<td>赛程-中立</td>
+<td>正常 / 双赛 / 三赛</td>
+<td style="text-align: right;">1.00 / 0.925 / 0.875</td>
+</tr>
+<tr>
+<td>轮换</td>
+<td>低 / 中 / 高</td>
+<td style="text-align: right;">1.00 / 0.90 / 0.75</td>
+</tr>
+</tbody>
+</table></div>
+<pre><code class="language-text">Adjusted_Confidence = Base_Confidence × Strategic_Factor × Fatigue_Factor × Rotation_Factor
+</code></pre>
+<p>系数作用于拟投注球队，而深盘高轮换硬门检查让球方；这两个身份分开记录。客场疲劳扣分较重，中立场不套主场优势。必须争胜只表示动机明确，不增加穿盘概率；比分模型已包含主客优势时不再额外加一次主场概率。</p>
+<p>例：原信心80，客场一周双赛、战意成疑、轮换低：80×0.85×0.90×1=61.2分。若同时高轮换则45.9分。初始minimum_confidence=60，低于此值不投。</p>
+<p>这些系数和60分是待样本外验证的风险参数，并非经验胜率。历史p_comb、标签胜率、原始模型概率、独立Delta均不被改写。若以后要将分数转为可执行概率，应另做时间留出的概率校准；不能把61.2分当61.2%胜率去做Kelly。</p>
+<h2>4. Python集成</h2>
+<p>完整实现：<code>scripts/cup_rotation_gateway.py</code>；现有Delta与仓位计算仍在<code>scripts/asian_risk_v3.py</code>。</p>
+<pre><code class="language-python">from cup_rotation_gateway import GatewayPolicy, run_guarded_analysis
+
+
+def analyze_with_context(context, calculate_delta, existing_strategy, bankroll):
+    return run_guarded_analysis(
+        context,
+        calculate_delta=calculate_delta,
+        existing_funnel=existing_strategy,
+        bankroll=bankroll,
+        unit_rate=0.05,
+        minimum_stake=20,
+        policy=GatewayPolicy(dense_deep_action=&quot;skip&quot;, minimum_confidence=60),
+    )
+</code></pre>
+<p>调用契约：calculate_delta是零参数回调，仅在网关通过后调用，返回包含Delta_Conv的字典。existing_strategy接收该字典以及附加的Context_Gateway，并运行已有报价新鲜度、意图双检、标签/微观历史、EV、冷却、盲区和Kelly逻辑，返回Execution_Status与Stake。必须使用Context_Gateway中的基本面状态，不能忽略reduced折扣。</p>
+<p>真实顺序由包装器固定：</p>
+<ol>
+<li>提供Frozen_Decision时直接返回深拷贝，不运行任何新门、不改变历史金额。</li>
+<li>校验赛制与首回合，执行强制跳过规则。</li>
+<li>校验双方风险评级、核心伤停、真实主客场；计算调整后信心，执行深盘轮换门。</li>
+<li>只有PASS/QUARTER_CAP才能调用Delta计算；无有效Delta不得进入原策略。</li>
+<li>原策略不投或熔断时金额强制0，不得被新网关重新升级。</li>
+<li>原策略READY时施加0.25仓绝对上限，再检查最低投注额；不足则0。</li>
+<li>保存整份决策；执行前仍按v3.1验证报价、开赛、授权和回执。该模块不真实下单。</li>
+</ol>
+<h2>5. HTML及历史一致性</h2>
+<p>电脑基本面面板及手机比赛展开页都新增四个核心字段，并显示评估球队、所选侧主客场、调整后信心和网关状态。使用文本转义，不能把来源内容直接当HTML。</p>
+<p>字段只从同一份决策/冻结记录读入。旧决策没有Guardrail_Version时显示“未采集（旧版未计算）”，不从最新资料补一个貌似历史已通过的判断；红框原选队、盘口、赔率、可投状态不变。网关计算结果与比赛进行状态分离。</p>
+<p>本次已实现：纯Python前置网关与原策略包装器、24项网关测试、HTML字段传递和电脑/手机渲染。既有v3.1的28项测试仍需同时通过。尚未完成：实时数据采集器的赛制/伤停字段适配、真实样本校准、飞书云端字段创建，以及将旧日更全面切换到新包装器。新增HTML字段不代表缺失数据已经补齐。</p>
+<h2>完整Python实现</h2>
+<pre><code class="language-python">&quot;&quot;&quot;Pre-Delta cup/rotation gateway. Pure functions; no scraping or order submission.&quot;&quot;&quot;
+from __future__ import annotations
+
+from copy import deepcopy
+from dataclasses import dataclass
+import math
+from typing import Callable, Mapping
+
+from asian_risk_v3 import aware_time, finite, fundamental_gate, split_line
+
+VERSION = &quot;cup-rotation-v1-20260907&quot;
+NATURES = {&quot;联赛&quot;, &quot;单场杯赛&quot;, &quot;两回合首回合&quot;, &quot;两回合次回合&quot;}
+DENSITIES = {&quot;正常&quot;, &quot;一周双赛&quot;, &quot;一周三赛&quot;}
+ROTATIONS = {&quot;低&quot;, &quot;中&quot;, &quot;高&quot;}
+MOTIVATIONS = {&quot;正常&quot;, &quot;战意成疑&quot;, &quot;必须全力争胜&quot;}
+STRATEGIC_FACTOR = {&quot;正常&quot;: 1.0, &quot;战意成疑&quot;: .85, &quot;必须全力争胜&quot;: 1.0}
+ROTATION_FACTOR = {&quot;低&quot;: 1.0, &quot;中&quot;: .90, &quot;高&quot;: .75}
+FATIGUE_FACTOR = {
+    &quot;主场&quot;: {&quot;正常&quot;: 1.0, &quot;一周双赛&quot;: .95, &quot;一周三赛&quot;: .90},
+    &quot;客场&quot;: {&quot;正常&quot;: 1.0, &quot;一周双赛&quot;: .90, &quot;一周三赛&quot;: .85},
+    &quot;中立&quot;: {&quot;正常&quot;: 1.0, &quot;一周双赛&quot;: .925, &quot;一周三赛&quot;: .875},
+}
+
+
+@dataclass(frozen=True)
+class GatewayPolicy:
+    dense_deep_action: str = &quot;skip&quot;
+    minimum_confidence: float = 60.0
+
+    def __post_init__(self):
+        if self.dense_deep_action not in {&quot;skip&quot;, &quot;quarter&quot;}:
+            raise ValueError(&quot;dense_deep_action must be skip or quarter&quot;)
+        if not 0 &lt;= finite(self.minimum_confidence, &quot;minimum_confidence&quot;) &lt;= 100:
+            raise ValueError(&quot;minimum_confidence must be in [0,100]&quot;)
+
+
+def _evidence(value: Mapping, cutoff, label: str) -&gt; None:
+    if not value.get(&quot;Source&quot;) or aware_time(value[&quot;Available_At&quot;]) &gt; cutoff:
+        raise ValueError(label + &quot;: missing source or future evidence&quot;)
+
+
+def _goal(value) -&gt; int:
+    number = finite(value, &quot;first_leg_goal&quot;)
+    if isinstance(value, bool) or number &lt; 0 or int(number) != number:
+        raise ValueError(&quot;First-leg goals must be nonnegative integers&quot;)
+    return int(number)
+
+
+def schedule_density(prior_fixture_ids: list[str]) -&gt; str:
+    &quot;&quot;&quot;Input: known, unique-team fixtures in [kickoff-7d,kickoff), excluding this match.&quot;&quot;&quot;
+    if any(not isinstance(item, str) or not item.strip() for item in prior_fixture_ids):
+        raise ValueError(&quot;Prior fixtures require stable nonempty IDs&quot;)
+    count = len(set(prior_fixture_ids)) + 1
+    return &quot;一周三赛&quot; if count &gt;= 3 else &quot;一周双赛&quot; if count == 2 else &quot;正常&quot;
+
+
+def confidence_adjustment(base: float, team: Mapping, venue: str) -&gt; dict:
+    base = finite(base, &quot;base_confidence&quot;)
+    if not 0 &lt;= base &lt;= 100:
+        raise ValueError(&quot;Confidence is a score in [0,100], not a win probability&quot;)
+    factors = {&quot;Strategic_Factor&quot;: STRATEGIC_FACTOR[team[&quot;Strategic_Intent&quot;]],
+               &quot;Fatigue_Factor&quot;: FATIGUE_FACTOR[venue][team[&quot;Schedule_Density&quot;]],
+               &quot;Rotation_Factor&quot;: ROTATION_FACTOR[team[&quot;Rotation_Risk&quot;]]}
+    factor = math.prod(factors.values())
+    return {&quot;Base_Confidence&quot;: base, &quot;Confidence_Factor&quot;: factor,
+            &quot;Adjusted_Confidence&quot;: round(base * factor, 4), **factors}
+
+
+def cup_rotation_gate(context: Mapping, policy: GatewayPolicy | None = None) -&gt; dict:
+    policy = policy or GatewayPolicy()
+    result = {&quot;Guardrail_Version&quot;: VERSION, &quot;Gateway_Status&quot;: &quot;DATA_PENDING&quot;,
+              &quot;Execution_Code&quot;: &quot;CUP_CONTEXT_PENDING&quot;, &quot;Execution_Status&quot;: &quot;待核（赛制/轮换资料缺失）&quot;,
+              &quot;Failed_Gate&quot;: &quot;&quot;, &quot;Stake_Cap_Units&quot;: 0.0,
+              &quot;Delta_Conv&quot;: None, &quot;Stake&quot;: 0.0,
+              &quot;Match_Nature&quot;: context.get(&quot;Match_Nature&quot;)}
+
+    def stop(code: str, label: str, reason: str) -&gt; dict:
+        result.update(Gateway_Status=&quot;SKIP&quot;, Execution_Code=code,
+                      Execution_Status=label, Failed_Gate=reason, Stake_Cap_Units=0.0)
+        return result
+
+    try:
+        cutoff, kickoff = aware_time(context[&quot;Decision_At&quot;]), aware_time(context[&quot;Kickoff_At&quot;])
+        if not context.get(&quot;Match_ID&quot;):
+            raise ValueError(&quot;Missing current match ID&quot;)
+        if cutoff &gt;= kickoff:
+            return stop(&quot;MATCH_STARTED&quot;, &quot;不新增赛前计划（已开赛）&quot;, &quot;decision_at &gt;= kickoff&quot;)
+        nature = context[&quot;Match_Nature&quot;]
+        if nature not in NATURES:
+            raise ValueError(&quot;Unknown Match_Nature; do not infer it from a cup name&quot;)
+        _evidence(context[&quot;Nature_Evidence&quot;], cutoff, &quot;match_nature&quot;)
+        home, away, selected = context[&quot;Home_Team_ID&quot;], context[&quot;Away_Team_ID&quot;], context[&quot;Selected_Team_ID&quot;]
+        if not home or not away or home == away or selected not in {home, away}:
+            raise ValueError(&quot;Current teams/selected team are not aligned&quot;)
+        result[&quot;Selected_Team_ID&quot;] = selected
+
+        # Join the first leg by team identity, never by current home/away position.
+        if nature == &quot;两回合次回合&quot;:
+            leg = context[&quot;First_Leg&quot;]
+            _evidence(leg, cutoff, &quot;first_leg&quot;)
+            if not context.get(&quot;Tie_ID&quot;) or leg.get(&quot;Tie_ID&quot;) != context[&quot;Tie_ID&quot;]:
+                raise ValueError(&quot;First leg belongs to a different or unknown tie&quot;)
+            if not leg.get(&quot;Match_ID&quot;) or leg[&quot;Match_ID&quot;] == context[&quot;Match_ID&quot;]:
+                raise ValueError(&quot;Invalid first-leg match id&quot;)
+            if aware_time(leg[&quot;Finished_At&quot;]) &gt; aware_time(leg[&quot;Available_At&quot;]):
+                raise ValueError(&quot;First-leg result was not available at decision time&quot;)
+            if {leg[&quot;Home_Team_ID&quot;], leg[&quot;Away_Team_ID&quot;]} != {home, away}:
+                raise ValueError(&quot;First-leg team IDs do not match this tie&quot;)
+            hg, ag = _goal(leg[&quot;Home_Goals&quot;]), _goal(leg[&quot;Away_Goals&quot;])
+            lead = hg - ag
+            leader = leg[&quot;Home_Team_ID&quot;] if lead &gt; 0 else leg[&quot;Away_Team_ID&quot;] if lead &lt; 0 else None
+            result.update(First_Leg_Leader_ID=leader, First_Leg_Lead=abs(lead))
+            if abs(lead) &gt;= 2:
+                result[&quot;Assessment_Team_ID&quot;] = leader
+                return stop(&quot;SKIP_SECOND_LEG_LEAD&quot;, &quot;强制跳过（警惕轮换与功利控盘）&quot;,
+                            &quot;两回合次回合：首回合优势方领先至少2球；整场跳过，不自动反投&quot;)
+
+        line = finite(context[&quot;Home_Handicap&quot;], &quot;home_handicap&quot;)
+        split_line(line)
+        favorite = home if line &lt; 0 else away if line &gt; 0 else None
+        result.update(Favorite_Team_ID=favorite, Assessment_Team_ID=favorite or selected, Home_Handicap=line)
+        teams = context[&quot;Teams&quot;]
+        for team_id in (home, away):
+            team = teams[team_id]
+            _evidence(team, cutoff, str(team_id))
+            if team.get(&quot;Schedule_Density&quot;) not in DENSITIES or team.get(&quot;Rotation_Risk&quot;) not in ROTATIONS or team.get(&quot;Strategic_Intent&quot;) not in MOTIVATIONS:
+                raise ValueError(str(team_id) + &quot;: unknown density/rotation/motivation&quot;)
+        fundamentals = fundamental_gate(context.get(&quot;Fundamental_Evidence&quot;, {}), context[&quot;Decision_At&quot;],
+                                        &quot;home&quot; if selected == home else &quot;away&quot;)
+        result[&quot;Fundamental_Status&quot;] = fundamentals[&quot;Fundamental_Status&quot;]
+        if fundamentals[&quot;Fundamental_Status&quot;] == &quot;veto&quot;:
+            return stop(&quot;FUNDAMENTALS_VETO&quot;, &quot;强制跳过（核心基本面否决）&quot;,
+                        &quot;, &quot;.join(fundamentals[&quot;Fundamental_Failed_Gates&quot;]))
+        if fundamentals[&quot;Fundamental_Status&quot;] == &quot;pending&quot;:
+            raise ValueError(&quot;Core fundamentals pending: &quot; + &quot;, &quot;.join(fundamentals[&quot;Fundamental_Failed_Gates&quot;]))
+        assessed = teams[favorite or selected]
+        result.update({key: assessed[key] for key in (&quot;Schedule_Density&quot;, &quot;Rotation_Risk&quot;, &quot;Strategic_Intent&quot;)})
+        neutral = context[&quot;Neutral_Venue&quot;]
+        if type(neutral) is not bool:
+            raise ValueError(&quot;Neutral_Venue must be verified true/false&quot;)
+        _evidence(context[&quot;Venue_Evidence&quot;], cutoff, &quot;venue&quot;)
+        venue = &quot;中立&quot; if neutral else &quot;主场&quot; if selected == home else &quot;客场&quot;
+        result.update(Selected_Venue=venue,
+                      Selected_Schedule_Density=teams[selected][&quot;Schedule_Density&quot;],
+                      Selected_Rotation_Risk=teams[selected][&quot;Rotation_Risk&quot;],
+                      Selected_Strategic_Intent=teams[selected][&quot;Strategic_Intent&quot;])
+        if context.get(&quot;Confidence_Basis&quot;) != &quot;before_context_adjustment&quot;:
+            raise ValueError(&quot;Base_Confidence must not already include these context deductions&quot;)
+        adjustment = confidence_adjustment(context[&quot;Base_Confidence&quot;], teams[selected], venue)
+        result.update(adjustment)
+        dense_deep = (favorite is not None and .75 &lt;= abs(line) &lt;= 1.0
+                      and assessed[&quot;Schedule_Density&quot;] in {&quot;一周双赛&quot;, &quot;一周三赛&quot;}
+                      and assessed[&quot;Rotation_Risk&quot;] == &quot;高&quot;)
+        if dense_deep and policy.dense_deep_action == &quot;skip&quot;:
+            return stop(&quot;SKIP_DENSE_DEEP_ROTATION&quot;, &quot;强制跳过（密集赛程深盘高轮换）&quot;,
+                        &quot;让0.75-1.0且让球方一周双赛/三赛、高轮换风险&quot;)
+        if adjustment[&quot;Base_Confidence&quot;] * adjustment[&quot;Confidence_Factor&quot;] &lt; policy.minimum_confidence:
+            return stop(&quot;CONTEXT_CONFIDENCE_LOW&quot;, &quot;不投（赛制/轮换信心不足）&quot;,
+                        f&quot;调整后信心{adjustment['Adjusted_Confidence']:.2f} &lt; {policy.minimum_confidence:.2f}&quot;)
+        result.update(Gateway_Status=&quot;QUARTER_CAP&quot; if dense_deep else &quot;PASS&quot;,
+                      Execution_Code=&quot;GATEWAY_PASSED&quot;, Execution_Status=&quot;待后续Delta及原策略校验&quot;,
+                      Stake_Cap_Units=.25 if dense_deep else None, Failed_Gate=&quot;&quot;)
+        return result
+    except (KeyError, TypeError, ValueError, OverflowError) as exc:
+        result.update(Gateway_Status=&quot;DATA_PENDING&quot;, Execution_Code=&quot;CUP_CONTEXT_PENDING&quot;,
+                      Execution_Status=&quot;待核（赛制/轮换资料缺失）&quot;, Failed_Gate=str(exc), Stake_Cap_Units=0.0)
+        return result
+
+
+def run_guarded_analysis(context: Mapping, *, calculate_delta: Callable[[], Mapping],
+                         existing_funnel: Callable[[Mapping], Mapping], bankroll: float,
+                         unit_rate: float = .05, minimum_stake: float = 20,
+                         policy: GatewayPolicy | None = None) -&gt; dict:
+    &quot;&quot;&quot;Gate -&gt; Delta callback -&gt; original full strategy -&gt; hard stake cap. No orders.&quot;&quot;&quot;
+    if context.get(&quot;Frozen_Decision&quot;) is not None:
+        return deepcopy(context[&quot;Frozen_Decision&quot;])
+    gate = cup_rotation_gate(context, policy)
+    if gate[&quot;Gateway_Status&quot;] not in {&quot;PASS&quot;, &quot;QUARTER_CAP&quot;}:
+        return gate
+    if finite(bankroll, &quot;bankroll&quot;) &lt;= 0 or not 0 &lt; finite(unit_rate, &quot;unit_rate&quot;) &lt;= 1 or finite(minimum_stake, &quot;minimum_stake&quot;) &lt;= 0:
+        raise ValueError(&quot;Positive bankroll/unit/minimum required&quot;)
+    delta = dict(calculate_delta())
+    try:
+        finite(delta[&quot;Delta_Conv&quot;], &quot;Delta_Conv&quot;)
+    except (KeyError, TypeError, ValueError):
+        return {**gate, &quot;Execution_Code&quot;: &quot;DELTA_DATA_PENDING&quot;, &quot;Execution_Status&quot;: &quot;待核（Delta缺失或无效）&quot;,
+                &quot;Failed_Gate&quot;: &quot;独立欧亚转换结果缺失/无效&quot;, &quot;Stake&quot;: 0.0}
+    # The original funnel still owns quote/fundamental/EV/calibration/cooling checks.
+    previous = dict(existing_funnel({**delta, &quot;Context_Gateway&quot;: deepcopy(gate)}))
+    result = dict(previous)
+    for key, value in gate.items():
+        if key not in {&quot;Execution_Status&quot;, &quot;Execution_Code&quot;, &quot;Stake&quot;, &quot;Delta_Conv&quot;, &quot;Failed_Gate&quot;}:
+            result[key] = value
+    result[&quot;Delta_Conv&quot;] = delta.get(&quot;Delta_Conv&quot;)
+    result[&quot;Gateway_Failed_Gate&quot;] = gate[&quot;Failed_Gate&quot;]
+    result[&quot;Execution_Code&quot;] = previous.get(&quot;Execution_Code&quot;) or previous.get(&quot;Execution_Status&quot;, &quot;ORIGINAL_FUNNEL_PENDING&quot;)
+    if previous.get(&quot;Execution_Status&quot;) != &quot;READY&quot;:
+        result[&quot;Stake&quot;] = 0.0
+        return result
+    before = finite(previous[&quot;Stake&quot;], &quot;original_stake&quot;)
+    if before &lt; 0:
+        raise ValueError(&quot;Original stake cannot be negative&quot;)
+    cap = gate[&quot;Stake_Cap_Units&quot;]
+    stake = min(before, bankroll * unit_rate * cap) if cap is not None else before
+    result[&quot;Stake_Before_Context_Cap&quot;] = before
+    result[&quot;Stake&quot;] = math.floor(stake * 100 + 1e-9) / 100
+    if result[&quot;Stake&quot;] &lt; minimum_stake:
+        result.update(Stake=0.0, Execution_Status=&quot;BELOW_MIN_STAKE&quot;, Execution_Code=&quot;BELOW_MIN_STAKE&quot;,
+                      Failed_Gate=&quot;前置降仓后金额低于最低投注额，不向上凑仓&quot;)
+    return result
+
+</code></pre></main></body></html>
