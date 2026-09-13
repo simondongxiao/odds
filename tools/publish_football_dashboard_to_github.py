@@ -109,6 +109,11 @@ def publish(push: bool = True) -> dict[str, object]:
     if copy_dir(ROOT / "dashboard" / "snapshots", PUBLISH_REPO / "snapshots"):
         copied.append(str(PUBLISH_REPO / "snapshots"))
 
+    if copy_dir(ROOT / "dashboard" / "data", PUBLISH_REPO / "data"):
+        copied.append(str(PUBLISH_REPO / "data"))
+    if copy_dir(ROOT / "dashboard" / "assets", PUBLISH_REPO / "assets"):
+        copied.append(str(PUBLISH_REPO / "assets"))
+
     if copy_dir(ROOT / "dashboard" / "audits", PUBLISH_REPO / "audits"):
         copied.append(str(PUBLISH_REPO / "audits"))
     risk_skill = WORKSPACE / "skills" / "worldcup-odds-trader"
