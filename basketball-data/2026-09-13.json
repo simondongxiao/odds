@@ -19,7 +19,16 @@
     "watch": 2,
     "pass": 0,
     "blocked": 0,
-    "coupled": 0
+    "coupled": 0,
+    "events_discovered": 132,
+    "fresh_market_events": 0,
+    "priceable_events": 0,
+    "coupled_events": 0,
+    "EDGE": 0,
+    "LEAN": 0,
+    "NO_EDGE": 0,
+    "WATCH": 2,
+    "BLOCKED": 0
   },
   "calibration": {
     "forward_priced": 1,
@@ -162,6 +171,23 @@
     "settled": 0,
     "clv_samples": 0
   },
-  "generated_at": "2026-09-13T00:50:30.367144+00:00",
-  "pipeline_version": "step6b-daily-v1"
+  "generated_at": "2026-09-13T04:45:55.955310+00:00",
+  "pipeline_version": "live-refresh-hotfix-v1",
+  "freshness": {
+    "run_started_at": "2026-09-13T04:45:40.347000+00:00",
+    "run_finished_at": "2026-09-13T04:45:55.955310+00:00",
+    "discovery_status": "LIVE_SUCCESS",
+    "market_feed_status": "STALE_OR_UNAVAILABLE",
+    "capture_session_id": "54d8069872054af6b45e81813aeb3b85",
+    "captured_at": "2026-09-13T04:45:54.518801+00:00",
+    "source_buckets": [
+      "2026-09-12",
+      "2026-09-13",
+      "2026-09-14"
+    ],
+    "quote_age_seconds": 0,
+    "market_freshness": "STALE"
+  },
+  "update_status": "PARTIAL",
+  "update_message": "今日尚无“模型+实时盘口”的同场完整数据，暂无法进行价值筛选。"
 }

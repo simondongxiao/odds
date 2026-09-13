@@ -1,6 +1,46 @@
 [
-  {"source":"FIBA","reachable":true,"last_success":"2026-09-12T16:54:05Z","events_parsed":1,"market_quotes":0,"parse_errors":0,"latency":0.8,"status":"READY"},
-  {"source":"7M","reachable":true,"last_success":"2026-09-12T16:43:15Z","events_parsed":1,"market_quotes":2,"parse_errors":0,"latency":1.4,"status":"MARKET FEED MVP READY","ot_contract":"UNKNOWN"},
-  {"source":"SofaScore","reachable":false,"last_success":null,"events_parsed":0,"market_quotes":0,"parse_errors":1,"latency":null,"status":"UNAVAILABLE"},
-  {"source":"ESPN","reachable":false,"last_success":null,"events_parsed":0,"market_quotes":0,"parse_errors":0,"latency":null,"status":"NOT USED"}
+  {
+    "source": "FIBA",
+    "reachable": true,
+    "last_success": "2026-09-12T16:54:05Z",
+    "events_parsed": 1,
+    "market_quotes": 0,
+    "parse_errors": 0,
+    "latency": 0.8,
+    "status": "READY"
+  },
+  {
+    "source": "7M",
+    "reachable": true,
+    "last_success": "2026-09-13T04:45:55.956293+00:00",
+    "events_parsed": 132,
+    "market_quotes": 0,
+    "parse_errors": 0,
+    "latency": 1.4,
+    "status": "STALE_OR_UNAVAILABLE",
+    "ot_contract": "UNKNOWN",
+    "capture_session_id": "54d8069872054af6b45e81813aeb3b85",
+    "quote_age_seconds": null,
+    "freshness": "STALE"
+  },
+  {
+    "source": "SofaScore",
+    "reachable": false,
+    "last_success": null,
+    "events_parsed": 0,
+    "market_quotes": 0,
+    "parse_errors": 1,
+    "latency": null,
+    "status": "UNAVAILABLE_THIS_RUN"
+  },
+  {
+    "source": "ESPN",
+    "reachable": false,
+    "last_success": null,
+    "events_parsed": 0,
+    "market_quotes": 0,
+    "parse_errors": 0,
+    "latency": null,
+    "status": "UNAVAILABLE_THIS_RUN"
+  }
 ]
