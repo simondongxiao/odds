@@ -6,6 +6,7 @@ import math
 import importlib.util
 import re
 import sys
+import os
 from collections import defaultdict
 from pathlib import Path
 import football_decision_versioning as versioning
@@ -16,7 +17,7 @@ RAW = ROOT / "raw" / "titan007"
 DAILY = ROOT / "daily"
 LEDGER = ROOT / "ledger" / "simulated_bets.csv"
 FLOW_DIR = ROOT / "flows"
-TODAY = dt.datetime.now().date()
+TODAY = dt.date.fromisoformat(os.environ.get("FOOTBALL_LIST_DATE", dt.datetime.now().date().isoformat()))
 SLATE_END_HOUR = 12
 BANKROLL = 500.0
 MIN_STAKE = 20.0

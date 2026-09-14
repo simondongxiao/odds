@@ -2,27 +2,29 @@
   "list_date": "2026-09-14",
   "display_list_date": "2026-09-14",
   "date_file": "./data/dates/2026-09-14.json",
-  "generated_at": "2026-09-14T07:31:51.339316+08:00",
-  "odds_cutoff": "20260914 072614",
-  "today_update_status": "V3_PRODUCTION_FEED_MISSING__V4_SHADOW_UPDATED",
-  "total_matches": 186,
-  "prematch_matches": 76,
+  "generated_at": "2026-09-14T21:22:47.309260+08:00",
+  "run_id": "RUN_20260914_212247",
+  "today_update_status": "COMPLETE_DATA_REFRESH",
+  "total_matches": 208,
+  "prematch_matches": 170,
   "v3": {
-    "computed_count": null,
-    "bettable_count": null,
-    "half_count": null,
-    "no_bet_count": null,
-    "missing_count": 186,
-    "status": "V3_PRODUCTION_FEED_MISSING"
+    "computed_count": 70,
+    "bettable_count": 6,
+    "half_count": 0,
+    "no_bet_count": 64,
+    "missing_count": 138,
+    "status": "V3_PRODUCTION_UPDATED"
   },
   "v4": {
-    "computed_count": 65,
+    "computed_count": 102,
     "A_count": 0,
-    "B_count": 0,
-    "C_count": 15,
-    "N_count": 50,
-    "neutral_count": 11,
-    "missing_count": 110,
-    "real_money": false
+    "B_count": 3,
+    "C_count": 25,
+    "N_count": 74,
+    "neutral_count": 20,
+    "missing_count": 58,
+    "not_prematch_count": 28,
+    "real_money": false,
+    "status": "V4_SHADOW_UPDATED"
   }
 }

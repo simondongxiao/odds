@@ -98,6 +98,16 @@ If one board is missing, label it as missing, lower confidence, and give conditi
 
 ### Strict Skill Enforcement
 
+### Manual Refresh and Version Contract (2026-09-14)
+
+Any user request equivalent to “按照最新 Skill 更新 V3 和 V4，重新分析全部未开赛赛事” is an executable manual refresh, regardless of clock time. Use `D:\codex\run_football_update.py --list-date YYYY-MM-DD` (or `--current`) as the single orchestration entry point. The entry point must refresh the complete locked Titan/球探 roster for that `list_date`, re-read every not-started row, run V3 Legacy and V4 Shadow independently, create a `RUN_YYYYMMDD_HHMMSS` version, compare it with the immediately previous same-list-date run, update only settlement/review fields for started rows, and refresh the existing V3, V4 and comparison page data.
+
+The `list_date` is a permanent roster key. A match displayed under date D remains under D after midnight; it is never moved, deleted, or recreated under the natural date. Every refresh records `quote_at`, `last_confirmed_at`, `capture_at`, `source`, `raw_snapshot_id`, and `refresh_status`. An old quote may be reused only with its original timestamp and `PRICE_NOT_REFRESHED`; it must never be presented as a fresh quote.
+
+Decision, execution and settlement are separate records. Repeated manual refreshes create decision versions, not repeated positions. An already-started or frozen match keeps its original V3/V4 pre-match action, team, side, line, water, probability, threshold, grade, Kelly/stake and decision timestamp; later runs may append status, score, settlement and review provenance only. V4 remains `SHADOW ONLY` and `real_money=false`; its giving/receiving two-side EV diagnostics are diagnostic output and cannot change the production V3 decision.
+
+`Missing`, `Neutral` and `N` are mutually exclusive: Missing has no complete probability, Neutral has a valid market but no direction, and N has a real posterior/EV calculation that fails A/B/C. A failed V3 feed or failed V4 runner is a pipeline error, never a zero-count decision. Post-match review records facts and hypotheses but has no permission to modify V3/V4 production rules; historical rows are labeled by their original decision source and are never silently re-run with today's inputs.
+
 Every future daily football update must follow this skill as an execution checklist, not as optional guidance. Do not output a daily update, dashboard refresh, main pick, Polymarket pick, Kelly stake, or post-match review as "complete" unless the required skill gates below have been checked and their status is visible in the user-facing text or HTML dashboard.
 
 Minimum completion gates for every daily update:
