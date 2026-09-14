@@ -29,8 +29,8 @@
 ## Tests and publish
 
 - Full test suite: 116 passed, 1 skipped.
-- Public commit: `d1e2d3c`.
-- V4 page: https://simondongxiao.github.io/odds/v4/?v=d1e2d3c
+- Public commit: `5b98687`.
+- V4 page: https://simondongxiao.github.io/odds/v4/?v=5b98687
 - V3 page remains separate and was not modified by the direction engine.
 
 ## Rollback
