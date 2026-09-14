@@ -175,6 +175,14 @@ def publish(push: bool = True) -> dict[str, object]:
                 "pushed": False,
                 "error": pages_result.stderr.strip() or pages_result.stdout.strip(),
             }
+        main_result = run_git(["push", "origin", "HEAD:main"], timeout=180)
+        if main_result.returncode != 0:
+            return {
+                "copied": copied,
+                "committed": False,
+                "pushed": False,
+                "error": main_result.stderr.strip() or main_result.stdout.strip(),
+            }
         return {"copied": copied, "committed": False, "pushed": True, "message": "no changes; ensured main and gh-pages"}
 
     message = f"Update football odds dashboard {dt.datetime.now():%Y-%m-%d %H:%M}"
@@ -201,7 +209,15 @@ def publish(push: bool = True) -> dict[str, object]:
             "pushed": False,
             "error": pages_result.stderr.strip() or pages_result.stdout.strip(),
         }
-    message = "\n".join(x for x in [push_result.stdout.strip(), pages_result.stdout.strip()] if x)
+    main_result = run_git(["push", "origin", "HEAD:main"], timeout=180)
+    if main_result.returncode != 0:
+        return {
+            "copied": copied,
+            "committed": True,
+            "pushed": False,
+            "error": main_result.stderr.strip() or main_result.stdout.strip(),
+        }
+    message = "\n".join(x for x in [push_result.stdout.strip(), pages_result.stdout.strip(), main_result.stdout.strip()] if x)
     return {"copied": copied, "committed": True, "pushed": True, "message": message}
 
 
