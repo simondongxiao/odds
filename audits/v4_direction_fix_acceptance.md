@@ -29,8 +29,8 @@
 ## Tests and publish
 
 - Full test suite: 116 passed, 1 skipped.
-- Public commit: `03424e9`.
-- V4 page: https://simondongxiao.github.io/odds/v4/?v=03424e9
+- Public publish: PASS; the final cache-busted commit and URL are recorded in the delivery response.
+- V4 page: https://simondongxiao.github.io/odds/v4/
 - V3 page remains separate and was not modified by the direction engine.
 
 ## Rollback
