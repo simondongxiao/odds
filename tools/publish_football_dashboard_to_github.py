@@ -10,6 +10,7 @@ from pathlib import Path
 WORKSPACE = Path(r"D:\codex")
 ROOT = WORKSPACE / "outputs" / "football_odds_trader"
 PUBLISH_REPO = ROOT / "github_publish" / "odds"
+V3_OUTPUT = WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader"
 
 
 def latest_file(root: Path, pattern: str) -> Path | None:
@@ -54,7 +55,7 @@ def publish(push: bool = True) -> dict[str, object]:
     pairs = [
         # V3 Legacy and V4 Shadow are separate public pages.  Do not replace
         # either with a generated root dashboard during daily publication.
-        (WORKSPACE / "v3_legacy" / "dashboard" / "index.html", PUBLISH_REPO / "v3-legacy" / "index.html"),
+        (WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader" / "dashboard" / "index.html", PUBLISH_REPO / "v3-legacy" / "index.html"),
         (WORKSPACE / "v4" / "dashboard" / "index.html", PUBLISH_REPO / "v4" / "index.html"),
         (WORKSPACE / "skills" / "worldcup-odds-trader" / "SKILL.md", PUBLISH_REPO / "skills" / "worldcup-odds-trader" / "SKILL.md"),
         (WORKSPACE / "tools" / "sequential_asian_backtest_engine.py", PUBLISH_REPO / "tools" / "sequential_asian_backtest_engine.py"),
@@ -99,6 +100,11 @@ def publish(push: bool = True) -> dict[str, object]:
         (ROOT / "backtests" / "top5_tier_split", "top5_region_full_ledger_matches_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
         (ROOT / "backtests" / "top5_tier_split", "top5_region_full_ledger_summary_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
         (ROOT / "backtests" / "top5_tier_split", "top5_dashboard_policy_audit_*.csv", PUBLISH_REPO / "backtests" / "top5_tier_split"),
+        (V3_OUTPUT / "daily", "*_titan007_strict_update.md", PUBLISH_REPO / "v3-legacy" / "reports" / "daily"),
+        (V3_OUTPUT / "reviews", "*.md", PUBLISH_REPO / "v3-legacy" / "reports" / "reviews"),
+        (V3_OUTPUT / "ledger", "v3_legacy_decision_freeze_*.csv", PUBLISH_REPO / "v3-legacy" / "ledger"),
+        (WORKSPACE / "v4" / "outputs", "v4_daily_update_*.md", PUBLISH_REPO / "v4" / "reports"),
+        (WORKSPACE / "v4" / "outputs", "v4_selected_*.csv", PUBLISH_REPO / "v4" / "ledger"),
     ]
     for root, pattern, dst_dir in latest_outputs:
         src = latest_file(root, pattern)
@@ -107,6 +113,12 @@ def publish(push: bool = True) -> dict[str, object]:
     v4_daily = latest_file(WORKSPACE / "v4" / "outputs", "v4_decisions_*.json")
     if v4_daily:
         pairs.append((v4_daily, PUBLISH_REPO / "v4" / "data" / v4_daily.name.removeprefix("v4_decisions_")))
+    v3_bridge = WORKSPACE / "bridge" / "v3_production" / f"{dt.date.today().isoformat()}.json"
+    if v3_bridge.exists():
+        pairs.append((v3_bridge, PUBLISH_REPO / "v3-legacy" / "data" / v3_bridge.name))
+    strict_audit = ROOT / "audits" / f"daily_update_{dt.date.today().isoformat()}_strict.md"
+    if strict_audit.exists():
+        pairs.append((strict_audit, PUBLISH_REPO / "reports" / "daily" / strict_audit.name))
 
     for src, dst in pairs:
         if copy_file(src, dst):
