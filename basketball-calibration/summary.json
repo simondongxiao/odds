@@ -3,16 +3,16 @@
   "archive_type": "FORWARD_NATIVE",
   "hit_rate": null,
   "last_run_funnel": {
-    "blocked_events": 137,
+    "blocked_events": 131,
     "comparable_events": 0,
     "events": 137,
-    "fresh_market_events": 5,
-    "independent_priceable_events": 7,
-    "market_observed_events": 32,
+    "fresh_market_events": 6,
+    "independent_priceable_events": 16,
+    "market_observed_events": 33,
     "paper_bettable": null,
     "paper_triggered_events": 0,
-    "raw_verified_market_events": 32,
-    "research_coupled_events": 7
+    "raw_verified_market_events": 33,
+    "research_coupled_events": 10
   },
   "probability_calibration": "UNVALIDATED",
   "real_execution_allowed": false
