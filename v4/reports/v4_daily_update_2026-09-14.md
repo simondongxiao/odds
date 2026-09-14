@@ -2,12 +2,12 @@
 
 - 状态：`SHADOW_ONLY`；`real_money=false`
 - 模型：`v4-market-dirichlet-20260913`
-- Raw roster：186
+- Raw roster：189
 - Prior训练样本：
-- Posterior/EV真实计算：70
-- A/B/C/N：0/1/16/53
-- Neutral：11
-- Missing：105
+- Posterior/EV真实计算：78
+- A/B/C/N：0/2/17/59
+- Neutral：12
+- Missing：99
 - 非赛前：0
 - Error：0
 

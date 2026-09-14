@@ -83,7 +83,7 @@ SENIOR_TIER_BY_LEAGUE = {
 
 SENIOR_CUP_KEYWORDS = (
     "世界杯", "欧洲杯", "亚洲杯", "美洲杯", "非洲杯", "中北美",
-    "欧冠", "欧罗巴", "欧联", "欧会杯", "亚冠", "解放者", "南球杯",
+    "欧冠", "欧罗巴", "欧联", "欧会杯", "亚冠", "亚运", "解放者", "南球杯",
     "英联杯", "英足总杯", "足总杯", "德国杯", "意大利杯", "澳足总",
     "巴西杯", "瑞士杯", "瑞典杯", "丹麦杯", "捷克杯", "巴拉杯", "乌拉杯",
     "杯", "超级杯", "盾", "附加赛", "季后赛", "资格赛",
@@ -739,6 +739,11 @@ def is_friendy_or_ignored(row: dict[str, str]) -> bool:
 
 
 def is_youth_or_reserve(row: dict[str, str]) -> bool:
+    league = (row.get("league_cn") or "").strip()
+    if any(k in league for k in ("亚冠", "亚洲冠军联赛", "AFC Champions League", "亚运会", "亚运男足", "亚运女足", "Asian Games")):
+        # AFC and Asian Games rows are official competition scopes.  Do not
+        # mistake a team name such as 迪拜青年国民 for a youth competition.
+        return False
     text = " ".join(
         [
             row.get("league_cn", ""),
