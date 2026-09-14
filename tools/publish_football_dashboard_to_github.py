@@ -56,6 +56,9 @@ def publish(push: bool = True) -> dict[str, object]:
         # V3 Legacy and V4 Shadow are separate public pages.  Do not replace
         # either with a generated root dashboard during daily publication.
         (WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader" / "dashboard" / "index.html", PUBLISH_REPO / "v3-legacy" / "index.html"),
+        (WORKSPACE / "v3_legacy" / "tools" / "build_football_dashboard.py", PUBLISH_REPO / "v3-legacy" / "tools" / "build_football_dashboard.py"),
+        (WORKSPACE / "v3_legacy" / "tools" / "build_football_daily_update.py", PUBLISH_REPO / "v3-legacy" / "tools" / "build_football_daily_update.py"),
+        (WORKSPACE / "v3_legacy" / "tools" / "run_v3_legacy_daily_freeze.py", PUBLISH_REPO / "v3-legacy" / "tools" / "run_v3_legacy_daily_freeze.py"),
         (WORKSPACE / "v4" / "dashboard" / "index.html", PUBLISH_REPO / "v4" / "index.html"),
         (WORKSPACE / "skills" / "worldcup-odds-trader" / "SKILL.md", PUBLISH_REPO / "skills" / "worldcup-odds-trader" / "SKILL.md"),
         (WORKSPACE / "tools" / "sequential_asian_backtest_engine.py", PUBLISH_REPO / "tools" / "sequential_asian_backtest_engine.py"),
