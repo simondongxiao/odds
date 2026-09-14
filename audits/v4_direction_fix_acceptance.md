@@ -29,11 +29,10 @@
 ## Tests and publish
 
 - Full test suite: 116 passed, 1 skipped.
-- Public commit: `b916810`.
-- V4 page: https://simondongxiao.github.io/odds/v4/?v=b916810
+- Public commit: `d1e2d3c`.
+- V4 page: https://simondongxiao.github.io/odds/v4/?v=d1e2d3c
 - V3 page remains separate and was not modified by the direction engine.
 
 ## Rollback
 
 Restore the pre-fix V4 files from `D:\codex\v4\legacy_giving_only\` or the pre-fix backup `D:\codex\_backups\football_v3_v4_upgrade_rerun_20260914_2145\v4\`. Do not delete the fixed artifacts; they are versioned separately.
-
