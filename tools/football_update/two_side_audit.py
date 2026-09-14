@@ -50,37 +50,40 @@ def _posterior_probability(alpha: dict[str, Any], signed_line: float, water: flo
 
 def build_two_side_rows(v4_payload: dict[str, Any], prior_payload: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    bucket_alpha = (prior_payload or {}).get("alpha", {})
+    raw_alpha = (prior_payload or {}).get("alpha", {})
+    side_alpha = (prior_payload or {}).get("side_alpha", {})
+    giving_alpha = side_alpha.get("giving", raw_alpha)
+    receiving_alpha = side_alpha.get("receiving", {})
     for item in v4_payload.get("matches", []):
-        if item.get("analysis_status") != "EVALUATED":
+        if item.get("analysis_status") not in {"EVALUATED", "FROZEN_PREMATCH_DECISION"}:
             continue
         market = item.get("market") or {}
         home, away = str(market.get("home_team", "")), str(market.get("away_team", ""))
-        giving = str(item.get("selected_team", ""))
+        giving = str(market.get("giving_team") or item.get("giving_team") or "")
         if not home or not away or giving not in {home, away}:
             continue
         receiving = away if giving == home else home
-        giving_water = _num(market.get("home_water_hk")) if giving == home else _num(market.get("away_water_hk"))
-        receiving_water = _num(market.get("away_water_hk")) if giving == home else _num(market.get("home_water_hk"))
-        signed = _num(item.get("selected_handicap_signed"))
+        giving_water = _num(market.get("giving_water"))
+        receiving_water = _num(market.get("receiving_water"))
+        raw_signed = _num(market.get("titan_home_handicap_signed", market.get("home_handicap_signed")))
+        signed = abs(raw_signed) if raw_signed is not None else None
         if giving_water is None or receiving_water is None or signed is None:
             rows.append({"match_id": item.get("match_id", ""), "status": "REVERSE_PRICE_MISSING", "giving_team": giving, "receiving_team": receiving})
             continue
-        probs = item.get("probabilities") or {}
-        giving_probs = {state: _num(probs.get(state)) or 0.0 for state in STATES}
-        receiving_probs = {state: giving_probs[MIRROR[state]] for state in STATES}
         bucket = f"{round(abs(signed) * 4) / 4:.2f}"
-        alpha = bucket_alpha.get(bucket) or bucket_alpha.get("GLOBAL") or {state: 1.0 for state in STATES}
-        try:
-            receiving_mean, receiving_p10, receiving_positive = _posterior_probability(alpha, abs(signed), receiving_water, int(hashlib.sha256(f"{item.get('match_id')}|receiving".encode()).hexdigest()[:8], 16))
-        except Exception:
-            receiving_mean = receiving_water * receiving_probs["W"] + receiving_water * 0.5 * receiving_probs["HW"] - 0.5 * receiving_probs["HL"] - receiving_probs["L"]
-            receiving_p10, receiving_positive = None, None
-        giving_mean = _num(item.get("ev_mean"))
-        giving_p10 = _num(item.get("ev_p10"))
-        giving_positive = _num(item.get("p_ev_positive"))
+        g_alpha = giving_alpha.get(bucket) or giving_alpha.get("GLOBAL") or {state: 1.0 for state in STATES}
+        r_alpha = receiving_alpha.get(bucket) or receiving_alpha.get("GLOBAL") or {state: 1.0 for state in STATES}
+        giving_post = _posterior_probability(g_alpha, -abs(signed), giving_water, int(hashlib.sha256(f"{item.get('match_id')}|giving".encode()).hexdigest()[:8], 16))
+        giving_probs = {state: _num(item.get("diagnostic_giving", {}).get("p" + state)) or 0.0 for state in STATES}
+        if not any(giving_probs.values()):
+            # Diagnostic probabilities are optional in old rows; use the
+            # same side-aware prior rather than candidate identity inference.
+            giving_probs = {state: 0.0 for state in STATES}
+        receiving_probs = {state: giving_probs[MIRROR[state]] for state in STATES}
+        receiving_mean, receiving_p10, receiving_positive = _posterior_probability(r_alpha, abs(signed), receiving_water, int(hashlib.sha256(f"{item.get('match_id')}|receiving".encode()).hexdigest()[:8], 16))
+        giving_mean, giving_p10, giving_positive = giving_post
         rows.extend([
-            {"match_id": item.get("match_id", ""), "list_date": v4_payload.get("list_date", ""), "side": "giving", "team": giving, "market_side": "让球方/上盘", "signed_handicap": -abs(signed), "water": giving_water, "W": giving_probs["W"], "HW": giving_probs["HW"], "P": giving_probs["P"], "HL": giving_probs["HL"], "L": giving_probs["L"], "EV_mean": giving_mean, "EV_p10": giving_p10, "P_EV_gt_0": giving_positive, "mirror_status": "W↔L;HW↔HL;P↔P", "real_money": False, "diagnostic_only": True, "status": "COMPUTED"},
+            {"match_id": item.get("match_id", ""), "list_date": v4_payload.get("list_date", ""), "side": "giving", "team": giving, "market_side": "让球方/上盘", "signed_handicap": abs(signed), "water": giving_water, "W": giving_probs["W"], "HW": giving_probs["HW"], "P": giving_probs["P"], "HL": giving_probs["HL"], "L": giving_probs["L"], "EV_mean": giving_mean, "EV_p10": giving_p10, "P_EV_gt_0": giving_positive, "mirror_status": "W↔L;HW↔HL;P↔P", "real_money": False, "diagnostic_only": True, "status": "COMPUTED"},
             {"match_id": item.get("match_id", ""), "list_date": v4_payload.get("list_date", ""), "side": "receiving", "team": receiving, "market_side": "受让方/下盘", "signed_handicap": abs(signed), "water": receiving_water, "W": receiving_probs["W"], "HW": receiving_probs["HW"], "P": receiving_probs["P"], "HL": receiving_probs["HL"], "L": receiving_probs["L"], "EV_mean": receiving_mean, "EV_p10": receiving_p10, "P_EV_gt_0": receiving_positive, "mirror_status": "W↔L;HW↔HL;P↔P", "real_money": False, "diagnostic_only": True, "status": "COMPUTED"},
         ])
     return rows
