@@ -89,6 +89,8 @@ def country_from_league(league: object) -> str:
 
 def tier_from_class(competition_class: object, league: object) -> str:
     info = competition_normalizer.normalize(str(league or ""))
+    if info.competition_scope.endswith("独立赛事"):
+        return info.competition_scope
     if info.competition_type == "国家队正式赛": return "国家队正式赛"
     if info.competition_type == "洲际杯赛": return "洲际杯赛"
     if info.competition_type == "杯赛": return "杯赛"
