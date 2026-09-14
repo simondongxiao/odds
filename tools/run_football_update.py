@@ -182,6 +182,61 @@ def write_rows_csv(path: Path, rows: list[dict[str, str]]) -> Path:
     return path
 
 
+def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4: dict[str, Any], run_at: dt.datetime) -> tuple[Path, Path]:
+    """Freeze the user-facing V3/V4 bettable populations for this run.
+
+    These are exports of already-frozen decisions, not a second decision engine.
+    V4 remains shadow-only; A/B/C are exported as shadow candidates for review.
+    """
+    stamp = run_at.strftime("%Y%m%d_%H%M%S")
+    root = OUT / "ledger" / "daily_bettable"
+    v3_path = root / "v3" / f"bettable_{list_date}_{stamp}.csv"
+    v4_path = root / "v4" / f"bettable_{list_date}_{stamp}.csv"
+    v3_rows = []
+    for row in bridge.get("matches", []):
+        action = str(row.get("action", "") or "")
+        if action not in {"可投", "半仓可投"}:
+            continue
+        v3_rows.append({
+            "version": "V3_PRODUCTION", "list_date": list_date, "match_id": row.get("match_id", ""),
+            "competition": row.get("competition", ""), "kickoff_beijing": row.get("kickoff", ""),
+            "home_team": row.get("home_team", ""), "away_team": row.get("away_team", ""),
+            "action": action, "grade": "", "selected_team": row.get("selected_team", ""),
+            "market_side": row.get("market_side", row.get("selected_side", "")),
+            "giving_team": row.get("giving_team", ""), "receiving_team": row.get("receiving_team", ""),
+            "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
+            "water": row.get("water", ""), "probability": row.get("probability", ""),
+            "ev_mean": row.get("ev_mean", ""), "decision_at": row.get("decision_at", ""),
+            "rule_version": row.get("rule_version", ""), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
+            "real_money": "true", "status": row.get("settlement", row.get("status", "")),
+        })
+    v4_rows = []
+    for row in v4.get("matches", []):
+        grade = str(row.get("grade", "") or "")
+        if grade not in {"A", "B", "C"}:
+            continue
+        v4_rows.append({
+            "version": "V4_SHADOW", "list_date": list_date, "match_id": row.get("match_id", ""),
+            "competition": row.get("competition", ""), "kickoff_beijing": row.get("kickoff", ""),
+            "home_team": row.get("home_team", ""), "away_team": row.get("away_team", ""),
+            "action": "SHADOW_CANDIDATE", "grade": grade, "selected_team": row.get("selected_team", row.get("candidate_team", "")),
+            "market_side": row.get("selected_side", row.get("candidate_side", "")),
+            "giving_team": row.get("giving_team", ""), "receiving_team": row.get("receiving_team", ""),
+            "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
+            "water": row.get("selected_water_hk", row.get("water", "")), "probability": row.get("p_ev_positive", row.get("P_EV_gt_0", "")),
+            "ev_mean": row.get("ev_mean", row.get("EV_mean", "")), "decision_at": row.get("decision_at", ""),
+            "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
+            "real_money": "false", "status": row.get("analysis_status", row.get("status", "")),
+        })
+    fields = ["version", "list_date", "match_id", "competition", "kickoff_beijing", "home_team", "away_team", "action", "grade", "selected_team", "market_side", "giving_team", "receiving_team", "direction", "handicap", "water", "probability", "ev_mean", "decision_at", "rule_version", "source_snapshot", "real_money", "status"]
+    for path, rows in ((v3_path, v3_rows), (v4_path, v4_rows)):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("w", encoding="utf-8-sig", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
+            writer.writeheader(); writer.writerows(rows)
+    return v3_path, v4_path
+
+
 def num(value: Any) -> float | None:
     try:
         return float(value)
@@ -328,6 +383,12 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path) -> None:
     for source in (OUT / "reviews").glob(f"*_{run_dir.name}.*"):
         destination = public / "reviews" / source.name
         destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
+    for source in (OUT / "ledger" / "daily_bettable" / "v3").glob(f"bettable_{list_date}_*.csv"):
+        destination = public / "ledger" / "daily_bettable" / "v3" / source.name
+        destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
+    for source in (OUT / "ledger" / "daily_bettable" / "v4").glob(f"bettable_{list_date}_*.csv"):
+        destination = public / "ledger" / "daily_bettable" / "v4" / source.name
+        destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
     for source, destination in (
         (ROOT / "skills" / "worldcup-odds-trader" / "SKILL.md", public / "skills" / "worldcup-odds-trader" / "SKILL.md"),
         (ROOT / "football_update", public / "tools" / "football_update"),
@@ -393,6 +454,7 @@ def main() -> int:
     v4 = preserve_started_v4(v4_path, old_v4, run_at)
     v4 = refresh_v4_summary(v4)
     v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
+    v3_bettable_export, v4_bettable_export = write_timestamped_bettable_lists(list_date, bridge, v4, run_at)
     metrics = summary(bridge, v4, len(current_rows))
     v4_data_path = update_v4_data(v4_path, list_date)
     merged = merged_date_json(list_date, raw_path, bridge, v4, run_id, run_at)
@@ -402,7 +464,7 @@ def main() -> int:
     feature_csv, feature_json = feature_usage.write_feature_audit(scoped_raw_path, v4_path, OUT / "v4_shadow", list_date, run_id)
     context_path = context_r1.write_context_manifest(scoped_raw_path, list_date, OUT / "v4_shadow" / f"v4_context_r1_{list_date}_{run_id}.json", "v4.2-independent-market-shadow")
     review_csv, review_md = review.write_review(list_date, scoped_raw_path, bridge_path, v4_path, OUT / "reviews", run_id)
-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
     report_path = write_refresh_report(list_date, run_id, run_at, raw_path, metrics, run_dir / "decision_comparison.csv", review_md, two_side_csv, context_path, fetch_result)
     run_manifest["artifacts"]["manual_refresh_report"] = str(report_path)

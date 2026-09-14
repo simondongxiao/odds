@@ -59,13 +59,22 @@ def build_two_side_rows(v4_payload: dict[str, Any], prior_payload: dict[str, Any
             continue
         market = item.get("market") or {}
         home, away = str(market.get("home_team", "")), str(market.get("away_team", ""))
-        giving = str(market.get("giving_team") or item.get("giving_team") or "")
+        # New rows carry explicit Titan identity.  The fallback is only for
+        # older diagnostic fixtures that predate the contract and is never
+        # used by the production V4 runner.
+        giving = str(market.get("giving_team") or item.get("giving_team") or item.get("selected_team") or "")
         if not home or not away or giving not in {home, away}:
             continue
         receiving = away if giving == home else home
         giving_water = _num(market.get("giving_water"))
         receiving_water = _num(market.get("receiving_water"))
+        if giving_water is None:
+            giving_water = _num(market.get("home_water_hk")) if giving == home else _num(market.get("away_water_hk"))
+        if receiving_water is None:
+            receiving_water = _num(market.get("away_water_hk")) if giving == home else _num(market.get("home_water_hk"))
         raw_signed = _num(market.get("titan_home_handicap_signed", market.get("home_handicap_signed")))
+        if raw_signed is None:
+            raw_signed = _num(item.get("selected_handicap_signed"))
         signed = abs(raw_signed) if raw_signed is not None else None
         if giving_water is None or receiving_water is None or signed is None:
             rows.append({"match_id": item.get("match_id", ""), "status": "REVERSE_PRICE_MISSING", "giving_team": giving, "receiving_team": receiving})
