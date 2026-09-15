@@ -219,7 +219,8 @@ def enrich_decision_metadata(
         # original quote timestamp is unknown unless it was already persisted;
         # never relabel the new refresh timestamp as the old decision quote.
         preserved_started = bool(kickoff and kickoff <= run_at and row.get("started_lock"))
-        quote_at = iso_timestamp(row.get("quote_at")) or ("" if preserved_started else iso_timestamp(quote_raw))
+        persisted_quote = parse_source_timestamp(row.get("quote_at"))
+        quote_at = (persisted_quote.isoformat() if persisted_quote and (not preserved_started or persisted_quote <= decision_dt) else ("" if preserved_started else iso_timestamp(quote_raw)))
         last_confirmed_at = iso_timestamp(confirmed_raw)
         if kickoff:
             row["kickoff_at"] = kickoff.isoformat()
