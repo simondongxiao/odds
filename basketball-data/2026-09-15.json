@@ -1490,8 +1490,10 @@
         "shadow_action": "SHADOW_BET",
         "triggered": true
       },
+      "first_write_preserved": true,
       "generation": "REPAIR_V22",
       "id": "7m:1344882",
+      "last_refresh_asof": "2026-09-15T10:02:01.318254+00:00",
       "market": {
         "quote_states": [
           {
@@ -1862,8 +1864,24 @@
           "7m:1344881"
         ]
       },
-      "first_write_preserved": true,
-      "last_refresh_asof": "2026-09-15T10:02:01.318254+00:00"
+      "settlement": {
+        "archive_type": "FORWARD_NATIVE",
+        "close": null,
+        "close_reason": "NO_VERIFIED_CLOSE_SNAPSHOT",
+        "clv": null,
+        "event_id": "7m:1344882",
+        "outcome": "WIN",
+        "outcome_raw_sha256": "18c3cf9ba4288e42c2cb1454204ba9a2ee2ca1b81be72c685673361ebb7262a7",
+        "paper_pnl": 0.98,
+        "paper_units": 1,
+        "prediction_id": "e9e22eb32f03d84355e16e362bc7",
+        "real_execution_allowed": false,
+        "real_stake": 0,
+        "score1": 73,
+        "score2": 85,
+        "score_rule": "INCLUDING_OT",
+        "settled_at": "2026-09-15T10:02:01.318254+00:00"
+      }
     },
     {
       "archive_type": "FORWARD_NATIVE",
@@ -2128,8 +2146,10 @@
         "shadow_action": "SHADOW_BET",
         "triggered": true
       },
+      "first_write_preserved": true,
       "generation": "REPAIR_V22",
       "id": "7m:1361792",
+      "last_refresh_asof": "2026-09-15T10:02:01.318254+00:00",
       "market": {
         "quote_states": [
           {
@@ -2473,9 +2493,7 @@
           "7m:1359441",
           "7m:1359440"
         ]
-      },
-      "first_write_preserved": true,
-      "last_refresh_asof": "2026-09-15T10:02:01.318254+00:00"
+      }
     },
     {
       "archive_type": "FORWARD_NATIVE",
@@ -4568,16 +4586,16 @@
     }
   ],
   "funnel": {
+    "blocked_events": 18,
+    "comparable_events": 2,
     "events": 20,
-    "market_observed_events": 8,
-    "raw_verified_market_events": 8,
     "fresh_market_events": 8,
     "independent_priceable_events": 2,
-    "research_coupled_events": 2,
-    "comparable_events": 2,
-    "paper_triggered_events": 2,
+    "market_observed_events": 8,
     "paper_bettable": 2,
-    "blocked_events": 18
+    "paper_triggered_events": 2,
+    "raw_verified_market_events": 8,
+    "research_coupled_events": 2
   },
   "generated_at": "2026-09-15T10:02:09.789569+00:00",
   "message": "实时运行；低置信度研究定价不等于可投。",
