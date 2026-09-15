@@ -1,0 +1,101 @@
+{
+  "run_id": "RUN_20260916_072846",
+  "list_date": "2026-09-16",
+  "run_at": "2026-09-16T07:28:46.462928+08:00",
+  "raw_snapshot_id": "20260916_072846_titan007_odds_snapshot",
+  "raw_snapshot": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_072846_titan007_odds_snapshot.csv",
+  "scoped_roster_snapshot": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\slate_raw.csv",
+  "model_version": "V4_DIRECTION_FIXED_R1",
+  "prior_id": "prior-2026-09-16-v1",
+  "roster_total": 455,
+  "prematch_total": 124,
+  "refreshed_total": 455,
+  "computed_total": 153,
+  "missing_total": 302,
+  "v3": {
+    "total": 455,
+    "v3_computed": 153,
+    "v3_bettable": 11,
+    "v3_half": 0,
+    "v3_no_bet": 142,
+    "v3_missing": 302,
+    "v4_computed": 58,
+    "v4_A": 0,
+    "v4_B": 0,
+    "v4_C": 13,
+    "v4_N": 45,
+    "v4_neutral": 66,
+    "v4_missing": 0,
+    "v4_not_prematch": 331
+  },
+  "v4": {
+    "total": 455,
+    "v3_computed": 153,
+    "v3_bettable": 11,
+    "v3_half": 0,
+    "v3_no_bet": 142,
+    "v3_missing": 302,
+    "v4_computed": 58,
+    "v4_A": 0,
+    "v4_B": 0,
+    "v4_C": 13,
+    "v4_N": 45,
+    "v4_neutral": 66,
+    "v4_missing": 0,
+    "v4_not_prematch": 331
+  },
+  "backup": "D:\\codex\\outputs\\football_odds_trader\\backups\\manual_refresh_2026-09-16_RUN_20260916_072846",
+  "fetch": {
+    "returncode": 0,
+    "stdout": "raw_dir=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\ncsv=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_072846_titan007_odds_snapshot.csv\nmatches=840\nwith_sbodds=195\nwith_change_xml=20\nfuture_schedule=480\nfuture_added=127\nfrozen_started_odds=170\nrestored_roster_rows=331\nroster=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\ledger\\slate_rosters\\titan007_roster_20260916.json\nroster_matches=455\n",
+    "stderr": "future_odds=25/127\nfuture_odds=50/127\nfuture_odds=75/127\nfuture_odds=100/127\nfuture_odds=125/127\n",
+    "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\logs\\titan_fetch.log"
+  },
+  "steps": {
+    "v3_daily": {
+      "returncode": 0,
+      "stdout": "md=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_line_tag_matrix_20260916.md\ncsv=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_line_tag_matrix_20260916.csv\nrows=72\ndashboard=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\index.html\ndashboard_snapshot=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\snapshots\\2026-09-16_073012\\index.html\ncards=3739 settled=335 win_rate=0.5753846153846154\ndetail=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_history_detail_2026-07-27_2026-09-16.csv\nsummary=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_history_summary_2026-07-27_2026-09-16.csv\nreport=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_history_report_2026-07-27_2026-09-16.md\ngrouped_csv=D:\\codex\\outputs\\football_odds_trader\\ledger\\grouped_edge_review_2026-09-16.csv\ngrouped_review=D:\\codex\\outputs\\football_odds_trader\\reviews\\grouped_edge_review_2026-09-16.md\ndetails=1957 countable=1186\nregional_risk=skipped_no_frozen_plan; existing frozen risk inputs retained\nD:\\codex\\outputs\\football_odds_trader\\ledger\\bettable_event_stats_2026-09-16.csv\nD:\\codex\\outputs\\football_odds_trader\\ledger\\bettable_event_detail_2026-09-16.csv\nrows=77\n      ͳ������                                                                                                                   ����Դ    ����   ����   ���²㼶    �̿�      ˮλ�ֲ�    ������ͼ  ����  ��  ���  ��ˮ  �ڰ�  ��  ��Чʤ��  ����  ��עӯ��Unit  ƽ��ˮλ  ROI                                                           ��ע\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv  ŷ�����   ����  �Ƕ������� ƽ��/���� 1.01-1.10   ����/����   1  1   0   0   0  0   1.0 0.0     1.080  1.08 1.08 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    ����   �ձ�     ����    ���� 1.01-1.10 ���±���/����   1  1   0   0   0  0   1.0 0.0     1.010  1.01 1.01 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv  ŷ�����   �¹�  �Ƕ�������    һ�� 0.81-0.90 ���±���/����   1  1   0   0   0  0   1.0 0.0     0.900  0.90 0.90 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    ����  δʶ��     ���� ƽ��/���� 0.81-0.90 ����/���̽���   1  1   0   0   0  0   1.0 0.0     0.870  0.87 0.87 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷����  ����ʱ   ��������    һ�� 0.81-0.90 ����/���̱���   1  1   0   0   0  0   1.0 0.0     0.860  0.86 0.86 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷����   �ݿ�  �Ƕ�������    ���� 0.81-0.90 ���±���/����   1  1   0   0   0  0   1.0 0.0     0.850  0.85 0.85 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    ����  ����͢  �Ƕ�������    ƽ�� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.840  0.84 0.84 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv  ŷ�����   �¹�  �Ƕ������� ƽ��/���� 0.81-0.90 ���±���/����   1  1   0   0   0  0   1.0 0.0     0.840  0.84 0.84 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷����   ����     ���� ����/һ�� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.840  0.84 0.84 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷����   ���     ���� ���/���� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.840  0.84 0.84 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷���� �������� ŷ���������� ƽ��/���� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.830  0.83 0.83 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    ����   �ձ�   ��������    һ�� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.820  0.82 0.82 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    ����  δʶ��     ����    ���� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.820  0.82 0.82 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷���� �������� ŷ���������� һ��/��� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.820  0.82 0.82 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷���� �������� ŷ���������� ���/���� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.820  0.82 0.82 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    ����  ������     ����    ���� 0.81-0.90   ����/����   1  1   0   0   0  0   1.0 0.0     0.810  0.81 0.81 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    ����  δʶ��     ����    ���� 0.71-0.80   ����/����   1  1   0   0   0  0   1.0 0.0     0.780  0.78 0.78 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷����   ����     ���� ƽ��/���� 0.71-0.80   ����/����   1  1   0   0   0  0   1.0 0.0     0.780  0.78 0.78 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv  ŷ�����   �¹�  �Ƕ������� ƽ��/����     >1.10   ����/����   1  1   0   0   0  0   1.0 0.0     0.555  1.11 1.11 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\n2026-09-16 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv ŷ�޷����   ����   �������� ƽ��/���� 1.01-1.10   ����/����   1  1   0   0   0  0   1.0 0.0     0.540  1.08 1.08 ����ʤ��/ӯ�������ϸ�walk-forward©��ͨ�����ѽ��������/��������Ͷע�У���ϸ������δ��������Ϊ��ǰ�����ĸ\ndashboard=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\index.html\ndashboard_snapshot=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\snapshots\\2026-09-16_073013\\index.html\ncards=3739 settled=335 win_rate=0.5753846153846154\nreport=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\daily\\2026-09-16_titan007_strict_update.md\nsim_csv=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\ledger\\2026-09-16_titan007_simulations.csv\ngrouped_review=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\reviews\\grouped_edge_review_2026-09-16.md\nflow_overlay=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\ledger\\funds_flow_intent_overlay_2026-09-16.csv\ndrift_report=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\reviews\\snapshot_drift_2026-09-16_20260916_072846.md\ndrift_csv=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\reviews\\snapshot_drift_2026-09-16_20260916_072846.csv\ncovered_today=153 ended=0 live=0 future=77\ntop_future=\n�������� 9-16 13:00 ������U23(��) vs ����U23 | �̿ڿ��� | �ȴ�HTML���EV©���ж� stake=0.0\n�������� 9-16 15:00 ̩��U23(��) vs ������˹̹U23 | �̿ڿ��� | �ȴ�HTML���EV©���ж� stake=0.0\n�ǹھ�Ӣ 9-16 18:00 ȫ���ִ� vs ��̫���� | �̿ڿ��� | �ȴ�HTML���EV©���ж� stake=0.0\n�ǹ���2 9-16 18:00 FC�׶� vs ��¡ | �̿ڿ��� | �ȴ�HTML���EV©���ж� stake=0.0\n�������� 9-16 18:00 �й�U23(��) vs ����U23 | �̿ڿ��� | �ȴ�HTML���EV©���ж� stake=0.0\n�������� 9-16 18:30 �ձ�U23 vs �й����U23 | �̿ڿ��� | �ȴ�HTML���EV©���ж� stake=0.0\nϣ���� 9-16 20:00 ������� vs ���ﲨ��˹ | �̿ڿ��� | �ȴ�HTML���EV©���ж� stake=0.0\n�ǹھ�Ӣ 9-16 20:15 ʨ�Ӹ� vs ��ʤ���� | �̿ڿ��� | �ȴ�HTML���EV©���ж� stake=0.0\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\logs\\v3_daily.log"
+    },
+    "v3_freeze": {
+      "returncode": 0,
+      "stdout": "{\"freeze\": \"D:\\\\codex\\\\v3_legacy\\\\outputs\\\\football_odds_trader\\\\ledger\\\\v3_legacy_decision_freeze_2026-09-16_20260916073014.csv\", \"bridge\": \"D:\\\\codex\\\\bridge\\\\v3_production\\\\2026-09-16.json\", \"roster_count\": 455, \"computed_count\": 153, \"bettable_count\": 11, \"half_bettable_count\": 0, \"no_bet_count\": 142, \"missing_count\": 302}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\logs\\v3_freeze.log"
+    },
+    "v4_shadow": {
+      "returncode": 0,
+      "stdout": "{\"raw_total\": 455, \"prior_training_rows\": 804, \"total\": 455, \"computed\": 58, \"A\": 0, \"B\": 0, \"C\": 13, \"N\": 45, \"neutral\": 66, \"missing_data\": 0, \"insufficient_training\": 0, \"not_prematch\": 331, \"errors\": 0, \"daily\": \"D:\\\\codex\\\\v4\\\\outputs\\\\v4_decisions_2026-09-16.json\", \"model\": \"D:\\\\codex\\\\v4\\\\models\\\\v4-market-dirichlet-20260913\\\\model.json\", \"prior\": \"D:\\\\codex\\\\v4\\\\ledger\\\\prior\\\\2026-09-16\\\\prior-2026-09-16-v1.json\"}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\logs\\v4_shadow.log"
+    },
+    "yesterday_performance": {
+      "returncode": 0,
+      "stdout": "{\"target\": \"2026-09-15\", \"v3\": {\"frozen_bettable\": 14, \"settled\": 14, \"counts\": {\"L\": 3, \"W\": 9, \"HW\": 1, \"P\": 1}, \"effective_win_rate\": 0.76, \"pnl_1u\": 5.95, \"roi\": 0.425, \"pending\": 0}, \"v4\": {\"frozen_bettable\": 32, \"settled\": 32, \"counts\": {\"W\": 16, \"L\": 12, \"P\": 1, \"HW\": 2, \"HL\": 1}, \"effective_win_rate\": 0.576271186440678, \"pnl_1u\": 4.38, \"roi\": 0.1369, \"pending\": 0}, \"csv\": \"D:\\\\codex\\\\outputs\\\\football_odds_trader\\\\reviews\\\\daily_performance\\\\yesterday_performance_2026-09-15_20260916_073017.csv\", \"report\": \"D:\\\\codex\\\\outputs\\\\football_odds_trader\\\\reviews\\\\daily_performance\\\\yesterday_performance_2026-09-15_20260916_073017.md\"}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\logs\\yesterday_performance.log"
+    }
+  },
+  "artifacts": {
+    "current_json": "D:\\codex\\outputs\\football_odds_trader\\dashboard\\data\\current.json",
+    "date_json": "D:\\codex\\outputs\\football_odds_trader\\dashboard\\data\\dates\\2026-09-16.json",
+    "bridge": "D:\\codex\\bridge\\v3_production\\2026-09-16.json",
+    "v4": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-16.json",
+    "v3_bettable_timestamped": "D:\\codex\\outputs\\football_odds_trader\\ledger\\daily_bettable\\v3\\bettable_2026-09-16_20260916_072846.csv",
+    "v4_bettable_timestamped": "D:\\codex\\outputs\\football_odds_trader\\ledger\\daily_bettable\\v4\\bettable_2026-09-16_20260916_072846.csv",
+    "morning_tracking": "D:\\codex\\outputs\\football_odds_trader\\reviews\\morning_prematch_tracking_2026-09-16_RUN_20260916_072846.csv",
+    "quote_age_monitoring": "D:\\codex\\outputs\\football_odds_trader\\reviews\\quote_age_monitoring_2026-09-16_RUN_20260916_072846.csv",
+    "yesterday_performance_log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\logs\\yesterday_performance.log",
+    "execution_ledger": "D:\\codex\\outputs\\football_odds_trader\\executions\\executions_2026-09-16.csv",
+    "two_side_csv": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_two_side_audit_2026-09-16_RUN_20260916_072846.csv",
+    "two_side_json": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_two_side_audit_2026-09-16_RUN_20260916_072846.json",
+    "context_r1": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_context_r1_2026-09-16_RUN_20260916_072846.json",
+    "review_csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\review_2026-09-16_RUN_20260916_072846.csv",
+    "review_md": "D:\\codex\\outputs\\football_odds_trader\\reviews\\review_2026-09-16_RUN_20260916_072846.md",
+    "v4_dashboard_data": "D:\\codex\\v4\\dashboard\\data\\2026-09-16.json",
+    "feature_usage_csv": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_feature_usage_2026-09-16_RUN_20260916_072846.csv",
+    "feature_usage_json": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_feature_usage_2026-09-16_RUN_20260916_072846.json",
+    "manual_refresh_report": "D:\\codex\\outputs\\football_odds_trader\\daily\\manual_refresh_2026-09-16_RUN_20260916_072846.md"
+  }
+}
