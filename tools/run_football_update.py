@@ -212,11 +212,15 @@ def enrich_decision_metadata(
         source = raw_by_id.get(str(row.get("match_id", "")), {})
         quote_raw = source.get("snapshot_stamp") or source.get("latest_snapshot_stamp")
         confirmed_raw = source.get("latest_snapshot_stamp") or source.get("snapshot_stamp")
-        quote_at = iso_timestamp(quote_raw)
-        last_confirmed_at = iso_timestamp(confirmed_raw)
         kickoff = parse_kickoff(str(source.get("bj_time", "") or row.get("kickoff", "")))
         decision_dt = parse_source_timestamp(row.get("decision_at")) or run_at
         decision_at = decision_dt.isoformat()
+        # A started/frozen row may be retained during a later refresh.  Its
+        # original quote timestamp is unknown unless it was already persisted;
+        # never relabel the new refresh timestamp as the old decision quote.
+        preserved_started = bool(kickoff and kickoff <= run_at and row.get("started_lock"))
+        quote_at = iso_timestamp(row.get("quote_at")) or ("" if preserved_started else iso_timestamp(quote_raw))
+        last_confirmed_at = iso_timestamp(confirmed_raw)
         if kickoff:
             row["kickoff_at"] = kickoff.isoformat()
         row["decision_at"] = decision_at
@@ -232,7 +236,7 @@ def enrich_decision_metadata(
         row["parent_decision_id"] = str(previous.get("decision_id", "") or "")
         status = str(row.get("analysis_status", ""))
         valid = (version == "V3" and str(row.get("action", "")) not in {"", "历史V3未冻结可投"}) or (version == "V4" and status in {"EVALUATED", "FROZEN_PREMATCH_DECISION"})
-        row["is_latest_valid_prematch"] = bool(valid and kickoff and kickoff > decision_dt)
+        row["is_latest_valid_prematch"] = bool(valid and kickoff and kickoff > run_at)
         row["is_morning_baseline"] = bool(morning_run and row["is_latest_valid_prematch"] and kickoff and 4 <= kickoff.hour < 10)
         row["monitoring_bucket"] = "MONITORING_BUCKET" if kickoff and 4 <= kickoff.hour < 10 else ""
         if version == "V4":

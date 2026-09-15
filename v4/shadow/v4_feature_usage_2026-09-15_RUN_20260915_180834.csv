@@ -1,0 +1,328 @@
+﻿match_id,competition,line_bucket,competition_used,intent_available,euro_odds_used,asian_movement_available,water_used,totals_available,timing_available,fundamentals_available,flow_available,prior_level,fallback_reason,model_version
+3056028,乌克U21,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089084,不丹廷联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091444,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091390,印西隆联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084562,澳足总,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089096,加尔联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091347,印米佐超,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3068857,亚冠精英,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3068858,亚冠精英,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3068859,亚冠精英,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3068860,亚冠精英,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3056284,葡U23,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3056288,葡U23,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3049666,亚运男足,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089090,罗女超,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3056023,乌克U21,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3049667,亚运男足,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091423,印班超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3047486,泰甲,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089658,非青杯外,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091349,荷U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091445,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091477,中青U17,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3047487,泰甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2952364,塔吉克联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3056287,葡U23,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3047488,泰甲,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3048099,阿美甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3048100,阿美甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3048102,阿美甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3048103,阿美甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091352,英后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091353,英后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3059187,英乙U21,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3059188,英乙U21,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3068861,亚冠精英,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3068862,亚冠精英,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3090789,乌拉后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3090771,莫桑冠,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090760,卢旺达联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090761,卢旺达联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090762,卢旺达联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091431,阿后备,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090790,乌拉后备,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089092,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3059189,英乙U21,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3059190,英乙U21,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3074476,乌干超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3074477,乌干超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3074480,乌干超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3085599,黎足总,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3085600,黎足总,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084812,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084813,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084815,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084816,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091422,印米佐超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090768,以U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3069004,亚冠联2,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3069005,亚冠联2,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091417,以U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090767,以U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3056282,葡U23,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3056283,葡U23,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3056289,葡U23,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3056290,葡U23,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3056291,葡U23,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3059455,埃及超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3059456,埃及超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089218,伊朗甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090763,以U19,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090766,以U19,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090769,以U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3046416,罗乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089661,非青杯外,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089594,欧联U19,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091429,阿后备,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091432,阿后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2952363,塔吉克联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089095,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089581,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091446,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091447,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091421,荷青U21,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3075232,捷克杯,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3058678,丹麦U19,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+2954807,爱沙丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089093,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3075235,捷克杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3088127,丹女杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090764,以U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090770,以U19,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091430,阿后备,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091418,荷U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091360,约女联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089094,国际友谊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027170,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027172,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3048492,沙地甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091363,阿后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3017157,保乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3068930,亚冠精英,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3003104,波兰超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2940716,拉脱超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3072752,意杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089219,伊朗甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089220,伊朗甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089221,伊朗甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+2954808,爱沙丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3017158,保乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3048493,沙地甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3027165,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027173,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3001607,以超,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3051304,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051306,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051308,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051309,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3088128,丹女杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3013700,西甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3000794,瑞士超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3026045,德丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3026047,德丙,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3026051,德丙,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3026053,德丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3026054,德丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3026455,德地区东北,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3026456,德地区东北,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3026458,德地区东北,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3026462,德地区东北,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027166,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027167,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027168,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027169,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027171,德地区巴,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+2914695,瑞典甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2914696,瑞典甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2914702,瑞典甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3001603,以超,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084306,土杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3059457,埃及超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3059458,埃及超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3004496,黑山甲,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084425,丹麦杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089074,德戊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089655,非青杯外,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091358,奥丁,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091359,奥丁,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091441,奥丁,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091443,奥丁,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091433,阿后备,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091435,哥伦地区,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091438,哥伦地区,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3043371,德地区北,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3084817,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084818,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084819,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089116,德戊,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091416,奥丁,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3013692,西甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2996124,荷甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3012829,英锦赛,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3012836,英锦赛,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3012971,英锦赛,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3012980,英锦赛,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3012989,英锦赛,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3084820,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3062657,英U21杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3062716,英U21杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089085,阿后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089086,阿后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089087,阿后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089088,阿后备,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3089089,阿后备,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3065028,超联杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3065044,超联杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091434,玻利联U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3068931,亚冠精英,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3072975,英联杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3003091,波兰超,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091424,爱尔高联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3021132,威冠北,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091379,巴青联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091436,巴青联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091437,巴青联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3008214,英冠,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3008215,英冠,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3002047,苏超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3002048,苏超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3002049,苏超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3027754,英议联,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027756,英议联,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3027757,英议联,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027758,英议联,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027759,英议联,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027760,英议联,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027761,英议联,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027762,英议联,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3027763,英议联,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3073629,英联杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3002261,苏冠,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3002426,苏甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3011595,北爱超,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3011596,北爱超,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3011597,北爱超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3011598,北爱超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3011599,北爱超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3011600,北爱超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3019521,威超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3019522,威超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3019523,威超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3019524,威超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3019525,威超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3019526,威超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3019527,威超,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3028879,英议南,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3028880,英议南,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3037395,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037397,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037398,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037399,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037400,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037401,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037402,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037403,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037404,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3036353,苏挑杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3053121,英南超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091419,英依联甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091420,英依联甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091439,英依联甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091344,英南甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091403,英南甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091409,英南甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091412,英南甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091413,英南甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091415,英南甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091396,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091397,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091398,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091399,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091400,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091401,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091402,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091404,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091405,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091406,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091407,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091408,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091410,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091411,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091414,英北甲,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089075,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089076,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089077,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089078,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089079,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089080,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089081,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089082,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089083,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3089103,苏低联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091348,北爱全联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091442,北爱全联,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3072969,英联杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3072971,英联杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3072976,英联杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051301,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051302,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051303,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051305,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051307,意丙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3051310,意丙,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3072753,意杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3059136,玻利甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3062060,乌兹杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3062063,乌兹杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3087972,冰岛超冠,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3013696,西甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3074450,巴拉乙,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+2926327,智利乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3059137,玻利甲,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091427,巴皮乙,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3069963,解放者杯,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3072986,南美杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3090245,委内超秋,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3074451,巴拉乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3012187,哥伦乙秋,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091362,巴卡杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091378,阿根业余锦,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+2940182,巴西乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2940183,巴西乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3090246,委内超秋,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3088359,巴圣杯,True,False,False,False,True,True,True,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+2942472,美冠联,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091440,乌拉乙,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3049963,加勒比杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3063394,加勒比杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090248,委内超秋,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2926329,智利乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+2940179,巴西乙,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3069966,南美杯,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3011779,哥伦甲秋,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3088369,巴西女锦,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3024390,墨西甲春,True,False,False,False,True,True,True,True,False,False,line_bucket,current_v4_model_uses_line_bucket_prior; other fields remain audit/evidence-only,v4-market-dirichlet-20260913
+3091426,印班超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3049665,亚运男足,True,False,False,False,True,True,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091391,中青U13,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091392,中青U13,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091393,中青U13,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091394,中青U13,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091462,中青U15,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091463,中青U15,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091464,中青U15,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091465,中青U15,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091472,中青U17,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091473,中青U17,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091474,中青U17,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091475,中青U17,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091476,中青U17,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091354,印班超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3091428,泰U21,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3058798,布隆迪超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084814,沙地青,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3084305,土杯,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3090765,以U19,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
+3037396,英依超,False,False,False,False,False,False,False,True,False,False,not_computed,not_computed,v4-market-dirichlet-20260913
