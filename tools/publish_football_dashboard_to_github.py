@@ -60,6 +60,8 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "v3_legacy" / "tools" / "build_football_daily_update.py", PUBLISH_REPO / "v3-legacy" / "tools" / "build_football_daily_update.py"),
         (WORKSPACE / "v3_legacy" / "tools" / "run_v3_legacy_daily_freeze.py", PUBLISH_REPO / "v3-legacy" / "tools" / "run_v3_legacy_daily_freeze.py"),
         (WORKSPACE / "v4" / "dashboard" / "index.html", PUBLISH_REPO / "v4" / "index.html"),
+        (WORKSPACE / "v4" / "run_daily_v4.py", PUBLISH_REPO / "v4" / "tools" / "run_daily_v4.py"),
+        (WORKSPACE / "run_football_update.py", PUBLISH_REPO / "tools" / "run_football_update.py"),
         (WORKSPACE / "skills" / "worldcup-odds-trader" / "SKILL.md", PUBLISH_REPO / "skills" / "worldcup-odds-trader" / "SKILL.md"),
         (WORKSPACE / "tools" / "sequential_asian_backtest_engine.py", PUBLISH_REPO / "tools" / "sequential_asian_backtest_engine.py"),
         (WORKSPACE / "tools" / "build_football_dashboard.py", PUBLISH_REPO / "tools" / "build_football_dashboard.py"),

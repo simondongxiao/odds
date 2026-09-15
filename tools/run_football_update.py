@@ -125,12 +125,26 @@ def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at:
 def preserve_started_v4(path: Path, previous: dict[str, Any] | None, run_at: dt.datetime) -> dict[str, Any]:
     payload = read_json(path, {}) or {}
     old_map = {str(row.get("match_id")): row for row in (previous or {}).get("matches", [])}
+    seen_ids: set[str] = set()
+    post_match_fields = (
+        "score", "settlement", "settlement_label", "pnl", "status",
+        "match_status", "result", "settlement_state", "settlement_status",
+    )
     for row in payload.get("matches", []):
-        old = old_map.get(str(row.get("match_id")))
+        match_id = str(row.get("match_id"))
+        seen_ids.add(match_id)
+        old = old_map.get(match_id)
         kickoff = parse_kickoff(str(row.get("kickoff", "")))
         if not old or not kickoff or kickoff > run_at:
             continue
         frozen = dict(old)
+        # Only post-match fields may come from the refresh.  All pre-match
+        # decision fields remain those from the first V4 shadow run.
+        frozen.update({
+            key: row.get(key)
+            for key in post_match_fields
+            if key in row and row.get(key) not in (None, "")
+        })
         if old.get("grade") is not None and old.get("ev_mean") is not None:
             frozen["analysis_status"] = "FROZEN_PREMATCH_DECISION"
         else:
@@ -138,6 +152,23 @@ def preserve_started_v4(path: Path, previous: dict[str, Any] | None, run_at: dt.
         frozen["reason_codes"] = ["STARTED_DECISION_LOCKED"]
         frozen["started_lock"] = True
         row.clear(); row.update(frozen)
+
+    # A later same-list-date V4 refresh may emit only rows that are still
+    # before kickoff.  Re-attach every previously emitted started decision,
+    # especially A/B/C rows, so they cannot disappear from the day's shadow
+    # page or timestamped candidate export.
+    for match_id, old in old_map.items():
+        if not match_id or match_id in seen_ids:
+            continue
+        kickoff = parse_kickoff(str(old.get("kickoff", "")))
+        if not kickoff or kickoff > run_at:
+            continue
+        retained = dict(old)
+        if old.get("grade") is not None and old.get("ev_mean") is not None:
+            retained["analysis_status"] = "FROZEN_PREMATCH_DECISION"
+        retained["reason_codes"] = ["STARTED_DECISION_RETAINED"]
+        retained["started_lock"] = True
+        payload.setdefault("matches", []).append(retained)
     payload["started_lock_policy"] = "started rows retain original pre-match prediction; only status/settlement/review may append"
     return payload
 
@@ -431,6 +462,10 @@ def main() -> int:
     old_v3 = read_json(old_bridge_path, {})
     old_v4_path = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
     old_v4 = read_json(old_v4_path, {})
+    historical_decision_locked = (
+        list_date < run_at.date().isoformat()
+        and bool(old_v3)
+    )
     try:
         old_raw = latest_raw(list_date)
     except FileNotFoundError:
@@ -445,18 +480,29 @@ def main() -> int:
     raw_path = latest_raw(list_date)
     current_rows = slate_rows(raw_path, list_date)
     scoped_raw_path = write_rows_csv(run_dir / "slate_raw.csv", current_rows)
-    v3_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "build_football_daily_update.py"), "--no-publish"], env, logs / "v3_daily.log", 1200)
-    v3_html = V3_OUT / "dashboard" / "index.html"
-    freeze_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "run_v3_legacy_daily_freeze.py"), list_date, "--html", str(v3_html)], env, logs / "v3_freeze.log", 600)
+    if historical_decision_locked:
+        v3_result = {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}
+        freeze_result = {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}
+    else:
+        v3_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "build_football_daily_update.py"), "--no-publish"], env, logs / "v3_daily.log", 1200)
+        v3_html = V3_OUT / "dashboard" / "index.html"
+        freeze_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "run_v3_legacy_daily_freeze.py"), list_date, "--html", str(v3_html)], env, logs / "v3_freeze.log", 600)
     bridge_path = ROOT / "bridge" / "v3_production" / f"{list_date}.json"
-    bridge = preserve_started_bridge(bridge_path, old_v3, run_at)
+    bridge = dict(old_v3) if historical_decision_locked else preserve_started_bridge(bridge_path, old_v3, run_at)
     bridge["run_id"] = run_id; bridge["raw_snapshot_id"] = raw_path.stem; bridge["odds_cutoff"] = raw_path.stem.split("_titan007", 1)[0]; bridge["decision_version_path"] = str(run_dir / "v3_decisions.json")
-    write_json(bridge_path, bridge)
-    v4_result = run_command([str(PYTHON), str(ROOT / "v4" / "run_daily_v4.py"), "--list-date", list_date, "--raw-csv", str(scoped_raw_path)], env, logs / "v4_shadow.log", 1200)
+    if not historical_decision_locked:
+        write_json(bridge_path, bridge)
+    if historical_decision_locked and old_v4:
+        v4_result = {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}
+    else:
+        v4_result = run_command([str(PYTHON), str(ROOT / "v4" / "run_daily_v4.py"), "--list-date", list_date, "--raw-csv", str(scoped_raw_path)], env, logs / "v4_shadow.log", 1200)
     v4_path = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
-    v4 = preserve_started_v4(v4_path, old_v4, run_at)
-    v4 = refresh_v4_summary(v4)
-    v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
+    if historical_decision_locked and old_v4:
+        v4 = dict(old_v4)
+    else:
+        v4 = preserve_started_v4(v4_path, old_v4, run_at)
+        v4 = refresh_v4_summary(v4)
+        v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
     v3_bettable_export, v4_bettable_export = write_timestamped_bettable_lists(list_date, bridge, v4, run_at)
     metrics = summary(bridge, v4, len(current_rows))
     v4_data_path = update_v4_data(v4_path, list_date)
