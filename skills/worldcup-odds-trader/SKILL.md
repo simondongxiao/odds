@@ -114,6 +114,16 @@ Decision, execution and settlement are separate records. Repeated manual refresh
 
 `Missing`, `Neutral` and `N` are mutually exclusive: Missing has no complete probability, Neutral has a valid market but no direction, and N has a real posterior/EV calculation that fails A/B/C. A failed V3 feed or failed V4 runner is a pipeline error, never a zero-count decision. Post-match review records facts and hypotheses but has no permission to modify V3/V4 production rules; historical rows are labeled by their original decision source and are never silently re-run with today's inputs.
 
+#### Incremental Quote-Timing and Manual-Refresh Contract (2026-09-15)
+
+This is an additive recording/monitoring contract and does not change V3/V4 decision rules, thresholds, ABC definitions, Kelly, stake sizing, or frozen historical decisions. Every V3 Production and V4 Shadow prematch decision must persist real source timestamps (never file mtime or page generation time): `quote_at`, `last_confirmed_at`, `decision_at`, `kickoff_at`, `run_id`, `quote_age_at_decision`, `hours_from_decision_to_kickoff`, and `hours_from_last_refresh_to_kickoff`. A reused quote keeps its original quote time and is labeled `PRICE_NOT_REFRESHED`; a successful source check may update `last_confirmed_at` only when the source was actually read.
+
+For matches kicking off 04:00-10:00 Beijing time, record all successful prematch `run_id` versions and create a monitoring-only pair: `MORNING_BASELINE` is the first valid 07:00-09:00 run, or the earliest valid same-day run labeled `MORNING_BASELINE_FALLBACK`; `LATEST_MANUAL_PREMATCH` is the last successful real prematch run before kickoff. Persist `morning_decision_id`, `latest_prematch_decision_id`, and direction/team/line/water/action-or-grade/EV change flags. This bucket is not a production filter and must not automatically cause no-bet, downsizing, reverse selection, or regional blocking.
+
+Report quote-age buckets (`<=2h`, `>2h-4h`, `>4h-8h`, `>8h-12h`, `>12h`) separately for 04:00-10:00 and other kickoffs as monitoring only. After settlement, report V3/V4 all, monitoring-bucket, other-time, morning-baseline, and latest-prematch cohorts; V4 additionally reports Giving and Receiving. Short-term results may create a `RESEARCH_HYPOTHESIS` but cannot silently become a production staleness gate.
+
+Keep version identity explicit: legacy giving-only research is `V4_GIVING_LEGACY`; the repaired bidirectional shadow uses its existing new `model_id` and `side_mapping_version` (currently `V4_DIRECTION_FIXED_R1`) and starts a separate forward ledger. Each run is a decision version; `LATEST_VALID_PREMATCH_DECISION` and `EXECUTION DECISION` are references, not extra positions. Extend existing ledgers/exports with `model_id`, `side_mapping_version`, `decision_id`, `parent_decision_id`, and `is_morning_baseline`/`is_latest_valid_prematch`; do not create duplicate positions for repeated refreshes.
+
 Every future daily football update must follow this skill as an execution checklist, not as optional guidance. Do not output a daily update, dashboard refresh, main pick, Polymarket pick, Kelly stake, or post-match review as "complete" unless the required skill gates below have been checked and their status is visible in the user-facing text or HTML dashboard.
 
 Minimum completion gates for every daily update:

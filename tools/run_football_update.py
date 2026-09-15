@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import csv
 import datetime as dt
+import hashlib
 import json
 import os
 import shutil
@@ -104,6 +105,261 @@ def parse_kickoff(value: str) -> dt.datetime | None:
         year = now_cn().year
         return dt.datetime(year, int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4)), tzinfo=CN_TZ)
     return None
+
+
+def parse_source_timestamp(value: Any) -> dt.datetime | None:
+    """Parse a source/run timestamp without falling back to filesystem mtime."""
+    text = str(value or "").strip()
+    if not text:
+        return None
+    normalized = text[:-1] + "+00:00" if text.endswith("Z") else text
+    try:
+        parsed = dt.datetime.fromisoformat(normalized)
+        return parsed.astimezone(CN_TZ) if parsed.tzinfo else parsed.replace(tzinfo=CN_TZ)
+    except ValueError:
+        pass
+    for fmt in ("%Y%m%d_%H%M%S", "%Y%m%d%H%M%S", "%Y-%m-%d %H:%M:%S"):
+        try:
+            return dt.datetime.strptime(text, fmt).replace(tzinfo=CN_TZ)
+        except ValueError:
+            continue
+    return None
+
+
+def iso_timestamp(value: Any, fallback: dt.datetime | None = None) -> str:
+    parsed = parse_source_timestamp(value)
+    if parsed is None:
+        parsed = fallback
+    return parsed.isoformat() if parsed else ""
+
+
+def hours_between(later: dt.datetime | None, earlier: dt.datetime | None) -> float | None:
+    if later is None or earlier is None:
+        return None
+    return round((later - earlier).total_seconds() / 3600.0, 3)
+
+
+def generated_decision_id(version: str, row: dict[str, Any], decision_at: str) -> str:
+    payload = "|".join(
+        [
+            version,
+            str(row.get("list_date", "")),
+            str(row.get("match_id", "")),
+            str(row.get("action", row.get("grade", ""))),
+            str(row.get("selected_team", row.get("candidate_team", ""))),
+            str(row.get("selected_side", row.get("candidate_side", ""))),
+            str(row.get("line", row.get("selected_handicap_signed", ""))),
+            str(row.get("water", row.get("selected_water_hk", ""))),
+            decision_at,
+        ]
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:20]
+
+
+def previous_run_rows(list_date: str, current_run_id: str, filename: str) -> dict[str, dict[str, Any]]:
+    out: dict[str, dict[str, Any]] = {}
+    root = OUT / "decision_versions" / list_date
+    if not root.exists():
+        return out
+    for run_dir in sorted(root.glob("RUN_*")):
+        if run_dir.name == current_run_id:
+            continue
+        path = run_dir / filename
+        payload = read_json(path, {})
+        for row in payload.get("matches", []) if isinstance(payload, dict) else []:
+            match_id = str(row.get("match_id", "") or "")
+            if match_id:
+                out[match_id] = row
+    return out
+
+
+def previous_run_snapshots(list_date: str, current_run_id: str, filename: str) -> list[dict[str, Any]]:
+    """Load every prior run for comparison; this is review metadata only."""
+    out: list[dict[str, Any]] = []
+    root = OUT / "decision_versions" / list_date
+    if not root.exists():
+        return out
+    for run_dir in sorted(root.glob("RUN_*")):
+        if run_dir.name == current_run_id:
+            continue
+        payload = read_json(run_dir / filename, {})
+        if not isinstance(payload, dict):
+            continue
+        run_at = parse_source_timestamp(payload.get("generated_at")) or parse_source_timestamp(run_dir.name.removeprefix("RUN_"))
+        for row in payload.get("matches", []) or []:
+            item = dict(row)
+            item["_run_id"] = str(payload.get("run_id") or run_dir.name)
+            item["_run_at"] = run_at.isoformat() if run_at else ""
+            out.append(item)
+    return out
+
+
+def enrich_decision_metadata(
+    list_date: str,
+    run_id: str,
+    run_at: dt.datetime,
+    raw_rows: list[dict[str, str]],
+    bridge: dict[str, Any],
+    v4: dict[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Attach real quote/decision clocks without changing model decisions."""
+    raw_by_id = {str(row.get("match_id", "")): row for row in raw_rows}
+    previous_v3 = previous_run_rows(list_date, run_id, "v3_decisions.json")
+    previous_v4 = previous_run_rows(list_date, run_id, "v4_shadow.json")
+    morning_run = 7 <= run_at.hour < 9
+
+    def apply(row: dict[str, Any], version: str, previous: dict[str, Any]) -> None:
+        source = raw_by_id.get(str(row.get("match_id", "")), {})
+        quote_raw = source.get("snapshot_stamp") or source.get("latest_snapshot_stamp")
+        confirmed_raw = source.get("latest_snapshot_stamp") or source.get("snapshot_stamp")
+        quote_at = iso_timestamp(quote_raw)
+        last_confirmed_at = iso_timestamp(confirmed_raw)
+        kickoff = parse_kickoff(str(source.get("bj_time", "") or row.get("kickoff", "")))
+        decision_dt = parse_source_timestamp(row.get("decision_at")) or run_at
+        decision_at = decision_dt.isoformat()
+        if kickoff:
+            row["kickoff_at"] = kickoff.isoformat()
+        row["decision_at"] = decision_at
+        row["quote_at"] = quote_at
+        row["last_confirmed_at"] = last_confirmed_at
+        row["quote_age_at_decision"] = hours_between(decision_dt, parse_source_timestamp(quote_at))
+        row["hours_from_decision_to_kickoff"] = hours_between(kickoff, decision_dt)
+        row["hours_from_last_refresh_to_kickoff"] = hours_between(kickoff, parse_source_timestamp(last_confirmed_at))
+        row["run_id"] = run_id
+        row["model_id"] = "V3_LEGACY_PRODUCTION" if version == "V3" else str(row.get("model_id") or "v4-market-dirichlet-20260913")
+        row["side_mapping_version"] = "V3_LEGACY_PAGE_PARITY" if version == "V3" else str(row.get("direction_rule_version") or "V4_DIRECTION_FIXED_R1")
+        row["decision_id"] = str(row.get("decision_id") or generated_decision_id(version, row, decision_at))
+        row["parent_decision_id"] = str(previous.get("decision_id", "") or "")
+        status = str(row.get("analysis_status", ""))
+        valid = (version == "V3" and str(row.get("action", "")) not in {"", "历史V3未冻结可投"}) or (version == "V4" and status in {"EVALUATED", "FROZEN_PREMATCH_DECISION"})
+        row["is_latest_valid_prematch"] = bool(valid and kickoff and kickoff > decision_dt)
+        row["is_morning_baseline"] = bool(morning_run and row["is_latest_valid_prematch"] and kickoff and 4 <= kickoff.hour < 10)
+        row["monitoring_bucket"] = "MONITORING_BUCKET" if kickoff and 4 <= kickoff.hour < 10 else ""
+        if version == "V4":
+            market = dict(row.get("market") or {})
+            market["quote_at"] = quote_at
+            market["last_confirmed_at"] = last_confirmed_at
+            market["run_id"] = run_id
+            row["market"] = market
+
+    for row in bridge.get("matches", []):
+        apply(row, "V3", previous_v3.get(str(row.get("match_id", "")), {}))
+    for row in v4.get("matches", []):
+        apply(row, "V4", previous_v4.get(str(row.get("match_id", "")), {}))
+    bridge["run_id"] = run_id
+    v4["run_id"] = run_id
+    v4["model_id"] = str(v4.get("model_id") or "v4-market-dirichlet-20260913")
+    v4["model_version"] = str(v4.get("model_version") or "V4_DIRECTION_FIXED_R1")
+    v4["side_mapping_version"] = "V4_DIRECTION_FIXED_R1"
+    return bridge, v4
+
+
+def _decision_dt(row: dict[str, Any], run_at: dt.datetime | None = None) -> dt.datetime | None:
+    return parse_source_timestamp(row.get("decision_at")) or parse_source_timestamp(row.get("_run_at")) or run_at
+
+
+def _prematch(row: dict[str, Any], run_at: dt.datetime | None = None) -> bool:
+    kickoff = parse_source_timestamp(row.get("kickoff_at") or row.get("kickoff"))
+    decision = _decision_dt(row, run_at)
+    return bool(kickoff and decision and kickoff > decision and str(row.get("analysis_status", "")) not in {"NOT_PREMATCH", "MISSING_DATA", "ERROR"})
+
+
+def _change_markers(baseline: dict[str, Any], latest: dict[str, Any]) -> dict[str, Any]:
+    def value(row: dict[str, Any], *keys: str) -> Any:
+        for key in keys:
+            if row.get(key) not in (None, ""):
+                return row.get(key)
+        return ""
+    direction_changed = value(baseline, "selected_side", "candidate_side", "direction") != value(latest, "selected_side", "candidate_side", "direction")
+    team_changed = value(baseline, "selected_team", "candidate_team") != value(latest, "selected_team", "candidate_team")
+    line_changed = value(baseline, "selected_handicap_signed", "handicap", "line") != value(latest, "selected_handicap_signed", "handicap", "line")
+    water_changed = value(baseline, "selected_water_hk", "water") != value(latest, "selected_water_hk", "water")
+    action_changed = value(baseline, "action", "grade") != value(latest, "action", "grade")
+    ev_changed = value(baseline, "ev_mean", "EV_mean") != value(latest, "ev_mean", "EV_mean")
+    p_changed = value(baseline, "p_ev_positive", "P_EV_gt_0") != value(latest, "p_ev_positive", "P_EV_gt_0")
+    flags = {
+        "direction_changed": direction_changed, "candidate_team_changed": team_changed,
+        "line_changed": line_changed, "water_changed": water_changed,
+        "action_or_grade_changed": action_changed, "ev_changed": ev_changed,
+        "p_ev_positive_changed": p_changed,
+    }
+    selected_before = value(baseline, "action", "grade") in {"可投", "半仓可投", "A", "B", "C"}
+    selected_after = value(latest, "action", "grade") in {"可投", "半仓可投", "A", "B", "C"}
+    if selected_before and not selected_after:
+        transition = "撤出"
+    elif not selected_before and selected_after:
+        transition = "新增"
+    elif direction_changed:
+        transition = "改向"
+    elif line_changed:
+        transition = "盘口变化"
+    elif water_changed:
+        transition = "水位变化"
+    else:
+        transition = "保持"
+    flags["transition"] = transition
+    return flags
+
+
+def write_morning_prematch_tracking(list_date: str, run_id: str, run_at: dt.datetime, bridge: dict[str, Any], v4: dict[str, Any]) -> Path:
+    """Pair real prematch runs for the 04:00-10:00 monitoring bucket."""
+    fields = ["version", "list_date", "match_id", "kickoff_at", "morning_decision_id", "morning_run_id", "morning_baseline_type", "latest_prematch_decision_id", "latest_run_id", "direction_changed", "candidate_team_changed", "line_changed", "water_changed", "action_or_grade_changed", "ev_changed", "p_ev_positive_changed", "transition"]
+    out_rows: list[dict[str, Any]] = []
+    for version, payload, filename in (("V3", bridge, "v3_decisions.json"), ("V4", v4, "v4_shadow.json")):
+        current = [dict(row, _run_id=run_id, _run_at=run_at.isoformat()) for row in payload.get("matches", []) or []]
+        history = previous_run_snapshots(list_date, run_id, filename) + current
+        by_match: dict[str, list[dict[str, Any]]] = {}
+        for row in history:
+            kickoff = parse_source_timestamp(row.get("kickoff_at") or row.get("kickoff"))
+            if not kickoff or not (4 <= kickoff.hour < 10) or not _prematch(row, run_at):
+                continue
+            by_match.setdefault(str(row.get("match_id", "")), []).append(row)
+        for match_id, rows in by_match.items():
+            rows.sort(key=lambda row: _decision_dt(row, run_at) or dt.datetime.min.replace(tzinfo=CN_TZ))
+            morning = [row for row in rows if (lambda x: x is not None and 7 <= x.hour < 9)(_decision_dt(row, run_at))]
+            baseline = morning[0] if morning else rows[0]
+            baseline_type = "MORNING_BASELINE" if morning else "MORNING_BASELINE_FALLBACK"
+            latest = rows[-1]
+            flags = _change_markers(baseline, latest)
+            out_rows.append({"version": version, "list_date": list_date, "match_id": match_id,
+                             "kickoff_at": baseline.get("kickoff_at") or baseline.get("kickoff", ""),
+                             "morning_decision_id": baseline.get("decision_id", ""), "morning_run_id": baseline.get("_run_id", ""),
+                             "morning_baseline_type": baseline_type, "latest_prematch_decision_id": latest.get("decision_id", ""),
+                             "latest_run_id": latest.get("_run_id", ""), **flags})
+    path = OUT / "reviews" / f"morning_prematch_tracking_{list_date}_{run_id}.csv"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore"); writer.writeheader(); writer.writerows(out_rows)
+    return path
+
+
+def write_quote_age_monitoring(list_date: str, run_id: str, bridge: dict[str, Any], v4: dict[str, Any]) -> Path:
+    """Record quote-age buckets as monitoring evidence, never as a gate."""
+    fields = ["version", "list_date", "match_id", "kickoff_at", "time_bucket", "quote_age_bucket", "hours_from_last_refresh_to_kickoff", "grade_or_action", "settlement_status", "sample", "effective_win_rate", "pnl_1u", "roi", "monitoring_only"]
+    rows: list[dict[str, Any]] = []
+    def bucket(hours: Any) -> str:
+        value = num(hours)
+        if value is None: return "UNKNOWN"
+        if value <= 2: return "<=2h"
+        if value <= 4: return ">2h-4h"
+        if value <= 8: return ">4h-8h"
+        if value <= 12: return ">8h-12h"
+        return ">12h"
+    for version, payload in (("V3", bridge), ("V4", v4)):
+        for row in payload.get("matches", []) or []:
+            selected = (version == "V3" and str(row.get("action", "")) in {"可投", "半仓可投"}) or (version == "V4" and str(row.get("grade", "")) in {"A", "B", "C"})
+            if not selected: continue
+            kickoff = parse_source_timestamp(row.get("kickoff_at") or row.get("kickoff"))
+            hours = row.get("hours_from_last_refresh_to_kickoff")
+            rows.append({"version": version, "list_date": list_date, "match_id": row.get("match_id", ""), "kickoff_at": row.get("kickoff_at", row.get("kickoff", "")),
+                         "time_bucket": "04:00-10:00" if kickoff and 4 <= kickoff.hour < 10 else "其他时段", "quote_age_bucket": bucket(hours),
+                         "hours_from_last_refresh_to_kickoff": hours, "grade_or_action": row.get("grade", row.get("action", "")),
+                         "settlement_status": "PREMATCH_ONLY", "sample": 1, "effective_win_rate": "", "pnl_1u": "", "roi": "", "monitoring_only": True})
+    path = OUT / "reviews" / f"quote_age_monitoring_{list_date}_{run_id}.csv"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore"); writer.writeheader(); writer.writerows(rows)
+    return path
 
 
 def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at: dt.datetime) -> dict[str, Any]:
@@ -238,6 +494,10 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
             "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
             "water": row.get("water", ""), "probability": row.get("probability", ""),
             "ev_mean": row.get("ev_mean", ""), "decision_at": row.get("decision_at", ""),
+            "quote_at": row.get("quote_at", ""), "last_confirmed_at": row.get("last_confirmed_at", ""), "kickoff_at": row.get("kickoff_at", ""),
+            "quote_age_at_decision": row.get("quote_age_at_decision", ""), "hours_from_decision_to_kickoff": row.get("hours_from_decision_to_kickoff", ""), "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""),
+            "run_id": row.get("run_id", ""), "decision_id": row.get("decision_id", ""), "parent_decision_id": row.get("parent_decision_id", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
+            "model_id": row.get("model_id", "V3_LEGACY_PRODUCTION"), "side_mapping_version": row.get("side_mapping_version", "V3_LEGACY_PAGE_PARITY"), "monitoring_bucket": row.get("monitoring_bucket", ""),
             "rule_version": row.get("rule_version", ""), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
             "real_money": "true", "status": row.get("settlement", row.get("status", "")),
         })
@@ -256,10 +516,14 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
             "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
             "water": row.get("selected_water_hk", row.get("water", "")), "probability": row.get("p_ev_positive", row.get("P_EV_gt_0", "")),
             "ev_mean": row.get("ev_mean", row.get("EV_mean", "")), "decision_at": row.get("decision_at", ""),
+            "quote_at": row.get("quote_at", (row.get("market") or {}).get("quote_at", "")), "last_confirmed_at": row.get("last_confirmed_at", (row.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": row.get("kickoff_at", row.get("kickoff", "")),
+            "quote_age_at_decision": row.get("quote_age_at_decision", ""), "hours_from_decision_to_kickoff": row.get("hours_from_decision_to_kickoff", ""), "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""),
+            "run_id": row.get("run_id", ""), "decision_id": row.get("decision_id", ""), "parent_decision_id": row.get("parent_decision_id", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
+            "model_id": row.get("model_id", "v4-market-dirichlet-20260913"), "side_mapping_version": row.get("side_mapping_version", "V4_DIRECTION_FIXED_R1"), "monitoring_bucket": row.get("monitoring_bucket", ""),
             "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
             "real_money": "false", "status": row.get("analysis_status", row.get("status", "")),
         })
-    fields = ["version", "list_date", "match_id", "competition", "kickoff_beijing", "home_team", "away_team", "action", "grade", "selected_team", "market_side", "giving_team", "receiving_team", "direction", "handicap", "water", "probability", "ev_mean", "decision_at", "rule_version", "source_snapshot", "real_money", "status"]
+    fields = ["version", "list_date", "match_id", "competition", "kickoff_beijing", "kickoff_at", "home_team", "away_team", "action", "grade", "selected_team", "market_side", "giving_team", "receiving_team", "direction", "handicap", "water", "probability", "ev_mean", "quote_at", "last_confirmed_at", "decision_at", "quote_age_at_decision", "hours_from_decision_to_kickoff", "hours_from_last_refresh_to_kickoff", "run_id", "decision_id", "parent_decision_id", "is_morning_baseline", "is_latest_valid_prematch", "monitoring_bucket", "model_id", "side_mapping_version", "rule_version", "source_snapshot", "real_money", "status"]
     for path, rows in ((v3_path, v3_rows), (v4_path, v4_rows)):
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("w", encoding="utf-8-sig", newline="") as handle:
@@ -304,10 +568,10 @@ def merged_date_json(list_date: str, raw_path: Path, bridge: dict[str, Any], v4:
         matches.append({
             "identity": {"match_id": match_id, "list_date": list_date, "kickoff": source.get("bj_time", ""), "competition": source.get("league_cn", ""), "home": home, "away": away},
             "market": {"line_bucket": abs(ah_line) if ah_line is not None else "", "candidate_side": shadow.get("candidate_side", ""), "candidate_team": shadow.get("selected_team", shadow.get("candidate_team", "")), "water": shadow.get("selected_water_hk", shadow.get("water", "")), "giving_team": "", "receiving_team": "", "giving_water": hw if hw is not None else "", "receiving_water": aw if aw is not None else "", "euro_current": euro},
-            "v3_decision": {"match_id": match_id, "competition": source.get("league_cn", ""), "kickoff": source.get("bj_time", ""), "home_team": home, "away_team": away, "action": v3_action or v3_status, "status": v3_status, "team": v3.get("selected_team", ""), "side": v3.get("selected_side", ""), "intent": v3.get("intent", ""), "line": v3.get("line", ""), "water": v3.get("water", ""), "probability": v3.get("probability", ""), "reason": v3_reason, "decision_at": v3.get("decision_at", "")},
-            "v4_shadow": {"grade": grade, "status": shadow.get("analysis_status", shadow.get("status", "MISSING_DATA")), "team": shadow.get("selected_team", shadow.get("candidate_team", "")), "side": shadow.get("selected_side", shadow.get("candidate_side", "")), "ev_mean": shadow.get("ev_mean", shadow.get("EV_mean")), "ev_p10": shadow.get("ev_p10", shadow.get("EV_p10")), "p_ev_gt_0": shadow.get("p_ev_positive", shadow.get("P_EV_gt_0")), "kappa": 20, "real_money": False},
+            "v3_decision": {"match_id": match_id, "competition": source.get("league_cn", ""), "kickoff": source.get("bj_time", ""), "home_team": home, "away_team": away, "action": v3_action or v3_status, "status": v3_status, "team": v3.get("selected_team", ""), "side": v3.get("selected_side", ""), "intent": v3.get("intent", ""), "line": v3.get("line", ""), "water": v3.get("water", ""), "probability": v3.get("probability", ""), "reason": v3_reason, "decision_at": v3.get("decision_at", ""), "quote_at": v3.get("quote_at", ""), "last_confirmed_at": v3.get("last_confirmed_at", ""), "kickoff_at": v3.get("kickoff_at", ""), "run_id": v3.get("run_id", run_id), "decision_id": v3.get("decision_id", ""), "is_latest_valid_prematch": v3.get("is_latest_valid_prematch", False)},
+            "v4_shadow": {"grade": grade, "status": shadow.get("analysis_status", shadow.get("status", "MISSING_DATA")), "team": shadow.get("selected_team", shadow.get("candidate_team", "")), "side": shadow.get("selected_side", shadow.get("candidate_side", "")), "ev_mean": shadow.get("ev_mean", shadow.get("EV_mean")), "ev_p10": shadow.get("ev_p10", shadow.get("EV_p10")), "p_ev_gt_0": shadow.get("p_ev_positive", shadow.get("P_EV_gt_0")), "kappa": 20, "real_money": False, "model_id": shadow.get("model_id", v4.get("model_id", "")), "side_mapping_version": shadow.get("side_mapping_version", "V4_DIRECTION_FIXED_R1"), "quote_at": shadow.get("quote_at", (shadow.get("market") or {}).get("quote_at", "")), "last_confirmed_at": shadow.get("last_confirmed_at", (shadow.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": shadow.get("kickoff_at", ""), "run_id": shadow.get("run_id", run_id), "decision_id": shadow.get("decision_id", ""), "is_latest_valid_prematch": shadow.get("is_latest_valid_prematch", False)},
             "settlement": {"result": score if finished else "待结算", "pnl_1u": ""},
-            "audit": {"source": str(raw_path), "state": status, "data_status": "赛后状态仅更新结算" if finished else "赛前市场输入", "run_id": run_id, "quote_at": source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", ""), "last_confirmed_at": run_at.isoformat(), "refresh_status": source.get("refresh_status", "") or "PRICE_NOT_REFRESHED" if not source.get("snapshot_stamp") else "REFRESHED"},
+            "audit": {"source": str(raw_path), "state": status, "data_status": "赛后状态仅更新结算" if finished else "赛前市场输入", "run_id": run_id, "quote_at": iso_timestamp(source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", "")), "last_confirmed_at": iso_timestamp(source.get("latest_snapshot_stamp", "") or source.get("snapshot_stamp", "")), "refresh_status": source.get("refresh_status", "") or ("PRICE_NOT_REFRESHED" if not source.get("snapshot_stamp") else "REFRESHED")},
         })
     return {"list_date": list_date, "run_id": run_id, "generated_at": run_at.isoformat(), "matches": matches}
 
@@ -472,7 +736,7 @@ def main() -> int:
         old_raw = None
     backup = backup_before_run(list_date, run_id, old_raw)
     logs = run_dir / "logs"
-    env = os.environ.copy(); env["FOOTBALL_LIST_DATE"] = list_date
+    env = os.environ.copy(); env["FOOTBALL_LIST_DATE"] = list_date; env["FOOTBALL_RUN_ID"] = run_id
 
     fetch_result = {"returncode": 0, "skipped": True}
     if not args.no_refresh:
@@ -503,7 +767,13 @@ def main() -> int:
         v4 = preserve_started_v4(v4_path, old_v4, run_at)
         v4 = refresh_v4_summary(v4)
         v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
+    bridge, v4 = enrich_decision_metadata(list_date, run_id, run_at, current_rows, bridge, v4)
+    if not historical_decision_locked:
+        write_json(bridge_path, bridge)
+    write_json(v4_path, v4)
     v3_bettable_export, v4_bettable_export = write_timestamped_bettable_lists(list_date, bridge, v4, run_at)
+    morning_tracking = write_morning_prematch_tracking(list_date, run_id, run_at, bridge, v4)
+    quote_age_monitoring = write_quote_age_monitoring(list_date, run_id, bridge, v4)
     metrics = summary(bridge, v4, len(current_rows))
     v4_data_path = update_v4_data(v4_path, list_date)
     merged = merged_date_json(list_date, raw_path, bridge, v4, run_id, run_at)
@@ -518,7 +788,7 @@ def main() -> int:
         [str(PYTHON), str(ROOT / "tools" / "write_dual_yesterday_performance.py"), "--list-date", yesterday, "--raw-csv", str(raw_path)],
         env, logs / "yesterday_performance.log", 300,
     )
-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
     report_path = write_refresh_report(list_date, run_id, run_at, raw_path, metrics, run_dir / "decision_comparison.csv", review_md, two_side_csv, context_path, fetch_result)
     run_manifest["artifacts"]["manual_refresh_report"] = str(report_path)
