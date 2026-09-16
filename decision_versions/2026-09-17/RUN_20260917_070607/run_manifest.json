@@ -1,0 +1,129 @@
+{
+  "run_id": "RUN_20260917_070607",
+  "list_date": "2026-09-17",
+  "run_at": "2026-09-17T07:06:07.061802+08:00",
+  "raw_snapshot_id": "20260917_070607_titan007_odds_snapshot",
+  "raw_snapshot": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_070607_titan007_odds_snapshot.csv",
+  "scoped_roster_snapshot": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\slate_raw.csv",
+  "model_version": "V4_DIRECTION_FIXED_R1",
+  "prior_id": "prior-2026-09-17-v1",
+  "roster_total": 222,
+  "prematch_total": 64,
+  "refreshed_total": 222,
+  "computed_total": 76,
+  "missing_total": 146,
+  "v3": {
+    "total": 222,
+    "v3_computed": 76,
+    "v3_bettable": 5,
+    "v3_half": 0,
+    "v3_no_bet": 71,
+    "v3_missing": 146,
+    "v4_computed": 38,
+    "v4_A": 2,
+    "v4_B": 1,
+    "v4_C": 9,
+    "v4_N": 26,
+    "v4_neutral": 26,
+    "v4_missing": 0,
+    "v4_not_prematch": 158
+  },
+  "v4": {
+    "total": 222,
+    "v3_computed": 76,
+    "v3_bettable": 5,
+    "v3_half": 0,
+    "v3_no_bet": 71,
+    "v3_missing": 146,
+    "v4_computed": 38,
+    "v4_A": 2,
+    "v4_B": 1,
+    "v4_C": 9,
+    "v4_N": 26,
+    "v4_neutral": 26,
+    "v4_missing": 0,
+    "v4_not_prematch": 158
+  },
+  "backup": "D:\\codex\\outputs\\football_odds_trader\\backups\\manual_refresh_2026-09-17_RUN_20260917_070607",
+  "fetch": {
+    "returncode": 0,
+    "stdout": "raw_dir=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\ncsv=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_070607_titan007_odds_snapshot.csv\nmatches=787\nwith_sbodds=261\nwith_change_xml=5\nfuture_schedule=235\nfuture_added=68\nfrozen_started_odds=228\nrestored_roster_rows=157\nroster=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\ledger\\slate_rosters\\titan007_roster_20260917.json\nroster_matches=222\n",
+    "stderr": "future_odds=25/68\nfuture_odds=50/68\n",
+    "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\logs\\titan_fetch.log"
+  },
+  "steps": {
+    "v3_daily": {
+      "returncode": 0,
+      "stdout": "md=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_line_tag_matrix_20260917.md\ncsv=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_line_tag_matrix_20260917.csv\nrows=72\ndashboard=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\index.html\ndashboard_snapshot=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\snapshots\\2026-09-17_070702\\index.html\ncards=3819 settled=335 win_rate=0.5753846153846154\ndetail=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_history_detail_2026-07-27_2026-09-17.csv\nsummary=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_history_summary_2026-07-27_2026-09-17.csv\nreport=D:\\codex\\outputs\\football_odds_trader\\ledger\\asian_intent_history_report_2026-07-27_2026-09-17.md\ngrouped_csv=D:\\codex\\outputs\\football_odds_trader\\ledger\\grouped_edge_review_2026-09-17.csv\ngrouped_review=D:\\codex\\outputs\\football_odds_trader\\reviews\\grouped_edge_review_2026-09-17.md\ndetails=1957 countable=1186\nregional_risk=skipped_no_frozen_plan; existing frozen risk inputs retained\nD:\\codex\\outputs\\football_odds_trader\\ledger\\bettable_event_stats_2026-09-17.csv\nD:\\codex\\outputs\\football_odds_trader\\ledger\\bettable_event_detail_2026-09-17.csv\nrows=77\n      统计日期                                                                                                                   数据源    地区   国家   赛事层级    盘口      水位分层    倾向意图  样本  红  红半  走水  黑半  黑  有效胜率  负率  均注盈亏Unit  平均水位  ROI                                                           备注\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv  欧洲五大   法国  非顶级联赛 平手/半球 1.01-1.10   阻上/诱下   1  1   0   0   0  0   1.0 0.0     1.080  1.08 1.08 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    东亚   日本     杯赛    半球 1.01-1.10 降温保护/诱下   1  1   0   0   0  0   1.0 0.0     1.010  1.01 1.01 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv  欧洲五大   德国  非顶级联赛    一球 0.81-0.90 降温保护/诱下   1  1   0   0   0  0   1.0 0.0     0.900  0.90 0.90 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    拉美  未识别     杯赛 平手/半球 0.81-0.90 诱下/上盘降温   1  1   0   0   0  0   1.0 0.0     0.870  0.87 0.87 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大  比利时   顶级联赛    一球 0.81-0.90 阻下/下盘保护   1  1   0   0   0  0   1.0 0.0     0.860  0.86 0.86 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大   捷克  非顶级联赛    半球 0.81-0.90 降温保护/诱下   1  1   0   0   0  0   1.0 0.0     0.850  0.85 0.85 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    拉美  阿根廷  非顶级联赛    平手 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.840  0.84 0.84 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv  欧洲五大   德国  非顶级联赛 平手/半球 0.81-0.90 降温保护/诱下   1  1   0   0   0  0   1.0 0.0     0.840  0.84 0.84 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大   丹麦     杯赛 半球/一球 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.840  0.84 0.84 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大   瑞典     杯赛 球半/两球 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.840  0.84 0.84 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大 罗马尼亚 欧联独立赛事 平手/半球 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.830  0.83 0.83 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    东亚   日本   顶级联赛    一球 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.820  0.82 0.82 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    拉美  未识别     杯赛    半球 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.820  0.82 0.82 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大 罗马尼亚 欧联独立赛事 一球/球半 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.820  0.82 0.82 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大 罗马尼亚 欧联独立赛事 球半/两球 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.820  0.82 0.82 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    拉美  乌拉圭     杯赛    半球 0.81-0.90   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.810  0.81 0.81 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv    拉美  未识别     杯赛    半球 0.71-0.80   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.780  0.78 0.78 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大   丹麦     杯赛 平手/半球 0.71-0.80   诱上/阻下   1  1   0   0   0  0   1.0 0.0     0.780  0.78 0.78 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv  欧洲五大   德国  非顶级联赛 平手/半球     >1.10   阻上/诱下   1  1   0   0   0  0   1.0 0.0     0.555  1.11 1.11 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\n2026-09-17 D:\\codex\\outputs\\football_odds_trader\\backtests\\sequential_asian\\sequential_asian_backtest_20260903_072832_detail.csv 欧洲非五大   荷兰   顶级联赛 平手/半球 1.01-1.10   阻上/诱下   1  1   0   0   0  0   1.0 0.0     0.540  1.08 1.08 分组胜率/盈亏仅含严格walk-forward漏斗通过且已结算的正向/反向亚盘投注行；明细表保留未结算行作为赛前冻结分母\ndashboard=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\index.html\ndashboard_snapshot=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\snapshots\\2026-09-17_070704\\index.html\ncards=3819 settled=335 win_rate=0.5753846153846154\nreport=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\daily\\2026-09-17_titan007_strict_update.md\nsim_csv=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\ledger\\2026-09-17_titan007_simulations.csv\ngrouped_review=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\reviews\\grouped_edge_review_2026-09-17.md\nflow_overlay=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\ledger\\funds_flow_intent_overlay_2026-09-17.csv\ndrift_report=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\reviews\\snapshot_drift_2026-09-17_20260917_070607.md\ndrift_csv=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\reviews\\snapshot_drift_2026-09-17_20260917_070607.csv\ncovered_today=76 ended=0 live=0 future=47\ntop_future=\n中美俱杯 9-17 11:15 FC阿里安沙 vs 摩塔瓜 | 盘口快照 | 等待HTML红框EV漏斗判断 stake=0.0\n亚运女足 9-17 13:00 乌兹别克斯坦女足(中) vs 中国女足 | 盘口快照 | 等待HTML红框EV漏斗判断 stake=0.0\n亚运女足 9-17 15:00 泰国女足(中) vs 中国台湾女足 | 盘口快照 | 等待HTML红框EV漏斗判断 stake=0.0\n亚冠联2 9-17 18:00 阿德莱德联 vs 和富大埔 | 盘口快照 | 等待HTML红框EV漏斗判断 stake=0.0\n亚冠联2 9-17 18:00 狮城水手 vs 巴吞联 | 盘口快照 | 等待HTML红框EV漏斗判断 stake=0.0\n亚冠联2 9-17 18:00 町田泽维亚 vs 柴桢 | 盘口快照 | 等待HTML红框EV漏斗判断 stake=0.0\n亚运女足 9-17 18:00 中国香港女足(中) vs 菲律宾女足 | 盘口快照 | 等待HTML红框EV漏斗判断 stake=0.0\n亚冠联2 9-17 20:15 上海申花 vs 淡滨尼流浪者 | 盘口快照 | 等待HTML红框EV漏斗判断 stake=0.0\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\logs\\v3_daily.log"
+    },
+    "v3_freeze": {
+      "returncode": 0,
+      "stdout": "{\"freeze\": \"D:\\\\codex\\\\v3_legacy\\\\outputs\\\\football_odds_trader\\\\ledger\\\\v3_legacy_decision_freeze_2026-09-17_20260917070705.csv\", \"bridge\": \"D:\\\\codex\\\\bridge\\\\v3_production\\\\2026-09-17.json\", \"roster_count\": 222, \"computed_count\": 76, \"bettable_count\": 5, \"half_bettable_count\": 0, \"no_bet_count\": 71, \"missing_count\": 146}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\logs\\v3_freeze.log"
+    },
+    "v4_shadow": {
+      "returncode": 0,
+      "stdout": "{\"raw_total\": 222, \"prior_training_rows\": 804, \"total\": 222, \"computed\": 38, \"A\": 2, \"B\": 1, \"C\": 9, \"N\": 26, \"neutral\": 26, \"missing_data\": 0, \"insufficient_training\": 0, \"not_prematch\": 158, \"errors\": 0, \"daily\": \"D:\\\\codex\\\\v4\\\\outputs\\\\v4_decisions_2026-09-17.json\", \"model\": \"D:\\\\codex\\\\v4\\\\models\\\\v4-market-dirichlet-20260913\\\\model.json\", \"prior\": \"D:\\\\codex\\\\v4\\\\ledger\\\\prior\\\\2026-09-17\\\\prior-2026-09-17-v1.json\"}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\logs\\v4_shadow.log"
+    },
+    "yesterday_performance": {
+      "returncode": 0,
+      "stdout": "{\"target\": \"2026-09-16\", \"v3\": {\"frozen_bettable\": 20, \"settled\": 18, \"counts\": {\"W\": 5, \"HL\": 4, \"HW\": 2, \"L\": 5, \"P\": 2}, \"effective_win_rate\": 0.46153846153846156, \"pnl_1u\": -1.4, \"roi\": -0.07, \"settled_roi\": -0.0778, \"roi_denominator\": \"FROZEN_BETTABLE_1U\", \"pending\": 2}, \"v4\": {\"frozen_bettable\": 31, \"settled\": 27, \"counts\": {\"W\": 9, \"L\": 12, \"HW\": 2, \"HL\": 4}, \"effective_win_rate\": 0.4166666666666667, \"pnl_1u\": -4.135, \"roi\": -0.1334, \"settled_roi\": -0.1531, \"roi_denominator\": \"FROZEN_BETTABLE_1U\", \"pending\": 4}, \"csv\": \"D:\\\\codex\\\\outputs\\\\football_odds_trader\\\\reviews\\\\daily_performance\\\\yesterday_performance_2026-09-16_20260917_070707.csv\", \"report\": \"D:\\\\codex\\\\outputs\\\\football_odds_trader\\\\reviews\\\\daily_performance\\\\yesterday_performance_2026-09-16_20260917_070707.md\"}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\logs\\yesterday_performance.log"
+    },
+    "v4_settlement_backfill": {
+      "ok": true,
+      "status": "V4_SETTLEMENT_BACKFILLED",
+      "csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-16_20260917_070707.csv",
+      "targets": [
+        "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-16.json",
+        "D:\\codex\\v4\\dashboard\\data\\2026-09-16.json"
+      ],
+      "rows_updated": 62,
+      "settled_rows": 54,
+      "grade_unchanged": true
+    },
+    "delivery_finalize": {
+      "returncode": 0,
+      "stdout": "{\"run_id\": \"RUN_20260917_070607\", \"dates\": {\"2026-09-16\": {\"grades\": {\"N\": 130, \"null\": 349, \"C\": 29, \"A\": 1, \"B\": 1}, \"settled_all_grades\": 141, \"prematch_hash\": \"78ce82cb9cdbafc3ce954fac59812fc5d8a900e954504b3b7b36cc384e7c353c\", \"prematch_unchanged\": true}, \"2026-09-17\": {\"grades\": {\"null\": 184, \"N\": 26, \"C\": 9, \"A\": 2, \"B\": 1}, \"settled_all_grades\": 0, \"prematch_hash\": \"3fe68f37d65f025cd420684da4980f0b2ac469fda753f1486ec86bc20135b3f0\", \"prematch_unchanged\": true}}, \"real_money\": false, \"artifacts\": \"D:\\\\codex\\\\outputs\\\\football_odds_trader\\\\v4_shadow\\\\daily_artifacts\\\\2026-09-17\\\\RUN_20260917_070607\"}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\logs\\delivery_finalize.log"
+    }
+  },
+  "artifacts": {
+    "current_json": "D:\\codex\\outputs\\football_odds_trader\\dashboard\\data\\current.json",
+    "date_json": "D:\\codex\\outputs\\football_odds_trader\\dashboard\\data\\dates\\2026-09-17.json",
+    "bridge": "D:\\codex\\bridge\\v3_production\\2026-09-17.json",
+    "v4": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-17.json",
+    "v3_bettable_timestamped": "D:\\codex\\outputs\\football_odds_trader\\ledger\\daily_bettable\\v3\\bettable_2026-09-17_20260917_070607.csv",
+    "v4_bettable_timestamped": "D:\\codex\\outputs\\football_odds_trader\\ledger\\daily_bettable\\v4\\bettable_2026-09-17_20260917_070607.csv",
+    "morning_tracking": "D:\\codex\\outputs\\football_odds_trader\\reviews\\morning_prematch_tracking_2026-09-17_RUN_20260917_070607.csv",
+    "quote_age_monitoring": "D:\\codex\\outputs\\football_odds_trader\\reviews\\quote_age_monitoring_2026-09-17_RUN_20260917_070607.csv",
+    "yesterday_performance_log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\logs\\yesterday_performance.log",
+    "execution_ledger": "D:\\codex\\outputs\\football_odds_trader\\executions\\executions_2026-09-17.csv",
+    "two_side_csv": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_two_side_audit_2026-09-17_RUN_20260917_070607.csv",
+    "two_side_json": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_two_side_audit_2026-09-17_RUN_20260917_070607.json",
+    "context_r1": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_context_r1_2026-09-17_RUN_20260917_070607.json",
+    "review_csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\review_2026-09-17_RUN_20260917_070607.csv",
+    "review_md": "D:\\codex\\outputs\\football_odds_trader\\reviews\\review_2026-09-17_RUN_20260917_070607.md",
+    "v4_settlement_backfill_targets": [
+      "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-16.json",
+      "D:\\codex\\v4\\dashboard\\data\\2026-09-16.json"
+    ],
+    "v4_dashboard_data": "D:\\codex\\v4\\dashboard\\data\\2026-09-17.json",
+    "feature_usage_csv": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_feature_usage_2026-09-17_RUN_20260917_070607.csv",
+    "feature_usage_json": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_feature_usage_2026-09-17_RUN_20260917_070607.json",
+    "manual_refresh_report": "D:\\codex\\outputs\\football_odds_trader\\daily\\manual_refresh_2026-09-17_RUN_20260917_070607.md"
+  },
+  "publish": {
+    "pushed": false,
+    "skipped": true
+  },
+  "git_commit_short": "d9e4568",
+  "status": "COMPLETE"
+}
