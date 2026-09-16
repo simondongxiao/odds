@@ -209,6 +209,8 @@ def enrich_decision_metadata(
     morning_run = 7 <= run_at.hour < 9
 
     def apply(row: dict[str, Any], version: str, previous: dict[str, Any]) -> None:
+        if row.get("started_lock"):
+            return
         source = raw_by_id.get(str(row.get("match_id", "")), {})
         quote_raw = source.get("snapshot_stamp") or source.get("latest_snapshot_stamp")
         confirmed_raw = source.get("latest_snapshot_stamp") or source.get("snapshot_stamp")
@@ -372,7 +374,8 @@ def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at:
     old_map = {str(row.get("match_id")): row for row in (previous or {}).get("matches", [])}
     for row in payload.get("matches", []):
         old = old_map.get(str(row.get("match_id")))
-        kickoff = parse_kickoff(str(row.get("kickoff", "")))
+        clocks = [parse_kickoff(str(x)) for x in ((old or {}).get("kickoff_at"), (old or {}).get("kickoff"), row.get("kickoff")) if x]
+        kickoff = min((x for x in clocks if x is not None), default=None)
         if not old or not kickoff or kickoff > run_at:
             continue
         current = {key: row.get(key) for key in ("score", "settlement", "settlement_label", "pnl", "status", "match_status") if key in row}
@@ -395,7 +398,8 @@ def preserve_started_v4(path: Path, previous: dict[str, Any] | None, run_at: dt.
         match_id = str(row.get("match_id"))
         seen_ids.add(match_id)
         old = old_map.get(match_id)
-        kickoff = parse_kickoff(str(row.get("kickoff", "")))
+        clocks = [parse_kickoff(str(x)) for x in ((old or {}).get("kickoff_at"), (old or {}).get("kickoff"), row.get("kickoff")) if x]
+        kickoff = min((x for x in clocks if x is not None), default=None)
         if not old or not kickoff or kickoff > run_at:
             continue
         frozen = dict(old)
