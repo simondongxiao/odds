@@ -61,6 +61,11 @@ def main():
             if card.get("date") != target:
                 continue
             result = v3_results.get(str(card.get("match_id")), {})
+            observation = raw.get(str(card.get("match_id")), {})
+            state = str(observation.get("state", ""))
+            if state:
+                label = "完场" if state == "-1" else "未开赛" if state == "0" else "进行中" if state in {"1", "2", "3", "4", "5"} else "状态待核"
+                card.update(state=state, state_label=label, display_status=label, status=label)
             if result.get("result") in LABEL:
                 card.update(score=result["score"], display_score=result["score"], state="-1",
                             state_label="完场", display_status="已结算", status="已结算",
@@ -68,6 +73,10 @@ def main():
                             result_source=result["result_source"])
                 card["frozen_bettable_settlement"] = result["result"]
                 card["frozen_bettable_pnl"] = result["pnl_1u"]
+            elif state == "-1":
+                card["status"] = "完场；未投注或结算待核"
+                card["result"] = "未投注或结算待核"
+                card["pnl"] = "不计"
             elif target < date and card.get("state") != "-1":
                 card["display_status"] = "赛果待核"
                 card["status"] = "赛果未匹配待人工核验"
@@ -96,7 +105,18 @@ def main():
         audit["dates"][target] = {"grades": dict(Counter(r.get("grade") for r in rows)),
             "settled_all_grades": sum(r.get("result") in LABEL for r in rows),
             "prematch_hash": before, "prematch_unchanged": True}
-    html = html[:match.start(1)] + json.dumps(cards, ensure_ascii=False) + html[match.end(1):]
+    unique_cards = []
+    seen = {}
+    for card in cards:
+        key = (card.get("date"), str(card.get("match_id")))
+        if key[0] == date and key[1] and key in seen:
+            previous = seen[key]
+            fields = ("frozen_bettable", "frozen_bettable_action", "frozen_bettable_team", "frozen_bettable_side", "frozen_bettable_water")
+            assert all(previous.get(f) == card.get(f) for f in fields), f"Conflicting V3 duplicate {key}"
+            continue
+        seen[key] = card
+        unique_cards.append(card)
+    html = html[:match.start(1)] + json.dumps(unique_cards, ensure_ascii=False) + html[match.end(1):]
     html_path.write_text(html, encoding="utf-8")
     family = OUT / "v4_shadow/daily_artifacts" / date / manifest["run_id"]
     current = daily.read_json(ROOT / f"v4/outputs/v4_decisions_{date}.json", {})
