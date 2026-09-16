@@ -581,6 +581,8 @@ def backfill_previous_v4_settlement(previous_date: str, performance_result: dict
             settlement = v4_results.get(match_id)
             if not settlement:
                 continue
+            if row.get("result") in {"W", "HW", "P", "HL", "L"} and settlement.get("result") not in {"W", "HW", "P", "HL", "L"}:
+                continue
             frozen_grade = row.get("grade")
             reported_grade = settlement.get("grade", "")
             if reported_grade and str(frozen_grade or "") != str(reported_grade):
@@ -758,6 +760,9 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settleme
             destination = public / "v4" / "data" / prior_v4.name
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(prior_v4, destination)
+    artifact_family = OUT / "v4_shadow" / "daily_artifacts" / list_date / run_dir.name
+    if artifact_family.exists():
+        shutil.copytree(artifact_family, public / "v4" / "reports" / list_date / run_dir.name, dirs_exist_ok=True)
     for source in (two_side_audit_path for two_side_audit_path in (OUT / "v4_shadow").glob(f"*_{run_dir.name}.*")):
         destination = public / "v4" / "shadow" / source.name
         destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
@@ -777,6 +782,9 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settleme
         (ROOT / "skills" / "worldcup-odds-trader" / "SKILL.md", public / "skills" / "worldcup-odds-trader" / "SKILL.md"),
         (ROOT / "football_update", public / "tools" / "football_update"),
         (ROOT / "run_football_update.py", public / "tools" / "run_football_update.py"),
+        (ROOT / "tools" / "finalize_football_daily_delivery.py", public / "tools" / "finalize_football_daily_delivery.py"),
+        (ROOT / "tools" / "write_dual_yesterday_performance.py", public / "tools" / "write_dual_yesterday_performance.py"),
+        (ROOT / "tools" / "verify_football_daily_delivery.py", public / "tools" / "verify_football_daily_delivery.py"),
     ):
         if source.is_dir():
             shutil.copytree(source, destination, dirs_exist_ok=True)
@@ -890,6 +898,12 @@ def main() -> int:
     write_json(run_dir / "run_manifest.json", run_manifest)
     directory, comparison_path, latest_path = versioning.save_run_bundle(list_date, run_manifest, bridge, v4, previous_latest)
     write_json(run_dir / "merged_dashboard_date.json", merged)
+    finalization = run_command([str(PYTHON), str(ROOT / "tools" / "finalize_football_daily_delivery.py"), str(run_dir)], env, logs / "delivery_finalize.log", 300)
+    run_manifest["steps"]["delivery_finalize"] = finalization
+    write_json(run_dir / "run_manifest.json", run_manifest)
+    if finalization.get("returncode") != 0:
+        print(json.dumps({"status": "PUBLISH_BLOCKED_DELIVERY_FINALIZE", "log": finalization.get("log")}, ensure_ascii=False))
+        return 1
     publish_result = {"pushed": False, "skipped": True}
     if not args.no_publish:
         copy_publish_assets(list_date, date_path, run_dir, yesterday if yesterday_v4_backfill.get("ok") else "")

@@ -1,0 +1,54 @@
+{
+  "V3": {
+    "roster": 154,
+    "started_compared": 26
+  },
+  "V4": {
+    "roster": 510,
+    "started_compared": 76,
+    "A": 0,
+    "B": 0,
+    "C": 26,
+    "N": 123
+  },
+  "settlements_checked": 31,
+  "yesterday": {
+    "target": "2026-09-15",
+    "v3": {
+      "frozen_bettable": 14,
+      "settled": 13,
+      "counts": {
+        "L": 4,
+        "P": 2,
+        "W": 6,
+        "HL": 1
+      },
+      "effective_win_rate": 0.5714285714285714,
+      "pnl_1u": 0.83,
+      "roi": 0.0593,
+      "settled_roi": 0.0638,
+      "roi_denominator": "FROZEN_BETTABLE_1U",
+      "pending": 1
+    },
+    "v4": {
+      "frozen_bettable": 32,
+      "settled": 31,
+      "counts": {
+        "W": 15,
+        "L": 13,
+        "P": 1,
+        "HL": 2
+      },
+      "effective_win_rate": 0.5172413793103449,
+      "pnl_1u": 0.91,
+      "roi": 0.0284,
+      "settled_roi": 0.0294,
+      "roi_denominator": "FROZEN_BETTABLE_1U",
+      "pending": 1
+    },
+    "csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_205725.csv",
+    "report": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_205725.md"
+  },
+  "errors": [],
+  "pass": true
+}
