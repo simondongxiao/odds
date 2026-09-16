@@ -511,21 +511,22 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
         grade = str(row.get("grade", "") or "")
         if grade not in {"A", "B", "C"}:
             continue
+        market = row.get("market") or {}
         v4_rows.append({
             "version": "V4_SHADOW", "list_date": list_date, "match_id": row.get("match_id", ""),
             "competition": row.get("competition", ""), "kickoff_beijing": row.get("kickoff", ""),
-            "home_team": row.get("home_team", ""), "away_team": row.get("away_team", ""),
+            "home_team": row.get("home_team") or market.get("home_team", ""), "away_team": row.get("away_team") or market.get("away_team", ""),
             "action": "SHADOW_CANDIDATE", "grade": grade, "selected_team": row.get("selected_team", row.get("candidate_team", "")),
             "market_side": row.get("selected_side", row.get("candidate_side", "")),
-            "giving_team": row.get("giving_team", ""), "receiving_team": row.get("receiving_team", ""),
-            "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
+            "giving_team": row.get("giving_team") or market.get("giving_team", ""), "receiving_team": row.get("receiving_team") or market.get("receiving_team", ""),
+            "direction": row.get("direction", ""), "handicap": row.get("selected_handicap_signed", row.get("handicap", row.get("line", ""))),
             "water": row.get("selected_water_hk", row.get("water", "")), "probability": row.get("p_ev_positive", row.get("P_EV_gt_0", "")),
             "ev_mean": row.get("ev_mean", row.get("EV_mean", "")), "decision_at": row.get("decision_at", ""),
             "quote_at": row.get("quote_at", (row.get("market") or {}).get("quote_at", "")), "last_confirmed_at": row.get("last_confirmed_at", (row.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": row.get("kickoff_at", row.get("kickoff", "")),
             "quote_age_at_decision": row.get("quote_age_at_decision", ""), "hours_from_decision_to_kickoff": row.get("hours_from_decision_to_kickoff", ""), "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""),
             "run_id": row.get("run_id", ""), "decision_id": row.get("decision_id", ""), "parent_decision_id": row.get("parent_decision_id", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
             "model_id": row.get("model_id", "v4-market-dirichlet-20260913"), "side_mapping_version": row.get("side_mapping_version", "V4_DIRECTION_FIXED_R1"), "monitoring_bucket": row.get("monitoring_bucket", ""),
-            "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
+            "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id") or v4.get("raw_snapshot_id") or market.get("snapshot_id", ""),
             "real_money": "false", "status": row.get("analysis_status", row.get("status", "")),
         })
     fields = ["version", "list_date", "match_id", "competition", "kickoff_beijing", "kickoff_at", "home_team", "away_team", "action", "grade", "selected_team", "market_side", "giving_team", "receiving_team", "direction", "handicap", "water", "probability", "ev_mean", "quote_at", "last_confirmed_at", "decision_at", "quote_age_at_decision", "hours_from_decision_to_kickoff", "hours_from_last_refresh_to_kickoff", "run_id", "decision_id", "parent_decision_id", "is_morning_baseline", "is_latest_valid_prematch", "monitoring_bucket", "model_id", "side_mapping_version", "rule_version", "source_snapshot", "real_money", "status"]
