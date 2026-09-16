@@ -20,4 +20,16 @@ function render(d){currentData=d;document.querySelector('#meta').textContent='�
  (async()=>{try{const filter=document.querySelector('#filter');filter.value=currentFilter;filter.onchange=()=>{currentFilter=filter.value;if(currentData)render(currentData)};if(window.__AUDIT_DATA__){document.querySelector('#date').innerHTML='<option>包内核查</option>';render(window.__AUDIT_DATA__);return;}const index=await get(new URL('index.json',dataRoot));const entries=(index.dates||[]).map(x=>typeof x==='string'?{date:x,file:x+'.json'}:x);const sel=document.querySelector('#date');sel.innerHTML=entries.map(x=>'<option value="'+esc(x.file||x.date+'.json')+'">'+esc(x.date)+'</option>').join('');sel.onchange=async()=>{try{render(await get(new URL(sel.value,dataRoot)))}catch(e){document.querySelector('#meta').textContent=e.message}};const latest=await get(new URL('latest.json',dataRoot));sel.value=(latest.date_bj||latest.date||'')+'.json';render(latest);}catch(e){document.querySelector('#meta').textContent='数据载入失败：'+e.message+'；本地预览请通过HTTP服务，不要双击在线版HTML。'}})();
 const renderBase=render;
 render=function(d){renderBase(d);const visible=(d.events||[]).filter(r=>currentFilter!=='PAPER_BETTABLE'||(r.execution&&r.execution.shadow_action==='SHADOW_BET'&&r.execution.triggered===true));document.querySelectorAll('#rows > .card').forEach((card,i)=>{const r=visible[i];if(!r?.execution?.triggered)return;const s=r.settlement;const node=document.createElement('p');node.className='paper-settlement';node.textContent=s?'纸面结算：'+({WIN:'赢',LOSS:'输',PUSH:'走水'}[s.outcome]||'待核验')+' ｜ '+r.event.team1_name+' '+s.score1+' : '+s.score2+' '+r.event.team2_name+' ｜ 纸面盈亏 '+num(s.paper_pnl)+'U':'纸面结算：待确认终场赛果';card.insertBefore(node,card.querySelector('.grid'));});};
+const renderWithSettlement=render;
+render=function(d){renderWithSettlement(d);const visible=(d.events||[]).filter(r=>currentFilter!=='PAPER_BETTABLE'||(r.execution&&r.execution.shadow_action==='SHADOW_BET'&&r.execution.triggered===true));document.querySelectorAll('#rows > .card').forEach((card,i)=>{
+ const r=visible[i], c=r?.current_snapshot;if(!c)return;
+ const grid=card.querySelector('.grid');if(!grid)return;
+ grid.querySelectorAll('h3').forEach(h=>h.textContent='首写纸面记录 · '+h.textContent);
+ grid.innerHTML=grid.innerHTML.replace('实际盘口：</strong>','首写盘口：</strong>');
+ const old=card.querySelector('details > summary');if(old)old.textContent='首写盘口证据（回测依据，不代表当前盘口）';
+ const panel=document.createElement('section');panel.className='current-market';
+ const qs=c.market?.quotes||[], states=c.market?.quote_states||[], fresh=states.some(s=>s.fresh_observation);
+ panel.innerHTML='<h3>本轮实际盘口</h3><p class="sub">本轮截止：'+esc(c.asof)+' ｜ '+(fresh?'存在通过时效检查的报价':'暂无通过时效检查的报价，不使用首写盘口代替')+'</p>'+(qs.length?'<div class="tablewrap"><table><thead><tr><th>公司</th><th>当前盘口</th><th>双方赔率</th><th>主/替代盘</th><th>源报价时间</th><th>本轮接收时间</th></tr></thead><tbody>'+qs.map(q=>'<tr><td>'+esc(q.bookmaker||q.bookmaker_id)+'</td><td>'+quoteLabel(c.event,q)+'</td><td>'+priceLabel(q)+'</td><td>'+esc(q.main_or_alt)+'</td><td>'+esc(q.source_quote_at)+'</td><td>'+esc(q.received_at)+'</td></tr>').join('')+'</tbody></table></div>':'<p>本轮未获取同场盘口；首写纸面单继续保留跟踪。</p>');
+ card.insertBefore(panel,grid);
+ });};
 </script></html>
