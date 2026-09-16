@@ -1,6 +1,6 @@
 {
   "archive_type": "FORWARD_NATIVE",
-  "asof": "2026-09-16T23:18:46.080268+00:00",
+  "asof": "2026-09-16T23:21:26.887610+00:00",
   "date_bj": "2026-09-19",
   "events": [
     {
@@ -27,11 +27,11 @@
         "gender": "MEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "丹甲",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1345297",
         "source_status": 0,
@@ -51,7 +51,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "NO_MARKET"
         ],
@@ -61,23 +61,24 @@
         "ev": null,
         "event_id": "7m:1345297",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "3659f4460cea356beb98010bf04fa888ff0f95dfe5af92c66c26ecb1c9ca401f",
+        "forecast_fingerprint": "59525c8532ec48e297df295897d5269f9b837781cfe205ecd5fc8d70bb0191b2",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1345297",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNASSESSED",
-        "prediction_id": "47054fbd5562272449791c9ad4bf",
-        "price_blind_input_fingerprint": "ba505a68f78ecf693e00c9598cd19e585da39f290fdfa03b823a6d5e28aa1753",
+        "prediction_id": "2a1c6534e293bb91cae80289856c",
+        "price_blind_input_fingerprint": "a90abafc4bfe912188b50348687e2977406686fa57740908b02544a9f5107028",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -92,24 +93,24 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [],
         "competition_match_methods": {
           "CANONICAL_SOURCE_LABEL": 69
         },
         "effective_weight": {
-          "7m-team:2011": 3.8055081243240454,
-          "7m-team:4904": 0.8683235769854065
+          "7m-team:2011": 3.8054535755966064,
+          "7m-team:4904": 0.8683111303042849
         },
         "event_id": "7m:1345297",
-        "fair_spread_text": "內斯提夫 让 3.23021 分（-3.23021）",
+        "fair_spread_text": "內斯提夫 让 3.23016 分（-3.23016）",
         "history_exclusions": {
-          "COMPETITION_MISMATCH": 1196,
+          "COMPETITION_MISMATCH": 1240,
           "CONFLICTING_SCORE_FACT": 0,
           "GENDER_MISMATCH": 715
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "74885b2d41c4f1655a0cf42570e50f40800ed0f1f21aefaa4d9261c031258fd5",
+        "input_fingerprint": "0e3bc48326cc4ca83b452072107debf62e919ad22779c0f1a085e304f31baf0d",
         "input_games": 69,
         "last_game_at": {
           "7m-team:2011": "2026-05-07T17:00:00+00:00",
@@ -125,8 +126,8 @@
         ],
         "mu_blended": null,
         "mu_market": null,
-        "mu_raw": -3.230205348495507,
-        "mu_structural": -3.230205348495507,
+        "mu_raw": -3.2301622646555517,
+        "mu_structural": -3.2301622646555517,
         "paper_model_eligible": false,
         "pricing_data_quality": 36,
         "pricing_status": "PRICED_LOW_CONFIDENCE",
@@ -136,29 +137,29 @@
         "scenarios": {
           "INCLUDING_OT": {
             "df": 7,
-            "mu_margin": -3.230205348495507,
-            "mu_total": 179.9817729760488,
+            "mu_margin": -3.2301622646555517,
+            "mu_total": 179.98171935034495,
             "score_rule": "INCLUDING_OT",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 88.37578381377665,
-            "team2_points": 91.60598916227215
+            "team1_points": 88.3757785428447,
+            "team2_points": 91.60594080750025
           },
           "REGULATION_ONLY": {
             "df": 7,
-            "mu_margin": -3.2150836320120986,
-            "mu_total": 179.31406017348812,
+            "mu_margin": -3.215040727742676,
+            "mu_total": 179.31400791096954,
             "score_rule": "REGULATION_ONLY",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 88.04948827073801,
-            "team2_points": 91.2645719027501
+            "team1_points": 88.04948359161342,
+            "team2_points": 91.26452431935611
           }
         },
         "score_contract": "INCLUDING_OT",
         "structured_method": "SCORE_RIDGE_NO_QUALITY_MULTIPLIER",
-        "team1_points": 88.37578381377665,
-        "team2_points": 91.60598916227215,
+        "team1_points": 88.3757785428447,
+        "team2_points": 91.60594080750025,
         "team_game_counts": {
           "7m-team:2011": 15,
           "7m-team:4904": 4
@@ -169,8 +170,8 @@
         },
         "total_blended": null,
         "total_market": null,
-        "total_raw": 179.9817729760488,
-        "total_structural": 179.9817729760488,
+        "total_raw": 179.98171935034495,
+        "total_structural": 179.98171935034495,
         "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR",
         "used_history_ids": [
           "7m:1321711",
@@ -266,11 +267,11 @@
         "gender": "MEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "VTB超杯",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1355506",
         "source_status": 0,
@@ -290,7 +291,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY",
           "NO_MARKET"
@@ -301,24 +302,25 @@
         "ev": null,
         "event_id": "7m:1355506",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "e760727c5fb420b3fd6962580c9f251443183fb686781754be2baecb26087078",
+        "forecast_fingerprint": "614f672e4629f58fa68c26942ecdcdd66c62b36f35cece0da5cb6cb29456766d",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "INSUFFICIENT_PRE_CUTOFF_HISTORY",
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1355506",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNPRICEABLE",
-        "prediction_id": "a1b6fee5d4866aabd77cf0e4cc5f",
-        "price_blind_input_fingerprint": "d1520d04e6a95a1dbe3f8b6d35ba2bfc9012ae1e63cc1d79acbe43679ca48512",
+        "prediction_id": "d883a4fee4019af60eb1dbc39eb5",
+        "price_blind_input_fingerprint": "b2e8ec2a7d5f4581c0d49c7804922c74f4deaa47172a6e1e5a4ce7681b883723",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -333,19 +335,19 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY"
         ],
         "competition_match_methods": {},
         "event_id": "7m:1355506",
         "history_exclusions": {
-          "COMPETITION_MISMATCH": 1265,
+          "COMPETITION_MISMATCH": 1309,
           "CONFLICTING_SCORE_FACT": 0,
           "GENDER_MISMATCH": 715
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "e3919198febce0c407fea08511936651058a43b5b96b42b81423a38a31752ba7",
+        "input_fingerprint": "c6218bc3be8cf027eb0c7e96282500349650dee599c14386d7f1f9c0354ba103",
         "input_games": 0,
         "last_game_at": {
           "7m-team:75": null,
@@ -401,11 +403,11 @@
         "gender": "MEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "挪超",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1349499",
         "source_status": 0,
@@ -425,7 +427,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY",
           "NO_MARKET"
@@ -436,24 +438,25 @@
         "ev": null,
         "event_id": "7m:1349499",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "533bcae9e36389371eeb5a4a8ed4575396261af623f820cd9a346733e371d811",
+        "forecast_fingerprint": "cee5a57ad7906d86901ee2740bda55b5d3d9790a6699227931457fb565a82831",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "INSUFFICIENT_PRE_CUTOFF_HISTORY",
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1349499",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNPRICEABLE",
-        "prediction_id": "4d80f4a6d13dcbbadee34f02b3eb",
-        "price_blind_input_fingerprint": "e8a9f23020bffc2382baf60618c25cc70393ed598ee51eff2607cbc772fdfcdd",
+        "prediction_id": "0412f04ef6040c10e83654800275",
+        "price_blind_input_fingerprint": "cb867ff60605d118fcd9706d32f0af685476ffa1a77813f702d35390cb332648",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -468,19 +471,19 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY"
         ],
         "competition_match_methods": {},
         "event_id": "7m:1349499",
         "history_exclusions": {
-          "COMPETITION_MISMATCH": 1265,
+          "COMPETITION_MISMATCH": 1309,
           "CONFLICTING_SCORE_FACT": 0,
           "GENDER_MISMATCH": 715
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "5577a8a904f0fbf87960f2fe23da782909e9057456091245a6c9ae2556dbb769",
+        "input_fingerprint": "5e0bd2ed579cb4492598dfd8ced208d2984d089d17d5cdb869ab518c98c3e28d",
         "input_games": 0,
         "last_game_at": {
           "7m-team:1932": null,
@@ -536,11 +539,11 @@
         "gender": "MEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "德甲",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1352497",
         "source_status": 0,
@@ -560,7 +563,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY",
           "NO_MARKET"
@@ -571,24 +574,25 @@
         "ev": null,
         "event_id": "7m:1352497",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "e308ec7dd7b32944ec9e320add502f59e82da4553fe8d9ca577a772f0397d552",
+        "forecast_fingerprint": "5e96ec965371099146cb13ccf95567a61b3b6c22d4b7dd942b72cfc1b7f5d42a",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "INSUFFICIENT_PRE_CUTOFF_HISTORY",
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1352497",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNPRICEABLE",
-        "prediction_id": "73748d5386743979d742396236e9",
-        "price_blind_input_fingerprint": "b493f9462ee460217e5733d6fb7610dea04e7f027df590c438a156414240068e",
+        "prediction_id": "368edb273200b0ef695184a37378",
+        "price_blind_input_fingerprint": "9be536547555d8c6e85bb8f799b63ab565a3ebb8cd844c9d1ebb138f960e772a",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -603,7 +607,7 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY"
         ],
@@ -612,12 +616,12 @@
         },
         "event_id": "7m:1352497",
         "history_exclusions": {
-          "COMPETITION_MISMATCH": 1246,
+          "COMPETITION_MISMATCH": 1290,
           "CONFLICTING_SCORE_FACT": 0,
           "GENDER_MISMATCH": 715
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "f9bc3a6b0f53d1a806a6523c8d83c28090821580b5d6076992bad7fe42c5a834",
+        "input_fingerprint": "0627acee340651dfede9c8bcb1742e4f85dd8fce2fe009ca8edac642371c6ca4",
         "input_games": 19,
         "last_game_at": {
           "7m-team:2922": "2026-03-21T19:00:00+00:00",
@@ -693,11 +697,11 @@
         "gender": "MEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "法国杯",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1357854",
         "source_status": 0,
@@ -717,7 +721,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY",
           "NO_MARKET"
@@ -728,24 +732,25 @@
         "ev": null,
         "event_id": "7m:1357854",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "181ec86973137f6f607b8adf1706faa43f15fa043031224eb211710d4680e572",
+        "forecast_fingerprint": "77359f9844b3efdaf32cc6de25b987ee3533db90049454dbf94fa00ad7a132a5",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "INSUFFICIENT_PRE_CUTOFF_HISTORY",
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1357854",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNPRICEABLE",
-        "prediction_id": "16c876805931bbe3abcb108fa6c2",
-        "price_blind_input_fingerprint": "afcb4054665980ce83be0ae861e5eb87d753795562d55f2c4713e2a9fac79b61",
+        "prediction_id": "85d8bc3877f1fdc600a0ffa412a1",
+        "price_blind_input_fingerprint": "711db3532ab8d6ec09bac49c1e29d42d6e4d1d85f43bfc9af0a61ea3298b51da",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -760,19 +765,19 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY"
         ],
         "competition_match_methods": {},
         "event_id": "7m:1357854",
         "history_exclusions": {
-          "COMPETITION_MISMATCH": 1265,
+          "COMPETITION_MISMATCH": 1309,
           "CONFLICTING_SCORE_FACT": 0,
           "GENDER_MISMATCH": 715
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "5bfdcefe36e2b920e46590c49b6dd4337b2ec60e2fe02c2c769eb70b818ccba5",
+        "input_fingerprint": "03381ec0a18ad03105a8e1d850173dda261461add0e086f687e035ad8945cbff",
         "input_games": 0,
         "last_game_at": {
           "7m-team:2511": null,
@@ -828,11 +833,11 @@
         "gender": "MEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "法国杯",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1357847",
         "source_status": 0,
@@ -852,7 +857,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY",
           "NO_MARKET"
@@ -863,24 +868,25 @@
         "ev": null,
         "event_id": "7m:1357847",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "fd21bb171278a92e13e983e3b2d2ca64b3aaffa726a7648e4da2e4a93af0d7df",
+        "forecast_fingerprint": "b6e0998931a5f2a5001d165e9b6037e8cdf6a528e0cb0752469596894156d11e",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "INSUFFICIENT_PRE_CUTOFF_HISTORY",
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1357847",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNPRICEABLE",
-        "prediction_id": "729e0ed30bd6eddd3be9108877c4",
-        "price_blind_input_fingerprint": "aba97f200e046643703390b487398bd54c15bbc5822a34a2b449b939cecb2805",
+        "prediction_id": "8d0828a2d25d315ee98435f47132",
+        "price_blind_input_fingerprint": "4cb4d23d14251f93ded02976aaed4ab12212c7f6432a78601a2b53e297700ed1",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -895,19 +901,19 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY"
         ],
         "competition_match_methods": {},
         "event_id": "7m:1357847",
         "history_exclusions": {
-          "COMPETITION_MISMATCH": 1265,
+          "COMPETITION_MISMATCH": 1309,
           "CONFLICTING_SCORE_FACT": 0,
           "GENDER_MISMATCH": 715
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "a689c3ecbf9a0f9bcdd3045e76dabe975a651714b110e4fcda5e7b6fd06b0a43",
+        "input_fingerprint": "9ed046b8b8c10a4d82a81da3dff9c648517890535c7158fb91429d0656cdaaac",
         "input_games": 0,
         "last_game_at": {
           "7m-team:2487": null,
@@ -963,11 +969,11 @@
         "gender": "MEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "英超",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1358167",
         "source_status": 0,
@@ -987,7 +993,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY",
           "NO_MARKET"
@@ -998,24 +1004,25 @@
         "ev": null,
         "event_id": "7m:1358167",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "89705c2907408a15a077ef5c4dff9bb9a2938fb4531a3f95b60bd47b25d055d6",
+        "forecast_fingerprint": "c001b1760a0c25804d6a8680c3220cca700105c0287c04825a26fd0d8c21ac44",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "INSUFFICIENT_PRE_CUTOFF_HISTORY",
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1358167",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNPRICEABLE",
-        "prediction_id": "32318fb8d48f740aaf61b30f9fbc",
-        "price_blind_input_fingerprint": "4efc1ca3ba6856f635359d7627a3ece0880736188cbecc79e181d7d4faadec7d",
+        "prediction_id": "59628623716d61f450ce81b23c78",
+        "price_blind_input_fingerprint": "0f1ce03cff648366dafce1a00f3fb29be116f38114152512dc0f5238c84aa9f0",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -1030,7 +1037,7 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY"
         ],
@@ -1039,12 +1046,12 @@
         },
         "event_id": "7m:1358167",
         "history_exclusions": {
-          "COMPETITION_MISMATCH": 1252,
+          "COMPETITION_MISMATCH": 1296,
           "CONFLICTING_SCORE_FACT": 0,
           "GENDER_MISMATCH": 715
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "80777563b49d3fc6044ef6d27c803e723840f2a2793d56099f22ad1e00fb9fca",
+        "input_fingerprint": "928e362e755c05119879794a165e477925e1af07994f66dac3b3d8ab9da37031",
         "input_games": 13,
         "last_game_at": {
           "7m-team:3687": "2026-05-03T14:00:00+00:00",
@@ -1096,7 +1103,7 @@
     {
       "archive_type": "FORWARD_NATIVE",
       "current_snapshot": {
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "event": {
           "age_group": "SENIOR",
           "bj_date": "2026-09-19",
@@ -1108,11 +1115,11 @@
           "gender": "WOMEN",
           "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
           "home_sign": 0,
-          "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\identity_1339238.raw",
+          "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\identity_1339238.raw",
           "identity_verified": true,
           "league": "美国女子职业篮球联赛",
           "model_family": "CLUB_MATURE",
-          "observed_at": "2026-09-16T23:18:42.272493+00:00",
+          "observed_at": "2026-09-16T23:21:23.429486+00:00",
           "source": "7M",
           "source_event_id": "1339238",
           "source_time_raw": "2026,09,19,07,30,00",
@@ -1132,7 +1139,7 @@
         },
         "execution": {
           "archive_type": "FORWARD_NATIVE",
-          "asof": "2026-09-16T23:18:46.080268+00:00",
+          "asof": "2026-09-16T23:21:26.887610+00:00",
           "blockers": [
             "EXISTING_PAPER_ENTRY_NO_DUPLICATE"
           ],
@@ -1140,9 +1147,9 @@
             {
               "bookmaker": "S2",
               "market_type": "SPREAD",
-              "quote_id": "8e01ae59d341b16cf9d4ee56",
+              "quote_id": "4c34d3fa2a1f31a9cdead6d6",
               "quote_state": {
-                "age_seconds": 7.236045,
+                "age_seconds": 5.572458,
                 "fresh_observation": true,
                 "paper_quote_eligible": true,
                 "raw_observation": true,
@@ -1153,9 +1160,9 @@
             {
               "bookmaker": "S2",
               "market_type": "TOTAL",
-              "quote_id": "ac9e56ca4c314fb05150b4a2",
+              "quote_id": "b6f8527f292e3e53ea8f1e41",
               "quote_state": {
-                "age_seconds": 7.236045,
+                "age_seconds": 5.572458,
                 "fresh_observation": true,
                 "paper_quote_eligible": true,
                 "raw_observation": true,
@@ -1167,104 +1174,120 @@
           "comparison_ready": true,
           "comparison_rows": [
             {
-              "adverse_ev": -0.45359336269066153,
+              "adverse_ev": -0.4535937776713317,
               "bookmaker": "S2",
-              "conditional_edge": -0.23873334878455865,
+              "conditional_edge": -0.2387335671954377,
               "decimal_odds": 1.9,
-              "ev": -0.3360390658646566,
+              "ev": -0.33603952358122163,
               "line": -6.5,
               "market_type": "SPREAD",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.6505468767708719,
+              "p_loss": 0.6505471176743272,
               "p_push": 0.0,
-              "p_win": 0.34945312322912814,
-              "quote_id": "8e01ae59d341b16cf9d4ee56",
+              "p_win": 0.34945288232567284,
+              "quote_id": "4c34d3fa2a1f31a9cdead6d6",
               "research_edge_pass": false,
               "selection": "TEAM1"
             },
             {
-              "adverse_ev": 0.10875843483123737,
+              "adverse_ev": 0.10875892143235655,
               "bookmaker": "S2",
-              "conditional_edge": 0.05724128149012497,
+              "conditional_edge": 0.057241537595977166,
               "decimal_odds": 1.9,
-              "ev": 0.2360390658646565,
+              "ev": 0.2360395235812215,
               "line": 6.5,
               "market_type": "SPREAD",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.34945312322912814,
+              "p_loss": 0.34945288232567284,
               "p_push": 0.0,
-              "p_win": 0.6505468767708719,
-              "quote_id": "8e01ae59d341b16cf9d4ee56",
+              "p_win": 0.6505471176743272,
+              "quote_id": "4c34d3fa2a1f31a9cdead6d6",
               "research_edge_pass": true,
               "selection": "TEAM2"
             },
             {
-              "adverse_ev": 0.009247021167668013,
+              "adverse_ev": 0.00924559612377257,
               "bookmaker": "S2",
-              "conditional_edge": 0.004866853246141112,
+              "conditional_edge": 0.004866103223038265,
               "decimal_odds": 1.9,
-              "ev": 0.1506176397537602,
+              "ev": 0.15061627093975194,
               "line": 176.5,
               "market_type": "TOTAL",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.3944117685506525,
+              "p_loss": 0.3944124889790779,
               "p_push": 0.0,
-              "p_win": 0.6055882314493475,
-              "quote_id": "ac9e56ca4c314fb05150b4a2",
+              "p_win": 0.6055875110209221,
+              "quote_id": "b6f8527f292e3e53ea8f1e41",
               "research_edge_pass": false,
               "selection": "OVER"
             },
             {
-              "adverse_ev": -0.39651447691218233,
+              "adverse_ev": -0.39651324382207154,
               "bookmaker": "S2",
-              "conditional_edge": -0.21317982629687227,
+              "conditional_edge": -0.21317916334519982,
               "decimal_odds": 1.8599999999999999,
-              "ev": -0.2663941104957864,
+              "ev": -0.2663927704989152,
               "line": 176.5,
               "market_type": "TOTAL",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.6055882314493475,
+              "p_loss": 0.6055875110209221,
               "p_push": 0.0,
-              "p_win": 0.3944117685506525,
-              "quote_id": "ac9e56ca4c314fb05150b4a2",
+              "p_win": 0.3944124889790779,
+              "quote_id": "b6f8527f292e3e53ea8f1e41",
               "research_edge_pass": false,
               "selection": "UNDER"
             }
           ],
           "display_action": "观察",
-          "ev": 0.2360390658646565,
+          "ev": 0.2360395235812215,
           "event_id": "7m:1339238",
           "feature_isolation_verified": true,
-          "forecast_fingerprint": "a30f61d895c4de8a2b318e0f56c268d33594db662c3e3f2acd3c30d173016274",
+          "forecast_fingerprint": "b00990f9c1b559a98a8a0be565993413d949830509711fdbe886c711238c6012",
           "kelly_usable": false,
           "market_revalidation": {
             "blockers": [],
-            "checked_at": "2026-09-16T23:18:46.080268+00:00",
+            "checked_at": "2026-09-16T23:21:26.887610+00:00",
             "comparison_ready": true,
             "current_selected": {
-              "adverse_ev": 0.10875843483123737,
+              "adverse_ev": 0.10875892143235655,
               "bookmaker": "S2",
-              "conditional_edge": 0.05724128149012497,
+              "conditional_edge": 0.057241537595977166,
               "decimal_odds": 1.9,
-              "ev": 0.2360390658646565,
+              "ev": 0.2360395235812215,
               "line": 6.5,
               "market_type": "SPREAD",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.34945312322912814,
+              "p_loss": 0.34945288232567284,
               "p_push": 0.0,
-              "p_win": 0.6505468767708719,
-              "quote_id": "8e01ae59d341b16cf9d4ee56",
+              "p_win": 0.6505471176743272,
+              "quote_id": "4c34d3fa2a1f31a9cdead6d6",
               "research_edge_pass": true,
               "selection": "TEAM2"
             },
-            "display": "按本轮新鲜同规则盘口，仍符合纸面条件",
+            "display": "原纸面方向按本轮同公司、同规则报价仍符合纸面条件",
             "event_id": "7m:1339238",
+            "original_selection": {
+              "adverse_ev": 0.1084507863418187,
+              "bookmaker": "S2",
+              "conditional_edge": 0.05707936123253621,
+              "decimal_odds": 1.9,
+              "ev": 0.23574966654287688,
+              "line": 6.5,
+              "market_type": "SPREAD",
+              "ot_rule": "INCLUDING_OT",
+              "p_loss": 0.34960543866164373,
+              "p_push": 0.0,
+              "p_win": 0.6503945613383563,
+              "quote_id": "5b65a90e7ef014242a30e791",
+              "research_edge_pass": true,
+              "selection": "TEAM2"
+            },
             "real_execution_allowed": false,
             "status": "STILL_QUALIFIES"
           },
           "model_state": "EDGE",
-          "prediction_id": "f89f8f9b1fb0d293c8c3c0cd7f0c",
-          "price_blind_input_fingerprint": "0a5682af9510e16c12ab4ca0617873f02a662faaf3561f2aba5186d06c05c942",
+          "prediction_id": "76e4cfe29a83b25a19f3bfe5884f",
+          "price_blind_input_fingerprint": "666187e25164d0d40aa019a2ed13d09b5360ab4de48dff2c8e33019efacd42d5",
           "prior_entry_ids": [
             "cc44696a7eb0fce24f719b03b1bd"
           ],
@@ -1272,18 +1295,18 @@
           "real_execution_allowed": false,
           "real_stake": 0,
           "selected": {
-            "adverse_ev": 0.10875843483123737,
+            "adverse_ev": 0.10875892143235655,
             "bookmaker": "S2",
-            "conditional_edge": 0.05724128149012497,
+            "conditional_edge": 0.057241537595977166,
             "decimal_odds": 1.9,
-            "ev": 0.2360390658646565,
+            "ev": 0.2360395235812215,
             "line": 6.5,
             "market_type": "SPREAD",
             "ot_rule": "INCLUDING_OT",
-            "p_loss": 0.34945312322912814,
+            "p_loss": 0.34945288232567284,
             "p_push": 0.0,
-            "p_win": 0.6505468767708719,
-            "quote_id": "8e01ae59d341b16cf9d4ee56",
+            "p_win": 0.6505471176743272,
+            "quote_id": "4c34d3fa2a1f31a9cdead6d6",
             "research_edge_pass": true,
             "selection": "TEAM2"
           },
@@ -1293,7 +1316,7 @@
         "market": {
           "quote_states": [
             {
-              "age_seconds": 7.236045,
+              "age_seconds": 5.572458,
               "fresh_observation": true,
               "paper_quote_eligible": true,
               "raw_observation": true,
@@ -1301,7 +1324,7 @@
               "ttl_seconds": 3600
             },
             {
-              "age_seconds": 7.236045,
+              "age_seconds": 5.572458,
               "fresh_observation": true,
               "paper_quote_eligible": true,
               "raw_observation": true,
@@ -1327,21 +1350,21 @@
               "line_team1": -6.5,
               "main_or_alt": "MAIN",
               "market_type": "SPREAD",
-              "observed_at": "2026-09-16T23:18:38.844223+00:00",
+              "observed_at": "2026-09-16T23:21:21.315152+00:00",
               "ot_rule": "INCLUDING_OT",
               "period": "FULL_GAME",
               "price_format": "HK",
               "price_format_verified": true,
-              "quote_id": "8e01ae59d341b16cf9d4ee56",
+              "quote_id": "4c34d3fa2a1f31a9cdead6d6",
               "raw_line": 6.5,
-              "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\odds_company_1.raw",
+              "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\odds_company_1.raw",
               "raw_prices": [
                 0.9,
                 0.9
               ],
-              "raw_sha256": "fda044555acaab269bf6644dbb91825c736619a508dfac50d4f74840ecce86af",
+              "raw_sha256": "60935750a9f423a4ebf51445b0d9ce906ee3ca48ec61c1472bb7f2779e16b363",
               "raw_verified": true,
-              "received_at": "2026-09-16T23:18:38.844223+00:00",
+              "received_at": "2026-09-16T23:21:21.315152+00:00",
               "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
               "selector_id": "1",
               "source_array": [
@@ -1379,21 +1402,21 @@
               "line_team1": null,
               "main_or_alt": "MAIN",
               "market_type": "TOTAL",
-              "observed_at": "2026-09-16T23:18:38.844223+00:00",
+              "observed_at": "2026-09-16T23:21:21.315152+00:00",
               "ot_rule": "INCLUDING_OT",
               "period": "FULL_GAME",
               "price_format": "HK",
               "price_format_verified": true,
-              "quote_id": "ac9e56ca4c314fb05150b4a2",
+              "quote_id": "b6f8527f292e3e53ea8f1e41",
               "raw_line": 176.5,
-              "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\odds_company_1.raw",
+              "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\odds_company_1.raw",
               "raw_prices": [
                 0.9,
                 0.86
               ],
-              "raw_sha256": "fda044555acaab269bf6644dbb91825c736619a508dfac50d4f74840ecce86af",
+              "raw_sha256": "60935750a9f423a4ebf51445b0d9ce906ee3ca48ec61c1472bb7f2779e16b363",
               "raw_verified": true,
-              "received_at": "2026-09-16T23:18:38.844223+00:00",
+              "received_at": "2026-09-16T23:21:21.315152+00:00",
               "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
               "selector_id": "1",
               "source_array": [
@@ -1417,26 +1440,26 @@
         },
         "pricing": {
           "archive_type": "FORWARD_NATIVE",
-          "asof": "2026-09-16T23:18:46.080268+00:00",
+          "asof": "2026-09-16T23:21:26.887610+00:00",
           "blockers": [],
           "competition_match_methods": {
             "CANONICAL_SOURCE_LABEL": 155,
             "EXACT_SOURCE_ID": 31
           },
           "effective_weight": {
-            "7m-team:530": 14.351488007353785,
-            "7m-team:532": 14.813851554218015
+            "7m-team:530": 14.351282290960054,
+            "7m-team:532": 14.813639210235463
           },
           "event_id": "7m:1339238",
           "fair_spread_text": "明尼苏达天猫 让 1.69039 分（-1.69039）",
           "history_exclusions": {
             "COMPETITION_MISMATCH": 177,
             "CONFLICTING_SCORE_FACT": 0,
-            "GENDER_MISMATCH": 1265,
+            "GENDER_MISMATCH": 1309,
             "HISTORY_TOO_OLD": 352
           },
           "injury_status": "UNKNOWN",
-          "input_fingerprint": "e73eff09f9fe5ba955e14e79c22c3354e73147ba59bb0860dd1942bca031247d",
+          "input_fingerprint": "873610879b6e4ce310cbebfb4cabc6780c2f35e30a57c7543e168e4fdedf42db",
           "input_games": 186,
           "last_game_at": {
             "7m-team:530": "2026-08-29T17:00:00+00:00",
@@ -1451,8 +1474,8 @@
           ],
           "mu_blended": null,
           "mu_market": null,
-          "mu_raw": 1.6903946931863598,
-          "mu_structural": 1.6903946931863598,
+          "mu_raw": 1.6903872530741242,
+          "mu_structural": 1.6903872530741242,
           "paper_model_eligible": true,
           "pricing_data_quality": 60,
           "pricing_status": "PRICED_LOW_CONFIDENCE",
@@ -1462,29 +1485,29 @@
           "scenarios": {
             "INCLUDING_OT": {
               "df": 7,
-              "mu_margin": 1.6903946931863598,
-              "mu_total": 180.73371243214572,
+              "mu_margin": 1.6903872530741242,
+              "mu_total": 180.73368268376188,
               "score_rule": "INCLUDING_OT",
               "sd_margin": 13,
               "sd_total": 18,
-              "team1_points": 91.21205356266604,
-              "team2_points": 89.52165886947968
+              "team1_points": 91.21203496841801,
+              "team2_points": 89.52164771534387
             },
             "REGULATION_ONLY": {
               "df": 7,
-              "mu_margin": 1.727171011933313,
-              "mu_total": 180.00207915344834,
+              "mu_margin": 1.727163340185389,
+              "mu_total": 180.00205075358144,
               "score_rule": "REGULATION_ONLY",
               "sd_margin": 13,
               "sd_total": 18,
-              "team1_points": 90.86462508269082,
-              "team2_points": 89.13745407075751
+              "team1_points": 90.86460704688342,
+              "team2_points": 89.13744370669802
             }
           },
           "score_contract": "INCLUDING_OT",
           "structured_method": "SCORE_RIDGE_NO_QUALITY_MULTIPLIER",
-          "team1_points": 91.21205356266604,
-          "team2_points": 89.52165886947968,
+          "team1_points": 91.21203496841801,
+          "team2_points": 89.52164771534387,
           "team_game_counts": {
             "7m-team:530": 24,
             "7m-team:532": 25
@@ -1495,8 +1518,8 @@
           },
           "total_blended": null,
           "total_market": null,
-          "total_raw": 180.73371243214572,
-          "total_structural": 180.73371243214572,
+          "total_raw": 180.73368268376188,
+          "total_structural": 180.73368268376188,
           "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR",
           "used_history_ids": [
             "7m:1297345",
@@ -1863,7 +1886,7 @@
       "first_write_preserved": true,
       "generation": "REPAIR_V22",
       "id": "7m:1339238",
-      "last_refresh_asof": "2026-09-16T23:18:46.080268+00:00",
+      "last_refresh_asof": "2026-09-16T23:21:26.887610+00:00",
       "market": {
         "quote_states": [
           {
@@ -2281,11 +2304,11 @@
         "gender": "WOMEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\identity_1339239.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\identity_1339239.raw",
         "identity_verified": true,
         "league": "美国女子职业篮球联赛",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:42.318789+00:00",
+        "observed_at": "2026-09-16T23:21:23.431471+00:00",
         "source": "7M",
         "source_event_id": "1339239",
         "source_time_raw": "2026,09,19,07,30,00",
@@ -2305,15 +2328,15 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [],
         "candidates": [
           {
             "bookmaker": "S2",
             "market_type": "SPREAD",
-            "quote_id": "be18619078e461a9bdc00814",
+            "quote_id": "d8380e903534be8df064e486",
             "quote_state": {
-              "age_seconds": 7.236045,
+              "age_seconds": 5.572458,
               "fresh_observation": true,
               "paper_quote_eligible": true,
               "raw_observation": true,
@@ -2324,9 +2347,9 @@
           {
             "bookmaker": "S2",
             "market_type": "TOTAL",
-            "quote_id": "0acc4c6b3cf6fbb113dfa632",
+            "quote_id": "721bb5f94c193dcb80e5aadc",
             "quote_state": {
-              "age_seconds": 7.236045,
+              "age_seconds": 5.572458,
               "fresh_observation": true,
               "paper_quote_eligible": true,
               "raw_observation": true,
@@ -2338,120 +2361,121 @@
         "comparison_ready": true,
         "comparison_rows": [
           {
-            "adverse_ev": -0.20605201339187218,
+            "adverse_ev": -0.2060485916105635,
             "bookmaker": "S2",
-            "conditional_edge": -0.10844842810098532,
+            "conditional_edge": -0.10844662716345443,
             "decimal_odds": 1.9,
-            "ev": -0.07529634006622099,
+            "ev": -0.07529283021936539,
             "line": 12.5,
             "market_type": "SPREAD",
             "ot_rule": "INCLUDING_OT",
-            "p_loss": 0.5133138631927479,
+            "p_loss": 0.5133120159049291,
             "p_push": 0.0,
-            "p_win": 0.48668613680725215,
-            "quote_id": "be18619078e461a9bdc00814",
+            "p_win": 0.48668798409507086,
+            "quote_id": "d8380e903534be8df064e486",
             "research_edge_pass": false,
             "selection": "TEAM1"
           },
           {
-            "adverse_ev": -0.15638945497478568,
+            "adverse_ev": -0.15639292575753894,
             "bookmaker": "S2",
-            "conditional_edge": -0.08231023946041344,
+            "conditional_edge": -0.08231206618817838,
             "decimal_odds": 1.9,
-            "ev": -0.0247036599337791,
+            "ev": -0.024707169780634697,
             "line": -12.5,
             "market_type": "SPREAD",
             "ot_rule": "INCLUDING_OT",
-            "p_loss": 0.48668613680725215,
+            "p_loss": 0.48668798409507086,
             "p_push": 0.0,
-            "p_win": 0.5133138631927479,
-            "quote_id": "be18619078e461a9bdc00814",
+            "p_win": 0.5133120159049291,
+            "quote_id": "d8380e903534be8df064e486",
             "research_edge_pass": false,
             "selection": "TEAM2"
           },
           {
-            "adverse_ev": -0.22129978722153337,
+            "adverse_ev": -0.22130310234654438,
             "bookmaker": "S2",
-            "conditional_edge": -0.11647357222185961,
+            "conditional_edge": -0.11647531702449698,
             "decimal_odds": 1.9,
-            "ev": -0.07886594423350507,
+            "ev": -0.07886936370905939,
             "line": 189.5,
             "market_type": "TOTAL",
             "ot_rule": "INCLUDING_OT",
-            "p_loss": 0.5151926022281605,
+            "p_loss": 0.5151944019521365,
             "p_push": 0.0,
-            "p_win": 0.48480739777183945,
-            "quote_id": "0acc4c6b3cf6fbb113dfa632",
+            "p_win": 0.4848055980478635,
+            "quote_id": "721bb5f94c193dcb80e5aadc",
             "research_edge_pass": false,
             "selection": "OVER"
           },
           {
-            "adverse_ev": -0.18241467440928216,
+            "adverse_ev": -0.18241137115011202,
             "bookmaker": "S2",
-            "conditional_edge": -0.0980724055963883,
+            "conditional_edge": -0.09807062965059793,
             "decimal_odds": 1.8599999999999999,
-            "ev": -0.04174175985562145,
+            "ev": -0.041738412369026145,
             "line": 189.5,
             "market_type": "TOTAL",
             "ot_rule": "INCLUDING_OT",
-            "p_loss": 0.48480739777183945,
+            "p_loss": 0.4848055980478635,
             "p_push": 0.0,
-            "p_win": 0.5151926022281605,
-            "quote_id": "0acc4c6b3cf6fbb113dfa632",
+            "p_win": 0.5151944019521365,
+            "quote_id": "721bb5f94c193dcb80e5aadc",
             "research_edge_pass": false,
             "selection": "UNDER"
           }
         ],
         "display_action": "不可投",
-        "ev": -0.0247036599337791,
+        "ev": -0.024707169780634697,
         "event_id": "7m:1339239",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "0166e6f11f7a2930317cae4e4c925ca898b0bbf1fe797450cd70cb58d8030f5b",
+        "forecast_fingerprint": "0001c761d8ab8bca70286d0cae410d6d372bab83e0ff11f8828d766d13b71d19",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": true,
           "current_selected": {
-            "adverse_ev": -0.15638945497478568,
+            "adverse_ev": -0.15639292575753894,
             "bookmaker": "S2",
-            "conditional_edge": -0.08231023946041344,
+            "conditional_edge": -0.08231206618817838,
             "decimal_odds": 1.9,
-            "ev": -0.0247036599337791,
+            "ev": -0.024707169780634697,
             "line": -12.5,
             "market_type": "SPREAD",
             "ot_rule": "INCLUDING_OT",
-            "p_loss": 0.48668613680725215,
+            "p_loss": 0.48668798409507086,
             "p_push": 0.0,
-            "p_win": 0.5133138631927479,
-            "quote_id": "be18619078e461a9bdc00814",
+            "p_win": 0.5133120159049291,
+            "quote_id": "d8380e903534be8df064e486",
             "research_edge_pass": false,
             "selection": "TEAM2"
           },
           "display": "本轮已重新比较，但未通过纸面条件",
           "event_id": "7m:1339239",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "NO_LONGER_QUALIFIES"
         },
         "model_state": "NO_EDGE",
-        "prediction_id": "529c3d8706936f3c09afbbd6ee76",
-        "price_blind_input_fingerprint": "c7b5a067b54137d9e0079efb245f165db4a8c17e1279a9de07c6546719aaf95e",
+        "prediction_id": "614cff9a0d43107e524de9c2599e",
+        "price_blind_input_fingerprint": "e6789fbaa89bc111b2d2c8550cea145703eb31840997a146e3b3dd1417c6f7d2",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
         "selected": {
-          "adverse_ev": -0.15638945497478568,
+          "adverse_ev": -0.15639292575753894,
           "bookmaker": "S2",
-          "conditional_edge": -0.08231023946041344,
+          "conditional_edge": -0.08231206618817838,
           "decimal_odds": 1.9,
-          "ev": -0.0247036599337791,
+          "ev": -0.024707169780634697,
           "line": -12.5,
           "market_type": "SPREAD",
           "ot_rule": "INCLUDING_OT",
-          "p_loss": 0.48668613680725215,
+          "p_loss": 0.48668798409507086,
           "p_push": 0.0,
-          "p_win": 0.5133138631927479,
-          "quote_id": "be18619078e461a9bdc00814",
+          "p_win": 0.5133120159049291,
+          "quote_id": "d8380e903534be8df064e486",
           "research_edge_pass": false,
           "selection": "TEAM2"
         },
@@ -2463,7 +2487,7 @@
       "market": {
         "quote_states": [
           {
-            "age_seconds": 7.236045,
+            "age_seconds": 5.572458,
             "fresh_observation": true,
             "paper_quote_eligible": true,
             "raw_observation": true,
@@ -2471,7 +2495,7 @@
             "ttl_seconds": 3600
           },
           {
-            "age_seconds": 7.236045,
+            "age_seconds": 5.572458,
             "fresh_observation": true,
             "paper_quote_eligible": true,
             "raw_observation": true,
@@ -2497,21 +2521,21 @@
             "line_team1": 12.5,
             "main_or_alt": "MAIN",
             "market_type": "SPREAD",
-            "observed_at": "2026-09-16T23:18:38.844223+00:00",
+            "observed_at": "2026-09-16T23:21:21.315152+00:00",
             "ot_rule": "INCLUDING_OT",
             "period": "FULL_GAME",
             "price_format": "HK",
             "price_format_verified": true,
-            "quote_id": "be18619078e461a9bdc00814",
+            "quote_id": "d8380e903534be8df064e486",
             "raw_line": 12.5,
-            "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\odds_company_1.raw",
+            "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\odds_company_1.raw",
             "raw_prices": [
               0.9,
               0.9
             ],
-            "raw_sha256": "fda044555acaab269bf6644dbb91825c736619a508dfac50d4f74840ecce86af",
+            "raw_sha256": "60935750a9f423a4ebf51445b0d9ce906ee3ca48ec61c1472bb7f2779e16b363",
             "raw_verified": true,
-            "received_at": "2026-09-16T23:18:38.844223+00:00",
+            "received_at": "2026-09-16T23:21:21.315152+00:00",
             "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
             "selector_id": "1",
             "source_array": [
@@ -2549,21 +2573,21 @@
             "line_team1": null,
             "main_or_alt": "MAIN",
             "market_type": "TOTAL",
-            "observed_at": "2026-09-16T23:18:38.844223+00:00",
+            "observed_at": "2026-09-16T23:21:21.315152+00:00",
             "ot_rule": "INCLUDING_OT",
             "period": "FULL_GAME",
             "price_format": "HK",
             "price_format_verified": true,
-            "quote_id": "0acc4c6b3cf6fbb113dfa632",
+            "quote_id": "721bb5f94c193dcb80e5aadc",
             "raw_line": 189.5,
-            "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\odds_company_1.raw",
+            "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\odds_company_1.raw",
             "raw_prices": [
               0.9,
               0.86
             ],
-            "raw_sha256": "fda044555acaab269bf6644dbb91825c736619a508dfac50d4f74840ecce86af",
+            "raw_sha256": "60935750a9f423a4ebf51445b0d9ce906ee3ca48ec61c1472bb7f2779e16b363",
             "raw_verified": true,
-            "received_at": "2026-09-16T23:18:38.844223+00:00",
+            "received_at": "2026-09-16T23:21:21.315152+00:00",
             "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
             "selector_id": "1",
             "source_array": [
@@ -2587,26 +2611,26 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [],
         "competition_match_methods": {
           "CANONICAL_SOURCE_LABEL": 155,
           "EXACT_SOURCE_ID": 31
         },
         "effective_weight": {
-          "7m-team:531": 15.361706333748582,
-          "7m-team:8981": 15.600761086208015
+          "7m-team:531": 15.361486136732989,
+          "7m-team:8981": 15.600537462545542
         },
         "event_id": "7m:1339239",
-        "fair_spread_text": "印第安纳狂热 让 12.6227 分（-12.6227）",
+        "fair_spread_text": "印第安纳狂热 让 12.6226 分（-12.6226）",
         "history_exclusions": {
           "COMPETITION_MISMATCH": 177,
           "CONFLICTING_SCORE_FACT": 0,
-          "GENDER_MISMATCH": 1265,
+          "GENDER_MISMATCH": 1309,
           "HISTORY_TOO_OLD": 352
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "042e88567136dfce7ae875895c009ecf2ef1b3ee6d323f9ee18803542e38bdac",
+        "input_fingerprint": "7e81feb09573e1e67deea9ff008868f553e2ffc3bcd6140e257c9b6b746c6c2c",
         "input_games": 186,
         "last_game_at": {
           "7m-team:531": "2026-08-28T23:30:00+00:00",
@@ -2621,8 +2645,8 @@
         ],
         "mu_blended": null,
         "mu_market": null,
-        "mu_raw": -12.622690810012008,
-        "mu_structural": -12.622690810012008,
+        "mu_raw": -12.62263763910835,
+        "mu_structural": -12.62263763910835,
         "paper_model_eligible": true,
         "pricing_data_quality": 60,
         "pricing_status": "PRICED_LOW_CONFIDENCE",
@@ -2632,29 +2656,29 @@
         "scenarios": {
           "INCLUDING_OT": {
             "df": 7,
-            "mu_margin": -12.622690810012008,
-            "mu_total": 188.8994924905767,
+            "mu_margin": -12.62263763910835,
+            "mu_total": 188.8994213118853,
             "score_rule": "INCLUDING_OT",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 88.13840084028234,
-            "team2_points": 100.76109165029436
+            "team1_points": 88.13839183638848,
+            "team2_points": 100.76102947549683
           },
           "REGULATION_ONLY": {
             "df": 7,
-            "mu_margin": -12.548906927730972,
-            "mu_total": 187.71980373854157,
+            "mu_margin": -12.548854131429472,
+            "mu_total": 187.71973552201402,
             "score_rule": "REGULATION_ONLY",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 87.5854484054053,
-            "team2_points": 100.13435533313627
+            "team1_points": 87.58544069529228,
+            "team2_points": 100.13429482672174
           }
         },
         "score_contract": "INCLUDING_OT",
         "structured_method": "SCORE_RIDGE_NO_QUALITY_MULTIPLIER",
-        "team1_points": 88.13840084028234,
-        "team2_points": 100.76109165029436,
+        "team1_points": 88.13839183638848,
+        "team2_points": 100.76102947549683,
         "team_game_counts": {
           "7m-team:531": 22,
           "7m-team:8981": 22
@@ -2665,8 +2689,8 @@
         },
         "total_blended": null,
         "total_market": null,
-        "total_raw": 188.8994924905767,
-        "total_structural": 188.8994924905767,
+        "total_raw": 188.8994213118853,
+        "total_structural": 188.8994213118853,
         "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR",
         "used_history_ids": [
           "7m:1297345",
@@ -2882,11 +2906,11 @@
         "gender": "MEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "巴拉联",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1353813",
         "source_status": 0,
@@ -2906,7 +2930,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "NO_MARKET"
         ],
@@ -2916,23 +2940,24 @@
         "ev": null,
         "event_id": "7m:1353813",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "54aa498a056829b906e57df1e224bdaffff431cf89b0c402832308a1c6a167e7",
+        "forecast_fingerprint": "6db5a8a15ba752c9c0161d7eece4bc215efdc69b46ef50bf3f2f9dc312178314",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1353813",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNASSESSED",
-        "prediction_id": "c531d5d610234fb137cd8b3becd7",
-        "price_blind_input_fingerprint": "28df8cd03944410261528161bb127565e047ed4301b9a1502a6b8b0445247304",
+        "prediction_id": "9c60f0f85430e0b47a76fec6a530",
+        "price_blind_input_fingerprint": "0142a41ded0ecf082dd234f45ba0689365f792340e5a0968225f6edaaafd6d75",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -2947,24 +2972,24 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [],
         "competition_match_methods": {
           "CANONICAL_SOURCE_LABEL": 30
         },
         "effective_weight": {
-          "7m-team:4889": 2.956448990922508,
-          "7m-team:6517": 5.174222105191743
+          "7m-team:4889": 2.956406612736751,
+          "7m-team:6517": 5.174147937111659
         },
         "event_id": "7m:1353813",
-        "fair_spread_text": "奥林匹亚国王 让 4.427 分（-4.427）",
+        "fair_spread_text": "奥林匹亚国王 让 4.42695 分（-4.42695）",
         "history_exclusions": {
-          "COMPETITION_MISMATCH": 1235,
+          "COMPETITION_MISMATCH": 1279,
           "CONFLICTING_SCORE_FACT": 0,
           "GENDER_MISMATCH": 715
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "c34f9f6c5b70c88c1caa75cbb841f3c195690a63151e5ab2c387c79618b11340",
+        "input_fingerprint": "5e5e9579e8f3c6aecc930a02f87c6a912875237ee6293e2b9350a44b1522c02b",
         "input_games": 30,
         "last_game_at": {
           "7m-team:4889": "2026-09-10T23:00:00+00:00",
@@ -2980,8 +3005,8 @@
         ],
         "mu_blended": null,
         "mu_market": null,
-        "mu_raw": 4.427001430946971,
-        "mu_structural": 4.427001430946971,
+        "mu_raw": 4.426949687734431,
+        "mu_structural": 4.426949687734431,
         "paper_model_eligible": false,
         "pricing_data_quality": 36,
         "pricing_status": "PRICED_LOW_CONFIDENCE",
@@ -2991,29 +3016,29 @@
         "scenarios": {
           "INCLUDING_OT": {
             "df": 7,
-            "mu_margin": 4.427001430946971,
-            "mu_total": 169.36769600242744,
+            "mu_margin": 4.426949687734431,
+            "mu_total": 169.36766585518984,
             "score_rule": "INCLUDING_OT",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 86.8973487166872,
-            "team2_points": 82.47034728574023
+            "team1_points": 86.89730777146214,
+            "team2_points": 82.4703580837277
           },
           "REGULATION_ONLY": {
             "df": 7,
-            "mu_margin": 4.427001430946971,
-            "mu_total": 169.36769600242744,
+            "mu_margin": 4.426949687734431,
+            "mu_total": 169.36766585518984,
             "score_rule": "REGULATION_ONLY",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 86.8973487166872,
-            "team2_points": 82.47034728574023
+            "team1_points": 86.89730777146214,
+            "team2_points": 82.4703580837277
           }
         },
         "score_contract": "INCLUDING_OT",
         "structured_method": "SCORE_RIDGE_NO_QUALITY_MULTIPLIER",
-        "team1_points": 86.8973487166872,
-        "team2_points": 82.47034728574023,
+        "team1_points": 86.89730777146214,
+        "team2_points": 82.4703580837277,
         "team_game_counts": {
           "7m-team:4889": 4,
           "7m-team:6517": 8
@@ -3024,8 +3049,8 @@
         },
         "total_blended": null,
         "total_market": null,
-        "total_raw": 169.36769600242744,
-        "total_structural": 169.36769600242744,
+        "total_raw": 169.36766585518984,
+        "total_structural": 169.36766585518984,
         "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR",
         "used_history_ids": [
           "7m:1341435",
@@ -3085,11 +3110,11 @@
         "gender": "WOMEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "波多女篮",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1362569",
         "source_status": 0,
@@ -3109,7 +3134,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "NO_MARKET"
         ],
@@ -3119,23 +3144,24 @@
         "ev": null,
         "event_id": "7m:1362569",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "5f88c52df2d3c67cc2574380aa333b4caae94ba26839559aca43df278bf05321",
+        "forecast_fingerprint": "71b2512fa6fa1b1215f28a472a57864be96711b5b07ac013b7a32e5e38a1f78b",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1362569",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNASSESSED",
-        "prediction_id": "d4831f0c6ee4be69926446cde54f",
-        "price_blind_input_fingerprint": "c841d8f9a0f5ef8520104da92784fd4068b73be6558bc2c7fa4ebf5f1645b2a9",
+        "prediction_id": "1411ce7b43ceed8de9460e76d56b",
+        "price_blind_input_fingerprint": "7e7156fb0fd30a8a4be49ab024336027597b301d9288525db7267e36b111bd0d",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -3150,24 +3176,24 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [],
         "competition_match_methods": {
           "CANONICAL_SOURCE_LABEL": 49
         },
         "effective_weight": {
-          "7m-team:8518": 2.3119232036220456,
-          "7m-team:8520": 1.1590821845323442
+          "7m-team:8518": 2.3118900641661377,
+          "7m-team:8520": 1.1590655700734867
         },
         "event_id": "7m:1362569",
-        "fair_spread_text": "圣图尔塞捕蟹人女篮 让 5.44779 分（-5.44779）",
+        "fair_spread_text": "圣图尔塞捕蟹人女篮 让 5.44773 分（-5.44773）",
         "history_exclusions": {
           "COMPETITION_MISMATCH": 666,
           "CONFLICTING_SCORE_FACT": 0,
-          "GENDER_MISMATCH": 1265
+          "GENDER_MISMATCH": 1309
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "b6d52f6d30d5b19e42dd8bc94096bff84f635efc92c18928347319057e5e240a",
+        "input_fingerprint": "8d3ca2dd20874cc37c848eabc3beb6f1af52592cb83d27ba80b2d56c900c7da1",
         "input_games": 49,
         "last_game_at": {
           "7m-team:8518": "2026-09-15T00:00:00+00:00",
@@ -3183,8 +3209,8 @@
         ],
         "mu_blended": null,
         "mu_market": null,
-        "mu_raw": -5.447788090176855,
-        "mu_structural": -5.447788090176855,
+        "mu_raw": -5.447729980429274,
+        "mu_structural": -5.447729980429274,
         "paper_model_eligible": false,
         "pricing_data_quality": 36,
         "pricing_status": "PRICED_LOW_CONFIDENCE",
@@ -3194,29 +3220,29 @@
         "scenarios": {
           "INCLUDING_OT": {
             "df": 7,
-            "mu_margin": -5.447788090176855,
-            "mu_total": 137.26749595608993,
+            "mu_margin": -5.447729980429274,
+            "mu_total": 137.2675382104707,
             "score_rule": "INCLUDING_OT",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 65.90985393295654,
-            "team2_points": 71.3576420231334
+            "team1_points": 65.90990411502071,
+            "team2_points": 71.35763409544998
           },
           "REGULATION_ONLY": {
             "df": 7,
-            "mu_margin": -5.428890366415509,
-            "mu_total": 136.1594827860294,
+            "mu_margin": -5.428832425396608,
+            "mu_total": 136.15952115109482,
             "score_rule": "REGULATION_ONLY",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 65.36529620980694,
-            "team2_points": 70.79418657622246
+            "team1_points": 65.3653443628491,
+            "team2_points": 70.79417678824572
           }
         },
         "score_contract": "INCLUDING_OT",
         "structured_method": "SCORE_RIDGE_NO_QUALITY_MULTIPLIER",
-        "team1_points": 65.90985393295654,
-        "team2_points": 71.3576420231334,
+        "team1_points": 65.90990411502071,
+        "team2_points": 71.35763409544998,
         "team_game_counts": {
           "7m-team:8518": 20,
           "7m-team:8520": 4
@@ -3227,8 +3253,8 @@
         },
         "total_blended": null,
         "total_market": null,
-        "total_raw": 137.26749595608993,
-        "total_structural": 137.26749595608993,
+        "total_raw": 137.2675382104707,
+        "total_structural": 137.2675382104707,
         "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR",
         "used_history_ids": [
           "7m:1318536",
@@ -3304,11 +3330,11 @@
         "gender": "WOMEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "波多女篮",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1362570",
         "source_status": 0,
@@ -3328,7 +3354,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY",
           "NO_MARKET"
@@ -3339,24 +3365,25 @@
         "ev": null,
         "event_id": "7m:1362570",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "a747c430175b426bf6756e2e1e7f9a92ab079c4fd069c507af42cad4c9191bb7",
+        "forecast_fingerprint": "5e416f7bbc1c5ad7ee65e0e229110749685785acb7ae3161dc76e9d10f2a6244",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "INSUFFICIENT_PRE_CUTOFF_HISTORY",
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1362570",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNPRICEABLE",
-        "prediction_id": "5f38aa0afb6d7750fdaad56df1d0",
-        "price_blind_input_fingerprint": "0246987e3ba6940320116987609072d3b09d3a8190fc860e632f203f6090980a",
+        "prediction_id": "c9452f6eba49d575a2da1537f6da",
+        "price_blind_input_fingerprint": "0a4e392e41116ce0e6fab1732417e827519940c6b4dd7da783832cecb2d495bd",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -3371,7 +3398,7 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY"
         ],
@@ -3382,10 +3409,10 @@
         "history_exclusions": {
           "COMPETITION_MISMATCH": 666,
           "CONFLICTING_SCORE_FACT": 0,
-          "GENDER_MISMATCH": 1265
+          "GENDER_MISMATCH": 1309
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "d8a62e326130f9d59f4a880af8a9eac672fc3ab2e2587107b61b88d9b2bf3754",
+        "input_fingerprint": "8ac729b4ca5f45f1959a171a58bac3791a866d39fa432f780625a4ec45ef2ed1",
         "input_games": 49,
         "last_game_at": {
           "7m-team:8507": "2025-11-17T00:00:00+00:00",
@@ -3493,11 +3520,11 @@
         "gender": "WOMEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "波多女篮",
         "model_family": "CLUB_MATURE",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1362571",
         "source_status": 0,
@@ -3517,7 +3544,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "NO_MARKET"
         ],
@@ -3527,23 +3554,24 @@
         "ev": null,
         "event_id": "7m:1362571",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "65435af2081a5e9601542ba4f72ad2ac551d07d1c7c3dd0fe3956a681b13548e",
+        "forecast_fingerprint": "0dbda59f78f936e99e26cfa310d9932f98e4594ce3e7b734558253984874c188",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1362571",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNASSESSED",
-        "prediction_id": "503d7b526ae52e62986ea4d1e6a4",
-        "price_blind_input_fingerprint": "1d86cfedfd6f38aeac039598a0db786842e259b40ecc0e680095d0054d0374fb",
+        "prediction_id": "7a7c9640b4aded9499812a2f35e0",
+        "price_blind_input_fingerprint": "911478697f0882952fd0ad75aabefea21193dc2d2817485a357f7b9833267d33",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -3558,24 +3586,24 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [],
         "competition_match_methods": {
           "CANONICAL_SOURCE_LABEL": 49
         },
         "effective_weight": {
-          "7m-team:8515": 0.9030075987266368,
-          "7m-team:8795": 1.2161255641150994
+          "7m-team:8515": 0.9029946548795159,
+          "7m-team:8795": 1.216108131987835
         },
         "event_id": "7m:1362571",
-        "fair_spread_text": "莫卡爆炸者女篮 让 1.01767 分（-1.01767）",
+        "fair_spread_text": "莫卡爆炸者女篮 让 1.01766 分（-1.01766）",
         "history_exclusions": {
           "COMPETITION_MISMATCH": 666,
           "CONFLICTING_SCORE_FACT": 0,
-          "GENDER_MISMATCH": 1265
+          "GENDER_MISMATCH": 1309
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "1df891ce0ed2e5564e73f4a6f52689d14b13cb77012cb3b4a7dd87e4d26ae54f",
+        "input_fingerprint": "9b8ee868d46ff3b0ed6912d6791ee3bff5c2f8cc34b4ae4cd8d01546aa6fc090",
         "input_games": 49,
         "last_game_at": {
           "7m-team:8515": "2025-11-17T00:00:00+00:00",
@@ -3590,8 +3618,8 @@
         ],
         "mu_blended": null,
         "mu_market": null,
-        "mu_raw": 1.0176731029114068,
-        "mu_structural": 1.0176731029114068,
+        "mu_raw": 1.0176601173353705,
+        "mu_structural": 1.0176601173353705,
         "paper_model_eligible": true,
         "pricing_data_quality": 52,
         "pricing_status": "PRICED_LOW_CONFIDENCE",
@@ -3601,29 +3629,29 @@
         "scenarios": {
           "INCLUDING_OT": {
             "df": 7,
-            "mu_margin": 1.0176731029114068,
-            "mu_total": 141.60563675837648,
+            "mu_margin": 1.0176601173353705,
+            "mu_total": 141.6056311598066,
             "score_rule": "INCLUDING_OT",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 71.31165493064394,
-            "team2_points": 70.29398182773254
+            "team1_points": 71.31164563857098,
+            "team2_points": 70.29398552123561
           },
           "REGULATION_ONLY": {
             "df": 7,
-            "mu_margin": 0.9938748754717411,
-            "mu_total": 140.06921892061428,
+            "mu_margin": 0.9938621690402847,
+            "mu_total": 140.06921409988155,
             "score_rule": "REGULATION_ONLY",
             "sd_margin": 13,
             "sd_total": 18,
-            "team1_points": 70.531546898043,
-            "team2_points": 69.53767202257127
+            "team1_points": 70.53153813446092,
+            "team2_points": 69.53767596542063
           }
         },
         "score_contract": "INCLUDING_OT",
         "structured_method": "SCORE_RIDGE_NO_QUALITY_MULTIPLIER",
-        "team1_points": 71.31165493064394,
-        "team2_points": 70.29398182773254,
+        "team1_points": 71.31164563857098,
+        "team2_points": 70.29398552123561,
         "team_game_counts": {
           "7m-team:8515": 11,
           "7m-team:8795": 19
@@ -3634,8 +3662,8 @@
         },
         "total_blended": null,
         "total_market": null,
-        "total_raw": 141.60563675837648,
-        "total_structural": 141.60563675837648,
+        "total_raw": 141.6056311598066,
+        "total_structural": 141.6056311598066,
         "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR",
         "used_history_ids": [
           "7m:1318536",
@@ -3711,11 +3739,11 @@
         "gender": "WOMEN",
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
         "home_sign": 0,
-        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\event_20260918_fgb1.raw",
+        "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\event_20260918_fgb1.raw",
         "identity_verified": true,
         "league": "亚运女篮",
         "model_family": "NATIONAL_TEAM",
-        "observed_at": "2026-09-16T23:18:38.663149+00:00",
+        "observed_at": "2026-09-16T23:21:21.214988+00:00",
         "source": "7M",
         "source_event_id": "1360897",
         "source_status": 0,
@@ -3735,7 +3763,7 @@
       },
       "execution": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY",
           "NO_MARKET"
@@ -3746,24 +3774,25 @@
         "ev": null,
         "event_id": "7m:1360897",
         "feature_isolation_verified": true,
-        "forecast_fingerprint": "27db172aa0346d69db45a3387e69494b6595dd06f09f4e2ed7c430e301e58cb0",
+        "forecast_fingerprint": "f715afd3f047ce8a88af69c55e654d5288580b24903a2781d3bdada24ae22e50",
         "kelly_usable": false,
         "market_revalidation": {
           "blockers": [
             "INSUFFICIENT_PRE_CUTOFF_HISTORY",
             "NO_MARKET"
           ],
-          "checked_at": "2026-09-16T23:18:46.080268+00:00",
+          "checked_at": "2026-09-16T23:21:26.887610+00:00",
           "comparison_ready": false,
           "current_selected": null,
           "display": "缺少本轮新鲜、同规则的可比较盘口",
           "event_id": "7m:1360897",
+          "original_selection": null,
           "real_execution_allowed": false,
           "status": "REVALIDATION_UNAVAILABLE"
         },
         "model_state": "UNPRICEABLE",
-        "prediction_id": "58c11f8e85dac6eed87950abcc43",
-        "price_blind_input_fingerprint": "f531dc64edcaf63c6c4e9cec0447e292264615ce0bcc8cf75a69f617258c1944",
+        "prediction_id": "1a4c70e6625998c9fde4af924f64",
+        "price_blind_input_fingerprint": "e6c16a6e899519031026c607bc79a35324c2f08f28db92e8ecf0c0f24b2470a5",
         "real_bet_flag": false,
         "real_execution_allowed": false,
         "real_stake": 0,
@@ -3778,7 +3807,7 @@
       },
       "pricing": {
         "archive_type": "FORWARD_NATIVE",
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "blockers": [
           "INSUFFICIENT_PRE_CUTOFF_HISTORY"
         ],
@@ -3787,11 +3816,11 @@
         "history_exclusions": {
           "COMPETITION_MISMATCH": 698,
           "CONFLICTING_SCORE_FACT": 0,
-          "GENDER_MISMATCH": 1265,
+          "GENDER_MISMATCH": 1309,
           "HISTORY_TOO_OLD": 17
         },
         "injury_status": "UNKNOWN",
-        "input_fingerprint": "b1cbe85a3c4e2b6e10ad75dd4db6b0d5478df48cead745f524b0434adb7638a3",
+        "input_fingerprint": "a9f5e9ba621a0574c610b630901529504ba28372597e722c2c6739d4604479e0",
         "input_games": 0,
         "last_game_at": {
           "7m-team:734": null,
@@ -3829,7 +3858,7 @@
     {
       "archive_type": "FORWARD_NATIVE",
       "current_snapshot": {
-        "asof": "2026-09-16T23:18:46.080268+00:00",
+        "asof": "2026-09-16T23:21:26.887610+00:00",
         "event": {
           "age_group": "SENIOR",
           "bj_date": "2026-09-19",
@@ -3841,11 +3870,11 @@
           "gender": "WOMEN",
           "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
           "home_sign": 0,
-          "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\identity_1339240.raw",
+          "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\identity_1339240.raw",
           "identity_verified": true,
           "league": "美国女子职业篮球联赛",
           "model_family": "CLUB_MATURE",
-          "observed_at": "2026-09-16T23:18:42.254127+00:00",
+          "observed_at": "2026-09-16T23:21:23.442469+00:00",
           "source": "7M",
           "source_event_id": "1339240",
           "source_time_raw": "2026,09,19,10,00,00",
@@ -3865,7 +3894,7 @@
         },
         "execution": {
           "archive_type": "FORWARD_NATIVE",
-          "asof": "2026-09-16T23:18:46.080268+00:00",
+          "asof": "2026-09-16T23:21:26.887610+00:00",
           "blockers": [
             "EXISTING_PAPER_ENTRY_NO_DUPLICATE"
           ],
@@ -3873,9 +3902,9 @@
             {
               "bookmaker": "S2",
               "market_type": "SPREAD",
-              "quote_id": "f431155a789876dad84615ec",
+              "quote_id": "dad8c0f00b064feb15327c89",
               "quote_state": {
-                "age_seconds": 7.236045,
+                "age_seconds": 5.572458,
                 "fresh_observation": true,
                 "paper_quote_eligible": true,
                 "raw_observation": true,
@@ -3886,9 +3915,9 @@
             {
               "bookmaker": "S2",
               "market_type": "TOTAL",
-              "quote_id": "f798bc93ecd3bcb70eddb38f",
+              "quote_id": "4bc722339c97a4f8782c7ce3",
               "quote_state": {
-                "age_seconds": 7.236045,
+                "age_seconds": 5.572458,
                 "fresh_observation": true,
                 "paper_quote_eligible": true,
                 "raw_observation": true,
@@ -3900,104 +3929,120 @@
           "comparison_ready": true,
           "comparison_rows": [
             {
-              "adverse_ev": -0.4864413908321045,
+              "adverse_ev": -0.4864431062704704,
               "bookmaker": "S2",
-              "conditional_edge": -0.256021784648476,
+              "conditional_edge": -0.25602268751077384,
               "decimal_odds": 1.9,
-              "ev": -0.3747298096883016,
+              "ev": -0.3747317189092443,
               "line": -12.5,
               "market_type": "SPREAD",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.6709104261517377,
+              "p_loss": 0.6709114310048654,
               "p_push": 0.0,
-              "p_win": 0.3290895738482623,
-              "quote_id": "f431155a789876dad84615ec",
+              "p_win": 0.3290885689951346,
+              "quote_id": "dad8c0f00b064feb15327c89",
               "research_edge_pass": false,
               "selection": "TEAM1"
             },
             {
-              "adverse_ev": 0.1524732083240692,
+              "adverse_ev": 0.15247526323442628,
               "bookmaker": "S2",
-              "conditional_edge": 0.08024905701266805,
+              "conditional_edge": 0.08025013854443497,
               "decimal_odds": 1.9,
-              "ev": 0.2747298096883015,
+              "ev": 0.2747317189092442,
               "line": 12.5,
               "market_type": "SPREAD",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.3290895738482623,
+              "p_loss": 0.3290885689951346,
               "p_push": 0.0,
-              "p_win": 0.6709104261517377,
-              "quote_id": "f431155a789876dad84615ec",
+              "p_win": 0.6709114310048654,
+              "quote_id": "dad8c0f00b064feb15327c89",
               "research_edge_pass": true,
               "selection": "TEAM2"
             },
             {
-              "adverse_ev": -0.05621983441169731,
+              "adverse_ev": -0.0562173112577381,
               "bookmaker": "S2",
-              "conditional_edge": -0.02958938653247223,
+              "conditional_edge": -0.02958805855670421,
               "decimal_odds": 1.9,
-              "ev": 0.08710153736649373,
+              "ev": 0.08710400992900985,
               "line": 161.5,
               "market_type": "TOTAL",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.427841296122898,
+              "p_loss": 0.42783999477420537,
               "p_push": 0.0,
-              "p_win": 0.572158703877102,
-              "quote_id": "f798bc93ecd3bcb70eddb38f",
+              "p_win": 0.5721600052257947,
+              "quote_id": "4bc722339c97a4f8782c7ce3",
               "research_edge_pass": false,
               "selection": "OVER"
             },
             {
-              "adverse_ev": -0.33874259382075655,
+              "adverse_ev": -0.33874486447500796,
               "bookmaker": "S2",
-              "conditional_edge": -0.182119674097181,
+              "conditional_edge": -0.1821208948790366,
               "decimal_odds": 1.8599999999999999,
-              "ev": -0.20421518921140974,
+              "ev": -0.2042176097199781,
               "line": 161.5,
               "market_type": "TOTAL",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.572158703877102,
+              "p_loss": 0.5721600052257947,
               "p_push": 0.0,
-              "p_win": 0.427841296122898,
-              "quote_id": "f798bc93ecd3bcb70eddb38f",
+              "p_win": 0.42783999477420537,
+              "quote_id": "4bc722339c97a4f8782c7ce3",
               "research_edge_pass": false,
               "selection": "UNDER"
             }
           ],
           "display_action": "观察",
-          "ev": 0.2747298096883015,
+          "ev": 0.2747317189092442,
           "event_id": "7m:1339240",
           "feature_isolation_verified": true,
-          "forecast_fingerprint": "5db35d74cdbad0619ecb8c1e709e1159d84f08a40d6e97b7ec8b939b6a9b85c0",
+          "forecast_fingerprint": "81d56a8fc799707b48097c63d498e29a65a6fbfea7b5675067ec55dffdcf4c5e",
           "kelly_usable": false,
           "market_revalidation": {
             "blockers": [],
-            "checked_at": "2026-09-16T23:18:46.080268+00:00",
+            "checked_at": "2026-09-16T23:21:26.887610+00:00",
             "comparison_ready": true,
             "current_selected": {
-              "adverse_ev": 0.1524732083240692,
+              "adverse_ev": 0.15247526323442628,
               "bookmaker": "S2",
-              "conditional_edge": 0.08024905701266805,
+              "conditional_edge": 0.08025013854443497,
               "decimal_odds": 1.9,
-              "ev": 0.2747298096883015,
+              "ev": 0.2747317189092442,
               "line": 12.5,
               "market_type": "SPREAD",
               "ot_rule": "INCLUDING_OT",
-              "p_loss": 0.3290895738482623,
+              "p_loss": 0.3290885689951346,
               "p_push": 0.0,
-              "p_win": 0.6709104261517377,
-              "quote_id": "f431155a789876dad84615ec",
+              "p_win": 0.6709114310048654,
+              "quote_id": "dad8c0f00b064feb15327c89",
               "research_edge_pass": true,
               "selection": "TEAM2"
             },
-            "display": "按本轮新鲜同规则盘口，仍符合纸面条件",
+            "display": "原纸面方向按本轮同公司、同规则报价仍符合纸面条件",
             "event_id": "7m:1339240",
+            "original_selection": {
+              "adverse_ev": 0.14975565515733247,
+              "bookmaker": "S2",
+              "conditional_edge": 0.07881876587228032,
+              "decimal_odds": 1.9,
+              "ev": 0.2722039897166231,
+              "line": 12.5,
+              "market_type": "SPREAD",
+              "ot_rule": "INCLUDING_OT",
+              "p_loss": 0.33041895278072464,
+              "p_push": 0.0,
+              "p_win": 0.6695810472192754,
+              "quote_id": "4a9cf858c3cd52b29751bbca",
+              "research_edge_pass": true,
+              "selection": "TEAM2"
+            },
             "real_execution_allowed": false,
             "status": "STILL_QUALIFIES"
           },
           "model_state": "EDGE",
-          "prediction_id": "beb7525b6f742c1c7f90f0540b97",
-          "price_blind_input_fingerprint": "df20d2438b0915811b25862fb45fb901f2e41282f6bef50367df1fbc3a00dc8b",
+          "prediction_id": "da84555a6bc8d839c2b99f9d4e70",
+          "price_blind_input_fingerprint": "fd9c4dc90841c80ca9b90b406a694e50a3694c6b41e1a5d2ba6c1572897a8351",
           "prior_entry_ids": [
             "89d2ab8437518ac6c9651fbd47ac"
           ],
@@ -4005,18 +4050,18 @@
           "real_execution_allowed": false,
           "real_stake": 0,
           "selected": {
-            "adverse_ev": 0.1524732083240692,
+            "adverse_ev": 0.15247526323442628,
             "bookmaker": "S2",
-            "conditional_edge": 0.08024905701266805,
+            "conditional_edge": 0.08025013854443497,
             "decimal_odds": 1.9,
-            "ev": 0.2747298096883015,
+            "ev": 0.2747317189092442,
             "line": 12.5,
             "market_type": "SPREAD",
             "ot_rule": "INCLUDING_OT",
-            "p_loss": 0.3290895738482623,
+            "p_loss": 0.3290885689951346,
             "p_push": 0.0,
-            "p_win": 0.6709104261517377,
-            "quote_id": "f431155a789876dad84615ec",
+            "p_win": 0.6709114310048654,
+            "quote_id": "dad8c0f00b064feb15327c89",
             "research_edge_pass": true,
             "selection": "TEAM2"
           },
@@ -4026,7 +4071,7 @@
         "market": {
           "quote_states": [
             {
-              "age_seconds": 7.236045,
+              "age_seconds": 5.572458,
               "fresh_observation": true,
               "paper_quote_eligible": true,
               "raw_observation": true,
@@ -4034,7 +4079,7 @@
               "ttl_seconds": 3600
             },
             {
-              "age_seconds": 7.236045,
+              "age_seconds": 5.572458,
               "fresh_observation": true,
               "paper_quote_eligible": true,
               "raw_observation": true,
@@ -4060,21 +4105,21 @@
               "line_team1": -12.5,
               "main_or_alt": "MAIN",
               "market_type": "SPREAD",
-              "observed_at": "2026-09-16T23:18:38.844223+00:00",
+              "observed_at": "2026-09-16T23:21:21.315152+00:00",
               "ot_rule": "INCLUDING_OT",
               "period": "FULL_GAME",
               "price_format": "HK",
               "price_format_verified": true,
-              "quote_id": "f431155a789876dad84615ec",
+              "quote_id": "dad8c0f00b064feb15327c89",
               "raw_line": 12.5,
-              "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\odds_company_1.raw",
+              "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\odds_company_1.raw",
               "raw_prices": [
                 0.9,
                 0.9
               ],
-              "raw_sha256": "fda044555acaab269bf6644dbb91825c736619a508dfac50d4f74840ecce86af",
+              "raw_sha256": "60935750a9f423a4ebf51445b0d9ce906ee3ca48ec61c1472bb7f2779e16b363",
               "raw_verified": true,
-              "received_at": "2026-09-16T23:18:38.844223+00:00",
+              "received_at": "2026-09-16T23:21:21.315152+00:00",
               "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
               "selector_id": "1",
               "source_array": [
@@ -4112,21 +4157,21 @@
               "line_team1": null,
               "main_or_alt": "MAIN",
               "market_type": "TOTAL",
-              "observed_at": "2026-09-16T23:18:38.844223+00:00",
+              "observed_at": "2026-09-16T23:21:21.315152+00:00",
               "ot_rule": "INCLUDING_OT",
               "period": "FULL_GAME",
               "price_format": "HK",
               "price_format_verified": true,
-              "quote_id": "f798bc93ecd3bcb70eddb38f",
+              "quote_id": "4bc722339c97a4f8782c7ce3",
               "raw_line": 161.5,
-              "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T231838_10c9d694b1\\odds_company_1.raw",
+              "raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20260916T232120_adc92b471e\\odds_company_1.raw",
               "raw_prices": [
                 0.9,
                 0.86
               ],
-              "raw_sha256": "fda044555acaab269bf6644dbb91825c736619a508dfac50d4f74840ecce86af",
+              "raw_sha256": "60935750a9f423a4ebf51445b0d9ce906ee3ca48ec61c1472bb7f2779e16b363",
               "raw_verified": true,
-              "received_at": "2026-09-16T23:18:38.844223+00:00",
+              "received_at": "2026-09-16T23:21:21.315152+00:00",
               "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
               "selector_id": "1",
               "source_array": [
@@ -4150,26 +4195,26 @@
         },
         "pricing": {
           "archive_type": "FORWARD_NATIVE",
-          "asof": "2026-09-16T23:18:46.080268+00:00",
+          "asof": "2026-09-16T23:21:26.887610+00:00",
           "blockers": [],
           "competition_match_methods": {
             "CANONICAL_SOURCE_LABEL": 155,
             "EXACT_SOURCE_ID": 31
           },
           "effective_weight": {
-            "7m-team:8664": 14.844006060211203,
-            "7m-team:8982": 15.274208024438924
+            "7m-team:8664": 14.843793283989415,
+            "7m-team:8982": 15.273989081637293
           },
           "event_id": "7m:1339240",
-          "fair_spread_text": "金州女武神 让 7.12955 分（-7.12955）",
+          "fair_spread_text": "金州女武神 让 7.12952 分（-7.12952）",
           "history_exclusions": {
             "COMPETITION_MISMATCH": 177,
             "CONFLICTING_SCORE_FACT": 0,
-            "GENDER_MISMATCH": 1265,
+            "GENDER_MISMATCH": 1309,
             "HISTORY_TOO_OLD": 352
           },
           "injury_status": "UNKNOWN",
-          "input_fingerprint": "7736425899d1c3b1b2fe5ece8fdb65b9c293fabd4a0ae0999f9c54adb08b2953",
+          "input_fingerprint": "e1d9229afe9d072f84352fec3308022e214b3e22716633cb31b9af9097e02e1d",
           "input_games": 186,
           "last_game_at": {
             "7m-team:8664": "2026-08-30T23:00:00+00:00",
@@ -4184,8 +4229,8 @@
           ],
           "mu_blended": null,
           "mu_market": null,
-          "mu_raw": 7.129552691501544,
-          "mu_structural": 7.129552691501544,
+          "mu_raw": 7.129520188100779,
+          "mu_structural": 7.129520188100779,
           "paper_model_eligible": true,
           "pricing_data_quality": 60,
           "pricing_status": "PRICED_LOW_CONFIDENCE",
@@ -4195,29 +4240,29 @@
           "scenarios": {
             "INCLUDING_OT": {
               "df": 7,
-              "mu_margin": 7.129552691501544,
-              "mu_total": 164.37064339627503,
+              "mu_margin": 7.129520188100779,
+              "mu_total": 164.37069587285168,
               "score_rule": "INCLUDING_OT",
               "sd_margin": 13,
               "sd_total": 18,
-              "team1_points": 85.75009804388829,
-              "team2_points": 78.62054535238674
+              "team1_points": 85.75010803047623,
+              "team2_points": 78.62058784237546
             },
             "REGULATION_ONLY": {
               "df": 7,
-              "mu_margin": 7.126575123108042,
-              "mu_total": 164.4478872278393,
+              "mu_margin": 7.126542651174717,
+              "mu_total": 164.4479373239773,
               "score_rule": "REGULATION_ONLY",
               "sd_margin": 13,
               "sd_total": 18,
-              "team1_points": 85.78723117547366,
-              "team2_points": 78.66065605236562
+              "team1_points": 85.78723998757602,
+              "team2_points": 78.66069733640128
             }
           },
           "score_contract": "INCLUDING_OT",
           "structured_method": "SCORE_RIDGE_NO_QUALITY_MULTIPLIER",
-          "team1_points": 85.75009804388829,
-          "team2_points": 78.62054535238674,
+          "team1_points": 85.75010803047623,
+          "team2_points": 78.62058784237546,
           "team_game_counts": {
             "7m-team:8664": 21,
             "7m-team:8982": 22
@@ -4228,8 +4273,8 @@
           },
           "total_blended": null,
           "total_market": null,
-          "total_raw": 164.37064339627503,
-          "total_structural": 164.37064339627503,
+          "total_raw": 164.37069587285168,
+          "total_structural": 164.37069587285168,
           "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR",
           "used_history_ids": [
             "7m:1297345",
@@ -4596,7 +4641,7 @@
       "first_write_preserved": true,
       "generation": "REPAIR_V22",
       "id": "7m:1339240",
-      "last_refresh_asof": "2026-09-16T23:18:46.080268+00:00",
+      "last_refresh_asof": "2026-09-16T23:21:26.887610+00:00",
       "market": {
         "quote_states": [
           {
@@ -5006,7 +5051,7 @@
     "raw_verified_market_events": 3,
     "research_coupled_events": 3
   },
-  "generated_at": "2026-09-16T23:18:51.829295+00:00",
+  "generated_at": "2026-09-16T23:21:35.111891+00:00",
   "message": "实时运行；低置信度研究定价不等于可投。",
   "real_execution_allowed": false,
   "schema_version": "basketball-dashboard-2.2"
