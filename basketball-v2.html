@@ -30,7 +30,9 @@ render=function(d){renderWithSettlement(d);const visible=(d.events||[]).filter(r
  const old=card.querySelector('details > summary');if(old)old.textContent='首写盘口证据（回测依据，不代表当前盘口）';
  const panel=document.createElement('section');panel.className='current-market';
  const qs=c.market?.quotes||[], states=c.market?.quote_states||[], fresh=states.some(s=>s.fresh_observation);
- panel.innerHTML='<h3>本轮实际盘口</h3><p class="sub">本轮截止：'+esc(c.asof)+' ｜ '+(fresh?'存在通过时效检查的报价':'暂无通过时效检查的报价，不使用首写盘口代替')+'</p>'+(qs.length?'<div class="tablewrap"><table><thead><tr><th>公司</th><th>当前盘口</th><th>双方赔率</th><th>主/替代盘</th><th>源报价时间</th><th>本轮接收时间</th></tr></thead><tbody>'+qs.map(q=>'<tr><td>'+esc(q.bookmaker||q.bookmaker_id)+'</td><td>'+quoteLabel(c.event,q)+'</td><td>'+priceLabel(q)+'</td><td>'+esc(q.main_or_alt)+'</td><td>'+esc(q.source_quote_at)+'</td><td>'+esc(q.received_at)+'</td></tr>').join('')+'</tbody></table></div>':'<p>本轮未获取同场盘口；首写纸面单继续保留跟踪。</p>');
+ const rv=c.execution?.market_revalidation||{};
+ const rvText={STILL_QUALIFIES:'仍符合纸面条件',NO_LONGER_QUALIFIES:'本轮不再符合纸面条件',REVALIDATION_UNAVAILABLE:'本轮无法复核',EVENT_STARTED:'比赛已开始，进入结算跟踪'}[rv.status]||'本轮复核状态未提供';
+ panel.innerHTML='<h3>本轮实际盘口与纸面复核</h3><p><strong>复核结论：</strong>'+esc(rvText)+'</p><p class="sub">'+esc(rv.display||'')+' ｜ 本轮截止：'+esc(c.asof)+' ｜ '+(fresh?'存在通过时效检查的报价':'暂无通过时效检查的报价，不使用首写盘口代替')+'</p>'+(rv.current_selected?'<p><strong>本轮比较方向：</strong>'+selectionLabel(c.event,rv.current_selected)+'</p>':'')+(qs.length?'<div class="tablewrap"><table><thead><tr><th>公司</th><th>当前盘口</th><th>双方赔率</th><th>主/替代盘</th><th>源报价时间</th><th>本轮接收时间</th></tr></thead><tbody>'+qs.map(q=>'<tr><td>'+esc(q.bookmaker||q.bookmaker_id)+'</td><td>'+quoteLabel(c.event,q)+'</td><td>'+priceLabel(q)+'</td><td>'+esc(q.main_or_alt)+'</td><td>'+esc(q.source_quote_at)+'</td><td>'+esc(q.received_at)+'</td></tr>').join('')+'</tbody></table></div>':'<p>本轮未获取同场盘口；首写纸面单继续保留跟踪。</p>');
  card.insertBefore(panel,grid);
  });};
 </script></html>
