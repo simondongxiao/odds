@@ -24,6 +24,7 @@ const renderWithSettlement=render;
 render=function(d){renderWithSettlement(d);const visible=(d.events||[]).filter(r=>currentFilter!=='PAPER_BETTABLE'||(r.execution&&r.execution.shadow_action==='SHADOW_BET'&&r.execution.triggered===true));document.querySelectorAll('#rows > .card').forEach((card,i)=>{
  const r=visible[i], c=r?.current_snapshot;if(!c)return;
  const grid=card.querySelector('.grid');if(!grid)return;
+ const badge=card.querySelector('.badge');if(badge)badge.textContent+='（首写记录）';
  grid.querySelectorAll('h3').forEach(h=>h.textContent='首写纸面记录 · '+h.textContent);
  grid.innerHTML=grid.innerHTML.replace('实际盘口：</strong>','首写盘口：</strong>');
  const old=card.querySelector('details > summary');if(old)old.textContent='首写盘口证据（回测依据，不代表当前盘口）';
