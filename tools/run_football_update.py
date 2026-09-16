@@ -537,6 +537,79 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
     return v3_path, v4_path
 
 
+def command_json(stdout: str) -> dict[str, Any]:
+    """Read the final JSON object emitted by a helper command."""
+    for line in reversed((stdout or "").splitlines()):
+        text = line.strip()
+        if not text:
+            continue
+        try:
+            value = json.loads(text)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict):
+            return value
+    return {}
+
+
+def backfill_previous_v4_settlement(previous_date: str, performance_result: dict[str, Any], run_at: dt.datetime) -> dict[str, Any]:
+    """Append prior-day result fields while asserting V4 grades are immutable."""
+    result_payload = command_json(str(performance_result.get("stdout", "")))
+    csv_path = Path(str(result_payload.get("csv", "")))
+    if not csv_path.exists():
+        return {"ok": False, "status": "V4_SETTLEMENT_BACKFILL_MISSING", "reason": "settlement CSV missing", "csv": str(csv_path)}
+    with csv_path.open(encoding="utf-8-sig", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    v4_results = {str(row.get("match_id", "")): row for row in rows if row.get("version") == "V4_SHADOW"}
+    targets = [
+        ROOT / "v4" / "outputs" / f"v4_decisions_{previous_date}.json",
+        ROOT / "v4" / "dashboard" / "data" / f"{previous_date}.json",
+    ]
+    target_paths = [path for path in targets if path.exists()]
+    if not target_paths:
+        return {"ok": False, "status": "V4_SETTLEMENT_BACKFILL_MISSING", "reason": "frozen V4 date data missing", "csv": str(csv_path)}
+
+    grade_before: dict[str, Any] = {}
+    updated = 0
+    settled = 0
+    for path in target_paths:
+        payload = read_json(path, {}) or {}
+        matches = payload.get("matches", []) or []
+        grade_before = {str(row.get("match_id", "")): row.get("grade") for row in matches}
+        for row in matches:
+            match_id = str(row.get("match_id", ""))
+            settlement = v4_results.get(match_id)
+            if not settlement:
+                continue
+            frozen_grade = row.get("grade")
+            reported_grade = settlement.get("grade", "")
+            if reported_grade and str(frozen_grade or "") != str(reported_grade):
+                return {"ok": False, "status": "V4_GRADE_IMMUTABILITY_ERROR", "reason": f"grade changed for {match_id}", "csv": str(csv_path)}
+            post = {
+                "score": settlement.get("score", ""),
+                "result": settlement.get("result", ""),
+                "pnl_1u": settlement.get("pnl_1u", ""),
+                "settlement_status": settlement.get("settlement_status", ""),
+                "result_state": settlement.get("result_state", ""),
+                "result_source": settlement.get("result_source", ""),
+                "settlement_updated_at": run_at.isoformat(),
+            }
+            row.update(post)
+            row["settlement"] = {
+                "score": post["score"], "result": post["result"], "pnl_1u": post["pnl_1u"],
+                "status": post["settlement_status"], "result_state": post["result_state"],
+                "source": post["result_source"], "updated_at": post["settlement_updated_at"],
+            }
+            updated += 1
+            if settlement.get("result") in {"W", "HW", "P", "HL", "L"}:
+                settled += 1
+        grade_after = {str(row.get("match_id", "")): row.get("grade") for row in matches}
+        if grade_after != grade_before:
+            return {"ok": False, "status": "V4_GRADE_IMMUTABILITY_ERROR", "reason": f"grade map changed while writing {path}", "csv": str(csv_path)}
+        write_json(path, payload)
+    return {"ok": True, "status": "V4_SETTLEMENT_BACKFILLED", "csv": str(csv_path), "targets": [str(path) for path in target_paths], "rows_updated": updated, "settled_rows": settled, "grade_unchanged": True}
+
+
 def num(value: Any) -> float | None:
     try:
         return float(value)
@@ -654,7 +727,7 @@ def write_refresh_report(list_date: str, run_id: str, run_at: dt.datetime, raw_p
     return path
 
 
-def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path) -> None:
+def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settlement_date: str = "") -> None:
     public = OUT / "github_publish" / "odds"
     public.mkdir(parents=True, exist_ok=True)
     copies = [
@@ -677,6 +750,14 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path) -> None:
     v4_out = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
     if v4_out.exists():
         shutil.copy2(v4_out, public / "v4" / "data" / f"{list_date}.json")
+    # Keep the prior day's V4 page data in sync with the append-only
+    # settlement backfill; this copies result fields only, never decisions.
+    if settlement_date:
+        prior_v4 = ROOT / "v4" / "dashboard" / "data" / f"{settlement_date}.json"
+        if prior_v4.exists():
+            destination = public / "v4" / "data" / prior_v4.name
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(prior_v4, destination)
     for source in (two_side_audit_path for two_side_audit_path in (OUT / "v4_shadow").glob(f"*_{run_dir.name}.*")):
         destination = public / "v4" / "shadow" / source.name
         destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
@@ -793,7 +874,16 @@ def main() -> int:
         [str(PYTHON), str(ROOT / "tools" / "write_dual_yesterday_performance.py"), "--list-date", yesterday, "--raw-csv", str(raw_path)],
         env, logs / "yesterday_performance.log", 300,
     )
+    yesterday_v4_backfill = {
+        "ok": False,
+        "status": "V4_SETTLEMENT_BACKFILL_NOT_RUN",
+        "reason": "yesterday performance command failed",
+    }
+    if yesterday_performance.get("returncode") == 0:
+        yesterday_v4_backfill = backfill_previous_v4_settlement(yesterday, yesterday_performance, run_at)
     run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+    run_manifest["steps"]["v4_settlement_backfill"] = yesterday_v4_backfill
+    run_manifest["artifacts"]["v4_settlement_backfill_targets"] = yesterday_v4_backfill.get("targets", [])
     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
     report_path = write_refresh_report(list_date, run_id, run_at, raw_path, metrics, run_dir / "decision_comparison.csv", review_md, two_side_csv, context_path, fetch_result)
     run_manifest["artifacts"]["manual_refresh_report"] = str(report_path)
@@ -802,16 +892,16 @@ def main() -> int:
     write_json(run_dir / "merged_dashboard_date.json", merged)
     publish_result = {"pushed": False, "skipped": True}
     if not args.no_publish:
-        copy_publish_assets(list_date, date_path, run_dir)
+        copy_publish_assets(list_date, date_path, run_dir, yesterday if yesterday_v4_backfill.get("ok") else "")
         publish_result = publish()
     commit = ""
     repo = OUT / "github_publish" / "odds"
     if (repo / ".git").exists():
         git = subprocess.run(["git", "-C", str(repo), "rev-parse", "--short", "HEAD"], text=True, capture_output=True, encoding="utf-8", errors="replace")
         commit = git.stdout.strip()
-    run_manifest["publish"] = publish_result; run_manifest["git_commit_short"] = commit; run_manifest["status"] = "COMPLETE" if v3_result.get("returncode") == 0 and v4_result.get("returncode") == 0 else "PARTIAL"
+    run_manifest["publish"] = publish_result; run_manifest["git_commit_short"] = commit; run_manifest["status"] = "COMPLETE" if v3_result.get("returncode") == 0 and v4_result.get("returncode") == 0 and yesterday_v4_backfill.get("ok") else "PARTIAL"
     write_json(run_dir / "run_manifest.json", run_manifest); write_json(latest_path, {"run": run_manifest, "v3": bridge, "v4": v4, "comparison_csv": str(comparison_path)})
-    print(json.dumps({"run_id": run_id, "list_date": list_date, "raw": len(current_rows), "v3_computed": metrics["v3_computed"], "v3_bettable": metrics["v3_bettable"], "v3_half": metrics["v3_half"], "v3_no_bet": metrics["v3_no_bet"], "v4_computed": metrics["v4_computed"], "v4_A": metrics["v4_A"], "v4_B": metrics["v4_B"], "v4_C": metrics["v4_C"], "v4_N": metrics["v4_N"], "v4_neutral": metrics["v4_neutral"], "v4_missing": metrics["v4_missing"], "v4_not_prematch": metrics.get("v4_not_prematch", 0), "git_commit_short": commit, "publish": publish_result, "run_dir": str(directory), "comparison": str(comparison_path), "dashboard": str(current_path)}, ensure_ascii=False))
+    print(json.dumps({"run_id": run_id, "list_date": list_date, "raw": len(current_rows), "v3_computed": metrics["v3_computed"], "v3_bettable": metrics["v3_bettable"], "v3_half": metrics["v3_half"], "v3_no_bet": metrics["v3_no_bet"], "v4_computed": metrics["v4_computed"], "v4_A": metrics["v4_A"], "v4_B": metrics["v4_B"], "v4_C": metrics["v4_C"], "v4_N": metrics["v4_N"], "v4_neutral": metrics["v4_neutral"], "v4_missing": metrics["v4_missing"], "v4_not_prematch": metrics.get("v4_not_prematch", 0), "v4_settlement_backfill": yesterday_v4_backfill, "git_commit_short": commit, "publish": publish_result, "run_dir": str(directory), "comparison": str(comparison_path), "dashboard": str(current_path)}, ensure_ascii=False))
     return 0 if run_manifest["status"] == "COMPLETE" else 1
 
 
