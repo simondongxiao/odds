@@ -850,6 +850,29 @@ def main() -> int:
         v3_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "build_football_daily_update.py"), "--no-publish"], env, logs / "v3_daily.log", 1200)
         v3_html = V3_OUT / "dashboard" / "index.html"
         freeze_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "run_v3_legacy_daily_freeze.py"), list_date, "--html", str(v3_html)], env, logs / "v3_freeze.log", 600)
+        freeze_paths = sorted(
+            (V3_OUT / "ledger").glob(f"v3_legacy_decision_freeze_{list_date}_*.csv"),
+            key=lambda path: path.stat().st_mtime,
+            reverse=True,
+        )
+        if freeze_result.get("returncode") == 0 and freeze_paths:
+            v3_apply_freeze = run_command(
+                [
+                    str(PYTHON),
+                    str(V3_ROOT / "tools" / "apply_v3_legacy_freeze_to_dashboard.py"),
+                    list_date,
+                    "--html", str(v3_html),
+                    "--freeze", str(freeze_paths[0]),
+                ],
+                env,
+                logs / "v3_apply_freeze.log",
+                300,
+            )
+        else:
+            v3_apply_freeze = {
+                "returncode": 1,
+                "reason": "V3_FREEZE_MISSING",
+            }
     bridge_path = ROOT / "bridge" / "v3_production" / f"{list_date}.json"
     bridge = dict(old_v3) if historical_decision_locked else preserve_started_bridge(bridge_path, old_v3, run_at)
     bridge["run_id"] = run_id; bridge["raw_snapshot_id"] = raw_path.stem; bridge["odds_cutoff"] = raw_path.stem.split("_titan007", 1)[0]; bridge["decision_version_path"] = str(run_dir / "v3_decisions.json")
@@ -894,7 +917,7 @@ def main() -> int:
     }
     if yesterday_performance.get("returncode") == 0:
         yesterday_v4_backfill = backfill_previous_v4_settlement(yesterday, yesterday_performance, run_at)
-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v3_apply_freeze": v3_apply_freeze if not historical_decision_locked else {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
     run_manifest["steps"]["v4_settlement_backfill"] = yesterday_v4_backfill
     run_manifest["artifacts"]["v4_settlement_backfill_targets"] = yesterday_v4_backfill.get("targets", [])
     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})

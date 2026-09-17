@@ -5,6 +5,7 @@ import argparse
 import csv
 import datetime as dt
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(r"D:\codex")
@@ -54,6 +55,31 @@ def main():
                         if old.get(key) != index[mid].get(key):
                             errors.append(f"{version}: started {mid} changed {key}")
         checks[version] = {"roster": len(rows), "started_compared": locked}
+        if version == "V3":
+            html_path = ROOT / "v3_legacy/outputs/football_odds_trader/dashboard/index.html"
+            text = html_path.read_text(encoding="utf-8")
+            card_match = re.search(
+                r"const cardsData = (.*?);\r?\n(?:cardsData\.forEach|const stats)",
+                text,
+                re.S,
+            )
+            if not card_match:
+                errors.append("V3: dashboard cards payload missing")
+            else:
+                cards = json.loads(card_match.group(1))
+                today_cards = [card for card in cards if str(card.get("date", "")) == manifest["list_date"]]
+                frozen_cards = [card for card in today_cards if card.get("frozen_bettable")]
+                bridge_picks = [row for row in rows if row.get("action") in {"可投", "半仓可投"}]
+                if len(frozen_cards) != len(bridge_picks):
+                    errors.append(
+                        f"V3: dashboard frozen count {len(frozen_cards)} != bridge picks {len(bridge_picks)}"
+                    )
+                if any(not card.get("frozen_bettable_team") for card in frozen_cards):
+                    errors.append("V3: frozen dashboard pick missing selected team")
+                checks[version].update({
+                    "dashboard_rows": len(today_cards),
+                    "dashboard_frozen_bettable": len(frozen_cards),
+                })
         if version == "V4":
             counts = {g: sum(r.get("grade") == g for r in rows) for g in "ABCN"}
             assert sum(counts.values()) == current["summary"]["computed"]
@@ -81,7 +107,10 @@ def main():
     checks["settlements_checked"] = checked
     checks["yesterday"] = payload
     checks["errors"] = errors
-    checks["pass"] = not errors and all(manifest["steps"][k]["returncode"] == 0 for k in ("v3_daily", "v3_freeze", "v4_shadow", "yesterday_performance")) and manifest["fetch"].get("returncode") == 0
+    required_steps = ("v3_daily", "v3_freeze", "v4_shadow", "yesterday_performance")
+    if "v3_apply_freeze" in manifest["steps"]:
+        required_steps += ("v3_apply_freeze",)
+    checks["pass"] = not errors and all(manifest["steps"][k]["returncode"] == 0 for k in required_steps) and manifest["fetch"].get("returncode") == 0
     path = args.run_dir / "delivery_verification.json"
     path.write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(checks, ensure_ascii=False))
