@@ -1756,7 +1756,7 @@
         "total_model_status": "EXPERIMENTAL_DIAGNOSTIC_ONLY"
       }
     ],
-    "generated_at": "2026-09-17T12:38:14.615407+00:00",
+    "generated_at": "2026-09-17T12:42:41.461361+00:00",
     "migration": {
       "canonical_execution_records": 22,
       "canonical_signal_records": 49,
@@ -21478,18 +21478,18 @@
     }
   ],
   "funnel": {
-    "blocked_events": 32,
-    "comparable_events": 6,
-    "events": 38,
-    "fresh_market_events": 14,
-    "independent_priceable_events": 6,
-    "market_observed_events": 21,
-    "paper_bettable": 6,
-    "paper_triggered_events": 6,
-    "raw_verified_market_events": 21,
-    "research_coupled_events": 6
+    "blocked_events": 37,
+    "comparable_events": 0,
+    "events": 37,
+    "fresh_market_events": 8,
+    "independent_priceable_events": 0,
+    "market_observed_events": 15,
+    "paper_bettable": null,
+    "paper_triggered_events": 0,
+    "raw_verified_market_events": 15,
+    "research_coupled_events": 0
   },
-  "generated_at": "2026-09-17T12:38:14.657111+00:00",
+  "generated_at": "2026-09-17T12:42:41.502424+00:00",
   "message": "实时运行；低置信度研究定价不等于可投。",
   "real_execution_allowed": false,
   "schema_version": "basketball-dashboard-2.2"
