@@ -1,0 +1,55 @@
+{
+  "list_date": "2026-09-18",
+  "model_version": "v4.2-independent-market-shadow",
+  "context_version": "V4_CONTEXT_R1",
+  "promotion_status": "NOT_PROMOTED",
+  "real_money": false,
+  "feature_coverage": {
+    "devig_euro": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    },
+    "asian_line_move": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    },
+    "asian_water_move": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    },
+    "euro_probability_move": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    },
+    "totals": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    },
+    "time_to_kickoff": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    },
+    "quote_age": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    },
+    "competition": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    },
+    "side_identity": {
+      "present": 0,
+      "total": 438,
+      "share": 0.0
+    }
+  },
+  "reason": "Independent shadow contract only; no probability or A/B/C/N is promoted without chronological OOS training and validation."
+}
