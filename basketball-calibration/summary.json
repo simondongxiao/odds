@@ -19,10 +19,10 @@
   "spread_execution_total": {
     "migration": {
       "canonical_execution_records": 22,
-      "canonical_signal_records": 50,
+      "canonical_signal_records": 51,
       "policy": "Earliest valid first-write per canonical event and market is the only statistical sample; later captures remain audit evidence.",
-      "raw_first_write_records_found": 317,
-      "repeat_capture_records_excluded_from_statistics": 267,
+      "raw_first_write_records_found": 365,
+      "repeat_capture_records_excluded_from_statistics": 314,
       "repeat_execution_records_excluded_from_statistics": 0
     },
     "model_validation": {
@@ -45,10 +45,10 @@
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
       "signal_hit_rate_ex_push": 0.7142857142857143,
       "signal_losses": 2,
-      "signal_pending": 24,
+      "signal_pending": 25,
       "signal_pushes": 0,
       "signal_wins": 5,
-      "signals": 31
+      "signals": 32
     },
     "spread_signal_layer": {
       "executed": 17,
@@ -61,10 +61,10 @@
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
       "signal_hit_rate_ex_push": 0.7142857142857143,
       "signal_losses": 2,
-      "signal_pending": 24,
+      "signal_pending": 25,
       "signal_pushes": 0,
       "signal_wins": 5,
-      "signals": 31
+      "signals": 32
     },
     "total_diagnostic_layer": {
       "bias_conclusion": "INSUFFICIENT_FORWARD_NATIVE_SAMPLE",
