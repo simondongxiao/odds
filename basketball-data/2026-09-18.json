@@ -22796,6 +22796,24 @@
           "7m:1339231",
           "7m:1339232"
         ]
+      },
+      "settlement": {
+        "archive_type": "FORWARD_NATIVE",
+        "close": null,
+        "close_reason": "NO_VERIFIED_CLOSE_SNAPSHOT",
+        "clv": null,
+        "event_id": "7m:1339234",
+        "outcome": "WIN",
+        "outcome_raw_sha256": "82c755b64a37054646d20e0c67cf251ec99ef64a9c77f60a960c769bbb61ee88",
+        "paper_pnl": 0.9199999999999999,
+        "paper_units": 1,
+        "prediction_id": "ff409fbe06d986254bbc7ee875b0",
+        "real_execution_allowed": false,
+        "real_stake": 0,
+        "score1": 80,
+        "score2": 110,
+        "score_rule": "INCLUDING_OT",
+        "settled_at": "2026-09-19T00:38:15.223789+00:00"
       }
     },
     {
@@ -23995,6 +24013,24 @@
           "7m:1339231",
           "7m:1339232"
         ]
+      },
+      "settlement": {
+        "archive_type": "FORWARD_NATIVE",
+        "close": null,
+        "close_reason": "NO_VERIFIED_CLOSE_SNAPSHOT",
+        "clv": null,
+        "event_id": "7m:1339235",
+        "outcome": "LOSS",
+        "outcome_raw_sha256": "7b5e939c14232e80c1201d739266d29c503f54385ca6133a7f12a98b45cc3fb5",
+        "paper_pnl": -1,
+        "paper_units": 1,
+        "prediction_id": "9eabab6a113c2884ea0f17a778b2",
+        "real_execution_allowed": false,
+        "real_stake": 0,
+        "score1": 97,
+        "score2": 77,
+        "score_rule": "INCLUDING_OT",
+        "settled_at": "2026-09-19T00:38:15.223789+00:00"
       }
     },
     {
