@@ -24,6 +24,7 @@ if not args.push:print(canonical({'staged_copy':str(dest),'existing_page_files_u
 git('add','--','v41')
 staged=git('diff','--cached','--name-only');assert all(s.startswith('v41/') for s in staged.splitlines())
 if staged:git('commit','-m','Add isolated V4.1_R1 Shadow challenger and paired forward comparison')
-git('-c','http.proxy=http://127.0.0.1:16780','-c','http.sslVerify=true','push','origin','gh-pages')
-commit=git('rev-parse','HEAD');remote=git('-c','http.proxy=http://127.0.0.1:16780','-c','http.sslVerify=true','ls-remote','origin','refs/heads/gh-pages').split()[0];assert remote==commit
+proxy=os.environ.get('V41_HTTP_PROXY','')
+git('-c','http.proxy='+proxy,'-c','http.sslVerify=true','push','origin','gh-pages')
+commit=git('rev-parse','HEAD');remote=git('-c','http.proxy='+proxy,'-c','http.sslVerify=true','ls-remote','origin','refs/heads/gh-pages').split()[0];assert remote==commit
 write(ROOT/'diagnostics/push_receipt.json',{'commit':commit,'remote_commit':remote,'old_page_files_unchanged':len(before),'pushed_at':now().isoformat()});print(canonical({'commit':commit,'remote_matches':True,'old_page_files_unchanged':len(before)}))
