@@ -11,7 +11,7 @@ details{background:#fff;border:1px solid var(--soft);margin-top:10px}details sum
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.model-card{background:#fff;border:1px solid var(--soft)}.model-card h2{margin:0;padding:8px 11px;background:var(--head);color:#fff;font-size:15px}.model-card .metrics{padding:0 10px}.model-card .metric b{font-size:18px}.compact table{min-width:1200px}.download{display:inline-block;margin:10px 0;padding:7px 11px;background:var(--head);color:#fff;text-decoration:none;font-weight:700}
 h2{font-size:17px;margin:20px 0 8px;color:#174e7e}a{color:var(--blue)}footer{margin:24px 0 4px;padding:10px 12px;border-top:1px solid var(--line);color:var(--muted);background:rgba(255,255,255,.55)}
 @media(max-width:900px){.wrap{padding:8px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.compare-grid{grid-template-columns:1fr}.pager{width:100%;margin-left:0}.detail-grid{grid-template-columns:1fr}.hero h1{font-size:21px}}
-</style></head><body><div class="wrap"><section class="hero"><h1>V4.1 影子模型看板</h1><div class="hero-sub">独立挑战模型 · 仅用于前瞻观察，不构成真实下注建议</div><div class="badges"><span class="badge">仅影子观察</span><span class="badge">禁止实盘</span><span class="badge">real_money=false</span></div></section><nav class="nav"><a href="compare/">V4 与 V4.1 同场对照</a><a href="../v4/">原 V4 影子看板</a><a href="../v3-legacy/">V3 正式决策页</a><a href="V41_BUILD_REPORT.md">V4.1 构建报告</a></nav><section class="definitions"><b>等级定义：</b> A、B、C 为依次降低的正期望候选等级；N 表示完成计算但未通过候选门槛。<b>页面口径：</b> 顶部 A/B/C/N 只统计本列表日已经冻结的赛前记录；“预览计算”不等于冻结，更不等于候选。</section><section class="notice">独立验证集已经完成温度校准，但 T-30 验证样本目前只有 5 场，不足以证明临场优势。因此 R1 的候选闸门保持关闭，“不投”是当前模型的有效结论。历史测试不冒充前瞻结果；缺少可靠初始时间的开盘数据明确标为“缺失”。</section><div class="metrics"><div class="metric"><span>列表日</span><b>2026-09-19</b></div><div class="metric"><span>总赛事</span><b>1825</b></div><div class="metric"><span>预览计算</span><b>199</b></div><div class="metric"><span>冻结记录</span><b>63</b></div><div class="metric"><span>A / B / C / N</span><b>0 / 0 / 0 / 63</b></div><div class="metric"><span>候选 / 不投</span><b>0 / 63</b></div><div class="metric"><span>让球方 / 受让方</span><b>20 / 43</b></div><div class="metric"><span>最近冻结时间</span><b>2026-09-20 00:04:21.469969</b></div></div><section class="definitions"><b>模型版本：</b> V4.1_R1　<b>概率模型：</b> 分桶先验偏置的掩码多项逻辑回归　<b>校准：</b> 独立验证集温度校准（温度 4.488）<br><b>主冻结窗口：</b> 开赛前 25–40 分钟内首次真实运行且报价合格的 T-30 快照；报价时间是本地收到价格的时间。　<b>页面生成：</b> 2026-09-20 00:04:23.817455</section><h2 class="section-title">今日赛事与冻结决策</h2><div class="section-note">冻结记录优先排列。非 T-30 行只用于检查数据质量，不能视为候选名单。</div><div class="controls"><label>搜索<input id="search" placeholder="球队、联赛或比赛编号" oninput="showCards(0)"></label><label>等级<select id="grade" onchange="showCards(0)"><option value="全部">全部等级</option><option>A</option><option>B</option><option>C</option><option>N</option></select></label><label>状态<select id="window" onchange="showCards(0)"><option value="全部">全部状态</option><option value="FROZEN_PRIMARY_T30">已冻结（T-30）</option><option value="WAIT_PRIMARY_WINDOW">等待主冻结窗口</option><option value="PRIMARY_T30">处于主冻结窗口</option><option value="MISSED_PRIMARY_WINDOW">已错过主冻结窗口</option><option value="MISSING_OR_NON_PREMATCH">缺少有效赛前快照</option></select></label><div class="pager"><button onclick="showCards(page-1)">上一页</button><span id="pageinfo"></span><button onclick="showCards(page+1)">下一页</button></div></div><div class="table-wrap"><table><thead><tr><th>北京时间</th><th>联赛/杯赛</th><th>比赛</th><th>状态</th><th>等级/结论</th><th>候选球队/方向</th><th>盘口/水位</th><th>让球/受让覆盖率</th><th>EV指标</th><th>报价/冻结</th><th>赛果/盈亏</th><th>明细</th></tr></thead><tbody id="cards"><tr><td>2026-09-19 23:30:00<br><span class="meta">北京时间</span></td><td>瑞典超<br><span class="meta">编号 2912281</span></td><td><span class="match">奥尔格里特 vs 天狼星</span><br><span class="meta">让球方 天狼星 / 受让方 奥尔格里特</span></td><td class="status-frozen">已冻结（T-30）</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>奥尔格里特<br><span class="meta">受让方 · 阻上/诱下</span></td><td>1.25 / 1.01</td><td>39.00% / 61.00%</td><td class="num-positive">18.90%<br><span class="meta">P10 16.52% · P25 17.17%<br>P(EV&gt;0) 100.00%</span></td><td>2026-09-19 22:55:20.721199<br><span class="meta">北京时间</span><span class="meta">冻结：2026-09-19 22:55:26.795294</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>-1.0</div><div class="detail-item"><b>盘口意图</b>阻上/诱下</div><div class="detail-item"><b>意图置信度</b>0.500</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>[0.2993805287919114, 0.0, 0.0, 0.31265264898041484, 0.38796682222767376]</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>[0.32582100106952444, 0.0, 0.0, 0.32898550090249074, 0.3451934980279848]</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>100.00% / 82.35%</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>30 / 0</div><div class="detail-item"><b>决策原因</b>多重门槛未全部通过；T-30 校准样本不足</div></div><pre class="raw">{
+</style></head><body><div class="wrap"><section class="hero"><h1>V4.1 影子模型看板</h1><div class="hero-sub">独立挑战模型 · 仅用于前瞻观察，不构成真实下注建议</div><div class="badges"><span class="badge">仅影子观察</span><span class="badge">禁止实盘</span><span class="badge">real_money=false</span></div></section><nav class="nav"><a href="compare/">V4 与 V4.1 同场对照</a><a href="../v4/">原 V4 影子看板</a><a href="../v3-legacy/">V3 正式决策页</a><a href="V41_BUILD_REPORT.md">V4.1 构建报告</a></nav><section class="definitions"><b>等级定义：</b> A、B、C 为依次降低的正期望候选等级；N 表示完成计算但未通过候选门槛。<b>页面口径：</b> 顶部 A/B/C/N 只统计本列表日已经冻结的赛前记录；“预览计算”不等于冻结，更不等于候选。</section><section class="notice">独立验证集已经完成温度校准，但 T-30 验证样本目前只有 5 场，不足以证明临场优势。因此 R1 的候选闸门保持关闭，“不投”是当前模型的有效结论。历史测试不冒充前瞻结果；缺少可靠初始时间的开盘数据明确标为“缺失”。</section><div class="metrics"><div class="metric"><span>列表日</span><b>2026-09-19</b></div><div class="metric"><span>总赛事</span><b>1825</b></div><div class="metric"><span>预览计算</span><b>198</b></div><div class="metric"><span>冻结记录</span><b>68</b></div><div class="metric"><span>A / B / C / N</span><b>0 / 0 / 0 / 68</b></div><div class="metric"><span>候选 / 不投</span><b>0 / 68</b></div><div class="metric"><span>让球方 / 受让方</span><b>22 / 46</b></div><div class="metric"><span>最近冻结时间</span><b>2026-09-20 00:17:05.119273</b></div></div><section class="definitions"><b>模型版本：</b> V4.1_R1　<b>概率模型：</b> 分桶先验偏置的掩码多项逻辑回归　<b>校准：</b> 独立验证集温度校准（温度 4.488）<br><b>主冻结窗口：</b> 开赛前 25–40 分钟内首次真实运行且报价合格的 T-30 快照；报价时间是本地收到价格的时间。　<b>页面生成：</b> 2026-09-20 00:17:08.342240</section><h2 class="section-title">今日赛事与冻结决策</h2><div class="section-note">冻结记录优先排列。非 T-30 行只用于检查数据质量，不能视为候选名单。</div><div class="controls"><label>搜索<input id="search" placeholder="球队、联赛或比赛编号" oninput="showCards(0)"></label><label>等级<select id="grade" onchange="showCards(0)"><option value="全部">全部等级</option><option>A</option><option>B</option><option>C</option><option>N</option></select></label><label>状态<select id="window" onchange="showCards(0)"><option value="全部">全部状态</option><option value="FROZEN_PRIMARY_T30">已冻结（T-30）</option><option value="WAIT_PRIMARY_WINDOW">等待主冻结窗口</option><option value="PRIMARY_T30">处于主冻结窗口</option><option value="MISSED_PRIMARY_WINDOW">已错过主冻结窗口</option><option value="MISSING_OR_NON_PREMATCH">缺少有效赛前快照</option></select></label><div class="pager"><button onclick="showCards(page-1)">上一页</button><span id="pageinfo"></span><button onclick="showCards(page+1)">下一页</button></div></div><div class="table-wrap"><table><thead><tr><th>北京时间</th><th>联赛/杯赛</th><th>比赛</th><th>状态</th><th>等级/结论</th><th>候选球队/方向</th><th>盘口/水位</th><th>让球/受让覆盖率</th><th>EV指标</th><th>报价/冻结</th><th>赛果/盈亏</th><th>明细</th></tr></thead><tbody id="cards"><tr><td>2026-09-19 23:30:00<br><span class="meta">北京时间</span></td><td>瑞典超<br><span class="meta">编号 2912281</span></td><td><span class="match">奥尔格里特 vs 天狼星</span><br><span class="meta">让球方 天狼星 / 受让方 奥尔格里特</span></td><td class="status-frozen">已冻结（T-30）</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>奥尔格里特<br><span class="meta">受让方 · 阻上/诱下</span></td><td>1.25 / 1.01</td><td>39.00% / 61.00%</td><td class="num-positive">18.90%<br><span class="meta">P10 16.52% · P25 17.17%<br>P(EV&gt;0) 100.00%</span></td><td>2026-09-19 22:55:20.721199<br><span class="meta">北京时间</span><span class="meta">冻结：2026-09-19 22:55:26.795294</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>-1.0</div><div class="detail-item"><b>盘口意图</b>阻上/诱下</div><div class="detail-item"><b>意图置信度</b>0.500</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>[0.2993805287919114, 0.0, 0.0, 0.31265264898041484, 0.38796682222767376]</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>[0.32582100106952444, 0.0, 0.0, 0.32898550090249074, 0.3451934980279848]</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>100.00% / 82.35%</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>30 / 0</div><div class="detail-item"><b>决策原因</b>多重门槛未全部通过；T-30 校准样本不足</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: [
     {
       &quot;feature&quot;: &quot;market_giving_share&quot;,
@@ -15095,6 +15095,1069 @@ h2{font-size:17px;margin:20px 0 8px;color:#174e7e}a{color:var(--blue)}footer{mar
       &quot;FLAT_LINE_GIVING_WATER_DROP&quot;
     ]
   }
+}</pre></details></td></tr><tr><td>2026-09-20 00:45:00<br><span class="meta">北京时间</span></td><td>苏超<br><span class="meta">编号 3002072</span></td><td><span class="match">基马诺克 vs 哈茨</span><br><span class="meta">让球方 哈茨 / 受让方 基马诺克</span></td><td class="status-frozen">已冻结（T-30）</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>哈茨<br><span class="meta">让球方 · 阻下/下盘保护</span></td><td>-0.75 / 1.01</td><td>52.06% / 47.94%</td><td class="num-positive">4.03%<br><span class="meta">P10 -1.78% · P25 4.93%<br>P(EV&gt;0) 85.00%</span></td><td>2026-09-20 00:16:58.927122<br><span class="meta">北京时间</span><span class="meta">冻结：2026-09-20 00:17:05.040688</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>-0.75</div><div class="detail-item"><b>盘口意图</b>阻下/下盘保护</div><div class="detail-item"><b>意图置信度</b>0.500</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>[0.21908291916700295, 0.0849509872799661, 0.0, 0.0, 0.6959660935530309]</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>[0.32222175006721193, 0.2609012195699752, 0.0, 0.0, 0.4168770303628129]</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>100.00% / 82.35%</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>57 / 2</div><div class="detail-item"><b>决策原因</b>多重门槛未全部通过；T-30 校准样本不足</div></div><pre class="raw">{
+  &quot;正向驱动因素&quot;: [
+    {
+      &quot;feature&quot;: &quot;giving_water&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.5858458599834008
+    },
+    {
+      &quot;feature&quot;: &quot;giving_home&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.19929364075019446
+    },
+    {
+      &quot;feature&quot;: &quot;line_resistance&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.14124427299890213
+    },
+    {
+      &quot;feature&quot;: &quot;receiving_water&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.1164375270435516
+    },
+    {
+      &quot;feature&quot;: &quot;kickoff_hour&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.07517958820720161
+    }
+  ],
+  &quot;负向驱动因素&quot;: [
+    {
+      &quot;feature&quot;: &quot;intercept&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.7535941514357152
+    },
+    {
+      &quot;feature&quot;: &quot;market_giving_share&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.6530856959122986
+    },
+    {
+      &quot;feature&quot;: &quot;water_movement&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.23679354158158253
+    },
+    {
+      &quot;feature&quot;: &quot;intent=阻下/下盘保护&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.16206789118004014
+    },
+    {
+      &quot;feature&quot;: &quot;opening_handicap&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.11400079790687488
+    }
+  ],
+  &quot;缺失特征&quot;: [
+    &quot;late_30_line&quot;,
+    &quot;neutral_venue&quot;,
+    &quot;elo_difference&quot;,
+    &quot;recent_form_difference&quot;,
+    &quot;bookmaker_dispersion&quot;,
+    &quot;bookmaker_consensus&quot;
+  ],
+  &quot;盘口路径&quot;: {
+    &quot;opening_handicap&quot;: -0.75,
+    &quot;max_handicap&quot;: 0.75,
+    &quot;min_handicap&quot;: 0.75,
+    &quot;latest_handicap&quot;: -0.75,
+    &quot;opening_water&quot;: 0.8,
+    &quot;max_water&quot;: 1.04,
+    &quot;min_water&quot;: 0.95,
+    &quot;latest_water&quot;: 1.01,
+    &quot;handicap_path&quot;: [
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T15:33:38.526963+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:10:35.971972+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:12:12.361658+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:30:41.696980+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:37:05.331831+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:43:21.610332+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:49:19.866719+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:55:20.721199+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T23:01:53.936557+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T23:08:22.255341+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T23:14:58.271795+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-20T00:04:16.100617+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+        &quot;handicap&quot;: -0.75
+      }
+    ],
+    &quot;water_path&quot;: [
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T15:33:38.526963+08:00&quot;,
+        &quot;giving_water&quot;: 0.95,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:10:35.971972+08:00&quot;,
+        &quot;giving_water&quot;: 1.0,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:12:12.361658+08:00&quot;,
+        &quot;giving_water&quot;: 1.0,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:30:41.696980+08:00&quot;,
+        &quot;giving_water&quot;: 1.03,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:37:05.331831+08:00&quot;,
+        &quot;giving_water&quot;: 1.03,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:43:21.610332+08:00&quot;,
+        &quot;giving_water&quot;: 1.03,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:49:19.866719+08:00&quot;,
+        &quot;giving_water&quot;: 1.04,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T22:55:20.721199+08:00&quot;,
+        &quot;giving_water&quot;: 1.04,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T23:01:53.936557+08:00&quot;,
+        &quot;giving_water&quot;: 1.02,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T23:08:22.255341+08:00&quot;,
+        &quot;giving_water&quot;: 1.02,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T23:14:58.271795+08:00&quot;,
+        &quot;giving_water&quot;: 1.02,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
+        &quot;giving_water&quot;: 1.02,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-20T00:04:16.100617+08:00&quot;,
+        &quot;giving_water&quot;: 1.01,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      },
+      {
+        &quot;quote_at&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+        &quot;giving_water&quot;: 1.01,
+        &quot;giving_team&quot;: &quot;哈茨&quot;
+      }
+    ]
+  },
+  &quot;数据来源&quot;: [
+    {
+      &quot;feature_name&quot;: &quot;handicap_depth&quot;,
+      &quot;feature_value&quot;: 0.75,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;opening_handicap&quot;,
+      &quot;feature_value&quot;: 0.75,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;handicap_movement&quot;,
+      &quot;feature_value&quot;: 0.0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;giving_water&quot;,
+      &quot;feature_value&quot;: 1.01,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;receiving_water&quot;,
+      &quot;feature_value&quot;: 0.87,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;water_movement&quot;,
+      &quot;feature_value&quot;: 0.20999999999999996,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;market_giving_share&quot;,
+      &quot;feature_value&quot;: 0.48195876288659806,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_giving&quot;,
+      &quot;feature_value&quot;: 0.5064430814247932,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_draw&quot;,
+      &quot;feature_value&quot;: 0.2417421642001013,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_receiving&quot;,
+      &quot;feature_value&quot;: 0.25181475437510553,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_change&quot;,
+      &quot;feature_value&quot;: -0.0490757498620803,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_asian_gap&quot;,
+      &quot;feature_value&quot;: 0.18594476215978412,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;minutes_to_kickoff&quot;,
+      &quot;feature_value&quot;: 28.0178813,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;quote_age_minutes&quot;,
+      &quot;feature_value&quot;: 0.10189276666666666,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;line_up_count&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;line_down_count&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;reversal_count&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;spread_speed&quot;,
+      &quot;feature_value&quot;: 0.0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;water_speed&quot;,
+      &quot;feature_value&quot;: 0.00011464822046123414,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;late_30_line&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;late_60_line&quot;,
+      &quot;feature_value&quot;: 0.0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;giving_home&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;kickoff_hour&quot;,
+      &quot;feature_value&quot;: 0.75,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;neutral_venue&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;elo_difference&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;recent_form_difference&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;bookmaker_dispersion&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;bookmaker_consensus&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;line_resistance&quot;,
+      &quot;feature_value&quot;: 1,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;water_resistance&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;youth&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;women&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;cup&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;intent_confidence&quot;,
+      &quot;feature_value&quot;: 0.5,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;intent&quot;,
+      &quot;feature_value&quot;: &quot;阻下/下盘保护&quot;,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;league_group&quot;,
+      &quot;feature_value&quot;: &quot;其他系列&quot;,
+      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260920_001658\\20260920_001658_sbOddsData.js&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-20T00:16:58.927122+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-20T00:17:05.040688+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;ee0a1e73ca542c0ac5baa7288a12ce16287743a15e389561169328b7e4726e61&quot;,
+        &quot;4635e11500e21b466f135500b725794e2d3930a26d1e671ebcf639b4741acd04&quot;,
+        &quot;2fa58ee07ac640e73ff32e77cdf2a39b3137d6077ef61d464741a56053b2a60e&quot;,
+        &quot;b99bb37301312675d8f9bb87abe615a7efcad64e88a15f640469662f12c58837&quot;,
+        &quot;09f8989124a6080e42b75ccd0dd28c4f50fa313511b8aa9cebcb48aa4486bc40&quot;,
+        &quot;156e3bbcbbcb4be54520cde1a16bae1a963e11bd9d43370aeecf0f8b47f20e51&quot;,
+        &quot;1f2643a5b67ef13f9410f5238a1c8257cfac7e4e89a9d8e987bf701a8e518abc&quot;,
+        &quot;57e3a48cbfba02bbe45bddaa2f97d13f872034093ab74b76f9b6171ec74d23fe&quot;,
+        &quot;f3574c4ab9e4af35559bbb728b69c8540d77cc258d2d85e94c8d646d12a6a0e2&quot;,
+        &quot;0048158e6baec5601da117330fae9ffd2220862d6dc71082f48a9c26fc3aabf2&quot;,
+        &quot;53741114cd7ef7d721ba298bbcd870e31783c78482f35a952b634867518e3b77&quot;,
+        &quot;07d56d7e149903a913925c750222d30a77c2c67201e417b7427acc9973edbd4d&quot;,
+        &quot;cee732057f277bcc630ddd37a49e92d680737138c0fcf8cdb494780d3e7951b9&quot;,
+        &quot;f4166fe1f1e7477523d01f59925651d82e29c7b6d1c2d6b6b736d5f3e1332b63&quot;
+      ]
+    }
+  ],
+  &quot;原 V4 隔离对照&quot;: {
+    &quot;match_id&quot;: &quot;3002072&quot;,
+    &quot;list_date&quot;: &quot;2026-09-19&quot;,
+    &quot;kickoff&quot;: &quot;2026-09-20T00:45:00+08:00&quot;,
+    &quot;kickoff_at&quot;: &quot;2026-09-20T00:45:00+08:00&quot;,
+    &quot;model_id&quot;: &quot;v4-market-dirichlet-20260913&quot;,
+    &quot;model_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
+    &quot;side_mapping_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
+    &quot;run_id&quot;: &quot;&quot;,
+    &quot;decision_at&quot;: &quot;2026-09-20T00:17:01.126374+08:00&quot;,
+    &quot;quote_at&quot;: &quot;2026-09-20T00:16:58+08:00&quot;,
+    &quot;last_confirmed_at&quot;: &quot;2026-09-20T00:16:58+08:00&quot;,
+    &quot;quote_age_at_decision&quot;: 0.001,
+    &quot;hours_from_decision_to_kickoff&quot;: 0.466,
+    &quot;hours_from_last_refresh_to_kickoff&quot;: 0.467,
+    &quot;is_morning_baseline&quot;: false,
+    &quot;is_latest_valid_prematch&quot;: true,
+    &quot;parent_decision_id&quot;: &quot;&quot;,
+    &quot;monitoring_bucket&quot;: &quot;&quot;,
+    &quot;prior_snapshot_id&quot;: &quot;prior-2026-09-19-v1&quot;,
+    &quot;market&quot;: {
+      &quot;snapshot_id&quot;: &quot;snapshot&quot;,
+      &quot;source&quot;: &quot;LEGACY_RAW_FIELD_EXPORT&quot;,
+      &quot;observed_at&quot;: &quot;2026-09-20T00:17:01.126374+08:00&quot;,
+      &quot;home_team&quot;: &quot;基马诺克&quot;,
+      &quot;away_team&quot;: &quot;哈茨&quot;,
+      &quot;competition&quot;: &quot;苏超&quot;,
+      &quot;home_handicap_signed&quot;: -0.75,
+      &quot;away_handicap_signed&quot;: 0.75,
+      &quot;home_water_hk&quot;: 0.87,
+      &quot;away_water_hk&quot;: 1.01,
+      &quot;titan_home_handicap_signed&quot;: -0.75,
+      &quot;titan_away_handicap_signed&quot;: 0.75,
+      &quot;giving_team&quot;: &quot;哈茨&quot;,
+      &quot;receiving_team&quot;: &quot;基马诺克&quot;,
+      &quot;giving_water&quot;: 1.01,
+      &quot;receiving_water&quot;: 0.87,
+      &quot;side_identity&quot;: &quot;Titan signed AH&quot;
+    },
+    &quot;competition&quot;: &quot;苏超&quot;,
+    &quot;analysis_status&quot;: &quot;EVALUATED&quot;,
+    &quot;grade&quot;: &quot;N&quot;,
+    &quot;rank&quot;: null,
+    &quot;decision_id&quot;: &quot;8b6eb03b6895ed96bfcf&quot;,
+    &quot;normalized_intent&quot;: &quot;阻下/下盘保护&quot;,
+    &quot;intent_source&quot;: &quot;FLAT_LINE_GIVING_WATER_RISE&quot;,
+    &quot;candidate_side&quot;: &quot;receiving&quot;,
+    &quot;candidate_team&quot;: &quot;基马诺克&quot;,
+    &quot;candidate_water&quot;: 0.87,
+    &quot;candidate_handicap&quot;: 0.75,
+    &quot;reverse_team&quot;: &quot;哈茨&quot;,
+    &quot;reverse_side&quot;: &quot;giving&quot;,
+    &quot;reverse_water&quot;: 1.01,
+    &quot;selected_team&quot;: &quot;基马诺克&quot;,
+    &quot;selected_side&quot;: &quot;receiving&quot;,
+    &quot;selected_handicap_signed&quot;: 0.75,
+    &quot;selected_water_hk&quot;: 0.87,
+    &quot;probabilities&quot;: {
+      &quot;W&quot;: 0.44166666666666665,
+      &quot;HW&quot;: 0.0,
+      &quot;P&quot;: 0.0,
+      &quot;HL&quot;: 0.25833333333333336,
+      &quot;L&quot;: 0.3
+    },
+    &quot;ev_mean&quot;: -0.04491666666666666,
+    &quot;ev_p05&quot;: -0.16675263968981327,
+    &quot;ev_p10&quot;: -0.1400276412035877,
+    &quot;ev_p50&quot;: -0.04441061183780179,
+    &quot;ev_p90&quot;: 0.05073335111949337,
+    &quot;ev_p95&quot;: 0.08028182886896035,
+    &quot;p_ev_positive&quot;: 0.287,
+    &quot;diagnostic_giving&quot;: {
+      &quot;team&quot;: &quot;哈茨&quot;,
+      &quot;water&quot;: 1.01,
+      &quot;EV_mean&quot;: -0.008208333333333317,
+      &quot;EV_p10&quot;: -0.11725038707668356,
+      &quot;P_EV_gt_0&quot;: 0.4554,
+      &quot;status&quot;: &quot;DIAGNOSTIC_ONLY&quot;
+    },
+    &quot;diagnostic_receiving&quot;: {
+      &quot;team&quot;: &quot;基马诺克&quot;,
+      &quot;water&quot;: 0.87,
+      &quot;EV_mean&quot;: -0.04491666666666666,
+      &quot;EV_p10&quot;: -0.14218445528132584,
+      &quot;P_EV_gt_0&quot;: 0.2696,
+      &quot;status&quot;: &quot;DIAGNOSTIC_ONLY&quot;
+    },
+    &quot;direction_rule_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
+    &quot;reason_codes&quot;: [
+      &quot;BUCKET_0.75&quot;,
+      &quot;SIDE_IDENTITY_VALID&quot;,
+      &quot;FLAT_LINE_GIVING_WATER_RISE&quot;
+    ]
+  }
 }</pre></details></td></tr><tr><td>2026-09-19 23:30:00<br><span class="meta">北京时间</span></td><td>波兰超<br><span class="meta">编号 3003152</span></td><td><span class="match">GKS卡托威斯 vs 克拉科维亚</span><br><span class="meta">让球方 GKS卡托威斯 / 受让方 克拉科维亚</span></td><td class="status-frozen">已冻结（T-30）</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>克拉科维亚<br><span class="meta">受让方 · 真实示弱/阻下</span></td><td>0.25 / 0.91</td><td>41.04% / 58.96%</td><td class="num-positive">10.54%<br><span class="meta">P10 9.56% · P25 10.12%<br>P(EV&gt;0) 100.00%</span></td><td>2026-09-19 22:55:20.721199<br><span class="meta">北京时间</span><span class="meta">冻结：2026-09-19 22:55:26.867655</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>0.25</div><div class="detail-item"><b>盘口意图</b>真实示弱/阻下</div><div class="detail-item"><b>意图置信度</b>0.500</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>[0.3776599899861706, 0.0, 0.0, 0.31130319364419995, 0.3110368163696294]</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>[0.34299039375787055, 0.0, 0.0, 0.3285361340479017, 0.3284734721942276]</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>100.00% / 82.35%</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>155 / 1</div><div class="detail-item"><b>决策原因</b>多重门槛未全部通过；T-30 校准样本不足</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: [
     {
@@ -17000,1043 +18063,6 @@ h2{font-size:17px;margin:20px 0 8px;color:#174e7e}a{color:var(--blue)}footer{mar
       &quot;MARKET_MOVE_SHALLOWER_WITH_GIVING_WATER_DROP&quot;
     ]
   }
-}</pre></details></td></tr><tr><td>2026-09-20 00:00:00<br><span class="meta">北京时间</span></td><td>斯伐超<br><span class="meta">编号 3003440</span></td><td><span class="match">米查路文斯 vs 拜斯迪卡</span><br><span class="meta">让球方 米查路文斯 / 受让方 拜斯迪卡</span></td><td class="status-frozen">已冻结（T-30）</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>米查路文斯<br><span class="meta">让球方 · 阻下/下盘保护</span></td><td>-0.75 / 1.03</td><td>52.12% / 47.88%</td><td class="num-positive">4.99%<br><span class="meta">P10 -0.25% · P25 6.33%<br>P(EV&gt;0) 85.00%</span></td><td>2026-09-19 23:20:52.897992<br><span class="meta">北京时间</span><span class="meta">冻结：2026-09-19 23:21:02.387786</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>0.75</div><div class="detail-item"><b>盘口意图</b>阻下/下盘保护</div><div class="detail-item"><b>意图置信度</b>0.500</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>[0.1885941075096015, 0.12147501117100172, 0.0, 0.0, 0.6899308813193968]</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>[0.3084775911639656, 0.27967590698655787, 0.0, 0.0, 0.41184650184947647]</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>100.00% / 85.29%</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>57 / 2</div><div class="detail-item"><b>决策原因</b>多重门槛未全部通过；T-30 校准样本不足</div></div><pre class="raw">{
-  &quot;正向驱动因素&quot;: [
-    {
-      &quot;feature&quot;: &quot;giving_water&quot;,
-      &quot;logit_giving_minus_receiving&quot;: 0.7030150319800811
-    },
-    {
-      &quot;feature&quot;: &quot;receiving_water&quot;,
-      &quot;logit_giving_minus_receiving&quot;: 0.4657501081742058
-    },
-    {
-      &quot;feature&quot;: &quot;line_resistance&quot;,
-      &quot;logit_giving_minus_receiving&quot;: 0.14124427299890213
-    },
-    {
-      &quot;feature&quot;: &quot;kickoff_hour&quot;,
-      &quot;logit_giving_minus_receiving&quot;: 0.08201409622603813
-    },
-    {
-      &quot;feature&quot;: &quot;euro_giving&quot;,
-      &quot;logit_giving_minus_receiving&quot;: 0.07877620702335629
-    }
-  ],
-  &quot;负向驱动因素&quot;: [
-    {
-      &quot;feature&quot;: &quot;market_giving_share&quot;,
-      &quot;logit_giving_minus_receiving&quot;: -1.1021237748721298
-    },
-    {
-      &quot;feature&quot;: &quot;intercept&quot;,
-      &quot;logit_giving_minus_receiving&quot;: -0.7535941514357152
-    },
-    {
-      &quot;feature&quot;: &quot;euro_asian_gap&quot;,
-      &quot;logit_giving_minus_receiving&quot;: -0.22366818126196347
-    },
-    {
-      &quot;feature&quot;: &quot;intent=阻下/下盘保护&quot;,
-      &quot;logit_giving_minus_receiving&quot;: -0.16206789118004014
-    },
-    {
-      &quot;feature&quot;: &quot;water_movement&quot;,
-      &quot;logit_giving_minus_receiving&quot;: -0.14658647812193207
-    }
-  ],
-  &quot;缺失特征&quot;: [
-    &quot;neutral_venue&quot;,
-    &quot;elo_difference&quot;,
-    &quot;recent_form_difference&quot;,
-    &quot;bookmaker_dispersion&quot;,
-    &quot;bookmaker_consensus&quot;
-  ],
-  &quot;盘口路径&quot;: {
-    &quot;opening_handicap&quot;: 0.75,
-    &quot;max_handicap&quot;: 0.75,
-    &quot;min_handicap&quot;: 0.75,
-    &quot;latest_handicap&quot;: 0.75,
-    &quot;opening_water&quot;: 0.9,
-    &quot;max_water&quot;: 1.03,
-    &quot;min_water&quot;: 0.95,
-    &quot;latest_water&quot;: 1.03,
-    &quot;handicap_path&quot;: [
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T15:33:38.526963+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:10:35.971972+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:12:12.361658+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:23:51.933682+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:30:41.696980+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:37:05.331831+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:43:21.610332+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:49:19.866719+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:55:20.721199+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T23:01:53.936557+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T23:08:22.255341+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T23:14:58.271795+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-        &quot;handicap&quot;: 0.75
-      }
-    ],
-    &quot;water_path&quot;: [
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T15:33:38.526963+08:00&quot;,
-        &quot;giving_water&quot;: 0.95,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:10:35.971972+08:00&quot;,
-        &quot;giving_water&quot;: 0.97,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:12:12.361658+08:00&quot;,
-        &quot;giving_water&quot;: 0.97,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:23:51.933682+08:00&quot;,
-        &quot;giving_water&quot;: 0.97,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:30:41.696980+08:00&quot;,
-        &quot;giving_water&quot;: 0.97,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:37:05.331831+08:00&quot;,
-        &quot;giving_water&quot;: 0.97,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:43:21.610332+08:00&quot;,
-        &quot;giving_water&quot;: 0.97,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:49:19.866719+08:00&quot;,
-        &quot;giving_water&quot;: 0.97,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T22:55:20.721199+08:00&quot;,
-        &quot;giving_water&quot;: 0.97,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T23:01:53.936557+08:00&quot;,
-        &quot;giving_water&quot;: 1.03,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T23:08:22.255341+08:00&quot;,
-        &quot;giving_water&quot;: 1.03,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T23:14:58.271795+08:00&quot;,
-        &quot;giving_water&quot;: 1.03,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      },
-      {
-        &quot;quote_at&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-        &quot;giving_water&quot;: 1.03,
-        &quot;giving_team&quot;: &quot;米查路文斯&quot;
-      }
-    ]
-  },
-  &quot;数据来源&quot;: [
-    {
-      &quot;feature_name&quot;: &quot;handicap_depth&quot;,
-      &quot;feature_value&quot;: 0.75,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;opening_handicap&quot;,
-      &quot;feature_value&quot;: 0.75,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;handicap_movement&quot;,
-      &quot;feature_value&quot;: 0.0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;giving_water&quot;,
-      &quot;feature_value&quot;: 1.03,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;receiving_water&quot;,
-      &quot;feature_value&quot;: 0.81,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;water_movement&quot;,
-      &quot;feature_value&quot;: 0.13,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;market_giving_share&quot;,
-      &quot;feature_value&quot;: 0.47135416666666663,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;euro_giving&quot;,
-      &quot;feature_value&quot;: 0.5188893946290395,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;euro_draw&quot;,
-      &quot;feature_value&quot;: 0.2389622212107419,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;euro_receiving&quot;,
-      &quot;feature_value&quot;: 0.24214838416021847,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;euro_change&quot;,
-      &quot;feature_value&quot;: -0.01669438821418301,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;euro_asian_gap&quot;,
-      &quot;feature_value&quot;: 0.21046401515151514,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;minutes_to_kickoff&quot;,
-      &quot;feature_value&quot;: 39.1183668,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;quote_age_minutes&quot;,
-      &quot;feature_value&quot;: 0.15816323333333332,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;line_up_count&quot;,
-      &quot;feature_value&quot;: 0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;line_down_count&quot;,
-      &quot;feature_value&quot;: 0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;reversal_count&quot;,
-      &quot;feature_value&quot;: 0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;spread_speed&quot;,
-      &quot;feature_value&quot;: 0.0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;water_speed&quot;,
-      &quot;feature_value&quot;: 0.00017121839455697688,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;late_30_line&quot;,
-      &quot;feature_value&quot;: 0.0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;late_60_line&quot;,
-      &quot;feature_value&quot;: 0.0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;giving_home&quot;,
-      &quot;feature_value&quot;: 1,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;kickoff_hour&quot;,
-      &quot;feature_value&quot;: 0.0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;neutral_venue&quot;,
-      &quot;feature_value&quot;: null,
-      &quot;source&quot;: &quot;MISSING&quot;,
-      &quot;source_timestamp&quot;: null,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: true,
-      &quot;snapshot_ids&quot;: []
-    },
-    {
-      &quot;feature_name&quot;: &quot;elo_difference&quot;,
-      &quot;feature_value&quot;: null,
-      &quot;source&quot;: &quot;MISSING&quot;,
-      &quot;source_timestamp&quot;: null,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: true,
-      &quot;snapshot_ids&quot;: []
-    },
-    {
-      &quot;feature_name&quot;: &quot;recent_form_difference&quot;,
-      &quot;feature_value&quot;: null,
-      &quot;source&quot;: &quot;MISSING&quot;,
-      &quot;source_timestamp&quot;: null,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: true,
-      &quot;snapshot_ids&quot;: []
-    },
-    {
-      &quot;feature_name&quot;: &quot;bookmaker_dispersion&quot;,
-      &quot;feature_value&quot;: null,
-      &quot;source&quot;: &quot;MISSING&quot;,
-      &quot;source_timestamp&quot;: null,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: true,
-      &quot;snapshot_ids&quot;: []
-    },
-    {
-      &quot;feature_name&quot;: &quot;bookmaker_consensus&quot;,
-      &quot;feature_value&quot;: null,
-      &quot;source&quot;: &quot;MISSING&quot;,
-      &quot;source_timestamp&quot;: null,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: true,
-      &quot;snapshot_ids&quot;: []
-    },
-    {
-      &quot;feature_name&quot;: &quot;line_resistance&quot;,
-      &quot;feature_value&quot;: 1,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;water_resistance&quot;,
-      &quot;feature_value&quot;: 0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;youth&quot;,
-      &quot;feature_value&quot;: 0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;women&quot;,
-      &quot;feature_value&quot;: 0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;cup&quot;,
-      &quot;feature_value&quot;: 0,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;intent_confidence&quot;,
-      &quot;feature_value&quot;: 0.5,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;intent&quot;,
-      &quot;feature_value&quot;: &quot;阻下/下盘保护&quot;,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    },
-    {
-      &quot;feature_name&quot;: &quot;league_group&quot;,
-      &quot;feature_value&quot;: &quot;其他系列&quot;,
-      &quot;source&quot;: &quot;D:\\codex\\v41\\data\\raw\\20260919_232051\\20260919_232051_sbOddsData.js&quot;,
-      &quot;source_timestamp&quot;: &quot;2026-09-19T23:20:52.897992+08:00&quot;,
-      &quot;as_of_time&quot;: &quot;2026-09-19T23:21:02.387786+08:00&quot;,
-      &quot;missing_flag&quot;: false,
-      &quot;snapshot_ids&quot;: [
-        &quot;e5888a1843a899ce4f8940bfae306ecc00fb2276238275aa0c2617f5e29fa2f0&quot;,
-        &quot;f6def9829b7e7db7892e9aa496fd8334f817e879237618e1499b5bc6ff15ed78&quot;,
-        &quot;116205192470b1ccff2d5522b17c358899bfa0f50af180fdcc575dad1cc41f64&quot;,
-        &quot;e25b2095b8f0cb37de0801bd09e5d156c1dccf954ddd8777290e0bffd36b50a8&quot;,
-        &quot;7bb1bd00084aba7ffb414c2d65dcfe10acf1f0c146bd8f35079e51a8a47eb942&quot;,
-        &quot;920cd11651f467dfe473aad801fb61b88c87252279b419b997fbdcc6b228a06b&quot;,
-        &quot;6894a149095a02bd38aee68274c564994a6bd08584cbb13eb6d87f46987ada99&quot;,
-        &quot;5de796a5fd70d7d7c8b1bfe5b7d5110f107b908849c1c53f998b658122863c14&quot;,
-        &quot;90a29377c992b6a29c8d99587517cf9694c661ac6c2b30b6517529bca40a5341&quot;,
-        &quot;54d07466aad0dd87ac02a57f56feaec7e2d8f77b6493688cae1b8c808aa293b1&quot;,
-        &quot;fa47b2da6217f1f844def512ef71bea980f909d256f2a02aa3fec2bb1d71eb2e&quot;,
-        &quot;af1f9222e97f01026bbb7d25ee1eee4cb3c64fec3c9d2b733bfe7de69af42dc6&quot;,
-        &quot;f8a17d5880898a0934e4e5f02c72384b0f0047d9339b1eeeee66666628f2360c&quot;
-      ]
-    }
-  ],
-  &quot;原 V4 隔离对照&quot;: {
-    &quot;match_id&quot;: &quot;3003440&quot;,
-    &quot;list_date&quot;: &quot;2026-09-19&quot;,
-    &quot;kickoff&quot;: &quot;2026-09-20T00:00:00+08:00&quot;,
-    &quot;kickoff_at&quot;: &quot;2026-09-20T00:00:00+08:00&quot;,
-    &quot;model_id&quot;: &quot;v4-market-dirichlet-20260913&quot;,
-    &quot;model_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
-    &quot;side_mapping_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
-    &quot;run_id&quot;: &quot;&quot;,
-    &quot;decision_at&quot;: &quot;2026-09-19T23:20:57.466318+08:00&quot;,
-    &quot;quote_at&quot;: &quot;2026-09-19T23:20:52+08:00&quot;,
-    &quot;last_confirmed_at&quot;: &quot;2026-09-19T23:20:52+08:00&quot;,
-    &quot;quote_age_at_decision&quot;: 0.002,
-    &quot;hours_from_decision_to_kickoff&quot;: 0.651,
-    &quot;hours_from_last_refresh_to_kickoff&quot;: 0.652,
-    &quot;is_morning_baseline&quot;: false,
-    &quot;is_latest_valid_prematch&quot;: true,
-    &quot;parent_decision_id&quot;: &quot;&quot;,
-    &quot;monitoring_bucket&quot;: &quot;&quot;,
-    &quot;prior_snapshot_id&quot;: &quot;prior-2026-09-19-v1&quot;,
-    &quot;market&quot;: {
-      &quot;snapshot_id&quot;: &quot;snapshot&quot;,
-      &quot;source&quot;: &quot;LEGACY_RAW_FIELD_EXPORT&quot;,
-      &quot;observed_at&quot;: &quot;2026-09-19T23:20:57.466318+08:00&quot;,
-      &quot;home_team&quot;: &quot;米查路文斯&quot;,
-      &quot;away_team&quot;: &quot;拜斯迪卡&quot;,
-      &quot;competition&quot;: &quot;斯伐超&quot;,
-      &quot;home_handicap_signed&quot;: 0.75,
-      &quot;away_handicap_signed&quot;: -0.75,
-      &quot;home_water_hk&quot;: 1.03,
-      &quot;away_water_hk&quot;: 0.81,
-      &quot;titan_home_handicap_signed&quot;: 0.75,
-      &quot;titan_away_handicap_signed&quot;: -0.75,
-      &quot;giving_team&quot;: &quot;米查路文斯&quot;,
-      &quot;receiving_team&quot;: &quot;拜斯迪卡&quot;,
-      &quot;giving_water&quot;: 1.03,
-      &quot;receiving_water&quot;: 0.81,
-      &quot;side_identity&quot;: &quot;Titan signed AH&quot;
-    },
-    &quot;competition&quot;: &quot;斯伐超&quot;,
-    &quot;analysis_status&quot;: &quot;EVALUATED&quot;,
-    &quot;grade&quot;: &quot;N&quot;,
-    &quot;rank&quot;: null,
-    &quot;decision_id&quot;: &quot;4b271d3807c617dd859f&quot;,
-    &quot;normalized_intent&quot;: &quot;阻下/下盘保护&quot;,
-    &quot;intent_source&quot;: &quot;FLAT_LINE_GIVING_WATER_RISE&quot;,
-    &quot;candidate_side&quot;: &quot;receiving&quot;,
-    &quot;candidate_team&quot;: &quot;拜斯迪卡&quot;,
-    &quot;candidate_water&quot;: 0.81,
-    &quot;candidate_handicap&quot;: 0.75,
-    &quot;reverse_team&quot;: &quot;米查路文斯&quot;,
-    &quot;reverse_side&quot;: &quot;giving&quot;,
-    &quot;reverse_water&quot;: 1.03,
-    &quot;selected_team&quot;: &quot;拜斯迪卡&quot;,
-    &quot;selected_side&quot;: &quot;receiving&quot;,
-    &quot;selected_handicap_signed&quot;: 0.75,
-    &quot;selected_water_hk&quot;: 0.81,
-    &quot;probabilities&quot;: {
-      &quot;W&quot;: 0.44166666666666665,
-      &quot;HW&quot;: 0.0,
-      &quot;P&quot;: 0.0,
-      &quot;HL&quot;: 0.25833333333333336,
-      &quot;L&quot;: 0.3
-    },
-    &quot;ev_mean&quot;: -0.07141666666666666,
-    &quot;ev_p05&quot;: -0.19466471323204543,
-    &quot;ev_p10&quot;: -0.16691794114750824,
-    &quot;ev_p50&quot;: -0.07186660007537679,
-    &quot;ev_p90&quot;: 0.023367474744082573,
-    &quot;ev_p95&quot;: 0.04862299082734872,
-    &quot;p_ev_positive&quot;: 0.1748,
-    &quot;diagnostic_giving&quot;: {
-      &quot;team&quot;: &quot;米查路文斯&quot;,
-      &quot;water&quot;: 1.03,
-      &quot;EV_mean&quot;: 0.0003750000000000142,
-      &quot;EV_p10&quot;: -0.10735460040670441,
-      &quot;P_EV_gt_0&quot;: 0.5074,
-      &quot;status&quot;: &quot;DIAGNOSTIC_ONLY&quot;
-    },
-    &quot;diagnostic_receiving&quot;: {
-      &quot;team&quot;: &quot;拜斯迪卡&quot;,
-      &quot;water&quot;: 0.81,
-      &quot;EV_mean&quot;: -0.07141666666666666,
-      &quot;EV_p10&quot;: -0.16674927730073102,
-      &quot;P_EV_gt_0&quot;: 0.1664,
-      &quot;status&quot;: &quot;DIAGNOSTIC_ONLY&quot;
-    },
-    &quot;direction_rule_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
-    &quot;reason_codes&quot;: [
-      &quot;BUCKET_0.75&quot;,
-      &quot;SIDE_IDENTITY_VALID&quot;,
-      &quot;FLAT_LINE_GIVING_WATER_RISE&quot;
-    ]
-  }
 }</pre></details></td></tr></tbody></table></div><script>
 let page=0,allCards=null;const pageSize=20;
 async function showCards(next){try{if(!allCards){const r=await fetch('cards.json?ts='+Date.now());if(!r.ok)throw Error(r.status);allCards=await r.json()}
@@ -18047,4 +18073,4 @@ document.getElementById('cards').innerHTML=filtered.slice(page*pageSize,page*pag
 document.getElementById('pageinfo').textContent=`第 ${page+1} / ${Math.max(1,Math.ceil(filtered.length/pageSize))} 页 · ${filtered.length} 场`}
 catch(e){document.getElementById('pageinfo').textContent='读取失败，请刷新：'+e.message}}
 document.getElementById('pageinfo').textContent=`第 1 / ${Math.max(1,Math.ceil(1825/pageSize))} 页 · 1825 场`;
-</script><h2 class="section-title">系统健康检查</h2><div class="section-note">短样本标记为“样本不足/小样本”，不视为健康通过；单日集中度预警也不等于已经证实长期失效。</div><details><summary>概率分布（10 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>盘口</th><th>样本数</th><th>distinct_vectors</th><th>dominant_vector_share</th><th>状态</th></tr></thead><tbody><tr><td>0.25</td><td>62</td><td>62</td><td>0.016129032258064516</td><td>OK</td></tr><tr><td>1.5</td><td>6</td><td>6</td><td>0.16666666666666666</td><td>SMALL_SAMPLE</td></tr><tr><td>0.5</td><td>38</td><td>38</td><td>0.02631578947368421</td><td>OK</td></tr><tr><td>2.0</td><td>5</td><td>5</td><td>0.2</td><td>SMALL_SAMPLE</td></tr><tr><td>1.0</td><td>20</td><td>20</td><td>0.05</td><td>OK</td></tr><tr><td>1.25</td><td>14</td><td>14</td><td>0.07142857142857142</td><td>OK</td></tr><tr><td>0.75</td><td>47</td><td>47</td><td>0.02127659574468085</td><td>OK</td></tr><tr><td>2.5</td><td>3</td><td>3</td><td>0.3333333333333333</td><td>SMALL_SAMPLE</td></tr><tr><td>1.75</td><td>3</td><td>3</td><td>0.3333333333333333</td><td>SMALL_SAMPLE</td></tr><tr><td>2.25</td><td>1</td><td>1</td><td>1.0</td><td>SMALL_SAMPLE</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/probability_health.csv">下载完整检查表</a></p></div></details><details><summary>方向平衡（2 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>side</th><th>样本数</th><th>share</th><th>状态</th></tr></thead><tbody><tr><td>受让方</td><td>145</td><td>0.7286432160804021</td><td>MONITOR</td></tr><tr><td>让球方</td><td>54</td><td>0.271356783919598</td><td>MONITOR</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/direction_health.csv">下载完整检查表</a></p></div></details><details><summary>盘口意图（9 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>盘口意图</th><th>样本数</th><th>share</th><th>状态</th></tr></thead><tbody><tr><td>中性</td><td>20</td><td>0.10050251256281408</td><td>MONITOR</td></tr><tr><td>真实示弱/阻下</td><td>57</td><td>0.2864321608040201</td><td>MONITOR</td></tr><tr><td>阻下/下盘保护</td><td>49</td><td>0.24623115577889448</td><td>MONITOR</td></tr><tr><td>真实示强/阻上</td><td>10</td><td>0.05025125628140704</td><td>MONITOR</td></tr><tr><td>未知</td><td>6</td><td>0.03015075376884422</td><td>MONITOR</td></tr><tr><td>诱上/阻下</td><td>7</td><td>0.035175879396984924</td><td>MONITOR</td></tr><tr><td>阻上/诱下</td><td>29</td><td>0.1457286432160804</td><td>MONITOR</td></tr><tr><td>混合信号</td><td>11</td><td>0.05527638190954774</td><td>MONITOR</td></tr><tr><td>降温保护/诱下</td><td>10</td><td>0.05025125628140704</td><td>MONITOR</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/intent_health.csv">下载完整检查表</a></p></div></details><details><summary>等级分布（4 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>等级</th><th>样本数</th><th>abc</th><th>状态</th></tr></thead><tbody><tr><td>A</td><td>0</td><td>0</td><td>SMALL_SAMPLE</td></tr><tr><td>B</td><td>0</td><td>0</td><td>SMALL_SAMPLE</td></tr><tr><td>C</td><td>0</td><td>0</td><td>SMALL_SAMPLE</td></tr><tr><td>N</td><td>63</td><td>0</td><td>SMALL_SAMPLE</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/grade_health.csv">下载完整检查表</a></p></div></details><details><summary>快照完整性（1825 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>match_id</th><th>quote_at</th><th>minutes_to_kickoff</th><th>freeze</th><th>primary_status</th><th>状态</th></tr></thead><tbody><tr><td>2997412</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3090453</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3024457</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3046026</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3000075</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2956826</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3091948</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3090722</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3071090</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2956827</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092291</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3086963</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3091947</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092598</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3089926</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092052</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092053</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2929729</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2925534</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2925535</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3091327</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3089927</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3089928</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3089929</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092570</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3087142</td><td>2026-09-19T15:33:38.526963+08:00</td><td>26.357883949999998</td><td>True</td><td>FROZEN_PRIMARY_T30</td><td>T30_FROZEN</td></tr><tr><td>3087670</td><td>2026-09-19T15:33:38.526963+08:00</td><td>26.357883949999998</td><td>True</td><td>FROZEN_PRIMARY_T30</td><td>T30_FROZEN</td></tr><tr><td>3087671</td><td>2026-09-19T15:33:38.526963+08:00</td><td>26.357883949999998</td><td>True</td><td>FROZEN_PRIMARY_T30</td><td>T30_FROZEN</td></tr><tr><td>3090305</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3090718</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/snapshot_health.csv">下载完整检查表</a></p></div></details><details><summary>特征完整性（199 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>match_id</th><th>required_completeness</th><th>all_completeness</th><th>missing</th></tr></thead><tbody><tr><td>3087142</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3087670</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3087671</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046422</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046424</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046426</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046427</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046430</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046431</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046432</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3090804</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3092068</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3010636</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3011404</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2914708</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2921941</td><td>0.8</td><td>0.6764705882352942</td><td>[&#x27;handicap_movement&#x27;, &#x27;water_movement&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;, &#x27;line_resistance&#x27;, &#x27;water_resistance&#x27;]</td></tr><tr><td>2998964</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2998967</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2997531</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3091694</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2995350</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3040753</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2933148</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2912281</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3017911</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3003152</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3051319</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3005789</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3041185</td><td>0.8</td><td>0.7058823529411765</td><td>[&#x27;handicap_movement&#x27;, &#x27;water_movement&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;, &#x27;line_resistance&#x27;, &#x27;water_resistance&#x27;]</td></tr><tr><td>3041562</td><td>1.0</td><td>0.8529411764705882</td><td>[&#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/feature_health.csv">下载完整检查表</a></p></div></details><details><summary>概率校准（25 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>group_by</th><th>分组</th><th>样本数</th><th>effective_n</th><th>predicted_effective_win_rate</th><th>actual_effective_win_rate</th><th>brier</th><th>five_state_brier</th><th>ece</th><th>slope</th><th>intercept</th><th>状态</th></tr></thead><tbody><tr><td>overall</td><td>ALL</td><td>12</td><td>11.5</td><td>0.540758633221688</td><td>0.4782608695652174</td><td>0.25556363897716183</td><td>0.5972456424974645</td><td>0.062497763656470647</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-19</td><td>12</td><td>11.5</td><td>0.540758633221688</td><td>0.4782608695652174</td><td>0.25556363897716183</td><td>0.5972456424974645</td><td>0.062497763656470647</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.25</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.5</td><td>1</td><td>1.0</td><td>0.5134333663722617</td><td>0.0</td><td>0.2636138217043531</td><td>0.5272276434087062</td><td>0.5134333663722617</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.5</td><td>3</td><td>3.0</td><td>0.5230682145318323</td><td>0.6666666666666666</td><td>0.2357929678349321</td><td>0.4715859356698642</td><td>0.14359845213483435</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.25</td><td>6</td><td>5.5</td><td>0.5655684648021775</td><td>0.45454545454545453</td><td>0.26704477063389986</td><td>0.6635420977251317</td><td>0.11102301025672295</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.75</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.0</td><td>1</td><td>1.0</td><td>0.5121889582528676</td><td>0.0</td><td>0.26233752895615775</td><td>0.7006580363990209</td><td>0.5121889582528676</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.5</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.0</td><td>1</td><td>1.0</td><td>0.5132707574168109</td><td>1.0</td><td>0.2369053555856049</td><td>0.5430516368014617</td><td>0.48672924258318906</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>v41_side</td><td>受让方</td><td>7</td><td>6.5</td><td>0.5575226636659673</td><td>0.5384615384615384</td><td>0.2624079375495468</td><td>0.646329174736036</td><td>0.01906112520442882</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>v41_side</td><td>让球方</td><td>5</td><td>5.0</td><td>0.5189653936441252</td><td>0.4</td><td>0.24666605083306142</td><td>0.5285286973634639</td><td>0.11896539364412517</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>欧洲非五大系列</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>其他系列</td><td>12</td><td>11.5</td><td>0.540758633221688</td><td>0.4782608695652174</td><td>0.25556363897716183</td><td>0.5972456424974645</td><td>0.062497763656470647</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>欧洲五大系列</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>阻上/诱下</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>真实示弱/阻下</td><td>3</td><td>2.5</td><td>0.5333724985805605</td><td>0.6</td><td>0.22737890723356977</td><td>0.646759023657458</td><td>0.06662750141943952</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>诱上/阻下</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>阻下/下盘保护</td><td>2</td><td>2.0</td><td>0.5133520618945363</td><td>0.5</td><td>0.250259588644979</td><td>0.535139640105084</td><td>0.013352061894536305</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>未知</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>降温保护/诱下</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>混合信号</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>真实示强/阻上</td><td>1</td><td>1.0</td><td>0.5561467260176735</td><td>1.0</td><td>0.19700572882483022</td><td>0.3940114576496604</td><td>0.44385327398232655</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>中性</td><td>6</td><td>6.0</td><td>0.5504070309652108</td><td>0.3333333333333333</td><td>0.2788349456731081</td><td>0.6270633168562283</td><td>0.21707369763187753</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>time_bucket</td><td>T-30</td><td>12</td><td>11.5</td><td>0.540758633221688</td><td>0.4782608695652174</td><td>0.25556363897716183</td><td>0.5972456424974645</td><td>0.062497763656470647</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/calibration_health.csv">下载完整检查表</a></p></div></details><details><summary>期望收益（5 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>bin</th><th>样本数</th><th>收益率</th><th>状态</th></tr></thead><tbody><tr><td>[-100,0)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>[0,0.02)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>[0.02,0.04)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>[0.04,0.08)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>[0.08,100)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/ev_health.csv">下载完整检查表</a></p></div></details><details><summary>等级表现（3 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>等级</th><th>候选</th><th>已结算</th><th>待结算</th><th>W</th><th>HW</th><th>P</th><th>HL</th><th>L</th><th>effective_win_rate</th><th>盈亏</th><th>收益率</th><th>最大回撤</th><th>drawdown_basis</th><th>calibration</th></tr></thead><tbody><tr><td>A</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>无等级</td><td>0</td><td>无等级</td><td>0.0</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 0, &#x27;effective_n&#x27;: 0, &#x27;predicted_effective_win_rate&#x27;: None, &#x27;actual_effective_win_rate&#x27;: None, &#x27;brier&#x27;: None, &#x27;five_state_brier&#x27;: None, &#x27;ece&#x27;: None, &#x27;slope&#x27;: None, &#x27;intercept&#x27;: None}</td></tr><tr><td>B</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>无等级</td><td>0</td><td>无等级</td><td>0.0</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 0, &#x27;effective_n&#x27;: 0, &#x27;predicted_effective_win_rate&#x27;: None, &#x27;actual_effective_win_rate&#x27;: None, &#x27;brier&#x27;: None, &#x27;five_state_brier&#x27;: None, &#x27;ece&#x27;: None, &#x27;slope&#x27;: None, &#x27;intercept&#x27;: None}</td></tr><tr><td>C</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>无等级</td><td>0</td><td>无等级</td><td>0.0</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 0, &#x27;effective_n&#x27;: 0, &#x27;predicted_effective_win_rate&#x27;: None, &#x27;actual_effective_win_rate&#x27;: None, &#x27;brier&#x27;: None, &#x27;five_state_brier&#x27;: None, &#x27;ece&#x27;: None, &#x27;slope&#x27;: None, &#x27;intercept&#x27;: None}</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/grade_performance_health.csv">下载完整检查表</a></p></div></details><footer>V3 是唯一正式决策。原 V4 对照组与 V4.1 挑战组都只做影子观察，不执行真实投注。候选至少积累 200 场、理想 500 场以上后才具备评估意义，禁止自动晋级。</footer></div></body></html>
+</script><h2 class="section-title">系统健康检查</h2><div class="section-note">短样本标记为“样本不足/小样本”，不视为健康通过；单日集中度预警也不等于已经证实长期失效。</div><details><summary>概率分布（10 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>盘口</th><th>样本数</th><th>distinct_vectors</th><th>dominant_vector_share</th><th>状态</th></tr></thead><tbody><tr><td>0.25</td><td>62</td><td>62</td><td>0.016129032258064516</td><td>OK</td></tr><tr><td>1.5</td><td>6</td><td>6</td><td>0.16666666666666666</td><td>SMALL_SAMPLE</td></tr><tr><td>0.5</td><td>37</td><td>37</td><td>0.02702702702702703</td><td>OK</td></tr><tr><td>2.0</td><td>5</td><td>5</td><td>0.2</td><td>SMALL_SAMPLE</td></tr><tr><td>1.0</td><td>21</td><td>21</td><td>0.047619047619047616</td><td>OK</td></tr><tr><td>1.25</td><td>14</td><td>14</td><td>0.07142857142857142</td><td>OK</td></tr><tr><td>0.75</td><td>46</td><td>46</td><td>0.021739130434782608</td><td>OK</td></tr><tr><td>2.5</td><td>3</td><td>3</td><td>0.3333333333333333</td><td>SMALL_SAMPLE</td></tr><tr><td>1.75</td><td>3</td><td>3</td><td>0.3333333333333333</td><td>SMALL_SAMPLE</td></tr><tr><td>2.25</td><td>1</td><td>1</td><td>1.0</td><td>SMALL_SAMPLE</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/probability_health.csv">下载完整检查表</a></p></div></details><details><summary>方向平衡（2 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>side</th><th>样本数</th><th>share</th><th>状态</th></tr></thead><tbody><tr><td>受让方</td><td>146</td><td>0.7373737373737373</td><td>MONITOR</td></tr><tr><td>让球方</td><td>52</td><td>0.26262626262626265</td><td>MONITOR</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/direction_health.csv">下载完整检查表</a></p></div></details><details><summary>盘口意图（9 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>盘口意图</th><th>样本数</th><th>share</th><th>状态</th></tr></thead><tbody><tr><td>中性</td><td>19</td><td>0.09595959595959595</td><td>MONITOR</td></tr><tr><td>真实示弱/阻下</td><td>55</td><td>0.2777777777777778</td><td>MONITOR</td></tr><tr><td>阻下/下盘保护</td><td>49</td><td>0.2474747474747475</td><td>MONITOR</td></tr><tr><td>真实示强/阻上</td><td>11</td><td>0.05555555555555555</td><td>MONITOR</td></tr><tr><td>未知</td><td>6</td><td>0.030303030303030304</td><td>MONITOR</td></tr><tr><td>诱上/阻下</td><td>7</td><td>0.03535353535353535</td><td>MONITOR</td></tr><tr><td>阻上/诱下</td><td>30</td><td>0.15151515151515152</td><td>MONITOR</td></tr><tr><td>混合信号</td><td>11</td><td>0.05555555555555555</td><td>MONITOR</td></tr><tr><td>降温保护/诱下</td><td>10</td><td>0.050505050505050504</td><td>MONITOR</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/intent_health.csv">下载完整检查表</a></p></div></details><details><summary>等级分布（4 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>等级</th><th>样本数</th><th>abc</th><th>状态</th></tr></thead><tbody><tr><td>A</td><td>0</td><td>0</td><td>SMALL_SAMPLE</td></tr><tr><td>B</td><td>0</td><td>0</td><td>SMALL_SAMPLE</td></tr><tr><td>C</td><td>0</td><td>0</td><td>SMALL_SAMPLE</td></tr><tr><td>N</td><td>68</td><td>0</td><td>SMALL_SAMPLE</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/grade_health.csv">下载完整检查表</a></p></div></details><details><summary>快照完整性（1825 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>match_id</th><th>quote_at</th><th>minutes_to_kickoff</th><th>freeze</th><th>primary_status</th><th>状态</th></tr></thead><tbody><tr><td>2997412</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3090453</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3024457</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3046026</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3000075</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2956826</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3091948</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3090722</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3071090</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2956827</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092291</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3086963</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3091947</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092598</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3089926</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092052</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092053</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2929729</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2925534</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>2925535</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3091327</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3089927</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3089928</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3089929</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3092570</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3087142</td><td>2026-09-19T15:33:38.526963+08:00</td><td>26.357883949999998</td><td>True</td><td>FROZEN_PRIMARY_T30</td><td>T30_FROZEN</td></tr><tr><td>3087670</td><td>2026-09-19T15:33:38.526963+08:00</td><td>26.357883949999998</td><td>True</td><td>FROZEN_PRIMARY_T30</td><td>T30_FROZEN</td></tr><tr><td>3087671</td><td>2026-09-19T15:33:38.526963+08:00</td><td>26.357883949999998</td><td>True</td><td>FROZEN_PRIMARY_T30</td><td>T30_FROZEN</td></tr><tr><td>3090305</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr><tr><td>3090718</td><td>无等级</td><td>无等级</td><td>False</td><td>MISSING_OR_NON_PREMATCH</td><td>MISSING</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/snapshot_health.csv">下载完整检查表</a></p></div></details><details><summary>特征完整性（198 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>match_id</th><th>required_completeness</th><th>all_completeness</th><th>missing</th></tr></thead><tbody><tr><td>3087142</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3087670</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3087671</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046422</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046424</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046426</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046427</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046430</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046431</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3046432</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3090804</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3092068</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3010636</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3011404</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2914708</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2921941</td><td>0.8</td><td>0.6764705882352942</td><td>[&#x27;handicap_movement&#x27;, &#x27;water_movement&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;, &#x27;line_resistance&#x27;, &#x27;water_resistance&#x27;]</td></tr><tr><td>2998964</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2998967</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2997531</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3091694</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2995350</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3040753</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2933148</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>2912281</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3017911</td><td>1.0</td><td>0.7941176470588235</td><td>[&#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3003152</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3051319</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3005789</td><td>1.0</td><td>0.8235294117647058</td><td>[&#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr><tr><td>3041185</td><td>0.8</td><td>0.7058823529411765</td><td>[&#x27;handicap_movement&#x27;, &#x27;water_movement&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;, &#x27;line_resistance&#x27;, &#x27;water_resistance&#x27;]</td></tr><tr><td>3041562</td><td>1.0</td><td>0.8529411764705882</td><td>[&#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/feature_health.csv">下载完整检查表</a></p></div></details><details><summary>概率校准（25 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>group_by</th><th>分组</th><th>样本数</th><th>effective_n</th><th>predicted_effective_win_rate</th><th>actual_effective_win_rate</th><th>brier</th><th>five_state_brier</th><th>ece</th><th>slope</th><th>intercept</th><th>状态</th></tr></thead><tbody><tr><td>overall</td><td>ALL</td><td>12</td><td>11.5</td><td>0.540758633221688</td><td>0.4782608695652174</td><td>0.25556363897716183</td><td>0.5972456424974645</td><td>0.062497763656470647</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-19</td><td>12</td><td>11.5</td><td>0.540758633221688</td><td>0.4782608695652174</td><td>0.25556363897716183</td><td>0.5972456424974645</td><td>0.062497763656470647</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.25</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.5</td><td>1</td><td>1.0</td><td>0.5134333663722617</td><td>0.0</td><td>0.2636138217043531</td><td>0.5272276434087062</td><td>0.5134333663722617</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.5</td><td>3</td><td>3.0</td><td>0.5230682145318323</td><td>0.6666666666666666</td><td>0.2357929678349321</td><td>0.4715859356698642</td><td>0.14359845213483435</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.25</td><td>6</td><td>5.5</td><td>0.5655684648021775</td><td>0.45454545454545453</td><td>0.26704477063389986</td><td>0.6635420977251317</td><td>0.11102301025672295</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.75</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.0</td><td>1</td><td>1.0</td><td>0.5121889582528676</td><td>0.0</td><td>0.26233752895615775</td><td>0.7006580363990209</td><td>0.5121889582528676</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.5</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.0</td><td>1</td><td>1.0</td><td>0.5132707574168109</td><td>1.0</td><td>0.2369053555856049</td><td>0.5430516368014617</td><td>0.48672924258318906</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>v41_side</td><td>受让方</td><td>7</td><td>6.5</td><td>0.5575226636659673</td><td>0.5384615384615384</td><td>0.2624079375495468</td><td>0.646329174736036</td><td>0.01906112520442882</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>v41_side</td><td>让球方</td><td>5</td><td>5.0</td><td>0.5189653936441252</td><td>0.4</td><td>0.24666605083306142</td><td>0.5285286973634639</td><td>0.11896539364412517</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>欧洲非五大系列</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>其他系列</td><td>12</td><td>11.5</td><td>0.540758633221688</td><td>0.4782608695652174</td><td>0.25556363897716183</td><td>0.5972456424974645</td><td>0.062497763656470647</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>欧洲五大系列</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>阻上/诱下</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>真实示弱/阻下</td><td>3</td><td>2.5</td><td>0.5333724985805605</td><td>0.6</td><td>0.22737890723356977</td><td>0.646759023657458</td><td>0.06662750141943952</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>诱上/阻下</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>阻下/下盘保护</td><td>2</td><td>2.0</td><td>0.5133520618945363</td><td>0.5</td><td>0.250259588644979</td><td>0.535139640105084</td><td>0.013352061894536305</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>未知</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>降温保护/诱下</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>中性</td><td>6</td><td>6.0</td><td>0.5504070309652108</td><td>0.3333333333333333</td><td>0.2788349456731081</td><td>0.6270633168562283</td><td>0.21707369763187753</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>混合信号</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>真实示强/阻上</td><td>1</td><td>1.0</td><td>0.5561467260176735</td><td>1.0</td><td>0.19700572882483022</td><td>0.3940114576496604</td><td>0.44385327398232655</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>time_bucket</td><td>T-30</td><td>12</td><td>11.5</td><td>0.540758633221688</td><td>0.4782608695652174</td><td>0.25556363897716183</td><td>0.5972456424974645</td><td>0.062497763656470647</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/calibration_health.csv">下载完整检查表</a></p></div></details><details><summary>期望收益（5 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>bin</th><th>样本数</th><th>收益率</th><th>状态</th></tr></thead><tbody><tr><td>[-100,0)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>[0,0.02)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>[0.02,0.04)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>[0.04,0.08)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>[0.08,100)</td><td>0</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/ev_health.csv">下载完整检查表</a></p></div></details><details><summary>等级表现（3 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>等级</th><th>候选</th><th>已结算</th><th>待结算</th><th>W</th><th>HW</th><th>P</th><th>HL</th><th>L</th><th>effective_win_rate</th><th>盈亏</th><th>收益率</th><th>最大回撤</th><th>drawdown_basis</th><th>calibration</th></tr></thead><tbody><tr><td>A</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>无等级</td><td>0</td><td>无等级</td><td>0.0</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 0, &#x27;effective_n&#x27;: 0, &#x27;predicted_effective_win_rate&#x27;: None, &#x27;actual_effective_win_rate&#x27;: None, &#x27;brier&#x27;: None, &#x27;five_state_brier&#x27;: None, &#x27;ece&#x27;: None, &#x27;slope&#x27;: None, &#x27;intercept&#x27;: None}</td></tr><tr><td>B</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>无等级</td><td>0</td><td>无等级</td><td>0.0</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 0, &#x27;effective_n&#x27;: 0, &#x27;predicted_effective_win_rate&#x27;: None, &#x27;actual_effective_win_rate&#x27;: None, &#x27;brier&#x27;: None, &#x27;five_state_brier&#x27;: None, &#x27;ece&#x27;: None, &#x27;slope&#x27;: None, &#x27;intercept&#x27;: None}</td></tr><tr><td>C</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>无等级</td><td>0</td><td>无等级</td><td>0.0</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 0, &#x27;effective_n&#x27;: 0, &#x27;predicted_effective_win_rate&#x27;: None, &#x27;actual_effective_win_rate&#x27;: None, &#x27;brier&#x27;: None, &#x27;five_state_brier&#x27;: None, &#x27;ece&#x27;: None, &#x27;slope&#x27;: None, &#x27;intercept&#x27;: None}</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/grade_performance_health.csv">下载完整检查表</a></p></div></details><footer>V3 是唯一正式决策。原 V4 对照组与 V4.1 挑战组都只做影子观察，不执行真实投注。候选至少积累 200 场、理想 500 场以上后才具备评估意义，禁止自动晋级。</footer></div></body></html>
