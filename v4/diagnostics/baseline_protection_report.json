@@ -1,0 +1,1586 @@
+{
+  "protected_files_checked": 263,
+  "protected_model_data_changed": 0,
+  "allowed_ui_link_changes": 1,
+  "checks": [
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_211410\\run_manifest.json",
+      "snapshot_sha256": "1d880896dc201d61397d46c01ecb7f8f618e5447eac609c6dd291c07fb4a77b2",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_211410\\v4_shadow.json",
+      "snapshot_sha256": "6ed581f62bba826f9c879b9739e8f8bf8940ed500459a3aa68827d2f7635e350",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_211615\\run_manifest.json",
+      "snapshot_sha256": "97abd38c4cfe60fe5157cc5fc2874902beddc80a95224985941e47d88653e394",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_211615\\v4_shadow.json",
+      "snapshot_sha256": "874d436693e22954d60b7ad4fe2ba3389177608b9206ae94967d7d401b7b4a42",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212042\\run_manifest.json",
+      "snapshot_sha256": "77e1c39bb12cfae681259f63517b54b7b874a695eea8c73ca4e60586e583345a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212042\\slate_raw.csv",
+      "snapshot_sha256": "df39df3649dc8a93c3e23a48098faef5ca354219cef60a21e1099e6096afd841",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212042\\v4_shadow.json",
+      "snapshot_sha256": "2b5bd1d98fd1171ec9681a4b6083fb8712603908839de3fd7dd6277305d4016c",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212155\\run_manifest.json",
+      "snapshot_sha256": "3fe1180528d7c8c9cd8535da3af6d587ac77e50137a7811c74e1080e4d99e547",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212155\\slate_raw.csv",
+      "snapshot_sha256": "df39df3649dc8a93c3e23a48098faef5ca354219cef60a21e1099e6096afd841",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212155\\v4_shadow.json",
+      "snapshot_sha256": "d6676e12a41da834b5fba889d64d17c7a8daa580c8a21c7d44cafb55c60d1962",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212247\\run_manifest.json",
+      "snapshot_sha256": "0ede8a0b3c6d1500fda0a40db8d1bf83ee3f69bbf6ea422b8665968e1fc9cebb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212247\\slate_raw.csv",
+      "snapshot_sha256": "7699254006a9a060e6e531de8474ce4c682d84babe58cace1b001187ef1dcf4a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212247\\v4_shadow.json",
+      "snapshot_sha256": "4cbeb6003c18a87b1f5837182ff1b9eccada16e0a7298516685cfc6fda52892c",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212614\\run_manifest.json",
+      "snapshot_sha256": "f31b954accdf4ebcae0d0b29646bf0806fe95d5d220235a2236dcd310355ffd9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212614\\slate_raw.csv",
+      "snapshot_sha256": "7699254006a9a060e6e531de8474ce4c682d84babe58cace1b001187ef1dcf4a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212614\\v4_shadow.json",
+      "snapshot_sha256": "bd23cc9ec151d8652877955265eeb7cf42ccfd6525019a05c9972d816998a855",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212710\\run_manifest.json",
+      "snapshot_sha256": "1950c387efe329137c70c6099a79ca298c23e262f529afcf5e4674574efe74f1",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212710\\slate_raw.csv",
+      "snapshot_sha256": "7699254006a9a060e6e531de8474ce4c682d84babe58cace1b001187ef1dcf4a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_212710\\v4_shadow.json",
+      "snapshot_sha256": "8f66fa47926fbd80f29c90e3361badf5f87eb2dcbd07fcc65d1aee902ff9961d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_213010\\run_manifest.json",
+      "snapshot_sha256": "27cbd0a6a2d8fa20742c2a190749bc60cccd199264aaf0a59af7cab245bc9373",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_213010\\slate_raw.csv",
+      "snapshot_sha256": "7699254006a9a060e6e531de8474ce4c682d84babe58cace1b001187ef1dcf4a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_213010\\v4_shadow.json",
+      "snapshot_sha256": "731c9a0328d65a4acf223db1e3127907821c5707e2a7777d9f8f813fd3b1f0cb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_214113\\run_manifest.json",
+      "snapshot_sha256": "bab9c56b1b24c87abf9799469c5625d4c8abfc81bac02a34a22e0615fe9439c6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_214113\\slate_raw.csv",
+      "snapshot_sha256": "4af3f35ddea6ffe66898fc8e027d90056d9548e97e5224620230ba7f522885f4",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_214113\\v4_shadow.json",
+      "snapshot_sha256": "e4107e6d66ee8532b6eb12bdd621b5ca3f8df6813f994e7a4ce968e72a0870c6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_214401\\run_manifest.json",
+      "snapshot_sha256": "c85b1a586e521e81eff69eeb3ac8ef52e5b20644d5b0f7a11d7deda32c63d9a5",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_214401\\slate_raw.csv",
+      "snapshot_sha256": "4af3f35ddea6ffe66898fc8e027d90056d9548e97e5224620230ba7f522885f4",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_214401\\v4_shadow.json",
+      "snapshot_sha256": "9da073174a371b1b2bfae2c51b1b32c4c46fe240612c85bd73307d965154e5f5",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_220502\\run_manifest.json",
+      "snapshot_sha256": "6b1e614ae704545d7259c97d09e674d34fb817a3e79c8b3187ad42a527c2f1f9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_220502\\slate_raw.csv",
+      "snapshot_sha256": "af82a1f80e47d48285cdc59084e17eeb53432ed81fdfbd80a4745702cd8f0ddf",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_220502\\v4_shadow.json",
+      "snapshot_sha256": "6678300bd8a8fd55ee527cb140d3ac766db1ce10c03d5d3d7e9f80cbc9132d24",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_221606\\run_manifest.json",
+      "snapshot_sha256": "709912d2ffbec2b5100ee0a1dae4fc000870a1bf5a2fdf0cb401a2eec777cede",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_221606\\slate_raw.csv",
+      "snapshot_sha256": "af82a1f80e47d48285cdc59084e17eeb53432ed81fdfbd80a4745702cd8f0ddf",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-14\\RUN_20260914_221606\\v4_shadow.json",
+      "snapshot_sha256": "966abdc3448b424d3fad1109d9985f8c51a7b3f5071fe1b3b6ebe48651eb32ce",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_072306\\run_manifest.json",
+      "snapshot_sha256": "c2904d0836dea259700b70206492c0f0dc3ec99e21665e2dad9c6ea8ef4404d0",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_072306\\slate_raw.csv",
+      "snapshot_sha256": "ec635edd606c84c02dfd3ad1647484778467fc9e7730ea7401c037ef2b08264f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_072306\\v4_shadow.json",
+      "snapshot_sha256": "1eea3b22af1b31c798ada1e69d162ea0695d95890d57179146277464cf00fab0",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180417\\run_manifest.json",
+      "snapshot_sha256": "9bbf260d61ca804dedeb4cadd85d4e1a560700641d1be8b42d9fe3340b5daa2c",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180417\\slate_raw.csv",
+      "snapshot_sha256": "3f4f577cf28203bd8484979ccd73664c86412462c7f14e06d0fc6e4e451f54c6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180417\\v4_shadow.json",
+      "snapshot_sha256": "6d54e2b667a26494acde48b9fa0ca843106b2311e6a4259ac30371ce48b0345a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180834\\run_manifest.json",
+      "snapshot_sha256": "88a7850cc92e16e3526d671be718a2e41874c8a37957d0647a0228116285aded",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180834\\slate_raw.csv",
+      "snapshot_sha256": "3f4f577cf28203bd8484979ccd73664c86412462c7f14e06d0fc6e4e451f54c6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180834\\v4_shadow.json",
+      "snapshot_sha256": "29ae26a53f2f0c4e8e7f0e58aecb9058c762ff6889a97f33e1474d2feb88c97e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180941\\run_manifest.json",
+      "snapshot_sha256": "d275609174d514daed02324f07b807809ca7a40a8e1479066f554c65cc01a922",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180941\\slate_raw.csv",
+      "snapshot_sha256": "3f4f577cf28203bd8484979ccd73664c86412462c7f14e06d0fc6e4e451f54c6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-15\\RUN_20260915_180941\\v4_shadow.json",
+      "snapshot_sha256": "1b9fa6747d5982e92e1b976bc01e3c32aed5ebef977e688baad2bafddf6f29d8",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\run_manifest.json",
+      "snapshot_sha256": "e07ce26a0fa965d017e53317f1152e99b010f7fe7b7ad945c64fce6717a201b6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\slate_raw.csv",
+      "snapshot_sha256": "2922ef469d18a2bc3dc149897935574258786287b41751323a701c4f18420d5d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_072846\\v4_shadow.json",
+      "snapshot_sha256": "dc2209f4303fafc47da9e5a4e1b8cbd18e74cc32eff52982f30660b227f0d2e5",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_082848\\run_manifest.json",
+      "snapshot_sha256": "dfffe979589b9c3b168d3cebe7ca01b59e89df749178546dbb43ad36bf6002b8",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_082848\\slate_raw.csv",
+      "snapshot_sha256": "c1d1ec448150109247a33331e6e138bd77cb5d0c5f68d89b5e47324ec77b4732",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_082848\\v4_shadow.json",
+      "snapshot_sha256": "58f0ef7a7e1802972b27917faf433148fad2db662320d8b79b8295375b353434",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_204942\\run_manifest.json",
+      "snapshot_sha256": "1eaf9421afe9b247843f69b21d7ad083d377a893edc7b0d0c2ce71a41ed30458",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_204942\\slate_raw.csv",
+      "snapshot_sha256": "20c53084733ea6d9c8402672a24238bd1e5d9096d80f9a4008a30fce38e18768",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_204942\\v4_shadow.json",
+      "snapshot_sha256": "bd3e2d71242136e6bb52ee882b4f46d7b4fc3c646e9c290f6f80297e471ea9a4",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_205341\\run_manifest.json",
+      "snapshot_sha256": "1ef22cf809bc676606a0e78e6f5667ca623aefb4b25c1a5c776fd968e88a6af2",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_205341\\slate_raw.csv",
+      "snapshot_sha256": "20c53084733ea6d9c8402672a24238bd1e5d9096d80f9a4008a30fce38e18768",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_205341\\v4_shadow.json",
+      "snapshot_sha256": "91d2fb642898660837ec5bb41f7e78f419b92135d013343cf67b025f4398b683",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_235031\\run_manifest.json",
+      "snapshot_sha256": "0975105d836cf4135521be802a22b6c1ea8724a86ca4905817d0f1ff2af2a90d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_235031\\slate_raw.csv",
+      "snapshot_sha256": "9873e92327f79a09b21474e88c86af252f0b8737043e176684e80d35a88ad898",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_235031\\v4_shadow.json",
+      "snapshot_sha256": "7d102aa3b9c8a8edc84fe375f2b1709aa81e1f3df8fc076805afee390e37baef",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_235456\\run_manifest.json",
+      "snapshot_sha256": "9545ea7681c31bd1e1191efe371005e518f6dac7975ccce09166486c8b97b8b3",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_235456\\slate_raw.csv",
+      "snapshot_sha256": "9873e92327f79a09b21474e88c86af252f0b8737043e176684e80d35a88ad898",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-16\\RUN_20260916_235456\\v4_shadow.json",
+      "snapshot_sha256": "95919d93198560cb011b009fc8f4e16cd0d86762de46903a726421b01674e2ae",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\run_manifest.json",
+      "snapshot_sha256": "05295b39d8bd70c00af767e3e2646f91b8b83866e5f7d4eacd81dda5915c56c1",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\slate_raw.csv",
+      "snapshot_sha256": "641ddba9a6f99b223dff7bc0317213fde7054da0b7b7239ce195381937275021",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_070607\\v4_shadow.json",
+      "snapshot_sha256": "10ac1d2599825e41b8590571b4906d471794a8d3ce11ba99467c4fb9781e16f9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_171030\\run_manifest.json",
+      "snapshot_sha256": "857ba57bec7f992766255d5769e1870a67ccc1ec12825fb29cad8045cb6c3675",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_171030\\slate_raw.csv",
+      "snapshot_sha256": "0f3d901201b53357881d12c44ad74729ea9d23cfe4fbdb4cb3680897b552673d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_171030\\v4_shadow.json",
+      "snapshot_sha256": "16c6c8e5f4dca022033c06abb6e8a1e7c6fbaab1435ba95b634f6adf470945f3",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_203052\\run_manifest.json",
+      "snapshot_sha256": "fb361cc37f64bddde344fdfbc8c8b7b4042c464ae64915a649456f2b99ee2f6b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_203052\\slate_raw.csv",
+      "snapshot_sha256": "804eff4d8764def7993fe1631173ceecc4b7b70e7369eefba9a1e47c778b01bb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_203052\\v4_shadow.json",
+      "snapshot_sha256": "4c6d5c2788fe3a97e6ca2cc1e7bb6ac4918c8ba2ac786059a88f124773569213",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_222746\\run_manifest.json",
+      "snapshot_sha256": "1f7ab6ff9e91990402d9e6df0d91505d5bea0aadca2eaa38017d0e3712d6f4b9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_222746\\slate_raw.csv",
+      "snapshot_sha256": "1d2db23284e595f38ca465c8e6b3eaca6af429bdc27e30329b08fd338f2ea173",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-17\\RUN_20260917_222746\\v4_shadow.json",
+      "snapshot_sha256": "20ddd434c1c8d2e76b34c549410d0b3975f7d4eaac86fc87190ba76947d7d7eb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-18\\RUN_20260918_074935\\run_manifest.json",
+      "snapshot_sha256": "df0dfb6e1401849675ab42a890a4ca8281595df9a38e3b1f02e65f1b5924e7f2",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-18\\RUN_20260918_074935\\slate_raw.csv",
+      "snapshot_sha256": "99933b3c173385beacbda1eb51295bfdc1098e9c0b44f3954519c9c02e477bc2",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-18\\RUN_20260918_074935\\v4_shadow.json",
+      "snapshot_sha256": "d1e5c1b3d3b11a4f43be52a82dcd85ccb3aa5eefcc29db973a92b52f63b7b3ce",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-18\\RUN_20260918_155805\\run_manifest.json",
+      "snapshot_sha256": "c5c4359e3625fb06b877eb51e089b6cd30400f2ec658ea27b39fb9852388ac04",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-18\\RUN_20260918_155805\\slate_raw.csv",
+      "snapshot_sha256": "7e67e884d68b7a00f40cbb9f90dff6798509ebd24a3a288a88d096d4070397cc",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-18\\RUN_20260918_155805\\v4_shadow.json",
+      "snapshot_sha256": "df2bc639f1d6eb821354baccf36c3b0058ae96fe00285b6c26614684838e3849",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260919_083825\\run_manifest.json",
+      "snapshot_sha256": "36d8c84e2d7d2af071ee76124564e5455d96e25b61b61649b3013bdf0bf20dbb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260919_083825\\slate_raw.csv",
+      "snapshot_sha256": "a33df67ec3f4599fc43405277140327f397affd94a0c1df0a785c966948d3e0b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260919_083825\\v4_shadow.json",
+      "snapshot_sha256": "a2bd4b7a3c54d4262a099d1e35858a6dc1045de7156b45f9eae2b7792ef154dc",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260919_140756\\run_manifest.json",
+      "snapshot_sha256": "c0c50132107809af543926f2c63f7071c869cf64d912a19b2d5ddd53b6d8ee46",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260919_140756\\slate_raw.csv",
+      "snapshot_sha256": "bff3614db67b45f9f1dd0b1ee8e73a35f385f5e3d587ac2deb37ea77729a262f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260919_140756\\v4_shadow.json",
+      "snapshot_sha256": "0452c1da692b82cca06601ebade87daf550121f36358d81b32fdcc033d5feb1f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\research\\v4_market_base_ready.csv",
+      "snapshot_sha256": "f353dc0348d6f618e23c4ab4bebe67f22483c4e6f31f12506ed972c7ab0e0a5f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-14_20260915_072814.csv",
+      "snapshot_sha256": "c8c39c38754f02982eb3867898cc97c20ca4af5e024e7177136723abd0fec805",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-14_20260915_180713.csv",
+      "snapshot_sha256": "fbfd531010b238a70cf200a9b4d2bca26e0c61404a80c53a652bf0774bc36cd4",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-14_20260915_180904.csv",
+      "snapshot_sha256": "fbfd531010b238a70cf200a9b4d2bca26e0c61404a80c53a652bf0774bc36cd4",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-14_20260915_181011.csv",
+      "snapshot_sha256": "fbfd531010b238a70cf200a9b4d2bca26e0c61404a80c53a652bf0774bc36cd4",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_073017.csv",
+      "snapshot_sha256": "ff578ba4c7f8f3c35e636fdce00f029498f4e1485a437cab4512ecba4379139c",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_080043.csv",
+      "snapshot_sha256": "36e3adbbbacfffe768ff22aa142702fd3d3f6d41b3d0e90b692fdb49104163ae",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_080130.csv",
+      "snapshot_sha256": "5da8351f01ad56a29cc90775656a30e7dbbb2dec5dc372556d1a77a01a80f450",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_080158.csv",
+      "snapshot_sha256": "83933da518da474d8a5a040ec80ec02302d30594f688d7d54c5e217cf4282ded",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_083030.csv",
+      "snapshot_sha256": "816761fc7b7753efdcd3913690aa26e5db8412583242951b831a1fef9b20786a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_083339.csv",
+      "snapshot_sha256": "816761fc7b7753efdcd3913690aa26e5db8412583242951b831a1fef9b20786a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_090708.csv",
+      "snapshot_sha256": "3a12419a21446ec3fb418a09431e51e68352fb2ab5edf5f9d938ede6413baa45",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_205256.csv",
+      "snapshot_sha256": "ed564494aaa01dccf5113d0da28b1122e0e055bb418482e8bf838e656faf0e6f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_205407.csv",
+      "snapshot_sha256": "d2799cf88f16920c5812efd31dbfb0a2e3c4bfa0c25e10bd65fb340a2f44089d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_205725.csv",
+      "snapshot_sha256": "d2799cf88f16920c5812efd31dbfb0a2e3c4bfa0c25e10bd65fb340a2f44089d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_235356.csv",
+      "snapshot_sha256": "adc0ea0b77670482b79b0fca322ee3e884c114f170ba07a4100909cb1348b1f9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-15_20260916_235530.csv",
+      "snapshot_sha256": "adc0ea0b77670482b79b0fca322ee3e884c114f170ba07a4100909cb1348b1f9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-16_20260917_070707.csv",
+      "snapshot_sha256": "6a74a9fa43171b425febacfd282f0028c625c03223512425e09cd3816067a56b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-16_20260917_171204.csv",
+      "snapshot_sha256": "1c5ddfcbf4efd825f4e6321ba6428ae6833698c628628babdb955a4a26ed1b84",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-16_20260917_203228.csv",
+      "snapshot_sha256": "038fb384a5cfa6df96e8009cc01ad55b127011c9c30b6b986ae3a1e997261ad6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-16_20260917_222933.csv",
+      "snapshot_sha256": "f3b34347ccbf4cf3b1fadf725bdae22c6a780de77560b00c70c8faea8dc4bab3",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-17_20260918_075154.csv",
+      "snapshot_sha256": "2da5b748a6cf8350736357df6a8ff7132845ea6e97a8734a1885c546891231ba",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-17_20260918_160037.csv",
+      "snapshot_sha256": "68e8c5f379cf2f678298025ec6a76570d5b31863e5f1bfab09d1179f2baf4b68",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-18_20260919_084315.csv",
+      "snapshot_sha256": "ddf7595e4c9ae2e4ac58c79467f1efb237639a85f4f0028b96f0003da888ebf8",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-18_20260919_084651.csv",
+      "snapshot_sha256": "2287a13d163ff77c7e05eead5a8002dd19964e9e7734d24d304f2c7992f781ca",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-18_20260919_141310.csv",
+      "snapshot_sha256": "c8df18f5273ffd51a13fdc5618c2b3fc68fe8cd3c59ecfeee8279e994db7b401",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\run_football_update.py",
+      "snapshot_sha256": "50e2fe84dbf2ef76c3f300e734247b3f5d4e22c6c89831863f6ebd2bf9fc0503",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\tools\\asian_settlement.py",
+      "snapshot_sha256": "273114f0eec347b1bf8a962b4b5ae2d8c887a1bfae05b1184929370bbdbf7a40",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\tools\\finalize_football_daily_delivery.py",
+      "snapshot_sha256": "676e7d32a726b1365183b747476b7447f1eb9bba009bc3909879b4196ad861cf",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\tools\\write_dual_yesterday_performance.py",
+      "snapshot_sha256": "12dfb0d6c9618b6bb528d9e08bf267027083196e245b74de148b708f08967c8a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\tools\\fetch_titan007_odds.py",
+      "snapshot_sha256": "d649232617f7d4d684de4c0bb3c8a49c4acdfbaa81c0a19394c84de44a69afd5",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\audits\\runtime_acceptance_2026-09-13.json",
+      "snapshot_sha256": "e534ab218480d5d7f773b083be9357a5a659c1dda5d8e5bce6417289981fd61d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\audits\\runtime_data_contract.csv",
+      "snapshot_sha256": "1e597fddc1ad850d94beafb1b4f2221b7adf743346229cb84836bdc6a9026ed4",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\audits\\runtime_fix_report.md",
+      "snapshot_sha256": "31233bc30a43ac8f520db36d5af742cf716803ccb519f1eb1e1e2bb24c7165c0",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\blind_prematch_replay_20260912.py",
+      "snapshot_sha256": "ca1a9190c814fc5d3e30762379bbe178f14393a7334ccb2e4efdd228acaee2b3",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\dashboard\\index.html",
+      "snapshot_sha256": "27b4c86eb127456edbd3377a35fbdd792661e2f11f3cf278bb22e457708a082d",
+      "unchanged": false,
+      "allowed_entry_link_only": true
+    },
+    {
+      "source": "D:\\codex\\v4\\direction_contract.py",
+      "snapshot_sha256": "e64e23103a4ca1fcd901d7ca92eca2e3c839eabd7e79f12377d6d00b7724c292",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\finalize_strict_blind_outputs.py",
+      "snapshot_sha256": "bea71204e85ffbb11cba85967d78665246b9e0e60f175604b42b19cac277626f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-07\\v4-prior-blind-2026-09-07-v1.json",
+      "snapshot_sha256": "b7a2a1cbf800cde3b67731fe0758101a4f333901d76d38fa99dcef9fe16a298d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-08\\v4-prior-blind-2026-09-08-v1.json",
+      "snapshot_sha256": "096ba733af3307bd88645a04c2f046757955178b117164cb6046afd633334299",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-09\\v4-prior-blind-2026-09-09-v1.json",
+      "snapshot_sha256": "61496e68a60255056b689e8457419fbc4497c8fdf9f07c18409463e774fb42cb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-10\\v4-prior-blind-2026-09-10-v1.json",
+      "snapshot_sha256": "6c1f8dd702d83a3beedfa1fc7c436bc82bfa2494357c348727da1495dc24e5eb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-11\\v4-prior-blind-2026-09-11-v1.json",
+      "snapshot_sha256": "d908ac070a7ef33b951c6e19802ff023f8de71e4808769dbb3bd0b93a90ab7a0",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-12\\v4-prior-blind-2026-09-12-v1.json",
+      "snapshot_sha256": "69c55f8c213bed3c345abab51f042603ea511a7e1f8810cc3096b9b06c1aee11",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-13\\prior-2026-09-13-v1.json",
+      "snapshot_sha256": "2df566fb6c3de733725cbcd49fab055b9db204bf9194728de5d5d7cd1da2a377",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-14\\prior-2026-09-14-v1.json",
+      "snapshot_sha256": "d2ef7271ed7e5069fc278277309c7a53690db620cf716d9801da9d453bd84e66",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-15\\prior-2026-09-15-v1.json",
+      "snapshot_sha256": "4693dab88ca31eb9f072fb480e430c3985cbcb10e9335ea5c03aed175a1bbfdd",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-16\\prior-2026-09-16-v1.json",
+      "snapshot_sha256": "384dac46df72fe1e5b3f685b25c3a10eca55200efa8de21558fd1c2c74d86974",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-17\\prior-2026-09-17-v1.json",
+      "snapshot_sha256": "c045c1ccaf3900830943ebaedbac02f1ec3cc31a688e0f1e475d3ab81e291efe",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-18\\prior-2026-09-18-v1.json",
+      "snapshot_sha256": "eed56dd96a68391895ed23b93fae97172959ff5fa687c9f7d588dddbc198830c",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\ledger\\prior\\2026-09-19\\prior-2026-09-19-v1.json",
+      "snapshot_sha256": "ac70c226ac36938f0b3ff054b1ba66fb992916a416d26402465b903090ba6f8e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\legacy_giving_only\\legacy_code_hashes.json",
+      "snapshot_sha256": "eff003f205c8369f04679947e31e0145ff289b540c85e9968bde8d18dac4eddb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\legacy_giving_only\\model.json",
+      "snapshot_sha256": "c684caee9d05d09d1d50e341c54c955860cdedab5e849bb157685be536e7d414",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\legacy_giving_only\\prior-2026-09-14-v1.json",
+      "snapshot_sha256": "27d516d44c4b2339433a8c8a0f9063a1d13640c7f6d6c2563332058c1c1c4815",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\legacy_giving_only\\v4_decisions_2026-09-14.json",
+      "snapshot_sha256": "6678300bd8a8fd55ee527cb140d3ac766db1ce10c03d5d3d7e9f80cbc9132d24",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\models\\v4-market-dirichlet-20260913\\model.json",
+      "snapshot_sha256": "20d76c8189e5d4f8f616db6129551674e6c4f362269fb2fc14f542f5cfed435f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\models\\v4-market-dirichlet-20260913\\training_manifest.csv",
+      "snapshot_sha256": "894da974eb8f14ad3625e43ecfff312df75e5f2927c64cfa22ad8bf6fbb040c8",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\audits\\v4_blind_replay_20260907_20260912.md",
+      "snapshot_sha256": "24cf50f0d8073b20b005846372af22cbff3a1566e6c0912710a14b467eff58c8",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_ab_candidates_0907_0912.csv",
+      "snapshot_sha256": "79a78cc04a41b749e830caa0470fb02675c80f202fb38432a35ee4bf3bd1687d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_b2_comparison_0907_0912.csv",
+      "snapshot_sha256": "4899bb66a468c62bf5aa48b3ce9ce0975c0c2f006cde944437b6d1609dda80b7",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_capacity_2026-09-12.csv",
+      "snapshot_sha256": "e660f871906914f5c4921b9857fba7a8ad510c3e6a98a916507eca23c08c11a6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_chronological_prediction_locks.json",
+      "snapshot_sha256": "d3a8f3f4afc8f49eb9c606529f245877408576f818ac497dd91ccfe70725c657",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_daily_strategy_summary_0907_0912.csv",
+      "snapshot_sha256": "7f404b78f700721611bc49bb7af69040b3885bc2ddba66b45552dff87710f954",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_daily_summary_0907_0912.csv",
+      "snapshot_sha256": "39362ada20cdac4f7f22fbd3e1f0c74b770d530ee8ff655145b750775ab15314",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_prediction_lock_2026-09-07.json",
+      "snapshot_sha256": "9ec6e48ae856627428e18c71bcf45a53f2868a2f74c69c5327fceaeb2b5ac21b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_prediction_lock_2026-09-08.json",
+      "snapshot_sha256": "2421f42023aeb58e11070eca76a95b70191d3cacac55936be3f24ef51d533783",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_prediction_lock_2026-09-09.json",
+      "snapshot_sha256": "8652a40663c8870f912bed7615fe2ca0c3b35004f06185e05654fc04db2b6975",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_prediction_lock_2026-09-10.json",
+      "snapshot_sha256": "8841d2229cd9f9ae9e1d1b467b1ac4e29a2ee95f363330641a82e2c4cb83d0df",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_prediction_lock_2026-09-11.json",
+      "snapshot_sha256": "e0505ef14045bcf34c05ff54870b33993559751dbfeacc776dbee432a1039839",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_prediction_lock_2026-09-12.json",
+      "snapshot_sha256": "b6a6474e533cf177b8246d5d7b80a57709bd3cac57c7cb3b1fbb881a0553c4f9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_prediction_summary_2026-09-12.json",
+      "snapshot_sha256": "21edb679e33d4b497f5caa058b7a39693bd4427687d8a1a59c3ac7cb5a35bc15",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_predictions_2026-09-07.csv",
+      "snapshot_sha256": "0bd610734d09fba9c0c505d092fce9c0a020bffe4cd22033d36dc8f89291914e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_predictions_2026-09-08.csv",
+      "snapshot_sha256": "03a326dc59a639e4d35ac5649d1a77f4a09cf028b0f2106e217379113ac950a1",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_predictions_2026-09-09.csv",
+      "snapshot_sha256": "de20a83cdcd83f00f90e45a589dec705d4c9b3ff8df95d824e103e6bf9404e14",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_predictions_2026-09-10.csv",
+      "snapshot_sha256": "4dfd52094bc09847c6e52e3d69d8179aab65ac06769bfac3406207a0da4b0927",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_predictions_2026-09-11.csv",
+      "snapshot_sha256": "7518f8dadb4dc66bd391193bdae1a58f92645dedef6cc19d7884fc4873f91e3d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_predictions_2026-09-12.csv",
+      "snapshot_sha256": "a2e1eab4398746f55f1a96b294cc8aa4ba4f26ed8fb4435192d93aea38746c78",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_threshold_coverage_0907_0912.csv",
+      "snapshot_sha256": "c4e3e66e02cbaa7719a58ffc26a8fac1a439dc97ed20e62435cd60473d1fdf17",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_threshold_coverage_2026-09-12.csv",
+      "snapshot_sha256": "2ef0a5db14766324a8fb50386cc48f005cd5fbce29a5fe27bd615cc73208c609",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_threshold_summary_0907_0912.csv",
+      "snapshot_sha256": "910a132ba614438ee62603573beade6cd084092f7a73fc1d90021a8dfc37e3bd",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_validation_0907_0912.csv",
+      "snapshot_sha256": "cf485785ba744bbd85ef395d423083f462230303d655d5c91cdd2a3fc0652266",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_validation_2026-09-12.csv",
+      "snapshot_sha256": "89dd3942b3c3e23b0814c8a30aa7d4596117894ba432e03b0610014d820e20ad",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_validation_rows_0907_0912.csv",
+      "snapshot_sha256": "b33572aeec41b33ad951705d1af73f76c3facb1cb29426e9f6762b73560c2e45",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_blind_validation_rows_2026-09-12.csv",
+      "snapshot_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_daily_update_2026-09-14.md",
+      "snapshot_sha256": "57f6dad5fe09e0bf494f3e6ab537082bccdbdf74a35fc5da62eeaed80b55209c",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-13.csv",
+      "snapshot_sha256": "9742a9d09f54b8fce575ad534df697b9b74ee9eb0d842fbeb487ccf0221b1ce4",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-13.json",
+      "snapshot_sha256": "25121301d9d94b7241fff22efd3c0901b3f47422cfecb1fa9150c9cf139b6b84",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-14.json",
+      "snapshot_sha256": "966abdc3448b424d3fad1109d9985f8c51a7b3f5071fe1b3b6ebe48651eb32ce",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-15.json",
+      "snapshot_sha256": "b7547c4aaff3b3b3a230411066eb59066407fae85f85ff95092d1934aab3688e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-16.json",
+      "snapshot_sha256": "4b0c7b42d712307ba93740697c448c0cca1aef259a0f06eca58db2fc76d4808b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-17.json",
+      "snapshot_sha256": "7ca9ca952b66bb2c32f5f5620311003863a45d9f47b14de941ee8704c767cef1",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-18.json",
+      "snapshot_sha256": "068edbe4a38ac45eec11bc1dc7dcc89b54ff92b0d9cab9d5e6474775fb0fbc05",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-19.json",
+      "snapshot_sha256": "de6bc71dce0d0c09031c582efe8b944cef43abc5687661bea38404d2ad1515b1",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_page_2026-09-13.json",
+      "snapshot_sha256": "e76eb95c2196b4532ce797f3740f762fb09c468a136bd18fa034fecfdc02d473",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_selected_2026-09-13.csv",
+      "snapshot_sha256": "f57d1cf9f14af3d3568c47dcb2e6de123ba1dd321d5b99997bc545fe09b91d6a",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_selected_2026-09-14.csv",
+      "snapshot_sha256": "37041e7f0330be18f2e939856470dddaf04c011734b18fc74ec44d705ccce709",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_selected_2026-09-15.csv",
+      "snapshot_sha256": "d91361bc1ccd8802ae8653d38cafa50d8bedc0796c513b1c266852eff0fc61c7",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_selected_2026-09-16.csv",
+      "snapshot_sha256": "185a9128beb45def85014406a58e23897e70041fd2e8deda91cb6666d0dc6aae",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_selected_2026-09-17.csv",
+      "snapshot_sha256": "48e99134d8ca13fe1550ea4a97cac0c2bda0008545f1efff340a679eb9ad2933",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_selected_2026-09-18.csv",
+      "snapshot_sha256": "562fac4a6529ab1d6eaa78c9439a8ccc1d21f77e75d1226335b11594daa95a78",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\outputs\\v4_selected_2026-09-19.csv",
+      "snapshot_sha256": "156447c5b45674f173a14a474a86a8cbcbf5f9ed3bc8713fceaaee0fe540f356",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\run_daily_v4.py",
+      "snapshot_sha256": "6a428b07a0843ebf85e2f9008855fc60e4179e34bc044315bc8a48f9e77fb3fe",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\strict_chronological_blind_replay.py",
+      "snapshot_sha256": "240f515226becf93e512c13b3873c649dcbd41253f152e4518016fd503cdeb2e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\v4_dual_pipeline.py",
+      "snapshot_sha256": "185335804d1f4c1606eb99b563be9cce4652ea5f56cd5dd70c47601069d0457d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v4\\validate_blind_20260912.py",
+      "snapshot_sha256": "54e85fa067ba4dd8bdf3632396bb807ab37ad234600426044fe4dd15c8f07344",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_072614_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "6998d08b98c2fc807669a70fb15b715d02cfd1aa5fd9e4ae15c931bec24401a3",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_075657_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "27ef89ccdac176a24a88639bc1ad0ded80674fda0601622367ceb73e356359b1",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_080420_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "aacc5cf2246c2b230c9ecfa3f9ada559abb5af99014a2f4d7c6e3d5ffecf9453",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_082819_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "9fbf1e20d054a326c7a3a0bcaa012b00eabd3dd544a2a8d196a67235f17ea3f2",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T050245Z\\snapshot.json",
+      "snapshot_sha256": "c508917f3671555d59bc3f96fc02c774b0ce1305fa6f2e76940816b4f60c7394",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T052446Z\\snapshot.json",
+      "snapshot_sha256": "ff9297bfbb6f48c91c3b91c42ec9f37ddd716e0b1279336a51203911ab2035bd",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T052733Z\\snapshot.json",
+      "snapshot_sha256": "f50cdc4735b48b034a6590ee531e5d50a9a63284f0670c6fe1e0b436c6933abd",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T052821Z\\snapshot.json",
+      "snapshot_sha256": "1e000b8a4953c8634e21829683c40fdafd4289c3feda7e76d0e6419cf2b1c01f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T053605Z\\snapshot.json",
+      "snapshot_sha256": "ebb6f3786972a660f4e9a22de0205a23c69e6085dca140952c01c5690cba2424",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260913T232853Z\\snapshot.json",
+      "snapshot_sha256": "5cc9d5cf2eccebbfb22548ba135278daae4e3edba14e508716bdb5b6b35d96fb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260913T232900Z\\snapshot.json",
+      "snapshot_sha256": "8f21aabba93d28ffe9ee20b0520276f41a478c0d2f6fc1704b7a627f32988bd9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260913T232923Z\\snapshot.json",
+      "snapshot_sha256": "a2b5a2ecd1a6ed8832662599050d0ae7fde41c99275fef8c7e4303b492ead2c6",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T000912Z\\snapshot.json",
+      "snapshot_sha256": "540264f806094736d708c0a6fa3969403efdd4f11816180de2e628dfd4d9cebf",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T003122Z\\snapshot.json",
+      "snapshot_sha256": "1ec6716c7380ef3c5c549642a384553c8e8091f5857b3b14e9a548ce2fb95c2c",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T131548Z\\snapshot.json",
+      "snapshot_sha256": "abeb6962a87804a407a1a9777308ae2c7e06fcf5c1b3be481d6401ba2467ce44",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T131634Z\\snapshot.json",
+      "snapshot_sha256": "ea481379d012b84d40fce4193a30d40d73d61c018e6f237acfb55b69c3933118",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132102Z\\snapshot.json",
+      "snapshot_sha256": "e5b1538ff2e51ac9a68bdc137c79666b39e21fdb130bbecf624cf37437fb5ed1",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132214Z\\snapshot.json",
+      "snapshot_sha256": "d089a2df4a74c7aa693080038ea4ca722969048aaa6a1cab257d8e0c8125840b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132429Z\\snapshot.json",
+      "snapshot_sha256": "f918c1e2b3d2f06dc41e6fbfd643793584d8f30e264302555a1e5b3f3775a39b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132639Z\\snapshot.json",
+      "snapshot_sha256": "2cd8a29050799dc58feebe828ecd5002e102c3bcec97e80e115cf5b713149ea7",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132731Z\\snapshot.json",
+      "snapshot_sha256": "12f8c6e7230ba65dae7e307a96fca2db5bef154637c81859e357e783efaca9bb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T133029Z\\snapshot.json",
+      "snapshot_sha256": "724f932a0b0b29763e6c066c6da1a311bc3b55c8ee230d2cc41fe4e9f34b6ad9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T134251Z\\snapshot.json",
+      "snapshot_sha256": "ed50583ca54afc1120c9c6257168fbd8d87cde57702e6f21e3d2f59ce19ddba3",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T134422Z\\snapshot.json",
+      "snapshot_sha256": "46d60cf243c97216f16da4766f36a1f1722c26530151d4252d3d77ff32952408",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T140639Z\\snapshot.json",
+      "snapshot_sha256": "064a7eb8cac5470a10383ad00a5e7c9dda00253057748273e10b684b71916782",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T141252Z\\snapshot.json",
+      "snapshot_sha256": "95fa8992de26a6af8d6eb7564ab5de8e0439bc76d536a4813037b7f1b5a06c70",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T141627Z\\snapshot.json",
+      "snapshot_sha256": "4b3befcfd1f93dc5b8092fb94813b9753878fe72e973217395888ff5d3891bfe",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-15\\20260914T232423Z\\snapshot.json",
+      "snapshot_sha256": "6f880284776767a37c11dc2843541387c4ba3926da450c163a884a267ca83340",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-15\\20260915T100707Z\\snapshot.json",
+      "snapshot_sha256": "54853108f0a0409187bc54cb7c2db376837375fa5d569467f74e30ca920d0b50",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-15\\20260915T100858Z\\snapshot.json",
+      "snapshot_sha256": "e5cdd4dd1cf06348729e3dd8c6edc7de6fcbbd3cceaeebd3d6c4cb0d39e39986",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-15\\20260915T101005Z\\snapshot.json",
+      "snapshot_sha256": "0109ccf1a8487ba248a6a8dcc6e30a02016278077fac453a8143f7d28e7b354d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260915T233014Z\\snapshot.json",
+      "snapshot_sha256": "fb61731df0a8f47811d043b42566633916394d450441d253084be1612e32759f",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T003027Z\\snapshot.json",
+      "snapshot_sha256": "03d4f3648d4bc5abae54f2045657109c6a6a80922c1199634705dac94889ea21",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T125249Z\\snapshot.json",
+      "snapshot_sha256": "27815c0577591216c15284d0d4b0fcf486c80b7224843743da9449959bec90fb",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T125400Z\\snapshot.json",
+      "snapshot_sha256": "12d2fef0c800562f44fbfdf5065dd9852e31e9cda084f4027e6ec00a5541ac39",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T155348Z\\snapshot.json",
+      "snapshot_sha256": "df5b98a32563cc7006cbd4c2a34f9478c108fe5856b6f57a85f6f1e2f904696e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T155521Z\\snapshot.json",
+      "snapshot_sha256": "0d50bc77e2f998047ef7c227e64896bab93d00abb8cfa36f16f4ccd72c9dc31e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-17\\20260916T230705Z\\snapshot.json",
+      "snapshot_sha256": "42c6ddf93c9a2c7af54e4a950c0ac82b550cd38056105b1811ce48727c45e5d5",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-17\\20260917T091201Z\\snapshot.json",
+      "snapshot_sha256": "d6191344c48e5e9e232b4ffee2fc90f13ecaa28a92636fe58ef3f350ae173e6b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-17\\20260917T123224Z\\snapshot.json",
+      "snapshot_sha256": "211973121914740f3695fb01969f50f6fc4c6acdcff1a8afedcd6d08d0e62bc7",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-17\\20260917T142930Z\\snapshot.json",
+      "snapshot_sha256": "f23b49fc97514537906aae9a5647d3ed95da84b8777386ef9dd4520b6626e4ca",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-18\\20260917T235148Z\\snapshot.json",
+      "snapshot_sha256": "5b0804abbdcd002cbf76e84cf0289a7a514473788ce01c8f6bcbcdade1abfd09",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-18\\20260918T080027Z\\snapshot.json",
+      "snapshot_sha256": "d1ede1d7dfff203ca4389bc200202087fba9f49908347c654f0edd03b51cb1a7",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-19\\20260919T004249Z\\snapshot.json",
+      "snapshot_sha256": "7674becd7ebb2423c533ddfbe270a8d36c3bb7e4e98f67c795e877258e6288fd",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-19\\20260919T061247Z\\snapshot.json",
+      "snapshot_sha256": "7b4d737564f9c5b57681463a1cf6408ec895d7f49ef9869344b07ef61c10056e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\tools\\football_competition_normalizer.py",
+      "snapshot_sha256": "89a628f193396644988863adca40af2aed087d2fa35d8c1d47fbeca1e4f39140",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_013828_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "74634453df232949e3f2f35b95280d9f8c8d86309ed8d7e558d0f8c93e8a149b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_013922_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "6e2364baa082df11f224e9924e1b18b9c3745a4c6089e78d4cd51e2c07908e83",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_014003_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "f9c14b5b3a55cf00a067b82f36f8d072aa1bd646a3b4c787be6ff8f5a975a579",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_072614_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "6998d08b98c2fc807669a70fb15b715d02cfd1aa5fd9e4ae15c931bec24401a3",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_075657_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "27ef89ccdac176a24a88639bc1ad0ded80674fda0601622367ceb73e356359b1",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_080420_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "aacc5cf2246c2b230c9ecfa3f9ada559abb5af99014a2f4d7c6e3d5ffecf9453",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_211411_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "edbb96862569b4a78ceb61fd7498984300c1891fb0ba3bc61a78335346fe2d30",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_212247_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "9049d1018c145900ec74b93699bbb03f82ba534515d81a9fcc02792314de2964",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_214113_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "b0de9309e0e6ca73eecb2d52f507f77d7f4ba090ebdd0903868b0c76177bc140",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_220502_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "4fd6ff3dbf76c6e2a16df40651aaa2a24726b2a2450a4434560e2ecadf11d932",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260915\\20260915_072306_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "3a6fc13084f9746947a371f55a86b957f8b231dfe44f259f3cbd2e794600e18b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260915\\20260915_180417_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "30d7bf0c23e290ecb6eb7bf08b7ac398121e0cfaab7a111466e04e6ff0be4c52",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_072846_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "aad764a5bc15d69b923da7f1cb330f75b44ab74800db65ac414e5ffaa4903efe",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_082848_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "d60421f86cf55b04f3bf4e75d51cf60b15aad6cf561b9377a56bac74734cfb6e",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_204942_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "857613243bb5fe701d764832b7b252407eafc85ac389f0683e9c404d3372cb2d",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_235031_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "9787ed709960f5a1c6b1fc28550440a820018d02b9c0bf7df2299fe9b8bcdf17",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_070607_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "68469a151e7fe1cdb90e185c8ae976191f24876662423cc4f95133db9544b9ef",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_171030_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "aaaae405818ca0724e82b0b1ba2717b19f61968488f360b1bf2e7af1df351e44",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_203052_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "bb1614960cec0aa90c076508ed3f6b25186a33cc9fb60e94feb02044d9533c29",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_222746_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "77a1b0f163f44ad4f81beee3936bc882a3751d14d34631f059ddd575683056a9",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260918\\20260918_074935_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "6699ae82f7e81e6303b2b735eafba944c0d799af6a4c0b11de11570f7884a5b5",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260918\\20260918_155806_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "4f05929bbc000aa377c342282d1e995beb22ffb78edf40dc1967959fcd268b71",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260919\\20260919_083825_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "62dbb9ca023578a749f69d9c5dd6afa195415d90221f0f4c03f72d8e4b49733b",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260919\\20260919_140756_titan007_odds_snapshot.csv",
+      "snapshot_sha256": "3b5f5c0481be12b0c15481568a05ac86e5e746458d3c30eab092f6741c7e6654",
+      "unchanged": true,
+      "allowed_entry_link_only": false
+    }
+  ],
+  "daily_verifier_pass": true
+}

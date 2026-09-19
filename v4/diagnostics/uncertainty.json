@@ -1,0 +1,13 @@
+{
+  "clusters": 5,
+  "replicates": 10000,
+  "ROI_frozen_cluster_bootstrap_95": [
+    -0.14465608465608468,
+    0.051416666666666666
+  ],
+  "calibration_gap_cluster_bootstrap_95": [
+    0.009474317504103949,
+    0.11658860857987541
+  ],
+  "limitation": "Only five date clusters; descriptive unstable intervals, not confirmatory inference."
+}

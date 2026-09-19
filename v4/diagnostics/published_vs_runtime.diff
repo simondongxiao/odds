@@ -1,0 +1,150 @@
+--- 66e62351db87d649a7d1651eb2f3a7434c3bde9f/v4/run_daily_v4.py
++++ frozen-runtime/v4/run_daily_v4.py
+@@ -6,6 +6,7 @@
+ import hashlib
+ import json
+ import math
++import os
+ import random
+ import re
+ from datetime import datetime, timedelta, timezone
+@@ -50,6 +51,27 @@
+     if not m:
+         raise ValueError(value)
+     return datetime(*map(int, m.groups()), tzinfo=TARGET_TZ)
++
++
++def quote_timestamp(value: str) -> str:
++    """Canonicalize a source quote time; never use file mtime."""
++    text = str(value or "").strip()
++    if not text:
++        return ""
++    for candidate in (text, text.replace("_", "T")):
++        try:
++            parsed = datetime.fromisoformat(candidate.replace("Z", "+00:00"))
++            if parsed.tzinfo is None:
++                parsed = parsed.replace(tzinfo=TARGET_TZ)
++            return parsed.astimezone(TARGET_TZ).isoformat()
++        except ValueError:
++            pass
++    for fmt in ("%Y%m%d_%H%M%S", "%Y%m%d%H%M%S"):
++        try:
++            return datetime.strptime(text, fmt).replace(tzinfo=TARGET_TZ).isoformat()
++        except ValueError:
++            continue
++    return ""
+ 
+ 
+ def _first(row: dict[str, str], *keys: str) -> str:
+@@ -114,7 +136,7 @@
+                 "ah_ok": bool(hw and line and aw), "euro_ok": bool(euro_home and euro_draw and euro_away),
+                 "totals_ok": bool(_first(source, "total_full_current_line_or_draw")),
+                 "price_source": "Titan007", "raw_source_path": str(path),
+-                "quote_at": str(source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", "") or ""),
++                "quote_at": quote_timestamp(str(source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", "") or "")),
+                 "form_evidence": "", "h2h_evidence": "", "injury_evidence": "",
+                 "lineup_evidence": "", "motivation_evidence": "",
+                 "intent_raw": _first(source, "intent_raw", "intent_tag", "asian_intent"),
+@@ -193,6 +215,64 @@
+                  "L": values.get("W", 1.0)}
+         for bucket, values in alpha.items()
+     }
++
++
++def preserve_started_output(decisions: list[dict], daily: Path, now: datetime, list_date: str) -> list[dict]:
++    """Keep prior same-date V4 decisions when a refresh emits only future rows."""
++    if not daily.exists():
++        return decisions
++    try:
++        previous = json.loads(daily.read_text(encoding="utf-8"))
++    except (OSError, json.JSONDecodeError):
++        return decisions
++    if str(previous.get("list_date", "")) != str(list_date):
++        return decisions
++
++    old_map = {str(row.get("match_id", "")): row for row in previous.get("matches", [])}
++    seen: set[str] = set()
++    post_match_fields = (
++        "score", "settlement", "settlement_label", "pnl", "status",
++        "match_status", "result", "settlement_state", "settlement_status",
++    )
++    merged: list[dict] = []
++    for row in decisions:
++        match_id = str(row.get("match_id", ""))
++        seen.add(match_id)
++        old = old_map.get(match_id)
++        kickoff = parse_dt(str(row.get("kickoff", "")))
++        if not old or kickoff > now:
++            merged.append(row)
++            continue
++        frozen = dict(old)
++        frozen.update({
++            key: row.get(key)
++            for key in post_match_fields
++            if key in row and row.get(key) not in (None, "")
++        })
++        if old.get("grade") is not None and old.get("ev_mean") is not None:
++            frozen["analysis_status"] = "FROZEN_PREMATCH_DECISION"
++        frozen["reason_codes"] = ["STARTED_DECISION_LOCKED"]
++        frozen["started_lock"] = True
++        merged.append(frozen)
++
++    # Later runs are allowed to emit only not-yet-started rows.  Re-attach all
++    # omitted started rows, including old A/B/C/N and neutral records.
++    for match_id, old in old_map.items():
++        if not match_id or match_id in seen:
++            continue
++        try:
++            kickoff = parse_dt(str(old.get("kickoff", "")))
++        except ValueError:
++            continue
++        if kickoff > now:
++            continue
++        retained = dict(old)
++        if old.get("grade") is not None and old.get("ev_mean") is not None:
++            retained["analysis_status"] = "FROZEN_PREMATCH_DECISION"
++        retained["reason_codes"] = ["STARTED_DECISION_RETAINED"]
++        retained["started_lock"] = True
++        merged.append(retained)
++    return merged
+ 
+ 
+ def posterior(alpha: dict[str, float], signed_line: float, water: float, seed: int) -> dict[str, float]:
+@@ -257,7 +337,17 @@
+     decisions = []
+     for row in raw_rows:
+         kickoff = parse_dt(row["kickoff"])
+-        base = {"match_id": row["match_id"], "list_date": args.list_date, "kickoff": kickoff.isoformat(), "model_id": MODEL_ID,
++        quote_at = str(row.get("quote_at", "") or "")
++        decision_at = now.isoformat()
++        quote_dt = parse_dt(quote_at) if quote_at else None
++        base = {"match_id": row["match_id"], "list_date": args.list_date, "kickoff": kickoff.isoformat(), "kickoff_at": kickoff.isoformat(), "model_id": MODEL_ID,
++                "model_version": MODEL_VERSION, "side_mapping_version": DIRECTION_VERSION, "run_id": os.environ.get("FOOTBALL_RUN_ID", ""),
++                "decision_at": decision_at, "quote_at": quote_at, "last_confirmed_at": quote_at,
++                "quote_age_at_decision": round((now - quote_dt).total_seconds() / 3600, 3) if quote_dt else None,
++                "hours_from_decision_to_kickoff": round((kickoff - now).total_seconds() / 3600, 3),
++                "hours_from_last_refresh_to_kickoff": round((kickoff - quote_dt).total_seconds() / 3600, 3) if quote_dt else None,
++                "is_morning_baseline": False, "is_latest_valid_prematch": False, "parent_decision_id": "",
++                "monitoring_bucket": "MONITORING_BUCKET" if 4 <= kickoff.hour < 10 else "",
+                 "prior_snapshot_id": prior_id, "decision_at": now.isoformat(), "market": {"snapshot_id": raw_path.stem, "source": "LEGACY_RAW_FIELD_EXPORT", "observed_at": now.isoformat(),
+                 "home_team": row["home_team"], "away_team": row["away_team"], "competition": row.get("competition", ""), "home_handicap_signed": None, "away_handicap_signed": None, "home_water_hk": None, "away_water_hk": None}}
+         m = parse_market(row)
+@@ -307,12 +397,17 @@
+                                         "titan_home_handicap_signed": m["raw_line"], "titan_away_handicap_signed": -m["raw_line"], "home_water_hk": m["home_water"], "away_water_hk": m["away_water"],
+                                         "giving_team": m["giving_team"], "receiving_team": m["receiving_team"], "giving_water": m["giving_water"], "receiving_water": m["receiving_water"], "side_identity": "Titan signed AH"},
+                                 direction_rule_version=DIRECTION_VERSION, reason_codes=[f"BUCKET_{bucket}", identity_reason, intent_source])
++        base["is_latest_valid_prematch"] = bool(base.get("analysis_status") in {"EVALUATED", "FROZEN_PREMATCH_DECISION"} and kickoff > now)
+         decisions.append(base)
+     computed_statuses = {"EVALUATED", "FROZEN_PREMATCH_DECISION"}
+     summary = {"total": len(decisions), "computed": sum(x["analysis_status"] in computed_statuses for x in decisions), "A": sum(x.get("grade") == "A" and x["analysis_status"] in computed_statuses for x in decisions), "B": sum(x.get("grade") == "B" and x["analysis_status"] in computed_statuses for x in decisions), "C": sum(x.get("grade") == "C" and x["analysis_status"] in computed_statuses for x in decisions), "N": sum(x.get("grade") == "N" and x["analysis_status"] in computed_statuses for x in decisions), "neutral": sum(x["analysis_status"] == "NEUTRAL" for x in decisions), "missing_data": sum(x["analysis_status"] == "MISSING_DATA" for x in decisions), "insufficient_training": sum(x["analysis_status"] == "INSUFFICIENT_TRAINING" for x in decisions), "not_prematch": sum(x["analysis_status"] == "NOT_PREMATCH" and x.get("grade") is None for x in decisions), "errors": sum(x["analysis_status"] == "ERROR" for x in decisions)}
+     out = {"list_date": args.list_date, "model_id": MODEL_ID, "prior_snapshot_id": prior_id, "real_money": False, "generated_at": now.isoformat(), "summary": summary, "matches": decisions}
+     out_dir = ROOT / "v4" / "outputs"; out_dir.mkdir(parents=True, exist_ok=True)
+-    daily = out_dir / f"v4_decisions_{args.list_date}.json"; daily.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
++    daily = out_dir / f"v4_decisions_{args.list_date}.json"
++    decisions = preserve_started_output(decisions, daily, now, args.list_date)
++    summary = {"total": len(decisions), "computed": sum(x["analysis_status"] in computed_statuses for x in decisions), "A": sum(x.get("grade") == "A" and x["analysis_status"] in computed_statuses for x in decisions), "B": sum(x.get("grade") == "B" and x["analysis_status"] in computed_statuses for x in decisions), "C": sum(x.get("grade") == "C" and x["analysis_status"] in computed_statuses for x in decisions), "N": sum(x.get("grade") == "N" and x["analysis_status"] in computed_statuses for x in decisions), "neutral": sum(x["analysis_status"] == "NEUTRAL" for x in decisions), "missing_data": sum(x["analysis_status"] == "MISSING_DATA" for x in decisions), "insufficient_training": sum(x["analysis_status"] == "INSUFFICIENT_TRAINING" for x in decisions), "not_prematch": sum(x["analysis_status"] == "NOT_PREMATCH" and x.get("grade") is None for x in decisions), "errors": sum(x["analysis_status"] == "ERROR" for x in decisions)}
++    out["summary"] = summary; out["matches"] = decisions
++    daily.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+     (out_dir / f"v4_selected_{args.list_date}.csv").write_text("match_id,selected_team,selected_handicap_signed,selected_water_hk,grade,ev_mean,ev_p10,p_ev_positive\n" + "\n".join(",".join(str(x.get(k, "")) for k in ["match_id","selected_team","selected_handicap_signed","selected_water_hk","grade","ev_mean","ev_p10","p_ev_positive"]) for x in decisions if x.get("grade") in {"A","B"}), encoding="utf-8")
+     print(json.dumps({"raw_total":len(raw_rows), "prior_training_rows":len(manifest), **summary, "daily":str(daily), "model":str(model_path), "prior":str(prior_path)}, ensure_ascii=False))
+ 

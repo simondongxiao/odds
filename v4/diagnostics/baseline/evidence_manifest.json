@@ -1,0 +1,425 @@
+{
+  "captured_at": "2026-09-19T14:58:18.026601",
+  "files": [
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_072614_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_072614_titan007_odds_snapshot.csv",
+      "sha256": "6998d08b98c2fc807669a70fb15b715d02cfd1aa5fd9e4ae15c931bec24401a3",
+      "bytes": 318255
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_075657_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_075657_titan007_odds_snapshot.csv",
+      "sha256": "27ef89ccdac176a24a88639bc1ad0ded80674fda0601622367ceb73e356359b1",
+      "bytes": 322100
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_080420_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_080420_titan007_odds_snapshot.csv",
+      "sha256": "aacc5cf2246c2b230c9ecfa3f9ada559abb5af99014a2f4d7c6e3d5ffecf9453",
+      "bytes": 321950
+    },
+    {
+      "source": "D:\\codex\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_082819_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_082819_titan007_odds_snapshot.csv",
+      "sha256": "9fbf1e20d054a326c7a3a0bcaa012b00eabd3dd544a2a8d196a67235f17ea3f2",
+      "bytes": 324945
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T050245Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-13\\20260913T050245Z\\snapshot.json",
+      "sha256": "c508917f3671555d59bc3f96fc02c774b0ce1305fa6f2e76940816b4f60c7394",
+      "bytes": 181552
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T052446Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-13\\20260913T052446Z\\snapshot.json",
+      "sha256": "ff9297bfbb6f48c91c3b91c42ec9f37ddd716e0b1279336a51203911ab2035bd",
+      "bytes": 181552
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T052733Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-13\\20260913T052733Z\\snapshot.json",
+      "sha256": "f50cdc4735b48b034a6590ee531e5d50a9a63284f0670c6fe1e0b436c6933abd",
+      "bytes": 181552
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T052821Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-13\\20260913T052821Z\\snapshot.json",
+      "sha256": "1e000b8a4953c8634e21829683c40fdafd4289c3feda7e76d0e6419cf2b1c01f",
+      "bytes": 181552
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-13\\20260913T053605Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-13\\20260913T053605Z\\snapshot.json",
+      "sha256": "ebb6f3786972a660f4e9a22de0205a23c69e6085dca140952c01c5690cba2424",
+      "bytes": 181552
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260913T232853Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260913T232853Z\\snapshot.json",
+      "sha256": "5cc9d5cf2eccebbfb22548ba135278daae4e3edba14e508716bdb5b6b35d96fb",
+      "bytes": 126
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260913T232900Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260913T232900Z\\snapshot.json",
+      "sha256": "8f21aabba93d28ffe9ee20b0520276f41a478c0d2f6fc1704b7a627f32988bd9",
+      "bytes": 126
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260913T232923Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260913T232923Z\\snapshot.json",
+      "sha256": "a2b5a2ecd1a6ed8832662599050d0ae7fde41c99275fef8c7e4303b492ead2c6",
+      "bytes": 118640
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T000912Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T000912Z\\snapshot.json",
+      "sha256": "540264f806094736d708c0a6fa3969403efdd4f11816180de2e628dfd4d9cebf",
+      "bytes": 118802
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T003122Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T003122Z\\snapshot.json",
+      "sha256": "1ec6716c7380ef3c5c549642a384553c8e8091f5857b3b14e9a548ce2fb95c2c",
+      "bytes": 120942
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T131548Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T131548Z\\snapshot.json",
+      "sha256": "abeb6962a87804a407a1a9777308ae2c7e06fcf5c1b3be481d6401ba2467ce44",
+      "bytes": 191555
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T131634Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T131634Z\\snapshot.json",
+      "sha256": "ea481379d012b84d40fce4193a30d40d73d61c018e6f237acfb55b69c3933118",
+      "bytes": 191555
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132102Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T132102Z\\snapshot.json",
+      "sha256": "e5b1538ff2e51ac9a68bdc137c79666b39e21fdb130bbecf624cf37437fb5ed1",
+      "bytes": 176074
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132214Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T132214Z\\snapshot.json",
+      "sha256": "d089a2df4a74c7aa693080038ea4ca722969048aaa6a1cab257d8e0c8125840b",
+      "bytes": 176074
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132429Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T132429Z\\snapshot.json",
+      "sha256": "f918c1e2b3d2f06dc41e6fbfd643793584d8f30e264302555a1e5b3f3775a39b",
+      "bytes": 176073
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132639Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T132639Z\\snapshot.json",
+      "sha256": "2cd8a29050799dc58feebe828ecd5002e102c3bcec97e80e115cf5b713149ea7",
+      "bytes": 176073
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T132731Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T132731Z\\snapshot.json",
+      "sha256": "12f8c6e7230ba65dae7e307a96fca2db5bef154637c81859e357e783efaca9bb",
+      "bytes": 176073
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T133029Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T133029Z\\snapshot.json",
+      "sha256": "724f932a0b0b29763e6c066c6da1a311bc3b55c8ee230d2cc41fe4e9f34b6ad9",
+      "bytes": 176073
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T134251Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T134251Z\\snapshot.json",
+      "sha256": "ed50583ca54afc1120c9c6257168fbd8d87cde57702e6f21e3d2f59ce19ddba3",
+      "bytes": 176070
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T134422Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T134422Z\\snapshot.json",
+      "sha256": "46d60cf243c97216f16da4766f36a1f1722c26530151d4252d3d77ff32952408",
+      "bytes": 176070
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T140639Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T140639Z\\snapshot.json",
+      "sha256": "064a7eb8cac5470a10383ad00a5e7c9dda00253057748273e10b684b71916782",
+      "bytes": 176081
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T141252Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T141252Z\\snapshot.json",
+      "sha256": "95fa8992de26a6af8d6eb7564ab5de8e0439bc76d536a4813037b7f1b5a06c70",
+      "bytes": 239204
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-14\\20260914T141627Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-14\\20260914T141627Z\\snapshot.json",
+      "sha256": "4b3befcfd1f93dc5b8092fb94813b9753878fe72e973217395888ff5d3891bfe",
+      "bytes": 236500
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-15\\20260914T232423Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-15\\20260914T232423Z\\snapshot.json",
+      "sha256": "6f880284776767a37c11dc2843541387c4ba3926da450c163a884a267ca83340",
+      "bytes": 271722
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-15\\20260915T100707Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-15\\20260915T100707Z\\snapshot.json",
+      "sha256": "54853108f0a0409187bc54cb7c2db376837375fa5d569467f74e30ca920d0b50",
+      "bytes": 370924
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-15\\20260915T100858Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-15\\20260915T100858Z\\snapshot.json",
+      "sha256": "e5cdd4dd1cf06348729e3dd8c6edc7de6fcbbd3cceaeebd3d6c4cb0d39e39986",
+      "bytes": 370924
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-15\\20260915T101005Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-15\\20260915T101005Z\\snapshot.json",
+      "sha256": "0109ccf1a8487ba248a6a8dcc6e30a02016278077fac453a8143f7d28e7b354d",
+      "bytes": 370924
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260915T233014Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-16\\20260915T233014Z\\snapshot.json",
+      "sha256": "fb61731df0a8f47811d043b42566633916394d450441d253084be1612e32759f",
+      "bytes": 507345
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T003027Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-16\\20260916T003027Z\\snapshot.json",
+      "sha256": "03d4f3648d4bc5abae54f2045657109c6a6a80922c1199634705dac94889ea21",
+      "bytes": 524202
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T125249Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-16\\20260916T125249Z\\snapshot.json",
+      "sha256": "27815c0577591216c15284d0d4b0fcf486c80b7224843743da9449959bec90fb",
+      "bytes": 576935
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T125400Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-16\\20260916T125400Z\\snapshot.json",
+      "sha256": "12d2fef0c800562f44fbfdf5065dd9852e31e9cda084f4027e6ec00a5541ac39",
+      "bytes": 576935
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T155348Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-16\\20260916T155348Z\\snapshot.json",
+      "sha256": "df5b98a32563cc7006cbd4c2a34f9478c108fe5856b6f57a85f6f1e2f904696e",
+      "bytes": 577323
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-16\\20260916T155521Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-16\\20260916T155521Z\\snapshot.json",
+      "sha256": "0d50bc77e2f998047ef7c227e64896bab93d00abb8cfa36f16f4ccd72c9dc31e",
+      "bytes": 577323
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-17\\20260916T230705Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-17\\20260916T230705Z\\snapshot.json",
+      "sha256": "42c6ddf93c9a2c7af54e4a950c0ac82b550cd38056105b1811ce48727c45e5d5",
+      "bytes": 248513
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-17\\20260917T091201Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-17\\20260917T091201Z\\snapshot.json",
+      "sha256": "d6191344c48e5e9e232b4ffee2fc90f13ecaa28a92636fe58ef3f350ae173e6b",
+      "bytes": 304506
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-17\\20260917T123224Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-17\\20260917T123224Z\\snapshot.json",
+      "sha256": "211973121914740f3695fb01969f50f6fc4c6acdcff1a8afedcd6d08d0e62bc7",
+      "bytes": 305138
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-17\\20260917T142930Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-17\\20260917T142930Z\\snapshot.json",
+      "sha256": "f23b49fc97514537906aae9a5647d3ed95da84b8777386ef9dd4520b6626e4ca",
+      "bytes": 305541
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-18\\20260917T235148Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-18\\20260917T235148Z\\snapshot.json",
+      "sha256": "5b0804abbdcd002cbf76e84cf0289a7a514473788ce01c8f6bcbcdade1abfd09",
+      "bytes": 492196
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-18\\20260918T080027Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-18\\20260918T080027Z\\snapshot.json",
+      "sha256": "d1ede1d7dfff203ca4389bc200202087fba9f49908347c654f0edd03b51cb1a7",
+      "bytes": 573915
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-19\\20260919T004249Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-19\\20260919T004249Z\\snapshot.json",
+      "sha256": "7674becd7ebb2423c533ddfbe270a8d36c3bb7e4e98f67c795e877258e6288fd",
+      "bytes": 1890756
+    },
+    {
+      "source": "D:\\codex\\raw\\shared\\2026-09-19\\20260919T061247Z\\snapshot.json",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\raw\\shared\\2026-09-19\\20260919T061247Z\\snapshot.json",
+      "sha256": "7b4d737564f9c5b57681463a1cf6408ec895d7f49ef9869344b07ef61c10056e",
+      "bytes": 2041341
+    },
+    {
+      "source": "D:\\codex\\tools\\football_competition_normalizer.py",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\tools\\football_competition_normalizer.py",
+      "sha256": "89a628f193396644988863adca40af2aed087d2fa35d8c1d47fbeca1e4f39140",
+      "bytes": 7600
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_013828_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_013828_titan007_odds_snapshot.csv",
+      "sha256": "74634453df232949e3f2f35b95280d9f8c8d86309ed8d7e558d0f8c93e8a149b",
+      "bytes": 669800
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_013922_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_013922_titan007_odds_snapshot.csv",
+      "sha256": "6e2364baa082df11f224e9924e1b18b9c3745a4c6089e78d4cd51e2c07908e83",
+      "bytes": 686031
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_014003_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260913\\20260913_014003_titan007_odds_snapshot.csv",
+      "sha256": "f9c14b5b3a55cf00a067b82f36f8d072aa1bd646a3b4c787be6ff8f5a975a579",
+      "bytes": 685571
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_072614_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_072614_titan007_odds_snapshot.csv",
+      "sha256": "6998d08b98c2fc807669a70fb15b715d02cfd1aa5fd9e4ae15c931bec24401a3",
+      "bytes": 318255
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_075657_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_075657_titan007_odds_snapshot.csv",
+      "sha256": "27ef89ccdac176a24a88639bc1ad0ded80674fda0601622367ceb73e356359b1",
+      "bytes": 322100
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_080420_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_080420_titan007_odds_snapshot.csv",
+      "sha256": "aacc5cf2246c2b230c9ecfa3f9ada559abb5af99014a2f4d7c6e3d5ffecf9453",
+      "bytes": 321950
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_211411_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_211411_titan007_odds_snapshot.csv",
+      "sha256": "edbb96862569b4a78ceb61fd7498984300c1891fb0ba3bc61a78335346fe2d30",
+      "bytes": 111813
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_212247_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_212247_titan007_odds_snapshot.csv",
+      "sha256": "9049d1018c145900ec74b93699bbb03f82ba534515d81a9fcc02792314de2964",
+      "bytes": 111721
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_214113_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_214113_titan007_odds_snapshot.csv",
+      "sha256": "b0de9309e0e6ca73eecb2d52f507f77d7f4ba090ebdd0903868b0c76177bc140",
+      "bytes": 112003
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_220502_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260914\\20260914_220502_titan007_odds_snapshot.csv",
+      "sha256": "4fd6ff3dbf76c6e2a16df40651aaa2a24726b2a2450a4434560e2ecadf11d932",
+      "bytes": 112016
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260915\\20260915_072306_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260915\\20260915_072306_titan007_odds_snapshot.csv",
+      "sha256": "3a6fc13084f9746947a371f55a86b957f8b231dfe44f259f3cbd2e794600e18b",
+      "bytes": 185207
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260915\\20260915_180417_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260915\\20260915_180417_titan007_odds_snapshot.csv",
+      "sha256": "30d7bf0c23e290ecb6eb7bf08b7ac398121e0cfaab7a111466e04e6ff0be4c52",
+      "bytes": 157219
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_072846_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_072846_titan007_odds_snapshot.csv",
+      "sha256": "aad764a5bc15d69b923da7f1cb330f75b44ab74800db65ac414e5ffaa4903efe",
+      "bytes": 287364
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_082848_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_082848_titan007_odds_snapshot.csv",
+      "sha256": "d60421f86cf55b04f3bf4e75d51cf60b15aad6cf561b9377a56bac74734cfb6e",
+      "bytes": 301935
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_204942_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_204942_titan007_odds_snapshot.csv",
+      "sha256": "857613243bb5fe701d764832b7b252407eafc85ac389f0683e9c404d3372cb2d",
+      "bytes": 235051
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_235031_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260916\\20260916_235031_titan007_odds_snapshot.csv",
+      "sha256": "9787ed709960f5a1c6b1fc28550440a820018d02b9c0bf7df2299fe9b8bcdf17",
+      "bytes": 241360
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_070607_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_070607_titan007_odds_snapshot.csv",
+      "sha256": "68469a151e7fe1cdb90e185c8ae976191f24876662423cc4f95133db9544b9ef",
+      "bytes": 296563
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_171030_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_171030_titan007_odds_snapshot.csv",
+      "sha256": "aaaae405818ca0724e82b0b1ba2717b19f61968488f360b1bf2e7af1df351e44",
+      "bytes": 126719
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_203052_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_203052_titan007_odds_snapshot.csv",
+      "sha256": "bb1614960cec0aa90c076508ed3f6b25186a33cc9fb60e94feb02044d9533c29",
+      "bytes": 131250
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_222746_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260917\\20260917_222746_titan007_odds_snapshot.csv",
+      "sha256": "77a1b0f163f44ad4f81beee3936bc882a3751d14d34631f059ddd575683056a9",
+      "bytes": 133117
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260918\\20260918_074935_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260918\\20260918_074935_titan007_odds_snapshot.csv",
+      "sha256": "6699ae82f7e81e6303b2b735eafba944c0d799af6a4c0b11de11570f7884a5b5",
+      "bytes": 260749
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260918\\20260918_155806_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260918\\20260918_155806_titan007_odds_snapshot.csv",
+      "sha256": "4f05929bbc000aa377c342282d1e995beb22ffb78edf40dc1967959fcd268b71",
+      "bytes": 222018
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260919\\20260919_083825_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260919\\20260919_083825_titan007_odds_snapshot.csv",
+      "sha256": "62dbb9ca023578a749f69d9c5dd6afa195415d90221f0f4c03f72d8e4b49733b",
+      "bytes": 684689
+    },
+    {
+      "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260919\\20260919_140756_titan007_odds_snapshot.csv",
+      "snapshot": "D:\\codex\\v4_diagnostics\\baseline\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260919\\20260919_140756_titan007_odds_snapshot.csv",
+      "sha256": "3b5f5c0481be12b0c15481568a05ac86e5e746458d3c30eab092f6741c7e6654",
+      "bytes": 610155
+    }
+  ]
+}

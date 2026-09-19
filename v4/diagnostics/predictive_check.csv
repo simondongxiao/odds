@@ -1,0 +1,3 @@
+﻿scope,settled,observed_pnl,predicted_pnl,independent_model_lower_tail_probability,predictive_2_5pct,predictive_97_5pct,caveat
+2026-09-18,53,-9.705,2.197297411211494,0.04,-11.095125000000003,15.229999999999999,assumes independent matches and treats frozen probabilities as true; not a regime-causality test
+FIXED_ALL,150,-10.604999999999999,8.678618341429212,0.04393333333333333,-13.485249999999997,31.10000000000001,assumes independent matches and treats frozen probabilities as true; not a regime-causality test

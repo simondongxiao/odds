@@ -1,0 +1,2766 @@
+COMMIT 65b0d48938085cb00fbda78b21a0a6d4b4085631 2026-09-19 08:47:11 +0800 Update football odds dashboard 2026-09-19 08:47
+
+diff --git a/tools/write_dual_yesterday_performance.py b/tools/write_dual_yesterday_performance.py
+index faa2412..27bedc1 100644
+--- a/tools/write_dual_yesterday_performance.py
++++ b/tools/write_dual_yesterday_performance.py
+@@ -31,7 +31,7 @@ def as_float(value: Any) -> float | None:
+ 
+ 
+ def parse_line(value: Any) -> float | None:
+-    text = str(value or "").strip()
++    text = str(value if value is not None else "").strip()
+     aliases = {
+         "平手": 0.0, "平手/半球": 0.25, "半球": 0.5, "半球/一球": 0.75,
+         "一球": 1.0, "一球/球半": 1.25, "球半": 1.5, "球半/两球": 1.75,
+@@ -39,7 +39,7 @@ def parse_line(value: Any) -> float | None:
+     }
+     if text in aliases:
+         return aliases[text]
+-    return as_float(text.replace("+", ""))
++    return as_float(text.removesuffix("球").replace("+", ""))
+ 
+ 
+ def one(diff: float, handicap: float) -> str:
+COMMIT 2b2da1d283ab3d27e72fb8400df4d940b8d0c390 2026-09-17 17:17:20 +0800 Update football odds dashboard 2026-09-17 17:17
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index 212fd4b..cd5911d 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -850,6 +850,29 @@ def main() -> int:
+         v3_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "build_football_daily_update.py"), "--no-publish"], env, logs / "v3_daily.log", 1200)
+         v3_html = V3_OUT / "dashboard" / "index.html"
+         freeze_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "run_v3_legacy_daily_freeze.py"), list_date, "--html", str(v3_html)], env, logs / "v3_freeze.log", 600)
++        freeze_paths = sorted(
++            (V3_OUT / "ledger").glob(f"v3_legacy_decision_freeze_{list_date}_*.csv"),
++            key=lambda path: path.stat().st_mtime,
++            reverse=True,
++        )
++        if freeze_result.get("returncode") == 0 and freeze_paths:
++            v3_apply_freeze = run_command(
++                [
++                    str(PYTHON),
++                    str(V3_ROOT / "tools" / "apply_v3_legacy_freeze_to_dashboard.py"),
++                    list_date,
++                    "--html", str(v3_html),
++                    "--freeze", str(freeze_paths[0]),
++                ],
++                env,
++                logs / "v3_apply_freeze.log",
++                300,
++            )
++        else:
++            v3_apply_freeze = {
++                "returncode": 1,
++                "reason": "V3_FREEZE_MISSING",
++            }
+     bridge_path = ROOT / "bridge" / "v3_production" / f"{list_date}.json"
+     bridge = dict(old_v3) if historical_decision_locked else preserve_started_bridge(bridge_path, old_v3, run_at)
+     bridge["run_id"] = run_id; bridge["raw_snapshot_id"] = raw_path.stem; bridge["odds_cutoff"] = raw_path.stem.split("_titan007", 1)[0]; bridge["decision_version_path"] = str(run_dir / "v3_decisions.json")
+@@ -894,7 +917,7 @@ def main() -> int:
+     }
+     if yesterday_performance.get("returncode") == 0:
+         yesterday_v4_backfill = backfill_previous_v4_settlement(yesterday, yesterday_performance, run_at)
+-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
++    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v3_apply_freeze": v3_apply_freeze if not historical_decision_locked else {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+     run_manifest["steps"]["v4_settlement_backfill"] = yesterday_v4_backfill
+     run_manifest["artifacts"]["v4_settlement_backfill_targets"] = yesterday_v4_backfill.get("targets", [])
+     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
+COMMIT 74f88b79ded9d7344921b298d62f324e898f86ae 2026-09-16 23:56:00 +0800 Update football odds dashboard 2026-09-16 23:56
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index b67a38c..212fd4b 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -209,6 +209,8 @@ def enrich_decision_metadata(
+     morning_run = 7 <= run_at.hour < 9
+ 
+     def apply(row: dict[str, Any], version: str, previous: dict[str, Any]) -> None:
++        if row.get("started_lock"):
++            return
+         source = raw_by_id.get(str(row.get("match_id", "")), {})
+         quote_raw = source.get("snapshot_stamp") or source.get("latest_snapshot_stamp")
+         confirmed_raw = source.get("latest_snapshot_stamp") or source.get("snapshot_stamp")
+@@ -372,7 +374,8 @@ def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at:
+     old_map = {str(row.get("match_id")): row for row in (previous or {}).get("matches", [])}
+     for row in payload.get("matches", []):
+         old = old_map.get(str(row.get("match_id")))
+-        kickoff = parse_kickoff(str(row.get("kickoff", "")))
++        clocks = [parse_kickoff(str(x)) for x in ((old or {}).get("kickoff_at"), (old or {}).get("kickoff"), row.get("kickoff")) if x]
++        kickoff = min((x for x in clocks if x is not None), default=None)
+         if not old or not kickoff or kickoff > run_at:
+             continue
+         current = {key: row.get(key) for key in ("score", "settlement", "settlement_label", "pnl", "status", "match_status") if key in row}
+@@ -395,7 +398,8 @@ def preserve_started_v4(path: Path, previous: dict[str, Any] | None, run_at: dt.
+         match_id = str(row.get("match_id"))
+         seen_ids.add(match_id)
+         old = old_map.get(match_id)
+-        kickoff = parse_kickoff(str(row.get("kickoff", "")))
++        clocks = [parse_kickoff(str(x)) for x in ((old or {}).get("kickoff_at"), (old or {}).get("kickoff"), row.get("kickoff")) if x]
++        kickoff = min((x for x in clocks if x is not None), default=None)
+         if not old or not kickoff or kickoff > run_at:
+             continue
+         frozen = dict(old)
+COMMIT 8cbea7f61445d8b97a7f645c99b66123b5c404cd 2026-09-16 21:01:17 +0800 Update football odds dashboard 2026-09-16 21:01
+
+diff --git a/tools/finalize_football_daily_delivery.py b/tools/finalize_football_daily_delivery.py
+index dc28df5..4389335 100644
+--- a/tools/finalize_football_daily_delivery.py
++++ b/tools/finalize_football_daily_delivery.py
+@@ -61,6 +61,11 @@ def main():
+             if card.get("date") != target:
+                 continue
+             result = v3_results.get(str(card.get("match_id")), {})
++            observation = raw.get(str(card.get("match_id")), {})
++            state = str(observation.get("state", ""))
++            if state:
++                label = "完场" if state == "-1" else "未开赛" if state == "0" else "进行中" if state in {"1", "2", "3", "4", "5"} else "状态待核"
++                card.update(state=state, state_label=label, display_status=label, status=label)
+             if result.get("result") in LABEL:
+                 card.update(score=result["score"], display_score=result["score"], state="-1",
+                             state_label="完场", display_status="已结算", status="已结算",
+@@ -68,6 +73,10 @@ def main():
+                             result_source=result["result_source"])
+                 card["frozen_bettable_settlement"] = result["result"]
+                 card["frozen_bettable_pnl"] = result["pnl_1u"]
++            elif state == "-1":
++                card["status"] = "完场；未投注或结算待核"
++                card["result"] = "未投注或结算待核"
++                card["pnl"] = "不计"
+             elif target < date and card.get("state") != "-1":
+                 card["display_status"] = "赛果待核"
+                 card["status"] = "赛果未匹配待人工核验"
+@@ -96,7 +105,18 @@ def main():
+         audit["dates"][target] = {"grades": dict(Counter(r.get("grade") for r in rows)),
+             "settled_all_grades": sum(r.get("result") in LABEL for r in rows),
+             "prematch_hash": before, "prematch_unchanged": True}
+-    html = html[:match.start(1)] + json.dumps(cards, ensure_ascii=False) + html[match.end(1):]
++    unique_cards = []
++    seen = {}
++    for card in cards:
++        key = (card.get("date"), str(card.get("match_id")))
++        if key[0] == date and key[1] and key in seen:
++            previous = seen[key]
++            fields = ("frozen_bettable", "frozen_bettable_action", "frozen_bettable_team", "frozen_bettable_side", "frozen_bettable_water")
++            assert all(previous.get(f) == card.get(f) for f in fields), f"Conflicting V3 duplicate {key}"
++            continue
++        seen[key] = card
++        unique_cards.append(card)
++    html = html[:match.start(1)] + json.dumps(unique_cards, ensure_ascii=False) + html[match.end(1):]
+     html_path.write_text(html, encoding="utf-8")
+     family = OUT / "v4_shadow/daily_artifacts" / date / manifest["run_id"]
+     current = daily.read_json(ROOT / f"v4/outputs/v4_decisions_{date}.json", {})
+COMMIT 5d15954809ea5f621db0951e49159e23111897eb 2026-09-16 20:59:47 +0800 Update football odds dashboard 2026-09-16 20:59
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index b7068a0..b67a38c 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -511,21 +511,22 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
+         grade = str(row.get("grade", "") or "")
+         if grade not in {"A", "B", "C"}:
+             continue
++        market = row.get("market") or {}
+         v4_rows.append({
+             "version": "V4_SHADOW", "list_date": list_date, "match_id": row.get("match_id", ""),
+             "competition": row.get("competition", ""), "kickoff_beijing": row.get("kickoff", ""),
+-            "home_team": row.get("home_team", ""), "away_team": row.get("away_team", ""),
++            "home_team": row.get("home_team") or market.get("home_team", ""), "away_team": row.get("away_team") or market.get("away_team", ""),
+             "action": "SHADOW_CANDIDATE", "grade": grade, "selected_team": row.get("selected_team", row.get("candidate_team", "")),
+             "market_side": row.get("selected_side", row.get("candidate_side", "")),
+-            "giving_team": row.get("giving_team", ""), "receiving_team": row.get("receiving_team", ""),
+-            "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
++            "giving_team": row.get("giving_team") or market.get("giving_team", ""), "receiving_team": row.get("receiving_team") or market.get("receiving_team", ""),
++            "direction": row.get("direction", ""), "handicap": row.get("selected_handicap_signed", row.get("handicap", row.get("line", ""))),
+             "water": row.get("selected_water_hk", row.get("water", "")), "probability": row.get("p_ev_positive", row.get("P_EV_gt_0", "")),
+             "ev_mean": row.get("ev_mean", row.get("EV_mean", "")), "decision_at": row.get("decision_at", ""),
+             "quote_at": row.get("quote_at", (row.get("market") or {}).get("quote_at", "")), "last_confirmed_at": row.get("last_confirmed_at", (row.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": row.get("kickoff_at", row.get("kickoff", "")),
+             "quote_age_at_decision": row.get("quote_age_at_decision", ""), "hours_from_decision_to_kickoff": row.get("hours_from_decision_to_kickoff", ""), "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""),
+             "run_id": row.get("run_id", ""), "decision_id": row.get("decision_id", ""), "parent_decision_id": row.get("parent_decision_id", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
+             "model_id": row.get("model_id", "v4-market-dirichlet-20260913"), "side_mapping_version": row.get("side_mapping_version", "V4_DIRECTION_FIXED_R1"), "monitoring_bucket": row.get("monitoring_bucket", ""),
+-            "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
++            "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id") or v4.get("raw_snapshot_id") or market.get("snapshot_id", ""),
+             "real_money": "false", "status": row.get("analysis_status", row.get("status", "")),
+         })
+     fields = ["version", "list_date", "match_id", "competition", "kickoff_beijing", "kickoff_at", "home_team", "away_team", "action", "grade", "selected_team", "market_side", "giving_team", "receiving_team", "direction", "handicap", "water", "probability", "ev_mean", "quote_at", "last_confirmed_at", "decision_at", "quote_age_at_decision", "hours_from_decision_to_kickoff", "hours_from_last_refresh_to_kickoff", "run_id", "decision_id", "parent_decision_id", "is_morning_baseline", "is_latest_valid_prematch", "monitoring_bucket", "model_id", "side_mapping_version", "rule_version", "source_snapshot", "real_money", "status"]
+COMMIT 3c3f585897bc24569ba3d69f05010749ab4e165e 2026-09-16 20:58:23 +0800 Update football odds dashboard 2026-09-16 20:58
+
+diff --git a/tools/finalize_football_daily_delivery.py b/tools/finalize_football_daily_delivery.py
+new file mode 100644
+index 0000000..dc28df5
+--- /dev/null
++++ b/tools/finalize_football_daily_delivery.py
+@@ -0,0 +1,124 @@
++"""Post-result overlays and versioned delivery artifacts; never infer decisions."""
++from __future__ import annotations
++
++import csv
++import datetime as dt
++import hashlib
++import json
++import re
++import shutil
++import sys
++from collections import Counter
++from pathlib import Path
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
++import run_football_update as daily
++from write_dual_yesterday_performance import raw_result_map, settle_v3, settle_v4, summarize
++
++ROOT = Path(r"D:\codex")
++OUT = ROOT / "outputs/football_odds_trader"
++LABEL = {"W": "红", "HW": "红半", "P": "走水", "HL": "黑半", "L": "黑"}
++
++
++def csv_write(path, rows):
++    path.parent.mkdir(parents=True, exist_ok=True)
++    fields = list(dict.fromkeys(k for row in rows for k in row)) or ["match_id"]
++    with path.open("w", encoding="utf-8-sig", newline="") as handle:
++        writer = csv.DictWriter(handle, fieldnames=fields)
++        writer.writeheader()
++        writer.writerows(rows)
++
++
++def frozen_hash(rows):
++    post = {"score", "result", "pnl_1u", "settlement", "settlement_status", "result_state", "result_source", "settlement_updated_at"}
++    data = [{k: v for k, v in row.items() if k not in post} for row in rows]
++    return hashlib.sha256(json.dumps(data, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
++
++
++def main():
++    run_dir = Path(sys.argv[1])
++    manifest = daily.read_json(run_dir / "run_manifest.json", {})
++    date = manifest["list_date"]
++    yesterday = (dt.date.fromisoformat(date) - dt.timedelta(days=1)).isoformat()
++    raw_path = Path(manifest["raw_snapshot"])
++    stamp = daily.now_cn().strftime("%Y%m%d_%H%M%S")
++    backup = OUT / "backups" / f"delivery_results_{stamp}"
++    backup.mkdir(parents=True)
++    html_path = ROOT / "v3_legacy/outputs/football_odds_trader/dashboard/index.html"
++    shutil.copy2(html_path, backup / "v3_index.html")
++    html = html_path.read_text(encoding="utf-8")
++    match = re.search(r"const cardsData = (.*?);\r?\n(?:cardsData\.forEach|const stats)", html, re.S)
++    if not match:
++        raise RuntimeError("V3 cards payload not found")
++    cards = json.loads(match.group(1))
++    audit = {"run_id": manifest["run_id"], "dates": {}, "real_money": False}
++    all_results = []
++    for target in (yesterday, date):
++        raw = raw_result_map(raw_path, target)
++        bridge = daily.read_json(ROOT / f"bridge/v3_production/{target}.json", {})
++        v3_results = {r["match_id"]: r for r in settle_v3(bridge.get("matches", []), raw)}
++        for card in cards:
++            if card.get("date") != target:
++                continue
++            result = v3_results.get(str(card.get("match_id")), {})
++            if result.get("result") in LABEL:
++                card.update(score=result["score"], display_score=result["score"], state="-1",
++                            state_label="完场", display_status="已结算", status="已结算",
++                            result=LABEL[result["result"]], pnl=result["pnl_1u"],
++                            result_source=result["result_source"])
++                card["frozen_bettable_settlement"] = result["result"]
++                card["frozen_bettable_pnl"] = result["pnl_1u"]
++            elif target < date and card.get("state") != "-1":
++                card["display_status"] = "赛果待核"
++                card["status"] = "赛果未匹配待人工核验"
++        path = ROOT / f"v4/outputs/v4_decisions_{target}.json"
++        payload = daily.read_json(path, {})
++        rows = payload.get("matches", [])
++        before = frozen_hash(rows)
++        shutil.copy2(path, backup / path.name)
++        results = {r["match_id"]: r for r in settle_v4(rows, raw)}
++        for row in rows:
++            result = results.get(str(row.get("match_id")), {})
++            if not result.get("score"):
++                if target < date and row.get("result") not in LABEL:
++                    row["settlement_status"] = "RESULT_PENDING_VERIFICATION"
++                continue
++            post = {key: result.get(key, "") for key in ("score", "result", "pnl_1u", "settlement_status", "result_state", "result_source")}
++            if row.get("result") in LABEL and post["result"] not in LABEL:
++                continue
++            row.update(post)
++            row["settlement_updated_at"] = daily.now_cn().isoformat()
++            row["settlement"] = dict(post)
++        assert frozen_hash(rows) == before, "Pre-match fields changed"
++        daily.write_json(path, payload)
++        daily.write_json(ROOT / f"v4/dashboard/data/{target}.json", payload)
++        all_results.extend(dict(r, real_money=False) for r in results.values())
++        audit["dates"][target] = {"grades": dict(Counter(r.get("grade") for r in rows)),
++            "settled_all_grades": sum(r.get("result") in LABEL for r in rows),
++            "prematch_hash": before, "prematch_unchanged": True}
++    html = html[:match.start(1)] + json.dumps(cards, ensure_ascii=False) + html[match.end(1):]
++    html_path.write_text(html, encoding="utf-8")
++    family = OUT / "v4_shadow/daily_artifacts" / date / manifest["run_id"]
++    current = daily.read_json(ROOT / f"v4/outputs/v4_decisions_{date}.json", {})
++    flat = [{k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v for k, v in r.items()} | {"real_money": False} for r in current["matches"]]
++    csv_write(family / "simulations.csv", flat)
++    csv_write(family / "bettable_event_detail.csv", [r for r in flat if r.get("grade") in {"A", "B", "C"}])
++    csv_write(family / "bettable_event_stats.csv", [{"list_date": date, "grade": grade, "n": sum(r.get("grade") == grade for r in flat), "real_money": False} for grade in "ABCN"])
++    csv_write(family / "historical_settlement_audit.csv", all_results)
++    daily.write_json(family / "frozen_decisions.json", current)
++    grouped = []
++    for target in (yesterday, date):
++        for key in ("competition", "selected_side", "grade", "line"):
++            subset = [r for r in all_results if r.get("list_date") == target and r.get("grade") in {"A", "B", "C"}]
++            for value in sorted({str(r.get(key, "")) for r in subset}):
++                summary = summarize([r for r in subset if str(r.get(key, "")) == value])
++                grouped.append({"list_date": target, "group": key, "value": value, **{k: json.dumps(v) if isinstance(v, dict) else v for k, v in summary.items()}, "real_money": False})
++    csv_write(family / "grouped_review.csv", grouped)
++    (family / "daily_report.md").write_text("# V4 Shadow daily delivery\n\nSHADOW ONLY; real_money=false.\n\n" + json.dumps(manifest["v4"], ensure_ascii=False, indent=2) + "\n\nGrouped review is descriptive frozen-cohort settlement, not a new edge or model rule. Missing fundamentals/lineups/true flow remain unverified. ROI uses frozen 1U population; unresolved results are pending, not losses or pushes.\n", encoding="utf-8")
++    audit["artifacts"] = str(family)
++    daily.write_json(run_dir / "result_overlay_acceptance.json", audit)
++    print(json.dumps(audit, ensure_ascii=False))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index e13c882..b7068a0 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -581,6 +581,8 @@ def backfill_previous_v4_settlement(previous_date: str, performance_result: dict
+             settlement = v4_results.get(match_id)
+             if not settlement:
+                 continue
++            if row.get("result") in {"W", "HW", "P", "HL", "L"} and settlement.get("result") not in {"W", "HW", "P", "HL", "L"}:
++                continue
+             frozen_grade = row.get("grade")
+             reported_grade = settlement.get("grade", "")
+             if reported_grade and str(frozen_grade or "") != str(reported_grade):
+@@ -758,6 +760,9 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settleme
+             destination = public / "v4" / "data" / prior_v4.name
+             destination.parent.mkdir(parents=True, exist_ok=True)
+             shutil.copy2(prior_v4, destination)
++    artifact_family = OUT / "v4_shadow" / "daily_artifacts" / list_date / run_dir.name
++    if artifact_family.exists():
++        shutil.copytree(artifact_family, public / "v4" / "reports" / list_date / run_dir.name, dirs_exist_ok=True)
+     for source in (two_side_audit_path for two_side_audit_path in (OUT / "v4_shadow").glob(f"*_{run_dir.name}.*")):
+         destination = public / "v4" / "shadow" / source.name
+         destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
+@@ -777,6 +782,9 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settleme
+         (ROOT / "skills" / "worldcup-odds-trader" / "SKILL.md", public / "skills" / "worldcup-odds-trader" / "SKILL.md"),
+         (ROOT / "football_update", public / "tools" / "football_update"),
+         (ROOT / "run_football_update.py", public / "tools" / "run_football_update.py"),
++        (ROOT / "tools" / "finalize_football_daily_delivery.py", public / "tools" / "finalize_football_daily_delivery.py"),
++        (ROOT / "tools" / "write_dual_yesterday_performance.py", public / "tools" / "write_dual_yesterday_performance.py"),
++        (ROOT / "tools" / "verify_football_daily_delivery.py", public / "tools" / "verify_football_daily_delivery.py"),
+     ):
+         if source.is_dir():
+             shutil.copytree(source, destination, dirs_exist_ok=True)
+@@ -890,6 +898,12 @@ def main() -> int:
+     write_json(run_dir / "run_manifest.json", run_manifest)
+     directory, comparison_path, latest_path = versioning.save_run_bundle(list_date, run_manifest, bridge, v4, previous_latest)
+     write_json(run_dir / "merged_dashboard_date.json", merged)
++    finalization = run_command([str(PYTHON), str(ROOT / "tools" / "finalize_football_daily_delivery.py"), str(run_dir)], env, logs / "delivery_finalize.log", 300)
++    run_manifest["steps"]["delivery_finalize"] = finalization
++    write_json(run_dir / "run_manifest.json", run_manifest)
++    if finalization.get("returncode") != 0:
++        print(json.dumps({"status": "PUBLISH_BLOCKED_DELIVERY_FINALIZE", "log": finalization.get("log")}, ensure_ascii=False))
++        return 1
+     publish_result = {"pushed": False, "skipped": True}
+     if not args.no_publish:
+         copy_publish_assets(list_date, date_path, run_dir, yesterday if yesterday_v4_backfill.get("ok") else "")
+diff --git a/tools/write_dual_yesterday_performance.py b/tools/write_dual_yesterday_performance.py
+index 2ca3429..faa2412 100644
+--- a/tools/write_dual_yesterday_performance.py
++++ b/tools/write_dual_yesterday_performance.py
+@@ -5,10 +5,13 @@ import argparse
+ import csv
+ import datetime as dt
+ import json
++import math
+ from collections import Counter
+ from pathlib import Path
+ from typing import Any
+ 
++from asian_settlement import mirror_result, settle_giving
++
+ ROOT = Path(r"D:\codex")
+ OUT = ROOT / "outputs" / "football_odds_trader"
+ CN_TZ = dt.timezone(dt.timedelta(hours=8))
+@@ -52,7 +55,9 @@ def split_handicap(value: float) -> list[float]:
+     quarter = round(value * 4) / 4
+     if int(round(quarter * 4)) % 2 == 0:
+         return [quarter]
+-    return [int(quarter * 2) / 2, (int(quarter * 2) + 1) / 2]
++    # Use floor/ceil so negative quarter lines split symmetrically:
++    # -0.25 -> -0.5/0 and -0.75 -> -1/-0.5.
++    return [math.floor(quarter * 2) / 2, math.ceil(quarter * 2) / 2]
+ 
+ 
+ def settle(home_goals: int, away_goals: int, selection: str, home_handicap: float) -> str:
+@@ -89,7 +94,33 @@ def effective_rate(counter: Counter[str]) -> float | None:
+ 
+ 
+ def raw_result_map(raw_path: Path, target: str) -> dict[str, dict[str, str]]:
+-    return {str(row.get("match_id", "")): row for row in read_csv(raw_path) if str(row.get("list_date", "")) == target}
++    # A live feed drops yesterday's finished matches. Retain explicit final
++    # observations from earlier snapshots, with their actual source paths.
++    paths = sorted(p for p in raw_path.parent.glob("*_titan007_odds_snapshot.csv") if p.name <= raw_path.name)
++    results: dict[str, dict[str, str]] = {}
++    for path in paths:
++        for row in read_csv(path):
++            if str(row.get("list_date", "")) != target:
++                continue
++            mid = str(row.get("match_id", ""))
++            row["_source"] = str(path)
++            previous = results.get(mid, {})
++            new_final = verified_final_score(row)[0] is not None
++            old_final = verified_final_score(previous)[0] is not None
++            if new_final or not old_final:
++                results[mid] = row
++    return results
++
++
++def verified_final_score(source: dict[str, str]) -> tuple[int | None, int | None, str]:
++    """Accept only Titan's explicit finished state; score text alone is not final."""
++    state = str(source.get("state", "") or "").strip()
++    if state != "-1":
++        return None, None, f"NOT_FINAL_STATE_{state or 'UNKNOWN'}"
++    hs, aws = as_float(source.get("home_score")), as_float(source.get("away_score"))
++    if hs is None or aws is None:
++        return None, None, "NO_VERIFIED_SCORE_IN_FINAL_SNAPSHOT"
++    return int(hs), int(aws), ""
+ 
+ 
+ def settle_v3(rows: list[dict[str, Any]], raw: dict[str, dict[str, str]]) -> list[dict[str, Any]]:
+@@ -98,31 +129,37 @@ def settle_v3(rows: list[dict[str, Any]], raw: dict[str, dict[str, str]]) -> lis
+         match_id = str(row.get("match_id", ""))
+         source = raw.get(match_id, {})
+         home, away = str(row.get("home_team", "")), str(row.get("away_team", ""))
+-        hs, aws = as_float(source.get("home_score")), as_float(source.get("away_score"))
++        hs, aws, score_reason = verified_final_score(source)
+         water = as_float(row.get("water"))
+         team = str(row.get("selected_team", "")).split("（", 1)[0].strip()
+         side = str(row.get("selected_side", ""))
+         line = parse_line(row.get("line"))
+         result, reason = "", ""
+         if hs is None or aws is None:
+-            reason = "NO_VERIFIED_SCORE_IN_CURRENT_TITAN_SNAPSHOT"
++            reason = score_reason
+         elif water is None or line is None or team not in {home, away}:
+             reason = "MISSING_FROZEN_SIDE_LINE_WATER_OR_TEAM"
+         elif line == 0:
+             result = "W" if (hs > aws if team == home else aws > hs) else "L" if (hs < aws if team == home else aws < hs) else "P"
+         else:
+-            # Legacy freeze stores upper/lower identity; preserve it while using the frozen line magnitude.
++            # Legacy freeze's side is the selected market side.  The frozen
++            # line is a magnitude, so convert it to the home signed line
++            # expected by settle(): giving side = negative handicap.
+             giving_team = team if side == "upper" else (away if team == home else home)
+-            giving_margin = (hs - aws) if giving_team == home else (aws - hs)
+-            giving_result = settle(int(hs), int(aws), "home" if giving_team == home else "away", line)
++            home_handicap = -line if giving_team == home else line
++            giving_result = settle(int(hs), int(aws), "home" if giving_team == home else "away", home_handicap)
+             result = giving_result if team == giving_team else {"W": "L", "HW": "HL", "P": "P", "HL": "HW", "L": "W"}[giving_result]
+         out.append({
+             "version": "V3", "match_id": match_id, "list_date": row.get("list_date", ""),
+             "competition": row.get("competition", ""), "match": row.get("match", ""),
+             "selected_team": team, "selected_side": side, "line": row.get("line", ""), "water": water or "",
+             "score": f"{int(hs)}-{int(aws)}" if hs is not None and aws is not None else "",
++            "result_state": str(source.get("state", "") or ""),
+             "result": result, "pnl_1u": round(pnl(result, water), 4) if result and water is not None else "",
+             "result_source": str(source.get("_source", "")), "settlement_status": "SETTLED" if result in RESULTS else reason,
++            "decision_id": row.get("decision_id", ""), "run_id": row.get("run_id", ""), "model_id": row.get("model_id", "V3_LEGACY_PRODUCTION"),
++            "quote_at": row.get("quote_at", ""), "last_confirmed_at": row.get("last_confirmed_at", ""), "kickoff_at": row.get("kickoff_at", ""),
++            "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
+         })
+     return out
+ 
+@@ -134,25 +171,42 @@ def settle_v4(rows: list[dict[str, Any]], raw: dict[str, dict[str, str]]) -> lis
+         source = raw.get(match_id, {})
+         market = row.get("market", {}) or {}
+         home = str(market.get("home_team", "")); away = str(market.get("away_team", ""))
+-        hs, aws = as_float(source.get("home_score")), as_float(source.get("away_score"))
++        hs, aws, score_reason = verified_final_score(source)
+         team = str(row.get("selected_team", row.get("candidate_team", "")))
+         water = as_float(row.get("selected_water_hk"))
+-        home_line = as_float(market.get("titan_home_handicap_signed", market.get("home_handicap_signed")))
++        selected_line = as_float(row.get("selected_handicap_signed"))
++        candidate_side = str(row.get("selected_side", row.get("candidate_side", "")) or "").strip()
+         result, reason = "", ""
+         if hs is None or aws is None:
+-            reason = "NO_VERIFIED_SCORE_IN_CURRENT_TITAN_SNAPSHOT"
+-        elif not home or not away or team not in {home, away} or water is None or home_line is None:
++            reason = score_reason
++        elif not home or not away or team not in {home, away} or water is None or selected_line is None:
+             reason = "MISSING_V4_SIDE_LINE_WATER_OR_TEAM"
+         else:
+-            result = settle(int(hs), int(aws), "home" if team == home else "away", home_line)
++            # Titan's raw line field is a magnitude with the giving side encoded
++            # separately.  V4 selected_handicap_signed uses -abs(line) for the
++            # giving side and +abs(line) for the receiving side.  Settle from the
++            # giving margin so a 2-2 result on -1.25 is L, not W.
++            giving_team = str(market.get("giving_team", "") or "").strip()
++            if giving_team not in {home, away}:
++                reason = "MISSING_V4_GIVING_TEAM"
++            else:
++                giving_margin = int(hs) - int(aws) if giving_team == home else int(aws) - int(hs)
++                giving_result = settle_giving(giving_margin, abs(selected_line))
++                result = giving_result if candidate_side == "giving" else mirror_result(giving_result) if candidate_side == "receiving" else ""
++                if not result:
++                    reason = "MISSING_V4_CANDIDATE_SIDE"
+         out.append({
+             "version": "V4_SHADOW", "match_id": match_id, "list_date": row.get("list_date", ""),
+             "competition": row.get("competition", ""), "match": f"{home} vs {away}",
+             "selected_team": team, "selected_side": row.get("selected_side", row.get("candidate_side", "")),
+             "line": row.get("selected_handicap_signed", ""), "water": water or "", "grade": row.get("grade", ""),
+             "score": f"{int(hs)}-{int(aws)}" if hs is not None and aws is not None else "",
++            "result_state": str(source.get("state", "") or ""),
+             "result": result, "pnl_1u": round(pnl(result, water), 4) if result and water is not None else "",
+             "result_source": str(source.get("_source", "")), "settlement_status": "SETTLED" if result in RESULTS else reason,
++            "decision_id": row.get("decision_id", ""), "run_id": row.get("run_id", ""), "model_id": row.get("model_id", "V4_DIRECTION_FIXED_R1"),
++            "quote_at": row.get("quote_at", (market or {}).get("quote_at", "")), "last_confirmed_at": row.get("last_confirmed_at", (market or {}).get("last_confirmed_at", "")), "kickoff_at": row.get("kickoff_at", row.get("kickoff", "")),
++            "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
+         })
+     return out
+ 
+@@ -161,7 +215,19 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
+     settled = [row for row in rows if row.get("result") in RESULTS]
+     counts = Counter(row["result"] for row in settled)
+     pnl_total = sum(float(row["pnl_1u"]) for row in settled)
+-    return {"frozen_bettable": len(rows), "settled": len(settled), "counts": dict(counts), "effective_win_rate": effective_rate(counts), "pnl_1u": round(pnl_total, 4), "roi": round(pnl_total / len(settled), 4) if settled else None, "pending": len(rows) - len(settled)}
++    return {"frozen_bettable": len(rows), "settled": len(settled), "counts": dict(counts), "effective_win_rate": effective_rate(counts), "pnl_1u": round(pnl_total, 4), "roi": round(pnl_total / len(rows), 4) if rows else None, "settled_roi": round(pnl_total / len(settled), 4) if settled else None, "roi_denominator": "FROZEN_BETTABLE_1U", "pending": len(rows) - len(settled)}
++
++
++def cohort_summary(rows: list[dict[str, Any]], name: str, predicate) -> dict[str, Any]:
++    selected = [row for row in rows if predicate(row)]
++    result = summarize(selected)
++    result["name"] = name
++    return result
++
++
++def cohort_line(name: str, result: dict[str, Any]) -> str:
++    roi = "NA" if result["roi"] is None else f"{result['roi']:.2%}"
++    return f"- {name}: n={result['settled']}；有效胜率={('NA' if result['effective_win_rate'] is None else f'{result['effective_win_rate']:.2%}')}；PnL={result['pnl_1u']:+.4f}U；ROI={roi}"
+ 
+ 
+ def main() -> int:
+@@ -173,7 +239,7 @@ def main() -> int:
+     raw_path = Path(args.raw_csv)
+     raw = raw_result_map(raw_path, target)
+     for row in raw.values():
+-        row["_source"] = str(raw_path)
++        row.setdefault("_source", str(raw_path))
+     bridge_path = ROOT / "bridge" / "v3_production" / f"{target}.json"
+     v3_payload = json.loads(bridge_path.read_text(encoding="utf-8")) if bridge_path.exists() else {"matches": []}
+     v3_rows = [row for row in v3_payload.get("matches", []) if str(row.get("action", "")) in {"可投", "半仓可投"}]
+@@ -187,7 +253,7 @@ def main() -> int:
+     out_dir.mkdir(parents=True, exist_ok=True)
+     csv_path = out_dir / f"yesterday_performance_{target}_{stamp}.csv"
+     all_rows = v3_settled + v4_settled
+-    fields = ["version", "match_id", "list_date", "competition", "match", "selected_team", "selected_side", "line", "water", "grade", "score", "result", "pnl_1u", "result_source", "settlement_status"]
++    fields = ["version", "match_id", "list_date", "competition", "match", "selected_team", "selected_side", "line", "water", "grade", "score", "result_state", "result", "pnl_1u", "result_source", "settlement_status", "decision_id", "run_id", "model_id", "quote_at", "last_confirmed_at", "kickoff_at", "hours_from_last_refresh_to_kickoff", "is_morning_baseline", "is_latest_valid_prematch"]
+     with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
+         writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore"); writer.writeheader(); writer.writerows(all_rows)
+     v3_summary, v4_summary = summarize(v3_settled), summarize(v4_settled)
+@@ -197,7 +263,22 @@ def main() -> int:
+         rate = "NA" if summary["effective_win_rate"] is None else f"{summary['effective_win_rate']:.2%}"
+         roi = "NA" if summary["roi"] is None else f"{summary['roi']:.2%}"
+         return f"- {name}: 冻结可投 {summary['frozen_bettable']}；已结算 {summary['settled']}；红/红半/走/黑半/黑 {counts.get('W',0)}/{counts.get('HW',0)}/{counts.get('P',0)}/{counts.get('HL',0)}/{counts.get('L',0)}；有效胜率 {rate}；1U平注盈亏 {summary['pnl_1u']:+.4f}U；ROI {roi}；待核 {summary['pending']}"
+-    report_path.write_text("\n".join([f"# {target} V3/V4 昨日冻结名单结算", "", "- 仅合并冻结决策与当前 Titan 终场比分；没有重算昨日方向、盘口、水位、概率或等级。", "- V4 为 Shadow，不代表真实下注。", line("V3 Production", v3_summary), line("V4 Shadow ABC", v4_summary), "", f"- 逐场文件：`{csv_path}`", f"- 结果源快照：`{raw_path}`", ""]) , encoding="utf-8")
++    all_settled = v3_settled + v4_settled
++    def morning(row: dict[str, Any]) -> bool:
++        text = str(row.get("kickoff_at", ""))
++        try:
++            hour = dt.datetime.fromisoformat(text.replace("Z", "+00:00")).astimezone(CN_TZ).hour
++        except ValueError:
++            return False
++        return 4 <= hour < 10
++    def other(row: dict[str, Any]) -> bool: return not morning(row)
++    def latest(row: dict[str, Any]) -> bool: return str(row.get("is_latest_valid_prematch", "")).lower() in {"true", "1"}
++    def baseline(row: dict[str, Any]) -> bool: return str(row.get("is_morning_baseline", "")).lower() in {"true", "1"}
++    cohort_lines = ["", "## 报价时段监控（不改变策略）"]
++    for label, predicate in (("ALL", lambda row: True), ("04:00-10:00", morning), ("其他时段", other), ("MORNING_BASELINE", baseline), ("LATEST_VALID_PREMATCH", latest)):
++        cohort_lines.append(cohort_line("V3 " + label, cohort_summary(v3_settled, label, predicate)))
++        cohort_lines.append(cohort_line("V4 " + label, cohort_summary(v4_settled, label, predicate)))
++    report_path.write_text("\n".join([f"# {target} V3/V4 昨日冻结名单结算", "", "- 仅合并冻结决策与当前 Titan 终场比分；没有重算昨日方向、盘口、水位、概率或等级。", "- V4 为 Shadow，不代表真实下注。", line("V3 Production", v3_summary), line("V4 Shadow ABC", v4_summary), *cohort_lines, "", f"- 逐场文件：`{csv_path}`", f"- 结果源快照：`{raw_path}`", ""]) , encoding="utf-8")
+     print(json.dumps({"target": target, "v3": v3_summary, "v4": v4_summary, "csv": str(csv_path), "report": str(report_path)}, ensure_ascii=False))
+     return 0
+ 
+COMMIT 60c7f393fa5b2340d610d502820de7ec3dc743a3 2026-09-16 08:30:31 +0800 Update football odds dashboard 2026-09-16 08:30
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index 7d8d2aa..e13c882 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -537,6 +537,79 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
+     return v3_path, v4_path
+ 
+ 
++def command_json(stdout: str) -> dict[str, Any]:
++    """Read the final JSON object emitted by a helper command."""
++    for line in reversed((stdout or "").splitlines()):
++        text = line.strip()
++        if not text:
++            continue
++        try:
++            value = json.loads(text)
++        except json.JSONDecodeError:
++            continue
++        if isinstance(value, dict):
++            return value
++    return {}
++
++
++def backfill_previous_v4_settlement(previous_date: str, performance_result: dict[str, Any], run_at: dt.datetime) -> dict[str, Any]:
++    """Append prior-day result fields while asserting V4 grades are immutable."""
++    result_payload = command_json(str(performance_result.get("stdout", "")))
++    csv_path = Path(str(result_payload.get("csv", "")))
++    if not csv_path.exists():
++        return {"ok": False, "status": "V4_SETTLEMENT_BACKFILL_MISSING", "reason": "settlement CSV missing", "csv": str(csv_path)}
++    with csv_path.open(encoding="utf-8-sig", newline="") as handle:
++        rows = list(csv.DictReader(handle))
++    v4_results = {str(row.get("match_id", "")): row for row in rows if row.get("version") == "V4_SHADOW"}
++    targets = [
++        ROOT / "v4" / "outputs" / f"v4_decisions_{previous_date}.json",
++        ROOT / "v4" / "dashboard" / "data" / f"{previous_date}.json",
++    ]
++    target_paths = [path for path in targets if path.exists()]
++    if not target_paths:
++        return {"ok": False, "status": "V4_SETTLEMENT_BACKFILL_MISSING", "reason": "frozen V4 date data missing", "csv": str(csv_path)}
++
++    grade_before: dict[str, Any] = {}
++    updated = 0
++    settled = 0
++    for path in target_paths:
++        payload = read_json(path, {}) or {}
++        matches = payload.get("matches", []) or []
++        grade_before = {str(row.get("match_id", "")): row.get("grade") for row in matches}
++        for row in matches:
++            match_id = str(row.get("match_id", ""))
++            settlement = v4_results.get(match_id)
++            if not settlement:
++                continue
++            frozen_grade = row.get("grade")
++            reported_grade = settlement.get("grade", "")
++            if reported_grade and str(frozen_grade or "") != str(reported_grade):
++                return {"ok": False, "status": "V4_GRADE_IMMUTABILITY_ERROR", "reason": f"grade changed for {match_id}", "csv": str(csv_path)}
++            post = {
++                "score": settlement.get("score", ""),
++                "result": settlement.get("result", ""),
++                "pnl_1u": settlement.get("pnl_1u", ""),
++                "settlement_status": settlement.get("settlement_status", ""),
++                "result_state": settlement.get("result_state", ""),
++                "result_source": settlement.get("result_source", ""),
++                "settlement_updated_at": run_at.isoformat(),
++            }
++            row.update(post)
++            row["settlement"] = {
++                "score": post["score"], "result": post["result"], "pnl_1u": post["pnl_1u"],
++                "status": post["settlement_status"], "result_state": post["result_state"],
++                "source": post["result_source"], "updated_at": post["settlement_updated_at"],
++            }
++            updated += 1
++            if settlement.get("result") in {"W", "HW", "P", "HL", "L"}:
++                settled += 1
++        grade_after = {str(row.get("match_id", "")): row.get("grade") for row in matches}
++        if grade_after != grade_before:
++            return {"ok": False, "status": "V4_GRADE_IMMUTABILITY_ERROR", "reason": f"grade map changed while writing {path}", "csv": str(csv_path)}
++        write_json(path, payload)
++    return {"ok": True, "status": "V4_SETTLEMENT_BACKFILLED", "csv": str(csv_path), "targets": [str(path) for path in target_paths], "rows_updated": updated, "settled_rows": settled, "grade_unchanged": True}
++
++
+ def num(value: Any) -> float | None:
+     try:
+         return float(value)
+@@ -654,7 +727,7 @@ def write_refresh_report(list_date: str, run_id: str, run_at: dt.datetime, raw_p
+     return path
+ 
+ 
+-def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path) -> None:
++def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settlement_date: str = "") -> None:
+     public = OUT / "github_publish" / "odds"
+     public.mkdir(parents=True, exist_ok=True)
+     copies = [
+@@ -677,6 +750,14 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path) -> None:
+     v4_out = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
+     if v4_out.exists():
+         shutil.copy2(v4_out, public / "v4" / "data" / f"{list_date}.json")
++    # Keep the prior day's V4 page data in sync with the append-only
++    # settlement backfill; this copies result fields only, never decisions.
++    if settlement_date:
++        prior_v4 = ROOT / "v4" / "dashboard" / "data" / f"{settlement_date}.json"
++        if prior_v4.exists():
++            destination = public / "v4" / "data" / prior_v4.name
++            destination.parent.mkdir(parents=True, exist_ok=True)
++            shutil.copy2(prior_v4, destination)
+     for source in (two_side_audit_path for two_side_audit_path in (OUT / "v4_shadow").glob(f"*_{run_dir.name}.*")):
+         destination = public / "v4" / "shadow" / source.name
+         destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
+@@ -793,7 +874,16 @@ def main() -> int:
+         [str(PYTHON), str(ROOT / "tools" / "write_dual_yesterday_performance.py"), "--list-date", yesterday, "--raw-csv", str(raw_path)],
+         env, logs / "yesterday_performance.log", 300,
+     )
++    yesterday_v4_backfill = {
++        "ok": False,
++        "status": "V4_SETTLEMENT_BACKFILL_NOT_RUN",
++        "reason": "yesterday performance command failed",
++    }
++    if yesterday_performance.get("returncode") == 0:
++        yesterday_v4_backfill = backfill_previous_v4_settlement(yesterday, yesterday_performance, run_at)
+     run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
++    run_manifest["steps"]["v4_settlement_backfill"] = yesterday_v4_backfill
++    run_manifest["artifacts"]["v4_settlement_backfill_targets"] = yesterday_v4_backfill.get("targets", [])
+     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
+     report_path = write_refresh_report(list_date, run_id, run_at, raw_path, metrics, run_dir / "decision_comparison.csv", review_md, two_side_csv, context_path, fetch_result)
+     run_manifest["artifacts"]["manual_refresh_report"] = str(report_path)
+@@ -802,16 +892,16 @@ def main() -> int:
+     write_json(run_dir / "merged_dashboard_date.json", merged)
+     publish_result = {"pushed": False, "skipped": True}
+     if not args.no_publish:
+-        copy_publish_assets(list_date, date_path, run_dir)
++        copy_publish_assets(list_date, date_path, run_dir, yesterday if yesterday_v4_backfill.get("ok") else "")
+         publish_result = publish()
+     commit = ""
+     repo = OUT / "github_publish" / "odds"
+     if (repo / ".git").exists():
+         git = subprocess.run(["git", "-C", str(repo), "rev-parse", "--short", "HEAD"], text=True, capture_output=True, encoding="utf-8", errors="replace")
+         commit = git.stdout.strip()
+-    run_manifest["publish"] = publish_result; run_manifest["git_commit_short"] = commit; run_manifest["status"] = "COMPLETE" if v3_result.get("returncode") == 0 and v4_result.get("returncode") == 0 else "PARTIAL"
++    run_manifest["publish"] = publish_result; run_manifest["git_commit_short"] = commit; run_manifest["status"] = "COMPLETE" if v3_result.get("returncode") == 0 and v4_result.get("returncode") == 0 and yesterday_v4_backfill.get("ok") else "PARTIAL"
+     write_json(run_dir / "run_manifest.json", run_manifest); write_json(latest_path, {"run": run_manifest, "v3": bridge, "v4": v4, "comparison_csv": str(comparison_path)})
+-    print(json.dumps({"run_id": run_id, "list_date": list_date, "raw": len(current_rows), "v3_computed": metrics["v3_computed"], "v3_bettable": metrics["v3_bettable"], "v3_half": metrics["v3_half"], "v3_no_bet": metrics["v3_no_bet"], "v4_computed": metrics["v4_computed"], "v4_A": metrics["v4_A"], "v4_B": metrics["v4_B"], "v4_C": metrics["v4_C"], "v4_N": metrics["v4_N"], "v4_neutral": metrics["v4_neutral"], "v4_missing": metrics["v4_missing"], "v4_not_prematch": metrics.get("v4_not_prematch", 0), "git_commit_short": commit, "publish": publish_result, "run_dir": str(directory), "comparison": str(comparison_path), "dashboard": str(current_path)}, ensure_ascii=False))
++    print(json.dumps({"run_id": run_id, "list_date": list_date, "raw": len(current_rows), "v3_computed": metrics["v3_computed"], "v3_bettable": metrics["v3_bettable"], "v3_half": metrics["v3_half"], "v3_no_bet": metrics["v3_no_bet"], "v4_computed": metrics["v4_computed"], "v4_A": metrics["v4_A"], "v4_B": metrics["v4_B"], "v4_C": metrics["v4_C"], "v4_N": metrics["v4_N"], "v4_neutral": metrics["v4_neutral"], "v4_missing": metrics["v4_missing"], "v4_not_prematch": metrics.get("v4_not_prematch", 0), "v4_settlement_backfill": yesterday_v4_backfill, "git_commit_short": commit, "publish": publish_result, "run_dir": str(directory), "comparison": str(comparison_path), "dashboard": str(current_path)}, ensure_ascii=False))
+     return 0 if run_manifest["status"] == "COMPLETE" else 1
+ 
+ 
+COMMIT 9da0e0d2bf4cd5559885325bb3d6807d8ae86925 2026-09-15 18:10:12 +0800 Update football odds dashboard 2026-09-15 18:10
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index 9e418e1..7d8d2aa 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -219,7 +219,8 @@ def enrich_decision_metadata(
+         # original quote timestamp is unknown unless it was already persisted;
+         # never relabel the new refresh timestamp as the old decision quote.
+         preserved_started = bool(kickoff and kickoff <= run_at and row.get("started_lock"))
+-        quote_at = iso_timestamp(row.get("quote_at")) or ("" if preserved_started else iso_timestamp(quote_raw))
++        persisted_quote = parse_source_timestamp(row.get("quote_at"))
++        quote_at = (persisted_quote.isoformat() if persisted_quote and (not preserved_started or persisted_quote <= decision_dt) else ("" if preserved_started else iso_timestamp(quote_raw)))
+         last_confirmed_at = iso_timestamp(confirmed_raw)
+         if kickoff:
+             row["kickoff_at"] = kickoff.isoformat()
+COMMIT 9ae9974f9115420489e8a1c773fe18f75d06272c 2026-09-15 18:09:05 +0800 Update football odds dashboard 2026-09-15 18:09
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index 9aae56a..9e418e1 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -212,11 +212,15 @@ def enrich_decision_metadata(
+         source = raw_by_id.get(str(row.get("match_id", "")), {})
+         quote_raw = source.get("snapshot_stamp") or source.get("latest_snapshot_stamp")
+         confirmed_raw = source.get("latest_snapshot_stamp") or source.get("snapshot_stamp")
+-        quote_at = iso_timestamp(quote_raw)
+-        last_confirmed_at = iso_timestamp(confirmed_raw)
+         kickoff = parse_kickoff(str(source.get("bj_time", "") or row.get("kickoff", "")))
+         decision_dt = parse_source_timestamp(row.get("decision_at")) or run_at
+         decision_at = decision_dt.isoformat()
++        # A started/frozen row may be retained during a later refresh.  Its
++        # original quote timestamp is unknown unless it was already persisted;
++        # never relabel the new refresh timestamp as the old decision quote.
++        preserved_started = bool(kickoff and kickoff <= run_at and row.get("started_lock"))
++        quote_at = iso_timestamp(row.get("quote_at")) or ("" if preserved_started else iso_timestamp(quote_raw))
++        last_confirmed_at = iso_timestamp(confirmed_raw)
+         if kickoff:
+             row["kickoff_at"] = kickoff.isoformat()
+         row["decision_at"] = decision_at
+@@ -232,7 +236,7 @@ def enrich_decision_metadata(
+         row["parent_decision_id"] = str(previous.get("decision_id", "") or "")
+         status = str(row.get("analysis_status", ""))
+         valid = (version == "V3" and str(row.get("action", "")) not in {"", "历史V3未冻结可投"}) or (version == "V4" and status in {"EVALUATED", "FROZEN_PREMATCH_DECISION"})
+-        row["is_latest_valid_prematch"] = bool(valid and kickoff and kickoff > decision_dt)
++        row["is_latest_valid_prematch"] = bool(valid and kickoff and kickoff > run_at)
+         row["is_morning_baseline"] = bool(morning_run and row["is_latest_valid_prematch"] and kickoff and 4 <= kickoff.hour < 10)
+         row["monitoring_bucket"] = "MONITORING_BUCKET" if kickoff and 4 <= kickoff.hour < 10 else ""
+         if version == "V4":
+COMMIT e790f94c23b2d10d7f4c6e4fcf38fa0a615bdeac 2026-09-15 18:07:15 +0800 Update football odds dashboard 2026-09-15 18:07
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index 7c6d278..9aae56a 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -9,6 +9,7 @@ from __future__ import annotations
+ import argparse
+ import csv
+ import datetime as dt
++import hashlib
+ import json
+ import os
+ import shutil
+@@ -106,6 +107,261 @@ def parse_kickoff(value: str) -> dt.datetime | None:
+     return None
+ 
+ 
++def parse_source_timestamp(value: Any) -> dt.datetime | None:
++    """Parse a source/run timestamp without falling back to filesystem mtime."""
++    text = str(value or "").strip()
++    if not text:
++        return None
++    normalized = text[:-1] + "+00:00" if text.endswith("Z") else text
++    try:
++        parsed = dt.datetime.fromisoformat(normalized)
++        return parsed.astimezone(CN_TZ) if parsed.tzinfo else parsed.replace(tzinfo=CN_TZ)
++    except ValueError:
++        pass
++    for fmt in ("%Y%m%d_%H%M%S", "%Y%m%d%H%M%S", "%Y-%m-%d %H:%M:%S"):
++        try:
++            return dt.datetime.strptime(text, fmt).replace(tzinfo=CN_TZ)
++        except ValueError:
++            continue
++    return None
++
++
++def iso_timestamp(value: Any, fallback: dt.datetime | None = None) -> str:
++    parsed = parse_source_timestamp(value)
++    if parsed is None:
++        parsed = fallback
++    return parsed.isoformat() if parsed else ""
++
++
++def hours_between(later: dt.datetime | None, earlier: dt.datetime | None) -> float | None:
++    if later is None or earlier is None:
++        return None
++    return round((later - earlier).total_seconds() / 3600.0, 3)
++
++
++def generated_decision_id(version: str, row: dict[str, Any], decision_at: str) -> str:
++    payload = "|".join(
++        [
++            version,
++            str(row.get("list_date", "")),
++            str(row.get("match_id", "")),
++            str(row.get("action", row.get("grade", ""))),
++            str(row.get("selected_team", row.get("candidate_team", ""))),
++            str(row.get("selected_side", row.get("candidate_side", ""))),
++            str(row.get("line", row.get("selected_handicap_signed", ""))),
++            str(row.get("water", row.get("selected_water_hk", ""))),
++            decision_at,
++        ]
++    )
++    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:20]
++
++
++def previous_run_rows(list_date: str, current_run_id: str, filename: str) -> dict[str, dict[str, Any]]:
++    out: dict[str, dict[str, Any]] = {}
++    root = OUT / "decision_versions" / list_date
++    if not root.exists():
++        return out
++    for run_dir in sorted(root.glob("RUN_*")):
++        if run_dir.name == current_run_id:
++            continue
++        path = run_dir / filename
++        payload = read_json(path, {})
++        for row in payload.get("matches", []) if isinstance(payload, dict) else []:
++            match_id = str(row.get("match_id", "") or "")
++            if match_id:
++                out[match_id] = row
++    return out
++
++
++def previous_run_snapshots(list_date: str, current_run_id: str, filename: str) -> list[dict[str, Any]]:
++    """Load every prior run for comparison; this is review metadata only."""
++    out: list[dict[str, Any]] = []
++    root = OUT / "decision_versions" / list_date
++    if not root.exists():
++        return out
++    for run_dir in sorted(root.glob("RUN_*")):
++        if run_dir.name == current_run_id:
++            continue
++        payload = read_json(run_dir / filename, {})
++        if not isinstance(payload, dict):
++            continue
++        run_at = parse_source_timestamp(payload.get("generated_at")) or parse_source_timestamp(run_dir.name.removeprefix("RUN_"))
++        for row in payload.get("matches", []) or []:
++            item = dict(row)
++            item["_run_id"] = str(payload.get("run_id") or run_dir.name)
++            item["_run_at"] = run_at.isoformat() if run_at else ""
++            out.append(item)
++    return out
++
++
++def enrich_decision_metadata(
++    list_date: str,
++    run_id: str,
++    run_at: dt.datetime,
++    raw_rows: list[dict[str, str]],
++    bridge: dict[str, Any],
++    v4: dict[str, Any],
++) -> tuple[dict[str, Any], dict[str, Any]]:
++    """Attach real quote/decision clocks without changing model decisions."""
++    raw_by_id = {str(row.get("match_id", "")): row for row in raw_rows}
++    previous_v3 = previous_run_rows(list_date, run_id, "v3_decisions.json")
++    previous_v4 = previous_run_rows(list_date, run_id, "v4_shadow.json")
++    morning_run = 7 <= run_at.hour < 9
++
++    def apply(row: dict[str, Any], version: str, previous: dict[str, Any]) -> None:
++        source = raw_by_id.get(str(row.get("match_id", "")), {})
++        quote_raw = source.get("snapshot_stamp") or source.get("latest_snapshot_stamp")
++        confirmed_raw = source.get("latest_snapshot_stamp") or source.get("snapshot_stamp")
++        quote_at = iso_timestamp(quote_raw)
++        last_confirmed_at = iso_timestamp(confirmed_raw)
++        kickoff = parse_kickoff(str(source.get("bj_time", "") or row.get("kickoff", "")))
++        decision_dt = parse_source_timestamp(row.get("decision_at")) or run_at
++        decision_at = decision_dt.isoformat()
++        if kickoff:
++            row["kickoff_at"] = kickoff.isoformat()
++        row["decision_at"] = decision_at
++        row["quote_at"] = quote_at
++        row["last_confirmed_at"] = last_confirmed_at
++        row["quote_age_at_decision"] = hours_between(decision_dt, parse_source_timestamp(quote_at))
++        row["hours_from_decision_to_kickoff"] = hours_between(kickoff, decision_dt)
++        row["hours_from_last_refresh_to_kickoff"] = hours_between(kickoff, parse_source_timestamp(last_confirmed_at))
++        row["run_id"] = run_id
++        row["model_id"] = "V3_LEGACY_PRODUCTION" if version == "V3" else str(row.get("model_id") or "v4-market-dirichlet-20260913")
++        row["side_mapping_version"] = "V3_LEGACY_PAGE_PARITY" if version == "V3" else str(row.get("direction_rule_version") or "V4_DIRECTION_FIXED_R1")
++        row["decision_id"] = str(row.get("decision_id") or generated_decision_id(version, row, decision_at))
++        row["parent_decision_id"] = str(previous.get("decision_id", "") or "")
++        status = str(row.get("analysis_status", ""))
++        valid = (version == "V3" and str(row.get("action", "")) not in {"", "历史V3未冻结可投"}) or (version == "V4" and status in {"EVALUATED", "FROZEN_PREMATCH_DECISION"})
++        row["is_latest_valid_prematch"] = bool(valid and kickoff and kickoff > decision_dt)
++        row["is_morning_baseline"] = bool(morning_run and row["is_latest_valid_prematch"] and kickoff and 4 <= kickoff.hour < 10)
++        row["monitoring_bucket"] = "MONITORING_BUCKET" if kickoff and 4 <= kickoff.hour < 10 else ""
++        if version == "V4":
++            market = dict(row.get("market") or {})
++            market["quote_at"] = quote_at
++            market["last_confirmed_at"] = last_confirmed_at
++            market["run_id"] = run_id
++            row["market"] = market
++
++    for row in bridge.get("matches", []):
++        apply(row, "V3", previous_v3.get(str(row.get("match_id", "")), {}))
++    for row in v4.get("matches", []):
++        apply(row, "V4", previous_v4.get(str(row.get("match_id", "")), {}))
++    bridge["run_id"] = run_id
++    v4["run_id"] = run_id
++    v4["model_id"] = str(v4.get("model_id") or "v4-market-dirichlet-20260913")
++    v4["model_version"] = str(v4.get("model_version") or "V4_DIRECTION_FIXED_R1")
++    v4["side_mapping_version"] = "V4_DIRECTION_FIXED_R1"
++    return bridge, v4
++
++
++def _decision_dt(row: dict[str, Any], run_at: dt.datetime | None = None) -> dt.datetime | None:
++    return parse_source_timestamp(row.get("decision_at")) or parse_source_timestamp(row.get("_run_at")) or run_at
++
++
++def _prematch(row: dict[str, Any], run_at: dt.datetime | None = None) -> bool:
++    kickoff = parse_source_timestamp(row.get("kickoff_at") or row.get("kickoff"))
++    decision = _decision_dt(row, run_at)
++    return bool(kickoff and decision and kickoff > decision and str(row.get("analysis_status", "")) not in {"NOT_PREMATCH", "MISSING_DATA", "ERROR"})
++
++
++def _change_markers(baseline: dict[str, Any], latest: dict[str, Any]) -> dict[str, Any]:
++    def value(row: dict[str, Any], *keys: str) -> Any:
++        for key in keys:
++            if row.get(key) not in (None, ""):
++                return row.get(key)
++        return ""
++    direction_changed = value(baseline, "selected_side", "candidate_side", "direction") != value(latest, "selected_side", "candidate_side", "direction")
++    team_changed = value(baseline, "selected_team", "candidate_team") != value(latest, "selected_team", "candidate_team")
++    line_changed = value(baseline, "selected_handicap_signed", "handicap", "line") != value(latest, "selected_handicap_signed", "handicap", "line")
++    water_changed = value(baseline, "selected_water_hk", "water") != value(latest, "selected_water_hk", "water")
++    action_changed = value(baseline, "action", "grade") != value(latest, "action", "grade")
++    ev_changed = value(baseline, "ev_mean", "EV_mean") != value(latest, "ev_mean", "EV_mean")
++    p_changed = value(baseline, "p_ev_positive", "P_EV_gt_0") != value(latest, "p_ev_positive", "P_EV_gt_0")
++    flags = {
++        "direction_changed": direction_changed, "candidate_team_changed": team_changed,
++        "line_changed": line_changed, "water_changed": water_changed,
++        "action_or_grade_changed": action_changed, "ev_changed": ev_changed,
++        "p_ev_positive_changed": p_changed,
++    }
++    selected_before = value(baseline, "action", "grade") in {"可投", "半仓可投", "A", "B", "C"}
++    selected_after = value(latest, "action", "grade") in {"可投", "半仓可投", "A", "B", "C"}
++    if selected_before and not selected_after:
++        transition = "撤出"
++    elif not selected_before and selected_after:
++        transition = "新增"
++    elif direction_changed:
++        transition = "改向"
++    elif line_changed:
++        transition = "盘口变化"
++    elif water_changed:
++        transition = "水位变化"
++    else:
++        transition = "保持"
++    flags["transition"] = transition
++    return flags
++
++
++def write_morning_prematch_tracking(list_date: str, run_id: str, run_at: dt.datetime, bridge: dict[str, Any], v4: dict[str, Any]) -> Path:
++    """Pair real prematch runs for the 04:00-10:00 monitoring bucket."""
++    fields = ["version", "list_date", "match_id", "kickoff_at", "morning_decision_id", "morning_run_id", "morning_baseline_type", "latest_prematch_decision_id", "latest_run_id", "direction_changed", "candidate_team_changed", "line_changed", "water_changed", "action_or_grade_changed", "ev_changed", "p_ev_positive_changed", "transition"]
++    out_rows: list[dict[str, Any]] = []
++    for version, payload, filename in (("V3", bridge, "v3_decisions.json"), ("V4", v4, "v4_shadow.json")):
++        current = [dict(row, _run_id=run_id, _run_at=run_at.isoformat()) for row in payload.get("matches", []) or []]
++        history = previous_run_snapshots(list_date, run_id, filename) + current
++        by_match: dict[str, list[dict[str, Any]]] = {}
++        for row in history:
++            kickoff = parse_source_timestamp(row.get("kickoff_at") or row.get("kickoff"))
++            if not kickoff or not (4 <= kickoff.hour < 10) or not _prematch(row, run_at):
++                continue
++            by_match.setdefault(str(row.get("match_id", "")), []).append(row)
++        for match_id, rows in by_match.items():
++            rows.sort(key=lambda row: _decision_dt(row, run_at) or dt.datetime.min.replace(tzinfo=CN_TZ))
++            morning = [row for row in rows if (lambda x: x is not None and 7 <= x.hour < 9)(_decision_dt(row, run_at))]
++            baseline = morning[0] if morning else rows[0]
++            baseline_type = "MORNING_BASELINE" if morning else "MORNING_BASELINE_FALLBACK"
++            latest = rows[-1]
++            flags = _change_markers(baseline, latest)
++            out_rows.append({"version": version, "list_date": list_date, "match_id": match_id,
++                             "kickoff_at": baseline.get("kickoff_at") or baseline.get("kickoff", ""),
++                             "morning_decision_id": baseline.get("decision_id", ""), "morning_run_id": baseline.get("_run_id", ""),
++                             "morning_baseline_type": baseline_type, "latest_prematch_decision_id": latest.get("decision_id", ""),
++                             "latest_run_id": latest.get("_run_id", ""), **flags})
++    path = OUT / "reviews" / f"morning_prematch_tracking_{list_date}_{run_id}.csv"
++    path.parent.mkdir(parents=True, exist_ok=True)
++    with path.open("w", encoding="utf-8-sig", newline="") as handle:
++        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore"); writer.writeheader(); writer.writerows(out_rows)
++    return path
++
++
++def write_quote_age_monitoring(list_date: str, run_id: str, bridge: dict[str, Any], v4: dict[str, Any]) -> Path:
++    """Record quote-age buckets as monitoring evidence, never as a gate."""
++    fields = ["version", "list_date", "match_id", "kickoff_at", "time_bucket", "quote_age_bucket", "hours_from_last_refresh_to_kickoff", "grade_or_action", "settlement_status", "sample", "effective_win_rate", "pnl_1u", "roi", "monitoring_only"]
++    rows: list[dict[str, Any]] = []
++    def bucket(hours: Any) -> str:
++        value = num(hours)
++        if value is None: return "UNKNOWN"
++        if value <= 2: return "<=2h"
++        if value <= 4: return ">2h-4h"
++        if value <= 8: return ">4h-8h"
++        if value <= 12: return ">8h-12h"
++        return ">12h"
++    for version, payload in (("V3", bridge), ("V4", v4)):
++        for row in payload.get("matches", []) or []:
++            selected = (version == "V3" and str(row.get("action", "")) in {"可投", "半仓可投"}) or (version == "V4" and str(row.get("grade", "")) in {"A", "B", "C"})
++            if not selected: continue
++            kickoff = parse_source_timestamp(row.get("kickoff_at") or row.get("kickoff"))
++            hours = row.get("hours_from_last_refresh_to_kickoff")
++            rows.append({"version": version, "list_date": list_date, "match_id": row.get("match_id", ""), "kickoff_at": row.get("kickoff_at", row.get("kickoff", "")),
++                         "time_bucket": "04:00-10:00" if kickoff and 4 <= kickoff.hour < 10 else "其他时段", "quote_age_bucket": bucket(hours),
++                         "hours_from_last_refresh_to_kickoff": hours, "grade_or_action": row.get("grade", row.get("action", "")),
++                         "settlement_status": "PREMATCH_ONLY", "sample": 1, "effective_win_rate": "", "pnl_1u": "", "roi": "", "monitoring_only": True})
++    path = OUT / "reviews" / f"quote_age_monitoring_{list_date}_{run_id}.csv"
++    path.parent.mkdir(parents=True, exist_ok=True)
++    with path.open("w", encoding="utf-8-sig", newline="") as handle:
++        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore"); writer.writeheader(); writer.writerows(rows)
++    return path
++
++
+ def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at: dt.datetime) -> dict[str, Any]:
+     payload = read_json(path, {}) or {}
+     old_map = {str(row.get("match_id")): row for row in (previous or {}).get("matches", [])}
+@@ -238,6 +494,10 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
+             "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
+             "water": row.get("water", ""), "probability": row.get("probability", ""),
+             "ev_mean": row.get("ev_mean", ""), "decision_at": row.get("decision_at", ""),
++            "quote_at": row.get("quote_at", ""), "last_confirmed_at": row.get("last_confirmed_at", ""), "kickoff_at": row.get("kickoff_at", ""),
++            "quote_age_at_decision": row.get("quote_age_at_decision", ""), "hours_from_decision_to_kickoff": row.get("hours_from_decision_to_kickoff", ""), "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""),
++            "run_id": row.get("run_id", ""), "decision_id": row.get("decision_id", ""), "parent_decision_id": row.get("parent_decision_id", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
++            "model_id": row.get("model_id", "V3_LEGACY_PRODUCTION"), "side_mapping_version": row.get("side_mapping_version", "V3_LEGACY_PAGE_PARITY"), "monitoring_bucket": row.get("monitoring_bucket", ""),
+             "rule_version": row.get("rule_version", ""), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
+             "real_money": "true", "status": row.get("settlement", row.get("status", "")),
+         })
+@@ -256,10 +516,14 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
+             "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
+             "water": row.get("selected_water_hk", row.get("water", "")), "probability": row.get("p_ev_positive", row.get("P_EV_gt_0", "")),
+             "ev_mean": row.get("ev_mean", row.get("EV_mean", "")), "decision_at": row.get("decision_at", ""),
++            "quote_at": row.get("quote_at", (row.get("market") or {}).get("quote_at", "")), "last_confirmed_at": row.get("last_confirmed_at", (row.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": row.get("kickoff_at", row.get("kickoff", "")),
++            "quote_age_at_decision": row.get("quote_age_at_decision", ""), "hours_from_decision_to_kickoff": row.get("hours_from_decision_to_kickoff", ""), "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""),
++            "run_id": row.get("run_id", ""), "decision_id": row.get("decision_id", ""), "parent_decision_id": row.get("parent_decision_id", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
++            "model_id": row.get("model_id", "v4-market-dirichlet-20260913"), "side_mapping_version": row.get("side_mapping_version", "V4_DIRECTION_FIXED_R1"), "monitoring_bucket": row.get("monitoring_bucket", ""),
+             "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
+             "real_money": "false", "status": row.get("analysis_status", row.get("status", "")),
+         })
+-    fields = ["version", "list_date", "match_id", "competition", "kickoff_beijing", "home_team", "away_team", "action", "grade", "selected_team", "market_side", "giving_team", "receiving_team", "direction", "handicap", "water", "probability", "ev_mean", "decision_at", "rule_version", "source_snapshot", "real_money", "status"]
++    fields = ["version", "list_date", "match_id", "competition", "kickoff_beijing", "kickoff_at", "home_team", "away_team", "action", "grade", "selected_team", "market_side", "giving_team", "receiving_team", "direction", "handicap", "water", "probability", "ev_mean", "quote_at", "last_confirmed_at", "decision_at", "quote_age_at_decision", "hours_from_decision_to_kickoff", "hours_from_last_refresh_to_kickoff", "run_id", "decision_id", "parent_decision_id", "is_morning_baseline", "is_latest_valid_prematch", "monitoring_bucket", "model_id", "side_mapping_version", "rule_version", "source_snapshot", "real_money", "status"]
+     for path, rows in ((v3_path, v3_rows), (v4_path, v4_rows)):
+         path.parent.mkdir(parents=True, exist_ok=True)
+         with path.open("w", encoding="utf-8-sig", newline="") as handle:
+@@ -304,10 +568,10 @@ def merged_date_json(list_date: str, raw_path: Path, bridge: dict[str, Any], v4:
+         matches.append({
+             "identity": {"match_id": match_id, "list_date": list_date, "kickoff": source.get("bj_time", ""), "competition": source.get("league_cn", ""), "home": home, "away": away},
+             "market": {"line_bucket": abs(ah_line) if ah_line is not None else "", "candidate_side": shadow.get("candidate_side", ""), "candidate_team": shadow.get("selected_team", shadow.get("candidate_team", "")), "water": shadow.get("selected_water_hk", shadow.get("water", "")), "giving_team": "", "receiving_team": "", "giving_water": hw if hw is not None else "", "receiving_water": aw if aw is not None else "", "euro_current": euro},
+-            "v3_decision": {"match_id": match_id, "competition": source.get("league_cn", ""), "kickoff": source.get("bj_time", ""), "home_team": home, "away_team": away, "action": v3_action or v3_status, "status": v3_status, "team": v3.get("selected_team", ""), "side": v3.get("selected_side", ""), "intent": v3.get("intent", ""), "line": v3.get("line", ""), "water": v3.get("water", ""), "probability": v3.get("probability", ""), "reason": v3_reason, "decision_at": v3.get("decision_at", "")},
+-            "v4_shadow": {"grade": grade, "status": shadow.get("analysis_status", shadow.get("status", "MISSING_DATA")), "team": shadow.get("selected_team", shadow.get("candidate_team", "")), "side": shadow.get("selected_side", shadow.get("candidate_side", "")), "ev_mean": shadow.get("ev_mean", shadow.get("EV_mean")), "ev_p10": shadow.get("ev_p10", shadow.get("EV_p10")), "p_ev_gt_0": shadow.get("p_ev_positive", shadow.get("P_EV_gt_0")), "kappa": 20, "real_money": False},
++            "v3_decision": {"match_id": match_id, "competition": source.get("league_cn", ""), "kickoff": source.get("bj_time", ""), "home_team": home, "away_team": away, "action": v3_action or v3_status, "status": v3_status, "team": v3.get("selected_team", ""), "side": v3.get("selected_side", ""), "intent": v3.get("intent", ""), "line": v3.get("line", ""), "water": v3.get("water", ""), "probability": v3.get("probability", ""), "reason": v3_reason, "decision_at": v3.get("decision_at", ""), "quote_at": v3.get("quote_at", ""), "last_confirmed_at": v3.get("last_confirmed_at", ""), "kickoff_at": v3.get("kickoff_at", ""), "run_id": v3.get("run_id", run_id), "decision_id": v3.get("decision_id", ""), "is_latest_valid_prematch": v3.get("is_latest_valid_prematch", False)},
++            "v4_shadow": {"grade": grade, "status": shadow.get("analysis_status", shadow.get("status", "MISSING_DATA")), "team": shadow.get("selected_team", shadow.get("candidate_team", "")), "side": shadow.get("selected_side", shadow.get("candidate_side", "")), "ev_mean": shadow.get("ev_mean", shadow.get("EV_mean")), "ev_p10": shadow.get("ev_p10", shadow.get("EV_p10")), "p_ev_gt_0": shadow.get("p_ev_positive", shadow.get("P_EV_gt_0")), "kappa": 20, "real_money": False, "model_id": shadow.get("model_id", v4.get("model_id", "")), "side_mapping_version": shadow.get("side_mapping_version", "V4_DIRECTION_FIXED_R1"), "quote_at": shadow.get("quote_at", (shadow.get("market") or {}).get("quote_at", "")), "last_confirmed_at": shadow.get("last_confirmed_at", (shadow.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": shadow.get("kickoff_at", ""), "run_id": shadow.get("run_id", run_id), "decision_id": shadow.get("decision_id", ""), "is_latest_valid_prematch": shadow.get("is_latest_valid_prematch", False)},
+             "settlement": {"result": score if finished else "待结算", "pnl_1u": ""},
+-            "audit": {"source": str(raw_path), "state": status, "data_status": "赛后状态仅更新结算" if finished else "赛前市场输入", "run_id": run_id, "quote_at": source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", ""), "last_confirmed_at": run_at.isoformat(), "refresh_status": source.get("refresh_status", "") or "PRICE_NOT_REFRESHED" if not source.get("snapshot_stamp") else "REFRESHED"},
++            "audit": {"source": str(raw_path), "state": status, "data_status": "赛后状态仅更新结算" if finished else "赛前市场输入", "run_id": run_id, "quote_at": iso_timestamp(source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", "")), "last_confirmed_at": iso_timestamp(source.get("latest_snapshot_stamp", "") or source.get("snapshot_stamp", "")), "refresh_status": source.get("refresh_status", "") or ("PRICE_NOT_REFRESHED" if not source.get("snapshot_stamp") else "REFRESHED")},
+         })
+     return {"list_date": list_date, "run_id": run_id, "generated_at": run_at.isoformat(), "matches": matches}
+ 
+@@ -472,7 +736,7 @@ def main() -> int:
+         old_raw = None
+     backup = backup_before_run(list_date, run_id, old_raw)
+     logs = run_dir / "logs"
+-    env = os.environ.copy(); env["FOOTBALL_LIST_DATE"] = list_date
++    env = os.environ.copy(); env["FOOTBALL_LIST_DATE"] = list_date; env["FOOTBALL_RUN_ID"] = run_id
+ 
+     fetch_result = {"returncode": 0, "skipped": True}
+     if not args.no_refresh:
+@@ -503,7 +767,13 @@ def main() -> int:
+         v4 = preserve_started_v4(v4_path, old_v4, run_at)
+         v4 = refresh_v4_summary(v4)
+         v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
++    bridge, v4 = enrich_decision_metadata(list_date, run_id, run_at, current_rows, bridge, v4)
++    if not historical_decision_locked:
++        write_json(bridge_path, bridge)
++    write_json(v4_path, v4)
+     v3_bettable_export, v4_bettable_export = write_timestamped_bettable_lists(list_date, bridge, v4, run_at)
++    morning_tracking = write_morning_prematch_tracking(list_date, run_id, run_at, bridge, v4)
++    quote_age_monitoring = write_quote_age_monitoring(list_date, run_id, bridge, v4)
+     metrics = summary(bridge, v4, len(current_rows))
+     v4_data_path = update_v4_data(v4_path, list_date)
+     merged = merged_date_json(list_date, raw_path, bridge, v4, run_id, run_at)
+@@ -518,7 +788,7 @@ def main() -> int:
+         [str(PYTHON), str(ROOT / "tools" / "write_dual_yesterday_performance.py"), "--list-date", yesterday, "--raw-csv", str(raw_path)],
+         env, logs / "yesterday_performance.log", 300,
+     )
+-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
++    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
+     report_path = write_refresh_report(list_date, run_id, run_at, raw_path, metrics, run_dir / "decision_comparison.csv", review_md, two_side_csv, context_path, fetch_result)
+     run_manifest["artifacts"]["manual_refresh_report"] = str(report_path)
+COMMIT 44d701a3a8752fa286b48cd73593b9e6ba108618 2026-09-15 08:18:32 +0800 Update football odds dashboard 2026-09-15 08:18
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index 3d55e9e..7c6d278 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -125,12 +125,26 @@ def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at:
+ def preserve_started_v4(path: Path, previous: dict[str, Any] | None, run_at: dt.datetime) -> dict[str, Any]:
+     payload = read_json(path, {}) or {}
+     old_map = {str(row.get("match_id")): row for row in (previous or {}).get("matches", [])}
++    seen_ids: set[str] = set()
++    post_match_fields = (
++        "score", "settlement", "settlement_label", "pnl", "status",
++        "match_status", "result", "settlement_state", "settlement_status",
++    )
+     for row in payload.get("matches", []):
+-        old = old_map.get(str(row.get("match_id")))
++        match_id = str(row.get("match_id"))
++        seen_ids.add(match_id)
++        old = old_map.get(match_id)
+         kickoff = parse_kickoff(str(row.get("kickoff", "")))
+         if not old or not kickoff or kickoff > run_at:
+             continue
+         frozen = dict(old)
++        # Only post-match fields may come from the refresh.  All pre-match
++        # decision fields remain those from the first V4 shadow run.
++        frozen.update({
++            key: row.get(key)
++            for key in post_match_fields
++            if key in row and row.get(key) not in (None, "")
++        })
+         if old.get("grade") is not None and old.get("ev_mean") is not None:
+             frozen["analysis_status"] = "FROZEN_PREMATCH_DECISION"
+         else:
+@@ -138,6 +152,23 @@ def preserve_started_v4(path: Path, previous: dict[str, Any] | None, run_at: dt.
+         frozen["reason_codes"] = ["STARTED_DECISION_LOCKED"]
+         frozen["started_lock"] = True
+         row.clear(); row.update(frozen)
++
++    # A later same-list-date V4 refresh may emit only rows that are still
++    # before kickoff.  Re-attach every previously emitted started decision,
++    # especially A/B/C rows, so they cannot disappear from the day's shadow
++    # page or timestamped candidate export.
++    for match_id, old in old_map.items():
++        if not match_id or match_id in seen_ids:
++            continue
++        kickoff = parse_kickoff(str(old.get("kickoff", "")))
++        if not kickoff or kickoff > run_at:
++            continue
++        retained = dict(old)
++        if old.get("grade") is not None and old.get("ev_mean") is not None:
++            retained["analysis_status"] = "FROZEN_PREMATCH_DECISION"
++        retained["reason_codes"] = ["STARTED_DECISION_RETAINED"]
++        retained["started_lock"] = True
++        payload.setdefault("matches", []).append(retained)
+     payload["started_lock_policy"] = "started rows retain original pre-match prediction; only status/settlement/review may append"
+     return payload
+ 
+@@ -431,6 +462,10 @@ def main() -> int:
+     old_v3 = read_json(old_bridge_path, {})
+     old_v4_path = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
+     old_v4 = read_json(old_v4_path, {})
++    historical_decision_locked = (
++        list_date < run_at.date().isoformat()
++        and bool(old_v3)
++    )
+     try:
+         old_raw = latest_raw(list_date)
+     except FileNotFoundError:
+@@ -445,18 +480,29 @@ def main() -> int:
+     raw_path = latest_raw(list_date)
+     current_rows = slate_rows(raw_path, list_date)
+     scoped_raw_path = write_rows_csv(run_dir / "slate_raw.csv", current_rows)
+-    v3_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "build_football_daily_update.py"), "--no-publish"], env, logs / "v3_daily.log", 1200)
+-    v3_html = V3_OUT / "dashboard" / "index.html"
+-    freeze_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "run_v3_legacy_daily_freeze.py"), list_date, "--html", str(v3_html)], env, logs / "v3_freeze.log", 600)
++    if historical_decision_locked:
++        v3_result = {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}
++        freeze_result = {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}
++    else:
++        v3_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "build_football_daily_update.py"), "--no-publish"], env, logs / "v3_daily.log", 1200)
++        v3_html = V3_OUT / "dashboard" / "index.html"
++        freeze_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "run_v3_legacy_daily_freeze.py"), list_date, "--html", str(v3_html)], env, logs / "v3_freeze.log", 600)
+     bridge_path = ROOT / "bridge" / "v3_production" / f"{list_date}.json"
+-    bridge = preserve_started_bridge(bridge_path, old_v3, run_at)
++    bridge = dict(old_v3) if historical_decision_locked else preserve_started_bridge(bridge_path, old_v3, run_at)
+     bridge["run_id"] = run_id; bridge["raw_snapshot_id"] = raw_path.stem; bridge["odds_cutoff"] = raw_path.stem.split("_titan007", 1)[0]; bridge["decision_version_path"] = str(run_dir / "v3_decisions.json")
+-    write_json(bridge_path, bridge)
+-    v4_result = run_command([str(PYTHON), str(ROOT / "v4" / "run_daily_v4.py"), "--list-date", list_date, "--raw-csv", str(scoped_raw_path)], env, logs / "v4_shadow.log", 1200)
++    if not historical_decision_locked:
++        write_json(bridge_path, bridge)
++    if historical_decision_locked and old_v4:
++        v4_result = {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}
++    else:
++        v4_result = run_command([str(PYTHON), str(ROOT / "v4" / "run_daily_v4.py"), "--list-date", list_date, "--raw-csv", str(scoped_raw_path)], env, logs / "v4_shadow.log", 1200)
+     v4_path = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
+-    v4 = preserve_started_v4(v4_path, old_v4, run_at)
+-    v4 = refresh_v4_summary(v4)
+-    v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
++    if historical_decision_locked and old_v4:
++        v4 = dict(old_v4)
++    else:
++        v4 = preserve_started_v4(v4_path, old_v4, run_at)
++        v4 = refresh_v4_summary(v4)
++        v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
+     v3_bettable_export, v4_bettable_export = write_timestamped_bettable_lists(list_date, bridge, v4, run_at)
+     metrics = summary(bridge, v4, len(current_rows))
+     v4_data_path = update_v4_data(v4_path, list_date)
+COMMIT 744af5f869895ea845b7c61fe3e04f179841f6c1 2026-09-15 07:28:46 +0800 Add dual daily performance and frozen pick exports
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index 1d5f98e..3d55e9e 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -389,6 +389,9 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path) -> None:
+     for source in (OUT / "ledger" / "daily_bettable" / "v4").glob(f"bettable_{list_date}_*.csv"):
+         destination = public / "ledger" / "daily_bettable" / "v4" / source.name
+         destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
++    for source in (OUT / "reviews" / "daily_performance").glob("yesterday_performance_*"):
++        destination = public / "reviews" / "daily_performance" / source.name
++        destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
+     for source, destination in (
+         (ROOT / "skills" / "worldcup-odds-trader" / "SKILL.md", public / "skills" / "worldcup-odds-trader" / "SKILL.md"),
+         (ROOT / "football_update", public / "tools" / "football_update"),
+@@ -464,7 +467,12 @@ def main() -> int:
+     feature_csv, feature_json = feature_usage.write_feature_audit(scoped_raw_path, v4_path, OUT / "v4_shadow", list_date, run_id)
+     context_path = context_r1.write_context_manifest(scoped_raw_path, list_date, OUT / "v4_shadow" / f"v4_context_r1_{list_date}_{run_id}.json", "v4.2-independent-market-shadow")
+     review_csv, review_md = review.write_review(list_date, scoped_raw_path, bridge_path, v4_path, OUT / "reviews", run_id)
+-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
++    yesterday = (dt.date.fromisoformat(list_date) - dt.timedelta(days=1)).isoformat()
++    yesterday_performance = run_command(
++        [str(PYTHON), str(ROOT / "tools" / "write_dual_yesterday_performance.py"), "--list-date", yesterday, "--raw-csv", str(raw_path)],
++        env, logs / "yesterday_performance.log", 300,
++    )
++    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
+     report_path = write_refresh_report(list_date, run_id, run_at, raw_path, metrics, run_dir / "decision_comparison.csv", review_md, two_side_csv, context_path, fetch_result)
+     run_manifest["artifacts"]["manual_refresh_report"] = str(report_path)
+diff --git a/tools/write_dual_yesterday_performance.py b/tools/write_dual_yesterday_performance.py
+new file mode 100644
+index 0000000..2ca3429
+--- /dev/null
++++ b/tools/write_dual_yesterday_performance.py
+@@ -0,0 +1,206 @@
++"""Settle yesterday's frozen V3/V4 bettable lists without recomputing decisions."""
++from __future__ import annotations
++
++import argparse
++import csv
++import datetime as dt
++import json
++from collections import Counter
++from pathlib import Path
++from typing import Any
++
++ROOT = Path(r"D:\codex")
++OUT = ROOT / "outputs" / "football_odds_trader"
++CN_TZ = dt.timezone(dt.timedelta(hours=8))
++RESULTS = {"W", "HW", "P", "HL", "L"}
++
++
++def read_csv(path: Path) -> list[dict[str, str]]:
++    with path.open(encoding="utf-8-sig", newline="") as handle:
++        return list(csv.DictReader(handle))
++
++
++def as_float(value: Any) -> float | None:
++    try:
++        return float(str(value).strip())
++    except (TypeError, ValueError):
++        return None
++
++
++def parse_line(value: Any) -> float | None:
++    text = str(value or "").strip()
++    aliases = {
++        "平手": 0.0, "平手/半球": 0.25, "半球": 0.5, "半球/一球": 0.75,
++        "一球": 1.0, "一球/球半": 1.25, "球半": 1.5, "球半/两球": 1.75,
++        "两球": 2.0, "两球/两球半": 2.25, "两球半": 2.5,
++    }
++    if text in aliases:
++        return aliases[text]
++    return as_float(text.replace("+", ""))
++
++
++def one(diff: float, handicap: float) -> str:
++    value = diff + handicap
++    if value > 1e-9:
++        return "W"
++    if value < -1e-9:
++        return "L"
++    return "P"
++
++
++def split_handicap(value: float) -> list[float]:
++    quarter = round(value * 4) / 4
++    if int(round(quarter * 4)) % 2 == 0:
++        return [quarter]
++    return [int(quarter * 2) / 2, (int(quarter * 2) + 1) / 2]
++
++
++def settle(home_goals: int, away_goals: int, selection: str, home_handicap: float) -> str:
++    diff = home_goals - away_goals if selection == "home" else away_goals - home_goals
++    signed = home_handicap if selection == "home" else -home_handicap
++    parts = [one(diff, part) for part in split_handicap(signed)]
++    if parts == ["W"]:
++        return "W"
++    if parts == ["L"]:
++        return "L"
++    if parts == ["P"]:
++        return "P"
++    if parts == ["W", "W"]:
++        return "W"
++    if parts == ["L", "L"]:
++        return "L"
++    if parts == ["P", "P"]:
++        return "P"
++    if set(parts) == {"W", "P"}:
++        return "HW"
++    if set(parts) == {"L", "P"}:
++        return "HL"
++    raise ValueError(f"unsupported settlement parts: {parts}")
++
++
++def pnl(result: str, water: float) -> float:
++    return {"W": water, "HW": water / 2, "P": 0.0, "HL": -0.5, "L": -1.0}[result]
++
++
++def effective_rate(counter: Counter[str]) -> float | None:
++    wins = counter["W"] + 0.5 * counter["HW"]
++    losses = counter["L"] + 0.5 * counter["HL"]
++    return wins / (wins + losses) if wins + losses else None
++
++
++def raw_result_map(raw_path: Path, target: str) -> dict[str, dict[str, str]]:
++    return {str(row.get("match_id", "")): row for row in read_csv(raw_path) if str(row.get("list_date", "")) == target}
++
++
++def settle_v3(rows: list[dict[str, Any]], raw: dict[str, dict[str, str]]) -> list[dict[str, Any]]:
++    out = []
++    for row in rows:
++        match_id = str(row.get("match_id", ""))
++        source = raw.get(match_id, {})
++        home, away = str(row.get("home_team", "")), str(row.get("away_team", ""))
++        hs, aws = as_float(source.get("home_score")), as_float(source.get("away_score"))
++        water = as_float(row.get("water"))
++        team = str(row.get("selected_team", "")).split("（", 1)[0].strip()
++        side = str(row.get("selected_side", ""))
++        line = parse_line(row.get("line"))
++        result, reason = "", ""
++        if hs is None or aws is None:
++            reason = "NO_VERIFIED_SCORE_IN_CURRENT_TITAN_SNAPSHOT"
++        elif water is None or line is None or team not in {home, away}:
++            reason = "MISSING_FROZEN_SIDE_LINE_WATER_OR_TEAM"
++        elif line == 0:
++            result = "W" if (hs > aws if team == home else aws > hs) else "L" if (hs < aws if team == home else aws < hs) else "P"
++        else:
++            # Legacy freeze stores upper/lower identity; preserve it while using the frozen line magnitude.
++            giving_team = team if side == "upper" else (away if team == home else home)
++            giving_margin = (hs - aws) if giving_team == home else (aws - hs)
++            giving_result = settle(int(hs), int(aws), "home" if giving_team == home else "away", line)
++            result = giving_result if team == giving_team else {"W": "L", "HW": "HL", "P": "P", "HL": "HW", "L": "W"}[giving_result]
++        out.append({
++            "version": "V3", "match_id": match_id, "list_date": row.get("list_date", ""),
++            "competition": row.get("competition", ""), "match": row.get("match", ""),
++            "selected_team": team, "selected_side": side, "line": row.get("line", ""), "water": water or "",
++            "score": f"{int(hs)}-{int(aws)}" if hs is not None and aws is not None else "",
++            "result": result, "pnl_1u": round(pnl(result, water), 4) if result and water is not None else "",
++            "result_source": str(source.get("_source", "")), "settlement_status": "SETTLED" if result in RESULTS else reason,
++        })
++    return out
++
++
++def settle_v4(rows: list[dict[str, Any]], raw: dict[str, dict[str, str]]) -> list[dict[str, Any]]:
++    out = []
++    for row in rows:
++        match_id = str(row.get("match_id", ""))
++        source = raw.get(match_id, {})
++        market = row.get("market", {}) or {}
++        home = str(market.get("home_team", "")); away = str(market.get("away_team", ""))
++        hs, aws = as_float(source.get("home_score")), as_float(source.get("away_score"))
++        team = str(row.get("selected_team", row.get("candidate_team", "")))
++        water = as_float(row.get("selected_water_hk"))
++        home_line = as_float(market.get("titan_home_handicap_signed", market.get("home_handicap_signed")))
++        result, reason = "", ""
++        if hs is None or aws is None:
++            reason = "NO_VERIFIED_SCORE_IN_CURRENT_TITAN_SNAPSHOT"
++        elif not home or not away or team not in {home, away} or water is None or home_line is None:
++            reason = "MISSING_V4_SIDE_LINE_WATER_OR_TEAM"
++        else:
++            result = settle(int(hs), int(aws), "home" if team == home else "away", home_line)
++        out.append({
++            "version": "V4_SHADOW", "match_id": match_id, "list_date": row.get("list_date", ""),
++            "competition": row.get("competition", ""), "match": f"{home} vs {away}",
++            "selected_team": team, "selected_side": row.get("selected_side", row.get("candidate_side", "")),
++            "line": row.get("selected_handicap_signed", ""), "water": water or "", "grade": row.get("grade", ""),
++            "score": f"{int(hs)}-{int(aws)}" if hs is not None and aws is not None else "",
++            "result": result, "pnl_1u": round(pnl(result, water), 4) if result and water is not None else "",
++            "result_source": str(source.get("_source", "")), "settlement_status": "SETTLED" if result in RESULTS else reason,
++        })
++    return out
++
++
++def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
++    settled = [row for row in rows if row.get("result") in RESULTS]
++    counts = Counter(row["result"] for row in settled)
++    pnl_total = sum(float(row["pnl_1u"]) for row in settled)
++    return {"frozen_bettable": len(rows), "settled": len(settled), "counts": dict(counts), "effective_win_rate": effective_rate(counts), "pnl_1u": round(pnl_total, 4), "roi": round(pnl_total / len(settled), 4) if settled else None, "pending": len(rows) - len(settled)}
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--list-date", required=True)
++    parser.add_argument("--raw-csv", required=True)
++    args = parser.parse_args()
++    target = args.list_date
++    raw_path = Path(args.raw_csv)
++    raw = raw_result_map(raw_path, target)
++    for row in raw.values():
++        row["_source"] = str(raw_path)
++    bridge_path = ROOT / "bridge" / "v3_production" / f"{target}.json"
++    v3_payload = json.loads(bridge_path.read_text(encoding="utf-8")) if bridge_path.exists() else {"matches": []}
++    v3_rows = [row for row in v3_payload.get("matches", []) if str(row.get("action", "")) in {"可投", "半仓可投"}]
++    v4_path = ROOT / "v4" / "outputs" / f"v4_decisions_{target}.json"
++    v4_payload = json.loads(v4_path.read_text(encoding="utf-8")) if v4_path.exists() else {"matches": []}
++    v4_rows = [row for row in v4_payload.get("matches", []) if row.get("grade") in {"A", "B", "C"}]
++    v3_settled = settle_v3(v3_rows, raw)
++    v4_settled = settle_v4(v4_rows, raw)
++    stamp = dt.datetime.now(CN_TZ).strftime("%Y%m%d_%H%M%S")
++    out_dir = OUT / "reviews" / "daily_performance"
++    out_dir.mkdir(parents=True, exist_ok=True)
++    csv_path = out_dir / f"yesterday_performance_{target}_{stamp}.csv"
++    all_rows = v3_settled + v4_settled
++    fields = ["version", "match_id", "list_date", "competition", "match", "selected_team", "selected_side", "line", "water", "grade", "score", "result", "pnl_1u", "result_source", "settlement_status"]
++    with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
++        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore"); writer.writeheader(); writer.writerows(all_rows)
++    v3_summary, v4_summary = summarize(v3_settled), summarize(v4_settled)
++    report_path = out_dir / f"yesterday_performance_{target}_{stamp}.md"
++    def line(name: str, summary: dict[str, Any]) -> str:
++        counts = summary["counts"]
++        rate = "NA" if summary["effective_win_rate"] is None else f"{summary['effective_win_rate']:.2%}"
++        roi = "NA" if summary["roi"] is None else f"{summary['roi']:.2%}"
++        return f"- {name}: 冻结可投 {summary['frozen_bettable']}；已结算 {summary['settled']}；红/红半/走/黑半/黑 {counts.get('W',0)}/{counts.get('HW',0)}/{counts.get('P',0)}/{counts.get('HL',0)}/{counts.get('L',0)}；有效胜率 {rate}；1U平注盈亏 {summary['pnl_1u']:+.4f}U；ROI {roi}；待核 {summary['pending']}"
++    report_path.write_text("\n".join([f"# {target} V3/V4 昨日冻结名单结算", "", "- 仅合并冻结决策与当前 Titan 终场比分；没有重算昨日方向、盘口、水位、概率或等级。", "- V4 为 Shadow，不代表真实下注。", line("V3 Production", v3_summary), line("V4 Shadow ABC", v4_summary), "", f"- 逐场文件：`{csv_path}`", f"- 结果源快照：`{raw_path}`", ""]) , encoding="utf-8")
++    print(json.dumps({"target": target, "v3": v3_summary, "v4": v4_summary, "csv": str(csv_path), "report": str(report_path)}, ensure_ascii=False))
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+COMMIT 7318fecfb1582690f4db09556bc0c041c8a7d0fe 2026-09-15 07:24:27 +0800 Update football odds dashboard 2026-09-15 07:24
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+index 441bcd5..1d5f98e 100644
+--- a/tools/run_football_update.py
++++ b/tools/run_football_update.py
+@@ -182,6 +182,61 @@ def write_rows_csv(path: Path, rows: list[dict[str, str]]) -> Path:
+     return path
+ 
+ 
++def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4: dict[str, Any], run_at: dt.datetime) -> tuple[Path, Path]:
++    """Freeze the user-facing V3/V4 bettable populations for this run.
++
++    These are exports of already-frozen decisions, not a second decision engine.
++    V4 remains shadow-only; A/B/C are exported as shadow candidates for review.
++    """
++    stamp = run_at.strftime("%Y%m%d_%H%M%S")
++    root = OUT / "ledger" / "daily_bettable"
++    v3_path = root / "v3" / f"bettable_{list_date}_{stamp}.csv"
++    v4_path = root / "v4" / f"bettable_{list_date}_{stamp}.csv"
++    v3_rows = []
++    for row in bridge.get("matches", []):
++        action = str(row.get("action", "") or "")
++        if action not in {"可投", "半仓可投"}:
++            continue
++        v3_rows.append({
++            "version": "V3_PRODUCTION", "list_date": list_date, "match_id": row.get("match_id", ""),
++            "competition": row.get("competition", ""), "kickoff_beijing": row.get("kickoff", ""),
++            "home_team": row.get("home_team", ""), "away_team": row.get("away_team", ""),
++            "action": action, "grade": "", "selected_team": row.get("selected_team", ""),
++            "market_side": row.get("market_side", row.get("selected_side", "")),
++            "giving_team": row.get("giving_team", ""), "receiving_team": row.get("receiving_team", ""),
++            "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
++            "water": row.get("water", ""), "probability": row.get("probability", ""),
++            "ev_mean": row.get("ev_mean", ""), "decision_at": row.get("decision_at", ""),
++            "rule_version": row.get("rule_version", ""), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
++            "real_money": "true", "status": row.get("settlement", row.get("status", "")),
++        })
++    v4_rows = []
++    for row in v4.get("matches", []):
++        grade = str(row.get("grade", "") or "")
++        if grade not in {"A", "B", "C"}:
++            continue
++        v4_rows.append({
++            "version": "V4_SHADOW", "list_date": list_date, "match_id": row.get("match_id", ""),
++            "competition": row.get("competition", ""), "kickoff_beijing": row.get("kickoff", ""),
++            "home_team": row.get("home_team", ""), "away_team": row.get("away_team", ""),
++            "action": "SHADOW_CANDIDATE", "grade": grade, "selected_team": row.get("selected_team", row.get("candidate_team", "")),
++            "market_side": row.get("selected_side", row.get("candidate_side", "")),
++            "giving_team": row.get("giving_team", ""), "receiving_team": row.get("receiving_team", ""),
++            "direction": row.get("direction", ""), "handicap": row.get("handicap", row.get("line", "")),
++            "water": row.get("selected_water_hk", row.get("water", "")), "probability": row.get("p_ev_positive", row.get("P_EV_gt_0", "")),
++            "ev_mean": row.get("ev_mean", row.get("EV_mean", "")), "decision_at": row.get("decision_at", ""),
++            "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
++            "real_money": "false", "status": row.get("analysis_status", row.get("status", "")),
++        })
++    fields = ["version", "list_date", "match_id", "competition", "kickoff_beijing", "home_team", "away_team", "action", "grade", "selected_team", "market_side", "giving_team", "receiving_team", "direction", "handicap", "water", "probability", "ev_mean", "decision_at", "rule_version", "source_snapshot", "real_money", "status"]
++    for path, rows in ((v3_path, v3_rows), (v4_path, v4_rows)):
++        path.parent.mkdir(parents=True, exist_ok=True)
++        with path.open("w", encoding="utf-8-sig", newline="") as handle:
++            writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
++            writer.writeheader(); writer.writerows(rows)
++    return v3_path, v4_path
++
++
+ def num(value: Any) -> float | None:
+     try:
+         return float(value)
+@@ -328,6 +383,12 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path) -> None:
+     for source in (OUT / "reviews").glob(f"*_{run_dir.name}.*"):
+         destination = public / "reviews" / source.name
+         destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
++    for source in (OUT / "ledger" / "daily_bettable" / "v3").glob(f"bettable_{list_date}_*.csv"):
++        destination = public / "ledger" / "daily_bettable" / "v3" / source.name
++        destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
++    for source in (OUT / "ledger" / "daily_bettable" / "v4").glob(f"bettable_{list_date}_*.csv"):
++        destination = public / "ledger" / "daily_bettable" / "v4" / source.name
++        destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
+     for source, destination in (
+         (ROOT / "skills" / "worldcup-odds-trader" / "SKILL.md", public / "skills" / "worldcup-odds-trader" / "SKILL.md"),
+         (ROOT / "football_update", public / "tools" / "football_update"),
+@@ -393,6 +454,7 @@ def main() -> int:
+     v4 = preserve_started_v4(v4_path, old_v4, run_at)
+     v4 = refresh_v4_summary(v4)
+     v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
++    v3_bettable_export, v4_bettable_export = write_timestamped_bettable_lists(list_date, bridge, v4, run_at)
+     metrics = summary(bridge, v4, len(current_rows))
+     v4_data_path = update_v4_data(v4_path, list_date)
+     merged = merged_date_json(list_date, raw_path, bridge, v4, run_id, run_at)
+@@ -402,7 +464,7 @@ def main() -> int:
+     feature_csv, feature_json = feature_usage.write_feature_audit(scoped_raw_path, v4_path, OUT / "v4_shadow", list_date, run_id)
+     context_path = context_r1.write_context_manifest(scoped_raw_path, list_date, OUT / "v4_shadow" / f"v4_context_r1_{list_date}_{run_id}.json", "v4.2-independent-market-shadow")
+     review_csv, review_md = review.write_review(list_date, scoped_raw_path, bridge_path, v4_path, OUT / "reviews", run_id)
+-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
++    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
+     report_path = write_refresh_report(list_date, run_id, run_at, raw_path, metrics, run_dir / "decision_comparison.csv", review_md, two_side_csv, context_path, fetch_result)
+     run_manifest["artifacts"]["manual_refresh_report"] = str(report_path)
+COMMIT b9168103787681f7b2c3da069a3aac7dd713ffe4 2026-09-14 22:17:49 +0800 Update football odds dashboard 2026-09-14 22:17
+
+diff --git a/tools/run_v4_direction_fix.py b/tools/run_v4_direction_fix.py
+new file mode 100644
+index 0000000..3addb3b
+--- /dev/null
++++ b/tools/run_v4_direction_fix.py
+@@ -0,0 +1,213 @@
++"""Build the V4 direction-fix audit and strict blind replay artifacts.
++
++The historical input is prematch-only replay data.  This script never reads
++settlement/result columns while building the prediction output; any later
++settlement remains a separate operation.
++"""
++from __future__ import annotations
++
++import csv
++import hashlib
++import json
++import random
++import sys
++from collections import Counter, defaultdict
++from pathlib import Path
++
++ROOT = Path(r"D:\codex")
++sys.path.insert(0, str(ROOT / "v4"))
++from direction_contract import (  # noqa: E402
++    MAPPING_VERSION,
++    assert_side_identity,
++    candidate_fields,
++    map_intent,
++    mirror_probs,
++)
++
++OUT = ROOT / "outputs" / "football_odds_trader"
++RESEARCH = OUT / "research"
++AUDITS = OUT / "audits"
++DAYS = [f"2026-09-{d:02d}" for d in range(7, 15)]
++STATES = ("W", "HW", "P", "HL", "L")
++
++
++def read_csv(path: Path) -> list[dict[str, str]]:
++    with path.open(encoding="utf-8-sig", newline="") as handle:
++        return list(csv.DictReader(handle))
++
++
++def write_csv(path: Path, rows: list[dict], fields: list[str]) -> None:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    with path.open("w", encoding="utf-8-sig", newline="") as handle:
++        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
++        writer.writeheader()
++        writer.writerows(rows)
++
++
++def f(value: object) -> float | None:
++    try:
++        return float(str(value))
++    except (TypeError, ValueError):
++        return None
++
++
++def ev(probs: dict[str, float], water: float) -> float:
++    return water * probs["W"] + water * 0.5 * probs["HW"] - 0.5 * probs["HL"] - probs["L"]
++
++
++def grade(row: dict[str, float]) -> str:
++    if row["EV_mean"] > 0 and row["EV_P10"] > 0 and row["P_EV_gt_0"] >= 0.95:
++        return "A"
++    if row["EV_mean"] > 0 and row["P_EV_gt_0"] >= 0.85:
++        return "B"
++    if row["EV_mean"] > 0:
++        return "C"
++    return "N"
++
++
++def transform(row: dict[str, str]) -> dict:
++    raw_line = f(row.get("home_handicap"))
++    giving = row.get("home_team", "") if raw_line is not None and raw_line > 0 else row.get("away_team", "")
++    receiving = row.get("away_team", "") if raw_line is not None and raw_line > 0 else row.get("home_team", "")
++    market = {
++        "valid": raw_line is not None and abs(raw_line) > 1e-9,
++        "pk": raw_line is not None and abs(raw_line) <= 1e-9,
++        "raw_line": raw_line,
++        "giving_team": giving,
++        "receiving_team": receiving,
++        "giving_water": f(row.get("giving_water")),
++        "receiving_water": f(row.get("receiving_water")),
++        "giving_handicap": abs(raw_line or 0),
++        "receiving_handicap": abs(raw_line or 0),
++    }
++    intent = map_intent(row.get("intent_canonical"), pk=market["pk"])
++    candidate = candidate_fields(market, intent["candidate_side"])
++    valid_identity, identity_reason = assert_side_identity(market, candidate)
++    out = {
++        "match_id": row.get("match_id", ""), "list_date": row.get("list_date", ""),
++        "kickoff": row.get("kickoff", ""), "competition": row.get("competition", ""),
++        "match": f"{row.get('home_team', '')} vs {row.get('away_team', '')}",
++        "home_team": row.get("home_team", ""), "away_team": row.get("away_team", ""),
++        "raw_home_handicap": raw_line, "giving_team": giving, "receiving_team": receiving,
++        "giving_water": market["giving_water"], "receiving_water": market["receiving_water"],
++        "intent_canonical": row.get("intent_canonical", ""), "normalized_intent": intent["normalized_intent"],
++        "candidate_side": intent["candidate_side"], "candidate_team": candidate["candidate_team"],
++        "candidate_water": candidate["candidate_water"], "reverse_team": candidate["reverse_team"],
++        "mapping_rule_version": MAPPING_VERSION, "side_identity_status": identity_reason,
++        "team_water_parity": bool(valid_identity), "source_path": row.get("source_path", ""),
++    }
++    if not valid_identity or intent["candidate_side"] not in {"giving", "receiving"}:
++        out.update({"status": "NEUTRAL" if intent["candidate_side"] == "neutral" else "UNKNOWN_OR_INVALID"})
++        return out
++    probs_g = {s: f(row.get("p" + s)) or 0.0 for s in STATES}
++    probs = probs_g if intent["candidate_side"] == "giving" else mirror_probs(probs_g)
++    water = float(candidate["candidate_water"] or 0.0)
++    mean_ev = ev(probs, water)
++    # Historical replay carries the frozen distribution quantiles for the
++    # original market.  Mirror the quantile sign convention for the receiving
++    # diagnostic; only the mean/side identity is used for the architecture audit.
++    p_positive = f(row.get("p_ev_positive")) or 0.0
++    if intent["candidate_side"] == "receiving":
++        p_positive = max(0.0, 1.0 - p_positive)
++    p10 = f(row.get("ev_p10")) or 0.0
++    if intent["candidate_side"] == "receiving":
++        p10 = -p10
++    metrics = {"EV_mean": mean_ev, "EV_P10": p10, "P_EV_gt_0": p_positive}
++    out.update(metrics, grade=grade(metrics), status="COMPUTED")
++    return out
++
++
++def main() -> None:
++    source = RESEARCH / "v4_market_replay_predictions_v4.csv"
++    rows = read_csv(source)
++    selected = [r for r in rows if r.get("list_date") in DAYS]
++    fixed = [transform(r) for r in selected]
++    fields = list(fixed[0]) if fixed else ["match_id"]
++    fixed_path = RESEARCH / "v4_direction_fixed_blind_replay.csv"
++    write_csv(fixed_path, fixed, fields)
++    # A compact immutable prediction hash is kept separately from any result
++    # files; no result/settlement column is copied into this output.
++    digest = hashlib.sha256(fixed_path.read_bytes()).hexdigest()
++    (RESEARCH / "v4_direction_fixed_blind_replay.sha256").write_text(digest + "  " + fixed_path.name + "\n", encoding="ascii")
++
++    funnel = []
++    for date in DAYS:
++        part = [r for r in fixed if r["list_date"] == date]
++        directional = [r for r in part if r["status"] == "COMPUTED"]
++        c = Counter(r["candidate_side"] for r in directional)
++        grades = Counter(r.get("grade", "") for r in directional)
++        funnel.append({
++            "list_date": date, "raw_valid_AH": sum(bool(r.get("raw_home_handicap")) for r in part),
++            "neutral": sum(r["status"] == "NEUTRAL" for r in part), "unknown": sum(r["status"] == "UNKNOWN_OR_INVALID" for r in part),
++            "directional": len(directional), "giving": c["giving"], "receiving": c["receiving"],
++            "A_giving": sum(r.get("grade") == "A" and r["candidate_side"] == "giving" for r in directional),
++            "A_receiving": sum(r.get("grade") == "A" and r["candidate_side"] == "receiving" for r in directional),
++            "B_giving": sum(r.get("grade") == "B" and r["candidate_side"] == "giving" for r in directional),
++            "B_receiving": sum(r.get("grade") == "B" and r["candidate_side"] == "receiving" for r in directional),
++            "C_giving": sum(r.get("grade") == "C" and r["candidate_side"] == "giving" for r in directional),
++            "C_receiving": sum(r.get("grade") == "C" and r["candidate_side"] == "receiving" for r in directional),
++            "N_giving": sum(r.get("grade") == "N" and r["candidate_side"] == "giving" for r in directional),
++            "N_receiving": sum(r.get("grade") == "N" and r["candidate_side"] == "receiving" for r in directional),
++            "A": grades["A"], "B": grades["B"], "C": grades["C"], "N": grades["N"],
++        })
++    write_csv(AUDITS / "v4_direction_fix_funnel_20260907_20260914.csv", funnel, list(funnel[0]))
++
++    intent_stats = []
++    for date in DAYS:
++        part = [r for r in fixed if r["list_date"] == date]
++        for tag in sorted({r["normalized_intent"] for r in part}):
++            sub = [r for r in part if r["normalized_intent"] == tag]
++            intent_stats.append({"list_date": date, "intent": tag, "n": len(sub), "giving": sum(r["candidate_side"] == "giving" for r in sub), "receiving": sum(r["candidate_side"] == "receiving" for r in sub), "neutral": sum(r["status"] == "NEUTRAL" for r in sub), "unknown": sum(r["status"] == "UNKNOWN_OR_INVALID" for r in sub), "ABC": sum(r.get("grade") in {"A", "B", "C"} for r in sub), "N": sum(r.get("grade") == "N" for r in sub)})
++    write_csv(AUDITS / "v4_direction_fix_intent.csv", intent_stats, list(intent_stats[0]))
++
++    # Current-day canary uses the actual fixed runner output, after the direct
++    # test.  The current output may still contain immutable started rows.
++    current_path = ROOT / "v4" / "outputs" / "v4_decisions_2026-09-14.json"
++    current = json.loads(current_path.read_text(encoding="utf-8")) if current_path.exists() else {}
++    current_rows = current.get("matches", [])
++    side_counts = Counter(r.get("candidate_side", "") for r in current_rows if r.get("analysis_status") in {"EVALUATED", "FROZEN_PREMATCH_DECISION"})
++    random.seed(20260914)
++    samples = [r for r in current_rows if r.get("candidate_side") == "giving"]
++    sample_g = random.sample(samples, min(10, len(samples)))
++    samples = [r for r in current_rows if r.get("candidate_side") == "receiving"]
++    sample_r = random.sample(samples, min(10, len(samples)))
++    canary = []
++    for r in sample_g + sample_r:
++        market = r.get("market", {})
++        canary.append({"match_id": r.get("match_id"), "home_team": market.get("home_team"), "away_team": market.get("away_team"), "titan_home_handicap_signed": market.get("titan_home_handicap_signed", market.get("home_handicap_signed")), "giving_team": market.get("giving_team"), "receiving_team": market.get("receiving_team"), "candidate_side": r.get("candidate_side"), "candidate_team": r.get("candidate_team", r.get("selected_team")), "candidate_water": r.get("candidate_water", r.get("selected_water_hk")), "parity": "PASS" if r.get("candidate_team", r.get("selected_team")) in {market.get("giving_team"), market.get("receiving_team")} else "FAIL"})
++    write_csv(AUDITS / "v4_direction_fix_canary_samples_20260914.csv", canary, list(canary[0]) if canary else ["match_id"])
++
++    old_directional = 483
++    old_giving = 483
++    new_directional = [r for r in fixed if r["status"] == "COMPUTED"]
++    new_giving = sum(r["candidate_side"] == "giving" for r in new_directional)
++    new_receiving = sum(r["candidate_side"] == "receiving" for r in new_directional)
++    report = [
++        "# V4 Direction Architecture Fix R1", "",
++        "- old model: `V4_GIVING_LEGACY`; new model: `V4_DIRECTION_FIXED_R1`.",
++        "- scope: structural direction repair only; no ABC/kappa/Kelly/weekend/league tuning.", "",
++        "## Root cause", "",
++        "1. `v4/run_daily_v4.py:parse_market` used European favorite to choose the team and forced `selected_handicap_signed=-abs(raw_line)`. This erased Titan signed-side identity.",
++        "2. The same function hard-coded `selected_side=giving`, so receiving intents could not create receiving candidates.",
++        "3. The prior was trained only as a giving-side alpha table and was reused for the selected row; the fixed version mirrors one market outcome into receiving space rather than duplicating the match.",
++        "4. Titan identity is now: raw home AH > 0 => home gives; raw home AH < 0 => away gives; PK is neutral.", "",
++        "## Blind replay direction", "",
++        f"- old strict-blind directional baseline: {old_directional}; giving {old_giving}; receiving 0 (legacy report baseline).",
++        f"- new strict-blind rows 2026-09-07..14: {len(new_directional)}; giving {new_giving}; receiving {new_receiving}.",
++        f"- mapping parity: {sum(1 for r in fixed if r['status'] == 'COMPUTED' and r['team_water_parity'])}/{len(new_directional)} = {sum(1 for r in new_directional if r['team_water_parity']) / len(new_directional) if new_directional else 0:.1%}.",
++        "- historical prediction file is prematch-only and hashed separately; no result/settlement/PnL is used to create this direction output.", "",
++        "## Current-day canary", "",
++        f"- current list date: 2026-09-14; evaluated/frozen: {sum(side_counts.values())}; giving {side_counts['giving']}; receiving {side_counts['receiving']}; neutral {sum(r.get('analysis_status') == 'NEUTRAL' for r in current_rows)}.",
++        f"- A/B/C/N: {Counter(r.get('grade') for r in current_rows if r.get('analysis_status') in {'EVALUATED','FROZEN_PREMATCH_DECISION'})}.",
++        f"- sampled giving: {len(sample_g)}; sampled receiving: {len(sample_r)}; team/water parity sample: {'PASS' if all(r['parity'] == 'PASS' for r in canary) else 'FAIL'}.", "",
++        "## Status", "",
++        "- `real_money=false`; V4 remains Shadow/Research only.",
++        "- V3 Production and its history are untouched.",
++        "- Old giving-only artifacts remain under `v4/legacy_giving_only/` and are not overwritten by this report.",
++    ]
++    (AUDITS / "v4_direction_architecture_fix_r1.md").write_text("\n".join(report) + "\n", encoding="utf-8")
++    print(json.dumps({"fixed_rows": len(fixed), "old_directional": old_directional, "old_giving": old_giving, "new_directional": len(new_directional), "new_giving": new_giving, "new_receiving": new_receiving, "current_giving": side_counts["giving"], "current_receiving": side_counts["receiving"], "prediction_sha256": digest}, ensure_ascii=False))
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/v4/direction_contract.py b/v4/direction_contract.py
+new file mode 100644
+index 0000000..891cb58
+--- /dev/null
++++ b/v4/direction_contract.py
+@@ -0,0 +1,201 @@
++"""V4 direction contract.
++
++This module is deliberately small and deterministic.  It makes Titan's signed
++Asian line the only source of team identity, and keeps intent-side mapping
++separate from the posterior/grade calculation.
++"""
++from __future__ import annotations
++
++import re
++from typing import Any
++
++MAPPING_VERSION = "V4_DIRECTION_FIXED_R1"
++STATES = ("W", "HW", "P", "HL", "L")
++KNOWN_SIDES = {"giving", "receiving", "neutral", "unknown"}
++
++INTENT_TO_SIDE = {
++    "阻上/诱下": "giving",
++    "降温保护/诱下": "giving",
++    "真实示强/阻上": "giving",
++    "诱下/上盘降温": "giving",
++    "阻上/降温保护": "giving",
++    "诱上/阻下": "receiving",
++    "真实示弱/阻下": "receiving",
++    "阻下/下盘保护": "receiving",
++    "平衡盘/等待临场确认": "neutral",
++    "平衡": "neutral",
++}
++
++
++def normalize_intent(value: Any) -> str:
++    text = str(value or "").strip().replace(" ", "")
++    if "亚盘意图候选：" in text:
++        text = text.split("亚盘意图候选：", 1)[1]
++    text = text.split("（", 1)[0].split("；", 1)[0]
++    for tag in INTENT_TO_SIDE:
++        if text == tag or tag in text:
++            return tag
++    if not text or any(x in text for x in ("未接入", "待核", "缺失", "无法判断")):
++        return "unknown"
++    return text if text in INTENT_TO_SIDE else "unknown"
++
++
++def map_intent(value: Any, *, pk: bool = False) -> dict[str, Any]:
++    normalized = normalize_intent(value)
++    side = "neutral" if pk else INTENT_TO_SIDE.get(normalized, "unknown")
++    return {
++        "normalized_intent": normalized,
++        "candidate_side": side,
++        "mapping_rule_version": MAPPING_VERSION,
++        "mapping_reason": "authoritative canonical intent mapping" if side != "unknown" else "intent unavailable or not recognized",
++    }
++
++
++def _float(value: Any) -> float | None:
++    try:
++        return float(str(value).strip())
++    except (TypeError, ValueError):
++        return None
++
++
++def _first(row: dict[str, Any], *names: str) -> str:
++    for name in names:
++        value = str(row.get(name, "") or "").strip()
++        if value:
++            return value
++    return ""
++
++
++def _line(row: dict[str, Any], current: bool = True) -> float | None:
++    names = (
++        ("ah_full_current_line_or_draw", "xml_ah_line", "future_ah_line_hint")
++        if current else
++        ("ah_full_open_line_or_draw", "initial_ah_hint")
++    )
++    text = _first(row, *names)
++    nums = re.findall(r"[-+]?\d+(?:\.\d+)?", text)
++    return _float(nums[-1]) if nums else None
++
++
++def parse_titan_market(row: dict[str, Any]) -> dict[str, Any]:
++    """Parse Titan's signed line without consulting European favorite odds.
++
++    Contract: positive home line means home gives; negative home line means
++    away gives.  The two water fields remain home/away prices, never side-
++    swapped by the candidate mapper.
++    """
++    home = _first(row, "home_team", "home_cn")
++    away = _first(row, "away_team", "away_cn")
++    raw_line = _line(row, current=True)
++    home_water = _float(_first(row, "ah_full_current_home_or_over", "xml_ah_home_water"))
++    away_water = _float(_first(row, "ah_full_current_away_or_under", "xml_ah_away_water"))
++    opening_line = _line(row, current=False)
++    opening_home_water = _float(_first(row, "ah_full_open_home_or_over"))
++    opening_away_water = _float(_first(row, "ah_full_open_away_or_under"))
++    if raw_line is None or not home or not away or home_water is None or away_water is None:
++        return {"valid": False, "pk": False, "reason": "AH_LINE_OR_WATER_MISSING"}
++    if abs(raw_line) < 1e-9:
++        return {
++            "valid": True, "pk": True, "raw_line": raw_line, "opening_line": opening_line,
++            "home_team": home, "away_team": away, "home_water": home_water, "away_water": away_water,
++            "giving_team": "", "receiving_team": "", "giving_water": None, "receiving_water": None,
++            "giving_handicap": 0.0, "receiving_handicap": 0.0,
++        }
++    giving_home = raw_line > 0
++    giving_team = home if giving_home else away
++    receiving_team = away if giving_home else home
++    giving_water = home_water if giving_home else away_water
++    receiving_water = away_water if giving_home else home_water
++    assert giving_team != receiving_team
++    return {
++        "valid": True, "pk": False, "raw_line": raw_line, "opening_line": opening_line,
++        "home_team": home, "away_team": away, "home_water": home_water, "away_water": away_water,
++        "giving_team": giving_team, "receiving_team": receiving_team,
++        "giving_water": giving_water, "receiving_water": receiving_water,
++        "giving_handicap": abs(raw_line), "receiving_handicap": abs(raw_line),
++        "opening_home_water": opening_home_water, "opening_away_water": opening_away_water,
++        "opening_giving_water": (opening_home_water if giving_home else opening_away_water),
++        "opening_receiving_water": (opening_away_water if giving_home else opening_home_water),
++        "identity_status": "VALID_TITAN_SIGN_CONTRACT",
++    }
++
++
++def derive_market_intent(row: dict[str, Any], market: dict[str, Any]) -> tuple[str, str]:
++    """Return a reproducible market-only intent when raw intent is absent.
++
++    This is a label hypothesis for Shadow, not a fundamentals claim.  Rows
++    without an opening/current comparison remain unknown and never default to
++    giving.  The thresholds are qualitative sign checks, not model thresholds.
++    """
++    explicit = _first(row, "intent_canonical", "intent_tag", "intent_raw", "asian_intent")
++    if explicit:
++        return normalize_intent(explicit), "EXPLICIT_SOURCE"
++    if market.get("pk") or market.get("opening_line") is None:
++        return "unknown", "NO_OPENING_INTENT_INPUT"
++    current = abs(float(market["raw_line"]))
++    opening = abs(float(market["opening_line"]))
++    line_delta = current - opening
++    gw = market.get("giving_water")
++    ogw = market.get("opening_giving_water")
++    if gw is None or ogw is None:
++        return "unknown", "NO_OPENING_WATER_INTENT_INPUT"
++    water_delta = float(gw) - float(ogw)
++    eps = 0.005
++    if line_delta > eps and water_delta <= eps:
++        return "真实示强/阻上", "MARKET_MOVE_LINE_STRENGTH_WITH_GIVING_RESISTANCE"
++    if line_delta > eps and water_delta > eps:
++        return "阻上/诱下", "MARKET_MOVE_DEEPER_WITH_GIVING_WATER_RISE"
++    if line_delta < -eps and water_delta < -eps:
++        return "降温保护/诱下", "MARKET_MOVE_SHALLOWER_WITH_GIVING_WATER_DROP"
++    if line_delta < -eps and water_delta >= -eps:
++        return "诱上/阻下", "MARKET_MOVE_SHALLOWER_WITH_GIVING_WATER_RESISTANCE"
++    if water_delta < -eps:
++        return "真实示弱/阻下", "FLAT_LINE_GIVING_WATER_DROP"
++    if water_delta > eps:
++        return "阻下/下盘保护", "FLAT_LINE_GIVING_WATER_RISE"
++    return "平衡盘/等待临场确认", "MARKET_MOVE_BALANCED"
++
++
++def candidate_fields(market: dict[str, Any], side: str) -> dict[str, Any]:
++    if market.get("pk"):
++        side = "neutral"
++    if side == "giving":
++        team, water = market.get("giving_team", ""), market.get("giving_water")
++        reverse_team, reverse_water = market.get("receiving_team", ""), market.get("receiving_water")
++    elif side == "receiving":
++        team, water = market.get("receiving_team", ""), market.get("receiving_water")
++        reverse_team, reverse_water = market.get("giving_team", ""), market.get("giving_water")
++    else:
++        team = water = reverse_team = reverse_water = ""
++    return {
++        "candidate_team": team,
++        "candidate_side": side,
++        "candidate_water": water,
++        "candidate_handicap": market.get("giving_handicap") if side == "giving" else market.get("receiving_handicap") if side == "receiving" else None,
++        "reverse_team": reverse_team,
++        "reverse_side": "receiving" if side == "giving" else "giving" if side == "receiving" else "neutral",
++        "reverse_water": reverse_water,
++        "reverse_handicap": market.get("receiving_handicap") if side == "giving" else market.get("giving_handicap") if side == "receiving" else None,
++    }
++
++
++def assert_side_identity(market: dict[str, Any], candidate: dict[str, Any]) -> tuple[bool, str]:
++    if not market.get("valid"):
++        return False, "SIDE_IDENTITY_ERROR:invalid_market"
++    if market.get("pk"):
++        return candidate.get("candidate_side") == "neutral", "PK_NEUTRAL"
++    side = candidate.get("candidate_side")
++    expected = market.get("giving_team") if side == "giving" else market.get("receiving_team") if side == "receiving" else ""
++    if side not in {"giving", "receiving"} or candidate.get("candidate_team") != expected:
++        return False, "SIDE_IDENTITY_ERROR:candidate_team"
++    actual_water = market.get("giving_water") if side == "giving" else market.get("receiving_water")
++    if candidate.get("candidate_water") != actual_water:
++        return False, "SIDE_IDENTITY_ERROR:candidate_water"
++    if candidate.get("reverse_team") != (market.get("receiving_team") if side == "giving" else market.get("giving_team")):
++        return False, "SIDE_IDENTITY_ERROR:reverse_team"
++    return True, "SIDE_IDENTITY_VALID"
++
++
++def mirror_probs(probs: dict[str, float]) -> dict[str, float]:
++    return {"W": probs.get("L", 0.0), "HW": probs.get("HL", 0.0), "P": probs.get("P", 0.0), "HL": probs.get("HW", 0.0), "L": probs.get("W", 0.0)}
++
+diff --git a/v4/run_daily_v4.py b/v4/run_daily_v4.py
+new file mode 100644
+index 0000000..fd2507a
+--- /dev/null
++++ b/v4/run_daily_v4.py
+@@ -0,0 +1,321 @@
++"""One-shot V4.2 daily runtime for the current independent shadow model."""
++from __future__ import annotations
++
++import argparse
++import csv
++import hashlib
++import json
++import math
++import random
++import re
++from datetime import datetime, timedelta, timezone
++from pathlib import Path
++
++from v4_dual_pipeline import load_raw, write_raw
++from direction_contract import (
++    MAPPING_VERSION as DIRECTION_VERSION,
++    assert_side_identity,
++    candidate_fields,
++    derive_market_intent,
++    map_intent,
++    mirror_probs,
++    parse_titan_market,
++)
++
++ROOT = Path(r"D:\codex")
++TARGET_TZ = timezone(timedelta(hours=8))
++STATES = ("W", "HW", "P", "HL", "L")
++MODEL_ID = "v4-market-dirichlet-20260913"
++MODEL_VERSION = "V4_DIRECTION_FIXED_R1"
++
++
++def sha(path: Path) -> str:
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def parse_dt(value: str) -> datetime:
++    # Accept both the legacy Beijing-time text and ISO-8601 values emitted by
++    # the refreshed Titan adapter.  Keep the model timezone fixed at UTC+8.
++    normalized = str(value or "").strip()
++    if normalized.endswith("Z"):
++        normalized = normalized[:-1] + "+00:00"
++    try:
++        parsed = datetime.fromisoformat(normalized)
++        if parsed.tzinfo is not None:
++            return parsed.astimezone(TARGET_TZ)
++        return parsed.replace(tzinfo=TARGET_TZ)
++    except ValueError:
++        pass
++    m = re.search(r"(\d{4})-(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})", normalized)
++    if not m:
++        raise ValueError(value)
++    return datetime(*map(int, m.groups()), tzinfo=TARGET_TZ)
++
++
++def _first(row: dict[str, str], *keys: str) -> str:
++    for key in keys:
++        value = str(row.get(key, "") or "").strip()
++        if value:
++            return value
++    return ""
++
++
++def load_raw_csv(path: Path, list_date: str) -> list[dict]:
++    """Adapt a refreshed Titan CSV into the existing V4 raw contract."""
++    rows: list[dict] = []
++    year = list_date[:4]
++    roster_ids: set[str] = set()
++    for roster_path in (
++        ROOT / "v3_legacy" / "outputs" / "football_odds_trader" / "ledger" / "slate_rosters" / f"titan007_roster_{list_date.replace('-', '')}.json",
++        ROOT / "outputs" / "football_odds_trader" / "ledger" / "slate_rosters" / f"titan007_roster_{list_date.replace('-', '')}.json",
++    ):
++        if not roster_path.exists():
++            continue
++        try:
++            payload = json.loads(roster_path.read_text(encoding="utf-8"))
++            roster_ids = {str(match_id) for match_id in (payload.get("matches") or {}).keys()}
++        except (OSError, json.JSONDecodeError):
++            roster_ids = set()
++        if roster_ids:
++            break
++    with path.open(encoding="utf-8-sig", newline="") as handle:
++        for source in csv.DictReader(handle):
++            source_date = str(source.get("list_date", "") or "").strip()
++            match_id = str(source.get("match_id", "") or "").strip()
++            if roster_ids and match_id not in roster_ids:
++                continue
++            if not roster_ids and source_date != list_date:
++                continue
++            home = _first(source, "home_cn", "home_team")
++            away = _first(source, "away_cn", "away_team")
++            bj_time = _first(source, "bj_time", "kickoff")
++            if not home or not away or not bj_time:
++                continue
++            kickoff = parse_dt(bj_time if re.match(r"^\d{4}-", bj_time) else f"{year}-{bj_time}")
++            hw = _first(source, "ah_full_current_home_or_over", "xml_ah_home_water")
++            line = _first(source, "ah_full_current_line_or_draw", "xml_ah_line")
++            aw = _first(source, "ah_full_current_away_or_under", "xml_ah_away_water")
++            open_hw = _first(source, "ah_full_open_home_or_over")
++            open_line = _first(source, "ah_full_open_line_or_draw", "initial_ah_hint")
++            open_aw = _first(source, "ah_full_open_away_or_under")
++            euro_home = _first(source, "euro_full_current_home_or_over", "xml_euro_home")
++            euro_draw = _first(source, "euro_full_current_line_or_draw", "xml_euro_draw")
++            euro_away = _first(source, "euro_full_current_away_or_under", "xml_euro_away")
++            rows.append({
++                "match_id": match_id, "list_date": list_date,
++                "competition": _first(source, "league_cn", "competition"),
++                "match": f"{home} vs {away}", "kickoff": kickoff.isoformat(),
++                "state": str(source.get("state", "") or ""), "home_team": home, "away_team": away,
++                "asian_raw": "/".join((hw, line, aw)) if hw and line and aw else "",
++                "euro_raw": "/".join((euro_home, euro_draw, euro_away)) if euro_home and euro_draw and euro_away else "",
++                "ah_full_current_home_or_over": hw, "ah_full_current_line_or_draw": line, "ah_full_current_away_or_under": aw,
++                "ah_full_open_home_or_over": open_hw, "ah_full_open_line_or_draw": open_line, "ah_full_open_away_or_under": open_aw,
++                "totals_raw": "/".join((_first(source, "total_full_current_line_or_draw"), _first(source, "total_full_current_home_or_over"), _first(source, "total_full_current_away_or_under"))),
++                "ah_ok": bool(hw and line and aw), "euro_ok": bool(euro_home and euro_draw and euro_away),
++                "totals_ok": bool(_first(source, "total_full_current_line_or_draw")),
++                "price_source": "Titan007", "raw_source_path": str(path),
++                "quote_at": str(source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", "") or ""),
++                "form_evidence": "", "h2h_evidence": "", "injury_evidence": "",
++                "lineup_evidence": "", "motivation_evidence": "",
++                "intent_raw": _first(source, "intent_raw", "intent_tag", "asian_intent"),
++            })
++    return rows
++
++
++def line_bucket(value: float) -> str:
++    return f"{round(abs(value) * 4) / 4:.2f}"
++
++
++def allowed(signed: float) -> set[str]:
++    q = round(signed * 4)
++    halves = [q / 4, q / 4] if q % 2 == 0 else [(q - 1) / 4, (q + 1) / 4]
++    radius = int(abs(signed)) + 3
++    labels = {2: "W", 1: "HW", 0: "P", -1: "HL", -2: "L"}
++    support = set()
++    for margin in range(-radius, radius + 1):
++        total = sum(1 if margin + h > 0 else -1 if margin + h < 0 else 0 for h in halves)
++        support.add(labels[total])
++    return support
++
++
++def parse_market(row: dict) -> dict:
++    # The old implementation used European favorite + -abs(line), which
++    # silently converted every non-PK row into a giving candidate.  Keep the
++    # legacy keys for render compatibility, but populate them from the Titan
++    # signed-line contract and leave final side selection to intent mapping.
++    parsed = parse_titan_market(row)
++    if not parsed.get("valid"):
++        return {"ok": False, **parsed}
++    if parsed.get("pk"):
++        return {"ok": True, **parsed, "bucket": "0.00"}
++    return {
++        "ok": True,
++        **parsed,
++        "selected_team": parsed["giving_team"],
++        "selected_side": "giving",
++        "selected_handicap_signed": parsed["raw_line"],
++        "other_handicap_signed": -parsed["raw_line"],
++        "water": parsed["giving_water"],
++        "home_water": parsed["home_water"],
++        "away_water": parsed["away_water"],
++        "bucket": line_bucket(abs(parsed["raw_line"])),
++    }
++
++
++def fit_prior(training_path: Path, target_date: str, cutoff: datetime) -> tuple[dict, list[dict]]:
++    counts: dict[str, dict[str, float]] = {"GLOBAL": {s: 1.0 for s in STATES}}
++    manifest: list[dict] = []
++    with training_path.open(encoding="utf-8-sig", newline="") as f:
++        for row in csv.DictReader(f):
++            if str(row.get("list_date", "")) >= target_date:
++                continue
++            status = str(row.get("giving_side_result", "")).strip()
++            if status not in STATES or str(row.get("verified", "")) not in {"1", "True", "true"}:
++                continue
++            try:
++                line = float(row.get("giving_handicap", "0") or 0)
++            except ValueError:
++                continue
++            bucket = line_bucket(line)
++            counts.setdefault(bucket, {s: 1.0 for s in STATES})
++            counts[bucket][status] += 1
++            counts["GLOBAL"][status] += 1
++            manifest.append({"match_id": row.get("match_id", ""), "list_date": row.get("list_date", ""),
++                             "bucket": bucket, "status": status})
++    return counts, manifest
++
++
++def receiving_alpha(alpha: dict[str, dict[str, float]]) -> dict[str, dict[str, float]]:
++    """Mirror one market's giving-side posterior into receiving-side space."""
++    return {
++        bucket: {"W": values.get("L", 1.0), "HW": values.get("HL", 1.0),
++                 "P": values.get("P", 1.0), "HL": values.get("HW", 1.0),
++                 "L": values.get("W", 1.0)}
++        for bucket, values in alpha.items()
++    }
++
++
++def posterior(alpha: dict[str, float], signed_line: float, water: float, seed: int) -> dict[str, float]:
++    valid = allowed(signed_line)
++    effective = {s: (alpha.get(s, 1.0) if s in valid else 0.0) for s in STATES}
++    total = sum(effective.values())
++    probs = {s: (effective[s] / total if total else 1 / len(valid) if s in valid else 0.0) for s in STATES}
++    rng = random.Random(seed)
++    evs = []
++    vals = [s for s in STATES]
++    for _ in range(5000):
++        draws = {s: (rng.gammavariate(effective[s], 1.0) if effective[s] else 0.0) for s in vals}
++        denom = sum(draws.values()) or 1.0
++        p = {s: draws[s] / denom for s in vals}
++        evs.append(water * p["W"] + water * 0.5 * p["HW"] - 0.5 * p["HL"] - p["L"])
++    evs.sort()
++    positive = sum(x > 0 for x in evs) / len(evs)
++    return {"pW": probs["W"], "pHW": probs["HW"], "pP": probs["P"], "pHL": probs["HL"], "pL": probs["L"],
++            "ev_mean": water * probs["W"] + water * 0.5 * probs["HW"] - 0.5 * probs["HL"] - probs["L"],
++            "ev_p05": evs[249], "ev_p10": evs[499], "ev_p50": evs[2499], "ev_p90": evs[4499],
++            "ev_p95": evs[4749], "p_ev_positive": positive}
++
++
++def main() -> None:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--list-date", default="2026-09-13")
++    parser.add_argument("--refresh-raw", action="store_true")
++    parser.add_argument("--build-prior-if-missing", action="store_true")
++    parser.add_argument("--publish-v4-only", action="store_true")
++    parser.add_argument("--raw-csv", default="", help="Use a refreshed Titan CSV instead of the legacy HTML adapter.")
++    args = parser.parse_args()
++    now = datetime.now(TARGET_TZ)
++    raw_rows = load_raw_csv(Path(args.raw_csv), args.list_date) if args.raw_csv else load_raw(args.list_date)
++    raw_path = write_raw(raw_rows, args.list_date)
++    training = ROOT / "outputs" / "football_odds_trader" / "research" / "v4_market_base_ready.csv"
++    cutoff = datetime.fromisoformat(f"{args.list_date}T00:00:00+08:00")
++    alpha, manifest = fit_prior(training, args.list_date, cutoff)
++    model_dir = ROOT / "v4" / "models" / MODEL_ID
++    prior_dir = ROOT / "v4" / "ledger" / "prior" / args.list_date
++    model_dir.mkdir(parents=True, exist_ok=True); prior_dir.mkdir(parents=True, exist_ok=True)
++    manifest_path = model_dir / "training_manifest.csv"
++    with manifest_path.open("w", newline="", encoding="utf-8") as f:
++        w = csv.DictWriter(f, fieldnames=["match_id", "list_date", "bucket", "status"]); w.writeheader(); w.writerows(manifest)
++    prior_id = f"prior-{args.list_date}-v1"
++    prior_path = prior_dir / f"{prior_id}.json"
++    receiving = receiving_alpha(alpha)
++    prior = {"prior_id": prior_id, "list_date": args.list_date, "history_cutoff": cutoff.isoformat(),
++             "source": str(training), "source_hash": sha(training), "training_rows": len(manifest),
++             "alpha": alpha, "side_alpha": {"giving": alpha, "receiving": receiving},
++             "state_order": list(STATES), "direction_basis": "one market outcome; receiving is strict W/HW/P/HL/L mirror",
++             "direction_version": DIRECTION_VERSION}
++    prior_path.write_text(json.dumps(prior, ensure_ascii=False, indent=2), encoding="utf-8")
++    model = {"model_id": MODEL_ID, "model_version": "V4_DIRECTION_FIXED_R1", "feature_schema_version": "v4-raw-market-v1", "kappa": 20,
++             "bucket_alpha": {k: list(v.values()) for k, v in alpha.items()},
++             "side_bucket_alpha": {"giving": {k: list(v.values()) for k, v in alpha.items()}, "receiving": {k: list(v.values()) for k, v in receiving.items()}},
++             "training_rows": len(manifest),
++             "training_manifest_sha256": sha(manifest_path), "history_cutoff": cutoff.isoformat(),
++             "max_training_result_available_at": "2026-09-12T23:00:00+08:00", "max_training_list_date": max((x["list_date"] for x in manifest), default=""),
++             "state_order": list(STATES), "raw_source": str(raw_path)}
++    model_path = model_dir / "model.json"; model_path.write_text(json.dumps(model, ensure_ascii=False, indent=2), encoding="utf-8")
++
++    decisions = []
++    for row in raw_rows:
++        kickoff = parse_dt(row["kickoff"])
++        base = {"match_id": row["match_id"], "list_date": args.list_date, "kickoff": kickoff.isoformat(), "model_id": MODEL_ID,
++                "prior_snapshot_id": prior_id, "decision_at": now.isoformat(), "market": {"snapshot_id": raw_path.stem, "source": "LEGACY_RAW_FIELD_EXPORT", "observed_at": now.isoformat(),
++                "home_team": row["home_team"], "away_team": row["away_team"], "competition": row.get("competition", ""), "home_handicap_signed": None, "away_handicap_signed": None, "home_water_hk": None, "away_water_hk": None}}
++        m = parse_market(row)
++        if str(row.get("state", "0")) != "0" or kickoff <= now:
++            base.update(competition=row.get("competition", ""), analysis_status="NOT_PREMATCH", grade=None, rank=None, reason_codes=["MATCH_NOT_PREMATCH"])
++        elif not m.get("ok") or not row.get("ah_ok") or not row.get("euro_ok"):
++            base.update(competition=row.get("competition", ""), analysis_status="MISSING_DATA", grade=None, rank=None, reason_codes=["REQUIRED_MARKET_INPUT_MISSING"])
++        elif m.get("pk"):
++            base.update(competition=row.get("competition", ""), analysis_status="NEUTRAL", grade=None, rank=None, reason_codes=["PK_NEUTRAL_NO_GIVING_SIDE"])
++        else:
++            raw_intent, intent_source = derive_market_intent(row, m)
++            intent = map_intent(raw_intent, pk=False)
++            side = intent["candidate_side"]
++            if side == "unknown":
++                base.update(competition=row.get("competition", ""), analysis_status="MISSING_DATA", grade=None, rank=None,
++                            normalized_intent=intent["normalized_intent"], candidate_side="unknown",
++                            reason_codes=["MISSING_INTENT", intent_source])
++            elif side == "neutral":
++                base.update(competition=row.get("competition", ""), analysis_status="NEUTRAL", grade=None, rank=None,
++                            normalized_intent=intent["normalized_intent"], candidate_side="neutral",
++                            reason_codes=["NEUTRAL_INTENT", intent_source])
++            else:
++                candidate = candidate_fields(m, side)
++                valid_identity, identity_reason = assert_side_identity(m, candidate)
++                if not valid_identity:
++                    base.update(competition=row.get("competition", ""), analysis_status="ERROR", grade=None, rank=None,
++                                normalized_intent=intent["normalized_intent"], candidate_side=side,
++                                reason_codes=[identity_reason])
++                else:
++                    bucket = m["bucket"] if m["bucket"] in alpha else "GLOBAL"
++                    side_prior = alpha[bucket] if side == "giving" else receiving[bucket]
++                    selected_line = -abs(float(m["raw_line"])) if side == "giving" else abs(float(m["raw_line"]))
++                    ev = posterior(side_prior, selected_line, float(candidate["candidate_water"]), int(row["match_id"]))
++                    grade = "A" if ev["ev_mean"] > 0 and ev["ev_p10"] > 0 and ev["p_ev_positive"] >= .95 else "B" if ev["ev_mean"] > 0 and ev["p_ev_positive"] >= .85 else "C" if ev["ev_mean"] > 0 else "N"
++                    decision_id = hashlib.sha256(f"{args.list_date}|{row['match_id']}|{prior_id}|{MODEL_ID}|{side}".encode()).hexdigest()[:20]
++                    giving_ev = posterior(alpha[bucket], -abs(float(m["raw_line"])), float(m["giving_water"]), int(row["match_id"]) + 17)
++                    receiving_ev = posterior(receiving[bucket], abs(float(m["raw_line"])), float(m["receiving_water"]), int(row["match_id"]) + 29)
++                    base.update(competition=row.get("competition", ""), analysis_status="EVALUATED", grade=grade, rank=None, decision_id=decision_id,
++                                normalized_intent=intent["normalized_intent"], intent_source=intent_source,
++                                candidate_side=side, candidate_team=candidate["candidate_team"], candidate_water=candidate["candidate_water"],
++                                candidate_handicap=candidate["candidate_handicap"], reverse_team=candidate["reverse_team"], reverse_side=candidate["reverse_side"], reverse_water=candidate["reverse_water"],
++                                selected_team=candidate["candidate_team"], selected_side=side, selected_handicap_signed=selected_line, selected_water_hk=candidate["candidate_water"],
++                                probabilities={s: ev["p"+s] for s in STATES}, ev_mean=ev["ev_mean"], ev_p05=ev["ev_p05"], ev_p10=ev["ev_p10"], ev_p50=ev["ev_p50"], ev_p90=ev["ev_p90"], ev_p95=ev["ev_p95"], p_ev_positive=ev["p_ev_positive"],
++                                diagnostic_giving={"team": m["giving_team"], "water": m["giving_water"], "EV_mean": giving_ev["ev_mean"], "EV_p10": giving_ev["ev_p10"], "P_EV_gt_0": giving_ev["p_ev_positive"], "status": "DIAGNOSTIC_ONLY"},
++                                diagnostic_receiving={"team": m["receiving_team"], "water": m["receiving_water"], "EV_mean": receiving_ev["ev_mean"], "EV_p10": receiving_ev["ev_p10"], "P_EV_gt_0": receiving_ev["p_ev_positive"], "status": "DIAGNOSTIC_ONLY"},
++                                market={**base["market"], "home_handicap_signed": m["raw_line"], "away_handicap_signed": -m["raw_line"],
++                                        "titan_home_handicap_signed": m["raw_line"], "titan_away_handicap_signed": -m["raw_line"], "home_water_hk": m["home_water"], "away_water_hk": m["away_water"],
++                                        "giving_team": m["giving_team"], "receiving_team": m["receiving_team"], "giving_water": m["giving_water"], "receiving_water": m["receiving_water"], "side_identity": "Titan signed AH"},
++                                direction_rule_version=DIRECTION_VERSION, reason_codes=[f"BUCKET_{bucket}", identity_reason, intent_source])
++        decisions.append(base)
++    computed_statuses = {"EVALUATED", "FROZEN_PREMATCH_DECISION"}
++    summary = {"total": len(decisions), "computed": sum(x["analysis_status"] in computed_statuses for x in decisions), "A": sum(x.get("grade") == "A" and x["analysis_status"] in computed_statuses for x in decisions), "B": sum(x.get("grade") == "B" and x["analysis_status"] in computed_statuses for x in decisions), "C": sum(x.get("grade") == "C" and x["analysis_status"] in computed_statuses for x in decisions), "N": sum(x.get("grade") == "N" and x["analysis_status"] in computed_statuses for x in decisions), "neutral": sum(x["analysis_status"] == "NEUTRAL" for x in decisions), "missing_data": sum(x["analysis_status"] == "MISSING_DATA" for x in decisions), "insufficient_training": sum(x["analysis_status"] == "INSUFFICIENT_TRAINING" for x in decisions), "not_prematch": sum(x["analysis_status"] == "NOT_PREMATCH" and x.get("grade") is None for x in decisions), "errors": sum(x["analysis_status"] == "ERROR" for x in decisions)}
++    out = {"list_date": args.list_date, "model_id": MODEL_ID, "prior_snapshot_id": prior_id, "real_money": False, "generated_at": now.isoformat(), "summary": summary, "matches": decisions}
++    out_dir = ROOT / "v4" / "outputs"; out_dir.mkdir(parents=True, exist_ok=True)
++    daily = out_dir / f"v4_decisions_{args.list_date}.json"; daily.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
++    (out_dir / f"v4_selected_{args.list_date}.csv").write_text("match_id,selected_team,selected_handicap_signed,selected_water_hk,grade,ev_mean,ev_p10,p_ev_positive\n" + "\n".join(",".join(str(x.get(k, "")) for k in ["match_id","selected_team","selected_handicap_signed","selected_water_hk","grade","ev_mean","ev_p10","p_ev_positive"]) for x in decisions if x.get("grade") in {"A","B"}), encoding="utf-8")
++    print(json.dumps({"raw_total":len(raw_rows), "prior_training_rows":len(manifest), **summary, "daily":str(daily), "model":str(model_path), "prior":str(prior_path)}, ensure_ascii=False))
++
++
++if __name__ == "__main__":
++    main()
+COMMIT 4524781d197f9f8769b0c4e95d73487b4bea60f8 2026-09-14 21:24:33 +0800 Update football odds dashboard 2026-09-14 21:24
+
+diff --git a/tools/run_football_update.py b/tools/run_football_update.py
+new file mode 100644
+index 0000000..441bcd5
+--- /dev/null
++++ b/tools/run_football_update.py
+@@ -0,0 +1,428 @@
++"""Manual V3/V4 football refresh entry point.
++
++The legacy engines remain the decision authorities for their own versions.
++This file only coordinates source refresh, immutable snapshots, comparison,
++settlement/review metadata, V4 diagnostics, and the existing publish paths.
++"""
++from __future__ import annotations
++
++import argparse
++import csv
++import datetime as dt
++import json
++import os
++import shutil
++import subprocess
++import sys
++from pathlib import Path
++from typing import Any
++
++ROOT = Path(r"D:\codex")
++PYTHON = ROOT / "python" / "python.exe"
++if not PYTHON.exists():
++    PYTHON = Path(r"D:\python\python.exe")
++V3_ROOT = ROOT / "v3_legacy"
++V3_OUT = V3_ROOT / "outputs" / "football_odds_trader"
++OUT = ROOT / "outputs" / "football_odds_trader"
++RAW_ROOT = V3_OUT / "raw" / "titan007"
++CN_TZ = dt.timezone(dt.timedelta(hours=8))
++
++sys.path.insert(0, str(ROOT))
++from football_update import context_r1, feature_usage, review, two_side_audit, versioning  # noqa: E402
++
++
++def now_cn() -> dt.datetime:
++    return dt.datetime.now(CN_TZ)
++
++
++def read_json(path: Path, default: Any = None) -> Any:
++    if not path.exists():
++        return default
++    try:
++        return json.loads(path.read_text(encoding="utf-8"))
++    except (OSError, json.JSONDecodeError):
++        return default
++
++
++def write_json(path: Path, value: Any) -> None:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
++
++
++def latest_raw(list_date: str) -> Path:
++    day_dir = RAW_ROOT / list_date.replace("-", "")
++    files = sorted(day_dir.glob("*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
++    if not files:
++        raise FileNotFoundError(f"no Titan snapshot for {list_date}: {day_dir}")
++    return files[0]
++
++
++def run_command(args: list[str], env: dict[str, str], log_path: Path, timeout: int = 900) -> dict[str, Any]:
++    log_path.parent.mkdir(parents=True, exist_ok=True)
++    try:
++        result = subprocess.run(args, cwd=str(ROOT), env=env, text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=timeout)
++        log_path.write_text(result.stdout + ("\n[stderr]\n" + result.stderr if result.stderr else ""), encoding="utf-8")
++        return {"returncode": result.returncode, "stdout": result.stdout, "stderr": result.stderr, "log": str(log_path)}
++    except subprocess.TimeoutExpired as exc:
++        output = (exc.stdout or "") + "\n[timeout]\n" + (exc.stderr or "")
++        log_path.write_text(output, encoding="utf-8")
++        return {"returncode": 124, "stdout": "", "stderr": "timeout", "log": str(log_path)}
++
++
++def backup_before_run(list_date: str, run_id: str, raw_path: Path | None = None) -> Path:
++    target = OUT / "backups" / f"manual_refresh_{list_date}_{run_id}"
++    target.mkdir(parents=True, exist_ok=True)
++    candidates = [
++        OUT / "dashboard" / "index.html",
++        OUT / "dashboard" / "data" / "current.json",
++        V3_OUT / "dashboard" / "index.html",
++        V3_OUT / "ledger" / "simulated_bets.csv",
++        ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json",
++        ROOT / "bridge" / "v3_production" / f"{list_date}.json",
++    ]
++    if raw_path:
++        candidates.append(raw_path)
++    manifest = []
++    for source in candidates:
++        if not source.exists():
++            continue
++        destination = target / source.name
++        shutil.copy2(source, destination)
++        manifest.append({"source": str(source), "backup": str(destination), "sha256": versioning.sha256_file(destination)})
++    write_json(target / "manifest.json", {"list_date": list_date, "run_id": run_id, "created_at": now_cn().isoformat(), "files": manifest})
++    return target
++
++
++def parse_kickoff(value: str) -> dt.datetime | None:
++    text = str(value or "").strip()
++    import re
++    m = re.search(r"(\d{4})[-/](\d{1,2})[-/](\d{1,2})[ T]+(\d{1,2}):(\d{2})", text)
++    if m:
++        return dt.datetime(*map(int, m.groups()), tzinfo=CN_TZ)
++    m = re.search(r"(\d{1,2})[-/](\d{1,2})[ T]+(\d{1,2}):(\d{2})", text)
++    if m:
++        year = now_cn().year
++        return dt.datetime(year, int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4)), tzinfo=CN_TZ)
++    return None
++
++
++def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at: dt.datetime) -> dict[str, Any]:
++    payload = read_json(path, {}) or {}
++    old_map = {str(row.get("match_id")): row for row in (previous or {}).get("matches", [])}
++    for row in payload.get("matches", []):
++        old = old_map.get(str(row.get("match_id")))
++        kickoff = parse_kickoff(str(row.get("kickoff", "")))
++        if not old or not kickoff or kickoff > run_at:
++            continue
++        current = {key: row.get(key) for key in ("score", "settlement", "settlement_label", "pnl", "status", "match_status") if key in row}
++        frozen = dict(old)
++        frozen.update({key: value for key, value in current.items() if value not in (None, "")})
++        frozen["started_lock"] = True
++        row.clear(); row.update(frozen)
++    return payload
++
++
++def preserve_started_v4(path: Path, previous: dict[str, Any] | None, run_at: dt.datetime) -> dict[str, Any]:
++    payload = read_json(path, {}) or {}
++    old_map = {str(row.get("match_id")): row for row in (previous or {}).get("matches", [])}
++    for row in payload.get("matches", []):
++        old = old_map.get(str(row.get("match_id")))
++        kickoff = parse_kickoff(str(row.get("kickoff", "")))
++        if not old or not kickoff or kickoff > run_at:
++            continue
++        frozen = dict(old)
++        if old.get("grade") is not None and old.get("ev_mean") is not None:
++            frozen["analysis_status"] = "FROZEN_PREMATCH_DECISION"
++        else:
++            frozen["analysis_status"] = "NOT_PREMATCH"
++        frozen["reason_codes"] = ["STARTED_DECISION_LOCKED"]
++        frozen["started_lock"] = True
++        row.clear(); row.update(frozen)
++    payload["started_lock_policy"] = "started rows retain original pre-match prediction; only status/settlement/review may append"
++    return payload
++
++
++def raw_rows(path: Path) -> list[dict[str, str]]:
++    with path.open(encoding="utf-8-sig", newline="") as handle:
++        return list(csv.DictReader(handle))
++
++
++def slate_rows(path: Path, list_date: str) -> list[dict[str, str]]:
++    """Return only the immutable roster for this list date.
++
++    A refreshed Titan snapshot can also carry prior-date rows needed for
++    settlement updates. Those rows remain in the raw snapshot but cannot be
++    counted as today's slate.
++    """
++    rows = raw_rows(path)
++    roster_paths = (
++        ROOT / "v3_legacy" / "outputs" / "football_odds_trader" / "ledger" / "slate_rosters" / f"titan007_roster_{list_date.replace('-', '')}.json",
++        ROOT / "outputs" / "football_odds_trader" / "ledger" / "slate_rosters" / f"titan007_roster_{list_date.replace('-', '')}.json",
++    )
++    for roster_path in roster_paths:
++        if not roster_path.exists():
++            continue
++        try:
++            payload = json.loads(roster_path.read_text(encoding="utf-8"))
++            ids = {str(match_id) for match_id in (payload.get("matches") or {}).keys()}
++        except (OSError, json.JSONDecodeError):
++            ids = set()
++        if ids:
++            return [row for row in rows if str(row.get("match_id", "")) in ids]
++    return [row for row in rows if str(row.get("list_date", "")) == list_date]
++
++
++def write_rows_csv(path: Path, rows: list[dict[str, str]]) -> Path:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    fields = list(rows[0].keys()) if rows else ["match_id"]
++    with path.open("w", encoding="utf-8-sig", newline="") as handle:
++        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
++        writer.writeheader()
++        writer.writerows(rows)
++    return path
++
++
++def num(value: Any) -> float | None:
++    try:
++        return float(value)
++    except (TypeError, ValueError):
++        return None
++
++
++def merged_date_json(list_date: str, raw_path: Path, bridge: dict[str, Any], v4: dict[str, Any], run_id: str, run_at: dt.datetime) -> dict[str, Any]:
++    raw = slate_rows(raw_path, list_date)
++    v3_map = {str(x.get("match_id", "")): x for x in bridge.get("matches", [])}
++    v4_map = {str(x.get("match_id", "")): x for x in v4.get("matches", [])}
++    matches = []
++    for source in raw:
++        match_id = str(source.get("match_id", ""))
++        home, away = source.get("home_cn", ""), source.get("away_cn", "")
++        if not match_id or not home or not away:
++            continue
++        v3 = v3_map.get(match_id, {})
++        shadow = v4_map.get(match_id, {})
++        ah_line = num(source.get("ah_full_current_line_or_draw") or source.get("xml_ah_line"))
++        hw = num(source.get("ah_full_current_home_or_over") or source.get("xml_ah_home_water"))
++        aw = num(source.get("ah_full_current_away_or_under") or source.get("xml_ah_away_water"))
++        euro = "/".join(str(source.get(k, "") or "") for k in ("euro_full_current_home_or_over", "euro_full_current_line_or_draw", "euro_full_current_away_or_under"))
++        state = str(source.get("state", "") or "")
++        finished = state == "-1"
++        score = f"{source.get('home_score','')}-{source.get('away_score','')}" if source.get("home_score", "") != "" and source.get("away_score", "") != "" else ""
++        v3_action = v3.get("action", "")
++        if not v3:
++            v3_status, v3_reason = "V3生产源缺失", "本次未产生Legacy冻结记录"
++        else:
++            v3_status, v3_reason = v3_action, v3.get("reason", "")
++        grade = shadow.get("grade")
++        status = "已完场" if finished else "进行中" if state not in {"", "0", "-1"} else "未开赛"
++        matches.append({
++            "identity": {"match_id": match_id, "list_date": list_date, "kickoff": source.get("bj_time", ""), "competition": source.get("league_cn", ""), "home": home, "away": away},
++            "market": {"line_bucket": abs(ah_line) if ah_line is not None else "", "candidate_side": shadow.get("candidate_side", ""), "candidate_team": shadow.get("selected_team", shadow.get("candidate_team", "")), "water": shadow.get("selected_water_hk", shadow.get("water", "")), "giving_team": "", "receiving_team": "", "giving_water": hw if hw is not None else "", "receiving_water": aw if aw is not None else "", "euro_current": euro},
++            "v3_decision": {"match_id": match_id, "competition": source.get("league_cn", ""), "kickoff": source.get("bj_time", ""), "home_team": home, "away_team": away, "action": v3_action or v3_status, "status": v3_status, "team": v3.get("selected_team", ""), "side": v3.get("selected_side", ""), "intent": v3.get("intent", ""), "line": v3.get("line", ""), "water": v3.get("water", ""), "probability": v3.get("probability", ""), "reason": v3_reason, "decision_at": v3.get("decision_at", "")},
++            "v4_shadow": {"grade": grade, "status": shadow.get("analysis_status", shadow.get("status", "MISSING_DATA")), "team": shadow.get("selected_team", shadow.get("candidate_team", "")), "side": shadow.get("selected_side", shadow.get("candidate_side", "")), "ev_mean": shadow.get("ev_mean", shadow.get("EV_mean")), "ev_p10": shadow.get("ev_p10", shadow.get("EV_p10")), "p_ev_gt_0": shadow.get("p_ev_positive", shadow.get("P_EV_gt_0")), "kappa": 20, "real_money": False},
++            "settlement": {"result": score if finished else "待结算", "pnl_1u": ""},
++            "audit": {"source": str(raw_path), "state": status, "data_status": "赛后状态仅更新结算" if finished else "赛前市场输入", "run_id": run_id, "quote_at": source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", ""), "last_confirmed_at": run_at.isoformat(), "refresh_status": source.get("refresh_status", "") or "PRICE_NOT_REFRESHED" if not source.get("snapshot_stamp") else "REFRESHED"},
++        })
++    return {"list_date": list_date, "run_id": run_id, "generated_at": run_at.isoformat(), "matches": matches}
++
++
++def summary(v3: dict[str, Any], v4: dict[str, Any], total: int) -> dict[str, Any]:
++    v3_rows = v3.get("matches", [])
++    v4_rows = v4.get("matches", [])
++    def is_v4_computed(row: dict[str, Any]) -> bool:
++        return row.get("analysis_status") in {"EVALUATED", "FROZEN_PREMATCH_DECISION"} or row.get("status") == "COMPUTED"
++    actions = [str(row.get("action", "")) for row in v3_rows]
++    return {
++        "total": total,
++        "v3_computed": len(v3_rows), "v3_bettable": actions.count("可投"), "v3_half": actions.count("半仓可投"), "v3_no_bet": actions.count("不投"), "v3_missing": max(0, total - len(v3_rows)),
++        "v4_computed": sum(row.get("analysis_status") in {"EVALUATED", "FROZEN_PREMATCH_DECISION"} or row.get("status") == "COMPUTED" for row in v4_rows),
++        "v4_A": sum(row.get("grade") == "A" and is_v4_computed(row) for row in v4_rows), "v4_B": sum(row.get("grade") == "B" and is_v4_computed(row) for row in v4_rows), "v4_C": sum(row.get("grade") == "C" and is_v4_computed(row) for row in v4_rows), "v4_N": sum(row.get("grade") == "N" and is_v4_computed(row) for row in v4_rows),
++        "v4_neutral": sum(row.get("analysis_status") == "NEUTRAL" or row.get("status") == "NEUTRAL" for row in v4_rows), "v4_missing": sum(row.get("analysis_status") in {"MISSING_DATA", "ERROR"} or row.get("status") == "MISSING" for row in v4_rows), "v4_not_prematch": sum(row.get("analysis_status") == "NOT_PREMATCH" and row.get("grade") is None for row in v4_rows),
++    }
++
++
++def refresh_v4_summary(v4: dict[str, Any]) -> dict[str, Any]:
++    """Reconcile the persisted V4 summary after started-row preservation."""
++    rows = v4.get("matches", [])
++    computed = {"EVALUATED", "FROZEN_PREMATCH_DECISION"}
++    is_computed = lambda row: row.get("analysis_status") in computed or row.get("status") == "COMPUTED"
++    v4["summary"] = {
++        "total": len(rows),
++        "computed": sum(is_computed(row) for row in rows),
++        "A": sum(row.get("grade") == "A" and is_computed(row) for row in rows),
++        "B": sum(row.get("grade") == "B" and is_computed(row) for row in rows),
++        "C": sum(row.get("grade") == "C" and is_computed(row) for row in rows),
++        "N": sum(row.get("grade") == "N" and is_computed(row) for row in rows),
++        "neutral": sum(row.get("analysis_status") == "NEUTRAL" or row.get("status") == "NEUTRAL" for row in rows),
++        "missing_data": sum(row.get("analysis_status") in {"MISSING_DATA", "ERROR"} or row.get("status") == "MISSING" for row in rows),
++        "not_prematch": sum(row.get("analysis_status") == "NOT_PREMATCH" and row.get("grade") is None for row in rows),
++        "errors": sum(row.get("analysis_status") == "ERROR" for row in rows),
++    }
++    return v4
++
++
++def update_root_data(date_payload: dict[str, Any], metrics: dict[str, Any], run_id: str, run_at: dt.datetime) -> tuple[Path, Path]:
++    data_dir = OUT / "dashboard" / "data"
++    dates_dir = data_dir / "dates"
++    dates_dir.mkdir(parents=True, exist_ok=True)
++    date_path = dates_dir / f"{date_payload['list_date']}.json"
++    write_json(date_path, date_payload)
++    dates = sorted(path.stem for path in dates_dir.glob("*.json"))
++    write_json(data_dir / "dates" / "index.json", dates)
++    current = {
++        "list_date": date_payload["list_date"], "display_list_date": date_payload["list_date"], "date_file": f"./data/dates/{date_payload['list_date']}.json", "generated_at": run_at.isoformat(), "run_id": run_id,
++        "today_update_status": "COMPLETE_DATA_REFRESH" if metrics["v3_computed"] else "V3_PRODUCTION_FEED_MISSING", "total_matches": metrics["total"], "prematch_matches": sum(x["audit"]["state"] == "未开赛" for x in date_payload["matches"]),
++        "v3": {"computed_count": metrics["v3_computed"], "bettable_count": metrics["v3_bettable"], "half_count": metrics["v3_half"], "no_bet_count": metrics["v3_no_bet"], "missing_count": metrics["v3_missing"], "status": "V3_PRODUCTION_UPDATED" if metrics["v3_computed"] else "V3_PRODUCTION_FEED_MISSING"},
++        "v4": {"computed_count": metrics["v4_computed"], "A_count": metrics["v4_A"], "B_count": metrics["v4_B"], "C_count": metrics["v4_C"], "N_count": metrics["v4_N"], "neutral_count": metrics["v4_neutral"], "missing_count": metrics["v4_missing"], "not_prematch_count": metrics.get("v4_not_prematch", 0), "real_money": False, "status": "V4_SHADOW_UPDATED"},
++    }
++    current_path = data_dir / "current.json"
++    write_json(current_path, current)
++    return current_path, date_path
++
++
++def update_v4_data(v4_path: Path, list_date: str) -> Path:
++    data_dir = ROOT / "v4" / "dashboard" / "data"
++    data_dir.mkdir(parents=True, exist_ok=True)
++    date_path = data_dir / f"{list_date}.json"
++    shutil.copy2(v4_path, date_path)
++    dates = sorted(path.stem for path in data_dir.glob("*.json") if path.stem != "index")
++    write_json(data_dir / "index.json", dates)
++    return date_path
++
++
++def write_refresh_report(list_date: str, run_id: str, run_at: dt.datetime, raw_path: Path, metrics: dict[str, Any], comparison: Path, review_md: Path, two_side_csv: Path, context_path: Path, fetch_result: dict[str, Any]) -> Path:
++    directory = OUT / "daily"
++    directory.mkdir(parents=True, exist_ok=True)
++    path = directory / f"manual_refresh_{list_date}_{run_id}.md"
++    lines = [f"# {list_date} 手动刷新 {run_id}", "", f"- run_at: {run_at.isoformat()}", f"- raw_snapshot: `{raw_path}`", f"- raw_snapshot_id: `{raw_path.stem}`", f"- source refresh returncode: `{fetch_result.get('returncode')}`", "", "## 漏斗", f"- roster/raw: {metrics['total']}", f"- V3 computed: {metrics['v3_computed']}；可投 {metrics['v3_bettable']}；半仓 {metrics['v3_half']}；不投 {metrics['v3_no_bet']}；missing {metrics['v3_missing']}", f"- V4 posterior computed: {metrics['v4_computed']}；A {metrics['v4_A']}；B {metrics['v4_B']}；C {metrics['v4_C']}；N {metrics['v4_N']}；Neutral {metrics['v4_neutral']}；Missing {metrics['v4_missing']}", "", "## 版本与复盘", f"- 同 list_date 上一版本逐场比较：`{comparison}`", f"- 复盘入口：`{review_md}`；未结束比赛不读取未来赛果。", f"- V4 双边诊断：`{two_side_csv}`；仅诊断，real_money=false。", f"- V4_CONTEXT_R1：`{context_path}`；不晋升、不改当前V4。", "", "## 不变式", "- V3 remains Production; V4 remains Shadow Only.", "- Started/frozen decisions are immutable; repeat refresh does not create executions.", "- Missing / Neutral / N are distinct; a runner failure is not a real zero decision."]
++    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
++    return path
++
++
++def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path) -> None:
++    public = OUT / "github_publish" / "odds"
++    public.mkdir(parents=True, exist_ok=True)
++    copies = [
++        (V3_OUT / "dashboard" / "index.html", public / "v3-legacy" / "index.html"),
++        (ROOT / "v4" / "dashboard" / "index.html", public / "v4" / "index.html"),
++        (ROOT / "v4" / "dashboard" / "data" / "index.json", public / "v4" / "data" / "index.json"),
++        (date_path, public / "data" / "dates" / date_path.name),
++        (OUT / "dashboard" / "data" / "current.json", public / "data" / "current.json"),
++        (OUT / "dashboard" / "data" / "dates" / "index.json", public / "data" / "dates" / "index.json"),
++        (ROOT / "v4" / "dashboard" / "data" / f"{list_date}.json", public / "v4" / "data" / f"{list_date}.json"),
++        (run_dir / "run_manifest.json", public / "decision_versions" / list_date / run_dir.name / "run_manifest.json"),
++        (run_dir / "decision_comparison.csv", public / "decision_versions" / list_date / run_dir.name / "decision_comparison.csv"),
++    ]
++    for source, destination in copies:
++        if source.exists():
++            destination.parent.mkdir(parents=True, exist_ok=True)
++            shutil.copy2(source, destination)
++    # Publish the current V4 raw output under its own namespace without
++    # changing the legacy V3 page or its compatibility payload.
++    v4_out = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
++    if v4_out.exists():
++        shutil.copy2(v4_out, public / "v4" / "data" / f"{list_date}.json")
++    for source in (two_side_audit_path for two_side_audit_path in (OUT / "v4_shadow").glob(f"*_{run_dir.name}.*")):
++        destination = public / "v4" / "shadow" / source.name
++        destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
++    for source in (OUT / "reviews").glob(f"*_{run_dir.name}.*"):
++        destination = public / "reviews" / source.name
++        destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
++    for source, destination in (
++        (ROOT / "skills" / "worldcup-odds-trader" / "SKILL.md", public / "skills" / "worldcup-odds-trader" / "SKILL.md"),
++        (ROOT / "football_update", public / "tools" / "football_update"),
++        (ROOT / "run_football_update.py", public / "tools" / "run_football_update.py"),
++    ):
++        if source.is_dir():
++            shutil.copytree(source, destination, dirs_exist_ok=True)
++        elif source.exists():
++            destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, destination)
++
++
++def publish() -> dict[str, Any]:
++    path = ROOT / "v3_legacy" / "tools" / "publish_football_dashboard_to_github.py"
++    sys.path.insert(0, str(path.parent))
++    import importlib.util
++    spec = importlib.util.spec_from_file_location("football_publisher", path)
++    if not spec or not spec.loader:
++        return {"pushed": False, "error": "publisher import failed"}
++    module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
++    return module.publish(push=True)
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser(description="Refresh V3 Legacy Production and V4 independent Shadow for one Titan list date.")
++    parser.add_argument("--list-date", default="")
++    parser.add_argument("--current", action="store_true")
++    parser.add_argument("--no-publish", action="store_true")
++    parser.add_argument("--no-refresh", action="store_true", help="Use the latest local raw snapshot; report its timestamp.")
++    args = parser.parse_args()
++    list_date = args.list_date or now_cn().date().isoformat()
++    run_at = now_cn()
++    run_id = "RUN_" + run_at.strftime("%Y%m%d_%H%M%S")
++    run_dir = OUT / "decision_versions" / list_date / run_id
++    run_dir.mkdir(parents=True, exist_ok=True)
++    previous_latest = read_json(OUT / "decision_versions" / list_date / "latest.json", {}) or {}
++    old_bridge_path = ROOT / "bridge" / "v3_production" / f"{list_date}.json"
++    old_v3 = read_json(old_bridge_path, {})
++    old_v4_path = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
++    old_v4 = read_json(old_v4_path, {})
++    try:
++        old_raw = latest_raw(list_date)
++    except FileNotFoundError:
++        old_raw = None
++    backup = backup_before_run(list_date, run_id, old_raw)
++    logs = run_dir / "logs"
++    env = os.environ.copy(); env["FOOTBALL_LIST_DATE"] = list_date
++
++    fetch_result = {"returncode": 0, "skipped": True}
++    if not args.no_refresh:
++        fetch_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "fetch_titan007_odds.py")], env, logs / "titan_fetch.log", 1200)
++    raw_path = latest_raw(list_date)
++    current_rows = slate_rows(raw_path, list_date)
++    scoped_raw_path = write_rows_csv(run_dir / "slate_raw.csv", current_rows)
++    v3_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "build_football_daily_update.py"), "--no-publish"], env, logs / "v3_daily.log", 1200)
++    v3_html = V3_OUT / "dashboard" / "index.html"
++    freeze_result = run_command([str(PYTHON), str(V3_ROOT / "tools" / "run_v3_legacy_daily_freeze.py"), list_date, "--html", str(v3_html)], env, logs / "v3_freeze.log", 600)
++    bridge_path = ROOT / "bridge" / "v3_production" / f"{list_date}.json"
++    bridge = preserve_started_bridge(bridge_path, old_v3, run_at)
++    bridge["run_id"] = run_id; bridge["raw_snapshot_id"] = raw_path.stem; bridge["odds_cutoff"] = raw_path.stem.split("_titan007", 1)[0]; bridge["decision_version_path"] = str(run_dir / "v3_decisions.json")
++    write_json(bridge_path, bridge)
++    v4_result = run_command([str(PYTHON), str(ROOT / "v4" / "run_daily_v4.py"), "--list-date", list_date, "--raw-csv", str(scoped_raw_path)], env, logs / "v4_shadow.log", 1200)
++    v4_path = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
++    v4 = preserve_started_v4(v4_path, old_v4, run_at)
++    v4 = refresh_v4_summary(v4)
++    v4["run_id"] = run_id; v4["raw_snapshot_id"] = raw_path.stem; v4["real_money"] = False; write_json(v4_path, v4)
++    metrics = summary(bridge, v4, len(current_rows))
++    v4_data_path = update_v4_data(v4_path, list_date)
++    merged = merged_date_json(list_date, raw_path, bridge, v4, run_id, run_at)
++    current_path, date_path = update_root_data(merged, metrics, run_id, run_at)
++    (OUT / "executions").mkdir(parents=True, exist_ok=True); execution_path = versioning.write_execution_ledger(list_date)
++    two_side_csv, two_side_json, _ = two_side_audit.write_two_side_audit(v4_path, ROOT / "v4" / "ledger" / "prior" / list_date / f"prior-{list_date}-v1.json", OUT / "v4_shadow", run_id)
++    feature_csv, feature_json = feature_usage.write_feature_audit(scoped_raw_path, v4_path, OUT / "v4_shadow", list_date, run_id)
++    context_path = context_r1.write_context_manifest(scoped_raw_path, list_date, OUT / "v4_shadow" / f"v4_context_r1_{list_date}_{run_id}.json", "v4.2-independent-market-shadow")
++    review_csv, review_md = review.write_review(list_date, scoped_raw_path, bridge_path, v4_path, OUT / "reviews", run_id)
++    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v4_shadow": v4_result}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
++    run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
++    report_path = write_refresh_report(list_date, run_id, run_at, raw_path, metrics, run_dir / "decision_comparison.csv", review_md, two_side_csv, context_path, fetch_result)
++    run_manifest["artifacts"]["manual_refresh_report"] = str(report_path)
++    write_json(run_dir / "run_manifest.json", run_manifest)
++    directory, comparison_path, latest_path = versioning.save_run_bundle(list_date, run_manifest, bridge, v4, previous_latest)
++    write_json(run_dir / "merged_dashboard_date.json", merged)
++    publish_result = {"pushed": False, "skipped": True}
++    if not args.no_publish:
++        copy_publish_assets(list_date, date_path, run_dir)
++        publish_result = publish()
++    commit = ""
++    repo = OUT / "github_publish" / "odds"
++    if (repo / ".git").exists():
++        git = subprocess.run(["git", "-C", str(repo), "rev-parse", "--short", "HEAD"], text=True, capture_output=True, encoding="utf-8", errors="replace")
++        commit = git.stdout.strip()
++    run_manifest["publish"] = publish_result; run_manifest["git_commit_short"] = commit; run_manifest["status"] = "COMPLETE" if v3_result.get("returncode") == 0 and v4_result.get("returncode") == 0 else "PARTIAL"
++    write_json(run_dir / "run_manifest.json", run_manifest); write_json(latest_path, {"run": run_manifest, "v3": bridge, "v4": v4, "comparison_csv": str(comparison_path)})
++    print(json.dumps({"run_id": run_id, "list_date": list_date, "raw": len(current_rows), "v3_computed": metrics["v3_computed"], "v3_bettable": metrics["v3_bettable"], "v3_half": metrics["v3_half"], "v3_no_bet": metrics["v3_no_bet"], "v4_computed": metrics["v4_computed"], "v4_A": metrics["v4_A"], "v4_B": metrics["v4_B"], "v4_C": metrics["v4_C"], "v4_N": metrics["v4_N"], "v4_neutral": metrics["v4_neutral"], "v4_missing": metrics["v4_missing"], "v4_not_prematch": metrics.get("v4_not_prematch", 0), "git_commit_short": commit, "publish": publish_result, "run_dir": str(directory), "comparison": str(comparison_path), "dashboard": str(current_path)}, ensure_ascii=False))
++    return 0 if run_manifest["status"] == "COMPLETE" else 1
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
