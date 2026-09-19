@@ -1,0 +1,125 @@
+{
+  "run_id": "RUN_20260920_002241",
+  "list_date": "2026-09-19",
+  "run_at": "2026-09-20T00:22:41.628345+08:00",
+  "raw_snapshot_id": "20260920_002241_titan007_odds_snapshot",
+  "raw_snapshot": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260920\\20260920_002241_titan007_odds_snapshot.csv",
+  "scoped_roster_snapshot": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260920_002241\\slate_raw.csv",
+  "model_version": "V4_DIRECTION_FIXED_R1",
+  "prior_id": "prior-2026-09-19-v1",
+  "roster_total": 1825,
+  "prematch_total": 203,
+  "refreshed_total": 1825,
+  "computed_total": 450,
+  "missing_total": 1375,
+  "v3": {
+    "total": 1825,
+    "v3_computed": 450,
+    "v3_bettable": 59,
+    "v3_half": 0,
+    "v3_no_bet": 391,
+    "v3_missing": 1375,
+    "v4_computed": 380,
+    "v4_A": 1,
+    "v4_B": 4,
+    "v4_C": 88,
+    "v4_N": 287,
+    "v4_neutral": 119,
+    "v4_missing": 212,
+    "v4_not_prematch": 1114
+  },
+  "v4": {
+    "total": 1825,
+    "v3_computed": 450,
+    "v3_bettable": 59,
+    "v3_half": 0,
+    "v3_no_bet": 391,
+    "v3_missing": 1375,
+    "v4_computed": 380,
+    "v4_A": 1,
+    "v4_B": 4,
+    "v4_C": 88,
+    "v4_N": 287,
+    "v4_neutral": 119,
+    "v4_missing": 212,
+    "v4_not_prematch": 1114
+  },
+  "backup": "D:\\codex\\outputs\\football_odds_trader\\backups\\manual_refresh_2026-09-19_RUN_20260920_002241",
+  "fetch": {
+    "returncode": 0,
+    "stdout": "raw_dir=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260920\ncsv=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260920\\20260920_002241_titan007_odds_snapshot.csv\nmatches=1863\nwith_sbodds=549\nwith_change_xml=39\nfuture_schedule=1848\nfuture_added=0\nfrozen_started_odds=353\nrestored_roster_rows=1108\nroster=D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\ledger\\slate_rosters\\titan007_roster_20260919.json\nroster_matches=1825\n",
+    "stderr": "future_odds=25/534\nfuture_odds=50/534\nfuture_odds=75/534\nfuture_odds=100/534\nfuture_odds=125/534\nfuture_odds=150/534\nfuture_odds=175/534\nfuture_odds=200/534\nfuture_odds=225/534\nfuture_odds=250/534\nfuture_odds=275/534\nfuture_odds=300/534\nfuture_odds=325/534\nfuture_odds=350/534\nfuture_odds=375/534\nfuture_odds=400/534\nfuture_odds=425/534\nfuture_odds=450/534\nfuture_odds=475/534\nfuture_odds=500/534\nfuture_odds=525/534\n",
+    "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260920_002241\\logs\\titan_fetch.log"
+  },
+  "steps": {
+    "v3_daily": {
+      "returncode": 0,
+      "skipped": true,
+      "reason": "HISTORICAL_DECISION_LOCKED"
+    },
+    "v3_freeze": {
+      "returncode": 0,
+      "skipped": true,
+      "reason": "HISTORICAL_DECISION_LOCKED"
+    },
+    "v3_apply_freeze": {
+      "returncode": 0,
+      "skipped": true,
+      "reason": "HISTORICAL_DECISION_LOCKED"
+    },
+    "v4_shadow": {
+      "returncode": 0,
+      "skipped": true,
+      "reason": "HISTORICAL_DECISION_LOCKED"
+    },
+    "yesterday_performance": {
+      "returncode": 0,
+      "stdout": "{\"target\": \"2026-09-18\", \"v3\": {\"frozen_bettable\": 19, \"settled\": 0, \"counts\": {}, \"effective_win_rate\": null, \"pnl_1u\": 0, \"roi\": 0.0, \"settled_roi\": null, \"roi_denominator\": \"FROZEN_BETTABLE_1U\", \"pending\": 19}, \"v4\": {\"frozen_bettable\": 54, \"settled\": 1, \"counts\": {\"L\": 1}, \"effective_win_rate\": 0.0, \"pnl_1u\": -1.0, \"roi\": -0.0185, \"settled_roi\": -1.0, \"roi_denominator\": \"FROZEN_BETTABLE_1U\", \"pending\": 53}, \"csv\": \"D:\\\\codex\\\\outputs\\\\football_odds_trader\\\\reviews\\\\daily_performance\\\\yesterday_performance_2026-09-18_20260920_002932.csv\", \"report\": \"D:\\\\codex\\\\outputs\\\\football_odds_trader\\\\reviews\\\\daily_performance\\\\yesterday_performance_2026-09-18_20260920_002932.md\"}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260920_002241\\logs\\yesterday_performance.log"
+    },
+    "v4_settlement_backfill": {
+      "ok": true,
+      "status": "V4_SETTLEMENT_BACKFILLED",
+      "csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-09-18_20260920_002932.csv",
+      "targets": [
+        "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-18.json",
+        "D:\\codex\\v4\\dashboard\\data\\2026-09-18.json"
+      ],
+      "rows_updated": 4,
+      "settled_rows": 2,
+      "grade_unchanged": true
+    },
+    "delivery_finalize": {
+      "returncode": 0,
+      "stdout": "{\"run_id\": \"RUN_20260920_002241\", \"dates\": {\"2026-09-18\": {\"grades\": {\"N\": 107, \"null\": 347, \"C\": 49, \"B\": 4, \"A\": 1}, \"settled_all_grades\": 157, \"prematch_hash\": \"a6820fbe857d3fb10e70139417b7ea01c6a1f139d8fcf98bcab8cddc8103aa57\", \"prematch_unchanged\": true}, \"2026-09-19\": {\"grades\": {\"null\": 1445, \"N\": 287, \"C\": 88, \"B\": 4, \"A\": 1}, \"settled_all_grades\": 215, \"prematch_hash\": \"04585f94c5d09cb1ac56d4765193e82069bf2bfc0256b3abcce76315104d5b65\", \"prematch_unchanged\": true}}, \"real_money\": false, \"artifacts\": \"D:\\\\codex\\\\outputs\\\\football_odds_trader\\\\v4_shadow\\\\daily_artifacts\\\\2026-09-19\\\\RUN_20260920_002241\"}\n",
+      "stderr": "",
+      "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260920_002241\\logs\\delivery_finalize.log"
+    }
+  },
+  "artifacts": {
+    "current_json": "D:\\codex\\outputs\\football_odds_trader\\dashboard\\data\\current.json",
+    "date_json": "D:\\codex\\outputs\\football_odds_trader\\dashboard\\data\\dates\\2026-09-19.json",
+    "bridge": "D:\\codex\\bridge\\v3_production\\2026-09-19.json",
+    "v4": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-19.json",
+    "v3_bettable_timestamped": "D:\\codex\\outputs\\football_odds_trader\\ledger\\daily_bettable\\v3\\bettable_2026-09-19_20260920_002241.csv",
+    "v4_bettable_timestamped": "D:\\codex\\outputs\\football_odds_trader\\ledger\\daily_bettable\\v4\\bettable_2026-09-19_20260920_002241.csv",
+    "morning_tracking": "D:\\codex\\outputs\\football_odds_trader\\reviews\\morning_prematch_tracking_2026-09-19_RUN_20260920_002241.csv",
+    "quote_age_monitoring": "D:\\codex\\outputs\\football_odds_trader\\reviews\\quote_age_monitoring_2026-09-19_RUN_20260920_002241.csv",
+    "yesterday_performance_log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-09-19\\RUN_20260920_002241\\logs\\yesterday_performance.log",
+    "execution_ledger": "D:\\codex\\outputs\\football_odds_trader\\executions\\executions_2026-09-19.csv",
+    "two_side_csv": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_two_side_audit_2026-09-19_RUN_20260920_002241.csv",
+    "two_side_json": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_two_side_audit_2026-09-19_RUN_20260920_002241.json",
+    "context_r1": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_context_r1_2026-09-19_RUN_20260920_002241.json",
+    "review_csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\review_2026-09-19_RUN_20260920_002241.csv",
+    "review_md": "D:\\codex\\outputs\\football_odds_trader\\reviews\\review_2026-09-19_RUN_20260920_002241.md",
+    "v4_settlement_backfill_targets": [
+      "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-18.json",
+      "D:\\codex\\v4\\dashboard\\data\\2026-09-18.json"
+    ],
+    "v4_dashboard_data": "D:\\codex\\v4\\dashboard\\data\\2026-09-19.json",
+    "feature_usage_csv": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_feature_usage_2026-09-19_RUN_20260920_002241.csv",
+    "feature_usage_json": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_feature_usage_2026-09-19_RUN_20260920_002241.json",
+    "manual_refresh_report": "D:\\codex\\outputs\\football_odds_trader\\daily\\manual_refresh_2026-09-19_RUN_20260920_002241.md"
+  }
+}

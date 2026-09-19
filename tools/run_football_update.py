@@ -51,11 +51,24 @@ def write_json(path: Path, value: Any) -> None:
 
 
 def latest_raw(list_date: str) -> Path:
-    day_dir = RAW_ROOT / list_date.replace("-", "")
-    files = sorted(day_dir.glob("*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
-    if not files:
-        raise FileNotFoundError(f"no Titan snapshot for {list_date}: {day_dir}")
-    return files[0]
+    # Titan's list_date is the immutable slate key, while the filesystem
+    # folder is the natural date on which a snapshot was captured.  After
+    # midnight a 9/19 slate can therefore be refreshed into the 20260920
+    # folder.  Select by the CSV's list_date instead of assuming the folder
+    # name and list_date are identical.
+    files = sorted(
+        RAW_ROOT.glob("*/*_titan007_odds_snapshot.csv"),
+        key=lambda path: path.stat().st_mtime,
+        reverse=True,
+    )
+    for path in files:
+        try:
+            with path.open(encoding="utf-8-sig", newline="") as handle:
+                if any(str(row.get("list_date", "")) == list_date for row in csv.DictReader(handle)):
+                    return path
+        except OSError:
+            continue
+    raise FileNotFoundError(f"no Titan snapshot containing list_date={list_date}: {RAW_ROOT}")
 
 
 def run_command(args: list[str], env: dict[str, str], log_path: Path, timeout: int = 900) -> dict[str, Any]:
