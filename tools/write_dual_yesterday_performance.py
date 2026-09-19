@@ -96,7 +96,13 @@ def effective_rate(counter: Counter[str]) -> float | None:
 def raw_result_map(raw_path: Path, target: str) -> dict[str, dict[str, str]]:
     # A live feed drops yesterday's finished matches. Retain explicit final
     # observations from earlier snapshots, with their actual source paths.
-    paths = sorted(p for p in raw_path.parent.glob("*_titan007_odds_snapshot.csv") if p.name <= raw_path.name)
+    # Snapshot folders follow the natural capture date, not Titan list_date;
+    # after midnight the same slate can span two adjacent folders.
+    raw_root = raw_path.parent.parent
+    paths = sorted(
+        p for p in raw_root.glob("*/*_titan007_odds_snapshot.csv")
+        if p.name <= raw_path.name
+    )
     results: dict[str, dict[str, str]] = {}
     for path in paths:
         for row in read_csv(path):
