@@ -59,7 +59,11 @@ def test_strict_training_asof():
         assert all(not x['source_timestamp'] or clock(x['source_timestamp'])<=clock(r['decision_at']) for x in r['features']['provenance'])
 def test_original_control_unchanged():
     from v41.control import verify_original
-    assert verify_original()['unchanged']
+    # V3/V4/V4.1 can be updated in the same manual delivery.  The live V4
+    # daily JSON files are therefore allowed to advance; CONTROL execution
+    # still uses the exact-byte frozen copy and the live V4 rule source stays
+    # protected.
+    assert verify_original(allow_daily_outputs=True)['unchanged']
 def test_control_uses_settlement_signed_field_not_display_magnitude(sample):
     s=sample['snapshot'];d={'grade':'N','candidate_side':'giving','candidate_team':s['giving_team'],'candidate_handicap':-.5,'water':.9};c={'grade':'C','candidate_side':'giving','candidate_team':s['giving_team'],'candidate_handicap':.5,'selected_handicap_signed':-.5,'selected_water_hk':.9};f={'snapshot':s,'decision':d,'control':c,'decision_id':'fixture'}
     result={'home':s['home'],'away':s['away'],'score':'0-0','result_available_at':(clock(s['kickoff_at'])+dt.timedelta(hours=3)).isoformat(),'source':'fixture','source_hash':'fixture'}
