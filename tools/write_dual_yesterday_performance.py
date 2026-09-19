@@ -31,7 +31,7 @@ def as_float(value: Any) -> float | None:
 
 
 def parse_line(value: Any) -> float | None:
-    text = str(value or "").strip()
+    text = str(value if value is not None else "").strip()
     aliases = {
         "平手": 0.0, "平手/半球": 0.25, "半球": 0.5, "半球/一球": 0.75,
         "一球": 1.0, "一球/球半": 1.25, "球半": 1.5, "球半/两球": 1.75,
@@ -39,7 +39,7 @@ def parse_line(value: Any) -> float | None:
     }
     if text in aliases:
         return aliases[text]
-    return as_float(text.replace("+", ""))
+    return as_float(text.removesuffix("球").replace("+", ""))
 
 
 def one(diff: float, handicap: float) -> str:
