@@ -1,0 +1,17 @@
+version: SNAPSHOT_R1
+timezone: Asia/Shanghai
+primary_window: T-30
+primary_selection: first_actual_run_with_valid_quote_in_window
+max_quote_age_minutes: 3
+poll_minutes: 5
+windows:
+  OPEN: null
+  T-180: [165, 195]
+  T-120: [110, 130]
+  T-60: [50, 70]
+  T-30: [25, 40]
+  T-15: [10, 20]
+  T-5: [1, 9]
+missing_policy: MISSING_NO_SUBSTITUTION
+quote_clock: observed_price_time_not_provider_tick
+open_requires_explicit_timestamp: true

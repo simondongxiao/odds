@@ -1,0 +1,34 @@
+model_version: V4.1_R1
+role: CHALLENGER
+status: SHADOW
+real_money: false
+probability_model: masked_multinomial_logistic_bucket_prior_offset
+baseline_model: train_only_bucket_prior
+regularization_l2: 1.0
+seed: 20260919
+bootstrap_members: 20
+split:
+  train_end: '2026-09-08'
+  validation_start: '2026-09-09'
+  validation_end: '2026-09-12'
+  test_start: '2026-09-13'
+  test_end: '2026-09-18'
+  train_label_cutoff: '2026-09-09T00:00:00+08:00'
+  calibration_label_cutoff: '2026-09-13T00:00:00+08:00'
+calibration:
+  method: temperature_scaling_multiclass
+  min_train: 200
+  min_validation: 80
+  min_validation_dates: 2
+  temperature_bounds: [0.25, 10.0]
+grade_policy: PREREGISTERED_EXPERIMENTAL_NOT_ROI_OPTIMIZED
+grades:
+  A: {ev: 0.06, p10: 0.02, positive: 0.975, train_cell: 150, calibration_cell: 60, completeness: 1.0, max_width: 0.08, probability_edge: 0.04}
+  B: {ev: 0.04, p10: 0.01, positive: 0.90, train_cell: 60, calibration_cell: 30, completeness: 0.9, max_width: 0.12, probability_edge: 0.03}
+  C: {ev: 0.02, p10: 0.0, positive: 0.80, train_cell: 30, calibration_cell: 10, completeness: 0.8, max_width: 0.20, probability_edge: 0.02}
+forward:
+  min_candidates: 200
+  preferred_candidates: 500
+  min_list_dates: 30
+  automatic_promotion: false
+  old_v4_files_read_only: true

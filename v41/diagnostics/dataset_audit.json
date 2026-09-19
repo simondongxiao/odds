@@ -1,0 +1,45 @@
+{
+  "total": 3628,
+  "eligible": {
+    "train": 1688,
+    "validation": 450,
+    "test": 1008
+  },
+  "standard_window_counts": {
+    "train": {
+      "T-180": 132,
+      "T-120": 58,
+      "T-60": 47,
+      "T-30": 33,
+      "T-15": 30,
+      "T-5": 18,
+      "OUTSIDE_STANDARD_WINDOWS": 1370
+    },
+    "validation": {
+      "T-180": 29,
+      "T-120": 4,
+      "T-60": 8,
+      "T-30": 5,
+      "T-15": 18,
+      "T-5": 0,
+      "OUTSIDE_STANDARD_WINDOWS": 386
+    },
+    "test": {
+      "T-180": 48,
+      "T-120": 49,
+      "T-60": 40,
+      "T-30": 34,
+      "T-15": 38,
+      "T-5": 7,
+      "OUTSIDE_STANDARD_WINDOWS": 792
+    }
+  },
+  "exclusions": {
+    "missing_list_date": 12686,
+    "retained_quote": 8801,
+    "unrefreshed_quote": 10776,
+    "conflicting_final": 5
+  },
+  "strict_as_of": true,
+  "random_split": false
+}

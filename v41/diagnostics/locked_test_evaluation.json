@@ -1,0 +1,211 @@
+{
+  "model_artifact_id": "41b1e86bbdbb384ab9d899d8636c2a065d2b84aa771224cbf150739f719b7b1a",
+  "test_used_for_selection": false,
+  "historical_research_not_forward": true,
+  "n": 1008,
+  "metrics": {
+    "bucket_probability": {
+      "n": 1008,
+      "effective_n": 889.5,
+      "predicted_effective_win_rate": 0.503515380950634,
+      "actual_effective_win_rate": 0.5132096683530073,
+      "brier": 0.25020376560888674,
+      "five_state_brier": 0.6085565269820346,
+      "ece": 0.019393501545591125,
+      "slope": 0.39811772537815976,
+      "intercept": 0.047075512215794695
+    },
+    "raw_probability": {
+      "n": 1008,
+      "effective_n": 889.5,
+      "predicted_effective_win_rate": 0.47119424185022507,
+      "actual_effective_win_rate": 0.5132096683530073,
+      "brier": 0.25828101615302756,
+      "five_state_brier": 0.6385278925220523,
+      "ece": 0.07440247787378171,
+      "slope": 0.19093840348799435,
+      "intercept": 0.07605096470606541
+    },
+    "calibrated_probability": {
+      "n": 1008,
+      "effective_n": 889.5,
+      "predicted_effective_win_rate": 0.47460460801553467,
+      "actual_effective_win_rate": 0.5132096683530073,
+      "brier": 0.25516275283107587,
+      "five_state_brier": 0.6147036192060636,
+      "ece": 0.0644102046762923,
+      "slope": -0.04151547113322963,
+      "intercept": 0.04857964382698062
+    }
+  },
+  "probability_health": [
+    {
+      "handicap": "1.5",
+      "n": 46,
+      "distinct_vectors": 46,
+      "dominant_vector_share": 0.021739130434782608,
+      "status": "OK"
+    },
+    {
+      "handicap": "0.25",
+      "n": 330,
+      "distinct_vectors": 330,
+      "dominant_vector_share": 0.0030303030303030303,
+      "status": "OK"
+    },
+    {
+      "handicap": "0.5",
+      "n": 229,
+      "distinct_vectors": 229,
+      "dominant_vector_share": 0.004366812227074236,
+      "status": "OK"
+    },
+    {
+      "handicap": "0.75",
+      "n": 145,
+      "distinct_vectors": 145,
+      "dominant_vector_share": 0.006896551724137931,
+      "status": "OK"
+    },
+    {
+      "handicap": "2.25",
+      "n": 14,
+      "distinct_vectors": 14,
+      "dominant_vector_share": 0.07142857142857142,
+      "status": "OK"
+    },
+    {
+      "handicap": "2.0",
+      "n": 16,
+      "distinct_vectors": 16,
+      "dominant_vector_share": 0.0625,
+      "status": "OK"
+    },
+    {
+      "handicap": "1.75",
+      "n": 21,
+      "distinct_vectors": 21,
+      "dominant_vector_share": 0.047619047619047616,
+      "status": "OK"
+    },
+    {
+      "handicap": "1.0",
+      "n": 105,
+      "distinct_vectors": 105,
+      "dominant_vector_share": 0.009523809523809525,
+      "status": "OK"
+    },
+    {
+      "handicap": "1.25",
+      "n": 74,
+      "distinct_vectors": 74,
+      "dominant_vector_share": 0.013513513513513514,
+      "status": "OK"
+    },
+    {
+      "handicap": "2.5",
+      "n": 7,
+      "distinct_vectors": 7,
+      "dominant_vector_share": 0.14285714285714285,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "4.75",
+      "n": 2,
+      "distinct_vectors": 2,
+      "dominant_vector_share": 0.5,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "5.0",
+      "n": 2,
+      "distinct_vectors": 2,
+      "dominant_vector_share": 0.5,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "3.5",
+      "n": 1,
+      "distinct_vectors": 1,
+      "dominant_vector_share": 1.0,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "3.25",
+      "n": 6,
+      "distinct_vectors": 6,
+      "dominant_vector_share": 0.16666666666666666,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "4.5",
+      "n": 1,
+      "distinct_vectors": 1,
+      "dominant_vector_share": 1.0,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "2.75",
+      "n": 4,
+      "distinct_vectors": 4,
+      "dominant_vector_share": 0.25,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "3.0",
+      "n": 3,
+      "distinct_vectors": 3,
+      "dominant_vector_share": 0.3333333333333333,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "6.0",
+      "n": 1,
+      "distinct_vectors": 1,
+      "dominant_vector_share": 1.0,
+      "status": "SMALL_SAMPLE"
+    },
+    {
+      "handicap": "3.75",
+      "n": 1,
+      "distinct_vectors": 1,
+      "dominant_vector_share": 1.0,
+      "status": "SMALL_SAMPLE"
+    }
+  ],
+  "T30_test": {
+    "bucket_probability": {
+      "n": 34,
+      "effective_n": 25.5,
+      "predicted_effective_win_rate": 0.4918677348436979,
+      "actual_effective_win_rate": 0.5490196078431373,
+      "brier": 0.24693826483343834,
+      "five_state_brier": 0.6543664733138388,
+      "ece": 0.1565370534473349,
+      "slope": null,
+      "intercept": null
+    },
+    "raw_probability": {
+      "n": 34,
+      "effective_n": 25.5,
+      "predicted_effective_win_rate": 0.4134792887655213,
+      "actual_effective_win_rate": 0.5490196078431373,
+      "brier": 0.2862367324384097,
+      "five_state_brier": 0.7133871320002082,
+      "ece": 0.17621322891906918,
+      "slope": null,
+      "intercept": null
+    },
+    "calibrated_probability": {
+      "n": 34,
+      "effective_n": 25.5,
+      "predicted_effective_win_rate": 0.4619196832645554,
+      "actual_effective_win_rate": 0.5490196078431373,
+      "brier": 0.2526682352416494,
+      "five_state_brier": 0.635768281253632,
+      "ece": 0.08709992457858182,
+      "slope": null,
+      "intercept": null
+    }
+  }
+}

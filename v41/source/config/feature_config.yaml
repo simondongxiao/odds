@@ -1,0 +1,39 @@
+version: FEATURES_R1
+source_policy: allowlist_only_no_result_fields
+numeric:
+  - handicap_depth
+  - opening_handicap
+  - handicap_movement
+  - giving_water
+  - receiving_water
+  - water_movement
+  - market_giving_share
+  - euro_giving
+  - euro_draw
+  - euro_receiving
+  - euro_change
+  - euro_asian_gap
+  - minutes_to_kickoff
+  - quote_age_minutes
+  - line_up_count
+  - line_down_count
+  - reversal_count
+  - spread_speed
+  - water_speed
+  - late_30_line
+  - late_60_line
+  - giving_home
+  - kickoff_hour
+  - neutral_venue
+  - elo_difference
+  - recent_form_difference
+  - bookmaker_dispersion
+  - bookmaker_consensus
+  - line_resistance
+  - water_resistance
+  - youth
+  - women
+  - cup
+  - intent_confidence
+categorical: [intent, league_group]
+missing_numeric_encoding: train_median_plus_missing_indicator

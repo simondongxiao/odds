@@ -1,0 +1,14 @@
+{
+  "method": "temperature_scaling_multiclass",
+  "temperature": 4.487846097940057,
+  "validation_count": 450,
+  "window_support": {
+    "0.75": 2,
+    "1.5": 1,
+    "0.25": 1,
+    "1.0": 1
+  },
+  "state": "FITTED_INDEPENDENT_VALIDATION",
+  "test_used_for_selection": false,
+  "model_artifact_id": "41b1e86bbdbb384ab9d899d8636c2a065d2b84aa771224cbf150739f719b7b1a"
+}
