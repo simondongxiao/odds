@@ -4575,6 +4575,24 @@
           "7m:1344881",
           "7m:1344882"
         ]
+      },
+      "settlement": {
+        "archive_type": "FORWARD_NATIVE",
+        "close": null,
+        "close_reason": "NO_VERIFIED_CLOSE_SNAPSHOT",
+        "clv": null,
+        "event_id": "7m:1344884",
+        "outcome": "WIN",
+        "outcome_raw_sha256": "63bd61d844c098ccf22d52629d7fa95fc902fde622669adb79ab8a06ee5c9e87",
+        "paper_pnl": 0.8500000000000001,
+        "paper_units": 1,
+        "prediction_id": "c16a92fcfc36cc87e93af32bd94b",
+        "real_execution_allowed": false,
+        "real_stake": 0,
+        "score1": 63,
+        "score2": 92,
+        "score_rule": "INCLUDING_OT",
+        "settled_at": "2026-09-20T00:39:27.769343+00:00"
       }
     },
     {
