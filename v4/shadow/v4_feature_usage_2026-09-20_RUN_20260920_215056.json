@@ -1,0 +1,18 @@
+{
+  "list_date": "2026-09-20",
+  "run_id": "RUN_20260920_215056",
+  "rows": 1348,
+  "coverage": {
+    "line_bucket": 434,
+    "competition_used": 0,
+    "intent_available": 0,
+    "euro_odds_used": 0,
+    "asian_movement_available": 435,
+    "water_used": 434,
+    "totals_available": 300,
+    "timing_available": 1348,
+    "fundamentals_available": 0,
+    "flow_available": 0
+  },
+  "model_note": "The current V4 production shadow posterior is keyed by line bucket. This audit records captured-but-not-used features and does not inject noise or change grades."
+}
