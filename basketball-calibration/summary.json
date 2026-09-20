@@ -3,14 +3,14 @@
   "archive_type": "FORWARD_NATIVE",
   "hit_rate": null,
   "last_run_funnel": {
-    "blocked_events": 172,
+    "blocked_events": 175,
     "comparable_events": 15,
-    "events": 190,
+    "events": 192,
     "fresh_market_events": 43,
     "independent_priceable_events": 28,
     "market_observed_events": 50,
-    "paper_bettable": 3,
-    "paper_triggered_events": 3,
+    "paper_bettable": 0,
+    "paper_triggered_events": 0,
     "raw_verified_market_events": 50,
     "research_coupled_events": 15
   },
@@ -21,8 +21,8 @@
       "canonical_execution_records": 29,
       "canonical_signal_records": 77,
       "policy": "Earliest valid first-write per canonical event and market is the only statistical sample; later captures remain audit evidence.",
-      "raw_first_write_records_found": 475,
-      "repeat_capture_records_excluded_from_statistics": 398,
+      "raw_first_write_records_found": 490,
+      "repeat_capture_records_excluded_from_statistics": 413,
       "repeat_execution_records_excluded_from_statistics": 0
     },
     "model_validation": {
