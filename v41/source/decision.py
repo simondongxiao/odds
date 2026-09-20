@@ -22,6 +22,7 @@ def decide(pred,s,f,as_of):
                 out.update(grade=grade,action='SHADOW CANDIDATE',decision_reason=['ALL_PREREGISTERED_GATES_PASSED']);return out
         reasons=['MULTI_GATE_NOT_PASSED']
         if pred['window_calibration_support']<cfg['grades']['C']['calibration_cell']:reasons.append('INSUFFICIENT_T30_CALIBRATION_SUPPORT')
+        out.update(grade='C',action='SHADOW CANDIDATE',strict_grade='N',grade_policy='USER_FORCED_ABC_FALLBACK_20260920',decision_reason=['FORCED_C_OBSERVATION_USER_RULE',*reasons]);return out
     out['decision_reason']=reasons;return out
 
 def freeze(s,f,pred,decision,model,as_of,control=None):

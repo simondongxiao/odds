@@ -50,7 +50,7 @@ def test_titan_identity_sign():
         s=normalize({'match_id':'1','list_date':'2026-09-19','bj_time':'9-19 22:00','home_cn':'甲','away_cn':'乙','state':'0','ah_full_current_line_or_draw':line,'ah_full_current_home_or_over':.9,'ah_full_current_away_or_under':.8},'2026-09-19T21:30:00+08:00','fixture');assert s['giving_team']==expected;assert s['giving_water']==(.9 if line>0 else .8)
 def test_c_is_not_any_positive_ev(sample):
     s=sample['snapshot'];s['quote_at']='2026-09-19T21:30:00+08:00';s['kickoff_at']='2026-09-19T22:00:00+08:00';s['minutes_to_kickoff']=30;s['prematch']=True;p=[.55,0,0,0,.45]
-    pred={'calibrated_probability':p,'ensemble':[p]*20,'train_support':1000,'calibration_support':500,'window_calibration_support':0};d=decide(pred,s,sample['features'],s['quote_at']);assert d['grade']=='N';assert 'INSUFFICIENT_T30_CALIBRATION_SUPPORT' in d['decision_reason']
+    pred={'calibrated_probability':p,'ensemble':[p]*20,'train_support':1000,'calibration_support':500,'window_calibration_support':0};d=decide(pred,s,sample['features'],s['quote_at']);assert d['grade']=='C';assert d['strict_grade']=='N';assert d['grade_policy']=='USER_FORCED_ABC_FALLBACK_20260920';assert 'INSUFFICIENT_T30_CALIBRATION_SUPPORT' in d['decision_reason']
 def test_probability_collapse_alarm():
     cs=[{'snapshot':{'handicap':.5},'probability':{'calibrated_probability':[.6,0,0,0,.4]}}]*10;assert probability_health(cs)[0]['status']=='PROBABILITY_COLLAPSE_CRITICAL'
 def test_strict_training_asof():

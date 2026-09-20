@@ -28,13 +28,14 @@ WINDOW_CN = {
     'PRIMARY_T30': '处于主冻结窗口', 'MISSED_PRIMARY_WINDOW': '已错过主冻结窗口',
     'MISSING_OR_NON_PREMATCH': '缺少有效赛前快照',
 }
-ACTION_CN = {'NO BET': '不投', 'BET': '候选', 'WATCH': '观察'}
+ACTION_CN = {'NO BET': '不投', 'BET': '候选', 'WATCH': '观察', 'SHADOW CANDIDATE': '影子候选'}
 SIDE_CN = {'giving': '让球方', 'receiving': '受让方', 'home': '主队', 'away': '客队'}
 RESULT_CN = {'W': '红', 'HW': '红半', 'P': '走', 'HL': '黑半', 'L': '黑'}
 REASON_CN = {
     'NO_VALID_PREMATCH_SNAPSHOT': '没有有效赛前快照', 'NOT_PRIMARY_T30_WINDOW': '尚未进入主冻结窗口',
     'MULTI_GATE_NOT_PASSED': '多重门槛未全部通过',
     'INSUFFICIENT_T30_CALIBRATION_SUPPORT': 'T-30 校准样本不足',
+    'FORCED_C_OBSERVATION_USER_RULE': '按用户规则强制归入 C 级观察候选',
     'NEUTRAL_PK': '平手盘无可验证方向', 'MISSING_MARKET': '盘口数据缺失',
 }
 HEALTH_CN = {
@@ -138,11 +139,12 @@ def render(report, rows):
     body += ('<nav class="nav"><a href="compare/">V4 与 V4.1 同场对照</a>'
              '<a href="../v4/">原 V4 影子看板</a><a href="../v3-legacy/">V3 正式决策页</a>'
              '<a href="V41_BUILD_REPORT.md">V4.1 构建报告</a></nav>')
-    body += ('<section class="definitions"><b>等级定义：</b> A、B、C 为依次降低的正期望候选等级；'
-             'N 表示完成计算但未通过候选门槛。<b>页面口径：</b> 顶部 A/B/C/N 只统计本列表日已经冻结的赛前记录；'
+    body += ('<section class="definitions"><b>等级定义：</b> A、B 保持严格正期望门槛；C 包含严格 C 与按用户规则强制纳入的有效 T-30 方向；'
+             'N 表示未形成可计入成绩的冻结候选。<b>页面口径：</b> 顶部 A/B/C/N 只统计本列表日已经冻结的赛前记录；'
              '“预览计算”不等于冻结，更不等于候选。</section>')
-    body += ('<section class="notice">独立验证集已经完成温度校准，但 T-30 验证样本目前只有 5 场，'
-             '不足以证明临场优势。因此 R1 的候选闸门保持关闭，“不投”是当前模型的有效结论。'
+    body += ('<section class="notice">独立验证集已经完成温度校准，但 T-30 验证样本目前只有 5 场。'
+             '从 2026-09-20 新规则生效后，有效 T-30 方向若未达到严格 A/B/C 门槛，将强制归入 C 级影子候选；'
+             '详情同时保留 strict_grade=N 和失败门槛，避免把强制 C 误读为严格 C。历史已冻结等级不追改。'
              '历史测试不冒充前瞻结果；缺少可靠初始时间的开盘数据明确标为“缺失”。</section>')
     metrics = [
         ('列表日', day), ('总赛事', summary['total']), ('预览计算', summary['computed_preview']),
@@ -152,17 +154,6 @@ def render(report, rows):
         ('最近冻结时间', (summary['latest_freeze'] or '尚无冻结').replace('T', ' ').replace('+08:00', '')),
     ]
     body += '<div class="metrics">' + ''.join(_metric(k, v) for k, v in metrics) + '</div>'
-    previous_dates = [value for value in comp.get('n_observation_by_date', {}) if value < day]
-    if previous_dates:
-        previous_day = max(previous_dates)
-        n_perf = comp['n_observation_by_date'][previous_day]['v41']
-        body += ('<h2 class="section-title">上一冻结列表日 N 不投观察结算</h2>'
-                 '<div class="section-note">N 仍为不投；以下只按冻结方向与原盘口记录纸面红黑，不改变等级，也不代表真实投注。</div>'
-                 '<div class="metrics">' + _metric('列表日', previous_day) + _metric('N 冻结样本', n_perf['candidates']) +
-                 _metric('已结算 / 待核', f"{n_perf['settled']} / {n_perf['pending']}") +
-                 _metric('红 / 红半 / 走 / 黑半 / 黑', f"{n_perf['W']} / {n_perf['HW']} / {n_perf['P']} / {n_perf['HL']} / {n_perf['L']}") +
-                 _metric('有效胜率', pct(n_perf['effective_win_rate'])) + _metric('纸面盈亏', f"{n_perf['PnL']:+.2f}u") +
-                 _metric('纸面收益率', pct(n_perf['ROI'])) + '</div>')
     body += ('<section class="definitions"><b>模型版本：</b> ' + esc(model['model_version']) +
              '　<b>概率模型：</b> 分桶先验偏置的掩码多项逻辑回归'
              '　<b>校准：</b> 独立验证集温度校准（温度 ' + num(model['temperature']) + '）<br>'
@@ -200,8 +191,8 @@ def render(report, rows):
         giving, receiving = snapshot.get('giving_team') or '—', snapshot.get('receiving_team') or '—'
         market_intent = group_cn((features.get('market_interpretation') or {}).get('intent') or '—')
         settled_code = result.get('v41_result')
-        settled_text = RESULT_CN.get(settled_code, settled_code or '待结算')
-        pnl_value = result.get('v41_pnl') if grade in 'ABC' else result.get('v41_hypothetical_unit_pnl')
+        settled_text = RESULT_CN.get(settled_code, settled_code or '待结算') if grade in 'ABC' else ('不计入成绩' if settled_code else '待结算')
+        pnl_value = result.get('v41_pnl') if grade in 'ABC' else None
         pnl_text = '—' if pnl_value is None else f'{pnl_value:+.2f}u'
         p_giving, p_receiving, ev_mean = decision.get('P_giving_cover'), decision.get('P_receiving_cover'), decision.get('EV_mean')
         ev_class = 'num-positive' if isinstance(ev_mean, (int, float)) and ev_mean > 0 else 'num-negative' if isinstance(ev_mean, (int, float)) and ev_mean < 0 else ''
@@ -220,6 +211,8 @@ def render(report, rows):
         detail += _detail_item('校准后 W/HW/P/HL/L 概率（让球方）', probability.get('calibrated_probability'))
         detail += _detail_item('必需特征 / 全部特征完整度', pct(features.get('feature_completeness')) + ' / ' + pct(features.get('all_feature_completeness')))
         detail += _detail_item('全部 / T-30 校准支持样本', str(probability.get('calibration_support')) + ' / ' + str(probability.get('window_calibration_support')))
+        detail += _detail_item('分级策略', decision.get('grade_policy') or '严格门槛')
+        detail += _detail_item('严格门槛原始等级', decision.get('strict_grade') or grade)
         detail += _detail_item('决策原因', reason_cn(decision.get('decision_reason')))
         detail += '</div><pre class="raw">' + esc(json.dumps(trace, ensure_ascii=False, indent=2)) + '</pre></details>'
         row_html = ('<tr><td>' + time_cn(snapshot.get('kickoff_at')) + '</td>'
@@ -276,10 +269,6 @@ document.getElementById('pageinfo').textContent=`第 1 / ${Math.max(1,Math.ceil(
                 _metric('收益率', pct(perf['ROI'])) + '</div></section>')
 
     body += '<div class="compare-grid">' + model_metrics('原 V4 对照组', comp['overall']['v4']) + model_metrics('V4.1 挑战组', comp['overall']['v41']) + '</div>'
-    body += ('<h2 class="section-title">N 不投观察组红黑</h2>'
-             '<div class="section-note">N 仍然是不投，不改变赛前等级；这里按冻结候选方向和原盘口计算纸面红黑与模拟盈亏，用于检验模型拒绝是否合理。</div>'
-             '<div class="compare-grid">' + model_metrics('原 V4 · N 不投观察', comp['n_observation']['v4'], 'N 样本') +
-             model_metrics('V4.1 · N 不投观察', comp['n_observation']['v41'], 'N 样本') + '</div>')
     body += ('<section class="definitions"><b>结算口径：</b> 每个候选按 1 单位计算；收益率分母只包括已经结算的候选；'
              '走盘计入本金，红半/黑半在有效胜率中各按 0.5 场计算。没有已结算样本时，收益率显示为空白。'
              '<br><b>校准指标：</b> 布里尔分数和校准误差越低越好，但小样本阶段不做优劣结论。</section>')

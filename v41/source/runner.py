@@ -31,9 +31,9 @@ def tick(day):
                 write(ROOT/'features'/day/str(mid)/(f['feature_id']+'.json'),f,immutable=True)
                 if window_name(s['minutes_to_kickoff'])=='T-30' and 0<=(at-clock(s['quote_at'])).total_seconds()/60<=config('snapshot_policy')['max_quote_age_minutes']:
                     c=control.get(str(mid))
-                    if c is not None and c.get('quote_at') and abs((clock(c['quote_at'])-clock(s['quote_at'])).total_seconds())<2 and clock(c['decision_at'])<clock(s['kickoff_at']):
+                    if c is not None and c.get('quote_at') and abs((clock(c['quote_at'])-clock(s['quote_at'])).total_seconds())<2 and clock(c['decision_at'])<clock(s['kickoff_at']) and d.get('grade') in 'ABC':
                         frozen=freeze(s,f,p,d,model,at,c);card.update(frozen,window_status='FROZEN_PRIMARY_T30')
-                    else:card['window_status']='CONTROL_PAIR_UNAVAILABLE_NO_FREEZE'
+                    else:card['window_status']='CONTROL_PAIR_UNAVAILABLE_NO_FREEZE' if c is None or not c.get('quote_at') else 'NO_ABC_NO_FREEZE'
             else:card['decision']['decision_reason']=['NEUTRAL_PK' if s['handicap']==0 else 'MISSING_MARKET']
         cards.append(card)
     rows=reconcile();comp=comparison(rows);checks=health(cards,rows);frozen=[c for c in cards if c.get('frozen_at')]
