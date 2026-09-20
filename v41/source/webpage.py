@@ -197,12 +197,14 @@ def render(report, rows):
         giving, receiving = snapshot.get('giving_team') or '—', snapshot.get('receiving_team') or '—'
         market_intent = group_cn((features.get('market_interpretation') or {}).get('intent') or '—')
         settled_code = result.get('v41_result')
-        settled_text = RESULT_CN.get(settled_code, settled_code or '待结算') if grade in 'ABC' else ('不计入成绩' if settled_code else '待结算')
+        score = result.get('score') or ''
+        result_label = RESULT_CN.get(settled_code, settled_code or '待结算') if grade in 'ABC' else ('不计入成绩' if settled_code else '待结算')
+        settled_text = (('比分 ' + score + ' · ') if score else '') + result_label
         pnl_value = result.get('v41_pnl') if grade in 'ABC' else None
         pnl_text = '—' if pnl_value is None else f'{pnl_value:+.2f}u'
         p_giving, p_receiving, ev_mean = decision.get('P_giving_cover'), decision.get('P_receiving_cover'), decision.get('EV_mean')
         ev_class = 'num-positive' if isinstance(ev_mean, (int, float)) and ev_mean > 0 else 'num-negative' if isinstance(ev_mean, (int, float)) and ev_mean < 0 else ''
-        status_class = 'status-frozen' if card['window_status'] == 'FROZEN_PRIMARY_T30' else 'status'
+        status_class = 'status-frozen' if card['window_status'] in {'FROZEN_PRIMARY_T30','FROZEN_PRIMARY_4H'} else 'status'
         action_class = 'decision-yes' if grade in 'ABC' else 'decision-no'
         trace = {
             '正向驱动因素': probability.get('top_positive_drivers'), '负向驱动因素': probability.get('top_negative_drivers'),
