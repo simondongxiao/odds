@@ -128,6 +128,7 @@ def render(report, rows):
     folder.mkdir(parents=True, exist_ok=True)
     (folder / 'compare').mkdir(exist_ok=True)
     summary, model, day = report['summary'], report['model'], report['list_date']
+    comp = report['comparison']
     settlements = {row['match_id']: row for row in rows if row['date'] == day}
 
     body = ('<section class="hero"><h1>V4.1 影子模型看板</h1>'
@@ -151,6 +152,17 @@ def render(report, rows):
         ('最近冻结时间', (summary['latest_freeze'] or '尚无冻结').replace('T', ' ').replace('+08:00', '')),
     ]
     body += '<div class="metrics">' + ''.join(_metric(k, v) for k, v in metrics) + '</div>'
+    previous_dates = [value for value in comp.get('n_observation_by_date', {}) if value < day]
+    if previous_dates:
+        previous_day = max(previous_dates)
+        n_perf = comp['n_observation_by_date'][previous_day]['v41']
+        body += ('<h2 class="section-title">上一冻结列表日 N 不投观察结算</h2>'
+                 '<div class="section-note">N 仍为不投；以下只按冻结方向与原盘口记录纸面红黑，不改变等级，也不代表真实投注。</div>'
+                 '<div class="metrics">' + _metric('列表日', previous_day) + _metric('N 冻结样本', n_perf['candidates']) +
+                 _metric('已结算 / 待核', f"{n_perf['settled']} / {n_perf['pending']}") +
+                 _metric('红 / 红半 / 走 / 黑半 / 黑', f"{n_perf['W']} / {n_perf['HW']} / {n_perf['P']} / {n_perf['HL']} / {n_perf['L']}") +
+                 _metric('有效胜率', pct(n_perf['effective_win_rate'])) + _metric('纸面盈亏', f"{n_perf['PnL']:+.2f}u") +
+                 _metric('纸面收益率', pct(n_perf['ROI'])) + '</div>')
     body += ('<section class="definitions"><b>模型版本：</b> ' + esc(model['model_version']) +
              '　<b>概率模型：</b> 分桶先验偏置的掩码多项逻辑回归'
              '　<b>校准：</b> 独立验证集温度校准（温度 ' + num(model['temperature']) + '）<br>'
@@ -246,7 +258,6 @@ document.getElementById('pageinfo').textContent=`第 1 / ${Math.max(1,Math.ceil(
                  _health_table(items) + '<p class="meta">页面最多展示 30 行；<a href="diagnostics/' + esc(key) + '_health.csv">下载完整检查表</a></p></div></details>')
     (folder / 'index.html').write_text(shell('V4.1 影子模型看板', body), encoding='utf-8')
 
-    comp = report['comparison']
     body = ('<section class="hero"><h1>原 V4 与 V4.1 同场前瞻对照</h1>'
             '<div class="hero-sub">统一报价、统一 T-30 窗口、不可变赛前决策</div>'
             '<div class="badges"><span class="badge">仅影子观察</span><span class="badge">禁止实盘</span>'
