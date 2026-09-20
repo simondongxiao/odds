@@ -1,19 +1,25 @@
 from collections import defaultdict
+import html
+import re
 import numpy as np
 from scipy.optimize import minimize
 from .common import *
 
+def team_identity(value):
+    """Compare team identities without Titan's presentation-only HTML tags."""
+    return re.sub(r'<[^>]+>', '', html.unescape(str(value or ''))).strip()
+
 def settlement(frozen,result):
     s=frozen['snapshot'];d=frozen['decision'];c=frozen.get('control') or {}
-    if (result['home'],result['away'])!=(s['home'],s['away']):raise ValueError('RESULT_IDENTITY_MISMATCH')
+    if tuple(map(team_identity,(result['home'],result['away'])))!=tuple(map(team_identity,(s['home'],s['away']))):raise ValueError('RESULT_IDENTITY_MISMATCH')
     if clock(result['result_available_at'])<clock(s['kickoff_at']):raise ValueError('RESULT_BEFORE_KICKOFF')
     hg,ag=map(int,result['score'].split('-'));out={'decision_id':frozen['decision_id'],'match_id':s['match_id'],'score':result['score'],'result_available_at':result['result_available_at'],'source':result['source'],'result_source_hash':result['source_hash']}
     for prefix,decision in [('v41',d),('v4',c)]:
         side=decision.get('candidate_side');team=decision.get('candidate_team');line=decision.get('candidate_handicap') if prefix=='v41' else decision.get('selected_handicap_signed');water=decision.get('water') if prefix=='v41' else decision.get('selected_water_hk')
         if side not in {'giving','receiving'} or line is None or water is None:out.update({prefix+'_result':None,prefix+'_pnl':None});continue
         expected=s[side+'_team'];expectedline=(-1 if side=='giving' else 1)*abs(s['handicap'])
-        if team!=expected or abs(float(line)-expectedline)>1e-8:raise ValueError('SIDE_SIGN_MISMATCH')
-        margin=hg-ag if team==s['home'] else ag-hg;label=result_for_margin(margin,float(line));pnl=payoff(float(water))[STATES.index(label)]
+        if team_identity(team)!=team_identity(expected) or abs(float(line)-expectedline)>1e-8:raise ValueError('SIDE_SIGN_MISMATCH')
+        margin=hg-ag if team_identity(team)==team_identity(s['home']) else ag-hg;label=result_for_margin(margin,float(line));pnl=payoff(float(water))[STATES.index(label)]
         out[prefix+'_result']=label;out[prefix+'_pnl']=pnl if decision.get('grade') in ['A','B','C'] else 0.
         out[prefix+'_hypothetical_unit_pnl']=pnl
     return out

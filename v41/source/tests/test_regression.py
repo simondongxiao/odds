@@ -68,3 +68,7 @@ def test_control_uses_settlement_signed_field_not_display_magnitude(sample):
     s=sample['snapshot'];d={'grade':'N','candidate_side':'giving','candidate_team':s['giving_team'],'candidate_handicap':-.5,'water':.9};c={'grade':'C','candidate_side':'giving','candidate_team':s['giving_team'],'candidate_handicap':.5,'selected_handicap_signed':-.5,'selected_water_hk':.9};f={'snapshot':s,'decision':d,'control':c,'decision_id':'fixture'}
     result={'home':s['home'],'away':s['away'],'score':'0-0','result_available_at':(clock(s['kickoff_at'])+dt.timedelta(hours=3)).isoformat(),'source':'fixture','source_hash':'fixture'}
     out=settlement(f,result);assert out['v4_result']=='L' and out['v4_pnl']==-1
+def test_control_team_identity_ignores_titan_html(sample):
+    s=sample['snapshot'];s['home']='甲(中)';s['giving_team']='甲(中)';d={'grade':'N','candidate_side':'giving','candidate_team':'甲(中)','candidate_handicap':-.5,'water':.9};c={'grade':'C','candidate_side':'giving','candidate_team':'甲<font color=#880000>(中)</font>','selected_handicap_signed':-.5,'selected_water_hk':.9};f={'snapshot':s,'decision':d,'control':c,'decision_id':'fixture-html'}
+    result={'home':'甲<font color=#880000>(中)</font>','away':s['away'],'score':'1-0','result_available_at':(clock(s['kickoff_at'])+dt.timedelta(hours=3)).isoformat(),'source':'fixture','source_hash':'fixture'}
+    out=settlement(f,result);assert out['v4_result']=='W' and out['v4_pnl']==pytest.approx(.9)
