@@ -24,8 +24,10 @@ h2{font-size:17px;margin:20px 0 8px;color:#174e7e}a{color:var(--blue)}footer{mar
 
 
 WINDOW_CN = {
-    'FROZEN_PRIMARY_T30': '已冻结（T-30）', 'WAIT_PRIMARY_WINDOW': '等待主冻结窗口',
+    'FROZEN_PRIMARY_T30': '已冻结（历史 T-30）', 'WAIT_PRIMARY_WINDOW': '等待主冻结窗口',
     'PRIMARY_T30': '处于主冻结窗口', 'MISSED_PRIMARY_WINDOW': '已错过主冻结窗口',
+    'FROZEN_PRIMARY_4H': '已冻结（赛前4小时窗口）', 'WAIT_PRIMARY_4H_WINDOW': '尚未进入赛前4小时窗口',
+    'PRIMARY_4H': '处于赛前4小时冻结窗口', 'MISSED_PRIMARY_4H_WINDOW': '已开赛，冻结窗口结束',
     'MISSING_OR_NON_PREMATCH': '缺少有效赛前快照',
 }
 ACTION_CN = {'NO BET': '不投', 'BET': '候选', 'WATCH': '观察', 'SHADOW CANDIDATE': '影子候选'}
@@ -33,8 +35,10 @@ SIDE_CN = {'giving': '让球方', 'receiving': '受让方', 'home': '主队', 'a
 RESULT_CN = {'W': '红', 'HW': '红半', 'P': '走', 'HL': '黑半', 'L': '黑'}
 REASON_CN = {
     'NO_VALID_PREMATCH_SNAPSHOT': '没有有效赛前快照', 'NOT_PRIMARY_T30_WINDOW': '尚未进入主冻结窗口',
+    'NOT_PRIMARY_4H_WINDOW': '尚未进入赛前4小时冻结窗口或比赛已开赛',
     'MULTI_GATE_NOT_PASSED': '多重门槛未全部通过',
     'INSUFFICIENT_T30_CALIBRATION_SUPPORT': 'T-30 校准样本不足',
+    'INSUFFICIENT_CALIBRATION_SUPPORT': '对应盘口的独立校准样本不足',
     'FORCED_C_OBSERVATION_USER_RULE': '按用户规则强制归入 C 级观察候选',
     'NEUTRAL_PK': '平手盘无可验证方向', 'MISSING_MARKET': '盘口数据缺失',
 }
@@ -139,11 +143,11 @@ def render(report, rows):
     body += ('<nav class="nav"><a href="compare/">V4 与 V4.1 同场对照</a>'
              '<a href="../v4/">原 V4 影子看板</a><a href="../v3-legacy/">V3 正式决策页</a>'
              '<a href="V41_BUILD_REPORT.md">V4.1 构建报告</a></nav>')
-    body += ('<section class="definitions"><b>等级定义：</b> A、B 保持严格正期望门槛；C 包含严格 C 与按用户规则强制纳入的有效 T-30 方向；'
+    body += ('<section class="definitions"><b>等级定义：</b> A、B 保持严格正期望门槛；C 包含严格 C 与按用户规则强制纳入的有效赛前4小时窗口方向；'
              'N 表示未形成可计入成绩的冻结候选。<b>页面口径：</b> 顶部 A/B/C/N 只统计本列表日已经冻结的赛前记录；'
              '“预览计算”不等于冻结，更不等于候选。</section>')
-    body += ('<section class="notice">独立验证集已经完成温度校准，但 T-30 验证样本目前只有 5 场。'
-             '从 2026-09-20 新规则生效后，有效 T-30 方向若未达到严格 A/B/C 门槛，将强制归入 C 级影子候选；'
+    body += ('<section class="notice">从 2026-09-20 起，主冻结窗口改为开赛前4小时内，首次合格的手动运行即冻结并计算 A/B/C。'
+             '有效方向若未达到严格 A/B/C 门槛，将强制归入 C 级影子候选；'
              '详情同时保留 strict_grade=N 和失败门槛，避免把强制 C 误读为严格 C。历史已冻结等级不追改。'
              '历史测试不冒充前瞻结果；缺少可靠初始时间的开盘数据明确标为“缺失”。</section>')
     metrics = [
@@ -157,19 +161,21 @@ def render(report, rows):
     body += ('<section class="definitions"><b>模型版本：</b> ' + esc(model['model_version']) +
              '　<b>概率模型：</b> 分桶先验偏置的掩码多项逻辑回归'
              '　<b>校准：</b> 独立验证集温度校准（温度 ' + num(model['temperature']) + '）<br>'
-             '<b>主冻结窗口：</b> 开赛前 25–40 分钟内首次真实运行且报价合格的 T-30 快照；'
+             '<b>主冻结窗口：</b> 开赛前 4 小时内首次真实运行且报价合格的快照；'
+             '该规则版本为 ' + esc((report.get('execution_policy') or {}).get('version', '历史 T-30 规则')) + '；'
              '报价时间是本地收到价格的时间。　<b>页面生成：</b> ' + esc(report['generated_at'].replace('T', ' ').replace('+08:00', '')) + '</section>')
     if report.get('control_error'):
         body += '<section class="notice">原 V4 隔离对照运行异常：' + esc(report['control_error']) + '；未能配对的比赛不会冻结。</section>'
 
     body += ('<h2 class="section-title">今日赛事与冻结决策</h2>'
-             '<div class="section-note">冻结记录优先排列。非 T-30 行只用于检查数据质量，不能视为候选名单。</div>'
+             '<div class="section-note">冻结记录优先排列。距离开赛超过4小时的行仅作预览，不计入候选名单。</div>'
              '<div class="controls"><label>搜索<input id="search" placeholder="球队、联赛或比赛编号" oninput="showCards(0)"></label>'
              '<label>等级<select id="grade" onchange="showCards(0)"><option value="全部">全部等级</option>'
              '<option>A</option><option>B</option><option>C</option><option>N</option></select></label>'
              '<label>状态<select id="window" onchange="showCards(0)"><option value="全部">全部状态</option>'
-             '<option value="FROZEN_PRIMARY_T30">已冻结（T-30）</option><option value="WAIT_PRIMARY_WINDOW">等待主冻结窗口</option>'
-             '<option value="PRIMARY_T30">处于主冻结窗口</option><option value="MISSED_PRIMARY_WINDOW">已错过主冻结窗口</option>'
+             '<option value="FROZEN_PRIMARY_4H">已冻结（赛前4小时）</option><option value="WAIT_PRIMARY_4H_WINDOW">尚未进入赛前4小时窗口</option>'
+             '<option value="PRIMARY_4H">处于赛前4小时窗口</option><option value="MISSED_PRIMARY_4H_WINDOW">已开赛</option>'
+             '<option value="FROZEN_PRIMARY_T30">已冻结（历史 T-30）</option>'
              '<option value="MISSING_OR_NON_PREMATCH">缺少有效赛前快照</option></select></label>'
              '<div class="pager"><button onclick="showCards(page-1)">上一页</button><span id="pageinfo"></span>'
              '<button onclick="showCards(page+1)">下一页</button></div></div>')
@@ -252,12 +258,12 @@ document.getElementById('pageinfo').textContent=`第 1 / ${Math.max(1,Math.ceil(
     (folder / 'index.html').write_text(shell('V4.1 影子模型看板', body), encoding='utf-8')
 
     body = ('<section class="hero"><h1>原 V4 与 V4.1 同场前瞻对照</h1>'
-            '<div class="hero-sub">统一报价、统一 T-30 窗口、不可变赛前决策</div>'
+            '<div class="hero-sub">统一报价、版本化冻结窗口、不可变赛前决策</div>'
             '<div class="badges"><span class="badge">仅影子观察</span><span class="badge">禁止实盘</span>'
             '<span class="badge">real_money=false</span></div></section>'
             '<nav class="nav"><a href="../">返回 V4.1 今日看板</a><a href="../../v4/">原 V4 影子看板</a>'
             '<a href="../../v3-legacy/">V3 正式决策页</a></nav>'
-            '<section class="notice">本页只比较同一场比赛、同一份报价、同一轮 T-30 运行生成的不可变前瞻记录。'
+            '<section class="notice">本页只比较同一场比赛、同一份报价、同一轮冻结运行生成的不可变前瞻记录。历史记录保留原 T-30 窗口；2026-09-20 起的新记录使用赛前4小时窗口。'
             '原 V4 使用逐字节隔离副本运行，规则保持不变，原 V4 页面和历史记录没有被改写。'
             '统一时间窗口的对照结果不等于原 V4 页面上的全部历史成绩。</section>')
 

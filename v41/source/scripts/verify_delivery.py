@@ -10,7 +10,12 @@ for f in decisions:
     body={k:v for k,v in f.items() if k!='decision_id'};assert digest(body)==f['decision_id'],'FROZEN_CONTENT_CHANGED'
     s=f['snapshot'];d=f['decision'];p=f['probability'];c=f['control'];model=read(ROOT/'models'/f"{f['model_version']}.json")
     assert f['real_money'] is False and clock(model['created_at'])<=clock(f['frozen_at'])<clock(s['kickoff_at'])
-    assert 25<=s['minutes_to_kickoff']<=40
+    if f.get('execution_policy_version'):
+        policy=config('execution_policy')
+        assert f['execution_policy_version']==policy['version']
+        assert policy['primary_freeze_min_minutes_exclusive']<s['minutes_to_kickoff']<=policy['primary_freeze_max_minutes_inclusive']
+    else:
+        assert 25<=s['minutes_to_kickoff']<=40
     assert 0<=(clock(f['frozen_at'])-clock(s['quote_at'])).total_seconds()/60<=3
     assert c['match_id']==s['match_id'] and abs((clock(c['quote_at'])-clock(s['quote_at'])).total_seconds())<2
     assert clock(c['decision_at'])<clock(s['kickoff_at'])

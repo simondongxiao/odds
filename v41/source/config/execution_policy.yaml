@@ -1,0 +1,11 @@
+version: V41_EXEC_4H_R2_20260920
+timezone: Asia/Shanghai
+primary_freeze_window: T-4H
+primary_freeze_min_minutes_exclusive: 0
+primary_freeze_max_minutes_inclusive: 240
+primary_selection: first_actual_run_with_valid_quote_in_window
+calibration_support_for_grade: all_prematch_calibration_cell
+fallback_grade: C
+status: SHADOW_ONLY
+real_money: false
+

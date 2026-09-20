@@ -16,7 +16,7 @@ python -m pytest v41/tests -q --basetemp=D:/codex/v41/tests/tmp
 python v41/scripts/forward_tick.py
 ```
 
-`forward_tick.py` collects current Titan list date and earlier list dates with pending frozen matches. It does not retrain, change thresholds, publish original pages, or place bets. Keep the host/network available; missed windows remain MISSING. Snapshot cadence is 5 minutes when scheduled; this is not a guarantee against desktop sleep/network delays.
+`forward_tick.py` collects current Titan list date and earlier list dates with pending frozen matches. It does not retrain, publish original pages, or place bets. Since execution policy `V41_EXEC_4H_R2_20260920`, a match enters the primary freeze window at T-4h and the first valid manual run in `(T-4h, kickoff)` freezes A/B/C. Historical T-30 freezes remain immutable. V4.1 remains manual-only; no scheduler is created.
 
 ## Architecture
 
@@ -26,7 +26,7 @@ Model coefficients, train/validation dates, calibration and thresholds are locke
 
 ## Important current limitation
 
-Train 1,688, validation 450, locked test 1,008; only **5 validation matches in T-30**, while C requires at least 10 in the corresponding handicap cell. Therefore R1 currently cannot produce ABC candidates. It can freeze NO BET predictions and collect paired CONTROL outcomes. This is deliberately **data collection / research readiness**, not evidence of improved trading performance. With the locked R1 calibration support, merely collecting more results will not automatically open the gate. A separately approved, preregistered R2 with new independent calibration and forward holdout would be needed; never silently modify R1.
+Train 1,688, validation 450, locked test 1,008. The probability model remains the locked R1 artifact. The execution policy is now independently versioned: strict A/B/C uses all-prematch calibration-cell support, while any otherwise valid directional freeze that misses strict gates is forced into C under the user's observation rule. Forced C keeps `strict_grade=N` and the failed gates visible. This is **data collection / research readiness**, not evidence of improved trading performance.
 
 The locked test currently does **not** beat the bucket baseline. Calibration reduces raw-model overconfidence, but does not prove good calibration or profitable EV. See `diagnostics/V41_BUILD_REPORT.md`.
 

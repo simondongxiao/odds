@@ -2,7 +2,7 @@ import copy,datetime as dt
 import numpy as np
 import pytest
 from v41.common import *
-from v41.snapshots import normalize,windows
+from v41.snapshots import normalize,windows,in_primary_freeze_window,primary_window_status
 from v41.features import build
 from v41.probability import predict,encode
 from v41.decision import decide,freeze
@@ -25,6 +25,14 @@ def test_intent_not_hard_side_mapping(model,sample):
     source=(ROOT/'decision.py').read_text(encoding='utf-8');assert "categorical" not in source and 'map_intent' not in source
 def test_missing_T30_never_substitutes(sample):
     s=sample['snapshot'];s['minutes_to_kickoff']=500;assert windows([s],s['quote_at'])['T-30']['status']=='MISSING'
+def test_primary_freeze_window_is_four_hours():
+    assert not in_primary_freeze_window(241)
+    assert in_primary_freeze_window(240)
+    assert in_primary_freeze_window(30)
+    assert not in_primary_freeze_window(0)
+    assert primary_window_status(241)=='WAIT_PRIMARY_4H_WINDOW'
+    assert primary_window_status(240)=='PRIMARY_4H'
+    assert primary_window_status(0)=='MISSED_PRIMARY_4H_WINDOW'
 def test_future_feature_rejected(sample):
     with pytest.raises(ValueError):build(sample['snapshot'],[sample['snapshot']],clock(sample['snapshot']['quote_at'])-dt.timedelta(seconds=1))
 def test_score_not_in_snapshot():
@@ -48,9 +56,9 @@ def test_payoff_and_mirror(line,margin,label):
 def test_titan_identity_sign():
     for line,expected in [(.5,'甲'),(-.5,'乙')]:
         s=normalize({'match_id':'1','list_date':'2026-09-19','bj_time':'9-19 22:00','home_cn':'甲','away_cn':'乙','state':'0','ah_full_current_line_or_draw':line,'ah_full_current_home_or_over':.9,'ah_full_current_away_or_under':.8},'2026-09-19T21:30:00+08:00','fixture');assert s['giving_team']==expected;assert s['giving_water']==(.9 if line>0 else .8)
-def test_c_is_not_any_positive_ev(sample):
-    s=sample['snapshot'];s['quote_at']='2026-09-19T21:30:00+08:00';s['kickoff_at']='2026-09-19T22:00:00+08:00';s['minutes_to_kickoff']=30;s['prematch']=True;p=[.55,0,0,0,.45]
-    pred={'calibrated_probability':p,'ensemble':[p]*20,'train_support':1000,'calibration_support':500,'window_calibration_support':0};d=decide(pred,s,sample['features'],s['quote_at']);assert d['grade']=='C';assert d['strict_grade']=='N';assert d['grade_policy']=='USER_FORCED_ABC_FALLBACK_20260920';assert 'INSUFFICIENT_T30_CALIBRATION_SUPPORT' in d['decision_reason']
+def test_valid_four_hour_direction_forced_into_abc(sample):
+    s=sample['snapshot'];s['quote_at']='2026-09-19T18:00:00+08:00';s['kickoff_at']='2026-09-19T22:00:00+08:00';s['minutes_to_kickoff']=240;s['prematch']=True;p=[.55,0,0,0,.45]
+    pred={'calibrated_probability':p,'ensemble':[p]*20,'train_support':1000,'calibration_support':0,'window_calibration_support':0};d=decide(pred,s,sample['features'],s['quote_at']);assert d['grade']=='C';assert d['strict_grade']=='N';assert d['grade_policy']=='USER_FORCED_ABC_FALLBACK_4H_20260920';assert 'INSUFFICIENT_CALIBRATION_SUPPORT' in d['decision_reason']
 def test_probability_collapse_alarm():
     cs=[{'snapshot':{'handicap':.5},'probability':{'calibrated_probability':[.6,0,0,0,.4]}}]*10;assert probability_health(cs)[0]['status']=='PROBABILITY_COLLAPSE_CRITICAL'
 def test_strict_training_asof():

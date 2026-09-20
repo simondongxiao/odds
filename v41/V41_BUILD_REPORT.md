@@ -1,5 +1,9 @@
 # V4.1_R1 Shadow 构建报告
 
+## 2026-09-20 执行窗口更新
+
+按用户明确要求，V4.1 新比赛的主冻结窗口由赛前 25–40 分钟改为赛前 4 小时内。执行规则版本为 `V41_EXEC_4H_R2_20260920`：在 `(T-4h, kickoff)` 内首次手动运行且报价合格时冻结并计算 A/B/C；严格门槛未通过但存在有效方向时，按用户观察规则强制列入 C，同时保留 `strict_grade=N` 和失败原因。历史 T-30 冻结、等级、方向、盘口、水位和时间戳均不追改。V4.1 继续是 `SHADOW ONLY`、`real_money=false`，且保持手动执行，不恢复定时任务。
+
 角色 CHALLENGER；原 V4 为 CONTROL。**SHADOW ONLY / NOT FOR PRODUCTION / real_money=false**。V3 仍为唯一正式决策。
 
 ## 交付状态与不能宣称的事项

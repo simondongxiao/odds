@@ -50,6 +50,15 @@ def window_name(minutes,policy=None):
     for name,bounds in policy['windows'].items():
         if bounds and bounds[0]<=minutes<=bounds[1]:return name
     return 'OUTSIDE_STANDARD_WINDOWS'
+def in_primary_freeze_window(minutes,policy=None):
+    """Execution window is versioned separately from the locked research snapshot grid."""
+    policy=policy or config('execution_policy')
+    return policy['primary_freeze_min_minutes_exclusive']<minutes<=policy['primary_freeze_max_minutes_inclusive']
+def primary_window_status(minutes,policy=None):
+    policy=policy or config('execution_policy')
+    if minutes>policy['primary_freeze_max_minutes_inclusive']:return 'WAIT_PRIMARY_4H_WINDOW'
+    if minutes<=policy['primary_freeze_min_minutes_exclusive']:return 'MISSED_PRIMARY_4H_WINDOW'
+    return 'PRIMARY_4H'
 def windows(path,as_of,policy=None):
     policy=policy or config('snapshot_policy');as_of=clock(as_of)
     eligible=[s for s in path if clock(s['quote_at'])<=as_of and s['prematch'] and s['valid_market']]
