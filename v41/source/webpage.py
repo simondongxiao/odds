@@ -189,7 +189,7 @@ def render(report, rows):
         market_intent = group_cn((features.get('market_interpretation') or {}).get('intent') or '—')
         settled_code = result.get('v41_result')
         settled_text = RESULT_CN.get(settled_code, settled_code or '待结算')
-        pnl_value = result.get('v41_pnl')
+        pnl_value = result.get('v41_pnl') if grade in 'ABC' else result.get('v41_hypothetical_unit_pnl')
         pnl_text = '—' if pnl_value is None else f'{pnl_value:+.2f}u'
         p_giving, p_receiving, ev_mean = decision.get('P_giving_cover'), decision.get('P_receiving_cover'), decision.get('EV_mean')
         ev_class = 'num-positive' if isinstance(ev_mean, (int, float)) and ev_mean > 0 else 'num-negative' if isinstance(ev_mean, (int, float)) and ev_mean < 0 else ''
@@ -227,7 +227,7 @@ def render(report, rows):
     write(folder / 'cards.json', cards)
     body += ('<div class="table-wrap"><table><thead><tr><th>北京时间</th><th>联赛/杯赛</th><th>比赛</th><th>状态</th>'
              '<th>等级/结论</th><th>候选球队/方向</th><th>盘口/水位</th><th>让球/受让覆盖率</th><th>EV指标</th>'
-             '<th>报价/冻结</th><th>赛果/盈亏</th><th>明细</th></tr></thead><tbody id="cards">')
+             '<th>报价/冻结</th><th>赛果/模拟盈亏</th><th>明细</th></tr></thead><tbody id="cards">')
     body += ''.join(x['html'] for x in cards[:20]) + '</tbody></table></div>'
     body += r'''<script>
 let page=0,allCards=null;const pageSize=20;
@@ -257,14 +257,18 @@ document.getElementById('pageinfo').textContent=`第 1 / ${Math.max(1,Math.ceil(
             '原 V4 使用逐字节隔离副本运行，规则保持不变，原 V4 页面和历史记录没有被改写。'
             '统一时间窗口的对照结果不等于原 V4 页面上的全部历史成绩。</section>')
 
-    def model_metrics(name, perf):
+    def model_metrics(name, perf, population='候选'):
         return ('<section class="model-card"><h2>' + esc(name) + '</h2><div class="metrics">' +
-                _metric('候选', perf['candidates']) + _metric('已结算 / 待结算', f"{perf['settled']} / {perf['pending']}") +
+                _metric(population, perf['candidates']) + _metric('已结算 / 待结算', f"{perf['settled']} / {perf['pending']}") +
                 _metric('红 / 红半 / 走 / 黑半 / 黑', f"{perf['W']} / {perf['HW']} / {perf['P']} / {perf['HL']} / {perf['L']}") +
                 _metric('有效胜率', pct(perf['effective_win_rate'])) + _metric('盈亏', f"{perf['PnL']:+.2f}u") +
                 _metric('收益率', pct(perf['ROI'])) + '</div></section>')
 
     body += '<div class="compare-grid">' + model_metrics('原 V4 对照组', comp['overall']['v4']) + model_metrics('V4.1 挑战组', comp['overall']['v41']) + '</div>'
+    body += ('<h2 class="section-title">N 不投观察组红黑</h2>'
+             '<div class="section-note">N 仍然是不投，不改变赛前等级；这里按冻结候选方向和原盘口计算纸面红黑与模拟盈亏，用于检验模型拒绝是否合理。</div>'
+             '<div class="compare-grid">' + model_metrics('原 V4 · N 不投观察', comp['n_observation']['v4'], 'N 样本') +
+             model_metrics('V4.1 · N 不投观察', comp['n_observation']['v41'], 'N 样本') + '</div>')
     body += ('<section class="definitions"><b>结算口径：</b> 每个候选按 1 单位计算；收益率分母只包括已经结算的候选；'
              '走盘计入本金，红半/黑半在有效胜率中各按 0.5 场计算。没有已结算样本时，收益率显示为空白。'
              '<br><b>校准指标：</b> 布里尔分数和校准误差越低越好，但小样本阶段不做优劣结论。</section>')

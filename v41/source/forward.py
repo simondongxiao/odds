@@ -35,7 +35,7 @@ def reconcile():
         group='C_SAME_SIDE' if same else 'D_OPPOSITE_SIDE' if different else 'A_V4_ONLY' if a else 'B_V41_ONLY' if b else 'NEITHER'
         row={'date':s['list_date'],'match_id':s['match_id'],'league':s['league'],'region':f['features']['categorical']['league_group'],'kickoff':s['kickoff_at'],'frozen_at':f['frozen_at'],'handicap':abs(s['handicap']),'intent':f['features']['categorical']['intent'],'time_bucket':'T-30','v4_side':c.get('candidate_side'),'v4_grade':c.get('grade'),'v4_ev':c.get('ev_mean'),'v4_result':None,'v4_pnl':None,'v4_probability':list(c['probabilities'].values()) if c.get('probabilities') else None,'v41_side':d['candidate_side'],'v41_grade':d['grade'],'v41_probability':d.get('selected_probability'),'v41_ev':d['EV_mean'],'v41_ev_p10':d['EV_p10'],'v41_result':None,'v41_pnl':None,'same_side':same,'different_side':different,'comparison_group':group,'decision_id':f['decision_id'],'settlement_status':'PENDING',**settled}
         rows.append(row)
-    fields=['date','match_id','league','region','kickoff','frozen_at','handicap','intent','time_bucket','v4_side','v4_grade','v4_ev','v4_probability','v4_result','v4_pnl','v41_side','v41_grade','v41_probability','v41_ev','v41_ev_p10','v41_result','v41_pnl','same_side','different_side','comparison_group','decision_id','settlement_status']
+    fields=['date','match_id','league','region','kickoff','frozen_at','handicap','intent','time_bucket','v4_side','v4_grade','v4_ev','v4_probability','v4_result','v4_pnl','v4_hypothetical_unit_pnl','v41_side','v41_grade','v41_probability','v41_ev','v41_ev_p10','v41_result','v41_pnl','v41_hypothetical_unit_pnl','same_side','different_side','comparison_group','decision_id','settlement_status']
     csvwrite(ROOT/'forward/forward_comparison.csv',rows,fields);return rows
 def calibration_metrics(probabilities,labels):
     pairs=[(p,y) for p,y in zip(probabilities,labels) if p is not None and y in STATES]
@@ -54,11 +54,11 @@ def calibration_metrics(probabilities,labels):
         result=minimize(loss,[0,1],method='BFGS')
         if result.success:intercept,slope=map(float,result.x)
     return {'n':len(pairs),'effective_n':float(den),'predicted_effective_win_rate':float(np.average(q,weights=weight)),'actual_effective_win_rate':float(np.average(target,weights=weight)),'brier':float(np.average((q-target)**2,weights=weight)),'five_state_brier':b5,'ece':float(ece),'slope':slope,'intercept':intercept}
-def performance(rows,prefix):
-    candidates=[r for r in rows if r.get(prefix+'_grade') in ['A','B','C']];settled=sorted([r for r in candidates if r.get(prefix+'_result') in STATES],key=lambda r:(r['kickoff'],r['match_id']));pnls=[r[prefix+'_pnl'] for r in settled];outcomes=[r[prefix+'_result'] for r in settled];counts={s:outcomes.count(s) for s in STATES};den=counts['W']+.5*counts['HW']+counts['L']+.5*counts['HL'];curve=np.r_[0,np.cumsum(pnls)];dd=float(np.max(np.maximum.accumulate(curve)-curve))
+def performance(rows,prefix,grades=('A','B','C'),pnl_field=None):
+    candidates=[r for r in rows if r.get(prefix+'_grade') in grades];settled=sorted([r for r in candidates if r.get(prefix+'_result') in STATES],key=lambda r:(r['kickoff'],r['match_id']));pnl_field=pnl_field or prefix+'_pnl';pnls=[r[pnl_field] for r in settled];outcomes=[r[prefix+'_result'] for r in settled];counts={s:outcomes.count(s) for s in STATES};den=counts['W']+.5*counts['HW']+counts['L']+.5*counts['HL'];curve=np.r_[0,np.cumsum(pnls)];dd=float(np.max(np.maximum.accumulate(curve)-curve))
     return {'candidates':len(candidates),'settled':len(settled),'pending':len(candidates)-len(settled),**counts,'effective_win_rate':(counts['W']+.5*counts['HW'])/den if den else None,'PnL':sum(pnls),'ROI':sum(pnls)/len(settled) if settled else None,'max_drawdown':dd,'drawdown_basis':'1u each settled candidate ordered by kickoff','calibration':calibration_metrics([r.get(prefix+'_probability') for r in settled],outcomes)}
 def comparison(rows):
-    out={'overall':{p:performance(rows,p) for p in ['v4','v41']},'groups':{}}
+    out={'overall':{p:performance(rows,p) for p in ['v4','v41']},'n_observation':{p:performance(rows,p,('N',),p+'_hypothetical_unit_pnl') for p in ['v4','v41']},'groups':{}}
     for key in ['comparison_group','date','region','handicap','v41_grade','v4_grade','time_bucket','intent','v41_side']:
         grouped=defaultdict(list)
         for r in rows:grouped[str(r.get(key))].append(r)
