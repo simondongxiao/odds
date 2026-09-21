@@ -176,15 +176,16 @@ def main():
         if not current_card:
             restored_cards.append(old_card)
             continue
-        action = (old_card.get("saved_skill_decision") or {}).get("action", "")
-        was_bettable = bool(old_card.get("frozen_bettable")) or action in {"可投", "半仓可投"}
         try:
             kickoff = dt.datetime.fromisoformat(str(old_card.get("kickoff_at") or old_card.get("kickoff") or "").replace("Z", "+00:00"))
             started = kickoff <= dt.datetime.fromisoformat(manifest["run_at"])
         except (TypeError, ValueError):
             started = False
         historical = key[0] < date
-        if historical or was_bettable or started:
+        # Historical and already-started rows are immutable.  A future row on
+        # the current list date must use the latest pre-match freeze so Bridge
+        # and cardsData remain identical after a legitimate price refresh.
+        if historical or started:
             merged_card = dict(old_card)
             for field in post_match_fields:
                 value = current_card.get(field)

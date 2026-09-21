@@ -385,8 +385,11 @@ def write_quote_age_monitoring(list_date: str, run_id: str, bridge: dict[str, An
 def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at: dt.datetime) -> dict[str, Any]:
     payload = read_json(path, {}) or {}
     old_map = {str(row.get("match_id")): row for row in (previous or {}).get("matches", [])}
+    seen_ids: set[str] = set()
     for row in payload.get("matches", []):
-        old = old_map.get(str(row.get("match_id")))
+        match_id = str(row.get("match_id"))
+        seen_ids.add(match_id)
+        old = old_map.get(match_id)
         clocks = [parse_kickoff(str(x)) for x in ((old or {}).get("kickoff_at"), (old or {}).get("kickoff"), row.get("kickoff")) if x]
         kickoff = min((x for x in clocks if x is not None), default=None)
         if not old or not kickoff or kickoff > run_at:
@@ -396,6 +399,19 @@ def preserve_started_bridge(path: Path, previous: dict[str, Any] | None, run_at:
         frozen.update({key: value for key, value in current.items() if value not in (None, "")})
         frozen["started_lock"] = True
         row.clear(); row.update(frozen)
+    # A same-list-date refresh may omit rows after kickoff.  Re-attach every
+    # prior started V3 decision so a frozen bet cannot disappear from Bridge
+    # while it is still retained by the legacy page.
+    for match_id, old in old_map.items():
+        if not match_id or match_id in seen_ids:
+            continue
+        kickoff = parse_kickoff(str(old.get("kickoff_at") or old.get("kickoff") or ""))
+        if not kickoff or kickoff > run_at:
+            continue
+        retained = dict(old)
+        retained["started_lock"] = True
+        payload.setdefault("matches", []).append(retained)
+    payload["started_lock_policy"] = "started rows retain original pre-match prediction; only status/settlement/review may append"
     return payload
 
 
