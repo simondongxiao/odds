@@ -520,7 +520,7 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
             "quote_age_at_decision": row.get("quote_age_at_decision", ""), "hours_from_decision_to_kickoff": row.get("hours_from_decision_to_kickoff", ""), "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""),
             "run_id": row.get("run_id", ""), "decision_id": row.get("decision_id", ""), "parent_decision_id": row.get("parent_decision_id", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
             "model_id": row.get("model_id", "V3_LEGACY_PRODUCTION"), "side_mapping_version": row.get("side_mapping_version", "V3_LEGACY_PAGE_PARITY"), "monitoring_bucket": row.get("monitoring_bucket", ""),
-            "rule_version": row.get("rule_version", ""), "source_snapshot": row.get("odds_snapshot_id", row.get("source", "")),
+            "rule_version": row.get("rule_version", ""), "source_snapshot": row.get("odds_snapshot_id") or row.get("source") or bridge.get("raw_snapshot_id", ""),
             "real_money": "true", "status": row.get("settlement", row.get("status", "")),
         })
     v4_rows = []

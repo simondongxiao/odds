@@ -1,0 +1,50 @@
+{
+  "list_date": "2026-09-21",
+  "source_v4": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-21.json",
+  "real_money": false,
+  "diagnostic_only": true,
+  "rows": [
+    {
+      "match_id": "3050939",
+      "list_date": "2026-09-21",
+      "side": "giving",
+      "team": "斯佩齐亚",
+      "market_side": "让球方/上盘",
+      "signed_handicap": 1.75,
+      "water": 0.72,
+      "W": 0.0,
+      "HW": 0.0,
+      "P": 0.0,
+      "HL": 0.0,
+      "L": 0.0,
+      "EV_mean": -0.0708571428571429,
+      "EV_p10": -0.23790453500272912,
+      "P_EV_gt_0": 0.294,
+      "mirror_status": "W↔L;HW↔HL;P↔P",
+      "real_money": false,
+      "diagnostic_only": true,
+      "status": "COMPUTED"
+    },
+    {
+      "match_id": "3050939",
+      "list_date": "2026-09-21",
+      "side": "receiving",
+      "team": "比沙奴",
+      "market_side": "受让方/下盘",
+      "signed_handicap": 1.75,
+      "water": 0.98,
+      "W": 0.0,
+      "HW": 0.0,
+      "P": 0.0,
+      "HL": 0.0,
+      "L": 0.0,
+      "EV_mean": -0.06514285714285711,
+      "EV_p10": -0.25343592767437184,
+      "P_EV_gt_0": 0.3242,
+      "mirror_status": "W↔L;HW↔HL;P↔P",
+      "real_money": false,
+      "diagnostic_only": true,
+      "status": "COMPUTED"
+    }
+  ]
+}

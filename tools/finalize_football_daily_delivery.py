@@ -40,7 +40,9 @@ def main():
     manifest = daily.read_json(run_dir / "run_manifest.json", {})
     date = manifest["list_date"]
     yesterday = (dt.date.fromisoformat(date) - dt.timedelta(days=1)).isoformat()
-    raw_path = Path(manifest["raw_snapshot"])
+    # Decisions stay tied to raw_snapshot; an explicitly newer source may be
+    # used only to reconcile post-match status, score, settlement and PnL.
+    raw_path = Path(manifest.get("settlement_snapshot") or manifest["raw_snapshot"])
     stamp = daily.now_cn().strftime("%Y%m%d_%H%M%S")
     backup = OUT / "backups" / f"delivery_results_{stamp}"
     backup.mkdir(parents=True)
@@ -51,6 +53,17 @@ def main():
     if not match:
         raise RuntimeError("V3 cards payload not found")
     cards = json.loads(match.group(1))
+    # The legacy builder rebuilds the entire cards payload. For historical
+    # list dates this is not an authority for pre-match fields: recover those
+    # from the pre-run backup and overlay only result/status fields.
+    pre_run_html = Path(manifest["backup"]) / "index.html"
+    baseline_cards = []
+    if pre_run_html.exists():
+        baseline_text = pre_run_html.read_text(encoding="utf-8")
+        baseline_match = re.search(r"const cardsData = (.*?);\r?\n(?:cardsData\.forEach|const stats)", baseline_text, re.S)
+        if not baseline_match:
+            raise RuntimeError("pre-run V3 cards payload not found")
+        baseline_cards = json.loads(baseline_match.group(1))
     audit = {"run_id": manifest["run_id"], "dates": {}, "real_money": False}
     all_results = []
     for target in (yesterday, date):
@@ -83,6 +96,45 @@ def main():
         path = ROOT / f"v4/outputs/v4_decisions_{target}.json"
         payload = daily.read_json(path, {})
         rows = payload.get("matches", [])
+        status_corrections = []
+        if target == date:
+            decision_at = dt.datetime.fromisoformat(manifest["run_at"].replace("Z", "+00:00"))
+            for row in rows:
+                source = raw.get(str(row.get("match_id", "")), {})
+                if (not str(source.get("state", "") or "").strip()
+                        and row.get("analysis_status") == "MISSING_DATA"
+                        and "PREMATCH_STATUS_UNCONFIRMED" in (row.get("reason_codes") or [])):
+                    status_corrections.append(str(row.get("match_id", "")))
+                    continue
+                if (not source or str(source.get("state", "") or "").strip()
+                        or row.get("analysis_status") != "NOT_PREMATCH"
+                        or row.get("grade") is not None or row.get("started_lock")):
+                    continue
+                kickoff = dt.datetime.fromisoformat(str(row.get("kickoff_at") or row.get("kickoff", "")).replace("Z", "+00:00"))
+                if kickoff > decision_at:
+                    row["analysis_status"] = "MISSING_DATA"
+                    row["reason_codes"] = ["PREMATCH_STATUS_UNCONFIRMED"]
+                    status_corrections.append(str(row.get("match_id", "")))
+            if status_corrections:
+                computed_statuses = {"EVALUATED", "FROZEN_PREMATCH_DECISION"}
+                payload["summary"] = {
+                    "total": len(rows),
+                    "computed": sum(row.get("analysis_status") in computed_statuses for row in rows),
+                    **{grade: sum(row.get("grade") == grade and row.get("analysis_status") in computed_statuses for row in rows) for grade in "ABCN"},
+                    "neutral": sum(row.get("analysis_status") == "NEUTRAL" for row in rows),
+                    "missing_data": sum(row.get("analysis_status") == "MISSING_DATA" for row in rows),
+                    "insufficient_training": sum(row.get("analysis_status") == "INSUFFICIENT_TRAINING" for row in rows),
+                    "not_prematch": sum(row.get("analysis_status") == "NOT_PREMATCH" and row.get("grade") is None for row in rows),
+                    "errors": sum(row.get("analysis_status") == "ERROR" for row in rows),
+                }
+                manifest.setdefault("v4", {}).update({
+                    "v4_computed": payload["summary"]["computed"],
+                    "v4_A": payload["summary"]["A"], "v4_B": payload["summary"]["B"],
+                    "v4_C": payload["summary"]["C"], "v4_N": payload["summary"]["N"],
+                    "v4_neutral": payload["summary"]["neutral"],
+                    "v4_missing": payload["summary"]["missing_data"],
+                    "v4_not_prematch": payload["summary"]["not_prematch"],
+                })
         before = frozen_hash(rows)
         shutil.copy2(path, backup / path.name)
         results = {r["match_id"]: r for r in settle_v4(rows, raw)}
@@ -104,7 +156,66 @@ def main():
         all_results.extend(dict(r, real_money=False) for r in results.values())
         audit["dates"][target] = {"grades": dict(Counter(r.get("grade") for r in rows)),
             "settled_all_grades": sum(r.get("result") in LABEL for r in rows),
-            "prematch_hash": before, "prematch_unchanged": True}
+            "prematch_hash": before, "prematch_unchanged": True,
+            "unconfirmed_future_status_corrected": len(status_corrections)}
+    post_match_fields = {
+        "score", "display_score", "state", "state_label", "display_status",
+        "status", "result", "pnl", "result_source",
+        "frozen_bettable_settlement", "frozen_bettable_pnl",
+    }
+    current_by_key = {
+        (str(card.get("date", "")), str(card.get("match_id", ""))): card
+        for card in cards if card.get("match_id")
+    }
+    baseline_keys = set()
+    restored_cards = []
+    for old_card in baseline_cards:
+        key = (str(old_card.get("date", "")), str(old_card.get("match_id", "")))
+        baseline_keys.add(key)
+        current_card = current_by_key.get(key)
+        if not current_card:
+            restored_cards.append(old_card)
+            continue
+        action = (old_card.get("saved_skill_decision") or {}).get("action", "")
+        was_bettable = bool(old_card.get("frozen_bettable")) or action in {"可投", "半仓可投"}
+        try:
+            kickoff = dt.datetime.fromisoformat(str(old_card.get("kickoff_at") or old_card.get("kickoff") or "").replace("Z", "+00:00"))
+            started = kickoff <= dt.datetime.fromisoformat(manifest["run_at"])
+        except (TypeError, ValueError):
+            started = False
+        historical = key[0] < date
+        if historical or was_bettable or started:
+            merged_card = dict(old_card)
+            for field in post_match_fields:
+                value = current_card.get(field)
+                if field in current_card and value not in (None, ""):
+                    merged_card[field] = value
+            restored_cards.append(merged_card)
+        else:
+            restored_cards.append(current_card)
+    for card in cards:
+        key = (str(card.get("date", "")), str(card.get("match_id", "")))
+        if key in baseline_keys:
+            continue
+        if key[0] < date:
+            # A row discovered only after its list date is retained for roster
+            # coverage, but cannot acquire a retroactive pre-match pick.
+            card = dict(card)
+            card["frozen_bettable"] = False
+            card["frozen_bettable_team"] = ""
+            card["frozen_bettable_side"] = ""
+            card["frozen_bettable_water"] = ""
+            card["saved_skill_decision"] = None
+            card["prematch_decision_status"] = "NO_FROZEN_PREMATCH_RECORD"
+        restored_cards.append(card)
+    cards = restored_cards
+    audit["v3_prematch_restore"] = {
+        "baseline_cards": len(baseline_cards),
+        "restored_historical_cards": sum(str(card.get("date", "")) < date for card in cards),
+        "historical_prematch_source": str(pre_run_html),
+        "result_fields_only_overlay": True,
+    }
+
     unique_cards = []
     seen = {}
     for card in cards:
@@ -120,6 +231,11 @@ def main():
     html_path.write_text(html, encoding="utf-8")
     family = OUT / "v4_shadow/daily_artifacts" / date / manifest["run_id"]
     current = daily.read_json(ROOT / f"v4/outputs/v4_decisions_{date}.json", {})
+    run_at = dt.datetime.fromisoformat(manifest["run_at"].replace("Z", "+00:00"))
+    decision_raw = Path(manifest["raw_snapshot"])
+    merged = daily.merged_date_json(date, decision_raw, bridge, current, manifest["run_id"], run_at)
+    daily.write_json(run_dir / "merged_dashboard_date.json", merged)
+    daily.update_root_data(merged, daily.summary(bridge, current, int(manifest.get("roster_total", len(current.get("matches", []))))), manifest["run_id"], run_at)
     flat = [{k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v for k, v in r.items()} | {"real_money": False} for r in current["matches"]]
     csv_write(family / "simulations.csv", flat)
     csv_write(family / "bettable_event_detail.csv", [r for r in flat if r.get("grade") in {"A", "B", "C"}])
@@ -136,6 +252,7 @@ def main():
     csv_write(family / "grouped_review.csv", grouped)
     (family / "daily_report.md").write_text("# V4 Shadow daily delivery\n\nSHADOW ONLY; real_money=false.\n\n" + json.dumps(manifest["v4"], ensure_ascii=False, indent=2) + "\n\nGrouped review is descriptive frozen-cohort settlement, not a new edge or model rule. Missing fundamentals/lineups/true flow remain unverified. ROI uses frozen 1U population; unresolved results are pending, not losses or pushes.\n", encoding="utf-8")
     audit["artifacts"] = str(family)
+    daily.write_json(run_dir / "run_manifest.json", manifest)
     daily.write_json(run_dir / "result_overlay_acceptance.json", audit)
     print(json.dumps(audit, ensure_ascii=False))
 
