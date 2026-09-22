@@ -113,7 +113,22 @@
         "BUCKET_1.00",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "2-1",
+      "result": "W",
+      "pnl_1u": 0.82,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "W",
+        "pnl_1u": 0.82,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3049662",
@@ -210,7 +225,22 @@
         "BUCKET_0.75",
         "SIDE_IDENTITY_VALID",
         "MARKET_MOVE_SHALLOWER_WITH_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "0-2",
+      "result": "W",
+      "pnl_1u": 0.87,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "W",
+        "pnl_1u": 0.87,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3049669",
@@ -307,7 +337,22 @@
         "BUCKET_1.25",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "2-0",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-0",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3056300",
@@ -354,7 +399,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "8866095948baee6f3ada"
+      "decision_id": "8866095948baee6f3ada",
+      "score": "0-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3059196",
@@ -398,7 +458,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "fa1a86e8e420d57dc1e0"
+      "decision_id": "fa1a86e8e420d57dc1e0",
+      "score": "3-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3059197",
@@ -495,7 +570,22 @@
         "BUCKET_0.25",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "score": "2-2",
+      "result": "HW",
+      "pnl_1u": 0.35,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-2",
+        "result": "HW",
+        "pnl_1u": 0.35,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3046423",
@@ -542,7 +632,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "da471b0188aef92fd5e8"
+      "decision_id": "da471b0188aef92fd5e8",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092788",
@@ -589,7 +694,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "f98a919d6521f769b8bf"
+      "decision_id": "f98a919d6521f769b8bf",
+      "score": "1-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3056292",
@@ -686,7 +806,22 @@
         "BUCKET_0.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "score": "1-1",
+      "result": "W",
+      "pnl_1u": 0.8,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "W",
+        "pnl_1u": 0.8,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092348",
@@ -783,7 +918,22 @@
         "BUCKET_0.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "score": "2-2",
+      "result": "W",
+      "pnl_1u": 0.79,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-2",
+        "result": "W",
+        "pnl_1u": 0.79,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092349",
@@ -830,7 +980,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "3ec125137c0d5445c129"
+      "decision_id": "3ec125137c0d5445c129",
+      "score": "1-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3059195",
@@ -877,7 +1042,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "af9855e4c03ededb85b8"
+      "decision_id": "af9855e4c03ededb85b8",
+      "score": "4-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089297",
@@ -924,7 +1104,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "dececb427094e605d6ee"
+      "decision_id": "dececb427094e605d6ee",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089298",
@@ -971,7 +1166,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "61bfbb9a15be754d784f"
+      "decision_id": "61bfbb9a15be754d784f",
+      "score": "2-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012831",
@@ -1018,7 +1228,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "ba2b45699c776edfcd45"
+      "decision_id": "ba2b45699c776edfcd45",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012835",
@@ -1065,7 +1290,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "51969ae6367a650eedb2"
+      "decision_id": "51969ae6367a650eedb2",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012844",
@@ -1112,7 +1352,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "a881d889de12448f9e16"
+      "decision_id": "a881d889de12448f9e16",
+      "score": "1-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012848",
@@ -1209,7 +1464,22 @@
         "BUCKET_1.00",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "1-1",
+      "result": "W",
+      "pnl_1u": 1.02,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "W",
+        "pnl_1u": 1.02,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012850",
@@ -1256,7 +1526,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "453bbf2a09c56e7e0106"
+      "decision_id": "453bbf2a09c56e7e0106",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012854",
@@ -1353,7 +1638,22 @@
         "BUCKET_1.75",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "3-4",
+      "result": "W",
+      "pnl_1u": 0.94,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-4",
+        "result": "W",
+        "pnl_1u": 0.94,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012855",
@@ -1450,7 +1750,22 @@
         "BUCKET_0.25",
         "SIDE_IDENTITY_VALID",
         "MARKET_MOVE_LINE_STRENGTH_WITH_GIVING_RESISTANCE"
-      ]
+      ],
+      "score": "1-0",
+      "result": "W",
+      "pnl_1u": 0.92,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-0",
+        "result": "W",
+        "pnl_1u": 0.92,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012863",
@@ -1547,7 +1862,22 @@
         "BUCKET_0.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "3-3",
+      "result": "W",
+      "pnl_1u": 0.86,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-3",
+        "result": "W",
+        "pnl_1u": 0.86,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012956",
@@ -1591,7 +1921,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "f314f750930eacc35aa5"
+      "decision_id": "f314f750930eacc35aa5",
+      "score": "2-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012962",
@@ -1638,7 +1983,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "b2b5bcbbe1171ac24f6e"
+      "decision_id": "b2b5bcbbe1171ac24f6e",
+      "score": "6-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "6-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012963",
@@ -1685,7 +2045,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "815d4bd425f40edbcb78"
+      "decision_id": "815d4bd425f40edbcb78",
+      "score": "1-6",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-6",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012973",
@@ -1782,7 +2157,22 @@
         "BUCKET_0.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "3-1",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-1",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012977",
@@ -1879,7 +2269,22 @@
         "BUCKET_2.00",
         "SIDE_IDENTITY_VALID",
         "MARKET_MOVE_LINE_STRENGTH_WITH_GIVING_RESISTANCE"
-      ]
+      ],
+      "score": "6-0",
+      "result": "W",
+      "pnl_1u": 0.85,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "6-0",
+        "result": "W",
+        "pnl_1u": 0.85,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012979",
@@ -1976,7 +2381,22 @@
         "BUCKET_1.75",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "5-1",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "5-1",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012982",
@@ -2073,7 +2493,22 @@
         "BUCKET_0.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "0-2",
+      "result": "W",
+      "pnl_1u": 0.87,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "W",
+        "pnl_1u": 0.87,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012990",
@@ -2117,7 +2552,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "ecf641558b5b8e38cd3a"
+      "decision_id": "ecf641558b5b8e38cd3a",
+      "score": "1-4",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-4",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012999",
@@ -2214,7 +2664,22 @@
         "BUCKET_1.25",
         "SIDE_IDENTITY_VALID",
         "MARKET_MOVE_DEEPER_WITH_GIVING_WATER_RISE"
-      ]
+      ],
+      "score": "4-1",
+      "result": "W",
+      "pnl_1u": 1.01,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-1",
+        "result": "W",
+        "pnl_1u": 1.01,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3083963",
@@ -2258,7 +2723,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "bf3c1fac65cd97661a99"
+      "decision_id": "bf3c1fac65cd97661a99",
+      "score": "1-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3083964",
@@ -2305,7 +2785,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "bfec4ac872865168f6c2"
+      "decision_id": "bfec4ac872865168f6c2",
+      "score": "3-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3083969",
@@ -2352,7 +2847,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "191db69580bb4ba0758f"
+      "decision_id": "191db69580bb4ba0758f",
+      "score": "3-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3083970",
@@ -2449,7 +2959,22 @@
         "BUCKET_1.50",
         "SIDE_IDENTITY_VALID",
         "MARKET_MOVE_LINE_STRENGTH_WITH_GIVING_RESISTANCE"
-      ]
+      ],
+      "score": "4-1",
+      "result": "W",
+      "pnl_1u": 0.99,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-1",
+        "result": "W",
+        "pnl_1u": 0.99,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3091961",
@@ -2496,7 +3021,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "061e58162ed2e2996add"
+      "decision_id": "061e58162ed2e2996add",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3091962",
@@ -2543,7 +3083,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "8d485af5b061b4e851f0"
+      "decision_id": "8d485af5b061b4e851f0",
+      "score": "4-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012830",
@@ -2640,7 +3195,22 @@
         "BUCKET_1.75",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "2-1",
+      "result": "W",
+      "pnl_1u": 1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "W",
+        "pnl_1u": 1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012998",
@@ -2737,7 +3307,22 @@
         "BUCKET_0.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "0-1",
+      "result": "W",
+      "pnl_1u": 0.87,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "W",
+        "pnl_1u": 0.87,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094093",
@@ -2784,7 +3369,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "072338bb17a0d0fdf351"
+      "decision_id": "072338bb17a0d0fdf351",
+      "score": "3-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094097",
@@ -2831,7 +3431,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "d250fe6d0ec13a92d041"
+      "decision_id": "d250fe6d0ec13a92d041",
+      "score": "3-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094099",
@@ -2878,7 +3493,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "51be06723532b38b9b41"
+      "decision_id": "51be06723532b38b9b41",
+      "score": "2-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094102",
@@ -2925,7 +3555,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "31bafb35213b6fbafce7"
+      "decision_id": "31bafb35213b6fbafce7",
+      "score": "2-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3037413",
@@ -2969,7 +3614,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "895f025733a383774cd8"
+      "decision_id": "895f025733a383774cd8",
+      "score": "3-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036345",
@@ -3016,7 +3676,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "e6758354280af389dfbc"
+      "decision_id": "e6758354280af389dfbc",
+      "score": "4-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036346",
@@ -3063,7 +3738,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "851976bdf1afbf63d7e8"
+      "decision_id": "851976bdf1afbf63d7e8",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036347",
@@ -3160,7 +3850,22 @@
         "BUCKET_0.75",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "score": "3-2",
+      "result": "W",
+      "pnl_1u": 0.77,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-2",
+        "result": "W",
+        "pnl_1u": 0.77,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036348",
@@ -3207,7 +3912,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "64bbcbb053fbd9284db5"
+      "decision_id": "64bbcbb053fbd9284db5",
+      "score": "1-6",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-6",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036349",
@@ -3254,7 +3974,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "a6fac0204f4862a2e3a1"
+      "decision_id": "a6fac0204f4862a2e3a1",
+      "score": "1-5",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-5",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036350",
@@ -3351,7 +4086,22 @@
         "BUCKET_0.50",
         "SIDE_IDENTITY_VALID",
         "MARKET_MOVE_SHALLOWER_WITH_GIVING_WATER_RESISTANCE"
-      ]
+      ],
+      "score": "1-2",
+      "result": "W",
+      "pnl_1u": 0.67,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-2",
+        "result": "W",
+        "pnl_1u": 0.67,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036351",
@@ -3448,7 +4198,22 @@
         "BUCKET_1.00",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "2-1",
+      "result": "P",
+      "pnl_1u": 0.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "P",
+        "pnl_1u": 0.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036352",
@@ -3545,7 +4310,22 @@
         "BUCKET_0.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "score": "3-2",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-2",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036354",
@@ -3592,7 +4372,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "2ae5c281d9d07c62f549"
+      "decision_id": "2ae5c281d9d07c62f549",
+      "score": "3-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036355",
@@ -3639,7 +4434,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "f3d7d29dd8a5ba2fe819"
+      "decision_id": "f3d7d29dd8a5ba2fe819",
+      "score": "1-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036356",
@@ -3686,7 +4496,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "346eb2b4589a9776a79d"
+      "decision_id": "346eb2b4589a9776a79d",
+      "score": "3-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036357",
@@ -3733,7 +4558,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "535bbd71d9b322866fb5"
+      "decision_id": "535bbd71d9b322866fb5",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036358",
@@ -3830,7 +4670,22 @@
         "BUCKET_1.00",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "score": "3-2",
+      "result": "W",
+      "pnl_1u": 0.65,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-2",
+        "result": "W",
+        "pnl_1u": 0.65,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036359",
@@ -3877,7 +4732,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "88f5c9d1182e938a08e9"
+      "decision_id": "88f5c9d1182e938a08e9",
+      "score": "0-5",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-5",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036360",
@@ -3924,7 +4794,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "7d3822c3eb866af64c2c"
+      "decision_id": "7d3822c3eb866af64c2c",
+      "score": "0-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036361",
@@ -3971,7 +4856,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "e0b7d9c7e7be3a881f23"
+      "decision_id": "e0b7d9c7e7be3a881f23",
+      "score": "3-5",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-5",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036362",
@@ -4018,7 +4918,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "2cfc2047cc73965a2cca"
+      "decision_id": "2cfc2047cc73965a2cca",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3036363",
@@ -4065,7 +4980,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "5adbfb15b53853b8c832"
+      "decision_id": "5adbfb15b53853b8c832",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3044657",
@@ -4112,7 +5042,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "7b5337292f46f14c129e"
+      "decision_id": "7b5337292f46f14c129e",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3044661",
@@ -4159,7 +5104,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "d080a9d2fdd99e0c5541"
+      "decision_id": "d080a9d2fdd99e0c5541",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3053078",
@@ -4203,7 +5163,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "379373a143958775661d"
+      "decision_id": "379373a143958775661d",
+      "score": "1-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3053080",
@@ -4250,7 +5225,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "a0b41904238b2a3dcaea"
+      "decision_id": "a0b41904238b2a3dcaea",
+      "score": "2-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3053081",
@@ -4294,7 +5284,8 @@
       "reason_codes": [
         "MATCH_NOT_PREMATCH"
       ],
-      "decision_id": "5110d939c5891815f912"
+      "decision_id": "5110d939c5891815f912",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3053082",
@@ -4338,7 +5329,8 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "f339a258747d21603c9d"
+      "decision_id": "f339a258747d21603c9d",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3053083",
@@ -4385,7 +5377,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "86f7c4c466cf6d9b9184"
+      "decision_id": "86f7c4c466cf6d9b9184",
+      "score": "5-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "5-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3053084",
@@ -4432,7 +5439,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "58568b4d59ecb761c5bb"
+      "decision_id": "58568b4d59ecb761c5bb",
+      "score": "2-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3053085",
@@ -4479,7 +5501,8 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "3acc2cbe5f8a8ec34287"
+      "decision_id": "3acc2cbe5f8a8ec34287",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3053086",
@@ -4523,7 +5546,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "9373fe12ead6db149570"
+      "decision_id": "9373fe12ead6db149570",
+      "score": "1-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3053087",
@@ -4567,7 +5605,8 @@
       "reason_codes": [
         "MATCH_NOT_PREMATCH"
       ],
-      "decision_id": "fcebbed4d78e65db0bff"
+      "decision_id": "fcebbed4d78e65db0bff",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3045096",
@@ -4614,7 +5653,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "a3b29a139a550b231629"
+      "decision_id": "a3b29a139a550b231629",
+      "score": "2-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3045097",
@@ -4661,7 +5715,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "814bfa34e25e9a9df2af"
+      "decision_id": "814bfa34e25e9a9df2af",
+      "score": "1-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3045100",
@@ -4708,7 +5777,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "94f7ef9706569e6e3785"
+      "decision_id": "94f7ef9706569e6e3785",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3045101",
@@ -4752,7 +5836,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "3211fe0c3472f26ab5f8"
+      "decision_id": "3211fe0c3472f26ab5f8",
+      "score": "3-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3045103",
@@ -4799,7 +5898,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "d3aeecb7e40b83dc0af5"
+      "decision_id": "d3aeecb7e40b83dc0af5",
+      "score": "1-4",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-4",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3045104",
@@ -4846,7 +5960,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "25938514aa23fbe75b5e"
+      "decision_id": "25938514aa23fbe75b5e",
+      "score": "2-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3045105",
@@ -4893,7 +6022,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "00b5f8d1decc4b88e36f"
+      "decision_id": "00b5f8d1decc4b88e36f",
+      "score": "0-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092350",
@@ -4990,7 +6134,22 @@
         "BUCKET_2.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "1-0",
+      "result": "W",
+      "pnl_1u": 1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-0",
+        "result": "W",
+        "pnl_1u": 1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092351",
@@ -5087,7 +6246,22 @@
         "BUCKET_0.75",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_DROP"
-      ]
+      ],
+      "score": "1-2",
+      "result": "W",
+      "pnl_1u": 0.88,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-2",
+        "result": "W",
+        "pnl_1u": 0.88,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092375",
@@ -5134,7 +6308,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "143e8e39596784af257a"
+      "decision_id": "143e8e39596784af257a",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086920",
@@ -5181,7 +6370,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "9afa025329c5fea7c13a"
+      "decision_id": "9afa025329c5fea7c13a",
+      "score": "2-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012193",
@@ -5225,7 +6429,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "acb10c013a2b65b8a6e7"
+      "decision_id": "acb10c013a2b65b8a6e7",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012194",
@@ -5269,7 +6488,22 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "7f43cedb743d5d4244ec"
+      "decision_id": "7f43cedb743d5d4244ec",
+      "score": "0-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3012195",
@@ -5316,7 +6550,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "d272598c08d463a8c3af"
+      "decision_id": "d272598c08d463a8c3af",
+      "score": "0-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3091336",
@@ -5363,7 +6612,22 @@
         "NEUTRAL_INTENT",
         "MARKET_MOVE_BALANCED"
       ],
-      "decision_id": "a6156a568b78f95ca741"
+      "decision_id": "a6156a568b78f95ca741",
+      "score": "0-4",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-4",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3091960",
@@ -5407,7 +6671,8 @@
       "reason_codes": [
         "PK_NEUTRAL_NO_GIVING_SIDE"
       ],
-      "decision_id": "1e4afe0f6f8ecb13745e"
+      "decision_id": "1e4afe0f6f8ecb13745e",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3011864",
@@ -5504,7 +6769,8 @@
         "BUCKET_1.50",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3086921",
@@ -5601,7 +6867,8 @@
         "BUCKET_0.75",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3086922",
@@ -5698,7 +6965,8 @@
         "BUCKET_0.25",
         "SIDE_IDENTITY_VALID",
         "MARKET_MOVE_DEEPER_WITH_GIVING_WATER_RISE"
-      ]
+      ],
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3011876",
@@ -5795,7 +7063,23 @@
         "BUCKET_0.25",
         "SIDE_IDENTITY_VALID",
         "FLAT_LINE_GIVING_WATER_RISE"
-      ]
+      ],
+      "score": "",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:39:49.029095+08:00",
+      "settlement": {
+        "score": "",
+        "result": "",
+        "pnl_1u": "",
+        "status": "NOT_FINAL_STATE_0",
+        "result_state": "0",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+        "updated_at": "2026-09-23T07:39:49.029095+08:00"
+      }
     },
     {
       "match_id": "3094223",
@@ -5839,7 +7123,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "4812fa6534dc018ea168"
+      "decision_id": "4812fa6534dc018ea168",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3093692",
@@ -5883,7 +7182,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "3d1480b1746d8a6c5cac"
+      "decision_id": "3d1480b1746d8a6c5cac",
+      "score": "5-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "5-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094222",
@@ -5927,7 +7241,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "b3aef55e144fa193e9db"
+      "decision_id": "b3aef55e144fa193e9db",
+      "score": "3-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3091959",
@@ -5971,7 +7300,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "0a2ba2c4f69f4d2c5d2b"
+      "decision_id": "0a2ba2c4f69f4d2c5d2b",
+      "score": "6-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "6-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3091963",
@@ -6015,7 +7359,8 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "e4bac4903d37e98c07f9"
+      "decision_id": "e4bac4903d37e98c07f9",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3091964",
@@ -6059,7 +7404,8 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "cd54cbcb22977eb5dfd4"
+      "decision_id": "cd54cbcb22977eb5dfd4",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3091965",
@@ -6103,7 +7449,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "4962f581ce4e001b221d"
+      "decision_id": "4962f581ce4e001b221d",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3093691",
@@ -6147,7 +7508,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "bf9cb06372ea81acafe3"
+      "decision_id": "bf9cb06372ea81acafe3",
+      "score": "1-4",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-4",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094217",
@@ -6191,7 +7567,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "b882d14ae2625bf443a7"
+      "decision_id": "b882d14ae2625bf443a7",
+      "score": "3-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "2955837",
@@ -6235,7 +7626,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "48de5c320ec1661a0dbc"
+      "decision_id": "48de5c320ec1661a0dbc",
+      "score": "3-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3093726",
@@ -6279,7 +7685,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "e91d693f9f6e9d22b55b"
+      "decision_id": "e91d693f9f6e9d22b55b",
+      "score": "2-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3048106",
@@ -6323,7 +7744,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "29d5d8ff51b0d533a94d"
+      "decision_id": "29d5d8ff51b0d533a94d",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3048107",
@@ -6367,7 +7803,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "81f13b403496d3d4e983"
+      "decision_id": "81f13b403496d3d4e983",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3048109",
@@ -6411,7 +7862,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "cd2112824c04b217a07d"
+      "decision_id": "cd2112824c04b217a07d",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "2955838",
@@ -6455,7 +7921,8 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "adec7ffe769083e0ac47"
+      "decision_id": "adec7ffe769083e0ac47",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3094220",
@@ -6499,7 +7966,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "2791b0252c5dfc65989a"
+      "decision_id": "2791b0252c5dfc65989a",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3093693",
@@ -6543,7 +8025,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "f3086ca7d30d89f2e545"
+      "decision_id": "f3086ca7d30d89f2e545",
+      "score": "4-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "2965834",
@@ -6587,7 +8084,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "1c51e4db3bcecd5a890b"
+      "decision_id": "1c51e4db3bcecd5a890b",
+      "score": "3-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089641",
@@ -6631,7 +8143,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "287d5a7c6694b0c1be50"
+      "decision_id": "287d5a7c6694b0c1be50",
+      "score": "5-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "5-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089642",
@@ -6675,7 +8202,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "88420fc65ba176f1ff0c"
+      "decision_id": "88420fc65ba176f1ff0c",
+      "score": "3-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094209",
@@ -6719,7 +8261,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "9212f8c43cd0f2243b06"
+      "decision_id": "9212f8c43cd0f2243b06",
+      "score": "8-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "8-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089229",
@@ -6763,7 +8320,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "c7c87955e94ee6f298c2"
+      "decision_id": "c7c87955e94ee6f298c2",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092787",
@@ -6807,7 +8379,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "2c5f18e414f1bdd784b2"
+      "decision_id": "2c5f18e414f1bdd784b2",
+      "score": "1-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092789",
@@ -6851,7 +8438,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "982320ae1065150ee2f6"
+      "decision_id": "982320ae1065150ee2f6",
+      "score": "1-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089296",
@@ -6895,7 +8497,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "a9121a2b5aefc2a786ff"
+      "decision_id": "a9121a2b5aefc2a786ff",
+      "score": "0-4",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-4",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089230",
@@ -6939,7 +8556,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "4d8b0ae9266fb9f2172e"
+      "decision_id": "4d8b0ae9266fb9f2172e",
+      "score": "0-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3093727",
@@ -6983,7 +8615,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "0832673afd876b3a4749"
+      "decision_id": "0832673afd876b3a4749",
+      "score": "2-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094228",
@@ -7027,7 +8674,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "03876c15df0bf239d827"
+      "decision_id": "03876c15df0bf239d827",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089231",
@@ -7071,7 +8733,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "a51f7ca9b19c24fb5ea2"
+      "decision_id": "a51f7ca9b19c24fb5ea2",
+      "score": "0-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089232",
@@ -7115,7 +8792,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "5f4b78ee5bc872175d6e"
+      "decision_id": "5f4b78ee5bc872175d6e",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3089233",
@@ -7159,7 +8851,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "e60a7ce115d9d2e1e396"
+      "decision_id": "e60a7ce115d9d2e1e396",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3072793",
@@ -7203,7 +8910,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "19e8ac1fac8a622e0108"
+      "decision_id": "19e8ac1fac8a622e0108",
+      "score": "1-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3072795",
@@ -7247,7 +8969,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "4e8d85b77f4b4c05f273"
+      "decision_id": "4e8d85b77f4b4c05f273",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092798",
@@ -7291,7 +9028,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "5bdc02e05d76b63cfb2a"
+      "decision_id": "5bdc02e05d76b63cfb2a",
+      "score": "5-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "5-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "2955840",
@@ -7335,7 +9087,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "1698e7fda417cd7dd41a"
+      "decision_id": "1698e7fda417cd7dd41a",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3040393",
@@ -7379,7 +9146,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "2a60e2119828b0cddc24"
+      "decision_id": "2a60e2119828b0cddc24",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3046425",
@@ -7423,7 +9205,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "55e6592b9cd65af5bda0"
+      "decision_id": "55e6592b9cd65af5bda0",
+      "score": "4-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3020312",
@@ -7467,7 +9264,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "e57a5c4e90eaec2331e2"
+      "decision_id": "e57a5c4e90eaec2331e2",
+      "score": "2-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3022546",
@@ -7511,7 +9323,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "232eca65ac38fea4bef8"
+      "decision_id": "232eca65ac38fea4bef8",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086432",
@@ -7555,7 +9382,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "8c0d4a13267abcdf14d1"
+      "decision_id": "8c0d4a13267abcdf14d1",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086433",
@@ -7599,7 +9441,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "e7d7bbaab66c6729d155"
+      "decision_id": "e7d7bbaab66c6729d155",
+      "score": "2-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086434",
@@ -7643,7 +9500,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "bcc003da781c2488b885"
+      "decision_id": "bcc003da781c2488b885",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086435",
@@ -7687,7 +9559,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "2898e784bcf68251aa44"
+      "decision_id": "2898e784bcf68251aa44",
+      "score": "1-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086440",
@@ -7731,7 +9618,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "519220f899e817b554f5"
+      "decision_id": "519220f899e817b554f5",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086441",
@@ -7775,7 +9677,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "581dc6ed9194a909d2e4"
+      "decision_id": "581dc6ed9194a909d2e4",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086442",
@@ -7819,7 +9736,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "d1f9b4dc27ae45d574e3"
+      "decision_id": "d1f9b4dc27ae45d574e3",
+      "score": "1-6",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-6",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086443",
@@ -7863,7 +9795,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "6794a50c143d18ff88db"
+      "decision_id": "6794a50c143d18ff88db",
+      "score": "2-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086444",
@@ -7907,7 +9854,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "324ac7f72caf25c6d9f9"
+      "decision_id": "324ac7f72caf25c6d9f9",
+      "score": "0-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086445",
@@ -7951,7 +9913,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "aa0c979dc1587e4d806a"
+      "decision_id": "aa0c979dc1587e4d806a",
+      "score": "3-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086447",
@@ -7995,7 +9972,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "4e03a58504d4d7c26f79"
+      "decision_id": "4e03a58504d4d7c26f79",
+      "score": "8-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "8-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086448",
@@ -8039,7 +10031,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "4999db4fbbe5c5984f19"
+      "decision_id": "4999db4fbbe5c5984f19",
+      "score": "4-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086449",
@@ -8083,7 +10090,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "5225df46f533fa0708bd"
+      "decision_id": "5225df46f533fa0708bd",
+      "score": "4-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "4-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3086451",
@@ -8127,7 +10149,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "e2b7eb79cbd4661b7e35"
+      "decision_id": "e2b7eb79cbd4661b7e35",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3092768",
@@ -8171,7 +10208,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "4e7819092ddb0a7e483c"
+      "decision_id": "4e7819092ddb0a7e483c",
+      "score": "5-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "5-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094091",
@@ -8215,7 +10267,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "33e194c61b26c51d15f1"
+      "decision_id": "33e194c61b26c51d15f1",
+      "score": "3-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094092",
@@ -8259,7 +10326,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "6ccf4daf03f641944e56"
+      "decision_id": "6ccf4daf03f641944e56",
+      "score": "3-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094094",
@@ -8303,7 +10385,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "ec0e79a8fe20c9444427"
+      "decision_id": "ec0e79a8fe20c9444427",
+      "score": "3-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094095",
@@ -8347,7 +10444,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "4391c5ace0e22fd09e24"
+      "decision_id": "4391c5ace0e22fd09e24",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094096",
@@ -8391,7 +10503,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "90afc5d0d24646739f9c"
+      "decision_id": "90afc5d0d24646739f9c",
+      "score": "1-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094098",
@@ -8435,7 +10562,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "ba588ced16d35a75d5d3"
+      "decision_id": "ba588ced16d35a75d5d3",
+      "score": "0-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094100",
@@ -8479,7 +10621,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "2fc490e1a725b7450008"
+      "decision_id": "2fc490e1a725b7450008",
+      "score": "0-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "0-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094101",
@@ -8523,7 +10680,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "1b70ff6056e9ad31f483"
+      "decision_id": "1b70ff6056e9ad31f483",
+      "score": "2-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3093119",
@@ -8567,7 +10739,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "475bc6fe59b73e3e4f7b"
+      "decision_id": "475bc6fe59b73e3e4f7b",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094212",
@@ -8611,7 +10798,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "6e4593ee4824310258cf"
+      "decision_id": "6e4593ee4824310258cf",
+      "score": "3-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094219",
@@ -8655,7 +10857,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "71860c30a4c2d650a780"
+      "decision_id": "71860c30a4c2d650a780",
+      "score": "1-1",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-1",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094225",
@@ -8699,7 +10916,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "57232f24fc1b6d5b6147"
+      "decision_id": "57232f24fc1b6d5b6147",
+      "score": "2-2",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "2-2",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3093632",
@@ -8743,7 +10975,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "e2ea9845e48c793909e1"
+      "decision_id": "e2ea9845e48c793909e1",
+      "score": "3-0",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "3-0",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3045098",
@@ -8787,7 +11034,8 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "1af10fc52a11f004cffc"
+      "decision_id": "1af10fc52a11f004cffc",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3045099",
@@ -8831,7 +11079,8 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "f7d555a548caa19c85a7"
+      "decision_id": "f7d555a548caa19c85a7",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     },
     {
       "match_id": "3094221",
@@ -8875,7 +11124,22 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "daf9f69a5e31407c64f6"
+      "decision_id": "daf9f69a5e31407c64f6",
+      "score": "1-3",
+      "result": "",
+      "pnl_1u": "",
+      "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-09-23T07:41:37.435744+08:00",
+      "settlement": {
+        "score": "1-3",
+        "result": "",
+        "pnl_1u": "",
+        "settlement_status": "MISSING_V4_SIDE_LINE_WATER_OR_TEAM",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260923\\20260923_073950_titan007_odds_snapshot.csv"
+      }
     },
     {
       "match_id": "3094210",
@@ -8919,7 +11183,8 @@
       "reason_codes": [
         "PREMATCH_STATUS_UNCONFIRMED"
       ],
-      "decision_id": "3f74dc25ed301ebac0a1"
+      "decision_id": "3f74dc25ed301ebac0a1",
+      "settlement_status": "RESULT_PENDING_VERIFICATION"
     }
   ],
   "started_lock_policy": "started rows retain original pre-match prediction; only status/settlement/review may append",
