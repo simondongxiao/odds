@@ -182,10 +182,11 @@ def main():
         except (TypeError, ValueError):
             started = False
         historical = key[0] < date
-        # Historical and already-started rows are immutable.  A future row on
-        # the current list date must use the latest pre-match freeze so Bridge
-        # and cardsData remain identical after a legitimate price refresh.
-        if historical or started:
+        # Historical, already-started, and same-list-date frozen selections are
+        # immutable.  A later refresh may add a new selection before kickoff,
+        # but it cannot delete or downgrade an earlier frozen V3 selection.
+        frozen_selection = bool(old_card.get("frozen_bettable"))
+        if historical or started or frozen_selection:
             merged_card = dict(old_card)
             for field in post_match_fields:
                 value = current_card.get(field)
