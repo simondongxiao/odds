@@ -1,0 +1,7 @@
+# CURRENT_LEARNING_AUDIT_R2
+
+R2 不再使用复杂 Meta 作为生存门槛。E0/E1 对所有 CORE 候选输出；E2 缺失只降级到 CORE；E3 缺失只显示 `MISSING_FUNDAMENTALS`。
+
+严格时间外 OOS：85 场；高低分组是否单调：False；结论固定为 `RANKING_EFFICACY_UNPROVEN`。
+
+所有历史重跑均为 `DEVELOPMENT / IN-SAMPLE OR REUSED HISTORY`，未来新增冻结记录才是 `FROZEN FORWARD`。

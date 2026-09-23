@@ -1,0 +1,22 @@
+# R1 / R2 可评估性对比
+
+生成时间：2026-09-23T23:46:58.264093+08:00
+
+历史范围统一标记为 `DEVELOPMENT / IN-SAMPLE OR REUSED HISTORY`，不得解释为新的独立前瞻回测。
+
+| 指标 | R1 | R2 |
+|---|---:|---:|
+| RAW_CANDIDATES | 302 | 302 |
+| CORE_EVALUABLE | 11 | 302 |
+| CORE_EVALUABLE_RATE | 3.64% | 100.00% |
+| MARKET_EVALUABLE | 43 | 43 |
+| FULL_EVALUABLE | 0 | 0 |
+| SELECTED | 1 | 25 |
+| REJECTED | 10 | 277 |
+| UNAVAILABLE | 291 | 0 |
+| HARD_UNAVAILABLE | 0 | 0 |
+| OPTIONAL_MISSING | 291 | 302 |
+
+筛选阈值保持 `0.221220362377`，R2 没有通过降低阈值增加出手。
+
+R2 工程覆盖通过，但排序效力仍为 `RANKING_EFFICACY_UNPROVEN`。

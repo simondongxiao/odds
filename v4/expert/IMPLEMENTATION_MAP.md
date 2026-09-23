@@ -1,4 +1,4 @@
-# V4_EXPERT_FILTER_R1 实施映射
+# V4_EXPERT_FILTER_R2 实施映射
 
 生成日期：2026-09-23（Asia/Shanghai）
 
@@ -6,8 +6,9 @@
 
 - 本模块只消费已经冻结的原 V4 输出；不调用旧版生产更新链，不读取其他模型版本的数据目录。
 - 原 V4 是唯一对照组 `V4_RAW_CONTROL`，其方向、概率、EV、ABCN、历史盘口/水位、决策时间和结算证据均只读。
-- 新模块只能在原 V4 的 A/B/C 候选中输出 `BET`、`NO_BET` 或 `UNAVAILABLE`，不能反向、不能新增非候选。
-- 所有 `BET` 固定纸面 1U；其余 0U；`status=SHADOW`、`real_money=false`。
+- 新模块只能在原 V4 的 A/B/C 候选中输出 `SELECTED_SHADOW`、`REJECTED_SHADOW` 或真正的 `UNAVAILABLE`，不能反向、不能新增非候选。
+- 只有核心身份、方向、盘口、水位或赛前冻结证明失败时才是 `UNAVAILABLE`；E2/E3 缺失只降级能力层。
+- 所有 `SELECTED_SHADOW` 固定纸面 1U；其余 0U；`status=SHADOW_ONLY`、`real_money=false`。
 - ABC 只保留为审计字段，不进入模型特征、不控制阈值和仓位。
 
 ## 2. 现有实现与入口
@@ -22,7 +23,7 @@
 | 原 V4 冻结输出 | `D:/codex/v4/outputs/v4_decisions_YYYY-MM-DD.json` | CONTROL 数据源 | 只读消费 |
 | 原 V4 页面 | `D:/codex/v4/dashboard/index.html` | 原始展示 | 保留；仅增加独立入口时做最小集成 |
 | 已有 V4.1 | `D:/codex/v41/` | 独立概率/方向挑战系统 | 只复用时间快照和防泄漏思想；不复用改方向逻辑 |
-| 新专家过滤器 | `D:/codex/v4_expert/` | `V4_EXPERT_FILTER_R1` | 本次新增 |
+| 独立专家选择器 | `D:/codex/v4_expert/` | `V4_EXPERT_FILTER_R2` | R1冻结后原位升级 |
 
 ## 3. 已确认诊断输入
 
@@ -38,16 +39,19 @@
 
 | 文件 | 职责 |
 |---|---|
-| `config/filter_r1.json` | 冻结参数、阈值公式、重训门槛和禁用特征 |
+| `config/filter_r1.json` | 已冻结 R1 参数 |
+| `config/filter_r2.json` | R2 固定阈值、能力层、强正则参数和 Shadow 边界 |
 | `protected_manifest.json` | 原 V4 核心 SHA-256 保护清单 |
 | `common.py` | 时间、哈希、结算、原子写入等公共能力 |
-| `pipeline.py` | V4-only 数据契约、去重、时间分区、训练、推断、结算、对比、归因 |
-| `web.py` | 四视图和中文 HTML 生成 |
-| `cli.py` | 八个必需命令及完整手动更新入口 |
+| `pipeline.py` | 已冻结 R1 实现与共享的 V4-only 标准化能力 |
+| `r2.py` | CORE/MARKET/FULL 分层、R2训练、推断、结算、291场审计和R1/R2对比 |
+| `web_r2.py` | R2 中文 HTML 与数据可评估性展示 |
+| `cli.py` | 默认进入 R2 的完整手动更新入口 |
 | `tests/test_filter_r1.py` | 防泄漏、不可变、独立性和 PnL 对账测试 |
+| `tests/test_filter_r2.py` | R1冻结、能力降级、覆盖率、固定1U和前瞻边界测试 |
 | `README.md` | Windows 可复制命令和状态解释 |
 
-命令入口：`python -m v4_expert.cli <command>`，支持 `audit`、`build-dataset`、`train`、`infer`、`settle`、`compare`、`retrain-check`、`report`、`update`。
+命令入口：`python -m v4_expert.cli <command>`，支持 `audit`、`build-dataset`、`train`、`historical`、`infer`、`settle`、`compare`、`unavailable-audit`、`report`、`update`。
 
 ## 5. 版本与数据标识
 
@@ -67,9 +71,10 @@
 | E1 信号有效性 | 缺失 | 正则化预期 PnL 回归 |
 | E2 价格路径 | 历史覆盖不足 | 有真实路径才启用；两点时明确 `TWO_POINT_ONLY` |
 | E3 赛况条件 | 无可靠独立源 | 默认 `UNAVAILABLE`，绝不伪造中性 0.5 |
-| Meta 选择器 | 缺失 | 仅用扩展窗口 OOS 专家输出训练的强正则回归 |
+| Core Selector | R1 Meta覆盖失败 | E0层级收缩 + E1强正则固定1U PnL Ridge；无需E2/E3即可判断 |
+| 能力退化 | 缺失 | FULL -> MARKET -> CORE；增强信息缺失不再整场失败 |
 | 市场状态监控 | 缺失 | 全市场 as-of 分布与关系变化；允许 `REFERENCE_INSUFFICIENT` |
-| 固定 1U Shadow | 部分存在 | 强制 `BET=1U`，其他 0U，禁止 Kelly/动态仓位 |
+| 固定 1U Shadow | 部分存在 | 强制 `SELECTED_SHADOW=1U`，其他 0U，禁止 Kelly/动态仓位 |
 | Champion/Challenger | 缺失 | 冻结 Champion；只提示重训，不自动晋级 |
 | 页面入口 | 缺失 | 原 V4 页面旁增加独立专家选择器入口 |
 

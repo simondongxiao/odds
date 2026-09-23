@@ -1,0 +1,7 @@
+# R1 冻结状态
+
+- 版本：`V4_EXPERT_FILTER_R1`
+- 状态：`EVALUABILITY_FAILED`
+- 分类：302 RAW / 1 SELECTED / 10 REJECTED / 291 UNAVAILABLE
+- 冻结目录：`D:/codex/v4_expert/archives/V4_EXPERT_FILTER_R1_EVALUABILITY_FAILED_20260923_233716`
+- 原模型、配置、dataset hash、分类和 HTML 均保留。
