@@ -6,12 +6,12 @@
     "blocked_events": 149,
     "comparable_events": 14,
     "events": 158,
-    "fresh_market_events": 68,
+    "fresh_market_events": 72,
     "independent_priceable_events": 21,
-    "market_observed_events": 80,
+    "market_observed_events": 84,
     "paper_bettable": 0,
     "paper_triggered_events": 0,
-    "raw_verified_market_events": 80,
+    "raw_verified_market_events": 84,
     "research_coupled_events": 14
   },
   "probability_calibration": "UNVALIDATED",
@@ -21,8 +21,8 @@
       "canonical_execution_records": 35,
       "canonical_signal_records": 113,
       "policy": "Earliest valid first-write per canonical event and market is the only statistical sample; later captures remain audit evidence.",
-      "raw_first_write_records_found": 583,
-      "repeat_capture_records_excluded_from_statistics": 470,
+      "raw_first_write_records_found": 611,
+      "repeat_capture_records_excluded_from_statistics": 498,
       "repeat_execution_records_excluded_from_statistics": 0
     },
     "model_validation": {
