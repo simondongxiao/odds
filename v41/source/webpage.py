@@ -128,20 +128,36 @@ def _health_table(items):
     return table(items[:30], [(key, KEY_CN.get(key, key)) for key in keys], 'compact')
 
 
-def render(report, rows):
-    folder = ROOT / 'dashboard'
+def _report_dates():
+    return sorted(path.stem for path in (ROOT / 'reports').glob('20*.json'))
+
+
+def _date_options(day, date_links):
+    return ''.join(
+        '<option value="' + esc(date) + '"' + (' selected' if date == day else '') + '>' + esc(date) + '</option>'
+        for date in sorted(date_links)
+    )
+
+
+def render(report, rows, folder=None, date_links=None, nav_v4='../v4/', nav_v3='../v3-legacy/',
+           compare_v4='../../v4/', compare_v3='../../v3-legacy/'):
+    folder = Path(folder) if folder is not None else ROOT / 'dashboard'
     folder.mkdir(parents=True, exist_ok=True)
     (folder / 'compare').mkdir(exist_ok=True)
     summary, model, day = report['summary'], report['model'], report['list_date']
     comp = report['comparison']
     settlements = {row['match_id']: row for row in rows if row['date'] == day}
+    if date_links is None:
+        dates = _report_dates()
+        date_links = {date: ('./' if date == day else f'history/{date}/') for date in dates}
+    date_links = dict(sorted(date_links.items()))
 
     body = ('<section class="hero"><h1>V4.1 影子模型看板</h1>'
             '<div class="hero-sub">独立挑战模型 · 仅用于前瞻观察，不构成真实下注建议</div>'
             '<div class="badges"><span class="badge">仅影子观察</span><span class="badge">禁止实盘</span>'
             '<span class="badge">real_money=false</span></div></section>')
     body += ('<nav class="nav"><a href="compare/">V4 与 V4.1 同场对照</a>'
-             '<a href="../v4/">原 V4 影子看板</a><a href="../v3-legacy/">V3 正式决策页</a>'
+             '<a href="' + esc(nav_v4) + '">原 V4 影子看板</a><a href="' + esc(nav_v3) + '">V3 正式决策页</a>'
              '<a href="V41_BUILD_REPORT.md">V4.1 构建报告</a></nav>')
     body += ('<section class="definitions"><b>等级定义：</b> A、B 保持严格正期望门槛；C 包含严格 C 与按用户规则强制纳入的有效赛前4小时窗口方向；'
              'N 表示未形成可计入成绩的冻结候选。<b>页面口径：</b> 顶部 A/B/C/N 只统计本列表日已经冻结的赛前记录；'
@@ -169,7 +185,8 @@ def render(report, rows):
 
     body += ('<h2 class="section-title">今日赛事与冻结决策</h2>'
              '<div class="section-note">冻结记录优先排列。距离开赛超过4小时的行仅作预览，不计入候选名单。</div>'
-             '<div class="controls"><label>搜索<input id="search" placeholder="球队、联赛或比赛编号" oninput="showCards(0)"></label>'
+             '<div class="controls"><label>列表日<select id="date-select" onchange="changeDate(this.value)">' + _date_options(day, date_links) + '</select></label>'
+             '<label>搜索<input id="search" placeholder="球队、联赛或比赛编号" oninput="showCards(0)"></label>'
              '<label>等级<select id="grade" onchange="showCards(0)"><option value="全部">全部等级</option>'
              '<option>A</option><option>B</option><option>C</option><option>N</option></select></label>'
              '<label>状态<select id="window" onchange="showCards(0)"><option value="全部">全部状态</option>'
@@ -242,7 +259,8 @@ def render(report, rows):
              '<th>等级/结论</th><th>候选球队/方向</th><th>盘口/水位</th><th>让球/受让覆盖率</th><th>EV指标</th>'
              '<th>报价/冻结</th><th>赛果/模拟盈亏</th><th>明细</th></tr></thead><tbody id="cards">')
     body += ''.join(x['html'] for x in cards[:20]) + '</tbody></table></div>'
-    body += r'''<script>
+    body += '<script>\nconst dateLinks=' + json.dumps(date_links, ensure_ascii=False) + r''';
+function changeDate(value){if(dateLinks[value])location.href=dateLinks[value]}
 let page=0,allCards=null;const pageSize=20;
 async function showCards(next){try{if(!allCards){const r=await fetch('cards.json?ts='+Date.now());if(!r.ok)throw Error(r.status);allCards=await r.json()}
 const q=document.getElementById('search').value.toLowerCase(),g=document.getElementById('grade').value,w=document.getElementById('window').value;
@@ -263,8 +281,8 @@ document.getElementById('pageinfo').textContent=`第 1 / ${Math.max(1,Math.ceil(
             '<div class="hero-sub">统一报价、版本化冻结窗口、不可变赛前决策</div>'
             '<div class="badges"><span class="badge">仅影子观察</span><span class="badge">禁止实盘</span>'
             '<span class="badge">real_money=false</span></div></section>'
-            '<nav class="nav"><a href="../">返回 V4.1 今日看板</a><a href="../../v4/">原 V4 影子看板</a>'
-            '<a href="../../v3-legacy/">V3 正式决策页</a></nav>'
+            '<nav class="nav"><a href="../">返回 V4.1 当前列表日</a><a href="' + esc(compare_v4) + '">原 V4 影子看板</a>'
+            '<a href="' + esc(compare_v3) + '">V3 正式决策页</a></nav>'
             '<section class="notice">本页只比较同一场比赛、同一份报价、同一轮冻结运行生成的不可变前瞻记录。历史记录保留原 T-30 窗口；2026-09-20 起的新记录使用赛前4小时窗口。'
             '原 V4 使用逐字节隔离副本运行，规则保持不变，原 V4 页面和历史记录没有被改写。'
             '统一时间窗口的对照结果不等于原 V4 页面上的全部历史成绩。</section>')
@@ -321,3 +339,28 @@ document.getElementById('pageinfo').textContent=`第 1 / ${Math.max(1,Math.ceil(
         shutil.copy2(path, folder / 'diagnostics' / path.name)
     if (ROOT / 'diagnostics/V41_BUILD_REPORT.md').exists():
         shutil.copy2(ROOT / 'diagnostics/V41_BUILD_REPORT.md', folder / 'V41_BUILD_REPORT.md')
+
+
+def render_history():
+    """Render one immutable-looking static route per V4.1 list date for backtesting."""
+    dates = _report_dates()
+    if not dates:
+        return
+    from .forward import reconcile
+
+    rows = reconcile()
+    history_root = ROOT / 'dashboard' / 'history'
+    for day in dates:
+        report_path = ROOT / 'reports' / f'{day}.json'
+        report = read(report_path)
+        links = {date: ('./' if date == day else f'../{date}/') for date in dates}
+        render(
+            report,
+            rows,
+            folder=history_root / day,
+            date_links=links,
+            nav_v4='../../../v4/',
+            nav_v3='../../../v3-legacy/',
+            compare_v4='../../../../v4/',
+            compare_v3='../../../../v3-legacy/',
+        )

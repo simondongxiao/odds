@@ -39,14 +39,14 @@ def tick(day):
     rows=reconcile();comp=comparison(rows);checks=health(cards,rows);frozen=[c for c in cards if c.get('frozen_at')]
     result={'list_date':day,'generated_at':now().isoformat(),'model':{k:model[k] for k in ['model_version','model_type','calibration_version','calibration_state','temperature','train_count','validation_count','artifact_id']},'status':'SHADOW ONLY / NOT FOR PRODUCTION','real_money':False,'snapshot_policy':config('snapshot_policy'),'execution_policy':config('execution_policy'),'summary':{'total':len(cards),'computed_preview':sum(bool(c.get('probability')) for c in cards),'frozen':len(frozen),'candidates':sum(c['decision']['grade'] in 'ABC' for c in frozen),'grades':{g:sum(c['decision']['grade']==g for c in frozen) for g in 'ABCN'},'giving':sum(c['decision'].get('candidate_side')=='giving' for c in frozen),'receiving':sum(c['decision'].get('candidate_side')=='receiving' for c in frozen),'latest_freeze':max((c['frozen_at'] for c in frozen),default=None)},'collection':info,'control_error':control_error,'health':checks,'comparison':comp,'cards':cards,'original_control_verification':verify_original()}
     write(ROOT/'reports'/f'{day}.json',result);write(ROOT/'reports/runs'/f'{runid}.json',result,immutable=True)
-    from .webpage import render
-    render(result,rows);print(canonical({'list_date':day,**result['summary'],'control_error':control_error,'original_v4_unchanged':True}));return result
+    from .webpage import render,render_history
+    render(result,rows);render_history();print(canonical({'list_date':day,**result['summary'],'control_error':control_error,'original_v4_unchanged':True}));return result
 def main():
     p=argparse.ArgumentParser();p.add_argument('command',choices=['train','tick','render','verify']);p.add_argument('--list-date',default=now().date().isoformat());a=p.parse_args()
     if a.command=='train':m=train();print(canonical({'model':m['model_version'],'train':m['train_count'],'validation':m['validation_count']}))
     elif a.command=='tick':tick(a.list_date)
     elif a.command=='verify':print(canonical(verify_original()))
     else:
-        from .webpage import render
-        render(read(ROOT/'reports'/f'{a.list_date}.json'),reconcile())
+        from .webpage import render,render_history
+        render(read(ROOT/'reports'/f'{a.list_date}.json'),reconcile());render_history()
 if __name__=='__main__':main()
