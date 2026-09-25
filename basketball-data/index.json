@@ -2,14 +2,20 @@
   "dates": [
     {
       "archive_type": "FORWARD_NATIVE",
+      "date": "2026-09-27",
+      "event_count": 60,
+      "file": "2026-09-27.json"
+    },
+    {
+      "archive_type": "FORWARD_NATIVE",
       "date": "2026-09-26",
-      "event_count": 44,
+      "event_count": 157,
       "file": "2026-09-26.json"
     },
     {
       "archive_type": "FORWARD_NATIVE",
       "date": "2026-09-25",
-      "event_count": 48,
+      "event_count": 46,
       "file": "2026-09-25.json"
     },
     {
@@ -187,5 +193,5 @@
       "file": "2026-08-26.json"
     }
   ],
-  "generated_at": "2026-09-24T14:49:49.536995+00:00"
+  "generated_at": "2026-09-25T00:17:24.072992+00:00"
 }
