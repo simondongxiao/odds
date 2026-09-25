@@ -35,7 +35,7 @@ def parse_line(value: Any) -> float | None:
     aliases = {
         "平手": 0.0, "平手/半球": 0.25, "半球": 0.5, "半球/一球": 0.75,
         "一球": 1.0, "一球/球半": 1.25, "球半": 1.5, "球半/两球": 1.75,
-        "两球": 2.0, "两球/两球半": 2.25, "两球半": 2.5,
+        "两球": 2.0, "两球/两球半": 2.25, "两球半": 2.5, "两球半/三球": 2.75,
     }
     if text in aliases:
         return aliases[text]
@@ -93,7 +93,7 @@ def effective_rate(counter: Counter[str]) -> float | None:
     return wins / (wins + losses) if wins + losses else None
 
 
-def raw_result_map(raw_path: Path, target: str) -> dict[str, dict[str, str]]:
+def raw_result_map(raw_path: Path, target: str, score_overrides: dict[str, dict[str, str]] | None = None) -> dict[str, dict[str, str]]:
     # A live feed drops yesterday's finished matches. Retain explicit final
     # observations from earlier snapshots, with their actual source paths.
     # Snapshot folders follow the natural capture date, not Titan list_date;
@@ -115,6 +115,24 @@ def raw_result_map(raw_path: Path, target: str) -> dict[str, dict[str, str]]:
             old_final = verified_final_score(previous)[0] is not None
             if new_final or not old_final:
                 results[mid] = row
+    # A reliable, independently verified score source may be supplied only as
+    # an explicit post-match override.  It never changes a frozen decision
+    # field; it only supplies final score/state/provenance for settlement.
+    for mid, override in (score_overrides or {}).items():
+        if str(override.get("list_date", "")) != target:
+            continue
+        if override.get("home_score", "") == "" or override.get("away_score", "") == "":
+            continue
+        row = dict(results.get(str(mid), {}))
+        row.update({
+            "match_id": str(mid),
+            "list_date": target,
+            "state": "-1",
+            "home_score": str(override["home_score"]),
+            "away_score": str(override["away_score"]),
+            "_source": str(override.get("source", "")),
+        })
+        results[str(mid)] = row
     return results
 
 
@@ -240,10 +258,14 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--list-date", required=True)
     parser.add_argument("--raw-csv", required=True)
+    parser.add_argument("--score-overrides", default="", help="Optional explicit verified post-match score overrides JSON")
     args = parser.parse_args()
     target = args.list_date
     raw_path = Path(args.raw_csv)
-    raw = raw_result_map(raw_path, target)
+    overrides: dict[str, dict[str, str]] = {}
+    if args.score_overrides:
+        overrides = json.loads(Path(args.score_overrides).read_text(encoding="utf-8"))
+    raw = raw_result_map(raw_path, target, overrides)
     for row in raw.values():
         row.setdefault("_source", str(raw_path))
     bridge_path = ROOT / "bridge" / "v3_production" / f"{target}.json"

@@ -43,6 +43,8 @@ def main():
     # Decisions stay tied to raw_snapshot; an explicitly newer source may be
     # used only to reconcile post-match status, score, settlement and PnL.
     raw_path = Path(manifest.get("settlement_snapshot") or manifest["raw_snapshot"])
+    override_path = OUT / "reviews" / "score_overrides_20260925.json"
+    score_overrides = json.loads(override_path.read_text(encoding="utf-8")) if override_path.exists() else {}
     stamp = daily.now_cn().strftime("%Y%m%d_%H%M%S")
     backup = OUT / "backups" / f"delivery_results_{stamp}"
     backup.mkdir(parents=True)
@@ -67,7 +69,7 @@ def main():
     audit = {"run_id": manifest["run_id"], "dates": {}, "real_money": False}
     all_results = []
     for target in (yesterday, date):
-        raw = raw_result_map(raw_path, target)
+        raw = raw_result_map(raw_path, target, score_overrides)
         bridge = daily.read_json(ROOT / f"bridge/v3_production/{target}.json", {})
         v3_results = {r["match_id"]: r for r in settle_v3(bridge.get("matches", []), raw)}
         for card in cards:
