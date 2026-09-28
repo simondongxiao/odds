@@ -1,6 +1,6 @@
 {
   "list_date": "2026-09-28",
-  "generated_at": "2026-09-28T07:41:49.751681+08:00",
+  "generated_at": "2026-09-28T08:06:12.309619+08:00",
   "model": {
     "model_version": "V4.1_R1",
     "model_type": "masked_multinomial_logistic_bucket_prior_offset",
@@ -65,464 +65,486 @@
   },
   "summary": {
     "total": 133,
-    "computed_preview": 0,
-    "frozen": 0,
-    "candidates": 0,
+    "computed_preview": 1,
+    "frozen": 1,
+    "candidates": 1,
     "grades": {
       "A": 0,
       "B": 0,
-      "C": 0,
+      "C": 1,
       "N": 0
     },
-    "giving": 0,
+    "giving": 1,
     "receiving": 0,
-    "latest_freeze": null
+    "latest_freeze": "2026-09-28T08:06:12.046736+08:00"
   },
   "collection": {
     "list_date": "2026-09-28",
-    "observed_at": "2026-09-28T07:40:14+08:00",
+    "observed_at": "2026-09-28T08:04:51+08:00",
     "roster_count": 133,
     "received": 133,
     "prematch_snapshots": 51,
-    "raw_csv": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
+    "raw_csv": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
     "source_adapter": "TITAN007_EXISTING_CAPTURE"
   },
   "control_error": null,
   "health": {
-    "probability": [],
-    "direction": [],
-    "intent": [],
+    "probability": [
+      {
+        "handicap": "0.5",
+        "n": 1,
+        "distinct_vectors": 1,
+        "dominant_vector_share": 1.0,
+        "status": "SMALL_SAMPLE"
+      }
+    ],
+    "direction": [
+      {
+        "side": "giving",
+        "n": 1,
+        "share": 1.0,
+        "status": "MONITOR"
+      }
+    ],
+    "intent": [
+      {
+        "intent": "真实示弱/阻下",
+        "n": 1,
+        "share": 1.0,
+        "status": "MONITOR"
+      }
+    ],
     "grade": [
       {
         "grade": "A",
         "n": 0,
-        "abc": 0,
+        "abc": 1,
         "status": "GRADE_MONOTONICITY_WARNING"
       },
       {
         "grade": "B",
         "n": 0,
-        "abc": 0,
+        "abc": 1,
         "status": "GRADE_MONOTONICITY_WARNING"
       },
       {
         "grade": "C",
-        "n": 0,
-        "abc": 0,
+        "n": 1,
+        "abc": 1,
         "status": "GRADE_MONOTONICITY_WARNING"
       },
       {
         "grade": "N",
         "n": 0,
-        "abc": 0,
+        "abc": 1,
         "status": "GRADE_MONOTONICITY_WARNING"
       }
     ],
     "snapshot": [
       {
         "match_id": "2997428",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 199.76666666666668,
-        "freeze": false,
-        "primary_status": "PRIMARY_4H",
-        "status": "PREVIEW_NOT_DECISION"
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 175.15,
+        "freeze": true,
+        "primary_status": "FROZEN_PRIMARY_4H",
+        "status": "T30_FROZEN"
       },
       {
         "match_id": "3088944",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 559.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 535.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3035662",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 619.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 595.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3094371",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 644.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 620.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3094372",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 679.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 655.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3095282",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 739.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 715.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3091497",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 739.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 715.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3088945",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 769.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 745.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3077256",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 799.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 775.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3077260",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 799.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 775.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3094377",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 859.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 835.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3095424",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 899.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 875.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3095425",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 899.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 875.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3056239",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 919.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 895.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3037928",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 919.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 895.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3089299",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 919.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 895.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2981485",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 979.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 955.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2981531",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 979.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 955.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2981532",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 979.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 955.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3001046",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 979.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 955.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3001047",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 979.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 955.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3001059",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 979.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 955.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2781406",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1009.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 985.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3005983",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1039.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1015.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3089300",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1054.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1030.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3089301",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1054.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1030.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3059200",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1099.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1075.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3014093",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1129.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1105.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2981437",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1120.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2981438",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1120.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2981486",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1120.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2981487",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1120.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2981488",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1120.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3092462",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1159.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1135.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3074190",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1189.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1165.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3012203",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1249.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1225.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3012204",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1279.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1255.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3092474",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1279.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1255.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3046041",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1324.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1300.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3074187",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1339.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1315.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3094364",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1339.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1315.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3092439",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1339.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1315.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "2940195",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1369.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1345.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3094913",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1399.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1375.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3012205",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1399.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1375.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3046042",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1399.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1375.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3092440",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1459.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1435.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3092463",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1459.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1435.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3092475",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1459.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1435.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3046043",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1524.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1500.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
       },
       {
         "match_id": "3092441",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "minutes_to_kickoff": 1579.7666666666667,
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "minutes_to_kickoff": 1555.15,
         "freeze": false,
         "primary_status": "WAIT_PRIMARY_4H_WINDOW",
         "status": "PREVIEW_NOT_DECISION"
@@ -1184,7 +1206,27 @@
         "status": "MISSING"
       }
     ],
-    "feature": [],
+    "feature": [
+      {
+        "match_id": "2997428",
+        "required_completeness": 1.0,
+        "all_completeness": 0.6470588235294118,
+        "missing": [
+          "line_up_count",
+          "line_down_count",
+          "reversal_count",
+          "spread_speed",
+          "water_speed",
+          "late_30_line",
+          "late_60_line",
+          "neutral_venue",
+          "elo_difference",
+          "recent_form_difference",
+          "bookmaker_dispersion",
+          "bookmaker_consensus"
+        ]
+      }
+    ],
     "calibration": [
       {
         "group_by": "overall",
@@ -1287,6 +1329,20 @@
       {
         "group_by": "date",
         "group": "2026-09-27",
+        "n": 0,
+        "effective_n": 0,
+        "predicted_effective_win_rate": null,
+        "actual_effective_win_rate": null,
+        "brier": null,
+        "five_state_brier": null,
+        "ece": null,
+        "slope": null,
+        "intercept": null,
+        "status": "INSUFFICIENT_FORWARD"
+      },
+      {
+        "group_by": "date",
+        "group": "2026-09-28",
         "n": 0,
         "effective_n": 0,
         "predicted_effective_win_rate": null,
@@ -1822,9 +1878,9 @@
       },
       {
         "grade": "C",
-        "candidates": 225,
+        "candidates": 226,
         "settled": 166,
-        "pending": 59,
+        "pending": 60,
         "W": 65,
         "HW": 19,
         "P": 6,
@@ -1878,9 +1934,9 @@
         }
       },
       "v41": {
-        "candidates": 326,
+        "candidates": 327,
         "settled": 241,
-        "pending": 85,
+        "pending": 86,
         "W": 81,
         "HW": 39,
         "P": 6,
@@ -2042,9 +2098,9 @@
             }
           },
           "v41": {
-            "candidates": 269,
+            "candidates": 270,
             "settled": 192,
-            "pending": 77,
+            "pending": 78,
             "W": 64,
             "HW": 32,
             "P": 5,
@@ -2555,6 +2611,60 @@
               "intercept": null
             }
           }
+        },
+        "2026-09-28": {
+          "v4": {
+            "candidates": 0,
+            "settled": 0,
+            "pending": 0,
+            "W": 0,
+            "HW": 0,
+            "P": 0,
+            "HL": 0,
+            "L": 0,
+            "effective_win_rate": null,
+            "PnL": 0,
+            "ROI": null,
+            "max_drawdown": 0.0,
+            "drawdown_basis": "1u each settled candidate ordered by kickoff",
+            "calibration": {
+              "n": 0,
+              "effective_n": 0,
+              "predicted_effective_win_rate": null,
+              "actual_effective_win_rate": null,
+              "brier": null,
+              "five_state_brier": null,
+              "ece": null,
+              "slope": null,
+              "intercept": null
+            }
+          },
+          "v41": {
+            "candidates": 1,
+            "settled": 0,
+            "pending": 1,
+            "W": 0,
+            "HW": 0,
+            "P": 0,
+            "HL": 0,
+            "L": 0,
+            "effective_win_rate": null,
+            "PnL": 0,
+            "ROI": null,
+            "max_drawdown": 0.0,
+            "drawdown_basis": "1u each settled candidate ordered by kickoff",
+            "calibration": {
+              "n": 0,
+              "effective_n": 0,
+              "predicted_effective_win_rate": null,
+              "actual_effective_win_rate": null,
+              "brier": null,
+              "five_state_brier": null,
+              "ece": null,
+              "slope": null,
+              "intercept": null
+            }
+          }
         }
       },
       "region": {
@@ -2694,9 +2804,9 @@
             }
           },
           "v41": {
-            "candidates": 111,
+            "candidates": 112,
             "settled": 71,
-            "pending": 40,
+            "pending": 41,
             "W": 20,
             "HW": 13,
             "P": 1,
@@ -3128,9 +3238,9 @@
             }
           },
           "v41": {
-            "candidates": 74,
+            "candidates": 75,
             "settled": 58,
-            "pending": 16,
+            "pending": 17,
             "W": 21,
             "HW": 0,
             "P": 0,
@@ -3670,9 +3780,9 @@
             }
           },
           "v41": {
-            "candidates": 225,
+            "candidates": 226,
             "settled": 166,
-            "pending": 59,
+            "pending": 60,
             "W": 65,
             "HW": 19,
             "P": 6,
@@ -3834,9 +3944,9 @@
             }
           },
           "v41": {
-            "candidates": 213,
+            "candidates": 214,
             "settled": 148,
-            "pending": 65,
+            "pending": 66,
             "W": 55,
             "HW": 22,
             "P": 3,
@@ -4106,9 +4216,9 @@
             }
           },
           "v41": {
-            "candidates": 326,
+            "candidates": 327,
             "settled": 241,
-            "pending": 85,
+            "pending": 86,
             "W": 81,
             "HW": 39,
             "P": 6,
@@ -4216,9 +4326,9 @@
             }
           },
           "v41": {
-            "candidates": 72,
+            "candidates": 73,
             "settled": 53,
-            "pending": 19,
+            "pending": 20,
             "W": 15,
             "HW": 7,
             "P": 0,
@@ -4704,9 +4814,9 @@
             }
           },
           "v41": {
-            "candidates": 142,
+            "candidates": 143,
             "settled": 102,
-            "pending": 40,
+            "pending": 41,
             "W": 36,
             "HW": 13,
             "P": 3,
@@ -4749,13 +4859,37 @@
         "list_source": "Next_20260928",
         "list_date": "2026-09-28"
       },
-      "window_status": "PRIMARY_4H",
+      "window_status": "FROZEN_PRIMARY_4H",
       "decision": {
-        "grade": "N",
-        "action": "NO BET",
+        "candidate_side": "giving",
+        "candidate_team": "墨西哥美洲",
+        "candidate_handicap": -0.5,
+        "water": 0.94,
+        "grade": "C",
+        "action": "SHADOW CANDIDATE",
+        "P_giving_cover": 0.5150861636817629,
+        "P_receiving_cover": 0.48491383631823715,
+        "direction_edge": 0.03017232736352571,
+        "direction_confidence": 0.95,
+        "EV_mean": -0.0007328424573800341,
+        "EV_p10": -0.024142693867856946,
+        "EV_p25": -0.0140298422753182,
+        "P_EV_positive": 0.35,
+        "uncertainty": 0.04066616273281383,
         "decision_reason": [
-          "MISSING_MARKET"
-        ]
+          "FORCED_C_OBSERVATION_USER_RULE",
+          "MULTI_GATE_NOT_PASSED"
+        ],
+        "selected_probability": [
+          0.5150861636817629,
+          0.0,
+          0.0,
+          0.0,
+          0.4849138363182371
+        ],
+        "calibrated_probability_edge": -0.0003777538440103978,
+        "strict_grade": "N",
+        "grade_policy": "USER_FORCED_ABC_FALLBACK_4H_20260920"
       },
       "snapshot": {
         "match_id": "2997428",
@@ -4764,35 +4898,35 @@
         "away": "墨西哥美洲",
         "league": "墨西联秋",
         "kickoff_at": "2026-09-28T11:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 199.76666666666668,
-        "handicap": null,
-        "giving_team": null,
-        "receiving_team": null,
-        "giving_water": null,
-        "receiving_water": null,
-        "home_water": null,
-        "away_water": null,
-        "opening_handicap": null,
-        "opening_home_water": null,
-        "opening_away_water": null,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 175.15,
+        "handicap": -0.5,
+        "giving_team": "墨西哥美洲",
+        "receiving_team": "内卡萨",
+        "giving_water": 0.94,
+        "receiving_water": 0.95,
+        "home_water": 0.95,
+        "away_water": 0.94,
+        "opening_handicap": -0.5,
+        "opening_home_water": 0.93,
+        "opening_away_water": 0.95,
         "opening_quote_at": null,
         "euro": [
-          3.74,
-          3.64,
-          1.83
+          3.45,
+          3.65,
+          1.94
         ],
         "opening_euro": [
-          3.52,
-          3.55,
+          3.35,
+          3.75,
           1.95
         ],
-        "valid_market": false,
+        "valid_market": true,
         "prematch": true,
         "state": "0",
         "neutral_venue": null,
@@ -4800,7 +4934,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "b227018aea54a3b0b7e29d4519c42311881aa07dc9b0ac0f57521bd0a5f0563d"
+        "snapshot_id": "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
       },
       "windows": {
         "OPEN": {
@@ -4808,8 +4942,8 @@
           "snapshot_id": null
         },
         "T-180": {
-          "status": "MISSING",
-          "snapshot_id": null
+          "status": "AVAILABLE",
+          "snapshot_id": "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
         },
         "T-120": {
           "status": "MISSING",
@@ -4831,7 +4965,663 @@
           "status": "MISSING",
           "snapshot_id": null
         }
-      }
+      },
+      "features": {
+        "snapshot_id": "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f",
+        "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+        "match_id": "2997428",
+        "values": {
+          "handicap_depth": 0.5,
+          "opening_handicap": 0.5,
+          "handicap_movement": 0.0,
+          "giving_water": 0.94,
+          "receiving_water": 0.95,
+          "water_movement": -0.010000000000000009,
+          "market_giving_share": 0.5012853470437018,
+          "euro_giving": 0.47759467506115716,
+          "euro_draw": 0.2538448409914095,
+          "euro_receiving": 0.26856048394743326,
+          "euro_change": 0.0018775492446277409,
+          "euro_asian_gap": 0.13878886445908123,
+          "minutes_to_kickoff": 175.15,
+          "quote_age_minutes": 1.3507789333333333,
+          "line_up_count": null,
+          "line_down_count": null,
+          "reversal_count": null,
+          "spread_speed": null,
+          "water_speed": null,
+          "late_30_line": null,
+          "late_60_line": null,
+          "giving_home": 0,
+          "kickoff_hour": 11.0,
+          "neutral_venue": null,
+          "elo_difference": null,
+          "recent_form_difference": null,
+          "bookmaker_dispersion": null,
+          "bookmaker_consensus": null,
+          "line_resistance": 0,
+          "water_resistance": 0,
+          "youth": 0,
+          "women": 0,
+          "cup": 0,
+          "intent_confidence": 0.5
+        },
+        "categorical": {
+          "intent": "真实示弱/阻下",
+          "league_group": "欧洲五大系列"
+        },
+        "provenance": [
+          {
+            "feature_name": "handicap_depth",
+            "feature_value": 0.5,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "opening_handicap",
+            "feature_value": 0.5,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "handicap_movement",
+            "feature_value": 0.0,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "giving_water",
+            "feature_value": 0.94,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "receiving_water",
+            "feature_value": 0.95,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "water_movement",
+            "feature_value": -0.010000000000000009,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "market_giving_share",
+            "feature_value": 0.5012853470437018,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "euro_giving",
+            "feature_value": 0.47759467506115716,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "euro_draw",
+            "feature_value": 0.2538448409914095,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "euro_receiving",
+            "feature_value": 0.26856048394743326,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "euro_change",
+            "feature_value": 0.0018775492446277409,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "euro_asian_gap",
+            "feature_value": 0.13878886445908123,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "minutes_to_kickoff",
+            "feature_value": 175.15,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "quote_age_minutes",
+            "feature_value": 1.3507789333333333,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "line_up_count",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "line_down_count",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "reversal_count",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "spread_speed",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "water_speed",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "late_30_line",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "late_60_line",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "giving_home",
+            "feature_value": 0,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "kickoff_hour",
+            "feature_value": 11.0,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "neutral_venue",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "elo_difference",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "recent_form_difference",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "bookmaker_dispersion",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "bookmaker_consensus",
+            "feature_value": null,
+            "source": "MISSING",
+            "source_timestamp": null,
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": true,
+            "snapshot_ids": []
+          },
+          {
+            "feature_name": "line_resistance",
+            "feature_value": 0,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "water_resistance",
+            "feature_value": 0,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "youth",
+            "feature_value": 0,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "women",
+            "feature_value": 0,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "cup",
+            "feature_value": 0,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "intent_confidence",
+            "feature_value": 0.5,
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "intent",
+            "feature_value": "真实示弱/阻下",
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          },
+          {
+            "feature_name": "league_group",
+            "feature_value": "欧洲五大系列",
+            "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+            "source_timestamp": "2026-09-28T08:04:51+08:00",
+            "as_of_time": "2026-09-28T08:06:12.046736+08:00",
+            "missing_flag": false,
+            "snapshot_ids": [
+              "1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f"
+            ]
+          }
+        ],
+        "market_interpretation": {
+          "intent": "真实示弱/阻下",
+          "intent_confidence": 0.5,
+          "confidence_kind": "rule_evidence_fraction_not_statistical_probability",
+          "intent_evidence_count": 3,
+          "intent_conflict_count": 0,
+          "authority": "EXPLANATION_ONLY_NO_DIRECTION_MAPPING"
+        },
+        "feature_completeness": 1.0,
+        "all_feature_completeness": 0.6470588235294118,
+        "missing_features": [
+          "line_up_count",
+          "line_down_count",
+          "reversal_count",
+          "spread_speed",
+          "water_speed",
+          "late_30_line",
+          "late_60_line",
+          "neutral_venue",
+          "elo_difference",
+          "recent_form_difference",
+          "bookmaker_dispersion",
+          "bookmaker_consensus"
+        ],
+        "path": {
+          "opening_handicap": -0.5,
+          "max_handicap": 0.5,
+          "min_handicap": 0.5,
+          "latest_handicap": -0.5,
+          "opening_water": 0.95,
+          "max_water": 0.94,
+          "min_water": 0.94,
+          "latest_water": 0.94,
+          "handicap_path": [
+            {
+              "quote_at": "2026-09-28T08:04:51+08:00",
+              "handicap": -0.5
+            }
+          ],
+          "water_path": [
+            {
+              "quote_at": "2026-09-28T08:04:51+08:00",
+              "giving_water": 0.94,
+              "giving_team": "墨西哥美洲"
+            }
+          ]
+        },
+        "classification": {
+          "competition_raw": "墨西联秋",
+          "competition_canonical": "墨西联秋",
+          "competition_scope": "unknown",
+          "country": "西班牙",
+          "region": "欧洲五大",
+          "micro_region": "欧洲五大系列",
+          "tier": "未知",
+          "competition_type": "未知分类",
+          "senior_eligible": false,
+          "official_competition": false,
+          "youth_or_reserve": false,
+          "friendly": false,
+          "classification_confidence": "低",
+          "classification_reason": "国家/地区关键词与级别关键词"
+        },
+        "feature_id": "e169c83b43c7c544bf65661817859968ea305e192d7777df58fce9a55801964c"
+      },
+      "probability": {
+        "raw_probability": [
+          0.5673137788051413,
+          0.0,
+          0.0,
+          0.0,
+          0.4326862211948587
+        ],
+        "calibrated_probability": [
+          0.5150861636817629,
+          0.0,
+          0.0,
+          0.0,
+          0.4849138363182371
+        ],
+        "bucket_probability": [
+          0.486284289276808,
+          0.0,
+          0.0,
+          0.0,
+          0.513715710723192
+        ],
+        "top_positive_drivers": [
+          {
+            "feature": "late_60_line:MISSING",
+            "logit_giving_minus_receiving": 0.8035647145854266
+          },
+          {
+            "feature": "reversal_count:MISSING",
+            "logit_giving_minus_receiving": 0.23005927154909
+          },
+          {
+            "feature": "giving_home",
+            "logit_giving_minus_receiving": 0.19929364075019446
+          },
+          {
+            "feature": "giving_water",
+            "logit_giving_minus_receiving": 0.1757537579950198
+          },
+          {
+            "feature": "market_giving_share",
+            "logit_giving_minus_receiving": 0.16527381941279096
+          }
+        ],
+        "top_negative_drivers": [
+          {
+            "feature": "intercept",
+            "logit_giving_minus_receiving": -0.7535941514357152
+          },
+          {
+            "feature": "receiving_water",
+            "logit_giving_minus_receiving": -0.3493125811306542
+          },
+          {
+            "feature": "euro_receiving",
+            "logit_giving_minus_receiving": -0.14916738554135728
+          },
+          {
+            "feature": "intent=真实示弱/阻下",
+            "logit_giving_minus_receiving": -0.08878059295360692
+          },
+          {
+            "feature": "league_group=欧洲五大系列",
+            "logit_giving_minus_receiving": -0.03985074936467334
+          }
+        ],
+        "train_support": 399,
+        "calibration_support": 95,
+        "window_calibration_support": 0
+      },
+      "model_version": "V4.1_R1",
+      "model_artifact_id": "41b1e86bbdbb384ab9d899d8636c2a065d2b84aa771224cbf150739f719b7b1a",
+      "execution_policy_version": "V41_EXEC_4H_R2_20260920",
+      "primary_freeze_window": "T-4H",
+      "role": "CHALLENGER",
+      "status": "SHADOW ONLY",
+      "real_money": false,
+      "frozen_at": "2026-09-28T08:06:12.046736+08:00",
+      "control": {
+        "match_id": "2997428",
+        "list_date": "2026-09-28",
+        "kickoff": "2026-09-28T11:00:00+08:00",
+        "kickoff_at": "2026-09-28T11:00:00+08:00",
+        "model_id": "v4-market-dirichlet-20260913",
+        "model_version": "V4_DIRECTION_FIXED_R1",
+        "side_mapping_version": "V4_DIRECTION_FIXED_R1",
+        "run_id": "",
+        "decision_at": "2026-09-28T08:06:11.952421+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "last_confirmed_at": "2026-09-28T08:04:51+08:00",
+        "quote_age_at_decision": 0.022,
+        "hours_from_decision_to_kickoff": 2.897,
+        "hours_from_last_refresh_to_kickoff": 2.919,
+        "is_morning_baseline": false,
+        "is_latest_valid_prematch": true,
+        "parent_decision_id": "",
+        "monitoring_bucket": "",
+        "prior_snapshot_id": "prior-2026-09-28-v1",
+        "market": {
+          "snapshot_id": "snapshot",
+          "source": "LEGACY_RAW_FIELD_EXPORT",
+          "observed_at": "2026-09-28T08:06:11.952421+08:00",
+          "home_team": "内卡萨",
+          "away_team": "墨西哥美洲",
+          "competition": "墨西联秋",
+          "home_handicap_signed": -0.5,
+          "away_handicap_signed": 0.5,
+          "home_water_hk": 0.95,
+          "away_water_hk": 0.94,
+          "titan_home_handicap_signed": -0.5,
+          "titan_away_handicap_signed": 0.5,
+          "giving_team": "墨西哥美洲",
+          "receiving_team": "内卡萨",
+          "giving_water": 0.94,
+          "receiving_water": 0.95,
+          "side_identity": "Titan signed AH"
+        },
+        "competition": "墨西联秋",
+        "analysis_status": "EVALUATED",
+        "grade": "N",
+        "rank": null,
+        "decision_id": "835314f40ab34e671f94",
+        "normalized_intent": "真实示弱/阻下",
+        "intent_source": "FLAT_LINE_GIVING_WATER_DROP",
+        "candidate_side": "receiving",
+        "candidate_team": "内卡萨",
+        "candidate_water": 0.95,
+        "candidate_handicap": 0.5,
+        "reverse_team": "墨西哥美洲",
+        "reverse_side": "giving",
+        "reverse_water": 0.94,
+        "selected_team": "内卡萨",
+        "selected_side": "receiving",
+        "selected_handicap_signed": 0.5,
+        "selected_water_hk": 0.95,
+        "probabilities": {
+          "W": 0.5028571428571429,
+          "HW": 0.0,
+          "P": 0.0,
+          "HL": 0.0,
+          "L": 0.49714285714285716
+        },
+        "ev_mean": -0.01942857142857146,
+        "ev_p05": -0.13755609899235355,
+        "ev_p10": -0.11306695779547699,
+        "ev_p50": -0.019355529809068517,
+        "ev_p90": 0.07283304941282542,
+        "ev_p95": 0.09760758891218824,
+        "p_ev_positive": 0.394,
+        "diagnostic_giving": {
+          "team": "墨西哥美洲",
+          "water": 0.94,
+          "EV_mean": -0.03554285714285721,
+          "EV_p10": -0.1274611385764654,
+          "P_EV_gt_0": 0.3186,
+          "status": "DIAGNOSTIC_ONLY"
+        },
+        "diagnostic_receiving": {
+          "team": "内卡萨",
+          "water": 0.95,
+          "EV_mean": -0.01942857142857146,
+          "EV_p10": -0.1151499258194007,
+          "P_EV_gt_0": 0.3986,
+          "status": "DIAGNOSTIC_ONLY"
+        },
+        "direction_rule_version": "V4_DIRECTION_FIXED_R1",
+        "reason_codes": [
+          "BUCKET_0.50",
+          "SIDE_IDENTITY_VALID",
+          "FLAT_LINE_GIVING_WATER_DROP"
+        ]
+      },
+      "decision_id": "81188cd73888d51daa2e36883bdcf83fbd4b7290441f5b20e9d01b3c6c30bde1"
     },
     {
       "match_id": "3088944",
@@ -4860,13 +5650,13 @@
         "away": "孟加拉国",
         "league": "东盟杯",
         "kickoff_at": "2026-09-28T17:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 559.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 535.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -4885,8 +5675,8 @@
         ],
         "opening_euro": [
           1.53,
-          3.87,
-          5.28
+          3.88,
+          5.31
         ],
         "valid_market": false,
         "prematch": true,
@@ -4896,7 +5686,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "fd6fa3111edaa3bb9e10bba9c6ffedb3c2e6410e32ce82281698e2eeec5c299e"
+        "snapshot_id": "8a6ff7cf0e62e0546b1ad071e888064a9d235396ea67e45dc8b93b26f9965f3a"
       },
       "windows": {
         "OPEN": {
@@ -4956,13 +5746,13 @@
         "away": "高华尤夫卡B队",
         "league": "乌克甲",
         "kickoff_at": "2026-09-28T18:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 619.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 595.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -4992,7 +5782,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "8d342628bdbccdaf88540a8f56e6da2d74e355b6d6867bfe2579cb7c01f5e253"
+        "snapshot_id": "67e7d449e9e77dc19c4e4494a8c82d68e82ae8bf63b8622cf6999296cf2e5d1b"
       },
       "windows": {
         "OPEN": {
@@ -5052,13 +5842,13 @@
         "away": "委内瑞拉",
         "league": "国际友谊",
         "kickoff_at": "2026-09-28T18:25:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 644.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 620.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5077,8 +5867,8 @@
         ],
         "opening_euro": [
           1.26,
-          5.39,
-          10.44
+          5.41,
+          10.45
         ],
         "valid_market": false,
         "prematch": true,
@@ -5088,7 +5878,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "4054856e275ff49c19f6fe9df21758d259ed3722c13a0e53b699f1f245e93924"
+        "snapshot_id": "6eb42d1cb2ea0cef630da176f02b500a798498c69d25ac64199039b8ad16dcf1"
       },
       "windows": {
         "OPEN": {
@@ -5148,13 +5938,13 @@
         "away": "乌拉圭",
         "league": "国际友谊",
         "kickoff_at": "2026-09-28T19:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 679.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 655.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5173,7 +5963,7 @@
         ],
         "opening_euro": [
           2.33,
-          3.13,
+          3.12,
           3.04
         ],
         "valid_market": false,
@@ -5184,7 +5974,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "7a223b1a379f29aebf97eca40f44551d61f961b50429fc66e404fc81e935b586"
+        "snapshot_id": "9961143b7385e51b5ffe98ba6218b546b45fa2054ff395877414cc35118e5cc5"
       },
       "windows": {
         "OPEN": {
@@ -5244,13 +6034,13 @@
         "away": "甘拿斯亚女足",
         "league": "阿女甲",
         "kickoff_at": "2026-09-28T20:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 739.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 715.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5265,11 +6055,11 @@
         "euro": [
           1.92,
           3.03,
-          3.87
+          3.88
         ],
         "opening_euro": [
           1.83,
-          3.11,
+          3.12,
           4.14
         ],
         "valid_market": false,
@@ -5280,7 +6070,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "0356a926573bdbf40bea4aa964db75e58983bd7f1a14c18ef5c382422b10655f"
+        "snapshot_id": "4e09c8085acf73959aecfe0e05d461eb32bfea200b5272dba4831b01a0e4b89b"
       },
       "windows": {
         "OPEN": {
@@ -5340,13 +6130,13 @@
         "away": "巴勒斯坦",
         "league": "国际友谊",
         "kickoff_at": "2026-09-28T20:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 739.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 715.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5359,12 +6149,12 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          3.11,
+          3.1,
           3.24,
           2.21
         ],
         "opening_euro": [
-          3.08,
+          3.07,
           3.23,
           2.23
         ],
@@ -5376,7 +6166,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "07e95158a4a3766d50339527c250274e76be4df049f9aa9a42e100b0ef64344b"
+        "snapshot_id": "a6e378d6da48f1ddc25322dd9effa089319fdcdeb3428184697ced9e585455fa"
       },
       "windows": {
         "OPEN": {
@@ -5436,13 +6226,13 @@
         "away": "印度尼西亚",
         "league": "东盟杯",
         "kickoff_at": "2026-09-28T20:30:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 769.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 745.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5460,7 +6250,7 @@
           1.53
         ],
         "opening_euro": [
-          4.95,
+          5.0,
           4.29,
           1.51
         ],
@@ -5472,7 +6262,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "7058ed770a50f372fa27479b0dc9cc3070a1764bbd10aec7778e2e68f72d4bec"
+        "snapshot_id": "2520aeb3e08258b666d0a73284b2c1143237ea9035cd08566b2c0a7c38d7dc61"
       },
       "windows": {
         "OPEN": {
@@ -5532,13 +6322,13 @@
         "away": "泰利普利斯B队",
         "league": "希腊甲",
         "kickoff_at": "2026-09-28T21:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 799.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 775.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5557,8 +6347,8 @@
         ],
         "opening_euro": [
           1.63,
-          3.3,
-          5.15
+          3.31,
+          5.16
         ],
         "valid_market": false,
         "prematch": true,
@@ -5568,7 +6358,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "0441951826c1f78744e347e95a8904e324822e24a84b956fe760b122886794d4"
+        "snapshot_id": "94f8c573186c411c42f82e8260312e5f809f6a6b531006f138be718fe89fdfd5"
       },
       "windows": {
         "OPEN": {
@@ -5628,13 +6418,13 @@
         "away": "潘斯拉基科斯",
         "league": "希腊甲",
         "kickoff_at": "2026-09-28T21:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 799.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 775.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5664,7 +6454,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "53c66e6a72ccfd59f4485c7d100f6fc7c3688d650474b33979b3f51bc168609f"
+        "snapshot_id": "a9b07e3348bd5142c2727ad29641ddc86079b5d1e80d1277b17729df8ec43aef"
       },
       "windows": {
         "OPEN": {
@@ -5724,13 +6514,13 @@
         "away": "马尔代夫",
         "league": "国际友谊",
         "kickoff_at": "2026-09-28T22:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 859.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 835.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5749,8 +6539,8 @@
         ],
         "opening_euro": [
           1.07,
-          10.65,
-          22.35
+          10.54,
+          22.91
         ],
         "valid_market": false,
         "prematch": true,
@@ -5760,7 +6550,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "b790bf1756570cb7f69d7c3093ca28813a20dc24fa7d336655a600ff31bc0f97"
+        "snapshot_id": "97a00e256d920774f2dcc01cb46216e2b3194fe914736a3472837332e25fb0d0"
       },
       "windows": {
         "OPEN": {
@@ -5820,13 +6610,13 @@
         "away": "泰德",
         "league": "阿联杯",
         "kickoff_at": "2026-09-28T22:40:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 899.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 875.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5856,7 +6646,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "376109038b6ccedc0be2f8dac51d20f50cecbd44a3408315c4520f8cd3b0535c"
+        "snapshot_id": "a1886f414a56fe8ad9e8c7fe43f6065b364269fa3cdf8978de7ef534bf0d0b12"
       },
       "windows": {
         "OPEN": {
@@ -5916,13 +6706,13 @@
         "away": "奥鲁巴",
         "league": "阿联杯",
         "kickoff_at": "2026-09-28T22:40:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 899.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 875.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -5940,9 +6730,9 @@
           1.62
         ],
         "opening_euro": [
-          4.18,
+          4.16,
           3.75,
-          1.66
+          1.67
         ],
         "valid_market": false,
         "prematch": true,
@@ -5952,7 +6742,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "d493c3a4efdf0ffb5fc6cc04dae2fa4e97404c7c35e83a2c72bd58c31d674eb1"
+        "snapshot_id": "f77d44295d2cd000b0ff86052d218f4c39826f7f427d0ab97288545a74315129"
       },
       "windows": {
         "OPEN": {
@@ -6012,13 +6802,13 @@
         "away": "维薛拿U23",
         "league": "葡U23",
         "kickoff_at": "2026-09-28T23:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 919.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 895.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6032,12 +6822,12 @@
         "opening_quote_at": null,
         "euro": [
           1.98,
-          3.57,
+          3.58,
           3.11
         ],
         "opening_euro": [
           1.99,
-          3.69,
+          3.7,
           3.0
         ],
         "valid_market": false,
@@ -6048,7 +6838,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "2cf7339dad96645a1c221344d997a9b99377670250c37f5c6c21db87e8346433"
+        "snapshot_id": "97f6947f1980bccac04def7ea98c9455d8ef0c3759298120ee3d6689c5743a1e"
       },
       "windows": {
         "OPEN": {
@@ -6108,13 +6898,13 @@
         "away": "克曼尼",
         "league": "斯伐甲",
         "kickoff_at": "2026-09-28T23:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 919.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 895.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6144,7 +6934,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "eca2048cc5834ad5d11beab4e08dbefd7e44a824678ad6b627dc562e4bfde335"
+        "snapshot_id": "ae26282d33a3befdfebb8aa750921b4b244c7adc28101f215091dfd29ef2edcb"
       },
       "windows": {
         "OPEN": {
@@ -6204,13 +6994,13 @@
         "away": "威柯拉",
         "league": "卡塔杯",
         "kickoff_at": "2026-09-28T23:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 919.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 895.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6228,7 +7018,7 @@
           1.71
         ],
         "opening_euro": [
-          4.12,
+          4.11,
           3.57,
           1.72
         ],
@@ -6240,7 +7030,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "7cb5f8747bcfd8809f3846c5bb7e581afb9ea5a7215b6f06e69af0bbce100ce8"
+        "snapshot_id": "cb80d0b6bf02feb4ffb4be08438ffe76cca75dc4e1fbf2f77a134cd53bbe414b"
       },
       "windows": {
         "OPEN": {
@@ -6300,13 +7090,13 @@
         "away": "乌克兰",
         "league": "欧国联",
         "kickoff_at": "2026-09-29T00:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 979.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 955.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6326,7 +7116,7 @@
         "opening_euro": [
           2.67,
           3.2,
-          2.66
+          2.67
         ],
         "valid_market": false,
         "prematch": true,
@@ -6336,7 +7126,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "ddae48e20c762722f02e47c6c6a3033ab7baf2f786b47734ff462426f3b96e73"
+        "snapshot_id": "0b263a24eabbb028ce8eae739a6dde508435f9d7ce8d3b5a2008f0153777d640"
       },
       "windows": {
         "OPEN": {
@@ -6396,13 +7186,13 @@
         "away": "黑山",
         "league": "欧国联",
         "kickoff_at": "2026-09-29T00:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 979.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 955.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6416,7 +7206,7 @@
         "opening_quote_at": null,
         "euro": [
           2.66,
-          3.17,
+          3.16,
           2.6
         ],
         "opening_euro": [
@@ -6432,7 +7222,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "90735a81900c996765fd1d9f214bf31e9b7e21746b5cfe78e402d71397587501"
+        "snapshot_id": "b24fe19790ff9c63ce57e6780a26c727268e94a3c48bb25792e6484877e2e418"
       },
       "windows": {
         "OPEN": {
@@ -6492,13 +7282,13 @@
         "away": "塞浦路斯",
         "league": "欧国联",
         "kickoff_at": "2026-09-29T00:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 979.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 955.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6528,7 +7318,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "c3344d1ad1647eb1497a8de06d90f88a3566bd889f23f332750f56878ac76dd6"
+        "snapshot_id": "1c7eeb0f6009b952432bc44e56a41bdfde65da532776fb6d79e005b141ed0562"
       },
       "windows": {
         "OPEN": {
@@ -6588,13 +7378,13 @@
         "away": "塞拉利昂",
         "league": "非洲杯",
         "kickoff_at": "2026-09-29T00:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 979.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 955.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6624,7 +7414,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "ae0d8bf2220a690cbe4a84fcc975cc6232d6d8192b6830548ebf63b7b0536d2d"
+        "snapshot_id": "9765f9033707499293ec5682aadc4864e8d242180ad913f4c9fba1e851d6cb15"
       },
       "windows": {
         "OPEN": {
@@ -6684,13 +7474,13 @@
         "away": "刚果民主共和国",
         "league": "非洲杯",
         "kickoff_at": "2026-09-29T00:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 979.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 955.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6703,14 +7493,14 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          5.26,
-          3.31,
+          5.25,
+          3.3,
           1.67
         ],
         "opening_euro": [
-          4.61,
+          4.6,
           3.1,
-          1.81
+          1.82
         ],
         "valid_market": false,
         "prematch": true,
@@ -6720,7 +7510,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "73e9785e9da171311c398823256fb8f2462ae0a2205f2b042b64451fb1c166d1"
+        "snapshot_id": "9b14cc90d42e4528b4e50ae05de153d835047b4c093c9557d36084789e1e6bd8"
       },
       "windows": {
         "OPEN": {
@@ -6780,13 +7570,13 @@
         "away": "布基纳法索",
         "league": "非洲杯",
         "kickoff_at": "2026-09-29T00:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 979.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 955.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6799,12 +7589,12 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          10.09,
-          4.67,
+          10.06,
+          4.66,
           1.29
         ],
         "opening_euro": [
-          8.57,
+          8.58,
           4.19,
           1.36
         ],
@@ -6816,7 +7606,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "269e92a78c56f65ffb37697fc140bbea2b91f54724c457296d2d412e08ae65d0"
+        "snapshot_id": "324a184cf0274b3c89e8c6ec9f2ee43af165af05ee69ee99acfb3f360ddfa041"
       },
       "windows": {
         "OPEN": {
@@ -6876,13 +7666,13 @@
         "away": "白俄罗斯U21",
         "league": "欧青U21外",
         "kickoff_at": "2026-09-29T00:30:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1009.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 985.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -6902,7 +7692,7 @@
         "opening_euro": [
           1.23,
           5.61,
-          10.08
+          10.06
         ],
         "valid_market": false,
         "prematch": true,
@@ -6912,7 +7702,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "176e7660a99816b17403ce76bb0246d5bc07156b7c46cacb15096643bc7cda40"
+        "snapshot_id": "9008f6487b0001f3a3d21e45e41d4038cb7598ae51b7d9bbbe6571b75c366d21"
       },
       "windows": {
         "OPEN": {
@@ -6972,13 +7762,13 @@
         "away": "德拉维加",
         "league": "斯亚乙",
         "kickoff_at": "2026-09-29T01:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1039.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1015.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7008,7 +7798,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "abf5d9d79ffa1eee5a0307f192556d82c1c4c0e9c321f9303825ab06d5e70a84"
+        "snapshot_id": "9b8edf072c0c74f778da7c16f4fe56edd08efcb9201e54730ef4e60f2566389d"
       },
       "windows": {
         "OPEN": {
@@ -7068,13 +7858,13 @@
         "away": "杜海勒",
         "league": "卡塔杯",
         "kickoff_at": "2026-09-29T01:15:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1054.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1030.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7088,13 +7878,13 @@
         "opening_quote_at": null,
         "euro": [
           3.2,
-          3.51,
+          3.5,
           1.98
         ],
         "opening_euro": [
-          2.98,
-          3.34,
-          2.13
+          3.0,
+          3.33,
+          2.12
         ],
         "valid_market": false,
         "prematch": true,
@@ -7104,7 +7894,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "4f2f96f0adb8492b8367fdbe4cd0b84a15767851b2ae3a73ddeeab16ad356890"
+        "snapshot_id": "900c9368936d5657aef0a20a01ebc4564e595278b66f2e02a78ceb6444aaa182"
       },
       "windows": {
         "OPEN": {
@@ -7164,13 +7954,13 @@
         "away": "赖扬",
         "league": "卡塔杯",
         "kickoff_at": "2026-09-29T01:15:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1054.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1030.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7183,7 +7973,7 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          4.32,
+          4.31,
           3.77,
           1.65
         ],
@@ -7200,7 +7990,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "db953f23635972dd830de275a3e783bec4e5ca68de29a0138ca085253926db25"
+        "snapshot_id": "b3d6dd5499876405c04c9c8ff444e2d44fc8b01a0af100df3d9c7f420868ce23"
       },
       "windows": {
         "OPEN": {
@@ -7260,13 +8050,13 @@
         "away": "昆士柏流浪U21",
         "league": "英乙U21",
         "kickoff_at": "2026-09-29T02:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1099.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1075.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7281,12 +8071,12 @@
         "euro": [
           1.67,
           4.26,
-          3.64
+          3.63
         ],
         "opening_euro": [
           1.71,
           4.29,
-          3.45
+          3.44
         ],
         "valid_market": false,
         "prematch": true,
@@ -7296,7 +8086,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "bd7d3cf63300d97d2f906dfd5b5bb1d9e0c2ea8d90229f3e164c8ff57ea03848"
+        "snapshot_id": "f72739be0f25153cbd03cd4f7e1649b844fe8b35e3fdb54555e02b0c813788c3"
       },
       "windows": {
         "OPEN": {
@@ -7356,13 +8146,13 @@
         "away": "卡斯特利翁",
         "league": "西乙",
         "kickoff_at": "2026-09-29T02:30:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1129.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1105.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7380,9 +8170,9 @@
           2.2
         ],
         "opening_euro": [
-          3.03,
+          3.04,
           3.29,
-          2.26
+          2.25
         ],
         "valid_market": false,
         "prematch": true,
@@ -7392,7 +8182,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "f77c56f11a0c3540403d18501e6feffc7fb0927def8cc546b7fe9f83120bc467"
+        "snapshot_id": "b9f49dd7eb880fc8eca5a80bd7560dbb7a2a27348d9a82296d6db962482b6271"
       },
       "windows": {
         "OPEN": {
@@ -7452,13 +8242,13 @@
         "away": "法国",
         "league": "欧国联",
         "kickoff_at": "2026-09-29T02:45:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1120.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7477,7 +8267,7 @@
         ],
         "opening_euro": [
           3.61,
-          3.93,
+          3.92,
           1.89
         ],
         "valid_market": false,
@@ -7488,7 +8278,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "b2fdafb3c2e9aaee953a749e74507e8dde7f62e9329e9969771817c91c6d932c"
+        "snapshot_id": "b17333b9a53612c818b35d2954ab68cb3ddd278a3ef79ca280895fce0301340f"
       },
       "windows": {
         "OPEN": {
@@ -7548,13 +8338,13 @@
         "away": "意大利",
         "league": "欧国联",
         "kickoff_at": "2026-09-29T02:45:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1120.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7567,14 +8357,14 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          2.92,
+          2.91,
           3.36,
           2.32
         ],
         "opening_euro": [
           2.59,
           3.45,
-          2.6
+          2.61
         ],
         "valid_market": false,
         "prematch": true,
@@ -7584,7 +8374,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "3af554df371de6861f1c3f45493d0458367cdc902abecf147ada560bbd954648"
+        "snapshot_id": "f1c1542cf37410f4f55c37856cb37d114b1a309ad5ba3ae8dd6edef9e468eb43"
       },
       "windows": {
         "OPEN": {
@@ -7644,13 +8434,13 @@
         "away": "匈牙利",
         "league": "欧国联",
         "kickoff_at": "2026-09-29T02:45:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1120.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7663,7 +8453,7 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          2.96,
+          2.95,
           3.01,
           2.5
         ],
@@ -7680,7 +8470,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "f742121bb6eedf9ec0ac8d72bd96212b0e9ebe1daf1bfc3374534e6aff6fe508"
+        "snapshot_id": "9451b58a9dfbd37a37b074a0739fe60816b9f99ade1c8a3a9c888d9898f733b5"
       },
       "windows": {
         "OPEN": {
@@ -7740,13 +8530,13 @@
         "away": "波黑",
         "league": "欧国联",
         "kickoff_at": "2026-09-29T02:45:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1120.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7776,7 +8566,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "19496ffecd9de063745cefd55ea7e17a43a36249687134c3e14132745b5678f4"
+        "snapshot_id": "1565df2a186ede0aa62e268368189f8c8eb0b1892aa277bcbea19d4b83bfd1ed"
       },
       "windows": {
         "OPEN": {
@@ -7836,13 +8626,13 @@
         "away": "波兰",
         "league": "欧国联",
         "kickoff_at": "2026-09-29T02:45:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1144.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1120.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7860,7 +8650,7 @@
           3.7
         ],
         "opening_euro": [
-          2.09,
+          2.1,
           3.58,
           3.27
         ],
@@ -7872,7 +8662,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "82435aa102de77becb50ac645d2f0f833e69b09412cc09abb22c1a216ffc24f8"
+        "snapshot_id": "9277e382eb8dcff7182e5c198faf8092fd09756fc70d9116c6fa27654a16470f"
       },
       "windows": {
         "OPEN": {
@@ -7932,13 +8722,13 @@
         "away": "巴巴多斯",
         "league": "中北美国联",
         "kickoff_at": "2026-09-29T03:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1159.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1135.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -7951,14 +8741,14 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          1.45,
-          4.1,
-          6.48
+          1.46,
+          4.09,
+          6.46
         ],
         "opening_euro": [
           1.79,
-          3.42,
-          4.27
+          3.41,
+          4.25
         ],
         "valid_market": false,
         "prematch": true,
@@ -7968,7 +8758,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "5ce176aae70e0a4dc63325ecaf36c62031b116d695c26bd0e035549b8942f4bd"
+        "snapshot_id": "f56eff4be5a4ee5392e54c789fbe1cb1db338b22dacba08bde342ca1dbb8a09f"
       },
       "windows": {
         "OPEN": {
@@ -8028,13 +8818,13 @@
         "away": "雷科莱塔",
         "league": "巴拉甲秋",
         "kickoff_at": "2026-09-29T03:30:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1189.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1165.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8053,7 +8843,7 @@
         ],
         "opening_euro": [
           2.86,
-          3.24,
+          3.23,
           2.3
         ],
         "valid_market": false,
@@ -8064,7 +8854,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "b75e2fe9e532d50bb379d721c77ff1b6f3a515c02232bd398aae705cbeedf946"
+        "snapshot_id": "cd488fc39417118ae8db3fcf110bc8a356f1e80956f4e9dd40f949d67dc891f5"
       },
       "windows": {
         "OPEN": {
@@ -8124,13 +8914,13 @@
         "away": "奥尔索马尔索",
         "league": "哥伦乙秋",
         "kickoff_at": "2026-09-29T04:30:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1249.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1225.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8160,7 +8950,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "efcb28beb62b0fc444f657da1a72e04c25d614dd25ec1cd03f3c6964477589c9"
+        "snapshot_id": "06fc16119bd7f27e87cdd24330f4eeef6900640a8cd41b36ff135b53411f039c"
       },
       "windows": {
         "OPEN": {
@@ -8220,13 +9010,13 @@
         "away": "利昂内斯",
         "league": "哥伦乙秋",
         "kickoff_at": "2026-09-29T05:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1279.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1255.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8239,7 +9029,7 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          1.75,
+          1.76,
           3.46,
           4.06
         ],
@@ -8256,7 +9046,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "d91c6b256345a7a315b48c725753c0ba8a7235b2994ca422d5bf603bbec38422"
+        "snapshot_id": "b89baaa1d88734dde6ebed8c9edef4efa8fc25a28c7c3d17cdac8977b32b5e79"
       },
       "windows": {
         "OPEN": {
@@ -8316,13 +9106,13 @@
         "away": "博奈尔",
         "league": "中北美国联",
         "kickoff_at": "2026-09-29T05:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1279.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1255.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8336,13 +9126,13 @@
         "opening_quote_at": null,
         "euro": [
           1.14,
-          6.66,
-          14.56
+          6.69,
+          14.59
         ],
         "opening_euro": [
           1.12,
-          7.2,
-          15.16
+          7.21,
+          15.19
         ],
         "valid_market": false,
         "prematch": true,
@@ -8352,7 +9142,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "4c381d0760e48c9f748da833e8b6f063076e34eb125702706ea87eb458547190"
+        "snapshot_id": "a2631ddc4e65018ad4a501cd176a38ee3891cb599013ec0b582e676f6a23c58a"
       },
       "windows": {
         "OPEN": {
@@ -8412,13 +9202,13 @@
         "away": "普马斯女足",
         "league": "墨西女超春",
         "kickoff_at": "2026-09-29T05:45:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1324.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1300.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8431,13 +9221,13 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          6.12,
-          4.56,
-          1.38
+          6.11,
+          4.57,
+          1.39
         ],
         "opening_euro": [
           5.99,
-          4.61,
+          4.62,
           1.38
         ],
         "valid_market": false,
@@ -8448,7 +9238,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "5abf46bf0b7b71a78a8e74111368905263a5c8c5d008350da8ba09f8e1ec5a9e"
+        "snapshot_id": "a7bb3079ab308f04edfa543a6e8f6d8daf549b724add58633aeaf710bd46c6f4"
       },
       "windows": {
         "OPEN": {
@@ -8508,13 +9298,13 @@
         "away": "亚松森奥林匹亚",
         "league": "巴拉甲秋",
         "kickoff_at": "2026-09-29T06:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1339.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1315.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8528,12 +9318,12 @@
         "opening_quote_at": null,
         "euro": [
           2.77,
-          3.17,
+          3.16,
           2.38
         ],
         "opening_euro": [
           2.81,
-          3.18,
+          3.19,
           2.36
         ],
         "valid_market": false,
@@ -8544,7 +9334,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "28392a6ae9552f5054be699d3816946dfd711455af4ef2db7dd9b1ff977e86af"
+        "snapshot_id": "5b86bfb951b0436a616228109c743b4769e59f177edaf8025fcbb4c08a813e89"
       },
       "windows": {
         "OPEN": {
@@ -8604,13 +9394,13 @@
         "away": "塔古雷姆泊",
         "league": "乌拉乙",
         "kickoff_at": "2026-09-29T06:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1339.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1315.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8624,13 +9414,13 @@
         "opening_quote_at": null,
         "euro": [
           2.39,
-          3.0,
+          2.99,
           2.84
         ],
         "opening_euro": [
-          2.42,
-          2.94,
-          2.83
+          2.41,
+          2.95,
+          2.84
         ],
         "valid_market": false,
         "prematch": true,
@@ -8640,7 +9430,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "d2bb7be4ac0d9b8cb521f45991e6187d9d25981bffa7b4170514d9485db5c51b"
+        "snapshot_id": "29eff83067fe39aaec1096ee5f25071b727657c2169488667f579cf53fd2a354"
       },
       "windows": {
         "OPEN": {
@@ -8700,13 +9490,13 @@
         "away": "马提尼克",
         "league": "中北美国联",
         "kickoff_at": "2026-09-29T06:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1339.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1315.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8725,8 +9515,8 @@
         ],
         "opening_euro": [
           1.54,
-          3.76,
-          5.61
+          3.77,
+          5.66
         ],
         "valid_market": false,
         "prematch": true,
@@ -8736,7 +9526,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "9e4db7741c2d9a8bf9b477f13afe83ef8bbffb0f52c0b939bcae92f98ef70308"
+        "snapshot_id": "148813a03bad0ec2c0585a772fff18362472f9a36df2ff21b9e3fa6bcc0a81bb"
       },
       "windows": {
         "OPEN": {
@@ -8796,13 +9586,13 @@
         "away": "尤文图德",
         "league": "巴西乙",
         "kickoff_at": "2026-09-29T06:30:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1369.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1345.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8832,7 +9622,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "2653df15cd5b9a7cf45578098628000d7165f18cf4a2fad686f71031182a5eaa"
+        "snapshot_id": "04879afc199dae2e85e2ac8534947357ad2d199ed275b8494399346f96db93be"
       },
       "windows": {
         "OPEN": {
@@ -8892,13 +9682,13 @@
         "away": "阿尔比恩",
         "league": "乌拉甲秋",
         "kickoff_at": "2026-09-29T07:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1399.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1375.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -8913,7 +9703,7 @@
         "euro": [
           2.21,
           3.2,
-          3.0
+          3.01
         ],
         "opening_euro": [
           2.23,
@@ -8928,7 +9718,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "673b1a2f8d8c1709acb4b3dfe93117ee625e39391eb1a37b019d05462eb97c0e"
+        "snapshot_id": "995600a43952d9c3d8a4ae52d5f45adedbe2188f93fcb13e0de00320aa710990"
       },
       "windows": {
         "OPEN": {
@@ -8988,13 +9778,13 @@
         "away": "波哥塔",
         "league": "哥伦乙秋",
         "kickoff_at": "2026-09-29T07:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1399.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1375.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -9007,14 +9797,14 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          1.77,
-          3.25,
-          4.53
+          1.76,
+          3.24,
+          4.56
         ],
         "opening_euro": [
-          1.73,
-          3.29,
-          4.69
+          1.77,
+          3.2,
+          4.46
         ],
         "valid_market": false,
         "prematch": true,
@@ -9024,7 +9814,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "b6cf4525e67bab6b4a718756d135d3408b2c5ea1526a3541c48991baca606bcf"
+        "snapshot_id": "3dbef7775f52012f14868e5f3815701fbc486c1958f3c3a09698f29a9eb581ca"
       },
       "windows": {
         "OPEN": {
@@ -9084,13 +9874,13 @@
         "away": "墨西哥美洲队女足",
         "league": "墨西女超春",
         "kickoff_at": "2026-09-29T07:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1399.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1375.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -9108,7 +9898,7 @@
           1.21
         ],
         "opening_euro": [
-          9.42,
+          9.46,
           5.99,
           1.2
         ],
@@ -9120,7 +9910,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "04aa569ae6fc2962d3bf396f15ff4efd9c2d1b800592944a96c4f4be7ce944f7"
+        "snapshot_id": "6155bf868c3d31d3f8ca7c0d5a8de849872335cdbd9a43dddae4bcf9b673b645"
       },
       "windows": {
         "OPEN": {
@@ -9180,13 +9970,13 @@
         "away": "洪都拉斯",
         "league": "中北美国联",
         "kickoff_at": "2026-09-29T08:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1459.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1435.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -9204,9 +9994,9 @@
           3.58
         ],
         "opening_euro": [
-          2.1,
-          3.34,
-          3.12
+          2.11,
+          3.35,
+          3.09
         ],
         "valid_market": false,
         "prematch": true,
@@ -9216,7 +10006,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "c70fdb50937333bac4fa049f950bdb0d6ca90095a56856f0e21824782f4b0dea"
+        "snapshot_id": "ece545065abe7b19ec79a65d97f654db2b979494dea130df1a8302788439271a"
       },
       "windows": {
         "OPEN": {
@@ -9276,13 +10066,13 @@
         "away": "百慕大群岛",
         "league": "中北美国联",
         "kickoff_at": "2026-09-29T08:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1459.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1435.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -9312,7 +10102,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "8efd084b4c1f8bbe01498504d3d4f7cfde4b09c96902363f8112cd1d8a44a462"
+        "snapshot_id": "842e681862bccb7a5d40fe3ee569ead8adde737f1c5fc87f43291117b2d265b5"
       },
       "windows": {
         "OPEN": {
@@ -9372,13 +10162,13 @@
         "away": "格林纳达",
         "league": "中北美国联",
         "kickoff_at": "2026-09-29T08:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1459.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1435.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -9391,9 +10181,9 @@
         "opening_away_water": null,
         "opening_quote_at": null,
         "euro": [
-          3.95,
-          4.06,
-          1.69
+          3.92,
+          4.04,
+          1.7
         ],
         "opening_euro": [
           3.4,
@@ -9408,7 +10198,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "2639a37258c04eb2d0c92dcf8aae872d34efb1c4e89171b3a486275fc8cee728"
+        "snapshot_id": "103b88efcb8cab74c2a02b8da136d2f1632be3b73416cf722f95251dae83a79e"
       },
       "windows": {
         "OPEN": {
@@ -9468,13 +10258,13 @@
         "away": "托卢卡女足",
         "league": "墨西女超春",
         "kickoff_at": "2026-09-29T09:05:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1524.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1500.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -9492,7 +10282,7 @@
           1.04
         ],
         "opening_euro": [
-          19.84,
+          19.62,
           12.64,
           1.04
         ],
@@ -9504,7 +10294,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "74709c8882b31c336fc411865794ca50e9476a6e935c8efb9adba441677a8178"
+        "snapshot_id": "56fd9820f63dd1f2aa6cff4518608393ac955bbbd1c4bd212b140d8a22ab071c"
       },
       "windows": {
         "OPEN": {
@@ -9564,13 +10354,13 @@
         "away": "萨尔瓦多",
         "league": "中北美国联",
         "kickoff_at": "2026-09-29T10:00:00+08:00",
-        "quote_at": "2026-09-28T07:40:14+08:00",
-        "observed_at": "2026-09-28T07:40:14+08:00",
+        "quote_at": "2026-09-28T08:04:51+08:00",
+        "observed_at": "2026-09-28T08:04:51+08:00",
         "provider_quote_at": null,
         "quote_time_kind": "OBSERVED_PRICE_NOT_PROVIDER_TICK",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_074014_titan007_odds_snapshot.csv",
-        "source_hash": "8de2555e9ef078238383f7eb1a8598881feaaf9b585e5419c24191ea46829f2c",
-        "minutes_to_kickoff": 1579.7666666666667,
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv",
+        "source_hash": "e40eced14a97ec11cc66cfc982d245d24e906cac28b42da6721d036149cbec9d",
+        "minutes_to_kickoff": 1555.15,
         "handicap": null,
         "giving_team": null,
         "receiving_team": null,
@@ -9584,8 +10374,8 @@
         "opening_quote_at": null,
         "euro": [
           2.12,
-          3.42,
-          3.05
+          3.41,
+          3.06
         ],
         "opening_euro": [
           1.98,
@@ -9600,7 +10390,7 @@
         "recent_form_difference": null,
         "bookmaker_dispersion": null,
         "bookmaker_consensus": null,
-        "snapshot_id": "cf1394460987ef0b8f4831b1bd29b635e5d8b56b6d49fd4bd8d7e238b91cd16c"
+        "snapshot_id": "1da880dab3841f9035ccdb2f79ba4bf8eef2c3d18f506e00ead5c8b7aeec9240"
       },
       "windows": {
         "OPEN": {

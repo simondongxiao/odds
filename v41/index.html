@@ -11,7 +11,557 @@ details{background:#fff;border:1px solid var(--soft);margin-top:10px}details sum
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.model-card{background:#fff;border:1px solid var(--soft)}.model-card h2{margin:0;padding:8px 11px;background:var(--head);color:#fff;font-size:15px}.model-card .metrics{padding:0 10px}.model-card .metric b{font-size:18px}.compact table{min-width:1200px}.download{display:inline-block;margin:10px 0;padding:7px 11px;background:var(--head);color:#fff;text-decoration:none;font-weight:700}
 h2{font-size:17px;margin:20px 0 8px;color:#174e7e}a{color:var(--blue)}footer{margin:24px 0 4px;padding:10px 12px;border-top:1px solid var(--line);color:var(--muted);background:rgba(255,255,255,.55)}
 @media(max-width:900px){.wrap{padding:8px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.compare-grid{grid-template-columns:1fr}.pager{width:100%;margin-left:0}.detail-grid{grid-template-columns:1fr}.hero h1{font-size:21px}}
-</style></head><body><div class="wrap"><section class="hero"><h1>V4.1 影子模型看板</h1><div class="hero-sub">独立挑战模型 · 仅用于前瞻观察，不构成真实下注建议</div><div class="badges"><span class="badge">仅影子观察</span><span class="badge">禁止实盘</span><span class="badge">real_money=false</span></div></section><nav class="nav"><a href="compare/">V4 与 V4.1 同场对照</a><a href="../v4/">原 V4 影子看板</a><a href="../v3-legacy/">V3 正式决策页</a><a href="V41_BUILD_REPORT.md">V4.1 构建报告</a></nav><section class="definitions"><b>等级定义：</b> A、B 保持严格正期望门槛；C 包含严格 C 与按用户规则强制纳入的有效赛前4小时窗口方向；N 表示未形成可计入成绩的冻结候选。<b>页面口径：</b> 顶部 A/B/C/N 只统计本列表日已经冻结的赛前记录；“预览计算”不等于冻结，更不等于候选。</section><section class="notice">从 2026-09-20 起，主冻结窗口改为开赛前4小时内，首次合格的手动运行即冻结并计算 A/B/C。有效方向若未达到严格 A/B/C 门槛，将强制归入 C 级影子候选；详情同时保留 strict_grade=N 和失败门槛，避免把强制 C 误读为严格 C。历史已冻结等级不追改。历史测试不冒充前瞻结果；缺少可靠初始时间的开盘数据明确标为“缺失”。</section><div class="metrics"><div class="metric"><span>列表日</span><b>2026-09-28</b></div><div class="metric"><span>总赛事</span><b>133</b></div><div class="metric"><span>预览计算</span><b>0</b></div><div class="metric"><span>冻结记录</span><b>0</b></div><div class="metric"><span>A / B / C / N</span><b>0 / 0 / 0 / 0</b></div><div class="metric"><span>候选 / 不投</span><b>0 / 0</b></div><div class="metric"><span>让球方 / 受让方</span><b>0 / 0</b></div><div class="metric"><span>最近冻结时间</span><b>尚无冻结</b></div></div><section class="definitions"><b>模型版本：</b> V4.1_R1　<b>概率模型：</b> 分桶先验偏置的掩码多项逻辑回归　<b>校准：</b> 独立验证集温度校准（温度 4.488）<br><b>主冻结窗口：</b> 开赛前 4 小时内首次真实运行且报价合格的快照；该规则版本为 V41_EXEC_4H_R2_20260920；报价时间是本地收到价格的时间。　<b>页面生成：</b> 2026-09-28 07:41:49.751681</section><h2 class="section-title">今日赛事与冻结决策</h2><div class="section-note">冻结记录优先排列。距离开赛超过4小时的行仅作预览，不计入候选名单。</div><div class="controls"><label>列表日<select id="date-select" onchange="changeDate(this.value)"><option value="2026-09-18">2026-09-18</option><option value="2026-09-19">2026-09-19</option><option value="2026-09-20">2026-09-20</option><option value="2026-09-21">2026-09-21</option><option value="2026-09-22">2026-09-22</option><option value="2026-09-23">2026-09-23</option><option value="2026-09-24">2026-09-24</option><option value="2026-09-25">2026-09-25</option><option value="2026-09-26">2026-09-26</option><option value="2026-09-27">2026-09-27</option><option value="2026-09-28" selected>2026-09-28</option></select></label><label>搜索<input id="search" placeholder="球队、联赛或比赛编号" oninput="showCards(0)"></label><label>等级<select id="grade" onchange="showCards(0)"><option value="全部">全部等级</option><option>A</option><option>B</option><option>C</option><option>N</option></select></label><label>状态<select id="window" onchange="showCards(0)"><option value="全部">全部状态</option><option value="FROZEN_PRIMARY_4H">已冻结（赛前4小时）</option><option value="WAIT_PRIMARY_4H_WINDOW">尚未进入赛前4小时窗口</option><option value="PRIMARY_4H">处于赛前4小时窗口</option><option value="MISSED_PRIMARY_4H_WINDOW">已开赛</option><option value="FROZEN_PRIMARY_T30">已冻结（历史 T-30）</option><option value="MISSING_OR_NON_PREMATCH">缺少有效赛前快照</option></select></label><div class="pager"><button onclick="showCards(page-1)">上一页</button><span id="pageinfo"></span><button onclick="showCards(page+1)">下一页</button></div></div><div class="table-wrap"><table><thead><tr><th>北京时间</th><th>联赛/杯赛</th><th>比赛</th><th>状态</th><th>等级/结论</th><th>候选球队/方向</th><th>盘口/水位</th><th>让球/受让覆盖率</th><th>EV指标</th><th>报价/冻结</th><th>赛果/模拟盈亏</th><th>明细</th></tr></thead><tbody id="cards"><tr><td>2026-09-29 00:30:00<br><span class="meta">北京时间</span></td><td>欧青U21外<br><span class="meta">编号 2781406</span></td><td><span class="match">丹麦U21 vs 白俄罗斯U21</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+</style></head><body><div class="wrap"><section class="hero"><h1>V4.1 影子模型看板</h1><div class="hero-sub">独立挑战模型 · 仅用于前瞻观察，不构成真实下注建议</div><div class="badges"><span class="badge">仅影子观察</span><span class="badge">禁止实盘</span><span class="badge">real_money=false</span></div></section><nav class="nav"><a href="compare/">V4 与 V4.1 同场对照</a><a href="../v4/">原 V4 影子看板</a><a href="../v3-legacy/">V3 正式决策页</a><a href="V41_BUILD_REPORT.md">V4.1 构建报告</a></nav><section class="definitions"><b>等级定义：</b> A、B 保持严格正期望门槛；C 包含严格 C 与按用户规则强制纳入的有效赛前4小时窗口方向；N 表示未形成可计入成绩的冻结候选。<b>页面口径：</b> 顶部 A/B/C/N 只统计本列表日已经冻结的赛前记录；“预览计算”不等于冻结，更不等于候选。</section><section class="notice">从 2026-09-20 起，主冻结窗口改为开赛前4小时内，首次合格的手动运行即冻结并计算 A/B/C。有效方向若未达到严格 A/B/C 门槛，将强制归入 C 级影子候选；详情同时保留 strict_grade=N 和失败门槛，避免把强制 C 误读为严格 C。历史已冻结等级不追改。历史测试不冒充前瞻结果；缺少可靠初始时间的开盘数据明确标为“缺失”。</section><div class="metrics"><div class="metric"><span>列表日</span><b>2026-09-28</b></div><div class="metric"><span>总赛事</span><b>133</b></div><div class="metric"><span>预览计算</span><b>1</b></div><div class="metric"><span>冻结记录</span><b>1</b></div><div class="metric"><span>A / B / C / N</span><b>0 / 0 / 1 / 0</b></div><div class="metric"><span>候选 / 不投</span><b>1 / 0</b></div><div class="metric"><span>让球方 / 受让方</span><b>1 / 0</b></div><div class="metric"><span>最近冻结时间</span><b>2026-09-28 08:06:12.046736</b></div></div><section class="definitions"><b>模型版本：</b> V4.1_R1　<b>概率模型：</b> 分桶先验偏置的掩码多项逻辑回归　<b>校准：</b> 独立验证集温度校准（温度 4.488）<br><b>主冻结窗口：</b> 开赛前 4 小时内首次真实运行且报价合格的快照；该规则版本为 V41_EXEC_4H_R2_20260920；报价时间是本地收到价格的时间。　<b>页面生成：</b> 2026-09-28 08:06:12.309619</section><h2 class="section-title">今日赛事与冻结决策</h2><div class="section-note">冻结记录优先排列。距离开赛超过4小时的行仅作预览，不计入候选名单。</div><div class="controls"><label>列表日<select id="date-select" onchange="changeDate(this.value)"><option value="2026-09-18">2026-09-18</option><option value="2026-09-19">2026-09-19</option><option value="2026-09-20">2026-09-20</option><option value="2026-09-21">2026-09-21</option><option value="2026-09-22">2026-09-22</option><option value="2026-09-23">2026-09-23</option><option value="2026-09-24">2026-09-24</option><option value="2026-09-25">2026-09-25</option><option value="2026-09-26">2026-09-26</option><option value="2026-09-27">2026-09-27</option><option value="2026-09-28" selected>2026-09-28</option></select></label><label>搜索<input id="search" placeholder="球队、联赛或比赛编号" oninput="showCards(0)"></label><label>等级<select id="grade" onchange="showCards(0)"><option value="全部">全部等级</option><option>A</option><option>B</option><option>C</option><option>N</option></select></label><label>状态<select id="window" onchange="showCards(0)"><option value="全部">全部状态</option><option value="FROZEN_PRIMARY_4H">已冻结（赛前4小时）</option><option value="WAIT_PRIMARY_4H_WINDOW">尚未进入赛前4小时窗口</option><option value="PRIMARY_4H">处于赛前4小时窗口</option><option value="MISSED_PRIMARY_4H_WINDOW">已开赛</option><option value="FROZEN_PRIMARY_T30">已冻结（历史 T-30）</option><option value="MISSING_OR_NON_PREMATCH">缺少有效赛前快照</option></select></label><div class="pager"><button onclick="showCards(page-1)">上一页</button><span id="pageinfo"></span><button onclick="showCards(page+1)">下一页</button></div></div><div class="table-wrap"><table><thead><tr><th>北京时间</th><th>联赛/杯赛</th><th>比赛</th><th>状态</th><th>等级/结论</th><th>候选球队/方向</th><th>盘口/水位</th><th>让球/受让覆盖率</th><th>EV指标</th><th>报价/冻结</th><th>赛果/模拟盈亏</th><th>明细</th></tr></thead><tbody id="cards"><tr><td>2026-09-28 11:00:00<br><span class="meta">北京时间</span></td><td>墨西联秋<br><span class="meta">编号 2997428</span></td><td><span class="match">内卡萨 vs 墨西哥美洲</span><br><span class="meta">让球方 墨西哥美洲 / 受让方 内卡萨</span></td><td class="status-frozen">已冻结（赛前4小时窗口）</td><td class="grade grade-C">C<br><span class="decision-yes">影子候选</span></td><td>墨西哥美洲<br><span class="meta">让球方 · 真实示弱/阻下</span></td><td>-0.5 / 0.94</td><td>51.51% / 48.49%</td><td class="num-negative">-0.07%<br><span class="meta">P10 -2.41% · P25 -1.40%<br>P(EV&gt;0) 35.00%</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：2026-09-28 08:06:12.046736</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>-0.5</div><div class="detail-item"><b>盘口意图</b>真实示弱/阻下</div><div class="detail-item"><b>意图置信度</b>0.500</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>[0.5673137788051413, 0.0, 0.0, 0.0, 0.4326862211948587]</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>[0.5150861636817629, 0.0, 0.0, 0.0, 0.4849138363182371]</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>100.00% / 64.71%</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>95 / 0</div><div class="detail-item"><b>分级策略</b>USER_FORCED_ABC_FALLBACK_4H_20260920</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>按用户规则强制归入 C 级观察候选；多重门槛未全部通过</div></div><pre class="raw">{
+  &quot;正向驱动因素&quot;: [
+    {
+      &quot;feature&quot;: &quot;late_60_line:MISSING&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.8035647145854266
+    },
+    {
+      &quot;feature&quot;: &quot;reversal_count:MISSING&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.23005927154909
+    },
+    {
+      &quot;feature&quot;: &quot;giving_home&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.19929364075019446
+    },
+    {
+      &quot;feature&quot;: &quot;giving_water&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.1757537579950198
+    },
+    {
+      &quot;feature&quot;: &quot;market_giving_share&quot;,
+      &quot;logit_giving_minus_receiving&quot;: 0.16527381941279096
+    }
+  ],
+  &quot;负向驱动因素&quot;: [
+    {
+      &quot;feature&quot;: &quot;intercept&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.7535941514357152
+    },
+    {
+      &quot;feature&quot;: &quot;receiving_water&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.3493125811306542
+    },
+    {
+      &quot;feature&quot;: &quot;euro_receiving&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.14916738554135728
+    },
+    {
+      &quot;feature&quot;: &quot;intent=真实示弱/阻下&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.08878059295360692
+    },
+    {
+      &quot;feature&quot;: &quot;league_group=欧洲五大系列&quot;,
+      &quot;logit_giving_minus_receiving&quot;: -0.03985074936467334
+    }
+  ],
+  &quot;缺失特征&quot;: [
+    &quot;line_up_count&quot;,
+    &quot;line_down_count&quot;,
+    &quot;reversal_count&quot;,
+    &quot;spread_speed&quot;,
+    &quot;water_speed&quot;,
+    &quot;late_30_line&quot;,
+    &quot;late_60_line&quot;,
+    &quot;neutral_venue&quot;,
+    &quot;elo_difference&quot;,
+    &quot;recent_form_difference&quot;,
+    &quot;bookmaker_dispersion&quot;,
+    &quot;bookmaker_consensus&quot;
+  ],
+  &quot;盘口路径&quot;: {
+    &quot;opening_handicap&quot;: -0.5,
+    &quot;max_handicap&quot;: 0.5,
+    &quot;min_handicap&quot;: 0.5,
+    &quot;latest_handicap&quot;: -0.5,
+    &quot;opening_water&quot;: 0.95,
+    &quot;max_water&quot;: 0.94,
+    &quot;min_water&quot;: 0.94,
+    &quot;latest_water&quot;: 0.94,
+    &quot;handicap_path&quot;: [
+      {
+        &quot;quote_at&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+        &quot;handicap&quot;: -0.5
+      }
+    ],
+    &quot;water_path&quot;: [
+      {
+        &quot;quote_at&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+        &quot;giving_water&quot;: 0.94,
+        &quot;giving_team&quot;: &quot;墨西哥美洲&quot;
+      }
+    ]
+  },
+  &quot;数据来源&quot;: [
+    {
+      &quot;feature_name&quot;: &quot;handicap_depth&quot;,
+      &quot;feature_value&quot;: 0.5,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;opening_handicap&quot;,
+      &quot;feature_value&quot;: 0.5,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;handicap_movement&quot;,
+      &quot;feature_value&quot;: 0.0,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;giving_water&quot;,
+      &quot;feature_value&quot;: 0.94,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;receiving_water&quot;,
+      &quot;feature_value&quot;: 0.95,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;water_movement&quot;,
+      &quot;feature_value&quot;: -0.010000000000000009,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;market_giving_share&quot;,
+      &quot;feature_value&quot;: 0.5012853470437018,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_giving&quot;,
+      &quot;feature_value&quot;: 0.47759467506115716,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_draw&quot;,
+      &quot;feature_value&quot;: 0.2538448409914095,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_receiving&quot;,
+      &quot;feature_value&quot;: 0.26856048394743326,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_change&quot;,
+      &quot;feature_value&quot;: 0.0018775492446277409,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;euro_asian_gap&quot;,
+      &quot;feature_value&quot;: 0.13878886445908123,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;minutes_to_kickoff&quot;,
+      &quot;feature_value&quot;: 175.15,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;quote_age_minutes&quot;,
+      &quot;feature_value&quot;: 1.3507789333333333,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;line_up_count&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;line_down_count&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;reversal_count&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;spread_speed&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;water_speed&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;late_30_line&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;late_60_line&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;giving_home&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;kickoff_hour&quot;,
+      &quot;feature_value&quot;: 11.0,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;neutral_venue&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;elo_difference&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;recent_form_difference&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;bookmaker_dispersion&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;bookmaker_consensus&quot;,
+      &quot;feature_value&quot;: null,
+      &quot;source&quot;: &quot;MISSING&quot;,
+      &quot;source_timestamp&quot;: null,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: true,
+      &quot;snapshot_ids&quot;: []
+    },
+    {
+      &quot;feature_name&quot;: &quot;line_resistance&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;water_resistance&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;youth&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;women&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;cup&quot;,
+      &quot;feature_value&quot;: 0,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;intent_confidence&quot;,
+      &quot;feature_value&quot;: 0.5,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;intent&quot;,
+      &quot;feature_value&quot;: &quot;真实示弱/阻下&quot;,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    },
+    {
+      &quot;feature_name&quot;: &quot;league_group&quot;,
+      &quot;feature_value&quot;: &quot;欧洲五大系列&quot;,
+      &quot;source&quot;: &quot;D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20260928\\20260928_080451_titan007_odds_snapshot.csv&quot;,
+      &quot;source_timestamp&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+      &quot;as_of_time&quot;: &quot;2026-09-28T08:06:12.046736+08:00&quot;,
+      &quot;missing_flag&quot;: false,
+      &quot;snapshot_ids&quot;: [
+        &quot;1317daa2daba162e32f522babbfa3cf00c375931f114f126c3b4a31b3755916f&quot;
+      ]
+    }
+  ],
+  &quot;原 V4 隔离对照&quot;: {
+    &quot;match_id&quot;: &quot;2997428&quot;,
+    &quot;list_date&quot;: &quot;2026-09-28&quot;,
+    &quot;kickoff&quot;: &quot;2026-09-28T11:00:00+08:00&quot;,
+    &quot;kickoff_at&quot;: &quot;2026-09-28T11:00:00+08:00&quot;,
+    &quot;model_id&quot;: &quot;v4-market-dirichlet-20260913&quot;,
+    &quot;model_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
+    &quot;side_mapping_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
+    &quot;run_id&quot;: &quot;&quot;,
+    &quot;decision_at&quot;: &quot;2026-09-28T08:06:11.952421+08:00&quot;,
+    &quot;quote_at&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+    &quot;last_confirmed_at&quot;: &quot;2026-09-28T08:04:51+08:00&quot;,
+    &quot;quote_age_at_decision&quot;: 0.022,
+    &quot;hours_from_decision_to_kickoff&quot;: 2.897,
+    &quot;hours_from_last_refresh_to_kickoff&quot;: 2.919,
+    &quot;is_morning_baseline&quot;: false,
+    &quot;is_latest_valid_prematch&quot;: true,
+    &quot;parent_decision_id&quot;: &quot;&quot;,
+    &quot;monitoring_bucket&quot;: &quot;&quot;,
+    &quot;prior_snapshot_id&quot;: &quot;prior-2026-09-28-v1&quot;,
+    &quot;market&quot;: {
+      &quot;snapshot_id&quot;: &quot;snapshot&quot;,
+      &quot;source&quot;: &quot;LEGACY_RAW_FIELD_EXPORT&quot;,
+      &quot;observed_at&quot;: &quot;2026-09-28T08:06:11.952421+08:00&quot;,
+      &quot;home_team&quot;: &quot;内卡萨&quot;,
+      &quot;away_team&quot;: &quot;墨西哥美洲&quot;,
+      &quot;competition&quot;: &quot;墨西联秋&quot;,
+      &quot;home_handicap_signed&quot;: -0.5,
+      &quot;away_handicap_signed&quot;: 0.5,
+      &quot;home_water_hk&quot;: 0.95,
+      &quot;away_water_hk&quot;: 0.94,
+      &quot;titan_home_handicap_signed&quot;: -0.5,
+      &quot;titan_away_handicap_signed&quot;: 0.5,
+      &quot;giving_team&quot;: &quot;墨西哥美洲&quot;,
+      &quot;receiving_team&quot;: &quot;内卡萨&quot;,
+      &quot;giving_water&quot;: 0.94,
+      &quot;receiving_water&quot;: 0.95,
+      &quot;side_identity&quot;: &quot;Titan signed AH&quot;
+    },
+    &quot;competition&quot;: &quot;墨西联秋&quot;,
+    &quot;analysis_status&quot;: &quot;EVALUATED&quot;,
+    &quot;grade&quot;: &quot;N&quot;,
+    &quot;rank&quot;: null,
+    &quot;decision_id&quot;: &quot;835314f40ab34e671f94&quot;,
+    &quot;normalized_intent&quot;: &quot;真实示弱/阻下&quot;,
+    &quot;intent_source&quot;: &quot;FLAT_LINE_GIVING_WATER_DROP&quot;,
+    &quot;candidate_side&quot;: &quot;receiving&quot;,
+    &quot;candidate_team&quot;: &quot;内卡萨&quot;,
+    &quot;candidate_water&quot;: 0.95,
+    &quot;candidate_handicap&quot;: 0.5,
+    &quot;reverse_team&quot;: &quot;墨西哥美洲&quot;,
+    &quot;reverse_side&quot;: &quot;giving&quot;,
+    &quot;reverse_water&quot;: 0.94,
+    &quot;selected_team&quot;: &quot;内卡萨&quot;,
+    &quot;selected_side&quot;: &quot;receiving&quot;,
+    &quot;selected_handicap_signed&quot;: 0.5,
+    &quot;selected_water_hk&quot;: 0.95,
+    &quot;probabilities&quot;: {
+      &quot;W&quot;: 0.5028571428571429,
+      &quot;HW&quot;: 0.0,
+      &quot;P&quot;: 0.0,
+      &quot;HL&quot;: 0.0,
+      &quot;L&quot;: 0.49714285714285716
+    },
+    &quot;ev_mean&quot;: -0.01942857142857146,
+    &quot;ev_p05&quot;: -0.13755609899235355,
+    &quot;ev_p10&quot;: -0.11306695779547699,
+    &quot;ev_p50&quot;: -0.019355529809068517,
+    &quot;ev_p90&quot;: 0.07283304941282542,
+    &quot;ev_p95&quot;: 0.09760758891218824,
+    &quot;p_ev_positive&quot;: 0.394,
+    &quot;diagnostic_giving&quot;: {
+      &quot;team&quot;: &quot;墨西哥美洲&quot;,
+      &quot;water&quot;: 0.94,
+      &quot;EV_mean&quot;: -0.03554285714285721,
+      &quot;EV_p10&quot;: -0.1274611385764654,
+      &quot;P_EV_gt_0&quot;: 0.3186,
+      &quot;status&quot;: &quot;DIAGNOSTIC_ONLY&quot;
+    },
+    &quot;diagnostic_receiving&quot;: {
+      &quot;team&quot;: &quot;内卡萨&quot;,
+      &quot;water&quot;: 0.95,
+      &quot;EV_mean&quot;: -0.01942857142857146,
+      &quot;EV_p10&quot;: -0.1151499258194007,
+      &quot;P_EV_gt_0&quot;: 0.3986,
+      &quot;status&quot;: &quot;DIAGNOSTIC_ONLY&quot;
+    },
+    &quot;direction_rule_version&quot;: &quot;V4_DIRECTION_FIXED_R1&quot;,
+    &quot;reason_codes&quot;: [
+      &quot;BUCKET_0.50&quot;,
+      &quot;SIDE_IDENTITY_VALID&quot;,
+      &quot;FLAT_LINE_GIVING_WATER_DROP&quot;
+    ]
+  }
+}</pre></details></td></tr><tr><td>2026-09-29 00:30:00<br><span class="meta">北京时间</span></td><td>欧青U21外<br><span class="meta">编号 2781406</span></td><td><span class="match">丹麦U21 vs 白俄罗斯U21</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
@@ -46,7 +596,7 @@ h2{font-size:17px;margin:20px 0 8px;color:#174e7e}a{color:var(--blue)}footer{mar
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 06:30:00<br><span class="meta">北京时间</span></td><td>巴西乙<br><span class="meta">编号 2940195</span></td><td><span class="match">米内罗美洲 vs 尤文图德</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 06:30:00<br><span class="meta">北京时间</span></td><td>巴西乙<br><span class="meta">编号 2940195</span></td><td><span class="match">米内罗美洲 vs 尤文图德</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
@@ -74,77 +624,70 @@ h2{font-size:17px;margin:20px 0 8px;color:#174e7e}a{color:var(--blue)}footer{mar
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981437</span></td><td><span class="match">比利时 vs 法国</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981437</span></td><td><span class="match">比利时 vs 法国</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981438</span></td><td><span class="match">土耳其 vs 意大利</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981438</span></td><td><span class="match">土耳其 vs 意大利</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981485</span></td><td><span class="match">格鲁吉亚 vs 乌克兰</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981485</span></td><td><span class="match">格鲁吉亚 vs 乌克兰</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981486</span></td><td><span class="match">北爱尔兰 vs 匈牙利</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981486</span></td><td><span class="match">北爱尔兰 vs 匈牙利</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981487</span></td><td><span class="match">罗马尼亚 vs 波黑</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981487</span></td><td><span class="match">罗马尼亚 vs 波黑</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981488</span></td><td><span class="match">瑞典 vs 波兰</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 02:45:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981488</span></td><td><span class="match">瑞典 vs 波兰</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981531</span></td><td><span class="match">亚美尼亚 vs 黑山</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981531</span></td><td><span class="match">亚美尼亚 vs 黑山</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981532</span></td><td><span class="match">拉脱维亚 vs 塞浦路斯</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>欧国联<br><span class="meta">编号 2981532</span></td><td><span class="match">拉脱维亚 vs 塞浦路斯</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-28 11:00:00<br><span class="meta">北京时间</span></td><td>墨西联秋<br><span class="meta">编号 2997428</span></td><td><span class="match">内卡萨 vs 墨西哥美洲</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">处于赛前4小时冻结窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>非洲杯<br><span class="meta">编号 3001046</span></td><td><span class="match">赤道几内亚 vs 塞拉利昂</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
   &quot;盘口路径&quot;: null,
   &quot;数据来源&quot;: null,
   &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>非洲杯<br><span class="meta">编号 3001046</span></td><td><span class="match">赤道几内亚 vs 塞拉利昂</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
-  &quot;正向驱动因素&quot;: null,
-  &quot;负向驱动因素&quot;: null,
-  &quot;缺失特征&quot;: null,
-  &quot;盘口路径&quot;: null,
-  &quot;数据来源&quot;: null,
-  &quot;原 V4 隔离对照&quot;: null
-}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>非洲杯<br><span class="meta">编号 3001047</span></td><td><span class="match">津巴布韦 vs 刚果民主共和国</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 07:40:14<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
+}</pre></details></td></tr><tr><td>2026-09-29 00:00:00<br><span class="meta">北京时间</span></td><td>非洲杯<br><span class="meta">编号 3001047</span></td><td><span class="match">津巴布韦 vs 刚果民主共和国</span><br><span class="meta">让球方 — / 受让方 —</span></td><td class="status">尚未进入赛前4小时窗口</td><td class="grade grade-N">N<br><span class="decision-no">不投</span></td><td>—<br><span class="meta">— · —</span></td><td>— / —</td><td>— / —</td><td class="">—<br><span class="meta">P10 — · P25 —<br>P(EV&gt;0) —</span></td><td>2026-09-28 08:04:51<br><span class="meta">北京时间</span><span class="meta">冻结：未冻结</span></td><td>待结算 / —</td><td><details class="inline-detail"><summary>查看详情</summary><div class="detail-grid"><div class="detail-item"><b>开盘盘口</b>—</div><div class="detail-item"><b>盘口意图</b>—</div><div class="detail-item"><b>意图置信度</b>—</div><div class="detail-item"><b>原始 W/HW/P/HL/L 概率</b>—</div><div class="detail-item"><b>校准后 W/HW/P/HL/L 概率（让球方）</b>—</div><div class="detail-item"><b>必需特征 / 全部特征完整度</b>— / —</div><div class="detail-item"><b>全部 / T-30 校准支持样本</b>None / None</div><div class="detail-item"><b>分级策略</b>严格门槛</div><div class="detail-item"><b>严格门槛原始等级</b>N</div><div class="detail-item"><b>决策原因</b>盘口数据缺失</div></div><pre class="raw">{
   &quot;正向驱动因素&quot;: null,
   &quot;负向驱动因素&quot;: null,
   &quot;缺失特征&quot;: null,
@@ -163,4 +706,4 @@ document.getElementById('cards').innerHTML=filtered.slice(page*pageSize,page*pag
 document.getElementById('pageinfo').textContent=`第 ${page+1} / ${Math.max(1,Math.ceil(filtered.length/pageSize))} 页 · ${filtered.length} 场`}
 catch(e){document.getElementById('pageinfo').textContent='读取失败，请刷新：'+e.message}}
 document.getElementById('pageinfo').textContent=`第 1 / ${Math.max(1,Math.ceil(133/pageSize))} 页 · 133 场`;
-</script><h2 class="section-title">系统健康检查</h2><div class="section-note">短样本标记为“样本不足/小样本”，不视为健康通过；单日集中度预警也不等于已经证实长期失效。</div><details><summary>概率分布（0 项）</summary><div class="detail-body"><p class="empty">暂无记录。</p><p class="meta">页面最多展示 30 行；<a href="diagnostics/probability_health.csv">下载完整检查表</a></p></div></details><details><summary>方向平衡（0 项）</summary><div class="detail-body"><p class="empty">暂无记录。</p><p class="meta">页面最多展示 30 行；<a href="diagnostics/direction_health.csv">下载完整检查表</a></p></div></details><details><summary>盘口意图（0 项）</summary><div class="detail-body"><p class="empty">暂无记录。</p><p class="meta">页面最多展示 30 行；<a href="diagnostics/intent_health.csv">下载完整检查表</a></p></div></details><details><summary>等级分布（4 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>等级</th><th>样本数</th><th>abc</th><th>状态</th></tr></thead><tbody><tr><td>A</td><td>0</td><td>0</td><td>GRADE_MONOTONICITY_WARNING</td></tr><tr><td>B</td><td>0</td><td>0</td><td>GRADE_MONOTONICITY_WARNING</td></tr><tr><td>C</td><td>0</td><td>0</td><td>GRADE_MONOTONICITY_WARNING</td></tr><tr><td>N</td><td>0</td><td>0</td><td>GRADE_MONOTONICITY_WARNING</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/grade_health.csv">下载完整检查表</a></p></div></details><details><summary>快照完整性（133 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>match_id</th><th>quote_at</th><th>minutes_to_kickoff</th><th>freeze</th><th>primary_status</th><th>状态</th></tr></thead><tbody><tr><td>2997428</td><td>2026-09-28T07:40:14+08:00</td><td>199.76666666666668</td><td>False</td><td>PRIMARY_4H</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3088944</td><td>2026-09-28T07:40:14+08:00</td><td>559.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3035662</td><td>2026-09-28T07:40:14+08:00</td><td>619.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3094371</td><td>2026-09-28T07:40:14+08:00</td><td>644.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3094372</td><td>2026-09-28T07:40:14+08:00</td><td>679.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3095282</td><td>2026-09-28T07:40:14+08:00</td><td>739.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3091497</td><td>2026-09-28T07:40:14+08:00</td><td>739.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3088945</td><td>2026-09-28T07:40:14+08:00</td><td>769.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3077256</td><td>2026-09-28T07:40:14+08:00</td><td>799.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3077260</td><td>2026-09-28T07:40:14+08:00</td><td>799.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3094377</td><td>2026-09-28T07:40:14+08:00</td><td>859.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3095424</td><td>2026-09-28T07:40:14+08:00</td><td>899.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3095425</td><td>2026-09-28T07:40:14+08:00</td><td>899.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3056239</td><td>2026-09-28T07:40:14+08:00</td><td>919.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3037928</td><td>2026-09-28T07:40:14+08:00</td><td>919.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3089299</td><td>2026-09-28T07:40:14+08:00</td><td>919.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981485</td><td>2026-09-28T07:40:14+08:00</td><td>979.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981531</td><td>2026-09-28T07:40:14+08:00</td><td>979.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981532</td><td>2026-09-28T07:40:14+08:00</td><td>979.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3001046</td><td>2026-09-28T07:40:14+08:00</td><td>979.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3001047</td><td>2026-09-28T07:40:14+08:00</td><td>979.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3001059</td><td>2026-09-28T07:40:14+08:00</td><td>979.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2781406</td><td>2026-09-28T07:40:14+08:00</td><td>1009.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3005983</td><td>2026-09-28T07:40:14+08:00</td><td>1039.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3089300</td><td>2026-09-28T07:40:14+08:00</td><td>1054.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3089301</td><td>2026-09-28T07:40:14+08:00</td><td>1054.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3059200</td><td>2026-09-28T07:40:14+08:00</td><td>1099.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3014093</td><td>2026-09-28T07:40:14+08:00</td><td>1129.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981437</td><td>2026-09-28T07:40:14+08:00</td><td>1144.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981438</td><td>2026-09-28T07:40:14+08:00</td><td>1144.7666666666667</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/snapshot_health.csv">下载完整检查表</a></p></div></details><details><summary>特征完整性（0 项）</summary><div class="detail-body"><p class="empty">暂无记录。</p><p class="meta">页面最多展示 30 行；<a href="diagnostics/feature_health.csv">下载完整检查表</a></p></div></details><details><summary>概率校准（39 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>group_by</th><th>分组</th><th>样本数</th><th>effective_n</th><th>predicted_effective_win_rate</th><th>actual_effective_win_rate</th><th>brier</th><th>five_state_brier</th><th>ece</th><th>slope</th><th>intercept</th><th>状态</th></tr></thead><tbody><tr><td>overall</td><td>ALL</td><td>311</td><td>277.5</td><td>0.5520194678729912</td><td>0.4828828828828829</td><td>0.255265174487348</td><td>0.6143052170375838</td><td>0.06913658499010826</td><td>0.15758582952337336</td><td>-0.10154575885313713</td><td>MONITOR</td></tr><tr><td>date</td><td>2026-09-19</td><td>70</td><td>62.0</td><td>0.5537417902360989</td><td>0.5403225806451613</td><td>0.25085088630965907</td><td>0.6221663072311909</td><td>0.013419209590937575</td><td>-0.45122455029450187</td><td>0.2597219125618709</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-20</td><td>185</td><td>168.0</td><td>0.5508467922791224</td><td>0.4523809523809524</td><td>0.25741751783585254</td><td>0.6081560830259977</td><td>0.09846583989817004</td><td>0.5010012843060324</td><td>-0.29398878313311977</td><td>CALIBRATION_DRIFT_WARNING</td></tr><tr><td>date</td><td>2026-09-21</td><td>15</td><td>14.0</td><td>0.5518642800033732</td><td>0.42857142857142855</td><td>0.2661161374213897</td><td>0.5866140752577701</td><td>0.15145140172758453</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-22</td><td>1</td><td>1.0</td><td>0.5312901013671912</td><td>1.0</td><td>0.21968896907637786</td><td>0.43937793815275566</td><td>0.46870989863280876</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-23</td><td>40</td><td>32.5</td><td>0.5555003143326136</td><td>0.5384615384615384</td><td>0.2489807101428049</td><td>0.6437454141419079</td><td>0.08537363468266365</td><td>0.49553048022125623</td><td>0.04325520617563276</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-25</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-27</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.25</td><td>21</td><td>17.0</td><td>0.5731328558047425</td><td>0.5294117647058824</td><td>0.2593266628456</td><td>0.6944434263581156</td><td>0.08918425965942997</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.5</td><td>14</td><td>14.0</td><td>0.5371801979955938</td><td>0.5714285714285714</td><td>0.2414863375306317</td><td>0.48297267506126346</td><td>0.0342483734329776</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.5</td><td>73</td><td>73.0</td><td>0.5232405761910938</td><td>0.410958904109589</td><td>0.2581960872650336</td><td>0.5163921745300672</td><td>0.11228167208150475</td><td>-4.811528064470255</td><td>0.07197234674260022</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.25</td><td>97</td><td>83.0</td><td>0.5705472427080197</td><td>0.5180722891566265</td><td>0.25439316321072836</td><td>0.6627171412969813</td><td>0.05247495355139313</td><td>-1.8616644718056912</td><td>0.6026240642404138</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.75</td><td>59</td><td>51.5</td><td>0.5642603188227893</td><td>0.42718446601941745</td><td>0.26787477597568016</td><td>0.6467403173558622</td><td>0.13707585280337184</td><td>-2.404902031576837</td><td>0.3251603480549325</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.0</td><td>26</td><td>20.0</td><td>0.5276432499555065</td><td>0.5</td><td>0.2438500125405813</td><td>0.6589581315410997</td><td>0.027643249955506488</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.5</td><td>5</td><td>5.0</td><td>0.5626075343126864</td><td>0.6</td><td>0.241324314078781</td><td>0.482648628157562</td><td>0.10894467928494171</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.0</td><td>7</td><td>6.0</td><td>0.5259944457055299</td><td>0.6666666666666666</td><td>0.24330613591044892</td><td>0.5986776723155557</td><td>0.14067222096113674</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.75</td><td>8</td><td>7.0</td><td>0.6064568285087936</td><td>0.7142857142857143</td><td>0.20710571638271233</td><td>0.6390567968555811</td><td>0.14069267710981453</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>3.0</td><td>1</td><td>1.0</td><td>0.5431642435786751</td><td>0.0</td><td>0.2950273955023943</td><td>0.716770281902536</td><td>0.5431642435786751</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.75</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>v41_side</td><td>受让方</td><td>187</td><td>164.5</td><td>0.5544704208714862</td><td>0.5106382978723404</td><td>0.2536633914390564</td><td>0.6206976272025301</td><td>0.04383212299914591</td><td>-0.37345916113314626</td><td>0.12465800246353488</td><td>MONITOR</td></tr><tr><td>v41_side</td><td>让球方</td><td>124</td><td>113.0</td><td>0.5484514876229694</td><td>0.4424778761061947</td><td>0.2575969737036664</td><td>0.6046650500952858</td><td>0.11691973745542196</td><td>0.6676367734742802</td><td>-0.3620898532908924</td><td>CALIBRATION_DRIFT_WARNING</td></tr><tr><td>region</td><td>欧洲非五大系列</td><td>8</td><td>7.5</td><td>0.5430935753658751</td><td>0.4666666666666667</td><td>0.25390001837292814</td><td>0.5663817470917181</td><td>0.0764269086992084</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>其他系列</td><td>183</td><td>163.0</td><td>0.552530007539679</td><td>0.5061349693251533</td><td>0.2542602376929924</td><td>0.6160671033088627</td><td>0.05042326044934406</td><td>-0.4158317834021121</td><td>0.11271498864661872</td><td>MONITOR</td></tr><tr><td>region</td><td>欧洲五大系列</td><td>88</td><td>77.0</td><td>0.5532864746212472</td><td>0.44155844155844154</td><td>0.2568846694362331</td><td>0.613970151391323</td><td>0.11172803306280565</td><td>1.5322716020159164</td><td>-0.5663668144245992</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>南美系列</td><td>3</td><td>3.0</td><td>0.5310756670578035</td><td>0.0</td><td>0.28233348565761235</td><td>0.5544624073393364</td><td>0.5310756670578035</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>日韩系列</td><td>18</td><td>16.5</td><td>0.5503229675609762</td><td>0.45454545454545453</td><td>0.254318821607626</td><td>0.6410829843379644</td><td>0.09577751301552165</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>亚运会足球独立赛事</td><td>4</td><td>3.5</td><td>0.5668429978702205</td><td>0.42857142857142855</td><td>0.2904753444851925</td><td>0.6561062826955608</td><td>0.21051412889775564</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>北美系列</td><td>2</td><td>2.0</td><td>0.5470525703747822</td><td>1.0</td><td>0.20728526425199204</td><td>0.5565578304301433</td><td>0.45294742962521783</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>欧联独立赛事</td><td>5</td><td>5.0</td><td>0.5390278290964812</td><td>0.6</td><td>0.24656044883871764</td><td>0.5615587124505242</td><td>0.06097217090351881</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>intent</td><td>阻上/诱下</td><td>38</td><td>32.0</td><td>0.5660933314755591</td><td>0.5</td><td>0.263570665886265</td><td>0.6114068225460485</td><td>0.06609333147555903</td><td>-2.68298746010745</td><td>0.7152622120484478</td><td>INSUFFICIENT_FORWARD</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/calibration_health.csv">下载完整检查表</a></p></div></details><details><summary>期望收益（5 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>bin</th><th>样本数</th><th>收益率</th><th>状态</th></tr></thead><tbody><tr><td>[-100,0)</td><td>82</td><td>-0.06280487804878049</td><td>EV_MONOTONICITY_WARNING</td></tr><tr><td>[0,0.02)</td><td>22</td><td>-0.43886363636363634</td><td>EV_MONOTONICITY_WARNING</td></tr><tr><td>[0.02,0.04)</td><td>27</td><td>0.020370370370370372</td><td>EV_MONOTONICITY_WARNING</td></tr><tr><td>[0.04,0.08)</td><td>43</td><td>-0.1527906976744186</td><td>EV_MONOTONICITY_WARNING</td></tr><tr><td>[0.08,100)</td><td>67</td><td>-0.10044776119402984</td><td>EV_MONOTONICITY_WARNING</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/ev_health.csv">下载完整检查表</a></p></div></details><details><summary>等级表现（3 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>等级</th><th>候选</th><th>已结算</th><th>待结算</th><th>W</th><th>HW</th><th>P</th><th>HL</th><th>L</th><th>effective_win_rate</th><th>盈亏</th><th>收益率</th><th>最大回撤</th><th>drawdown_basis</th><th>calibration</th></tr></thead><tbody><tr><td>A</td><td>39</td><td>31</td><td>8</td><td>7</td><td>11</td><td>0</td><td>0</td><td>13</td><td>0.49019607843137253</td><td>-1.08</td><td>-0.03483870967741936</td><td>5.365</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 31, &#x27;effective_n&#x27;: 25.5, &#x27;predicted_effective_win_rate&#x27;: 0.5732005121526834, &#x27;actual_effective_win_rate&#x27;: 0.49019607843137253, &#x27;brier&#x27;: 0.25658260980240377, &#x27;five_state_brier&#x27;: 0.6612167442579592, &#x27;ece&#x27;: 0.08300443372131089, &#x27;slope&#x27;: 1.0788276936643613, &#x27;intercept&#x27;: -0.35766670868418243}</td></tr><tr><td>B</td><td>62</td><td>44</td><td>18</td><td>9</td><td>9</td><td>0</td><td>0</td><td>26</td><td>0.34177215189873417</td><td>-13.295</td><td>-0.30215909090909093</td><td>17.96</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 44, &#x27;effective_n&#x27;: 39.5, &#x27;predicted_effective_win_rate&#x27;: 0.5746430072410676, &#x27;actual_effective_win_rate&#x27;: 0.34177215189873417, &#x27;brier&#x27;: 0.27986016494556987, &#x27;five_state_brier&#x27;: 0.6455334996233039, &#x27;ece&#x27;: 0.23287085534233345, &#x27;slope&#x27;: -0.09290363334740481, &#x27;intercept&#x27;: -0.627367711546072}</td></tr><tr><td>C</td><td>225</td><td>166</td><td>59</td><td>65</td><td>19</td><td>6</td><td>0</td><td>76</td><td>0.4950166112956811</td><td>-13.18</td><td>-0.07939759036144578</td><td>24.415000000000006</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 166, &#x27;effective_n&#x27;: 150.5, &#x27;predicted_effective_win_rate&#x27;: 0.5417833853435303, &#x27;actual_effective_win_rate&#x27;: 0.4950166112956811, &#x27;brier&#x27;: 0.2504053016859064, &#x27;five_state_brier&#x27;: 0.5939523369703801, &#x27;ece&#x27;: 0.0498497703510628, &#x27;slope&#x27;: 1.3305062154092673, &#x27;intercept&#x27;: -0.2437756650239131}</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/grade_performance_health.csv">下载完整检查表</a></p></div></details><footer>V3 是唯一正式决策。原 V4 对照组与 V4.1 挑战组都只做影子观察，不执行真实投注。候选至少积累 200 场、理想 500 场以上后才具备评估意义，禁止自动晋级。</footer></div></body></html>
+</script><h2 class="section-title">系统健康检查</h2><div class="section-note">短样本标记为“样本不足/小样本”，不视为健康通过；单日集中度预警也不等于已经证实长期失效。</div><details><summary>概率分布（1 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>盘口</th><th>样本数</th><th>distinct_vectors</th><th>dominant_vector_share</th><th>状态</th></tr></thead><tbody><tr><td>0.5</td><td>1</td><td>1</td><td>1.0</td><td>SMALL_SAMPLE</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/probability_health.csv">下载完整检查表</a></p></div></details><details><summary>方向平衡（1 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>side</th><th>样本数</th><th>share</th><th>状态</th></tr></thead><tbody><tr><td>让球方</td><td>1</td><td>1.0</td><td>MONITOR</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/direction_health.csv">下载完整检查表</a></p></div></details><details><summary>盘口意图（1 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>盘口意图</th><th>样本数</th><th>share</th><th>状态</th></tr></thead><tbody><tr><td>真实示弱/阻下</td><td>1</td><td>1.0</td><td>MONITOR</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/intent_health.csv">下载完整检查表</a></p></div></details><details><summary>等级分布（4 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>等级</th><th>样本数</th><th>abc</th><th>状态</th></tr></thead><tbody><tr><td>A</td><td>0</td><td>1</td><td>GRADE_MONOTONICITY_WARNING</td></tr><tr><td>B</td><td>0</td><td>1</td><td>GRADE_MONOTONICITY_WARNING</td></tr><tr><td>C</td><td>1</td><td>1</td><td>GRADE_MONOTONICITY_WARNING</td></tr><tr><td>N</td><td>0</td><td>1</td><td>GRADE_MONOTONICITY_WARNING</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/grade_health.csv">下载完整检查表</a></p></div></details><details><summary>快照完整性（133 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>match_id</th><th>quote_at</th><th>minutes_to_kickoff</th><th>freeze</th><th>primary_status</th><th>状态</th></tr></thead><tbody><tr><td>2997428</td><td>2026-09-28T08:04:51+08:00</td><td>175.15</td><td>True</td><td>FROZEN_PRIMARY_4H</td><td>T30_FROZEN</td></tr><tr><td>3088944</td><td>2026-09-28T08:04:51+08:00</td><td>535.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3035662</td><td>2026-09-28T08:04:51+08:00</td><td>595.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3094371</td><td>2026-09-28T08:04:51+08:00</td><td>620.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3094372</td><td>2026-09-28T08:04:51+08:00</td><td>655.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3095282</td><td>2026-09-28T08:04:51+08:00</td><td>715.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3091497</td><td>2026-09-28T08:04:51+08:00</td><td>715.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3088945</td><td>2026-09-28T08:04:51+08:00</td><td>745.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3077256</td><td>2026-09-28T08:04:51+08:00</td><td>775.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3077260</td><td>2026-09-28T08:04:51+08:00</td><td>775.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3094377</td><td>2026-09-28T08:04:51+08:00</td><td>835.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3095424</td><td>2026-09-28T08:04:51+08:00</td><td>875.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3095425</td><td>2026-09-28T08:04:51+08:00</td><td>875.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3056239</td><td>2026-09-28T08:04:51+08:00</td><td>895.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3037928</td><td>2026-09-28T08:04:51+08:00</td><td>895.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3089299</td><td>2026-09-28T08:04:51+08:00</td><td>895.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981485</td><td>2026-09-28T08:04:51+08:00</td><td>955.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981531</td><td>2026-09-28T08:04:51+08:00</td><td>955.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981532</td><td>2026-09-28T08:04:51+08:00</td><td>955.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3001046</td><td>2026-09-28T08:04:51+08:00</td><td>955.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3001047</td><td>2026-09-28T08:04:51+08:00</td><td>955.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3001059</td><td>2026-09-28T08:04:51+08:00</td><td>955.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2781406</td><td>2026-09-28T08:04:51+08:00</td><td>985.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3005983</td><td>2026-09-28T08:04:51+08:00</td><td>1015.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3089300</td><td>2026-09-28T08:04:51+08:00</td><td>1030.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3089301</td><td>2026-09-28T08:04:51+08:00</td><td>1030.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3059200</td><td>2026-09-28T08:04:51+08:00</td><td>1075.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>3014093</td><td>2026-09-28T08:04:51+08:00</td><td>1105.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981437</td><td>2026-09-28T08:04:51+08:00</td><td>1120.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr><tr><td>2981438</td><td>2026-09-28T08:04:51+08:00</td><td>1120.15</td><td>False</td><td>WAIT_PRIMARY_4H_WINDOW</td><td>PREVIEW_NOT_DECISION</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/snapshot_health.csv">下载完整检查表</a></p></div></details><details><summary>特征完整性（1 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>match_id</th><th>required_completeness</th><th>all_completeness</th><th>missing</th></tr></thead><tbody><tr><td>2997428</td><td>1.0</td><td>0.6470588235294118</td><td>[&#x27;line_up_count&#x27;, &#x27;line_down_count&#x27;, &#x27;reversal_count&#x27;, &#x27;spread_speed&#x27;, &#x27;water_speed&#x27;, &#x27;late_30_line&#x27;, &#x27;late_60_line&#x27;, &#x27;neutral_venue&#x27;, &#x27;elo_difference&#x27;, &#x27;recent_form_difference&#x27;, &#x27;bookmaker_dispersion&#x27;, &#x27;bookmaker_consensus&#x27;]</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/feature_health.csv">下载完整检查表</a></p></div></details><details><summary>概率校准（40 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>group_by</th><th>分组</th><th>样本数</th><th>effective_n</th><th>predicted_effective_win_rate</th><th>actual_effective_win_rate</th><th>brier</th><th>five_state_brier</th><th>ece</th><th>slope</th><th>intercept</th><th>状态</th></tr></thead><tbody><tr><td>overall</td><td>ALL</td><td>311</td><td>277.5</td><td>0.5520194678729912</td><td>0.4828828828828829</td><td>0.255265174487348</td><td>0.6143052170375838</td><td>0.06913658499010826</td><td>0.15758582952337336</td><td>-0.10154575885313713</td><td>MONITOR</td></tr><tr><td>date</td><td>2026-09-19</td><td>70</td><td>62.0</td><td>0.5537417902360989</td><td>0.5403225806451613</td><td>0.25085088630965907</td><td>0.6221663072311909</td><td>0.013419209590937575</td><td>-0.45122455029450187</td><td>0.2597219125618709</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-20</td><td>185</td><td>168.0</td><td>0.5508467922791224</td><td>0.4523809523809524</td><td>0.25741751783585254</td><td>0.6081560830259977</td><td>0.09846583989817004</td><td>0.5010012843060324</td><td>-0.29398878313311977</td><td>CALIBRATION_DRIFT_WARNING</td></tr><tr><td>date</td><td>2026-09-21</td><td>15</td><td>14.0</td><td>0.5518642800033732</td><td>0.42857142857142855</td><td>0.2661161374213897</td><td>0.5866140752577701</td><td>0.15145140172758453</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-22</td><td>1</td><td>1.0</td><td>0.5312901013671912</td><td>1.0</td><td>0.21968896907637786</td><td>0.43937793815275566</td><td>0.46870989863280876</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-23</td><td>40</td><td>32.5</td><td>0.5555003143326136</td><td>0.5384615384615384</td><td>0.2489807101428049</td><td>0.6437454141419079</td><td>0.08537363468266365</td><td>0.49553048022125623</td><td>0.04325520617563276</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-25</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-27</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>date</td><td>2026-09-28</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.25</td><td>21</td><td>17.0</td><td>0.5731328558047425</td><td>0.5294117647058824</td><td>0.2593266628456</td><td>0.6944434263581156</td><td>0.08918425965942997</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.5</td><td>14</td><td>14.0</td><td>0.5371801979955938</td><td>0.5714285714285714</td><td>0.2414863375306317</td><td>0.48297267506126346</td><td>0.0342483734329776</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.5</td><td>73</td><td>73.0</td><td>0.5232405761910938</td><td>0.410958904109589</td><td>0.2581960872650336</td><td>0.5163921745300672</td><td>0.11228167208150475</td><td>-4.811528064470255</td><td>0.07197234674260022</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.25</td><td>97</td><td>83.0</td><td>0.5705472427080197</td><td>0.5180722891566265</td><td>0.25439316321072836</td><td>0.6627171412969813</td><td>0.05247495355139313</td><td>-1.8616644718056912</td><td>0.6026240642404138</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>0.75</td><td>59</td><td>51.5</td><td>0.5642603188227893</td><td>0.42718446601941745</td><td>0.26787477597568016</td><td>0.6467403173558622</td><td>0.13707585280337184</td><td>-2.404902031576837</td><td>0.3251603480549325</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.0</td><td>26</td><td>20.0</td><td>0.5276432499555065</td><td>0.5</td><td>0.2438500125405813</td><td>0.6589581315410997</td><td>0.027643249955506488</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.5</td><td>5</td><td>5.0</td><td>0.5626075343126864</td><td>0.6</td><td>0.241324314078781</td><td>0.482648628157562</td><td>0.10894467928494171</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.0</td><td>7</td><td>6.0</td><td>0.5259944457055299</td><td>0.6666666666666666</td><td>0.24330613591044892</td><td>0.5986776723155557</td><td>0.14067222096113674</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>1.75</td><td>8</td><td>7.0</td><td>0.6064568285087936</td><td>0.7142857142857143</td><td>0.20710571638271233</td><td>0.6390567968555811</td><td>0.14069267710981453</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>3.0</td><td>1</td><td>1.0</td><td>0.5431642435786751</td><td>0.0</td><td>0.2950273955023943</td><td>0.716770281902536</td><td>0.5431642435786751</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>handicap</td><td>2.75</td><td>0</td><td>0</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>v41_side</td><td>受让方</td><td>187</td><td>164.5</td><td>0.5544704208714862</td><td>0.5106382978723404</td><td>0.2536633914390564</td><td>0.6206976272025301</td><td>0.04383212299914591</td><td>-0.37345916113314626</td><td>0.12465800246353488</td><td>MONITOR</td></tr><tr><td>v41_side</td><td>让球方</td><td>124</td><td>113.0</td><td>0.5484514876229694</td><td>0.4424778761061947</td><td>0.2575969737036664</td><td>0.6046650500952858</td><td>0.11691973745542196</td><td>0.6676367734742802</td><td>-0.3620898532908924</td><td>CALIBRATION_DRIFT_WARNING</td></tr><tr><td>region</td><td>欧洲非五大系列</td><td>8</td><td>7.5</td><td>0.5430935753658751</td><td>0.4666666666666667</td><td>0.25390001837292814</td><td>0.5663817470917181</td><td>0.0764269086992084</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>其他系列</td><td>183</td><td>163.0</td><td>0.552530007539679</td><td>0.5061349693251533</td><td>0.2542602376929924</td><td>0.6160671033088627</td><td>0.05042326044934406</td><td>-0.4158317834021121</td><td>0.11271498864661872</td><td>MONITOR</td></tr><tr><td>region</td><td>欧洲五大系列</td><td>88</td><td>77.0</td><td>0.5532864746212472</td><td>0.44155844155844154</td><td>0.2568846694362331</td><td>0.613970151391323</td><td>0.11172803306280565</td><td>1.5322716020159164</td><td>-0.5663668144245992</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>南美系列</td><td>3</td><td>3.0</td><td>0.5310756670578035</td><td>0.0</td><td>0.28233348565761235</td><td>0.5544624073393364</td><td>0.5310756670578035</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>日韩系列</td><td>18</td><td>16.5</td><td>0.5503229675609762</td><td>0.45454545454545453</td><td>0.254318821607626</td><td>0.6410829843379644</td><td>0.09577751301552165</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>亚运会足球独立赛事</td><td>4</td><td>3.5</td><td>0.5668429978702205</td><td>0.42857142857142855</td><td>0.2904753444851925</td><td>0.6561062826955608</td><td>0.21051412889775564</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>北美系列</td><td>2</td><td>2.0</td><td>0.5470525703747822</td><td>1.0</td><td>0.20728526425199204</td><td>0.5565578304301433</td><td>0.45294742962521783</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr><tr><td>region</td><td>欧联独立赛事</td><td>5</td><td>5.0</td><td>0.5390278290964812</td><td>0.6</td><td>0.24656044883871764</td><td>0.5615587124505242</td><td>0.06097217090351881</td><td>无等级</td><td>无等级</td><td>INSUFFICIENT_FORWARD</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/calibration_health.csv">下载完整检查表</a></p></div></details><details><summary>期望收益（5 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>bin</th><th>样本数</th><th>收益率</th><th>状态</th></tr></thead><tbody><tr><td>[-100,0)</td><td>82</td><td>-0.06280487804878049</td><td>EV_MONOTONICITY_WARNING</td></tr><tr><td>[0,0.02)</td><td>22</td><td>-0.43886363636363634</td><td>EV_MONOTONICITY_WARNING</td></tr><tr><td>[0.02,0.04)</td><td>27</td><td>0.020370370370370372</td><td>EV_MONOTONICITY_WARNING</td></tr><tr><td>[0.04,0.08)</td><td>43</td><td>-0.1527906976744186</td><td>EV_MONOTONICITY_WARNING</td></tr><tr><td>[0.08,100)</td><td>67</td><td>-0.10044776119402984</td><td>EV_MONOTONICITY_WARNING</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/ev_health.csv">下载完整检查表</a></p></div></details><details><summary>等级表现（3 项）</summary><div class="detail-body"><div class="table-wrap compact"><table><thead><tr><th>等级</th><th>候选</th><th>已结算</th><th>待结算</th><th>W</th><th>HW</th><th>P</th><th>HL</th><th>L</th><th>effective_win_rate</th><th>盈亏</th><th>收益率</th><th>最大回撤</th><th>drawdown_basis</th><th>calibration</th></tr></thead><tbody><tr><td>A</td><td>39</td><td>31</td><td>8</td><td>7</td><td>11</td><td>0</td><td>0</td><td>13</td><td>0.49019607843137253</td><td>-1.08</td><td>-0.03483870967741936</td><td>5.365</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 31, &#x27;effective_n&#x27;: 25.5, &#x27;predicted_effective_win_rate&#x27;: 0.5732005121526834, &#x27;actual_effective_win_rate&#x27;: 0.49019607843137253, &#x27;brier&#x27;: 0.25658260980240377, &#x27;five_state_brier&#x27;: 0.6612167442579592, &#x27;ece&#x27;: 0.08300443372131089, &#x27;slope&#x27;: 1.0788276936643613, &#x27;intercept&#x27;: -0.35766670868418243}</td></tr><tr><td>B</td><td>62</td><td>44</td><td>18</td><td>9</td><td>9</td><td>0</td><td>0</td><td>26</td><td>0.34177215189873417</td><td>-13.295</td><td>-0.30215909090909093</td><td>17.96</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 44, &#x27;effective_n&#x27;: 39.5, &#x27;predicted_effective_win_rate&#x27;: 0.5746430072410676, &#x27;actual_effective_win_rate&#x27;: 0.34177215189873417, &#x27;brier&#x27;: 0.27986016494556987, &#x27;five_state_brier&#x27;: 0.6455334996233039, &#x27;ece&#x27;: 0.23287085534233345, &#x27;slope&#x27;: -0.09290363334740481, &#x27;intercept&#x27;: -0.627367711546072}</td></tr><tr><td>C</td><td>226</td><td>166</td><td>60</td><td>65</td><td>19</td><td>6</td><td>0</td><td>76</td><td>0.4950166112956811</td><td>-13.18</td><td>-0.07939759036144578</td><td>24.415000000000006</td><td>1u each settled candidate ordered by kickoff</td><td>{&#x27;n&#x27;: 166, &#x27;effective_n&#x27;: 150.5, &#x27;predicted_effective_win_rate&#x27;: 0.5417833853435303, &#x27;actual_effective_win_rate&#x27;: 0.4950166112956811, &#x27;brier&#x27;: 0.2504053016859064, &#x27;five_state_brier&#x27;: 0.5939523369703801, &#x27;ece&#x27;: 0.0498497703510628, &#x27;slope&#x27;: 1.3305062154092673, &#x27;intercept&#x27;: -0.2437756650239131}</td></tr></tbody></table></div><p class="meta">页面最多展示 30 行；<a href="diagnostics/grade_performance_health.csv">下载完整检查表</a></p></div></details><footer>V3 是唯一正式决策。原 V4 对照组与 V4.1 挑战组都只做影子观察，不执行真实投注。候选至少积累 200 场、理想 500 场以上后才具备评估意义，禁止自动晋级。</footer></div></body></html>
