@@ -1,0 +1,50 @@
+{
+  "list_date": "2026-09-28",
+  "source_v4": "D:\\codex\\v4\\outputs\\v4_decisions_2026-09-28.json",
+  "real_money": false,
+  "diagnostic_only": true,
+  "rows": [
+    {
+      "match_id": "2997428",
+      "list_date": "2026-09-28",
+      "side": "giving",
+      "team": "墨西哥美洲",
+      "market_side": "让球方/上盘",
+      "signed_handicap": 0.5,
+      "water": 0.94,
+      "W": 0.0,
+      "HW": 0.0,
+      "P": 0.0,
+      "HL": 0.0,
+      "L": 0.0,
+      "EV_mean": -0.03554285714285721,
+      "EV_p10": -0.12882153329969165,
+      "P_EV_gt_0": 0.3156,
+      "mirror_status": "W↔L;HW↔HL;P↔P",
+      "real_money": false,
+      "diagnostic_only": true,
+      "status": "COMPUTED"
+    },
+    {
+      "match_id": "2997428",
+      "list_date": "2026-09-28",
+      "side": "receiving",
+      "team": "内卡萨",
+      "market_side": "受让方/下盘",
+      "signed_handicap": 0.5,
+      "water": 0.95,
+      "W": 0.0,
+      "HW": 0.0,
+      "P": 0.0,
+      "HL": 0.0,
+      "L": 0.0,
+      "EV_mean": -0.01942857142857146,
+      "EV_p10": -0.11282523251582077,
+      "P_EV_gt_0": 0.4002,
+      "mirror_status": "W↔L;HW↔HL;P↔P",
+      "real_money": false,
+      "diagnostic_only": true,
+      "status": "COMPUTED"
+    }
+  ]
+}
