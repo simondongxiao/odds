@@ -81,6 +81,13 @@ def main():
             if state:
                 label = "完场" if state == "-1" else "未开赛" if state == "0" else "进行中" if state in {"1", "2", "3", "4", "5"} else "状态待核"
                 card.update(state=state, state_label=label, display_status=label, status=label)
+            # Score/status overlay only.  A live score is observational data;
+            # it must never trigger a new decision or rewrite frozen fields.
+            score_home = str(observation.get("home_score", "") or "").strip()
+            score_away = str(observation.get("away_score", "") or "").strip()
+            if state in {"-1", "1", "2", "3", "4", "5"} and score_home.isdigit() and score_away.isdigit():
+                observed_score = f"{int(score_home)}-{int(score_away)}"
+                card.update(score=observed_score, display_score=observed_score)
             if result.get("result") in LABEL:
                 card.update(score=result["score"], display_score=result["score"], state="-1",
                             state_label="完场", display_status="已结算", status="已结算",
@@ -143,6 +150,20 @@ def main():
         for row in rows:
             result = results.get(str(row.get("match_id")), {})
             if not result.get("score"):
+                source = raw.get(str(row.get("match_id", "")), {})
+                state = str(source.get("state", "") or "").strip()
+                score_home = str(source.get("home_score", "") or "").strip()
+                score_away = str(source.get("away_score", "") or "").strip()
+                if state in {"1", "2", "3", "4", "5"} and score_home.isdigit() and score_away.isdigit():
+                    # Live score/status only; no V4 settlement or decision
+                    # fields are inferred before Titan reports final state.
+                    row.update({
+                        "score": f"{int(score_home)}-{int(score_away)}",
+                        "result_state": state,
+                        "settlement_status": "IN_PROGRESS",
+                        "result_source": str(source.get("_source", "")),
+                    })
+                    row["settlement_updated_at"] = daily.now_cn().isoformat()
                 if target < date and row.get("result") not in LABEL:
                     row["settlement_status"] = "RESULT_PENDING_VERIFICATION"
                 continue
