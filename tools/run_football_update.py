@@ -755,7 +755,11 @@ def update_root_data(date_payload: dict[str, Any], metrics: dict[str, Any], run_
     write_json(data_dir / "dates" / "index.json", dates)
     current = {
         "list_date": date_payload["list_date"], "display_list_date": date_payload["list_date"], "date_file": f"./data/dates/{date_payload['list_date']}.json", "generated_at": run_at.isoformat(), "run_id": run_id,
-        "today_update_status": "COMPLETE_DATA_REFRESH" if metrics["v3_computed"] else "V3_PRODUCTION_FEED_MISSING", "total_matches": metrics["total"], "prematch_matches": sum(x["audit"]["state"] == "未开赛" for x in date_payload["matches"]),
+        "today_update_status": (
+            "COMPLETE_DATA_REFRESH"
+            if metrics["v3_computed"] and metrics["v4_computed"]
+            else ("PARTIAL_DATA_REFRESH" if metrics["v3_computed"] else "V3_PRODUCTION_FEED_MISSING")
+        ), "total_matches": metrics["total"], "prematch_matches": sum(x["audit"]["state"] == "未开赛" for x in date_payload["matches"]),
         "v3": {"computed_count": metrics["v3_computed"], "bettable_count": metrics["v3_bettable"], "half_count": metrics["v3_half"], "no_bet_count": metrics["v3_no_bet"], "missing_count": metrics["v3_missing"], "status": "V3_PRODUCTION_UPDATED" if metrics["v3_computed"] else "V3_PRODUCTION_FEED_MISSING"},
         "v4": {"computed_count": metrics["v4_computed"], "A_count": metrics["v4_A"], "B_count": metrics["v4_B"], "C_count": metrics["v4_C"], "N_count": metrics["v4_N"], "neutral_count": metrics["v4_neutral"], "missing_count": metrics["v4_missing"], "not_prematch_count": metrics.get("v4_not_prematch", 0), "real_money": False, "status": "V4_SHADOW_UPDATED"},
     }
@@ -794,6 +798,10 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settleme
         (OUT / "dashboard" / "data" / "current.json", public / "data" / "current.json"),
         (OUT / "dashboard" / "data" / "dates" / "index.json", public / "data" / "dates" / "index.json"),
         (ROOT / "v4" / "dashboard" / "data" / f"{list_date}.json", public / "v4" / "data" / f"{list_date}.json"),
+        (ROOT / "v4" / "matchspec_r2" / "dashboard" / "index.html", public / "v4-matchspecific" / "index.html"),
+        (ROOT / "v4" / "matchspec_r2" / "outputs" / f"{list_date}.json", public / "v4-matchspecific" / "data" / f"{list_date}.json"),
+        (ROOT / "v4" / "matchspec_r2" / "outputs" / "handicap_direction_matrix.csv", public / "v4-matchspecific" / "diagnostics" / "handicap_direction_matrix.csv"),
+        (ROOT / "v4" / "matchspec_r2" / "outputs" / "probability_diversity.csv", public / "v4-matchspecific" / "diagnostics" / "probability_diversity.csv"),
         (run_dir / "run_manifest.json", public / "decision_versions" / list_date / run_dir.name / "run_manifest.json"),
         (run_dir / "decision_comparison.csv", public / "decision_versions" / list_date / run_dir.name / "decision_comparison.csv"),
     ]
@@ -801,6 +809,12 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settleme
         if source.exists():
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
+    r2_data = public / "v4-matchspecific" / "data"
+    if r2_data.exists():
+        write_json(r2_data / "index.json", sorted(p.stem for p in r2_data.glob("*.json") if p.stem != "index"))
+    r2_reports = OUT / "reviews" / "v4_matchspec_r2"
+    if r2_reports.exists():
+        shutil.copytree(r2_reports, public / "v4-matchspecific" / "reports", dirs_exist_ok=True)
     # Publish the current V4 raw output under its own namespace without
     # changing the legacy V3 page or its compatibility payload.
     v4_out = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
@@ -942,6 +956,7 @@ def main() -> int:
     if not historical_decision_locked:
         write_json(bridge_path, bridge)
     write_json(v4_path, v4)
+    r2_result = run_command([str(PYTHON), str(ROOT / "tools" / "run_v4_matchspec_r2_daily.py"), "--list-date", list_date, "--raw-csv", str(raw_path)], env, logs / "v4_matchspec_r2.log", 600)
     v3_bettable_export, v4_bettable_export = write_timestamped_bettable_lists(list_date, bridge, v4, run_at)
     morning_tracking = write_morning_prematch_tracking(list_date, run_id, run_at, bridge, v4)
     quote_age_monitoring = write_quote_age_monitoring(list_date, run_id, bridge, v4)
@@ -966,7 +981,7 @@ def main() -> int:
     }
     if yesterday_performance.get("returncode") == 0:
         yesterday_v4_backfill = backfill_previous_v4_settlement(yesterday, yesterday_performance, run_at)
-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v3_apply_freeze": v3_apply_freeze if not historical_decision_locked else {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}, "v4_shadow": v4_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v3_apply_freeze": v3_apply_freeze if not historical_decision_locked else {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}, "v4_shadow": v4_result, "v4_matchspec_r2": r2_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v4_matchspec_r2": str(ROOT / "v4" / "matchspec_r2" / "outputs" / f"{list_date}.json"), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
     run_manifest["steps"]["v4_settlement_backfill"] = yesterday_v4_backfill
     run_manifest["artifacts"]["v4_settlement_backfill_targets"] = yesterday_v4_backfill.get("targets", [])
     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})
