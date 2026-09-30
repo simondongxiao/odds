@@ -30,7 +30,6 @@
   </section>
   <section class="controls">
     <label>列表日 <select id="date"></select></label>
-    <label>北京时间开赛日 <select id="kickoffDate"></select></label>
     <label>联赛/杯赛 <select id="competition"><option value="全部">全部赛事</option></select></label>
     <label>等级 <select id="grade"><option value="全部">全部等级</option><option>A</option><option>B</option><option>C</option><option>N</option></select></label>
   </section>
@@ -46,8 +45,6 @@ const statusMap={EVALUATED:'已计算',FROZEN_PREMATCH_DECISION:'已冻结赛前
 const settledResults=['W','HW','P','HL','L'];
 const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const fmt=x=>x==null?'':(typeof x==='number'?x.toFixed(4):esc(x));
-const beijingDate=x=>{const m=String(x||'').replace(/\//g,'-').match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);return m?`${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`:''};
-const beijingToday=()=>{const p=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const y=p.find(x=>x.type==='year').value,m=p.find(x=>x.type==='month').value,d=p.find(x=>x.type==='day').value;return `${y}-${m}-${d}`};
 const settlementText=x=>{const s=x.settlement||{},score=x.score||s.score||'',result=x.result||s.result||'';if(score&&result)return `${esc(score)} / ${esc(result)}`;if(score)return esc(score);if(x.settlement_status)return x.settlement_status==='SETTLED'?'已结算':'待核';return '—'};
 const statusText=x=>x.settlement_status==='SETTLED'||settledResults.includes(x.result)?'已结算':(statusMap[x.analysis_status]||x.analysis_status||'—');
 
@@ -59,26 +56,21 @@ async function load(){
   const requested=new URLSearchParams(location.search).get('date');d.value=requested&&listDates[requested]?requested:(activeListDate&&listDates[activeListDate]?activeListDate:(ordered[0]||''));
   await refresh();
 }
-function renderKickoffDates(){
-  const select=document.getElementById('kickoffDate');const days=[...new Set((payload?.matches||[]).map(x=>beijingDate(x.kickoff)).filter(Boolean))].sort().reverse();
-  const today=beijingToday();select.innerHTML='<option value="">全部开赛日</option>'+days.map(x=>`<option value="${x}">${x}</option>`).join('');
-  select.value=days.includes(today)?today:'';
-}
 async function refresh(){
   const key=document.getElementById('date').value;if(!listDates[key])return;
   payload=await fetch(listDates[key]+'?ts='+Date.now()).then(r=>r.json());
   const c=document.getElementById('competition'),old=c.value;while(c.options.length>1)c.remove(1);
   [...new Set(payload.matches.map(x=>x.competition||x.market?.competition||'未标注'))].sort().forEach(x=>c.add(new Option(x,x)));c.value=[...c.options].some(x=>x.value===old)?old:'全部';
-  renderKickoffDates();render();
+  render();
 }
 function render(){
-  if(!payload)return;const s=payload.summary||{},kd=document.getElementById('kickoffDate').value,comp=document.getElementById('competition').value,g=document.getElementById('grade').value;
-  const shown=payload.matches.filter(x=>(!kd||beijingDate(x.kickoff)===kd)&&(comp==='全部'||(x.competition||x.market?.competition||'未标注')===comp)&&(g==='全部'||x.grade===g));
+  if(!payload)return;const s=payload.summary||{},comp=document.getElementById('competition').value,g=document.getElementById('grade').value;
+  const shown=payload.matches.filter(x=>(comp==='全部'||(x.competition||x.market?.competition||'未标注')===comp)&&(g==='全部'||x.grade===g));
   const q=payload.matches.map(x=>x.last_confirmed_at||x.market?.last_confirmed_at).filter(Boolean).sort().pop()||'—';
-  document.getElementById('summary').innerHTML=`列表日 ${esc(payload.list_date)}｜开赛日 ${kd||'全部'}｜显示 ${shown.length} 场｜总赛事 ${s.total}｜真实计算 ${s.computed}｜A ${s.A}｜B ${s.B}｜C ${s.C}｜N ${s.N}｜中性 ${s.neutral}｜缺失 ${s.missing_data}｜非赛前 ${s.not_prematch}<br><span class="meta">当前run：${esc(payload.run_id||'—')}｜最近报价确认：${esc(q)}</span>`;
+  document.getElementById('summary').innerHTML=`列表日 ${esc(payload.list_date)}｜显示 ${shown.length} 场｜总赛事 ${s.total}｜真实计算 ${s.computed}｜A ${s.A}｜B ${s.B}｜C ${s.C}｜N ${s.N}｜中性 ${s.neutral}｜缺失 ${s.missing_data}｜非赛前 ${s.not_prematch}<br><span class="meta">当前run：${esc(payload.run_id||'—')}｜最近报价确认：${esc(q)}</span>`;
   document.getElementById('rows').innerHTML=shown.map(x=>{const m=x.market||{},home=m.home_team||'',away=m.away_team||'',team=x.candidate_team||x.selected_team||'—',side=x.candidate_side||x.selected_side||'—',hours=x.hours_from_last_refresh_to_kickoff;return `<tr><td>${esc(String(x.kickoff||'').replace('T',' '))} 北京时间</td><td>${esc(x.competition||m.competition||'未标注')}</td><td>${esc(home)} vs ${esc(away)}</td><td class="status">${esc(statusText(x))}</td><td>${settlementText(x)}</td><td class="grade grade-${esc(x.grade||'')}">${esc(x.grade||'—')}</td><td>${esc(team)} [${esc(side)}]<br><small>${esc(x.normalized_intent||x.intent||'—')} ${x.is_latest_valid_prematch?'｜LATEST_VALID_PREMATCH':''}</small></td><td>${esc(m.giving_team||'—')} / ${esc(m.receiving_team||'—')}</td><td>${esc(x.selected_handicap_signed??'—')}</td><td>${esc(x.selected_water_hk??'—')}</td><td>${fmt(x.ev_mean)}</td><td>${fmt(x.ev_p10)}</td><td>${x.p_ev_positive==null?'':(x.p_ev_positive*100).toFixed(2)+'%'}</td><td>${esc(x.quote_at||m.quote_at||'—')}<br><small>距开赛 ${hours==null?'—':esc(hours+'h')}</small></td><td>${esc(x.model_id||'—')}<br><small>${esc(x.side_mapping_version||'—')}</small></td></tr>`}).join('')||'<tr><td colspan="15" class="empty">没有符合筛选条件的赛事</td></tr>';
 }
-document.getElementById('date').onchange=refresh;document.getElementById('kickoffDate').onchange=render;document.getElementById('competition').onchange=render;document.getElementById('grade').onchange=render;load();
+document.getElementById('date').onchange=refresh;document.getElementById('competition').onchange=render;document.getElementById('grade').onchange=render;load();
 </script>
 </body>
 </html>
