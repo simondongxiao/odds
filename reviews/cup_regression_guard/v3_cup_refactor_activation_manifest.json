@@ -1,0 +1,50 @@
+{
+  "model_id": "V3_LEGACY_PRODUCTION",
+  "rule_version": "V3_CUP_MATCH_STATE_R1_20260930",
+  "activation_at": "2026-09-30T15:45:00+08:00",
+  "historical_frozen_immutable": true,
+  "historical_freeze_files_verified": 67,
+  "competition_name_direct_command": false,
+  "current_list_date": "2026-09-30",
+  "current_computed": 75,
+  "current_bettable": 4,
+  "delivery_verification": "PASS",
+  "files": [
+    {
+      "path": "D:\\codex\\tools\\football_competition_normalizer.py",
+      "sha256": "1870b7905a878819b0cb69e1183473f68b8824febdf26bbaf91fd649544828c4"
+    },
+    {
+      "path": "D:\\codex\\v3_legacy\\tools\\v3_cup_match_state.py",
+      "sha256": "58871bd8325d2b1baddad0dce05e5dd3365382daa380e0057e4d31cbc9b67f1f"
+    },
+    {
+      "path": "D:\\codex\\v3_legacy\\tools\\build_football_dashboard.py",
+      "sha256": "11eda3577d95189aa01cfb405959d092e55eee48f6fbca05e7d85036c1e8c9cb"
+    },
+    {
+      "path": "D:\\codex\\v3_legacy\\tools\\v3_legacy_decision_engine.py",
+      "sha256": "1fc6027ed02acc65c44bd41975fa63f8e4745c3ae3681b0f139202fa61324c3d"
+    },
+    {
+      "path": "D:\\codex\\v3_legacy\\tools\\run_v3_legacy_daily_freeze.py",
+      "sha256": "d0bb3aa16fa38da0679ae6abff59b7d42a576874ba2e62d56edbbac0ce0269c9"
+    },
+    {
+      "path": "D:\\codex\\v3_legacy\\tools\\build_v3_cup_regression_guard.py",
+      "sha256": "6a0a2b656acf43cb48fbd47f544145366f69a0c92912fc0ea7706ce162b8785a"
+    },
+    {
+      "path": "D:\\codex\\v3_legacy\\tools\\test_v3_cup_refactor.py",
+      "sha256": "61700af693a1ef9cb7c2f2c1939c1f088c62289ea6292b7e8766b87f91b0dbc5"
+    },
+    {
+      "path": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\ledger\\v3_legacy_decision_freeze_2026-09-30_20260930155713.csv",
+      "sha256": "1f4e4e6032618375c1361047127672ac5c46086ea953cff6342c4176db11625a"
+    },
+    {
+      "path": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\index.html",
+      "sha256": "3b2b6d91588abbff7fd00d4d8b51f66189b76b8a2332f792a32e55fbb85cf60d"
+    }
+  ]
+}

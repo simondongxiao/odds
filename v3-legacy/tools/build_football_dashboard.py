@@ -9,6 +9,8 @@ import shutil
 from collections import defaultdict
 from pathlib import Path
 
+import v3_cup_match_state as cup_v3
+
 
 ROOT = Path(r"D:\codex\v3_legacy\outputs\football_odds_trader")
 LEDGER = ROOT / "ledger" / "simulated_bets.csv"
@@ -1868,8 +1870,10 @@ def odds_summary(
     odds: dict[str, dict[str, str]],
     final_scores: dict[str, dict[str, str]] | None = None,
     ledger_row: dict[str, str] | None = None,
+    detail: dict[str, str] | None = None,
 ) -> dict[str, str]:
     final_scores = final_scores or {}
+    detail = detail or {}
     match_id = match_id_from_row(ledger_row or {})
     ledger_date = (ledger_row or {}).get("日期", "").strip()
     row = (
@@ -1965,8 +1969,38 @@ def odds_summary(
             euro_devig = f"主{fair[0]:.1%} / 平{fair[1]:.1%} / 客{fair[2]:.1%}；返还率{1 / overround:.1%}"
     except Exception:
         euro_devig = "欧赔缺失-未去水"
+    competition = (ledger_row or {}).get("赛事", "")
+    kickoff_text = f"2026-{row.get('bj_time','')}"
+    decision_at = dt.datetime.now().astimezone()
+    # The match-state/domain gateway is deliberately evaluated before Intent.
+    # Missing context is explicit MISSING and is not converted to a cup-name veto.
+    cup_gateway = cup_v3.cup_match_state_gateway(
+        competition,
+        ledger_row or {},
+        detail,
+        decision_at=decision_at,
+        kickoff_at=cup_v3.parse_time(kickoff_text),
+    )
     intent_text = asian_intent_candidate(row)
     intent_tag = normalize_intent_tag(intent_text)
+    cup_context = cup_v3.enrich_cup_context(
+        competition,
+        row,
+        ledger_row or {},
+        detail,
+        intent_tag,
+        kickoff_at=kickoff_text,
+        decision_at=decision_at,
+        precomputed_gateway=cup_gateway,
+    )
+    if cup_context.get("Cup_Refactor_Eligible"):
+        refined_tag = str(cup_context.get("Cup_Intent") or intent_tag)
+        if refined_tag != intent_tag:
+            intent_text += (
+                f" 杯赛比赛级校验：{cup_context.get('Cup_Intent_Reason')}；"
+                f"原标签={intent_tag or cup_v3.MISSING}，校验后={refined_tag}。"
+            )
+            intent_tag = refined_tag
     team_fields = intent_team_fields(row, intent_tag)
     current_line = safe_float(row.get("ah_full_current_line_or_draw", ""))
     ah_home_now = safe_float(row.get("ah_full_current_home_or_over", ""))
@@ -2016,6 +2050,7 @@ def odds_summary(
         "total_ok": total_ok,
         "any_odds": any_odds,
         "odds_status": odds_status,
+        "cup_context": cup_context,
     }
 
 
@@ -2031,8 +2066,9 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
     cards = []
     for r in today_rows:
         match = r.get("比赛", "")
-        o = odds_summary(match, odds, final_scores, r)
-        detail = details.get(o.get("match_id", "")) or details.get(match) or {}
+        detail_hint = details.get(match_id_from_row(r), {}) or details.get(match, {}) or {}
+        o = odds_summary(match, odds, final_scores, r, detail_hint)
+        detail = details.get(o.get("match_id", "")) or detail_hint or {}
         matched = o["time"] != "未匹配"
         raw_date = r.get("日期", "")
         date = normalize_date_key(raw_date)
@@ -2185,11 +2221,13 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "grade": r.get("过程评级", ""),
                 "error": clean_missing_odds_text(r.get("错误类型", "")),
                 "update": clean_missing_odds_text(translate_text(r.get("模型更新", ""))),
+                **o.get("cup_context", {}),
                 **gateway_card_fields(r, frozen),
             }
         )
     cards.sort(key=lambda r: (not r["matched_odds"], str(r["time"]), str(r["league"]), str(r["match"])))
     cards = apply_saved_dashboard_decisions(cards)
+    cards = dedupe_current_match_ids(cards)
     return apply_historical_settlement_overlay(cards), compute_stats(ledger_rows)
 
 
@@ -2332,6 +2370,27 @@ def apply_saved_dashboard_decisions(cards: list[dict]) -> list[dict]:
                 label = result.get("结算标签", "")
                 card.update(result=label, pnl=result.get("实际盈亏Unit", ""), status="走" if label == "走水" else "赢" if label.startswith("红") else "输")
     return list(by_key.values())
+
+
+def dedupe_current_match_ids(cards: list[dict]) -> list[dict]:
+    """Keep one visible current-day card per stable Titan match id."""
+    output: list[dict] = []
+    positions: dict[str, int] = {}
+    for card in cards:
+        if str(card.get("date", "")) != TODAY.isoformat() or not card.get("match_id"):
+            output.append(card)
+            continue
+        key = str(card["match_id"])
+        if key not in positions:
+            positions[key] = len(output)
+            output.append(card)
+            continue
+        current = output[positions[key]]
+        current_score = sum(bool(current.get(name)) for name in ("ah_ok", "euro_ok", "total_ok", "saved_skill_decision"))
+        candidate_score = sum(bool(card.get(name)) for name in ("ah_ok", "euro_ok", "total_ok", "saved_skill_decision"))
+        if candidate_score > current_score:
+            output[positions[key]] = card
+    return output
 
 
 def gateway_card_fields(row: dict, frozen: dict) -> dict:
@@ -2879,7 +2938,22 @@ def html_doc_v2(
     top5_backtest: dict[str, object],
 ) -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
+    # The active page date is the Titan007 immutable list_date, not the
+    # machine's natural calendar date.  This matters after midnight: the
+    # current slate may still be locked to the previous list date and must
+    # remain the default view until the pointer advances.
     default_date = TODAY.isoformat()
+    current_pointer = Path(r"D:\codex\outputs\football_odds_trader\dashboard\data\current.json")
+    if not current_pointer.exists():
+        current_pointer = DASHBOARD_DIR / "data" / "current.json"
+    try:
+        pointer = json.loads(current_pointer.read_text(encoding="utf-8"))
+        pointer_date = str(pointer.get("display_list_date") or pointer.get("list_date") or "").strip()
+        card_dates = {str(card.get("date") or "").strip() for card in cards}
+        if pointer_date and pointer_date in card_dates:
+            default_date = pointer_date
+    except Exception:
+        pass
     backtest_box = render_sequential_backtest_box(backtest)
     # Keep the top-five split backtest files generated, but do not render the bulky
     # table in the dashboard header.
@@ -3433,6 +3507,7 @@ def html_doc_v2(
     <aside class="left">
       <div class="section-title">日期与比赛</div>
       <div class="date-strip">
+        <label>列表日</label>
         <select id="dateSelect"></select>
         <div class="mini-stat" id="dateCount">0 场</div>
         <label class="bettable-toggle" title="只显示当前日期下通过严格skill漏斗的可投注/半仓可投注赛事；已开赛/已结算的候选保留用于回看，不代表可赛后下注">
@@ -3929,7 +4004,14 @@ function cupContextRows(r) {{
   const fields = [["Assessment_Team_Name", "网关评估球队"], ["Match_Nature", "赛事属性"],
     ["Schedule_Density", "赛程密度"], ["Rotation_Risk", "轮换风险"],
     ["Strategic_Intent", "战意评级"], ["Selected_Venue", "所选侧主客场"],
-    ["Adjusted_Confidence", "调整后信心评分"], ["Gateway_Status", "赛制与轮换网关"]];
+    ["Adjusted_Confidence", "调整后信心评分"], ["Gateway_Status", "赛制与轮换网关"],
+    ["Competition_Domain", "杯赛赛事域"], ["Cup_Match_State", "杯赛阶段"],
+    ["Cup_Qualification_Utility", "晋级效用"], ["Cup_Rotation_Risk", "杯赛轮换证据"],
+    ["Cup_Rest_Days", "休息天数"], ["Cup_Context_Missing", "杯赛缺失字段"],
+    ["Football_Pull_Score", "足球拉力评分"], ["Public_Pull", "公众拉力"],
+    ["fair_goal_margin", "公平净胜球代理"], ["fair_handicap", "公平盘口代理"],
+    ["line_gap", "实际盘-Fair Line"], ["Cup_Bayes_Level", "贝叶斯收缩层级"],
+    ["Cup_Bayes_Posterior", "杯赛后验有效率"], ["Cup_Decision_Logic", "杯赛决策约束"]];
   return fields.map(([key, label]) => {{
     let value = key === "Assessment_Team_Name" ? (r[key] || r.Assessment_Team_ID) : r[key];
     if (key === "Gateway_Status") value = ({{PASS:"前置通过，待后续校验", QUARTER_CAP:"最多0.25标准仓", SKIP:"强制跳过", DATA_PENDING:"资料待核"}})[value] || value;
@@ -4143,14 +4225,44 @@ function bettableFilterEnabled() {{
   return Boolean(document.getElementById("bettableFilter")?.checked);
 }}
 
+function cupRegressionDecision(r, proposal) {{
+  if (!r.Cup_Refactor_Eligible) return proposal;
+  const details = [...(proposal.details || [])];
+  details.push(`杯赛前置网关：state=${{r.Cup_Match_State || "MISSING"}}，utility=${{r.Cup_Qualification_Utility || "MISSING"}}，rotation=${{r.Cup_Rotation_Risk || "MISSING"}}；缺失字段=${{r.Cup_Context_Missing || "NONE"}}。`);
+  details.push(`拉力拆解：Football Pull=${{r.Football_Pull_Score ?? "MISSING"}}；Public Pull=${{r.Public_Pull ?? "MISSING"}}；fair_handicap=${{r.fair_handicap ?? "MISSING"}}；line_gap=${{r.line_gap ?? "MISSING"}}。`);
+  details.push(`四级收缩：${{r.Cup_Bayes_Level || "MISSING"}}，posterior=${{r.Cup_Bayes_Posterior ? pct(Number(r.Cup_Bayes_Posterior)) : "MISSING"}}，L1/L2/L3/L4 n=${{r.Cup_Bayes_Local_N || 0}}/${{r.Cup_Bayes_Domain_N || 0}}/${{r.Cup_Bayes_Micro_N || 0}}/${{r.Cup_Bayes_Global_N || 0}}。`);
+  if (String(r.Cup_Intent || "") === "平衡盘/等待临场确认") {{
+    const reason = `杯赛比赛级Fair Line与原盘口Intent冲突：${{r.Cup_Intent_Reason || "CONFLICT"}}；不是按杯种禁投`;
+    return {{...proposal, action:"不投", mode:"none", team:"无，不投", reason, details,
+      cupRegressionGuard:"MATCH_SPECIFIC_INTENT_CONFLICT"}};
+  }}
+  if (!isBettableDecision(proposal)) return {{...proposal, details}};
+  const posterior = Number(r.Cup_Bayes_Posterior || 0);
+  const weight = Number(r.Cup_Bayes_Weight || 0);
+  const baseRate = Number(proposal.rate || 0);
+  if (!(posterior > 0) || !(weight > 0) || !(baseRate > 0)) return {{...proposal, details}};
+  const adjustedRate = baseRate * (1 - weight) + posterior * weight;
+  const threshold = Number(proposal.threshold || breakevenThreshold(Number(proposal.water || 0)) || 0);
+  details.push(`杯赛收缩后胜率=${{pct(adjustedRate)}}（原${{pct(baseRate)}}，历史后验权重${{pct(weight)}}）；赛事名不直接决定动作。`);
+  if (threshold > 0 && adjustedRate < threshold) {{
+    const reason = `杯赛分层收缩后胜率${{pct(adjustedRate)}}低于水位阈值${{pct(threshold)}}；由比赛状态+分层证据触发，不是杯赛一刀切`;
+    return {{...proposal, action:"不投", reason, details, rate:adjustedRate,
+      cupRegressionGuard:"HIERARCHICAL_SUPPORT_BELOW_PRICE"}};
+  }}
+  return {{...proposal, details, rate:adjustedRate,
+    reason:`${{proposal.reason}}；杯赛分层收缩后${{pct(adjustedRate)}}仍通过`,
+    cupRegressionGuard:"COVERAGE_RETAINED"}};
+}}
+
 function plannedSkillDecision(r) {{
   const frozen = frozenSkillDecision(r);
   if (frozen) return frozen;
   const cell = intentMatrixCell(String(r.intent_line_bucket || "").trim(), String(r.intent_tag || "").trim());
   const filterOptions = {{ ignoreStateGate: true }};
-  const proposal = r.top5_policy && r.top5_policy.is_top5
+  const rawProposal = r.top5_policy && r.top5_policy.is_top5
     ? top5Decision(r, cell, filterOptions) || frameworkDecision(r, cell, filterOptions)
     : frameworkDecision(r, cell, filterOptions);
+  const proposal = cupRegressionDecision(r, rawProposal);
   const previous = r.previous_saved_decision;
   const proposedIndex = String(r.match || "").split(" vs ").indexOf(String(proposal.team || "").split("（")[0]);
   if (previous && isBettableDecision(previous) && isBettableDecision(proposal)

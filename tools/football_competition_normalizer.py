@@ -46,6 +46,11 @@ def normalize(competition: str) -> CompetitionInfo:
         return _info(raw, "亚冠", "亚冠独立赛事", "亚洲", "亚洲", "亚冠独立赛事", "洲际杯赛", "洲际杯赛", not youth and not friendly, not youth and not friendly, youth, friendly, "高", "亚冠独立赛事别名匹配")
     if any(k in raw for k in ("亚运会", "亚运男足", "亚运女足", "Asian Games")):
         return _info(raw, "亚运会足球", "亚运会足球独立赛事", "亚洲", "亚洲", "亚运会足球独立赛事", "国际正式赛", "国际综合运动会足球", not youth and not friendly, not youth and not friendly, youth, friendly, "高", "亚运会足球独立赛事别名匹配")
+    if any(k in raw for k in ("非洲国家杯", "非洲杯", "Africa Cup of Nations", "AFCON")):
+        return _info(raw, "非洲杯", "洲际正式赛", "非洲", "非洲", "非洲国家队系列", "国际正式赛", "国家队正式赛", not youth and not friendly, not youth and not friendly, youth, friendly, "高", "非洲国家杯别名优先匹配")
+    if any(k in raw for k in ("东盟杯", "东亚杯", "海湾杯", "欧国联", "欧洲国家联赛", "中北美洲国家联赛", "中北美国联", "中北美金杯")):
+        region = "亚洲" if any(k in raw for k in ("东盟", "东亚", "海湾")) else ("欧洲" if any(k in raw for k in ("欧国联", "欧洲国家")) else "北美")
+        return _info(raw, raw, "洲际正式赛", "洲际", region, f"{region}国家队系列", "国际正式赛", "国家队正式赛", not youth and not friendly, not youth and not friendly, youth, friendly, "高", "国家队区域正式赛事别名匹配")
     if any(k in raw for k in ("世界杯", "欧洲杯", "美洲杯", "亚洲杯", "世预赛", "欧预赛", "南美解放者杯", "南球杯")):
         return _info(raw, raw, "洲际正式赛", "洲际", "其他", "洲际杯赛", "洲际", "国家队正式赛", not youth and not friendly, not youth and not friendly, youth, friendly, "中", "国际正式赛事")
     if any(k in raw for k in ("杯", "盃", "足总", "国王杯", "联赛杯", "天皇杯", "韩国杯", "巴西杯", "德国杯", "意大利杯", "法国杯", "西班牙国王杯")):
@@ -95,3 +100,26 @@ def _micro(region: str) -> str:
 
 def normalize_dict(competition: str) -> dict:
     return normalize(competition).to_dict()
+
+
+def competition_domain(competition: str | CompetitionInfo) -> str:
+    """Return the one canonical model domain used by V3/V4 feature layers."""
+    info = competition if isinstance(competition, CompetitionInfo) else normalize(competition)
+    raw = info.competition_raw.lower()
+    if info.youth_or_reserve:
+        return "NATIONAL_YOUTH" if any(k in raw for k in ("国家", "国足", "u17", "u19", "u20", "u21", "u23", "亚运")) else "CLUB_YOUTH"
+    if info.friendly:
+        return "INTERNATIONAL_FRIENDLY" if any(k in raw for k in ("国家", "国足", "国际", "friendly")) else "CLUB_FRIENDLY"
+    if info.competition_type in {"国家队正式赛", "国际综合运动会足球"}:
+        return "NATIONAL_OFFICIAL"
+    if info.competition_scope.endswith("独立赛事") and info.competition_canonical in {"欧冠", "欧联", "欧协联", "亚冠", "亚冠精英", "亚冠2"}:
+        return "CONTINENTAL_CLUB"
+    if info.competition_scope == "国内杯赛" or info.competition_type == "杯赛":
+        return "CLUB_CUP"
+    if info.competition_scope == "洲际正式赛":
+        return "NATIONAL_OFFICIAL"
+    if info.competition_type == "洲际杯赛":
+        return "CONTINENTAL_CLUB"
+    if info.competition_scope == "国内联赛":
+        return "CLUB_LEAGUE"
+    return "UNKNOWN"
