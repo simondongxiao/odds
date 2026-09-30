@@ -176088,6 +176088,7 @@
     "provisional_shadow": 6,
     "qualified_shadow": 4,
     "real_execution_allowed": false,
+    "research_only_edge": 0,
     "schema_version": "daily-paper-funnel-1.0",
     "tier3_edge": {
       "PROVISIONAL_SHADOW": 5
@@ -176095,8 +176096,7 @@
     "total": {
       "DIAGNOSTIC_ONLY": 92,
       "market_records": 0
-    },
-    "research_only_edge": 0
+    }
   },
   "date_bj": "2026-09-30",
   "events": [
@@ -431850,7 +431850,7 @@
         "DEEP_SPREAD": {
           "intercept": 4.03710174259421,
           "mae": 9.216998431103859,
-          "mean_bias": 1.0248212535001444E-15,
+          "mean_bias": 1.0248212535001444e-15,
           "n": 13,
           "r2": 0.6227465521792832,
           "rmse": 12.233205161851808,
@@ -431868,7 +431868,7 @@
         "NORMAL_SPREAD": {
           "intercept": 3.3548454379892556,
           "mae": 12.736472046007123,
-          "mean_bias": -1.4802973661668753E-16,
+          "mean_bias": -1.4802973661668753e-16,
           "n": 12,
           "r2": 0.3032028515358516,
           "rmse": 13.944878342296484,
@@ -431877,7 +431877,7 @@
         "TIER_1": {
           "intercept": 2.4151468022413196,
           "mae": 12.438934629960317,
-          "mean_bias": 1.3664283380001927E-16,
+          "mean_bias": 1.3664283380001927e-16,
           "n": 13,
           "r2": 0.4164647186626944,
           "rmse": 14.000450299384639,
@@ -513375,7 +513375,7 @@
       "L": 0,
       "MAE": null,
       "Max_Drawdown": 0.0,
-      "N": 16,
+      "N": 11,
       "P": 0,
       "PnL": 0,
       "RMSE": null,
@@ -513421,9 +513421,9 @@
       "W": 0,
       "settled_N": 0
     },
-    "asof": "2026-09-30T22:47:40.907817+08:00",
+    "asof": "2026-09-30T14:47:40.907817+00:00",
     "gate_validation": {
-      "asof": "2026-09-30T22:47:40.907817+08:00",
+      "asof": "2026-09-30T14:47:40.907817+00:00",
       "auto_promotion_allowed": false,
       "by_evidence_reason": {
         "HISTORY_ESS_TOO_LOW": {
@@ -513466,11 +513466,13 @@
         }
       },
       "champion_unchanged": true,
-      "generated_at": "2026-09-30T22:49:02.826832+08:00",
+      "generated_at": "2026-09-30T14:57:56.539957+00:00",
       "schema_version": "gate-validation-1.0"
     },
-    "generated_at": "2026-09-30T22:49:02.826832+08:00",
+    "generated_at": "2026-09-30T14:57:56.539957+00:00",
     "ledger_isolation": {
+      "cross_layer_overlap_excluded_from_provisional_statistics": 5,
+      "cross_layer_overlap_excluded_from_research_statistics": 0,
       "passed": true,
       "provisional_in_main_strategy_returns": false,
       "provisional_ledger": "ledger/repair_v22_provisional_settlements",
