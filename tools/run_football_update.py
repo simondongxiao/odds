@@ -246,8 +246,8 @@ def enrich_decision_metadata(
         row["hours_from_decision_to_kickoff"] = hours_between(kickoff, decision_dt)
         row["hours_from_last_refresh_to_kickoff"] = hours_between(kickoff, parse_source_timestamp(last_confirmed_at))
         row["run_id"] = run_id
-        row["model_id"] = "V3_LEGACY_PRODUCTION" if version == "V3" else str(row.get("model_id") or "v4-market-dirichlet-20260913")
-        row["side_mapping_version"] = "V3_LEGACY_PAGE_PARITY" if version == "V3" else str(row.get("direction_rule_version") or "V4_DIRECTION_FIXED_R1")
+        row["model_id"] = "V3_LEGACY_PRODUCTION" if version == "V3" else str(row.get("model_id") or "V4")
+        row["side_mapping_version"] = "V3_LEGACY_PAGE_PARITY" if version == "V3" else str(row.get("direction_rule_version") or row.get("side_mapping_version") or "MATCH_SPECIFIC_DUAL_EV")
         row["decision_id"] = str(row.get("decision_id") or generated_decision_id(version, row, decision_at))
         row["parent_decision_id"] = str(previous.get("decision_id", "") or "")
         status = str(row.get("analysis_status", ""))
@@ -268,9 +268,9 @@ def enrich_decision_metadata(
         apply(row, "V4", previous_v4.get(str(row.get("match_id", "")), {}))
     bridge["run_id"] = run_id
     v4["run_id"] = run_id
-    v4["model_id"] = str(v4.get("model_id") or "v4-market-dirichlet-20260913")
-    v4["model_version"] = str(v4.get("model_version") or "V4_DIRECTION_FIXED_R1")
-    v4["side_mapping_version"] = "V4_DIRECTION_FIXED_R1"
+    v4["model_id"] = str(v4.get("model_id") or "V4")
+    v4["model_version"] = str(v4.get("model_version") or "V4")
+    v4["side_mapping_version"] = str(v4.get("side_mapping_version") or "MATCH_SPECIFIC_DUAL_EV")
     return bridge, v4
 
 
@@ -531,7 +531,9 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
     """Freeze the user-facing V3/V4 bettable populations for this run.
 
     These are exports of already-frozen decisions, not a second decision engine.
-    V4 remains shadow-only; A/B/C are exported as shadow candidates for review.
+    V4 remains shadow-only; new rows are exported only when the match-specific
+    final decision is BET_GIVING/BET_RECEIVING.  Started legacy A/B/C rows stay
+    visible because their frozen historical semantics cannot be rewritten.
     """
     stamp = run_at.strftime("%Y%m%d_%H%M%S")
     root = OUT / "ledger" / "daily_bettable"
@@ -562,14 +564,17 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
     v4_rows = []
     for row in v4.get("matches", []):
         grade = str(row.get("grade", "") or "")
-        if grade not in {"A", "B", "C"}:
+        final_decision = str(row.get("final_decision", "") or "")
+        new_v4_bet = str(row.get("model_id", "")) == "V4" and final_decision in {"BET_GIVING", "BET_RECEIVING"}
+        frozen_legacy_candidate = str(row.get("model_id", "")) != "V4" and bool(row.get("started_lock")) and grade in {"A", "B", "C"}
+        if not (new_v4_bet or frozen_legacy_candidate):
             continue
         market = row.get("market") or {}
         v4_rows.append({
             "version": "V4_SHADOW", "list_date": list_date, "match_id": row.get("match_id", ""),
             "competition": row.get("competition", ""), "kickoff_beijing": row.get("kickoff", ""),
             "home_team": row.get("home_team") or market.get("home_team", ""), "away_team": row.get("away_team") or market.get("away_team", ""),
-            "action": "SHADOW_CANDIDATE", "grade": grade, "selected_team": row.get("selected_team", row.get("candidate_team", "")),
+            "action": final_decision if new_v4_bet else "FROZEN_LEGACY_SHADOW_CANDIDATE", "grade": grade, "selected_team": row.get("selected_team", row.get("candidate_team", "")),
             "market_side": row.get("selected_side", row.get("candidate_side", "")),
             "giving_team": row.get("giving_team") or market.get("giving_team", ""), "receiving_team": row.get("receiving_team") or market.get("receiving_team", ""),
             "direction": row.get("direction", ""), "handicap": row.get("selected_handicap_signed", row.get("handicap", row.get("line", ""))),
@@ -578,7 +583,7 @@ def write_timestamped_bettable_lists(list_date: str, bridge: dict[str, Any], v4:
             "quote_at": row.get("quote_at", (row.get("market") or {}).get("quote_at", "")), "last_confirmed_at": row.get("last_confirmed_at", (row.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": row.get("kickoff_at", row.get("kickoff", "")),
             "quote_age_at_decision": row.get("quote_age_at_decision", ""), "hours_from_decision_to_kickoff": row.get("hours_from_decision_to_kickoff", ""), "hours_from_last_refresh_to_kickoff": row.get("hours_from_last_refresh_to_kickoff", ""),
             "run_id": row.get("run_id", ""), "decision_id": row.get("decision_id", ""), "parent_decision_id": row.get("parent_decision_id", ""), "is_morning_baseline": row.get("is_morning_baseline", False), "is_latest_valid_prematch": row.get("is_latest_valid_prematch", False),
-            "model_id": row.get("model_id", "v4-market-dirichlet-20260913"), "side_mapping_version": row.get("side_mapping_version", "V4_DIRECTION_FIXED_R1"), "monitoring_bucket": row.get("monitoring_bucket", ""),
+            "model_id": row.get("model_id", "V4"), "side_mapping_version": row.get("side_mapping_version", "MATCH_SPECIFIC_DUAL_EV"), "monitoring_bucket": row.get("monitoring_bucket", ""),
             "rule_version": row.get("model_version", row.get("model_id", "")), "source_snapshot": row.get("odds_snapshot_id") or v4.get("raw_snapshot_id") or market.get("snapshot_id", ""),
             "real_money": "false", "status": row.get("analysis_status", row.get("status", "")),
         })
@@ -703,7 +708,7 @@ def merged_date_json(list_date: str, raw_path: Path, bridge: dict[str, Any], v4:
             "identity": {"match_id": match_id, "list_date": list_date, "kickoff": source.get("bj_time", ""), "competition": source.get("league_cn", ""), "home": home, "away": away},
             "market": {"line_bucket": abs(ah_line) if ah_line is not None else "", "candidate_side": shadow.get("candidate_side", ""), "candidate_team": shadow.get("selected_team", shadow.get("candidate_team", "")), "water": shadow.get("selected_water_hk", shadow.get("water", "")), "giving_team": "", "receiving_team": "", "giving_water": hw if hw is not None else "", "receiving_water": aw if aw is not None else "", "euro_current": euro},
             "v3_decision": {"match_id": match_id, "competition": source.get("league_cn", ""), "kickoff": source.get("bj_time", ""), "home_team": home, "away_team": away, "action": v3_action or v3_status, "status": v3_status, "team": v3.get("selected_team", ""), "side": v3.get("selected_side", ""), "intent": v3.get("intent", ""), "line": v3.get("line", ""), "water": v3.get("water", ""), "probability": v3.get("probability", ""), "reason": v3_reason, "decision_at": v3.get("decision_at", ""), "quote_at": v3.get("quote_at", ""), "last_confirmed_at": v3.get("last_confirmed_at", ""), "kickoff_at": v3.get("kickoff_at", ""), "run_id": v3.get("run_id", run_id), "decision_id": v3.get("decision_id", ""), "is_latest_valid_prematch": v3.get("is_latest_valid_prematch", False)},
-            "v4_shadow": {"grade": grade, "status": shadow.get("analysis_status", shadow.get("status", "MISSING_DATA")), "team": shadow.get("selected_team", shadow.get("candidate_team", "")), "side": shadow.get("selected_side", shadow.get("candidate_side", "")), "ev_mean": shadow.get("ev_mean", shadow.get("EV_mean")), "ev_p10": shadow.get("ev_p10", shadow.get("EV_p10")), "p_ev_gt_0": shadow.get("p_ev_positive", shadow.get("P_EV_gt_0")), "kappa": 20, "real_money": False, "model_id": shadow.get("model_id", v4.get("model_id", "")), "side_mapping_version": shadow.get("side_mapping_version", "V4_DIRECTION_FIXED_R1"), "quote_at": shadow.get("quote_at", (shadow.get("market") or {}).get("quote_at", "")), "last_confirmed_at": shadow.get("last_confirmed_at", (shadow.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": shadow.get("kickoff_at", ""), "run_id": shadow.get("run_id", run_id), "decision_id": shadow.get("decision_id", ""), "is_latest_valid_prematch": shadow.get("is_latest_valid_prematch", False)},
+            "v4_shadow": {"grade": grade, "status": shadow.get("analysis_status", shadow.get("status", "MISSING_DATA")), "team": shadow.get("selected_team", shadow.get("candidate_team", "")), "side": shadow.get("selected_side", shadow.get("candidate_side", "")), "ev_mean": shadow.get("ev_mean", shadow.get("EV_mean")), "ev_p10": shadow.get("ev_p10", shadow.get("EV_p10")), "p_ev_gt_0": shadow.get("p_ev_positive", shadow.get("P_EV_gt_0")), "kappa": 20, "real_money": False, "model_id": shadow.get("model_id", v4.get("model_id", "")), "side_mapping_version": shadow.get("side_mapping_version", "MATCH_SPECIFIC_DUAL_EV"), "quote_at": shadow.get("quote_at", (shadow.get("market") or {}).get("quote_at", "")), "last_confirmed_at": shadow.get("last_confirmed_at", (shadow.get("market") or {}).get("last_confirmed_at", "")), "kickoff_at": shadow.get("kickoff_at", ""), "run_id": shadow.get("run_id", run_id), "decision_id": shadow.get("decision_id", ""), "is_latest_valid_prematch": shadow.get("is_latest_valid_prematch", False)},
             "settlement": {"result": score if finished else "待结算", "pnl_1u": ""},
             "audit": {"source": str(raw_path), "state": status, "data_status": "赛后状态仅更新结算" if finished else "赛前市场输入", "run_id": run_id, "quote_at": iso_timestamp(source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", "")), "last_confirmed_at": iso_timestamp(source.get("latest_snapshot_stamp", "") or source.get("snapshot_stamp", "")), "refresh_status": source.get("refresh_status", "") or ("PRICE_NOT_REFRESHED" if not source.get("snapshot_stamp") else "REFRESHED")},
         })
@@ -793,15 +798,15 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settleme
     copies = [
         (V3_OUT / "dashboard" / "index.html", public / "v3-legacy" / "index.html"),
         (ROOT / "v4" / "dashboard" / "index.html", public / "v4" / "index.html"),
+        (ROOT / "v4" / "dashboard" / "expert" / "index.html", public / "v4" / "expert" / "index.html"),
+        (ROOT / "v4" / "dashboard" / "legacy_redirect.html", public / "v4-matchspecific" / "index.html"),
+        (ROOT / "v4" / "dashboard" / "legacy_redirect.html", public / "v41" / "index.html"),
+        (ROOT / "v4" / "dashboard" / "legacy_redirect.html", public / "v41" / "compare" / "index.html"),
         (ROOT / "v4" / "dashboard" / "data" / "index.json", public / "v4" / "data" / "index.json"),
         (date_path, public / "data" / "dates" / date_path.name),
         (OUT / "dashboard" / "data" / "current.json", public / "data" / "current.json"),
         (OUT / "dashboard" / "data" / "dates" / "index.json", public / "data" / "dates" / "index.json"),
         (ROOT / "v4" / "dashboard" / "data" / f"{list_date}.json", public / "v4" / "data" / f"{list_date}.json"),
-        (ROOT / "v4" / "matchspec_r2" / "dashboard" / "index.html", public / "v4-matchspecific" / "index.html"),
-        (ROOT / "v4" / "matchspec_r2" / "outputs" / f"{list_date}.json", public / "v4-matchspecific" / "data" / f"{list_date}.json"),
-        (ROOT / "v4" / "matchspec_r2" / "outputs" / "handicap_direction_matrix.csv", public / "v4-matchspecific" / "diagnostics" / "handicap_direction_matrix.csv"),
-        (ROOT / "v4" / "matchspec_r2" / "outputs" / "probability_diversity.csv", public / "v4-matchspecific" / "diagnostics" / "probability_diversity.csv"),
         (run_dir / "run_manifest.json", public / "decision_versions" / list_date / run_dir.name / "run_manifest.json"),
         (run_dir / "decision_comparison.csv", public / "decision_versions" / list_date / run_dir.name / "decision_comparison.csv"),
     ]
@@ -809,12 +814,9 @@ def copy_publish_assets(list_date: str, date_path: Path, run_dir: Path, settleme
         if source.exists():
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
-    r2_data = public / "v4-matchspecific" / "data"
-    if r2_data.exists():
-        write_json(r2_data / "index.json", sorted(p.stem for p in r2_data.glob("*.json") if p.stem != "index"))
-    r2_reports = OUT / "reviews" / "v4_matchspec_r2"
-    if r2_reports.exists():
-        shutil.copytree(r2_reports, public / "v4-matchspecific" / "reports", dirs_exist_ok=True)
+    diagnostics = ROOT / "v4" / "diagnostics"
+    if diagnostics.exists():
+        shutil.copytree(diagnostics, public / "v4" / "diagnostics", dirs_exist_ok=True)
     # Publish the current V4 raw output under its own namespace without
     # changing the legacy V3 page or its compatibility payload.
     v4_out = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
@@ -956,7 +958,7 @@ def main() -> int:
     if not historical_decision_locked:
         write_json(bridge_path, bridge)
     write_json(v4_path, v4)
-    r2_result = run_command([str(PYTHON), str(ROOT / "tools" / "run_v4_matchspec_r2_daily.py"), "--list-date", list_date, "--raw-csv", str(raw_path)], env, logs / "v4_matchspec_r2.log", 600)
+    r2_result = {"returncode": 0, "skipped": True, "reason": "MATCH_SPECIFIC_CORE_UNIFIED_INTO_V4"}
     v3_bettable_export, v4_bettable_export = write_timestamped_bettable_lists(list_date, bridge, v4, run_at)
     morning_tracking = write_morning_prematch_tracking(list_date, run_id, run_at, bridge, v4)
     quote_age_monitoring = write_quote_age_monitoring(list_date, run_id, bridge, v4)
@@ -967,7 +969,7 @@ def main() -> int:
     (OUT / "executions").mkdir(parents=True, exist_ok=True); execution_path = versioning.write_execution_ledger(list_date)
     two_side_csv, two_side_json, _ = two_side_audit.write_two_side_audit(v4_path, ROOT / "v4" / "ledger" / "prior" / list_date / f"prior-{list_date}-v1.json", OUT / "v4_shadow", run_id)
     feature_csv, feature_json = feature_usage.write_feature_audit(scoped_raw_path, v4_path, OUT / "v4_shadow", list_date, run_id)
-    context_path = context_r1.write_context_manifest(scoped_raw_path, list_date, OUT / "v4_shadow" / f"v4_context_r1_{list_date}_{run_id}.json", "v4.2-independent-market-shadow")
+    context_path = context_r1.write_context_manifest(scoped_raw_path, list_date, OUT / "v4_shadow" / f"v4_context_{list_date}_{run_id}.json", "V4")
     review_csv, review_md = review.write_review(list_date, scoped_raw_path, bridge_path, v4_path, OUT / "reviews", run_id)
     yesterday = (dt.date.fromisoformat(list_date) - dt.timedelta(days=1)).isoformat()
     yesterday_performance = run_command(
@@ -981,7 +983,7 @@ def main() -> int:
     }
     if yesterday_performance.get("returncode") == 0:
         yesterday_v4_backfill = backfill_previous_v4_settlement(yesterday, yesterday_performance, run_at)
-    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", v4.get("model_id", "v4.2-independent-market-shadow")), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v3_apply_freeze": v3_apply_freeze if not historical_decision_locked else {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}, "v4_shadow": v4_result, "v4_matchspec_r2": r2_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v4_matchspec_r2": str(ROOT / "v4" / "matchspec_r2" / "outputs" / f"{list_date}.json"), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "context_r1": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
+    run_manifest = {"run_id": run_id, "list_date": list_date, "run_at": run_at.isoformat(), "raw_snapshot_id": raw_path.stem, "raw_snapshot": str(raw_path), "scoped_roster_snapshot": str(scoped_raw_path), "model_version": v4.get("model_version", "V4"), "prior_id": v4.get("prior_snapshot_id", f"prior-{list_date}-v1"), "roster_total": len(current_rows), "prematch_total": sum(str(row.get("state", "")) == "0" for row in current_rows), "refreshed_total": sum(bool(row.get("snapshot_stamp") or row.get("latest_snapshot_stamp")) for row in current_rows), "computed_total": metrics["v3_computed"], "missing_total": metrics["v3_missing"], "v3": metrics, "v4": metrics, "backup": str(backup), "fetch": fetch_result, "steps": {"v3_daily": v3_result, "v3_freeze": freeze_result, "v3_apply_freeze": v3_apply_freeze if not historical_decision_locked else {"returncode": 0, "skipped": True, "reason": "HISTORICAL_DECISION_LOCKED"}, "v4_shadow": v4_result, "v4_unified_match_specific": r2_result, "yesterday_performance": yesterday_performance}, "artifacts": {"current_json": str(current_path), "date_json": str(date_path), "bridge": str(bridge_path), "v4": str(v4_path), "v3_bettable_timestamped": str(v3_bettable_export), "v4_bettable_timestamped": str(v4_bettable_export), "morning_tracking": str(morning_tracking), "quote_age_monitoring": str(quote_age_monitoring), "yesterday_performance_log": yesterday_performance.get("log", ""), "execution_ledger": str(execution_path), "two_side_csv": str(two_side_csv), "two_side_json": str(two_side_json), "v4_context": str(context_path), "review_csv": str(review_csv), "review_md": str(review_md)}}
     run_manifest["steps"]["v4_settlement_backfill"] = yesterday_v4_backfill
     run_manifest["artifacts"]["v4_settlement_backfill_targets"] = yesterday_v4_backfill.get("targets", [])
     run_manifest["artifacts"].update({"v4_dashboard_data": str(v4_data_path), "feature_usage_csv": str(feature_csv), "feature_usage_json": str(feature_json)})

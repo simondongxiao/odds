@@ -3,74 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>V4模型 Shadow 看板</title>
+  <title>V4 足球盘口 Shadow 看板</title>
   <style>
-    body{font:14px Arial,"Microsoft YaHei",sans-serif;margin:0;background:#f4f7fb;color:#17324d}
-    .wrap{max-width:1500px;margin:0 auto;padding:18px}.hero{background:#1767a5;color:#fff;padding:16px 20px}
-    .hero h1{margin:0 0 8px;font-size:25px}.hero a{color:#fff;margin-right:18px}
-    .definitions{background:#fff;border:1px solid #c8d9e8;padding:12px 16px;line-height:1.8}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#eaf2f9;padding:12px;border:1px solid #c8d9e8}
-    .controls label{font-weight:700}.controls select{min-width:150px;padding:7px;border:1px solid #8bb3d3;background:#fff}
-    .summary{margin:10px 0;padding:10px;background:#fff;border-left:5px solid #1767a5}.meta{font-size:12px;color:#526b7d;line-height:1.5}
-    .table-wrap{overflow:auto;background:#fff;border:1px solid #c8d9e8}table{border-collapse:collapse;width:100%;min-width:1400px}
-    th{background:#dcecf8;text-align:left}td,th{padding:8px;border:1px solid #d4e0ea;white-space:nowrap}
-    .grade{font-weight:700}.grade-B{color:#b45309}.grade-C{color:#2563eb}.grade-N{color:#b91c1c}.status{color:#526b7d}.empty{padding:24px;text-align:center;color:#65798a}
+    *{box-sizing:border-box}body{font:14px Arial,"Microsoft YaHei",sans-serif;margin:0;background:#f3f7fb;color:#17324d}
+    .wrap{max-width:1800px;margin:auto;padding:16px}.hero{background:#1767a5;color:#fff;padding:18px 22px}.hero h1{margin:0 0 7px;font-size:26px}.hero a{color:#fff;margin-right:18px}
+    .note,.controls,.summary{background:#fff;border:1px solid #c6d9e8;padding:11px 14px;line-height:1.7}.note{border-top:0}.controls{display:flex;gap:12px;flex-wrap:wrap;background:#eaf3fa}.controls label{font-weight:700}.controls select{padding:7px;min-width:150px;border:1px solid #8eb5d3;background:#fff}
+    .summary{margin:10px 0;border-left:5px solid #1767a5}.meta{font-size:12px;color:#5b7286}.table-wrap{overflow:auto;background:#fff;border:1px solid #c6d9e8}
+    table{border-collapse:collapse;width:100%;min-width:2050px}th{background:#dcecf8;position:sticky;top:0;z-index:1}td,th{padding:8px;border:1px solid #d4e0ea;vertical-align:top;white-space:nowrap}small{display:block;color:#60778b;margin-top:3px}
+    .bet{color:#07843f;font-weight:700}.nobet{color:#b42318;font-weight:700}.old{color:#7a607d}.q-HIGH{color:#07843f;font-weight:700}.q-LOW,.q-UNKNOWN{color:#b45309}.grade{font-weight:700}.empty{text-align:center;padding:25px;color:#60778b}
   </style>
 </head>
-<body>
-<div class="wrap">
+<body><div class="wrap">
   <section class="hero">
-    <h1>V4模型入选（纸面验证）</h1>
-    <div>V4 Shadow Only｜不构成真实下注建议｜real_money=false</div>
-    <div style="margin-top:10px"><a href="./diagnostics/">V4诊断</a><a href="./expert/">V4独立专家选择器</a></div>
+    <h1>V4 足球盘口预测（Shadow Only）</h1>
+    <div>唯一正式名称：V4｜real_money=false｜所有 BET 固定 1U｜历史冻结决策不回刷</div>
+    <div style="margin-top:9px"><a href="./diagnostics/">V4 诊断</a><a href="./expert/">V4 Expert Selector</a></div>
   </section>
-  <section class="definitions">
-    <b>等级定义：</b>A：EV均值&gt;0、EV P10&gt;0且P(EV&gt;0)≥95%；B：EV均值&gt;0且P(EV&gt;0)≥85%，但未达到A；C：EV均值&gt;0但未达到A/B；N：已完成真实概率计算但EV均值≤0。<br>
-    <b>其他状态：</b>Neutral=盘口存在但没有可验证方向假设；数据缺失/非赛前不计入computed。P(EV&gt;0)不是比赛胜率。
-  </section>
+  <section class="note"><b>决策结构：</b>盘口档位仅作先验；市场意图仅作解释。先生成比赛级净胜球概率，再分别计算让球方与受让方 EV，最后结合不确定性输出 BET_GIVING / BET_RECEIVING / NO_BET。A/B/C/N 仅供分析，不影响固定 1U。</section>
   <section class="controls">
     <label>列表日 <select id="date"></select></label>
     <label>联赛/杯赛 <select id="competition"><option value="全部">全部赛事</option></select></label>
+    <label>最终决策 <select id="decision"><option value="全部">全部决策</option><option>BET_GIVING</option><option>BET_RECEIVING</option><option>NO_BET</option><option>UNAVAILABLE</option></select></label>
     <label>等级 <select id="grade"><option value="全部">全部等级</option><option>A</option><option>B</option><option>C</option><option>N</option></select></label>
   </section>
   <div class="summary" id="summary"></div>
-  <div class="table-wrap"><table>
-    <thead><tr><th>北京时间</th><th>联赛/杯赛</th><th>比赛</th><th>状态</th><th>赛果/结算</th><th>等级</th><th>候选球队/意图</th><th>让球方 / 受让方</th><th>候选盘口</th><th>候选水位</th><th>EV均值</th><th>EV P10</th><th>P(EV&gt;0)</th><th>报价/开赛</th><th>版本</th></tr></thead>
-    <tbody id="rows"></tbody>
-  </table></div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>北京时间</th><th>赛事 / Domain / Level</th><th>比赛</th><th>状态 / 赛果</th><th>让球/受让与市场线</th><th>Football Pull / Public Pull</th><th>Fair Line / Line Gap</th><th>数据/市场质量</th><th>P(让球覆盖)</th><th>P(受让覆盖)</th><th>EV 让球</th><th>EV 受让</th><th>最终决策</th><th>等级</th><th>市场意图</th><th>Expert</th><th>版本与冻结</th>
+  </tr></thead><tbody id="rows"></tbody></table></div>
 </div>
 <script>
-let listDates={},activeListDate='',payload=null;
-const statusMap={EVALUATED:'已计算',FROZEN_PREMATCH_DECISION:'已冻结赛前决策',NEUTRAL:'中性/无方向',MISSING_DATA:'数据缺失',INSUFFICIENT_TRAINING:'训练样本不足',NOT_PREMATCH:'非赛前/已开赛',ERROR:'运行错误'};
-const settledResults=['W','HW','P','HL','L'];
+let payload=null,listDates={},activeListDate='';
 const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const fmt=x=>x==null?'':(typeof x==='number'?x.toFixed(4):esc(x));
-const settlementText=x=>{const s=x.settlement||{},score=x.score||s.score||'',result=x.result||s.result||'';if(score&&result)return `${esc(score)} / ${esc(result)}`;if(score)return esc(score);if(x.settlement_status)return x.settlement_status==='SETTLED'?'已结算':'待核';return '—'};
-const statusText=x=>x.settlement_status==='SETTLED'||settledResults.includes(x.result)?'已结算':(statusMap[x.analysis_status]||x.analysis_status||'—');
-
-async function load(){
-  const listed=await fetch('./data/index.json?ts='+Date.now()).then(r=>r.json());
-  listDates=Object.fromEntries(listed.map(x=>[x,'./data/'+x+'.json']));
-  try{const pointer=await fetch('../data/current.json?ts='+Date.now()).then(r=>r.json());activeListDate=String(pointer.display_list_date||pointer.list_date||'')}catch(e){activeListDate=''}
-  const d=document.getElementById('date');const ordered=Object.keys(listDates).sort().reverse();ordered.forEach(x=>d.add(new Option(x,x)));
-  const requested=new URLSearchParams(location.search).get('date');d.value=requested&&listDates[requested]?requested:(activeListDate&&listDates[activeListDate]?activeListDate:(ordered[0]||''));
-  await refresh();
-}
-async function refresh(){
-  const key=document.getElementById('date').value;if(!listDates[key])return;
-  payload=await fetch(listDates[key]+'?ts='+Date.now()).then(r=>r.json());
-  const c=document.getElementById('competition'),old=c.value;while(c.options.length>1)c.remove(1);
-  [...new Set(payload.matches.map(x=>x.competition||x.market?.competition||'未标注'))].sort().forEach(x=>c.add(new Option(x,x)));c.value=[...c.options].some(x=>x.value===old)?old:'全部';
-  render();
-}
-function render(){
-  if(!payload)return;const s=payload.summary||{},comp=document.getElementById('competition').value,g=document.getElementById('grade').value;
-  const shown=payload.matches.filter(x=>(comp==='全部'||(x.competition||x.market?.competition||'未标注')===comp)&&(g==='全部'||x.grade===g));
-  const q=payload.matches.map(x=>x.last_confirmed_at||x.market?.last_confirmed_at).filter(Boolean).sort().pop()||'—';
-  document.getElementById('summary').innerHTML=`列表日 ${esc(payload.list_date)}｜显示 ${shown.length} 场｜总赛事 ${s.total}｜真实计算 ${s.computed}｜A ${s.A}｜B ${s.B}｜C ${s.C}｜N ${s.N}｜中性 ${s.neutral}｜缺失 ${s.missing_data}｜非赛前 ${s.not_prematch}<br><span class="meta">当前run：${esc(payload.run_id||'—')}｜最近报价确认：${esc(q)}</span>`;
-  document.getElementById('rows').innerHTML=shown.map(x=>{const m=x.market||{},home=m.home_team||'',away=m.away_team||'',team=x.candidate_team||x.selected_team||'—',side=x.candidate_side||x.selected_side||'—',hours=x.hours_from_last_refresh_to_kickoff;return `<tr><td>${esc(String(x.kickoff||'').replace('T',' '))} 北京时间</td><td>${esc(x.competition||m.competition||'未标注')}</td><td>${esc(home)} vs ${esc(away)}</td><td class="status">${esc(statusText(x))}</td><td>${settlementText(x)}</td><td class="grade grade-${esc(x.grade||'')}">${esc(x.grade||'—')}</td><td>${esc(team)} [${esc(side)}]<br><small>${esc(x.normalized_intent||x.intent||'—')} ${x.is_latest_valid_prematch?'｜LATEST_VALID_PREMATCH':''}</small></td><td>${esc(m.giving_team||'—')} / ${esc(m.receiving_team||'—')}</td><td>${esc(x.selected_handicap_signed??'—')}</td><td>${esc(x.selected_water_hk??'—')}</td><td>${fmt(x.ev_mean)}</td><td>${fmt(x.ev_p10)}</td><td>${x.p_ev_positive==null?'':(x.p_ev_positive*100).toFixed(2)+'%'}</td><td>${esc(x.quote_at||m.quote_at||'—')}<br><small>距开赛 ${hours==null?'—':esc(hours+'h')}</small></td><td>${esc(x.model_id||'—')}<br><small>${esc(x.side_mapping_version||'—')}</small></td></tr>`}).join('')||'<tr><td colspan="15" class="empty">没有符合筛选条件的赛事</td></tr>';
-}
-document.getElementById('date').onchange=refresh;document.getElementById('competition').onchange=render;document.getElementById('grade').onchange=render;load();
-</script>
-</body>
-</html>
+const num=(x,n=3)=>x==null||x===''?'—':Number(x).toFixed(n); const pct=x=>x==null||x===''?'—':(Number(x)*100).toFixed(1)+'%';
+const value=(x,old='旧版未采集')=>x==null||x===''?old:esc(x); const settled=['W','HW','P','HL','L'];
+function resultText(x){const s=x.score||x.settlement?.score||'',r=x.result||x.settlement_state||x.settlement?.result||'';return (s||r)?`${esc(s||'—')} / ${esc(r||'—')}`:'—'}
+function stateText(x){if(x.settlement_status==='SETTLED'||settled.includes(x.result)||settled.includes(x.settlement_state))return '已结算';const m={EVALUATED:'已计算',FROZEN_PREMATCH_DECISION:'已冻结赛前决策',NEUTRAL:'中性/不投',MISSING_DATA:'数据缺失',NOT_PREMATCH:'非赛前/已开赛',ERROR:'运行错误'};return m[x.analysis_status]||x.analysis_status||'—'}
+async function load(){const dates=await fetch('./data/index.json?ts='+Date.now()).then(r=>r.json());listDates=Object.fromEntries(dates.map(d=>[d,'./data/'+d+'.json']));try{const p=await fetch('../data/current.json?ts='+Date.now()).then(r=>r.json());activeListDate=String(p.display_list_date||p.list_date||'')}catch(e){}const select=document.getElementById('date');Object.keys(listDates).sort().reverse().forEach(d=>select.add(new Option(d,d)));const q=new URLSearchParams(location.search).get('date');select.value=q&&listDates[q]?q:(listDates[activeListDate]?activeListDate:Object.keys(listDates).sort().reverse()[0]);await refresh()}
+async function refresh(){const d=document.getElementById('date').value;payload=await fetch(listDates[d]+'?ts='+Date.now()).then(r=>r.json());const select=document.getElementById('competition'),old=select.value;while(select.options.length>1)select.remove(1);[...new Set(payload.matches.map(x=>x.competition||x.market?.competition||'未标注'))].sort().forEach(x=>select.add(new Option(x,x)));select.value=[...select.options].some(x=>x.value===old)?old:'全部';render()}
+function render(){if(!payload)return;const comp=document.getElementById('competition').value,decision=document.getElementById('decision').value,grade=document.getElementById('grade').value;const shown=payload.matches.filter(x=>(comp==='全部'||(x.competition||x.market?.competition||'未标注')===comp)&&(decision==='全部'||(x.final_decision||'UNAVAILABLE')===decision)&&(grade==='全部'||x.grade===grade));const s=payload.summary||{};document.getElementById('summary').innerHTML=`列表日 <b>${esc(payload.list_date)}</b>｜显示 ${shown.length}｜总赛事 ${s.total??0}｜computed ${s.computed??0}｜BET让球 ${s.giving??0}｜BET受让 ${s.receiving??0}｜NO BET ${s.no_bet??0}｜A/B/C/N ${s.A??0}/${s.B??0}/${s.C??0}/${s.N??0}｜中性 ${s.neutral??0}｜缺失 ${s.missing_data??0}｜非赛前 ${s.not_prematch??0}<br><span class="meta">Model ${value(payload.model_id,'—')}｜Calibration ${value(payload.calibration_status,'旧版状态')}｜Forward ${value(payload.forward_status,'旧版状态')}｜V4_logic_change_at ${value(payload.V4_logic_change_at,'旧版未启用')}｜code ${value((payload.code_hash||'').slice(0,12),'—')}</span>`;
+document.getElementById('rows').innerHTML=shown.map(x=>{const m=x.market||{},fp=x.football_pull||{},pp=x.public_pull||{},ex=x.expert_selector||{},old=!x.fair_goal_margin&&x.model_id!=='V4',d=x.final_decision||'UNAVAILABLE',cls=d.startsWith('BET_')?'bet':d==='NO_BET'?'nobet':'old';return `<tr class="${old?'old':''}"><td>${esc(String(x.kickoff_at||x.kickoff||'').replace('T',' '))}</td><td>${esc(x.competition||m.competition||'未标注')}<small>${value(x.domain)} / ${value(x.league_level)}</small></td><td>${esc(m.home_team||'—')} vs ${esc(m.away_team||'—')}</td><td>${esc(stateText(x))}<small>${resultText(x)}</small></td><td>${esc(m.giving_team||x.giving_team||'—')} / ${esc(m.receiving_team||x.receiving_team||'—')}<small>市场线 ${num(x.market_line??Math.abs(x.selected_handicap_signed||0),2)}｜水位 ${num(m.giving_water??x.giving_water_hk,2)} / ${num(m.receiving_water??x.receiving_water_hk,2)}</small></td><td>Football ${num(fp.score)}<small>去水 ${pct(fp.devig_giving)} / ${pct(fp.devig_receiving)}｜Public ${value(pp.status)}</small></td><td>${num(x.fair_handicap,2)} / ${num(x.market_line,2)}<small>fair margin ${num(x.fair_goal_margin)}｜gap ${num(x.line_gap)}</small></td><td><span class="q-${esc(x.data_quality||'UNKNOWN')}">${value(x.data_quality)}</span> / <span class="q-${esc(x.market_quality||'UNKNOWN')}">${value(x.market_quality)}</span><small>不确定性 ${pct(x.uncertainty)}</small></td><td>${pct(x.p_giving_cover)}<small>${x.giving_probabilities?`W/HW/P/HL/L ${Object.values(x.giving_probabilities).map(pct).join(' / ')}`:'旧版未采集'}</small></td><td>${pct(x.p_receiving_cover)}<small>${x.receiving_probabilities?`W/HW/P/HL/L ${Object.values(x.receiving_probabilities).map(pct).join(' / ')}`:'旧版未采集'}</small></td><td>${num(x.ev_giving??x.diagnostic_giving?.EV_mean,4)}</td><td>${num(x.ev_receiving??x.diagnostic_receiving?.EV_mean,4)}</td><td class="${cls}">${esc(d)}<small>${value(x.selected_team,'—')} ${value(x.selected_side,'')}｜${x.bet_unit===1?'固定 1U':'0U'}｜${value(x.decision_reason,'旧版决策')}</small></td><td class="grade">${value(x.grade,'—')}<small>仅分析，不影响仓位</small></td><td>${value(x.normalized_intent,'unknown')}<small>${value(x.intent_role,'旧版曾参与方向')}</small></td><td>${value(ex.tier)}<small>${value(ex.decision)}｜CORE ${ex.core_evaluable===true?'可评估':ex.core_evaluable===false?'不可评估':'旧版未采集'}</small></td><td>${value(x.model_id,'—')}<small>${value(x.direction_rule_version||x.side_mapping_version,'—')}｜${x.started_lock?'已锁定':'赛前'}</small></td></tr>`}).join('')||'<tr><td colspan="17" class="empty">没有符合筛选条件的赛事</td></tr>'}
+document.getElementById('date').onchange=refresh;document.getElementById('competition').onchange=render;document.getElementById('decision').onchange=render;document.getElementById('grade').onchange=render;load();
+</script></body></html>

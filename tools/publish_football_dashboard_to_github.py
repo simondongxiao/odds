@@ -60,7 +60,16 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "v3_legacy" / "tools" / "build_football_daily_update.py", PUBLISH_REPO / "v3-legacy" / "tools" / "build_football_daily_update.py"),
         (WORKSPACE / "v3_legacy" / "tools" / "run_v3_legacy_daily_freeze.py", PUBLISH_REPO / "v3-legacy" / "tools" / "run_v3_legacy_daily_freeze.py"),
         (WORKSPACE / "v4" / "dashboard" / "index.html", PUBLISH_REPO / "v4" / "index.html"),
+        (WORKSPACE / "v4" / "dashboard" / "expert" / "index.html", PUBLISH_REPO / "v4" / "expert" / "index.html"),
+        (WORKSPACE / "v4" / "dashboard" / "legacy_redirect.html", PUBLISH_REPO / "v4-matchspecific" / "index.html"),
+        (WORKSPACE / "v4" / "dashboard" / "legacy_redirect.html", PUBLISH_REPO / "v41" / "index.html"),
+        (WORKSPACE / "v4" / "dashboard" / "legacy_redirect.html", PUBLISH_REPO / "v41" / "compare" / "index.html"),
         (WORKSPACE / "v4" / "run_daily_v4.py", PUBLISH_REPO / "v4" / "tools" / "run_daily_v4.py"),
+        (WORKSPACE / "v4" / "core_model.py", PUBLISH_REPO / "v4" / "tools" / "core_model.py"),
+        (WORKSPACE / "v4" / "direction_contract.py", PUBLISH_REPO / "v4" / "tools" / "direction_contract.py"),
+        (WORKSPACE / "v4" / "raw_adapter.py", PUBLISH_REPO / "v4" / "tools" / "raw_adapter.py"),
+        (WORKSPACE / "v4" / "league_level_map.csv", PUBLISH_REPO / "v4" / "league_level_map.csv"),
+        (WORKSPACE / "v4" / "V4_logic_change.json", PUBLISH_REPO / "v4" / "V4_logic_change.json"),
         (WORKSPACE / "run_football_update.py", PUBLISH_REPO / "tools" / "run_football_update.py"),
         (WORKSPACE / "skills" / "worldcup-odds-trader" / "SKILL.md", PUBLISH_REPO / "skills" / "worldcup-odds-trader" / "SKILL.md"),
         (WORKSPACE / "tools" / "sequential_asian_backtest_engine.py", PUBLISH_REPO / "tools" / "sequential_asian_backtest_engine.py"),
@@ -111,6 +120,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (V3_OUTPUT / "reviews", "*.md", PUBLISH_REPO / "v3-legacy" / "reports" / "reviews"),
         (V3_OUTPUT / "ledger", "v3_legacy_decision_freeze_*.csv", PUBLISH_REPO / "v3-legacy" / "ledger"),
         (WORKSPACE / "v4" / "outputs", "v4_daily_update_*.md", PUBLISH_REPO / "v4" / "reports"),
+        (WORKSPACE / "v4" / "diagnostics", "V4_CORE_UPGRADE_REPORT.md", PUBLISH_REPO / "v4" / "diagnostics"),
         (WORKSPACE / "v4" / "outputs", "v4_selected_*.csv", PUBLISH_REPO / "v4" / "ledger"),
     ]
     for root, pattern, dst_dir in latest_outputs:
@@ -141,6 +151,8 @@ def publish(push: bool = True) -> dict[str, object]:
 
     if copy_dir(ROOT / "dashboard" / "audits", PUBLISH_REPO / "audits"):
         copied.append(str(PUBLISH_REPO / "audits"))
+    if copy_dir(WORKSPACE / "v4" / "diagnostics", PUBLISH_REPO / "v4" / "diagnostics"):
+        copied.append(str(PUBLISH_REPO / "v4" / "diagnostics"))
     risk_skill = WORKSPACE / "skills" / "worldcup-odds-trader"
     for name in ("references/asian-side-risk-v3.md", "references/v3-implementation-contract.md", "references/cup-rotation-gateway.md", "scripts/asian_risk_v3.py", "scripts/test_asian_risk_v3.py", "scripts/cup_rotation_gateway.py", "scripts/test_cup_rotation_gateway.py", "references/market-move-weekend.md", "scripts/market_move_guard.py", "scripts/test_market_move_guard.py"):
         if copy_file(risk_skill / name, PUBLISH_REPO / "skills" / "worldcup-odds-trader" / name):
