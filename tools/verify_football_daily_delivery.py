@@ -81,9 +81,39 @@ def main():
                     "dashboard_frozen_bettable": len(frozen_cards),
                 })
         if version == "V4":
-            counts = {g: sum(r.get("grade") == g for r in rows) for g in "ABCN"}
-            assert sum(counts.values()) == current["summary"]["computed"]
-            checks[version].update(counts)
+            computed_rows = [
+                row for row in rows
+                if row.get("analysis_status") in {"EVALUATED", "FROZEN_PREMATCH_DECISION"}
+            ]
+            counts = {g: sum(r.get("grade") == g for r in computed_rows) for g in "ABCN"}
+            if sum(counts.values()) != current["summary"]["computed"]:
+                errors.append(
+                    f"V4: computed grade count {sum(counts.values())} != summary {current['summary']['computed']}"
+                )
+            new_rows = [row for row in rows if row.get("model_id") == "V4" and row.get("analysis_status") == "EVALUATED"]
+            for row in new_rows:
+                mid = str(row.get("match_id"))
+                if row.get("final_decision") not in {"BET_GIVING", "BET_RECEIVING", "NO_BET"}:
+                    errors.append(f"V4: invalid final decision {mid}")
+                if row.get("ev_giving") is None or row.get("ev_receiving") is None:
+                    errors.append(f"V4: missing two-sided EV {mid}")
+                if not row.get("giving_probabilities") or not row.get("receiving_probabilities"):
+                    errors.append(f"V4: missing two-sided probabilities {mid}")
+                expected_unit = 1.0 if str(row.get("final_decision", "")).startswith("BET_") else 0.0
+                if float(row.get("bet_unit", -1)) != expected_unit:
+                    errors.append(f"V4: fixed-unit violation {mid}")
+                if not (row.get("expert_selector") or {}).get("core_evaluable"):
+                    errors.append(f"V4: normal evaluated row not CORE evaluable {mid}")
+                if row.get("real_money") is not False:
+                    errors.append(f"V4: real_money must remain false {mid}")
+            checks[version].update({
+                **counts,
+                "computed_rows": len(computed_rows),
+                "match_specific_rows_checked": len(new_rows),
+                "bet_giving": sum(r.get("final_decision") == "BET_GIVING" for r in new_rows),
+                "bet_receiving": sum(r.get("final_decision") == "BET_RECEIVING" for r in new_rows),
+                "no_bet": sum(r.get("final_decision") == "NO_BET" for r in new_rows),
+            })
     perf = manifest["steps"]["yesterday_performance"]["stdout"]
     payload = json.loads(perf.strip().splitlines()[-1])
     with Path(payload["csv"]).open(encoding="utf-8-sig", newline="") as f:

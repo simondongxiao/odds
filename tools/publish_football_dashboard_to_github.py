@@ -84,6 +84,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "tools" / "build_bettable_event_stats.py", PUBLISH_REPO / "tools" / "build_bettable_event_stats.py"),
         (WORKSPACE / "tools" / "settle_historical_simulations.py", PUBLISH_REPO / "tools" / "settle_historical_simulations.py"),
         (WORKSPACE / "tools" / "write_yesterday_settlement_report.py", PUBLISH_REPO / "tools" / "write_yesterday_settlement_report.py"),
+        (WORKSPACE / "tools" / "verify_football_daily_delivery.py", PUBLISH_REPO / "tools" / "verify_football_daily_delivery.py"),
         (WORKSPACE / "tools" / "export_today_candidate_intent_xlsx.py", PUBLISH_REPO / "tools" / "export_today_candidate_intent_xlsx.py"),
         (WORKSPACE / "tools" / "publish_football_dashboard_to_github.py", PUBLISH_REPO / "tools" / "publish_football_dashboard_to_github.py"),
         (ROOT / "ledger" / "DATA_STRUCTURE.md", PUBLISH_REPO / "docs" / "DATA_STRUCTURE.md"),
