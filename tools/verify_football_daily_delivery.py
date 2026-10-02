@@ -12,6 +12,21 @@ ROOT = Path(r"D:\codex")
 OUT = ROOT / "outputs/football_odds_trader"
 
 
+def parse_line(value):
+    text = str(value if value is not None else "").strip()
+    aliases = {
+        "平手": 0.0, "平手/半球": 0.25, "半球": 0.5, "半球/一球": 0.75,
+        "一球": 1.0, "一球/球半": 1.25, "球半": 1.5, "球半/两球": 1.75,
+        "两球": 2.0, "两球/两球半": 2.25, "两球半": 2.5, "两球半/三球": 2.75,
+    }
+    if text in aliases:
+        return aliases[text]
+    try:
+        return float(text.removesuffix("球"))
+    except ValueError:
+        return None
+
+
 def read(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
@@ -119,22 +134,37 @@ def main():
     with Path(payload["csv"]).open(encoding="utf-8-sig", newline="") as f:
         settled = list(csv.DictReader(f))
     checked = 0
+    checked_by_version = {"V3": 0, "V4_SHADOW": 0}
     # Independent quarter-line arithmetic using the selected team's signed line.
     for row in settled:
-        if row["version"] != "V4_SHADOW" or row["result"] not in {"W", "HW", "P", "HL", "L"}:
+        if row["version"] not in checked_by_version or row["result"] not in {"W", "HW", "P", "HL", "L"}:
             continue
         home, away = row["match"].split(" vs ", 1)
         hs, aws = map(int, row["score"].split("-"))
         margin = hs - aws if row["selected_team"] == home else aws - hs
-        q = round(float(row["line"]) * 4)
+        line = parse_line(row["line"])
+        if line is None:
+            errors.append(f"settlement line missing {row['version']} {row['match_id']}")
+            continue
+        if row["version"] == "V4_SHADOW":
+            signed_line = line
+        else:
+            side = str(row.get("selected_side", "")).lower()
+            if side not in {"upper", "lower"}:
+                errors.append(f"settlement side missing V3 {row['match_id']}")
+                continue
+            signed_line = -abs(line) if side == "upper" else abs(line)
+        q = round(signed_line * 4)
         components = [q / 4, q / 4] if q % 2 == 0 else [(q - 1) / 4, (q + 1) / 4]
         tally = sum(1 if margin + h > 0 else -1 if margin + h < 0 else 0 for h in components)
         expected = {2: "W", 1: "HW", 0: "P", -1: "HL", -2: "L"}[tally]
         amount = {"W": float(row["water"]), "HW": float(row["water"]) / 2, "P": 0, "HL": -.5, "L": -1}[expected]
         if expected != row["result"] or abs(amount - float(row["pnl_1u"])) > 1e-6:
-            errors.append(f"settlement mismatch {row['match_id']}: {row['result']} vs {expected}")
+            errors.append(f"settlement mismatch {row['version']} {row['match_id']}: {row['result']} vs {expected}")
         checked += 1
+        checked_by_version[row["version"]] += 1
     checks["settlements_checked"] = checked
+    checks["settlements_checked_by_version"] = checked_by_version
     checks["yesterday"] = payload
     checks["errors"] = errors
     required_steps = ("v3_daily", "v3_freeze", "v4_shadow", "yesterday_performance")
