@@ -4277,14 +4277,15 @@ function historyRateAlertHtml(r) {{
   const rows = historyRateRows
     .filter(x => String(x.version || "") === "V3")
     .filter(x => String(x.match_id || "") === String(r.match_id || ""))
-    .filter(x => String(x.rate_band || x.alert_band || ""));
-  if (!rows.length) return "";
-  return `<div class="history-rate-alert"><strong>历史同名联赛胜率（动态）</strong><br>${{rows.map(x => {{
+    ;
+  if (!rows.length) return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong><br>本场暂无对应的 Excel 历史记录；历史样本按当前列表日前的已结算冻结记录计算。</div>`;
+  return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong><br>${{rows.map(x => {{
     const side = x.market_side === "upper" ? "上盘" : x.market_side === "receiving" ? "下盘" : (x.market_side || "方向待核");
-    const band = x.rate_band || x.alert_band || "历史风险提示";
+    const band = x.rate_band || x.alert_band || "常规样本";
+    const rate = x.effective_win_rate === "" || x.effective_win_rate == null ? "—" : pct(Number(x.effective_win_rate));
     const pnl = x.pnl_1u === "" || x.pnl_1u == null ? "PnL 待核" : `PnL ${{Number(x.pnl_1u) >= 0 ? "+" : ""}}${{Number(x.pnl_1u).toFixed(2)}}U`;
     const roi = x.roi === "" || x.roi == null ? "ROI 待核" : `ROI ${{pct(Number(x.roi))}}`;
-    return `${{clean(x.competition || r.league)}}｜近期${{x.historical_settled_sample ?? 0}}场｜红/半红/走/半黑/黑 ${{x.红 ?? 0}}/${{x.半红 ?? 0}}/${{x.走 ?? 0}}/${{x.半黑 ?? 0}}/${{x.黑 ?? 0}}｜有效胜率 ${{pct(Number(x.effective_win_rate))}}｜${{side}}：${{clean(x.selected_team || "方向待核")}}｜${{clean(band)}}｜${{pnl}}｜${{roi}}`;
+    return `${{clean(x.competition || r.league)}}｜近期${{x.historical_settled_sample ?? 0}}场｜红/半红/走/半黑/黑 ${{x.红 ?? 0}}/${{x.半红 ?? 0}}/${{x.走 ?? 0}}/${{x.半黑 ?? 0}}/${{x.黑 ?? 0}}｜有效胜率 ${{rate}}｜${{side}}：${{clean(x.selected_team || "方向待核")}}｜${{clean(band)}}｜${{pnl}}｜${{roi}}`;
   }}).join("<br>")}}<br><span class="muted">口径：同名赛事、样本截止当前列表日前；高胜率≥55%，低胜率&lt;45%；45%-&lt;55%不纳入高低胜率列表。</span></div>`;
 }}
 
