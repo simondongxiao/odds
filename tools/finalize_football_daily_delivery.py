@@ -112,9 +112,18 @@ def main():
             decision_at = dt.datetime.fromisoformat(manifest["run_at"].replace("Z", "+00:00"))
             for row in rows:
                 source = raw.get(str(row.get("match_id", "")), {})
+                # An empty Titan state is an unknown status observation, not
+                # proof that the market inputs are missing.  Keep the row in
+                # NOT_PREMATCH until a later snapshot supplies a state or
+                # actual market data.  Do not relabel it as MISSING_DATA:
+                # those are different evidence/decision statuses.
                 if (not str(source.get("state", "") or "").strip()
                         and row.get("analysis_status") == "MISSING_DATA"
                         and "PREMATCH_STATUS_UNCONFIRMED" in (row.get("reason_codes") or [])):
+                    row["analysis_status"] = "NOT_PREMATCH"
+                    row["decision_status"] = "NOT_PREMATCH_STATUS_UNKNOWN"
+                    row["model_support"] = "NOT_COMPUTED"
+                    row["reason_codes"] = ["PREMATCH_STATUS_UNCONFIRMED"]
                     status_corrections.append(str(row.get("match_id", "")))
                     continue
                 if (not source or str(source.get("state", "") or "").strip()
@@ -123,7 +132,9 @@ def main():
                     continue
                 kickoff = dt.datetime.fromisoformat(str(row.get("kickoff_at") or row.get("kickoff", "")).replace("Z", "+00:00"))
                 if kickoff > decision_at:
-                    row["analysis_status"] = "MISSING_DATA"
+                    row["analysis_status"] = "NOT_PREMATCH"
+                    row["decision_status"] = "NOT_PREMATCH_STATUS_UNKNOWN"
+                    row["model_support"] = "NOT_COMPUTED"
                     row["reason_codes"] = ["PREMATCH_STATUS_UNCONFIRMED"]
                     status_corrections.append(str(row.get("match_id", "")))
             if status_corrections:

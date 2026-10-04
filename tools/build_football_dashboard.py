@@ -2063,6 +2063,32 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "market_h2": titan_market.get("h2_price_discovery") if isinstance(titan_market, dict) else None,
                 "market_h3": titan_market.get("h3_public_bias") if isinstance(titan_market, dict) else None,
                 "market_h4": titan_market.get("h4_liquidity_noise") if isinstance(titan_market, dict) else None,
+                # Backend-only evidence contract.  The existing V3 columns and
+                # interactions remain unchanged; these fields are consumed by
+                # audits/details and never become a new direction command.
+                "data_integrity": "PASS" if match_id and date and shown_match else "FAIL",
+                "evidence_coverage": {
+                    "identity": "AVAILABLE" if match_id and shown_match else "MISSING",
+                    "kickoff": "AVAILABLE" if o.get("time") not in {"", "未匹配"} else "MISSING",
+                    "asian_market": "AVAILABLE" if o.get("ah_ok") else "MISSING",
+                    "euro_market": "AVAILABLE" if o.get("euro_ok") else "MISSING",
+                    "team_history": "AVAILABLE" if detail.get("recent_form_summary") else "MISSING",
+                    "h2h": "AVAILABLE" if detail.get("h2h_summary") else "MISSING",
+                    "ffl": "AVAILABLE" if isinstance(titan_ffl, dict) and titan_ffl.get("fair_goal_margin") is not None else "MISSING_OPTIONAL",
+                    "market_path": titan_context.get("quote_path", {}).get("status", "UNKNOWN") if isinstance(titan_context, dict) else "UNKNOWN",
+                    "real_flow": "AVAILABLE" if flow_text and "未验证" not in flow_text and "缺失" not in flow_text else "MISSING",
+                },
+                "model_support": "LEGACY_HISTORY_PRICE" if matched and o.get("ah_ok") else "INSUFFICIENT_SUPPORT",
+                "calibration_status": "LEGACY_UNCALIBRATED",
+                "interpretation_status": titan_market.get("interpretation", "UNKNOWN") if isinstance(titan_market, dict) else "UNKNOWN",
+                "decision_status": "BET" if frozen_mode != "none" else ("NO_BET" if status in {"不投", "NO_BET"} else "OBSERVATION"),
+                "evidence_checklist": (titan_context.get("evidence_checklist") if isinstance(titan_context, dict) and isinstance(titan_context.get("evidence_checklist"), dict) else {
+                    "observed": [x for x, ok in (("asian_quote", bool(o.get("ah_ok"))), ("euro_quote", bool(o.get("euro_ok"))), ("recent_form", bool(detail.get("recent_form_summary")))) if ok],
+                    "missing": [x for x, ok in (("lineup", detail.get("lineup_ok") == "1"), ("injury", detail.get("injury_ok") == "1"), ("real_flow", "未验证" not in flow_text)) if not ok],
+                    "compatible_explanations": [], "unidentifiable": ["bookmaker_intent", "current_net_position"],
+                }),
+                "public_attraction_features": titan_context.get("public_pull_proxy", {"status": "MISSING"}) if isinstance(titan_context, dict) else {"status": "MISSING"},
+                "flow_status": "AVAILABLE" if flow_text and "未验证" not in flow_text and "缺失" not in flow_text else "MISSING_REAL_FLOW",
                 "cup_match_state": titan_context.get("cup_match_state", {}) if isinstance(titan_context, dict) else {},
                 "analyst_source": "未接入/待核：待公共博主/盘口观点交叉验证",
                 "result": translate_text(result),

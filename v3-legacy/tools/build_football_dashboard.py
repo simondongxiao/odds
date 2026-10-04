@@ -2938,20 +2938,27 @@ def html_doc_v2(
     top5_backtest: dict[str, object],
 ) -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    # The active page date is the Titan007 immutable list_date, not the
-    # machine's natural calendar date.  This matters after midnight: the
-    # current slate may still be locked to the previous list date and must
-    # remain the default view until the pointer advances.
-    default_date = TODAY.isoformat()
+    # The page must open on the newest list_date actually embedded in cards.
+    # Do not depend on current.json here: the daily orchestrator can rebuild
+    # this HTML before advancing that pointer, which previously left a fresh
+    # 10/03 page opening on 10/02.
+    card_dates = {
+        str(card.get("date") or "").strip()
+        for card in cards
+        if str(card.get("date") or "").strip()
+    }
+    default_date = max(card_dates) if card_dates else TODAY.isoformat()
     current_pointer = Path(r"D:\codex\outputs\football_odds_trader\dashboard\data\current.json")
     if not current_pointer.exists():
         current_pointer = DASHBOARD_DIR / "data" / "current.json"
     try:
         pointer = json.loads(current_pointer.read_text(encoding="utf-8"))
         pointer_date = str(pointer.get("display_list_date") or pointer.get("list_date") or "").strip()
-        card_dates = {str(card.get("date") or "").strip() for card in cards}
         if pointer_date and pointer_date in card_dates:
-            default_date = pointer_date
+            # A stale pointer must never move the landing view behind the
+            # newest embedded list_date.  It is retained only when it is not
+            # older than the card-derived maximum.
+            default_date = max(default_date, pointer_date)
     except Exception:
         pass
     backtest_box = render_sequential_backtest_box(backtest)
@@ -4362,7 +4369,9 @@ function rankedRowsForDateLegacy() {{
 
 function renderDates() {{
   const dates = allDates();
-  const selected = dates.includes(defaultDate) ? defaultDate : dates[0];
+  // Always land on the newest embedded list_date. defaultDate remains only
+  // as a compatibility fallback for an empty/legacy payload.
+  const selected = dates[0] || defaultDate;
   document.getElementById("dateSelect").innerHTML = dates.map(d => `<option value="${{d}}" ${{d === selected ? "selected" : ""}}>${{d}}</option>`).join("");
 }}
 

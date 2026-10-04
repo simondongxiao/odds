@@ -30,11 +30,19 @@ OUT_ROOT = ROOT / "outputs" / "football_odds_trader" / "titan_data"
 TZ = timezone(timedelta(hours=8))
 PARSER_VERSION = "titan-shared-v1"
 MODEL_VERSION = "FFL_SKELLAM_V1"
+LOGIC_CHANGE_AT = "2026-10-04T09:52:00+08:00"
 CALIBRATION_STATUS = "FAIR_LINE_UNCALIBRATED"
 DOMAINS = {
     "CLUB_LEAGUE", "DOMESTIC_CUP", "CONTINENTAL_CLUB", "NATIONAL_OFFICIAL",
     "NATIONAL_YOUTH", "INTERNATIONAL_FRIENDLY", "WOMEN_CLUB", "WOMEN_NATIONAL", "UNKNOWN",
 }
+
+# These status values are deliberately orthogonal.  A missing optional input
+# must not be collapsed into a model NO_BET or into an unavailable row.
+STATUS_FIELDS = (
+    "data_integrity", "evidence_coverage", "model_support",
+    "calibration_status", "interpretation_status", "decision_status",
+)
 
 
 SCHEMA = """
@@ -269,6 +277,48 @@ def fair_curve(distribution: dict[int, float]) -> list[dict[str, Any]]:
     return result
 
 
+def settlement_payoff_vector(handicap: float, water: float, margins: range | list[int] | tuple[int, ...] = range(-9, 10)) -> dict[str, float]:
+    """Return the 1U Asian settlement payoff for each integer goal margin.
+
+    The vector is used to compare price terms without inventing a conversion
+    such as “0.25 goal equals 0.15 water”.  It is intentionally independent
+    of any direction label or team name.
+    """
+    if water is None or not math.isfinite(float(water)) or float(water) <= 0:
+        raise ValueError("water must be a positive finite HK price")
+    out: dict[str, float] = {}
+    q = round(float(handicap) * 4)
+    parts = [q / 4.0] if q % 2 == 0 else [(q - 1) / 4.0, (q + 1) / 4.0]
+    for margin in margins:
+        results = [_status(int(margin), part) for part in parts]
+        if len(results) == 1 or results[0] == results[-1]:
+            payoff = {"W": float(water), "P": 0.0, "L": -1.0}[results[0]]
+        elif set(results) == {"W", "P"}:
+            payoff = 0.5 * float(water)
+        elif set(results) == {"L", "P"}:
+            payoff = -0.5
+        elif set(results) == {"W", "L"}:
+            payoff = 0.0
+        else:
+            raise AssertionError(results)
+        out[str(int(margin))] = payoff
+    return out
+
+
+def compare_price_terms(old_handicap: float, old_water: float, new_handicap: float, new_water: float) -> dict[str, Any]:
+    """Compare two AH quotes using observable 1U payoff vectors only."""
+    old = settlement_payoff_vector(old_handicap, old_water)
+    new = settlement_payoff_vector(new_handicap, new_water)
+    delta = {margin: round(new[margin] - old[margin], 8) for margin in old}
+    if all(value >= -1e-9 for value in delta.values()):
+        ordering = "NEW_QUOTE_WEAKLY_BETTER"
+    elif all(value <= 1e-9 for value in delta.values()):
+        ordering = "OLD_QUOTE_WEAKLY_BETTER"
+    else:
+        ordering = "TRADEOFF_REQUIRES_PROBABILITY"
+    return {"old_payoff": old, "new_payoff": new, "delta": delta, "ordering": ordering}
+
+
 def _devig_1x2(home: float, draw: float, away: float) -> tuple[float, float, float]:
     values = [1 / home, 1 / draw, 1 / away]
     total = sum(values)
@@ -302,6 +352,16 @@ def consensus_market_fair_line(euro: tuple[float | None, float | None, float | N
 
 def fundamental_fair_line(home: dict[str, Any], away: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
     """FFL: no AH/water arguments by design; uses only pre-match football facts."""
+    support = int(home.get("sample_count", 0) or 0) + int(away.get("sample_count", 0) or 0)
+    if support < 8:
+        return {
+            "status": "UNAVAILABLE_OPTIONAL", "reason": "INSUFFICIENT_TEAM_HISTORY",
+            "model_version": MODEL_VERSION, "predicted_home_goals": None,
+            "predicted_away_goals": None, "fair_goal_margin": None,
+            "fair_handicap": None, "fair_handicap_low": None, "fair_handicap_high": None,
+            "uncertainty": None, "margin_distribution": {}, "fair_ah_curve": [],
+            "inputs": {"home": home, "away": away, "context": context},
+        }
     h_elo, a_elo = float(home.get("elo", 1500)), float(away.get("elo", 1500))
     h_att, a_att = float(home.get("attack", 1.0)), float(away.get("attack", 1.0))
     h_def, a_def = float(home.get("defense", 1.0)), float(away.get("defense", 1.0))
@@ -324,7 +384,7 @@ def fundamental_fair_line(home: dict[str, Any], away: dict[str, Any], context: d
     uncertainty = min(0.95, max(0.12, 0.62 / math.sqrt(max(1, sample / 4)) + 0.035 * missing))
     central = round(margin * 4) / 4
     return {
-        "status": CALIBRATION_STATUS, "model_version": MODEL_VERSION,
+        "status": CALIBRATION_STATUS, "reason": "ASOF_TEAM_HISTORY_SUPPORTED", "model_version": MODEL_VERSION,
         "predicted_home_goals": home_lambda, "predicted_away_goals": away_lambda,
         "fair_goal_margin": margin, "fair_handicap": central,
         "fair_handicap_low": round((margin - uncertainty) * 4) / 4,
@@ -366,26 +426,23 @@ def _team_features(conn: sqlite3.Connection, team_id: str, decision_at: str, ven
     }
 
 
-def _market_diagnostic(row: dict[str, Any], ffl: dict[str, Any], cmfl: dict[str, Any]) -> dict[str, Any]:
+def _market_diagnostic(row: dict[str, Any], ffl: dict[str, Any] | None, cmfl: dict[str, Any]) -> dict[str, Any]:
     current = _f(_first(row, "ah_full_current_line_or_draw", "xml_ah_line"))
     opening = _f(_first(row, "ah_full_open_line_or_draw", "initial_ah_hint"))
     total = _f(_first(row, "total_full_current_line_or_draw", "xml_total_line"))
     cm = cmfl.get("margin")
-    fm = ffl["fair_goal_margin"]
+    fm = ffl.get("fair_goal_margin") if isinstance(ffl, dict) else None
     line_move = None if current is None or opening is None else current - opening
-    cross = "UNKNOWN" if cm is None else "CONSENSUS" if abs(cm - fm) <= 0.35 else "DISAGREEMENT"
-    h1 = 0.0 if line_move is None else min(1.0, abs(line_move) / 0.5) * (0.75 if cross == "CONSENSUS" else 0.25)
+    cross = "UNKNOWN" if cm is None or fm is None else "CONSENSUS" if abs(cm - fm) <= 0.35 else "DISAGREEMENT"
+    h1 = None if line_move is None or fm is None else min(1.0, abs(line_move) / 0.5) * (0.75 if cross == "CONSENSUS" else 0.25)
     h2 = 0.0 if cm is None or current is None else max(0.0, 1.0 - abs(current - cm) / 1.0)
-    h3 = 0.0 if current is None else min(1.0, abs(current - fm) / 1.25) * (0.8 if cross == "DISAGREEMENT" else 0.3)
-    one_book = True  # current public feed is an aggregate/single displayed company
-    h4 = 0.65 if one_book else 0.2
-    if current is None:
+    h3 = None if current is None or fm is None else min(1.0, abs(current - fm) / 1.25) * (0.8 if cross == "DISAGREEMENT" else 0.3)
+    h4 = None  # an aggregate quote is not a liquidity or real-flow observation
+    if current is None or (h1 is None and h3 is None and h2 == 0.0):
         interpretation = "UNKNOWN"
-    elif max(h1, h2, h3, h4) < 0.55:
-        interpretation = "MIXED"
     else:
-        interpretation = ("FUNDAMENTAL_UPDATE", "PRICE_DISCOVERY", "PUBLIC_BIAS_SHADING", "LIQUIDITY_NOISE")[[h1, h2, h3, h4].index(max(h1, h2, h3, h4))]
-    quality = "LOW" if one_book else "MEDIUM"
+        interpretation = "PRICE_OBSERVATION" if h2 >= 0.55 else "MIXED_EVIDENCE"
+    quality = "UNKNOWN_SINGLE_AGGREGATE_FEED"
     return {
         "h1_fundamental_update": h1, "h2_price_discovery": h2,
         "h3_public_bias": h3, "h4_liquidity_noise": h4,
@@ -393,6 +450,12 @@ def _market_diagnostic(row: dict[str, Any], ffl: dict[str, Any], cmfl: dict[str,
         "cross_market": cross, "cross_book_breadth": "UNKNOWN_SINGLE_AGGREGATE_FEED",
         "time_order_valid": True, "total_line": total, "line_move": line_move,
         "hard_direction_rule": False,
+        "evidence_checklist": {
+            "observed": [x for x in ("current_line" if current is not None else "", "opening_line" if opening is not None else "", "cmfl" if cm is not None else "") if x],
+            "missing": [x for x in ("opening_line" if opening is None else "", "ffl" if fm is None else "", "cross_book_quotes", "real_flow") if x],
+            "compatible_explanations": [interpretation] if interpretation not in {"UNKNOWN", "MIXED_EVIDENCE"} else [],
+            "unidentifiable": ["bookmaker_intent", "current_net_position"],
+        },
     }
 
 
@@ -528,16 +591,29 @@ def build_shared_snapshot(raw_csv: Path | str, list_date: str, decision_at: date
         league_strength_row = conn.execute("SELECT strength_coefficient FROM league_strength_history WHERE competition_id=? AND as_of_at<=? ORDER BY as_of_at DESC LIMIT 1", (cid_row[0], decision_at.isoformat())).fetchone() if cid_row else None
         context = {"competition": comp, "domain": domain, "league_level": tier, "league_strength_coefficient": league_strength_row[0] if league_strength_row else 1.0, "neutral_venue": bool(neutral), "cup_state": cup_state, "cup_margin_adjustment": 0.0}
         ffl = fundamental_fair_line(home, away, context)
+        ffl_usable = ffl.get("fair_goal_margin") is not None
         euro = (_f(_first(row, "euro_full_current_home_or_over", "xml_euro_home")), _f(_first(row, "euro_full_current_line_or_draw", "xml_euro_draw")), _f(_first(row, "euro_full_current_away_or_under", "xml_euro_away")))
         total_line = _f(_first(row, "total_full_current_line_or_draw", "xml_total_line"))
         cmfl = consensus_market_fair_line(euro, total_line)
         cm_margin = cmfl.get("margin")
-        consensus = ffl["fair_goal_margin"] if cm_margin is None else 0.55 * ffl["fair_goal_margin"] + 0.45 * float(cm_margin)
-        disagreement = None if cm_margin is None else abs(ffl["fair_goal_margin"] - float(cm_margin))
+        consensus = None if not ffl_usable and cm_margin is None else (
+            cm_margin if not ffl_usable else ffl["fair_goal_margin"] if cm_margin is None
+            else 0.55 * ffl["fair_goal_margin"] + 0.45 * float(cm_margin)
+        )
+        disagreement = None if cm_margin is None or not ffl_usable else abs(ffl["fair_goal_margin"] - float(cm_margin))
         diagnostic = _market_diagnostic(row, ffl, cmfl)
         current_line = _f(_first(row, "ah_full_current_line_or_draw", "xml_ah_line"))
         current_hw = _f(_first(row, "ah_full_current_home_or_over", "xml_ah_home_water"))
-        home_states = asian_states({int(k): v for k, v in ffl["margin_distribution"].items()}, current_line) if current_line is not None else None
+        opening_line_value = _f(_first(row, "ah_full_open_line_or_draw", "initial_ah_hint"))
+        opening_home_water = _f(row.get("ah_full_open_home_or_over"))
+        opening_away_water = _f(row.get("ah_full_open_away_or_under"))
+        current_away_water = _f(_first(row, "ah_full_current_away_or_under", "xml_ah_away_water"))
+        home_states = asian_states({int(k): v for k, v in ffl["margin_distribution"].items()}, current_line) if current_line is not None and ffl.get("margin_distribution") else None
+        price_terms = None
+        current_giving_water = current_hw if current_line is not None and current_line > 0 else current_away_water
+        opening_giving_water = opening_home_water if opening_line_value is not None and opening_line_value > 0 else opening_away_water
+        if opening_line_value is not None and current_line is not None and opening_giving_water is not None and current_giving_water is not None:
+            price_terms = compare_price_terms(-abs(opening_line_value), opening_giving_water, -abs(current_line), current_giving_water)
         kickoff_dt = _dt(kickoff)
         for tid, side, team_feature in ((hid, "HOME", home), (aid, "AWAY", away)):
             next_row = conn.execute("SELECT kickoff_at FROM fixture_master WHERE (home_team_id=? OR away_team_id=?) AND kickoff_at>? AND source_snapshot_id=? ORDER BY kickoff_at LIMIT 1", (tid, tid, kickoff, raw_snapshot_id)).fetchone()
@@ -555,6 +631,7 @@ def build_shared_snapshot(raw_csv: Path | str, list_date: str, decision_at: date
         if domain in {"DOMESTIC_CUP", "CONTINENTAL_CLUB", "NATIONAL_OFFICIAL", "NATIONAL_YOUTH"}:
             conn.execute("INSERT OR REPLACE INTO cup_match_state VALUES(?,?,?,?,?,?,?,?,?)", (_hash([match_id, feature_snapshot_id, "cup"]), match_id, decision_at.isoformat(), None, None, None, None, None, raw_snapshot_id))
         home_rank = _i(row.get("home_rank_or_stage")); away_rank = _i(row.get("away_rank_or_stage"))
+        observed = _snapshot_at(row, raw_csv).isoformat()
         motivation = {
             "status": "TABLE_POSITION_CONTEXT" if home_rank is not None or away_rank is not None else "MISSING",
             "home_rank": home_rank, "away_rank": away_rank,
@@ -570,23 +647,44 @@ def build_shared_snapshot(raw_csv: Path | str, list_date: str, decision_at: date
             "competition": comp, "competition_domain": domain, "league_level": tier,
             "home_team": home_name, "away_team": away_name, "home_team_id": hid, "away_team_id": aid,
             "football_pull": {"home_elo": home["elo"], "away_elo": away["elo"], "elo_diff": home["elo"] - away["elo"], "home_form": home["form_5"], "away_form": away["form_5"], "schedule": {"home_days_since_last": home["days_since_last"], "away_days_since_last": away["days_since_last"]}},
-            "public_pull_proxy": {"status": "MISSING", "score": None, "is_real_flow": False},
+            "public_pull_proxy": {"status": "PROXY_ONLY", "score": None, "is_real_flow": False,
+                                  "features": {"home_advantage": not bool(neutral),
+                                                "rank_gap": None if home_rank is None or away_rank is None else away_rank - home_rank,
+                                                "form_gap": round(home["form_ppg"] - away["form_ppg"], 4)},
+                                  "real_flow_status": "MISSING"},
             "cup_match_state": context["cup_state"], "motivation": motivation,
             "lineup": None, "injuries": None, "ffl": ffl_feature, "cmfl": cmfl,
-            "fair_line_consensus": {"margin": consensus, "ffl_weight": 0.55 if cm_margin is not None else 1.0, "cmfl_weight": 0.45 if cm_margin is not None else 0.0, "disagreement": disagreement},
-            "market": {"opening_line": _f(_first(row, "ah_full_open_line_or_draw", "initial_ah_hint")), "current_line": current_line, "home_water": current_hw, "away_water": _f(_first(row, "ah_full_current_away_or_under", "xml_ah_away_water")), "price_adjusted_home_gap_ev": price_adjusted_gap(current_line, current_hw, home_states)},
+            "fair_line_consensus": {"margin": consensus, "ffl_weight": 0.55 if ffl_usable and cm_margin is not None else 1.0 if ffl_usable else 0.0, "cmfl_weight": 0.45 if ffl_usable and cm_margin is not None else 1.0 if not ffl_usable and cm_margin is not None else 0.0, "disagreement": disagreement},
+            "market": {"opening_line": opening_line_value, "current_line": current_line, "home_water": current_hw, "away_water": current_away_water, "price_adjusted_home_gap_ev": price_adjusted_gap(current_line, current_hw, home_states), "price_term_comparison": price_terms},
             "market_deviation": diagnostic, "data_quality": "CORE" if home["sample_count"] + away["sample_count"] < 8 else "MARKET",
+            "data_integrity": "PASS" if match_id and kickoff else "FAIL",
+            "evidence_coverage": {
+                "identity": "AVAILABLE", "kickoff": "AVAILABLE", "asian_market": "AVAILABLE" if current_line is not None else "MISSING",
+                "euro_market": "AVAILABLE" if cmfl.get("status") == "AVAILABLE" else "MISSING",
+                "team_history": "AVAILABLE" if home["sample_count"] + away["sample_count"] >= 8 else "SPARSE",
+                "ffl": "AVAILABLE" if ffl_usable else "MISSING_OPTIONAL",
+                "market_path": "TWO_POINT_OBSERVATION" if current_line is not None and _f(_first(row, "ah_full_open_line_or_draw", "initial_ah_hint")) is not None else "STATIC_QUOTE",
+                "cross_book_quotes": "MISSING",
+                "real_flow": "MISSING",
+            },
+            "model_support": "FFL_SUPPORTED" if ffl_usable else "MARKET_REFERENCE_FALLBACK" if cmfl.get("status") == "AVAILABLE" else "INSUFFICIENT_SUPPORT",
+            "interpretation_status": diagnostic.get("interpretation", "UNKNOWN"),
+            "decision_status": "PRICE_EVALUATION_AVAILABLE" if current_line is not None and current_hw is not None and (cmfl.get("status") == "AVAILABLE" or ffl_usable) else "CORE_MARKET_INPUT_MISSING",
+            "evidence_checklist": diagnostic.get("evidence_checklist", {}),
+            "public_attraction_features": {"status": "PROXY_ONLY", "real_flow": "MISSING", "features": {"home_advantage": not bool(neutral), "rank_gap": None if home_rank is None or away_rank is None else away_rank - home_rank, "form_gap": round(home["form_ppg"] - away["form_ppg"], 4)}},
+            "quote_path": {"status": "TWO_POINT_OBSERVATION" if current_line is not None and _f(_first(row, "ah_full_open_line_or_draw", "initial_ah_hint")) is not None else "STATIC_QUOTE", "source": _first(row, "ah_full_company") or "Titan007 aggregate", "source_quote_at": observed, "received_at": fetch_at.isoformat(), "intermediate_quotes": "NOT_OBSERVED"},
             "asof_guard": {"feature_available_at_lte_decision_at": True, "history_cutoff": decision_at.isoformat(), "same_match_snapshot_partition": True},
         }
         features[match_id] = feature
-        curve_json = json.dumps(ffl["fair_ah_curve"], ensure_ascii=False, separators=(",", ":"))
-        conn.execute("INSERT OR REPLACE INTO fair_line_snapshots VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (_hash([match_id, feature_snapshot_id, "fair"]), match_id, feature_snapshot_id, decision_at.isoformat(), ffl["fair_goal_margin"], ffl["predicted_home_goals"] + ffl["predicted_away_goals"], ffl["fair_handicap"], ffl["fair_handicap_low"], ffl["fair_handicap_high"], cm_margin, cmfl.get("total"), consensus, disagreement, ffl["uncertainty"], CALIBRATION_STATUS, curve_json, MODEL_VERSION, _hash(ffl["inputs"], 64)))
+        curve_json = json.dumps(ffl.get("fair_ah_curve", []), ensure_ascii=False, separators=(",", ":"))
+        ffl_total = None if ffl.get("predicted_home_goals") is None or ffl.get("predicted_away_goals") is None else ffl["predicted_home_goals"] + ffl["predicted_away_goals"]
+        conn.execute("INSERT OR REPLACE INTO fair_line_snapshots VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (_hash([match_id, feature_snapshot_id, "fair"]), match_id, feature_snapshot_id, decision_at.isoformat(), ffl.get("fair_goal_margin"), ffl_total, ffl.get("fair_handicap"), ffl.get("fair_handicap_low"), ffl.get("fair_handicap_high"), cm_margin, cmfl.get("total"), consensus, disagreement, ffl.get("uncertainty"), CALIBRATION_STATUS, curve_json, MODEL_VERSION, _hash(ffl["inputs"], 64)))
         conn.execute("INSERT OR REPLACE INTO market_interpretation_snapshots VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (_hash([match_id, feature_snapshot_id, "market"]), match_id, feature_snapshot_id, decision_at.isoformat(), diagnostic["h1_fundamental_update"], diagnostic["h2_price_discovery"], diagnostic["h3_public_bias"], diagnostic["h4_liquidity_noise"], diagnostic["interpretation"], diagnostic["market_quality"], diagnostic["cross_market"], diagnostic["cross_book_breadth"], 1, json.dumps(diagnostic, ensure_ascii=False)))
     out_dir = OUT_ROOT / "feature_store" / list_date
     out_dir.mkdir(parents=True, exist_ok=True)
     odds_age_hours = max(0.0, (decision_at - fetch_at).total_seconds() / 3600.0)
     freshness_status = "PASS" if odds_age_hours <= 12.0 else "STALE"
-    payload = {"list_date": list_date, "snapshot_id": feature_snapshot_id, "raw_snapshot_id": raw_snapshot_id, "decision_at": decision_at.isoformat(), "calibration_status": CALIBRATION_STATUS, "model_version": MODEL_VERSION, "freshness_check": {"status": freshness_status, "odds_age_hours": round(odds_age_hours, 3), "max_age_hours": 12.0, "last_team_update": fetch_at.isoformat(), "last_standings_update": fetch_at.isoformat(), "last_schedule_update": fetch_at.isoformat(), "last_odds_update": fetch_at.isoformat()}, "source": {"name": "Titan007_PUBLIC", "raw_snapshot_id": raw_snapshot_id, "raw_reference": str(raw_csv), "fetch_at": fetch_at.isoformat(), "parser_version": PARSER_VERSION}, "matches": features}
+    payload = {"list_date": list_date, "snapshot_id": feature_snapshot_id, "raw_snapshot_id": raw_snapshot_id, "decision_at": decision_at.isoformat(), "logic_change_at": LOGIC_CHANGE_AT, "implementation_contract_version": "SHARED_FACTS_STATUS_SEPARATION_V1", "calibration_status": CALIBRATION_STATUS, "model_version": MODEL_VERSION, "freshness_check": {"status": freshness_status, "odds_age_hours": round(odds_age_hours, 3), "max_age_hours": 12.0, "last_team_update": fetch_at.isoformat(), "last_standings_update": fetch_at.isoformat(), "last_schedule_update": fetch_at.isoformat(), "last_odds_update": fetch_at.isoformat()}, "source": {"name": "Titan007_PUBLIC", "raw_snapshot_id": raw_snapshot_id, "raw_reference": str(raw_csv), "fetch_at": fetch_at.isoformat(), "parser_version": PARSER_VERSION}, "matches": features}
     target = out_dir / f"{feature_snapshot_id}.json"
     target.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     latest = out_dir / "latest.json"
