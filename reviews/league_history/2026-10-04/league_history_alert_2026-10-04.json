@@ -4,10 +4,9 @@
   "alerts": 20,
   "v3_alerts": 9,
   "v4_alerts": 11,
+  "high_rate_rows": 4,
+  "v3_high_rate_rows": 0,
+  "v4_high_rate_rows": 4,
   "csv": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-04\\RUN_20261004_120710\\reviews\\league_history_alert_2026-10-04.csv",
-  "markdown": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-04\\RUN_20261004_120710\\reviews\\league_history_alert_2026-10-04.md",
-  "status": "PASS",
-  "v3_ledger": "D:\\codex\\技能项目\\football_update\\outputs__from_root\\football_excel_sync_20261003\\football_odds_ledger_delta_conv_updated.xlsx",
-  "v4_ledger": "D:\\codex\\技能项目\\football_update\\outputs__from_root\\football_excel_sync_20261003\\football_odds_ledger_v4_updated.xlsx",
-  "log": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-04\\RUN_20261004_120710\\logs\\league_history_alert.log"
+  "markdown": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-04\\RUN_20261004_120710\\reviews\\league_history_alert_2026-10-04.md"
 }
