@@ -1524,6 +1524,28 @@ When reviewing yesterday's bettable slate or any past-date bettable performance,
 - A later count shrink such as `103 -> 43` is treated as a ledger semantics bug by default. The usual causes are: using grouped stats as match rows, using a historical settled-only detail file as the same-day ledger, filtering out live/finished rows, or rerunning `plannedSkillDecision()` after kickoff. Fix the source selection first; do not reinterpret the smaller count as the real bettable slate.
 - Dashboard `筛选当日可投注赛事`, Excel export, yesterday settlement, and red EV detail must all read the same frozen recommendation identity for started/settled rows: `比赛ID` first, then `日期+比赛`, then snapshot key. They may refresh only result/status/settlement/PnL fields after kickoff.
 
+### V3/V4 Exact-Competition Dynamic History Warning
+
+Every strict daily update must run a separate dynamic historical check for every current-list-date bettable match after the V3 and V4 frozen lists are finalized and before the final chat response. The Excel ledgers are the sole source of truth for the high/low historical-rate labels and ROI shown in the HTML:
+
+- V3 uses the latest `D:\codex\技能项目\football_update\outputs__from_root\football_odds_trader\excel\football_odds_ledger_delta_conv.xlsx` (or the latest explicitly dated equivalent); V4 uses `football_odds_ledger_v4.xlsx` in the same directory. Before publishing each day, both workbooks must be updated and verified through the target `list_date`.
+- Updating a workbook is append/update-only. Preserve sheet names, table ranges, formulas, merged cells, row heights/spacing, fonts, font colors, borders, fills, alignment, number formats, conditional formatting, data validation, hidden sheets, and frozen panes. New rows must inherit the prior data-row formatting. Run `D:\codex\技能项目\football_update\tools\validate_football_history_excel.py` plus a date/row-count and format-consistency validation before HTML generation; do not publish if the Excel latest date is behind the target date or validation fails.
+- The historical cutoff is strictly before the current `list_date`. Current-day rows, including 港联杯 rows on the current list date, are never historical samples. Match history by normalized exact competition name; never pool V3 and V4 or merge similarly named competitions without an explicit canonical mapping.
+- High-risk display is `effective_win_rate >= 55%`; low-risk display is `effective_win_rate < 45%`. The middle band `45% <= rate < 55%` is not a high/low result. A high/low row additionally requires `historical_settled_sample > 8` and an explicit generated `rate_band`/`alert_band`; a blank/NaN effective rate must never qualify as low merely because a UI conversion turns blank into zero.
+- Every displayed match must receive dynamic Excel-derived fields: `historical_settled_sample`, red/half-red/push/half-black/black counts, effective win rate, flat-stake `pnl_1u`, and `roi`. V4 must show these fields in its `历史统计 / ROI` column for ordinary rows as well as triggered rows; zero-sample rows show a normal/unknown state, not a false 0% low-risk label. V3 and V4 keep separate history artifacts.
+
+- Run V3 and V4 independently. Never pool their histories or use one version's performance to label the other.
+- Match history by the normalized exact competition/league name. Do not merge similarly named competitions unless the canonical competition normalizer explicitly maps them to the same official competition.
+- The historical cutoff is strictly before the current `list_date`. Only frozen pre-match selections with confirmed settlements may enter history; current-day later results, post-match recomputations, and unfrozen research rows are excluded.
+- Recompute the settled sample, effective win rate, PnL, and ROI on every run. The values are dynamic: later wins or losses may move a competition across 45% or 55%, so never cache a permanent blacklist/whitelist label.
+- `historical_settled_sample` is the count of settled rows including pushes. Effective win rate is `(红 + 0.5×半红) / (红 + 0.5×半红 + 黑 + 0.5×半黑)`; pushes are excluded from its denominator.
+- Compute flat-stake PnL from the Excel settlement/result and selected-side water, and set `ROI = pnl_1u / historical_settled_sample` when the denominator is positive; retain blank/unknown when there is no sample or no valid settlement input.
+- Trigger a chat-visible high/low label only when `historical_settled_sample > 8` and the effective win rate is in the corresponding band: `>=55%` = `高`, `<45%` = `严重`; `45%-<55%` is neither. The generated band is authoritative for UI filtering; never filter low-risk rows with a bare numeric comparison on a possibly blank field.
+- The warning is an audit/risk notice only. It must not overwrite a frozen direction, line, water, probability, action, grade, or decision time, and it must not automatically flip or veto a match unless a separately validated decision rule authorizes that behavior.
+- The final chat response must list every triggered match separately under V3 and V4 with: Beijing kickoff time, exact competition, historical settled sample, effective win rate, match, selected team, and side. Beijing kickoff time is mandatory on every match line and should use `YYYY-MM-DD HH:MM（北京时间）`; if the source time is unavailable, write `时间待核` rather than omitting the field. If there are no triggers for a version, explicitly write `无触发`.
+- Also write machine-readable and readable artifacts named `league_history_alert_YYYY-MM-DD.csv` and `league_history_alert_YYYY-MM-DD.md` under the run review/output directory. The canonical helper is `D:\codex\tools\build_league_history_alerts.py`.
+- Copy the Excel-derived JSON/CSV/MD artifacts together with the V3/V4 HTML to the GitHub publish tree, commit and push the actual commit, then verify the live GitHub Pages HTML and JSON contain the updated thresholds, per-match history/ROI, and exclusion of non-trigger rows before claiming completion.
+
 ## Guardrails
 
 - Do not recommend offshore or unlicensed betting sites.
@@ -1563,3 +1585,21 @@ This layer freezes version identity without changing the odds model, Bayesian fo
 - Hierarchical shadow backoff is `global -> intent -> line×intent -> micro×line×intent -> competition×line×intent`. Parent posterior means enter child priors through κ; do not duplicate parent observations as child samples. κ must be evaluated chronologically by log loss/calibration, not selected by highest ROI.
 - Weekend, league effect, shadow rank, and rank buckets are research diagnostics only. They must not create or alter formal action, Reverse Alert, risk state, or portfolio Kelly.
 - If forward-valid sample is insufficient, report `INSUFFICIENT_FORWARD_SAMPLE`; never use retro rows to claim model validity.
+
+### Shared Titan Football Data Layer and Fair Line Gate
+
+Before any new V3 or V4 pre-match decision, build exactly one shared snapshot with:
+
+`python -m football_titan_data.cli --raw-csv <scoped_titan_csv> --list-date YYYY-MM-DD`
+
+- The canonical database is `D:\codex\data\football_titan\titan_football.db`; the canonical daily snapshot is `outputs/football_odds_trader/titan_data/feature_store/YYYY-MM-DD/latest.json`.
+- V3 and V4 must receive the same `TITAN_FEATURE_STORE_PATH`. If the shared build fails or the snapshot is missing, stop new decisions and publication; do not let the two models read different facts.
+- Preserve the existing V3 and V4 names, ledgers, decision frameworks, URLs, frozen histories, and real-money flags. This layer is data/context infrastructure, not a new model version.
+- `Fundamental Fair Line (FFL)` must be calculated before reading current/open Asian handicap or water. FFL inputs are AS-OF football facts only: strength, goal model, home/away, schedule, competition/cup state, motivation, and reliable lineup information. Missing inputs remain `NULL/MISSING`.
+- `Consensus Market Fair Line (CMFL)` may use only de-vig 1X2 and O/U. It must not read Asian handicap or water. Preserve FFL, CMFL, consensus, and disagreement separately.
+- Only after FFL/CMFL may the pipeline read Asian lines and prices, calculate a price-adjusted gap, and produce H1 fundamental update, H2 price discovery, H3 public-bias shading, and H4 liquidity-noise scores. `UNKNOWN` and `MIXED` are valid outcomes. A single displayed company is not proof of inducement.
+- V3 consumes shared context before Intent, then continues through its existing competition history, micro/global Bayesian, price, veto, risk, and freeze gates. Shared context must not replace V3 with V4 logic.
+- V4 consumes the same match-specific goal-margin distribution, maps it to W/HW/P/HL/L for both sides, and calculates both EVs. Handicap bucket and Intent remain prior/interpretation fields, never direction commands.
+- All history is AS-OF: `feature_available_at <= decision_at` and `result_available_at <= training_cutoff`. Same-match snapshots stay in one chronological partition; closing line is post-match benchmark only.
+- Calibration remains `FAIR_LINE_UNCALIBRATED` until independent walk-forward evidence is sufficient. Never optimize this layer first for historical ROI.
+- Every run refreshes `TITAN_DB_HEALTH.md`, `FAIR_LINE_MONITOR.md`, normalized table exports, and publishes the shared diagnostics under the existing V4 diagnostics area. HTML match details must show FFL/interval, CMFL, current/open line, price-adjusted gap, Domain/Level, Pull, Market Quality, H1-H4, V3 Intent, V4 dual EV, and final decision where applicable.
