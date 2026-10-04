@@ -11,6 +11,9 @@ WORKSPACE = Path(r"D:\codex")
 ROOT = WORKSPACE / "outputs" / "football_odds_trader"
 PUBLISH_REPO = ROOT / "github_publish" / "odds"
 V3_OUTPUT = WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader"
+V3_LEDGER = WORKSPACE / "技能项目" / "football_update" / "outputs__from_root" / "football_odds_trader" / "excel" / "football_odds_ledger_delta_conv.xlsx"
+V4_LEDGER = WORKSPACE / "技能项目" / "football_update" / "outputs__from_root" / "football_odds_trader" / "excel" / "football_odds_ledger_v4.xlsx"
+EXCEL_VALIDATOR = WORKSPACE / "技能项目" / "football_update" / "tools" / "validate_football_history_excel.py"
 
 
 def latest_file(root: Path, pattern: str) -> Path | None:
@@ -51,6 +54,31 @@ def publish(push: bool = True) -> dict[str, object]:
     if not (PUBLISH_REPO / ".git").exists():
         raise FileNotFoundError(f"publish repo is not a git repo: {PUBLISH_REPO}")
 
+    validation = subprocess.run(
+        [
+            "python",
+            str(EXCEL_VALIDATOR),
+            "--list-date",
+            dt.date.today().isoformat(),
+            "--v3-ledger",
+            str(V3_LEDGER),
+            "--v4-ledger",
+            str(V4_LEDGER),
+        ],
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        timeout=120,
+    )
+    if validation.returncode != 0:
+        return {
+            "copied": [],
+            "committed": False,
+            "pushed": False,
+            "error": "Excel history validation failed: " + (validation.stdout.strip() or validation.stderr.strip()),
+        }
+
     copied: list[str] = []
     pairs = [
         # V3 Legacy and V4 Shadow are separate public pages.  Do not replace
@@ -87,6 +115,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "tools" / "verify_football_daily_delivery.py", PUBLISH_REPO / "tools" / "verify_football_daily_delivery.py"),
         (WORKSPACE / "tools" / "export_today_candidate_intent_xlsx.py", PUBLISH_REPO / "tools" / "export_today_candidate_intent_xlsx.py"),
         (WORKSPACE / "tools" / "publish_football_dashboard_to_github.py", PUBLISH_REPO / "tools" / "publish_football_dashboard_to_github.py"),
+        (EXCEL_VALIDATOR, PUBLISH_REPO / "tools" / "validate_football_history_excel.py"),
         (ROOT / "ledger" / "DATA_STRUCTURE.md", PUBLISH_REPO / "docs" / "DATA_STRUCTURE.md"),
     ]
 
@@ -128,6 +157,15 @@ def publish(push: bool = True) -> dict[str, object]:
         src = latest_file(root, pattern)
         if src:
             pairs.append((src, dst_dir / src.name))
+
+    history_root = ROOT / "reviews" / "league_history"
+    history_dirs = sorted(
+        (path for path in history_root.iterdir() if path.is_dir()),
+        key=lambda path: path.name,
+        reverse=True,
+    ) if history_root.exists() else []
+    if history_dirs:
+        copy_dir(history_dirs[0], PUBLISH_REPO / "reviews" / "league_history" / history_dirs[0].name)
     v4_daily = latest_file(WORKSPACE / "v4" / "outputs", "v4_decisions_*.json")
     if v4_daily:
         pairs.append((v4_daily, PUBLISH_REPO / "v4" / "data" / v4_daily.name.removeprefix("v4_decisions_")))

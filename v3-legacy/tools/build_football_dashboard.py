@@ -4261,7 +4261,7 @@ function historyRateIds() {{
   if (mode === "全部") return null;
   return new Set(historyRateRows
     .filter(x => (x.version || "") === "V3")
-    .filter(x => mode === "high" ? String(x.rate_band || "").startsWith("高：") : Number(x.effective_win_rate) < 0.45)
+    .filter(x => mode === "high" ? String(x.rate_band || "").startsWith("高：") : String(x.rate_band || x.alert_band || "").startsWith("严重："))
     .map(x => String(x.match_id || "")));
 }}
 
