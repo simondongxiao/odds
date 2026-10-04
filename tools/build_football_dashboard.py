@@ -3303,6 +3303,9 @@ def html_doc_v2(
           <input type="checkbox" id="bettableFilter">
           <span>筛选当日可投注赛事</span>
         </label>
+        <label class="rate-filter">历史联赛胜率
+          <select id="historyRateFilter"><option value="全部">全部</option><option value="high">高胜率参考</option><option value="low">低胜率风险</option></select>
+        </label>
       </div>
       <div class="searchbox"><input id="matchSearch" placeholder="搜索中文比赛、联赛、盘口"></div>
       <div class="match-list" id="matchList"></div>
@@ -3368,6 +3371,7 @@ def html_doc_v2(
 <script>
 const cardsData = {js_data(cards)};
 cardsData.forEach((r, idx) => {{ r.__initialIndex = idx; }});
+let historyRateRows = [];
 const stats = {js_data(stats)};
 const defaultDate = "{default_date}";
 const intentMatrixData = stats.intent_matrix || {{tags: [], matrix: [], detail: [], source: "未生成"}};
@@ -4007,6 +4011,29 @@ function bettableFilterEnabled() {{
   return Boolean(document.getElementById("bettableFilter")?.checked);
 }}
 
+function historyRateMode() {{
+  return document.getElementById("historyRateFilter")?.value || "全部";
+}}
+
+function historyRateIds() {{
+  const mode = historyRateMode();
+  if (mode === "全部") return null;
+  const ids = new Set(historyRateRows
+    .filter(x => (x.version || "") === "V3")
+    .filter(x => mode === "high" ? String(x.rate_band || "").startsWith("高：") : String(x.rate_band || "").includes("历史有效胜率"))
+    .filter(x => mode === "high" ? String(x.rate_band || "").startsWith("高：") : String(x.rate_band || "").includes("历史有效胜率") && !String(x.rate_band || "").startsWith("高："))
+    .map(x => String(x.match_id || "")));
+  return ids;
+}}
+
+async function loadHistoryRates(date) {{
+  historyRateRows = [];
+  try {{
+    const response = await fetch(`../reviews/league_history/${{date}}/league_history_alert_${{date}}.json?ts=${{Date.now()}}`);
+    if (response.ok) historyRateRows = (await response.json()).rows || [];
+  }} catch (e) {{ historyRateRows = []; }}
+}}
+
 function plannedSkillDecision(r) {{
   if (r.decision_result) return r.decision_result;
   return {{action:"不投", mode:"none", team:"", reason:"NO_VALID_PREMATCH_DECISION", eligibility:"NO_VALID_PREMATCH_DECISION"}};
@@ -4042,11 +4069,13 @@ function rowsForDate() {{
   const filtered = cardsData
     .filter(r => r.date === d)
     .filter(r => !q || Object.values(r).join(" ").toLowerCase().includes(q));
+  const rateIds = historyRateIds();
+  const rateFiltered = rateIds ? filtered.filter(r => rateIds.has(String(r.match_id || ""))) : filtered;
 
   if (bettableFilterEnabled()) {{
     const latestDate = allDates()[0] || "";
     const isHistorical = Boolean(latestDate && d < latestDate);
-    const frozenRows = isHistorical ? filtered.filter(r => r.frozen_bettable) : [];
+    const frozenRows = isHistorical ? rateFiltered.filter(r => r.frozen_bettable) : [];
     if (frozenRows.length > 0) {{
       return frozenRows.sort((a, b) => {{
         return (kickoffSortValue(a) - kickoffSortValue(b))
@@ -4054,7 +4083,7 @@ function rowsForDate() {{
       }});
     }}
     const shouldRebuildLegacy = isHistorical && frozenRows.length === 0 && legacyComputedBettableDates.has(d);
-    const bettableBase = isHistorical && !shouldRebuildLegacy ? frozenRows : filtered;
+    const bettableBase = isHistorical && !shouldRebuildLegacy ? frozenRows : rateFiltered;
     return bettableBase
       .map(r => ({{ r, decision: plannedSkillDecision(r) }}))
       .filter(x => isBettableDecision(x.decision))
@@ -4070,7 +4099,7 @@ function rowsForDate() {{
       .map(x => x.r);
   }}
 
-  return filtered.sort((a, b) => {{
+  return rateFiltered.sort((a, b) => {{
       return Number(a.__initialIndex || 0) - Number(b.__initialIndex || 0);
     }});
 }}
@@ -4432,16 +4461,17 @@ function init() {{
   renderIntentMatrix();
   renderTagPerformance();
   renderDates();
-  document.getElementById("dateSelect").addEventListener("change", () => renderList());
+  document.getElementById("dateSelect").addEventListener("change", async () => {{ await loadHistoryRates(document.getElementById("dateSelect").value); renderList(); }});
   document.getElementById("matchSearch").addEventListener("input", () => renderList());
   document.getElementById("bettableFilter").addEventListener("change", () => renderList());
+  document.getElementById("historyRateFilter").addEventListener("change", () => renderList());
   window.addEventListener("resize", () => {{
     const rows = rowsForDate();
     const active = document.querySelector(".match-item.active");
     const row = active ? rows[Number(active.dataset.idx)] : null;
     renderMobileDetail(row, active);
   }});
-  renderList();
+  loadHistoryRates(document.getElementById("dateSelect").value).then(() => renderList());
 }}
 
 init();
