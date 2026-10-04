@@ -161,6 +161,24 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(f))
 
 
+def load_shared_titan_features() -> dict[tuple[str, str], dict[str, object]]:
+    """Read immutable shared facts keyed by (list_date, Titan match_id)."""
+    lookup: dict[tuple[str, str], dict[str, object]] = {}
+    root = ROOT / "titan_data" / "feature_store"
+    if not root.exists():
+        return lookup
+    for path in root.glob("*/latest.json"):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        date = str(payload.get("list_date", ""))
+        for match_id, row in (payload.get("matches") or {}).items():
+            if isinstance(row, dict):
+                lookup[(date, str(match_id))] = row
+    return lookup
+
+
 def latest_file(pattern: str, root: Path) -> Path | None:
     files = sorted(root.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
     return files[0] if files else None
@@ -1873,6 +1891,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
     details = detail_lookup()
     flow_overlay = load_flow_overlay()
     frozen_bettable = load_frozen_bettable_lookup()
+    shared_titan = load_shared_titan_features()
     cards = []
     for r in today_rows:
         match = r.get("比赛", "")
@@ -1913,6 +1932,10 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
             or {}
         )
         match_id = str(o.get("match_id", "") or match_id_from_row(r)).strip()
+        titan_context = shared_titan.get((date, match_id), {})
+        titan_ffl = titan_context.get("ffl", {}) if isinstance(titan_context, dict) else {}
+        titan_cmfl = titan_context.get("cmfl", {}) if isinstance(titan_context, dict) else {}
+        titan_market = titan_context.get("market_deviation", {}) if isinstance(titan_context, dict) else {}
         sim_id = str(r.get("模拟ID", "") or "").strip()
         raw_match_key = clean_team(match)
         shown_match_key = clean_team(shown_match)
@@ -2023,6 +2046,24 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "lineup_source": f"球探Lineup：{detail.get('lineup_url','')}" if detail.get("lineup_ok") == "1" else "伤停/首发未核",
                 "motivation_source": detail.get("schedule_context") or "战意/赛制暂无可验证补充资料",
                 "flow_source": flow_source_text,
+                "titan_context_snapshot_id": titan_context.get("snapshot_id", "") if isinstance(titan_context, dict) else "",
+                "competition_domain": titan_context.get("competition_domain", "UNKNOWN") if isinstance(titan_context, dict) else "UNKNOWN",
+                "league_level": titan_context.get("league_level", "UNKNOWN") if isinstance(titan_context, dict) else "UNKNOWN",
+                "Football_Pull_Score": (titan_context.get("football_pull") or {}).get("elo_diff") if isinstance(titan_context, dict) else None,
+                "Public_Pull": (titan_context.get("public_pull_proxy") or {}).get("status", "MISSING") if isinstance(titan_context, dict) else "MISSING",
+                "fair_handicap": titan_ffl.get("fair_handicap") if isinstance(titan_ffl, dict) else None,
+                "fair_handicap_low": titan_ffl.get("fair_handicap_low") if isinstance(titan_ffl, dict) else None,
+                "fair_handicap_high": titan_ffl.get("fair_handicap_high") if isinstance(titan_ffl, dict) else None,
+                "fair_line_status": titan_ffl.get("status", "MISSING") if isinstance(titan_ffl, dict) else "MISSING",
+                "cmfl_margin": titan_cmfl.get("margin") if isinstance(titan_cmfl, dict) else None,
+                "line_gap": (titan_context.get("market") or {}).get("price_adjusted_home_gap_ev") if isinstance(titan_context, dict) else None,
+                "market_interpretation": titan_market.get("interpretation", "UNKNOWN") if isinstance(titan_market, dict) else "UNKNOWN",
+                "market_quality": titan_market.get("market_quality", "UNKNOWN") if isinstance(titan_market, dict) else "UNKNOWN",
+                "market_h1": titan_market.get("h1_fundamental_update") if isinstance(titan_market, dict) else None,
+                "market_h2": titan_market.get("h2_price_discovery") if isinstance(titan_market, dict) else None,
+                "market_h3": titan_market.get("h3_public_bias") if isinstance(titan_market, dict) else None,
+                "market_h4": titan_market.get("h4_liquidity_noise") if isinstance(titan_market, dict) else None,
+                "cup_match_state": titan_context.get("cup_match_state", {}) if isinstance(titan_context, dict) else {},
                 "analyst_source": "未接入/待核：待公共博主/盘口观点交叉验证",
                 "result": translate_text(result),
                 "pnl": r.get("模拟盈亏单位", ""),
@@ -4200,6 +4241,9 @@ function mobileDetailHtml(r) {{
             <div class="kv"><div class="k">伤停/首发</div><div class="v">${{clean(r.lineup)}}<br>${{clean(r.injury)}}</div></div>
             <div class="kv"><div class="k">战意/场景</div><div class="v">${{clean(r.purpose)}}</div></div>
             <div class="kv"><div class="k">盘口拉力</div><div class="v">${{clean(r.pull)}}</div></div>
+            <div class="kv"><div class="k">共享理论盘</div><div class="v">FFL=${{clean(r.fair_handicap)}}（区间 ${{clean(r.fair_handicap_low)}}~${{clean(r.fair_handicap_high)}}）；CMFL=${{clean(r.cmfl_margin)}}；状态=${{clean(r.fair_line_status)}}。</div></div>
+            <div class="kv"><div class="k">共享拉力</div><div class="v">Football Pull（Elo差）=${{clean(r.Football_Pull_Score)}}；Public Pull=${{clean(r.Public_Pull)}}；Domain=${{clean(r.competition_domain)}}；Level=${{clean(r.league_level)}}。</div></div>
+            <div class="kv"><div class="k">市场偏离诊断</div><div class="v">${{clean(r.market_interpretation)}}；质量=${{clean(r.market_quality)}}；H1/H2/H3/H4=${{clean(r.market_h1)}}/${{clean(r.market_h2)}}/${{clean(r.market_h3)}}/${{clean(r.market_h4)}}；price-adjusted gap=${{clean(r.line_gap)}}。</div></div>
             <div class="kv"><div class="k">数据完整性</div><div class="v">${{clean(r.data_complete_status)}}<br>${{clean(r.data_complete_detail)}}</div></div>
             <div class="kv"><div class="k">进球模型核验</div><div class="v">${{clean(r.goal_model_status)}}<br>${{clean(r.goal_model_detail)}}</div></div>
             <div class="kv"><div class="k">欧赔去水</div><div class="v">${{clean(r.euro_devig)}}<br>来源：Titan007即时欧赔；未做跨公司共识时不能单独升级主单。</div></div>
@@ -4289,6 +4333,9 @@ function renderDetail(r) {{
     <div class="kv"><div class="k">伤停/首发</div><div class="v">${{clean(r.lineup)}}<br>${{clean(r.injury)}}</div></div>
     <div class="kv"><div class="k">战意/场景</div><div class="v">${{clean(r.purpose)}}</div></div>
     <div class="kv"><div class="k">盘口拉力</div><div class="v">${{clean(r.pull)}}</div></div>
+    <div class="kv"><div class="k">共享理论盘</div><div class="v">FFL=${{clean(r.fair_handicap)}}（区间 ${{clean(r.fair_handicap_low)}}~${{clean(r.fair_handicap_high)}}）；CMFL=${{clean(r.cmfl_margin)}}；状态=${{clean(r.fair_line_status)}}。</div></div>
+    <div class="kv"><div class="k">共享拉力</div><div class="v">Football Pull（Elo差）=${{clean(r.Football_Pull_Score)}}；Public Pull=${{clean(r.Public_Pull)}}；Domain=${{clean(r.competition_domain)}}；Level=${{clean(r.league_level)}}。</div></div>
+    <div class="kv"><div class="k">市场偏离诊断</div><div class="v">${{clean(r.market_interpretation)}}；质量=${{clean(r.market_quality)}}；H1/H2/H3/H4=${{clean(r.market_h1)}}/${{clean(r.market_h2)}}/${{clean(r.market_h3)}}/${{clean(r.market_h4)}}；price-adjusted gap=${{clean(r.line_gap)}}。</div></div>
     <div class="kv"><div class="k">数据完整性</div><div class="v">${{clean(r.data_complete_status)}}<br>${{clean(r.data_complete_detail)}}</div></div>
     <div class="kv"><div class="k">进球模型核验</div><div class="v">${{clean(r.goal_model_status)}}<br>${{clean(r.goal_model_detail)}}</div></div>
     <div class="kv"><div class="k">欧赔去水</div><div class="v">${{clean(r.euro_devig)}}<br>来源：Titan007即时欧赔；未做跨公司共识时不能单独升级主单。</div></div>

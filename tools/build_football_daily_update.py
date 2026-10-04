@@ -4,6 +4,7 @@ import csv
 import datetime as dt
 import math
 import importlib.util
+import json
 import re
 import sys
 import os
@@ -1272,6 +1273,19 @@ def fundamental_text(row: dict[str, str]) -> str:
         parts.append(f"近况 {short(d.get('recent_form_summary',''), 120)}")
     if d.get("h2h_summary"):
         parts.append(f"H2H {short(d.get('h2h_summary',''), 100)}")
+    shared = row.get("_titan_context") if isinstance(row.get("_titan_context"), dict) else {}
+    ffl = shared.get("ffl") if isinstance(shared.get("ffl"), dict) else {}
+    cmfl = shared.get("cmfl") if isinstance(shared.get("cmfl"), dict) else {}
+    deviation = shared.get("market_deviation") if isinstance(shared.get("market_deviation"), dict) else {}
+    if ffl:
+        parts.append(
+            f"共享FFL {ffl.get('fair_handicap','NA')}（区间 {ffl.get('fair_handicap_low','NA')}~{ffl.get('fair_handicap_high','NA')}，"
+            f"{ffl.get('status','FAIR_LINE_UNCALIBRATED')}）"
+        )
+    if cmfl:
+        parts.append(f"CMFL {cmfl.get('margin','NA')}（仅欧赔去水+大小球）")
+    if deviation:
+        parts.append(f"市场偏离 {deviation.get('interpretation','UNKNOWN')} / 质量 {deviation.get('market_quality','UNKNOWN')}")
     return "；".join(parts)
 
 
@@ -1287,6 +1301,11 @@ def detail_status_line(rows: list[dict[str, str]]) -> str:
 
 def main() -> int:
     snapshot = latest_snapshot()
+    shared_payload: dict[str, object] = {"matches": {}}
+    shared_path = Path(os.environ.get("TITAN_FEATURE_STORE_PATH", "")) if os.environ.get("TITAN_FEATURE_STORE_PATH") else None
+    if shared_path and shared_path.exists():
+        shared_payload = json.loads(shared_path.read_text(encoding="utf-8"))
+    shared_matches = shared_payload.get("matches", {}) if isinstance(shared_payload, dict) else {}
     existing_rows = read_csv(LEDGER) if LEDGER.exists() else []
     details = load_details()
     flow_path, flow_lookup = load_flow_lookup()
@@ -1311,6 +1330,8 @@ def main() -> int:
         and not has_verifiable_market(r)
     ]
     rows = [r for r in all_snapshot_rows if eligible_competitive_row(r)]
+    for r in rows:
+        r["_titan_context"] = shared_matches.get(str(r.get("match_id", "")), {}) if isinstance(shared_matches, dict) else {}
     history_files = [
         p for p in (
             ROOT / "ledger" / f"asian_intent_history_summary_*.csv",
@@ -1373,6 +1394,8 @@ def main() -> int:
     lines.append(f"# {TODAY.isoformat()} 严格按 skill 更新（Titan007赔率快照）")
     lines.append("")
     lines.append(f"- 快照文件：`{snapshot}`")
+    lines.append(f"- V3/V4共享事实快照：`{shared_path or '未接入'}`；snapshot_id=`{shared_payload.get('snapshot_id','') if isinstance(shared_payload, dict) else ''}`。")
+    lines.append("- 共享层顺序：Titan事实 → FFL/CMFL → 市场偏离诊断 → V3 Intent；理论盘不读取当前亚洲盘或水位。")
     lines.append(f"- prior_snapshot_id：`{prior['prior_snapshot_id']}`；同一列表日后续刷新复用该先验。")
     lines.append(f"- unified decision writer：created={decision_write.get('created', 0)} skipped_started={decision_write.get('skipped', 0)} source=`{decision_write.get('source', '')}`")
     lines.append(f"- 列表日字段：优先使用 `list_date={TODAY.isoformat()}`；不再按自然日重复纳入前一列表日凌晨比赛。")

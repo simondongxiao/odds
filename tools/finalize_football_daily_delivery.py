@@ -11,8 +11,10 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import run_football_update as daily
+WORKSPACE_ROOT = Path(r"D:\codex")
+sys.path.insert(0, str(WORKSPACE_ROOT / "技能项目"))
+sys.path.insert(0, str(WORKSPACE_ROOT))
+from football_update import run_football_update as daily
 from write_dual_yesterday_performance import raw_result_map, settle_v3, settle_v4, summarize
 
 ROOT = Path(r"D:\codex")
