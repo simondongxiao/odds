@@ -735,16 +735,22 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_updated_at": "2026-10-04T14:45:55.276582+08:00",
-      "result": "HW",
-      "pnl_1u": 0.47,
+      "result": "W",
+      "pnl_1u": 0.94,
       "settlement": {
         "score": "0-2",
-        "result": "HW",
-        "pnl_1u": 0.47,
+        "result": "W",
+        "pnl_1u": 0.94,
         "status": "SETTLED",
         "result_state": "-1",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-04T14:45:55.276582+08:00"
+        "updated_at": "2026-10-04T17:40:52.858535+08:00",
+        "correction": {
+          "reason": "亚洲盘收盘结算校正：按原始比分、盘口方向和原始水位重算",
+          "previous_result": "HW",
+          "previous_pnl_1u": 0.47,
+          "corrected_at": "2026-10-04T17:40:52.858535+08:00"
+        }
       }
     },
     {
@@ -2656,16 +2662,22 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_updated_at": "2026-10-04T14:45:55.276582+08:00",
-      "result": "HL",
-      "pnl_1u": -0.5,
+      "result": "L",
+      "pnl_1u": -1.0,
       "settlement": {
         "score": "0-2",
-        "result": "HL",
-        "pnl_1u": -0.5,
+        "result": "L",
+        "pnl_1u": -1.0,
         "status": "SETTLED",
         "result_state": "-1",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-04T14:45:55.276582+08:00"
+        "updated_at": "2026-10-04T17:40:52.858535+08:00",
+        "correction": {
+          "reason": "亚洲盘收盘结算校正：按原始比分、盘口方向和原始水位重算",
+          "previous_result": "HL",
+          "previous_pnl_1u": -0.5,
+          "corrected_at": "2026-10-04T17:40:52.858535+08:00"
+        }
       }
     },
     {
@@ -4088,16 +4100,22 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_updated_at": "2026-10-04T14:45:55.276582+08:00",
-      "result": "HL",
-      "pnl_1u": -0.5,
+      "result": "L",
+      "pnl_1u": -1.0,
       "settlement": {
         "score": "0-3",
-        "result": "HL",
-        "pnl_1u": -0.5,
+        "result": "L",
+        "pnl_1u": -1.0,
         "status": "SETTLED",
         "result_state": "-1",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-04T14:45:55.276582+08:00"
+        "updated_at": "2026-10-04T17:40:52.858535+08:00",
+        "correction": {
+          "reason": "亚洲盘收盘结算校正：按原始比分、盘口方向和原始水位重算",
+          "previous_result": "HL",
+          "previous_pnl_1u": -0.5,
+          "corrected_at": "2026-10-04T17:40:52.858535+08:00"
+        }
       }
     },
     {
@@ -4712,16 +4730,22 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_updated_at": "2026-10-04T14:45:55.276582+08:00",
-      "result": "HW",
-      "pnl_1u": 0.41,
+      "result": "W",
+      "pnl_1u": 0.82,
       "settlement": {
         "score": "3-1",
-        "result": "HW",
-        "pnl_1u": 0.41,
+        "result": "W",
+        "pnl_1u": 0.82,
         "status": "SETTLED",
         "result_state": "-1",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-04T14:45:55.276582+08:00"
+        "updated_at": "2026-10-04T17:40:52.858535+08:00",
+        "correction": {
+          "reason": "亚洲盘收盘结算校正：按原始比分、盘口方向和原始水位重算",
+          "previous_result": "HW",
+          "previous_pnl_1u": 0.41,
+          "corrected_at": "2026-10-04T17:40:52.858535+08:00"
+        }
       }
     },
     {
@@ -5336,16 +5360,22 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_updated_at": "2026-10-04T14:45:55.276582+08:00",
-      "result": "HW",
-      "pnl_1u": 0.46,
+      "result": "W",
+      "pnl_1u": 0.92,
       "settlement": {
         "score": "1-1",
-        "result": "HW",
-        "pnl_1u": 0.46,
+        "result": "W",
+        "pnl_1u": 0.92,
         "status": "SETTLED",
         "result_state": "-1",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-04T14:45:55.276582+08:00"
+        "updated_at": "2026-10-04T17:40:52.858535+08:00",
+        "correction": {
+          "reason": "亚洲盘收盘结算校正：按原始比分、盘口方向和原始水位重算",
+          "previous_result": "HW",
+          "previous_pnl_1u": 0.46,
+          "corrected_at": "2026-10-04T17:40:52.858535+08:00"
+        }
       }
     },
     {
@@ -5960,16 +5990,22 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_updated_at": "2026-10-04T14:45:55.276582+08:00",
-      "result": "HW",
-      "pnl_1u": 0.38,
+      "result": "W",
+      "pnl_1u": 0.76,
       "settlement": {
         "score": "2-1",
-        "result": "HW",
-        "pnl_1u": 0.38,
+        "result": "W",
+        "pnl_1u": 0.76,
         "status": "SETTLED",
         "result_state": "-1",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-04T14:45:55.276582+08:00"
+        "updated_at": "2026-10-04T17:40:52.858535+08:00",
+        "correction": {
+          "reason": "亚洲盘收盘结算校正：按原始比分、盘口方向和原始水位重算",
+          "previous_result": "HW",
+          "previous_pnl_1u": 0.38,
+          "corrected_at": "2026-10-04T17:40:52.858535+08:00"
+        }
       }
     },
     {
@@ -7878,16 +7914,22 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
       "score_updated_at": "2026-10-04T14:45:55.276582+08:00",
-      "result": "HW",
-      "pnl_1u": 0.4,
+      "result": "W",
+      "pnl_1u": 0.8,
       "settlement": {
         "score": "2-1",
-        "result": "HW",
-        "pnl_1u": 0.4,
+        "result": "W",
+        "pnl_1u": 0.8,
         "status": "SETTLED",
         "result_state": "-1",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261004\\20261004_135431_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-04T14:45:55.276582+08:00"
+        "updated_at": "2026-10-04T17:40:52.858535+08:00",
+        "correction": {
+          "reason": "亚洲盘收盘结算校正：按原始比分、盘口方向和原始水位重算",
+          "previous_result": "HW",
+          "previous_pnl_1u": 0.4,
+          "corrected_at": "2026-10-04T17:40:52.858535+08:00"
+        }
       }
     },
     {

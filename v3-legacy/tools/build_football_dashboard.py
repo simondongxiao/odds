@@ -3366,6 +3366,26 @@ def html_doc_v2(
       line-height: 1.55;
       overflow-wrap: anywhere;
     }}
+    .history-rate-alert {{
+      margin: 8px 0;
+      padding: 8px 10px;
+      border: 1px solid #f0a0a0;
+      background: #fff5f5;
+      color: #9d1c1c;
+      line-height: 1.5;
+    }}
+    .history-rate-alert strong {{ color: #b71c1c; }}
+    .history-rate-alert .muted {{ color: #a94442; font-weight: 600; }}
+    .history-rate-alert {{
+      margin: 8px 0;
+      padding: 8px 10px;
+      border: 1px solid #f0a0a0;
+      background: #fff5f5;
+      color: #9d1c1c;
+      line-height: 1.5;
+    }}
+    .history-rate-alert strong {{ color: #b71c1c; }}
+    .history-rate-alert .muted {{ color: #a94442; font-weight: 600; }}
     .intent-ev-badge {{
       margin-top: 8px;
       padding: 7px 8px;
@@ -4241,7 +4261,7 @@ function historyRateIds() {{
   if (mode === "全部") return null;
   return new Set(historyRateRows
     .filter(x => (x.version || "") === "V3")
-    .filter(x => mode === "high" ? String(x.rate_band || "").startsWith("高：") : String(x.rate_band || "").includes("历史有效胜率") && !String(x.rate_band || "").startsWith("高："))
+    .filter(x => mode === "high" ? String(x.rate_band || "").startsWith("高：") : Number(x.effective_win_rate) < 0.45)
     .map(x => String(x.match_id || "")));
 }}
 
@@ -4251,6 +4271,21 @@ async function loadHistoryRates(date) {{
     const response = await fetch(`../reviews/league_history/${{date}}/league_history_alert_${{date}}.json?ts=${{Date.now()}}`);
     if (response.ok) historyRateRows = (await response.json()).rows || [];
   }} catch (e) {{ historyRateRows = []; }}
+}}
+
+function historyRateAlertHtml(r) {{
+  const rows = historyRateRows
+    .filter(x => String(x.version || "") === "V3")
+    .filter(x => String(x.match_id || "") === String(r.match_id || ""))
+    .filter(x => String(x.rate_band || x.alert_band || ""));
+  if (!rows.length) return "";
+  return `<div class="history-rate-alert"><strong>历史同名联赛胜率（动态）</strong><br>${{rows.map(x => {{
+    const side = x.market_side === "upper" ? "上盘" : x.market_side === "receiving" ? "下盘" : (x.market_side || "方向待核");
+    const band = x.rate_band || x.alert_band || "历史风险提示";
+    const pnl = x.pnl_1u === "" || x.pnl_1u == null ? "PnL 待核" : `PnL ${{Number(x.pnl_1u) >= 0 ? "+" : ""}}${{Number(x.pnl_1u).toFixed(2)}}U`;
+    const roi = x.roi === "" || x.roi == null ? "ROI 待核" : `ROI ${{pct(Number(x.roi))}}`;
+    return `${{clean(x.competition || r.league)}}｜近期${{x.historical_settled_sample ?? 0}}场｜红/半红/走/半黑/黑 ${{x.红 ?? 0}}/${{x.半红 ?? 0}}/${{x.走 ?? 0}}/${{x.半黑 ?? 0}}/${{x.黑 ?? 0}}｜有效胜率 ${{pct(Number(x.effective_win_rate))}}｜${{side}}：${{clean(x.selected_team || "方向待核")}}｜${{clean(band)}}｜${{pnl}}｜${{roi}}`;
+  }}).join("<br>")}}<br><span class="muted">口径：同名赛事、样本截止当前列表日前；高胜率≥55%，低胜率&lt;45%；45%-&lt;55%不纳入高低胜率列表。</span></div>`;
 }}
 
 function cupRegressionDecision(r, proposal) {{
@@ -4645,7 +4680,7 @@ function renderDetail(r) {{
   document.getElementById("marketTag").textContent = r.odds_status || (r.matched_odds ? "Titan007部分赔率已匹配" : "赔率待核");
   document.getElementById("oddsTable").innerHTML = oddsRows(r);
   document.getElementById("pickBox").innerHTML =
-    `<div class="intent-ev-badge">${{intentEvBadge(r)}}</div>`;
+    `${{historyRateAlertHtml(r)}}<div class="intent-ev-badge">${{intentEvBadge(r)}}</div>`;
 
   document.getElementById("historyBox").innerHTML = `
     <div class="kv"><div class="k">双方历史战绩</div><div class="v">${{clean(r.h2h_source)}}</div></div>
