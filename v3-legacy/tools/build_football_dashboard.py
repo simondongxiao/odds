@@ -4369,6 +4369,12 @@ function rowsForDate() {{
     }});
 }}
 
+function isAbnormalCard(r) {{
+  const s = String(r.state || "");
+  return ["-10", "-11", "-12", "-13", "-14"].includes(s)
+    || ["取消", "延期", "取消/延期", "中止", "中断", "中止/中断"].includes(String(r.display_status || ""));
+}}
+
 function rankedRowsForDateLegacy() {{
   const d = document.getElementById("dateSelect").value;
   const q = document.getElementById("matchSearch").value.trim().toLowerCase();
@@ -4406,7 +4412,8 @@ function renderList(selectedMatch = null) {{
   const isShortBettableList = onlyBettable && rows.length > 0 && rows.length <= 8;
   if (left) left.classList.toggle("short-list", isShortBettableList);
   list.scrollTop = 0;
-  document.getElementById("dateCount").textContent = onlyBettable ? `${{rows.length}} 场可投` : `${{rows.length}} 场`;
+  const activeCount = rows.filter(r => !isAbnormalCard(r)).length;
+  document.getElementById("dateCount").textContent = onlyBettable ? `${{rows.length}} 场可投` : `${{activeCount}} 场（取消/延期不计）`;
   if (!rows.length) {{
     if (left) left.classList.remove("short-list");
     list.innerHTML = onlyBettable
