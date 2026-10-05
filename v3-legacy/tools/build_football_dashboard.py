@@ -4374,15 +4374,19 @@ function rowsForDate() {{
   const rateFiltered = rateIds ? filtered.filter(r => rateIds.has(String(r.match_id || ""))) : filtered;
 
   if (bettableFilterEnabled()) {{
-    const latestDate = allDates()[0] || "";
-    const isHistorical = Boolean(latestDate && d < latestDate);
-    const frozenRows = isHistorical ? rateFiltered.filter(r => r.frozen_bettable) : [];
+    // V3 is the production authority: once a daily decision is frozen, the
+    // filter must display that decision verbatim for both current and old
+    // list dates. Recomputing the newest date in the browser could turn a
+    // valid backend bettable row into an apparent zero after a refresh.
+    const frozenRows = rateFiltered.filter(r => r.frozen_bettable || isBettableDecision(r.saved_skill_decision));
     if (frozenRows.length > 0) {{
       return frozenRows.sort((a, b) => {{
         return (kickoffSortValue(a) - kickoffSortValue(b))
           || String(a.display_match).localeCompare(String(b.display_match), "zh-Hans-CN");
       }});
     }}
+    const latestDate = allDates()[0] || "";
+    const isHistorical = Boolean(latestDate && d < latestDate);
     const shouldRebuildLegacy = isHistorical && frozenRows.length === 0 && legacyComputedBettableDates.has(d);
     const bettableBase = isHistorical && !shouldRebuildLegacy ? frozenRows : rateFiltered;
     return bettableBase
