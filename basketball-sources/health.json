@@ -4,8 +4,8 @@
     "error_type": "URLError",
     "key": "page",
     "ok": false,
-    "received_at": "2026-10-05T00:30:17.670102+00:00",
-    "started_at": "2026-10-05T00:30:05.646119+00:00",
+    "received_at": "2026-10-05T00:53:20.930897+00:00",
+    "started_at": "2026-10-05T00:53:08.877863+00:00",
     "url": "https://basket.7m.com.cn/free_gb.aspx"
   },
   {
@@ -13,8 +13,8 @@
     "error_type": "URLError",
     "key": "today",
     "ok": false,
-    "received_at": "2026-10-05T00:30:17.670636+00:00",
-    "started_at": "2026-10-05T00:30:05.656119+00:00",
+    "received_at": "2026-10-05T00:53:20.899127+00:00",
+    "started_at": "2026-10-05T00:53:08.877863+00:00",
     "url": "https://js-basket.7m.com.cn/datafile/today.js"
   },
   {
@@ -22,74 +22,74 @@
     "error_type": "URLError",
     "key": "titan_schedule",
     "ok": false,
-    "received_at": "2026-10-05T00:30:29.680644+00:00",
+    "received_at": "2026-10-05T00:53:32.949135+00:00",
     "source": "titan007_nba",
     "source_group": "odds_board_and_schedule",
-    "started_at": "2026-10-05T00:30:17.673633+00:00",
-    "url": "https://lq3.titan007.com/NBA/today2.xml?t=1791160217673"
+    "started_at": "2026-10-05T00:53:20.935118+00:00",
+    "url": "https://lq3.titan007.com/NBA/today2.xml?t=1791161600934"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "titan_odds_1",
     "ok": false,
-    "received_at": "2026-10-05T00:30:29.680644+00:00",
+    "received_at": "2026-10-05T00:53:32.948516+00:00",
     "source": "titan007_nba",
     "source_group": "odds_board_and_schedule",
-    "started_at": "2026-10-05T00:30:17.674630+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal1.xml?t=1791160217673"
+    "started_at": "2026-10-05T00:53:20.935118+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal1.xml?t=1791161600934"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "titan_odds_2",
     "ok": false,
-    "received_at": "2026-10-05T00:30:29.680644+00:00",
+    "received_at": "2026-10-05T00:53:32.964624+00:00",
     "source": "titan007_nba",
     "source_group": "odds_board_and_schedule",
-    "started_at": "2026-10-05T00:30:17.675223+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal2.xml?t=1791160217673"
+    "started_at": "2026-10-05T00:53:20.936162+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal2.xml?t=1791161600934"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "titan_odds_3",
     "ok": false,
-    "received_at": "2026-10-05T00:30:29.711304+00:00",
+    "received_at": "2026-10-05T00:53:32.964624+00:00",
     "source": "titan007_nba",
     "source_group": "odds_board_and_schedule",
-    "started_at": "2026-10-05T00:30:17.675726+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal3.xml?t=1791160217673"
+    "started_at": "2026-10-05T00:53:20.936963+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal3.xml?t=1791161600934"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "titan_odds_8",
     "ok": false,
-    "received_at": "2026-10-05T00:30:41.689657+00:00",
+    "received_at": "2026-10-05T00:53:44.961253+00:00",
     "source": "titan007_nba",
     "source_group": "odds_board_and_schedule",
-    "started_at": "2026-10-05T00:30:29.680644+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal8.xml?t=1791160217673"
+    "started_at": "2026-10-05T00:53:32.948516+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal8.xml?t=1791161600934"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "titan_odds_9",
     "ok": false,
-    "received_at": "2026-10-05T00:30:41.689657+00:00",
+    "received_at": "2026-10-05T00:53:44.961253+00:00",
     "source": "titan007_nba",
     "source_group": "odds_board_and_schedule",
-    "started_at": "2026-10-05T00:30:29.680644+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal9.xml?t=1791160217673"
+    "started_at": "2026-10-05T00:53:32.949135+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal9.xml?t=1791161600934"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "event_20261004_S2_fgb1",
     "ok": false,
-    "received_at": "2026-10-05T00:30:53.715689+00:00",
-    "started_at": "2026-10-05T00:30:41.694146+00:00",
+    "received_at": "2026-10-05T00:53:57.062273+00:00",
+    "started_at": "2026-10-05T00:53:45.052512+00:00",
     "url": "https://bdata.7m.com.cn/datafile/20261004/S2_fgb1.js"
   },
   {
@@ -97,8 +97,8 @@
     "error_type": "URLError",
     "key": "event_20261004_fgb1",
     "ok": false,
-    "received_at": "2026-10-05T00:30:53.700207+00:00",
-    "started_at": "2026-10-05T00:30:41.695143+00:00",
+    "received_at": "2026-10-05T00:53:57.077718+00:00",
+    "started_at": "2026-10-05T00:53:45.053506+00:00",
     "url": "https://bdata.7m.com.cn/datafile/20261004/fgb1.js"
   },
   {
@@ -106,8 +106,8 @@
     "error_type": "URLError",
     "key": "event_20261005_S2_fgb1",
     "ok": false,
-    "received_at": "2026-10-05T00:30:53.700712+00:00",
-    "started_at": "2026-10-05T00:30:41.695143+00:00",
+    "received_at": "2026-10-05T00:53:57.062869+00:00",
+    "started_at": "2026-10-05T00:53:45.054122+00:00",
     "url": "https://bdata.7m.com.cn/datafile/20261005/S2_fgb1.js"
   },
   {
@@ -115,8 +115,8 @@
     "error_type": "URLError",
     "key": "event_20261005_fgb1",
     "ok": false,
-    "received_at": "2026-10-05T00:30:53.731553+00:00",
-    "started_at": "2026-10-05T00:30:41.696139+00:00",
+    "received_at": "2026-10-05T00:53:57.063374+00:00",
+    "started_at": "2026-10-05T00:53:45.054592+00:00",
     "url": "https://bdata.7m.com.cn/datafile/20261005/fgb1.js"
   },
   {
@@ -124,8 +124,8 @@
     "error_type": "URLError",
     "key": "event_20261006_S2_fgb1",
     "ok": false,
-    "received_at": "2026-10-05T00:31:05.716263+00:00",
-    "started_at": "2026-10-05T00:30:53.700207+00:00",
+    "received_at": "2026-10-05T00:54:09.068432+00:00",
+    "started_at": "2026-10-05T00:53:57.062273+00:00",
     "url": "https://bdata.7m.com.cn/datafile/20261006/S2_fgb1.js"
   },
   {
@@ -133,8 +133,8 @@
     "error_type": "URLError",
     "key": "event_20261006_fgb1",
     "ok": false,
-    "received_at": "2026-10-05T00:31:05.716768+00:00",
-    "started_at": "2026-10-05T00:30:53.700712+00:00",
+    "received_at": "2026-10-05T00:54:09.068432+00:00",
+    "started_at": "2026-10-05T00:53:57.062869+00:00",
     "url": "https://bdata.7m.com.cn/datafile/20261006/fgb1.js"
   },
   {
@@ -142,8 +142,8 @@
     "error_type": "URLError",
     "key": "odds_company_0",
     "ok": false,
-    "received_at": "2026-10-05T00:31:05.731725+00:00",
-    "started_at": "2026-10-05T00:30:53.715689+00:00",
+    "received_at": "2026-10-05T00:54:09.068432+00:00",
+    "started_at": "2026-10-05T00:53:57.063374+00:00",
     "url": "https://js-basket.7m.com.cn/odds/comlive_0.js"
   },
   {
@@ -151,8 +151,8 @@
     "error_type": "URLError",
     "key": "odds_company_1",
     "ok": false,
-    "received_at": "2026-10-05T00:31:05.747336+00:00",
-    "started_at": "2026-10-05T00:30:53.731553+00:00",
+    "received_at": "2026-10-05T00:54:09.083637+00:00",
+    "started_at": "2026-10-05T00:53:57.077718+00:00",
     "url": "https://js-basket.7m.com.cn/odds/comlive_4.js"
   },
   {
@@ -160,8 +160,8 @@
     "error_type": "URLError",
     "key": "odds_company_2",
     "ok": false,
-    "received_at": "2026-10-05T00:31:17.731964+00:00",
-    "started_at": "2026-10-05T00:31:05.716263+00:00",
+    "received_at": "2026-10-05T00:54:21.079474+00:00",
+    "started_at": "2026-10-05T00:54:09.068432+00:00",
     "url": "https://js-basket.7m.com.cn/odds/comlive_2.js"
   },
   {
@@ -169,8 +169,8 @@
     "error_type": "URLError",
     "key": "odds_company_3",
     "ok": false,
-    "received_at": "2026-10-05T00:31:17.731964+00:00",
-    "started_at": "2026-10-05T00:31:05.716768+00:00",
+    "received_at": "2026-10-05T00:54:21.079980+00:00",
+    "started_at": "2026-10-05T00:54:09.068432+00:00",
     "url": "https://js-basket.7m.com.cn/odds/comlive_3.js"
   },
   {
@@ -178,8 +178,8 @@
     "error_type": "URLError",
     "key": "odds_company_4",
     "ok": false,
-    "received_at": "2026-10-05T00:31:17.747930+00:00",
-    "started_at": "2026-10-05T00:31:05.731725+00:00",
+    "received_at": "2026-10-05T00:54:21.079474+00:00",
+    "started_at": "2026-10-05T00:54:09.068432+00:00",
     "url": "https://js-basket.7m.com.cn/odds/comlive_1.js"
   },
   {
@@ -187,186 +187,186 @@
     "error_type": "URLError",
     "key": "closing_titan_odds_1",
     "ok": false,
-    "received_at": "2026-10-05T00:31:35.688978+00:00",
-    "started_at": "2026-10-05T00:31:23.671029+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal1.xml?t=1791160283671"
+    "received_at": "2026-10-05T00:54:38.507953+00:00",
+    "started_at": "2026-10-05T00:54:26.472114+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal1.xml?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_titan_odds_2",
     "ok": false,
-    "received_at": "2026-10-05T00:31:35.687981+00:00",
-    "started_at": "2026-10-05T00:31:23.671029+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal2.xml?t=1791160283671"
+    "received_at": "2026-10-05T00:54:38.476757+00:00",
+    "started_at": "2026-10-05T00:54:26.473142+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal2.xml?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_titan_odds_3",
     "ok": false,
-    "received_at": "2026-10-05T00:31:35.687981+00:00",
-    "started_at": "2026-10-05T00:31:23.671029+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal3.xml?t=1791160283671"
+    "received_at": "2026-10-05T00:54:38.476202+00:00",
+    "started_at": "2026-10-05T00:54:26.473573+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal3.xml?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_titan_odds_8",
     "ok": false,
-    "received_at": "2026-10-05T00:31:35.687981+00:00",
-    "started_at": "2026-10-05T00:31:23.671029+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal8.xml?t=1791160283671"
+    "received_at": "2026-10-05T00:54:38.477232+00:00",
+    "started_at": "2026-10-05T00:54:26.474088+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal8.xml?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_titan_odds_9",
     "ok": false,
-    "received_at": "2026-10-05T00:31:47.700593+00:00",
-    "started_at": "2026-10-05T00:31:35.687981+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal9.xml?t=1791160283671"
+    "received_at": "2026-10-05T00:54:50.484145+00:00",
+    "started_at": "2026-10-05T00:54:38.476202+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal9.xml?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_7m_odds_0",
     "ok": false,
-    "received_at": "2026-10-05T00:31:47.700593+00:00",
-    "started_at": "2026-10-05T00:31:35.687981+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_0.js?t=1791160283671"
+    "received_at": "2026-10-05T00:54:50.484472+00:00",
+    "started_at": "2026-10-05T00:54:38.476757+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_0.js?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_7m_odds_1",
     "ok": false,
-    "received_at": "2026-10-05T00:31:47.716058+00:00",
-    "started_at": "2026-10-05T00:31:35.687981+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_4.js?t=1791160283671"
+    "received_at": "2026-10-05T00:54:50.499658+00:00",
+    "started_at": "2026-10-05T00:54:38.477232+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_4.js?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_7m_odds_2",
     "ok": false,
-    "received_at": "2026-10-05T00:31:47.716058+00:00",
-    "started_at": "2026-10-05T00:31:35.688978+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_2.js?t=1791160283671"
+    "received_at": "2026-10-05T00:54:50.531002+00:00",
+    "started_at": "2026-10-05T00:54:38.507953+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_2.js?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_7m_odds_3",
     "ok": false,
-    "received_at": "2026-10-05T00:31:59.710833+00:00",
-    "started_at": "2026-10-05T00:31:47.700593+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_3.js?t=1791160283671"
+    "received_at": "2026-10-05T00:55:02.489163+00:00",
+    "started_at": "2026-10-05T00:54:50.484145+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_3.js?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "closing_7m_odds_4",
     "ok": false,
-    "received_at": "2026-10-05T00:31:59.710833+00:00",
-    "started_at": "2026-10-05T00:31:47.700593+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_1.js?t=1791160283671"
+    "received_at": "2026-10-05T00:55:02.504507+00:00",
+    "started_at": "2026-10-05T00:54:50.484472+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_1.js?t=1791161666472"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_titan_odds_1",
     "ok": false,
-    "received_at": "2026-10-05T00:32:33.845356+00:00",
-    "started_at": "2026-10-05T00:32:21.841866+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal1.xml?t=1791160341841"
+    "received_at": "2026-10-05T00:55:23.980188+00:00",
+    "started_at": "2026-10-05T00:55:11.975835+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal1.xml?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_titan_odds_2",
     "ok": false,
-    "received_at": "2026-10-05T00:32:33.860697+00:00",
-    "started_at": "2026-10-05T00:32:21.842851+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal2.xml?t=1791160341841"
+    "received_at": "2026-10-05T00:55:24.011680+00:00",
+    "started_at": "2026-10-05T00:55:11.975835+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal2.xml?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_titan_odds_3",
     "ok": false,
-    "received_at": "2026-10-05T00:32:33.845356+00:00",
-    "started_at": "2026-10-05T00:32:21.843849+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal3.xml?t=1791160341841"
+    "received_at": "2026-10-05T00:55:23.980188+00:00",
+    "started_at": "2026-10-05T00:55:11.976831+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal3.xml?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_titan_odds_8",
     "ok": false,
-    "received_at": "2026-10-05T00:32:33.846354+00:00",
-    "started_at": "2026-10-05T00:32:21.843849+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal8.xml?t=1791160341841"
+    "received_at": "2026-10-05T00:55:24.011680+00:00",
+    "started_at": "2026-10-05T00:55:11.976831+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal8.xml?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_titan_odds_9",
     "ok": false,
-    "received_at": "2026-10-05T00:32:45.862546+00:00",
-    "started_at": "2026-10-05T00:32:33.845356+00:00",
-    "url": "https://lq3.titan007.com/NBA/nbaGoal9.xml?t=1791160341841"
+    "received_at": "2026-10-05T00:55:36.003480+00:00",
+    "started_at": "2026-10-05T00:55:23.980188+00:00",
+    "url": "https://lq3.titan007.com/NBA/nbaGoal9.xml?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_7m_odds_0",
     "ok": false,
-    "received_at": "2026-10-05T00:32:45.861524+00:00",
-    "started_at": "2026-10-05T00:32:33.845356+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_0.js?t=1791160341841"
+    "received_at": "2026-10-05T00:55:36.003035+00:00",
+    "started_at": "2026-10-05T00:55:23.980188+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_0.js?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_7m_odds_1",
     "ok": false,
-    "received_at": "2026-10-05T00:32:45.862034+00:00",
-    "started_at": "2026-10-05T00:32:33.846354+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_4.js?t=1791160341841"
+    "received_at": "2026-10-05T00:55:36.034271+00:00",
+    "started_at": "2026-10-05T00:55:24.011680+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_4.js?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_7m_odds_2",
     "ok": false,
-    "received_at": "2026-10-05T00:32:45.876786+00:00",
-    "started_at": "2026-10-05T00:32:33.861257+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_2.js?t=1791160341841"
+    "received_at": "2026-10-05T00:55:36.034271+00:00",
+    "started_at": "2026-10-05T00:55:24.012274+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_2.js?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_7m_odds_3",
     "ok": false,
-    "received_at": "2026-10-05T00:32:57.886293+00:00",
-    "started_at": "2026-10-05T00:32:45.861524+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_3.js?t=1791160341841"
+    "received_at": "2026-10-05T00:55:48.023855+00:00",
+    "started_at": "2026-10-05T00:55:36.003035+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_3.js?t=1791161711974"
   },
   {
     "error": "<urlopen error _ssl.c:993: The handshake operation timed out>",
     "error_type": "URLError",
     "key": "post_history_7m_odds_4",
     "ok": false,
-    "received_at": "2026-10-05T00:32:57.885878+00:00",
-    "started_at": "2026-10-05T00:32:45.862034+00:00",
-    "url": "https://js-basket.7m.com.cn/odds/comlive_1.js?t=1791160341841"
+    "received_at": "2026-10-05T00:55:48.008536+00:00",
+    "started_at": "2026-10-05T00:55:36.003480+00:00",
+    "url": "https://js-basket.7m.com.cn/odds/comlive_1.js?t=1791161711974"
   },
   {
     "attempted": true,
-    "captured_at": "2026-10-05T08:31:19.103120+08:00",
+    "captured_at": "2026-10-05T08:54:22.209242+08:00",
     "event_count": 5,
-    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T003117_761324e0",
+    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T005421_2b015470",
     "source": "espn:nba",
     "source_group": "broad",
     "status": "success",
@@ -375,9 +375,9 @@
   },
   {
     "attempted": true,
-    "captured_at": "2026-10-05T08:31:20.120015+08:00",
+    "captured_at": "2026-10-05T08:54:23.195079+08:00",
     "event_count": 0,
-    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T003117_761324e0",
+    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T005421_2b015470",
     "source": "espn:wnba",
     "source_group": "broad",
     "status": "empty_valid_response",
@@ -386,9 +386,9 @@
   },
   {
     "attempted": true,
-    "captured_at": "2026-10-05T08:31:21.310257+08:00",
+    "captured_at": "2026-10-05T08:54:24.176999+08:00",
     "event_count": 0,
-    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T003117_761324e0",
+    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T005421_2b015470",
     "source": "espn:mens-college-basketball",
     "source_group": "broad",
     "status": "empty_valid_response",
@@ -397,9 +397,9 @@
   },
   {
     "attempted": true,
-    "captured_at": "2026-10-05T08:31:22.539152+08:00",
+    "captured_at": "2026-10-05T08:54:25.345724+08:00",
     "event_count": 0,
-    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T003117_761324e0",
+    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T005421_2b015470",
     "source": "espn:womens-college-basketball",
     "source_group": "broad",
     "status": "empty_valid_response",
@@ -408,11 +408,11 @@
   },
   {
     "attempted": true,
-    "captured_at": "2026-10-05T08:31:22.923375+08:00",
+    "captured_at": "2026-10-05T08:54:25.744498+08:00",
     "error": "HTTP Error 403: Forbidden",
     "error_type": "HTTPError",
     "event_count": 0,
-    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T003117_761324e0",
+    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T005421_2b015470",
     "source": "sofascore",
     "source_group": "broad",
     "status": "source_unavailable",
@@ -421,9 +421,9 @@
   },
   {
     "attempted": true,
-    "captured_at": "2026-10-05T08:31:23.670034+08:00",
+    "captured_at": "2026-10-05T08:54:26.471117+08:00",
     "event_count": 0,
-    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T003117_761324e0",
+    "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261005T005421_2b015470",
     "source": "fiba_official_calendar",
     "source_group": "official",
     "status": "empty_valid_response",
