@@ -2,17 +2,17 @@
   "list_date": "2026-10-05",
   "display_list_date": "2026-10-05",
   "date_file": "./data/dates/2026-10-05.json",
-  "generated_at": "2026-10-05T09:00:38.558864+08:00",
-  "run_id": "RUN_20261005_090038",
+  "generated_at": "2026-10-05T09:36:53.395985+08:00",
+  "run_id": "RUN_20261005_093653",
   "today_update_status": "PARTIAL_DATA_REFRESH",
-  "total_matches": 136,
-  "prematch_matches": 136,
+  "total_matches": 149,
+  "prematch_matches": 149,
   "v3": {
     "computed_count": 26,
-    "bettable_count": 0,
+    "bettable_count": 3,
     "half_count": 0,
-    "no_bet_count": 26,
-    "missing_count": 110,
+    "no_bet_count": 23,
+    "missing_count": 123,
     "status": "V3_PRODUCTION_UPDATED"
   },
   "v4": {
@@ -22,7 +22,7 @@
     "C_count": 0,
     "N_count": 0,
     "neutral_count": 0,
-    "missing_count": 136,
+    "missing_count": 149,
     "not_prematch_count": 0,
     "real_money": false,
     "status": "V4_SHADOW_UPDATED"
