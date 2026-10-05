@@ -1,15 +1,15 @@
 {
   "list_date": "2026-10-05",
-  "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+  "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
   "raw_snapshot_id": "slate_raw_e2c130c86de5",
-  "decision_at": "2026-10-05T08:48:48.305910+08:00",
+  "decision_at": "2026-10-05T09:00:38.777542+08:00",
   "logic_change_at": "2026-10-04T09:52:00+08:00",
   "implementation_contract_version": "SHARED_FACTS_STATUS_SEPARATION_V1",
   "calibration_status": "FAIR_LINE_UNCALIBRATED",
   "model_version": "FFL_SKELLAM_V1",
   "freshness_check": {
     "status": "PASS",
-    "odds_age_hours": 0.2,
+    "odds_age_hours": 0.397,
     "max_age_hours": 12.0,
     "last_team_update": "2026-10-05T08:36:50+08:00",
     "last_standings_update": "2026-10-05T08:36:50+08:00",
@@ -19,16 +19,16 @@
   "source": {
     "name": "Titan007_PUBLIC",
     "raw_snapshot_id": "slate_raw_e2c130c86de5",
-    "raw_reference": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-05\\RUN_20261005_084848\\slate_raw.csv",
+    "raw_reference": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-05\\RUN_20261005_090038\\slate_raw.csv",
     "fetch_at": "2026-10-05T08:36:50+08:00",
     "parser_version": "titan-shared-v1"
   },
   "matches": {
     "3089012": {
       "match_id": "3089012",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T13:00:00+08:00",
       "competition": "蒙古超",
       "competition_domain": "CLUB_LEAGUE",
@@ -246,15 +246,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3098107": {
       "match_id": "3098107",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T13:30:00+08:00",
       "competition": "印班超",
       "competition_domain": "CLUB_LEAGUE",
@@ -472,15 +472,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097300": {
       "match_id": "3097300",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T14:30:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -698,15 +698,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3087368": {
       "match_id": "3087368",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T15:30:00+08:00",
       "competition": "中U21",
       "competition_domain": "NATIONAL_YOUTH",
@@ -924,15 +924,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3089013": {
       "match_id": "3089013",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T16:00:00+08:00",
       "competition": "蒙古超",
       "competition_domain": "CLUB_LEAGUE",
@@ -1150,15 +1150,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099035": {
       "match_id": "3099035",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T16:00:00+08:00",
       "competition": "印班超",
       "competition_domain": "CLUB_LEAGUE",
@@ -1376,15 +1376,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097277": {
       "match_id": "3097277",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T16:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -1602,15 +1602,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097278": {
       "match_id": "3097278",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T16:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -1828,15 +1828,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097279": {
       "match_id": "3097279",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T16:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -2054,15 +2054,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097289": {
       "match_id": "3097289",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T16:30:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -2280,15 +2280,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097290": {
       "match_id": "3097290",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T17:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -2506,15 +2506,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097291": {
       "match_id": "3097291",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T17:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -2732,15 +2732,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097993": {
       "match_id": "3097993",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T17:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -2958,15 +2958,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097280": {
       "match_id": "3097280",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T17:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -3184,15 +3184,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097749": {
       "match_id": "3097749",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T17:00:00+08:00",
       "competition": "东盟杯",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -3410,15 +3410,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3098108": {
       "match_id": "3098108",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T18:30:00+08:00",
       "competition": "印班超",
       "competition_domain": "CLUB_LEAGUE",
@@ -3636,15 +3636,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097292": {
       "match_id": "3097292",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T18:30:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -3862,15 +3862,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097301": {
       "match_id": "3097301",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T18:30:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -4088,15 +4088,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097281": {
       "match_id": "3097281",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T18:30:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -4314,15 +4314,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099073": {
       "match_id": "3099073",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "巴拉后备",
       "competition_domain": "UNKNOWN",
@@ -4540,15 +4540,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097293": {
       "match_id": "3097293",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -4766,15 +4766,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097743": {
       "match_id": "3097743",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -4992,15 +4992,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097744": {
       "match_id": "3097744",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -5218,15 +5218,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2968085": {
       "match_id": "2968085",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "挪丙",
       "competition_domain": "CLUB_LEAGUE",
@@ -5444,15 +5444,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097282": {
       "match_id": "3097282",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -5670,15 +5670,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097283": {
       "match_id": "3097283",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -5896,15 +5896,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097284": {
       "match_id": "3097284",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -6122,15 +6122,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3087366": {
       "match_id": "3087366",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:00:00+08:00",
       "competition": "中U21",
       "competition_domain": "NATIONAL_YOUTH",
@@ -6348,15 +6348,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3098009": {
       "match_id": "3098009",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:30:00+08:00",
       "competition": "印盾联",
       "competition_domain": "UNKNOWN",
@@ -6574,15 +6574,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3095690": {
       "match_id": "3095690",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T19:35:00+08:00",
       "competition": "东北超",
       "competition_domain": "CLUB_LEAGUE",
@@ -6800,15 +6800,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097991": {
       "match_id": "3097991",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:00:00+08:00",
       "competition": "瑞青超南",
       "competition_domain": "CLUB_LEAGUE",
@@ -7026,15 +7026,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099072": {
       "match_id": "3099072",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:00:00+08:00",
       "competition": "阿青联",
       "competition_domain": "UNKNOWN",
@@ -7252,15 +7252,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097740": {
       "match_id": "3097740",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -7478,15 +7478,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097285": {
       "match_id": "3097285",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -7704,15 +7704,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097286": {
       "match_id": "3097286",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -7930,15 +7930,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097287": {
       "match_id": "3097287",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -8156,15 +8156,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097994": {
       "match_id": "3097994",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -8382,15 +8382,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3089246": {
       "match_id": "3089246",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:30:00+08:00",
       "competition": "伊朗甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -8608,15 +8608,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3089247": {
       "match_id": "3089247",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:30:00+08:00",
       "competition": "伊朗甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -8834,15 +8834,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099051": {
       "match_id": "3099051",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:30:00+08:00",
       "competition": "莫桑冠",
       "competition_domain": "UNKNOWN",
@@ -9060,15 +9060,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097813": {
       "match_id": "3097813",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T20:30:00+08:00",
       "competition": "香港U22",
       "competition_domain": "UNKNOWN",
@@ -9286,15 +9286,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3061513": {
       "match_id": "3061513",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "女欧U19",
       "competition_domain": "WOMEN_NATIONAL",
@@ -9512,15 +9512,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3061514": {
       "match_id": "3061514",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "女欧U19",
       "competition_domain": "WOMEN_NATIONAL",
@@ -9738,15 +9738,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097990": {
       "match_id": "3097990",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "瑞青超南",
       "competition_domain": "CLUB_LEAGUE",
@@ -9964,15 +9964,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2966281": {
       "match_id": "2966281",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "俄乙B西",
       "competition_domain": "CLUB_LEAGUE",
@@ -10190,15 +10190,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3050281": {
       "match_id": "3050281",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "塞尔甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -10416,15 +10416,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099055": {
       "match_id": "3099055",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "乌拉后备",
       "competition_domain": "UNKNOWN",
@@ -10642,15 +10642,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097294": {
       "match_id": "3097294",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -10868,15 +10868,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097741": {
       "match_id": "3097741",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -11094,15 +11094,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3059207": {
       "match_id": "3059207",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "英乙U21",
       "competition_domain": "NATIONAL_YOUTH",
@@ -11320,15 +11320,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099074": {
       "match_id": "3099074",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "巴拉丙",
       "competition_domain": "CLUB_LEAGUE",
@@ -11546,15 +11546,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099075": {
       "match_id": "3099075",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "巴拉丙",
       "competition_domain": "CLUB_LEAGUE",
@@ -11772,15 +11772,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099070": {
       "match_id": "3099070",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "玻利联U19",
       "competition_domain": "NATIONAL_YOUTH",
@@ -11998,15 +11998,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099056": {
       "match_id": "3099056",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "科索沃乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -12224,15 +12224,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097750": {
       "match_id": "3097750",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "东盟杯",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -12450,15 +12450,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3094479": {
       "match_id": "3094479",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:00:00+08:00",
       "competition": "非洲U23杯",
       "competition_domain": "NATIONAL_YOUTH",
@@ -12676,15 +12676,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3089248": {
       "match_id": "3089248",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:30:00+08:00",
       "competition": "伊朗甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -12902,15 +12902,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3089249": {
       "match_id": "3089249",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:30:00+08:00",
       "competition": "伊朗甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -13128,15 +13128,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097295": {
       "match_id": "3097295",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T21:30:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -13354,15 +13354,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3044668": {
       "match_id": "3044668",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T22:00:00+08:00",
       "competition": "英北超",
       "competition_domain": "CLUB_LEAGUE",
@@ -13580,15 +13580,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3050280": {
       "match_id": "3050280",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T22:00:00+08:00",
       "competition": "塞尔甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -13806,15 +13806,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097296": {
       "match_id": "3097296",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T22:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -14032,15 +14032,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097742": {
       "match_id": "3097742",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T22:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -14258,15 +14258,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097745": {
       "match_id": "3097745",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T22:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -14484,15 +14484,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097288": {
       "match_id": "3097288",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T22:00:00+08:00",
       "competition": "中亚女U17",
       "competition_domain": "WOMEN_NATIONAL",
@@ -14710,15 +14710,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2781318": {
       "match_id": "2781318",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T22:30:00+08:00",
       "competition": "欧青U21外",
       "competition_domain": "NATIONAL_YOUTH",
@@ -14936,15 +14936,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3037929": {
       "match_id": "3037929",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:00:00+08:00",
       "competition": "斯伐甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -15162,15 +15162,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3076989": {
       "match_id": "3076989",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:00:00+08:00",
       "competition": "摩洛超",
       "competition_domain": "CLUB_LEAGUE",
@@ -15388,15 +15388,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3076991": {
       "match_id": "3076991",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:00:00+08:00",
       "competition": "摩洛超",
       "competition_domain": "CLUB_LEAGUE",
@@ -15614,15 +15614,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3076992": {
       "match_id": "3076992",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:00:00+08:00",
       "competition": "摩洛超",
       "competition_domain": "CLUB_LEAGUE",
@@ -15840,15 +15840,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097814": {
       "match_id": "3097814",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:00:00+08:00",
       "competition": "加纳联",
       "competition_domain": "UNKNOWN",
@@ -16066,15 +16066,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097746": {
       "match_id": "3097746",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -16292,15 +16292,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3094480": {
       "match_id": "3094480",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:00:00+08:00",
       "competition": "非洲U23杯",
       "competition_domain": "NATIONAL_YOUTH",
@@ -16518,15 +16518,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097326": {
       "match_id": "3097326",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:30:00+08:00",
       "competition": "科特超",
       "competition_domain": "CLUB_LEAGUE",
@@ -16744,15 +16744,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097270": {
       "match_id": "3097270",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:30:00+08:00",
       "competition": "芬女甲",
       "competition_domain": "WOMEN_CLUB",
@@ -16970,15 +16970,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097215": {
       "match_id": "3097215",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-05T23:30:00+08:00",
       "competition": "布法联",
       "competition_domain": "UNKNOWN",
@@ -17196,15 +17196,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2981548": {
       "match_id": "2981548",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:00:00+08:00",
       "competition": "欧国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -17422,15 +17422,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3032243": {
       "match_id": "3032243",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:00:00+08:00",
       "competition": "土乙白",
       "competition_domain": "CLUB_LEAGUE",
@@ -17648,15 +17648,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3050284": {
       "match_id": "3050284",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:00:00+08:00",
       "competition": "塞尔甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -17874,15 +17874,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097297": {
       "match_id": "3097297",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -18100,15 +18100,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097298": {
       "match_id": "3097298",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -18326,15 +18326,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097747": {
       "match_id": "3097747",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -18552,15 +18552,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099081": {
       "match_id": "3099081",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -18778,15 +18778,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097483": {
       "match_id": "3097483",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:00:00+08:00",
       "competition": "阿根业余锦",
       "competition_domain": "UNKNOWN",
@@ -19004,15 +19004,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2781319": {
       "match_id": "2781319",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:15:00+08:00",
       "competition": "欧青U21外",
       "competition_domain": "NATIONAL_YOUTH",
@@ -19230,15 +19230,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2781320": {
       "match_id": "2781320",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T00:30:00+08:00",
       "competition": "欧青U21外",
       "competition_domain": "NATIONAL_YOUTH",
@@ -19456,15 +19456,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2913157": {
       "match_id": "2913157",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T01:00:00+08:00",
       "competition": "挪甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -19682,15 +19682,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099071": {
       "match_id": "3099071",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T01:00:00+08:00",
       "competition": "哥伦U19",
       "competition_domain": "NATIONAL_YOUTH",
@@ -19908,15 +19908,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2934835": {
       "match_id": "2934835",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:00:00+08:00",
       "competition": "阿乙曼特秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -20134,15 +20134,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2935306": {
       "match_id": "2935306",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:00:00+08:00",
       "competition": "阿丙曼特",
       "competition_domain": "CLUB_LEAGUE",
@@ -20360,15 +20360,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097271": {
       "match_id": "3097271",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:00:00+08:00",
       "competition": "里约乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -20586,15 +20586,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097272": {
       "match_id": "3097272",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:00:00+08:00",
       "competition": "里约乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -20812,15 +20812,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097273": {
       "match_id": "3097273",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:00:00+08:00",
       "competition": "里约乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -21038,15 +21038,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097274": {
       "match_id": "3097274",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:00:00+08:00",
       "competition": "里约乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -21264,15 +21264,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097275": {
       "match_id": "3097275",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:00:00+08:00",
       "competition": "里约乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -21490,15 +21490,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097276": {
       "match_id": "3097276",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:00:00+08:00",
       "competition": "里约乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -21716,15 +21716,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3014103": {
       "match_id": "3014103",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:30:00+08:00",
       "competition": "西乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -21942,15 +21942,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099076": {
       "match_id": "3099076",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:30:00+08:00",
       "competition": "巴U20杯",
       "competition_domain": "NATIONAL_YOUTH",
@@ -22168,15 +22168,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2981453": {
       "match_id": "2981453",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "欧国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -22394,15 +22394,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2981454": {
       "match_id": "2981454",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "欧国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -22620,15 +22620,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2981501": {
       "match_id": "2981501",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "欧国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -22846,15 +22846,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2981502": {
       "match_id": "2981502",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "欧国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -23072,15 +23072,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2981503": {
       "match_id": "2981503",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "欧国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -23298,15 +23298,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2981504": {
       "match_id": "2981504",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "欧国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -23524,15 +23524,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2981547": {
       "match_id": "2981547",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "欧国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -23750,15 +23750,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3037427": {
       "match_id": "3037427",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "英依超",
       "competition_domain": "CLUB_LEAGUE",
@@ -23976,15 +23976,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097299": {
       "match_id": "3097299",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T02:45:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -24202,15 +24202,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3092466": {
       "match_id": "3092466",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T03:00:00+08:00",
       "competition": "中北美国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -24428,15 +24428,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2962658": {
       "match_id": "2962658",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T03:45:00+08:00",
       "competition": "阿甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -24654,15 +24654,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3074198": {
       "match_id": "3074198",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T04:00:00+08:00",
       "competition": "巴拉甲秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -24880,15 +24880,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2916728": {
       "match_id": "2916728",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T04:00:00+08:00",
       "competition": "阿乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -25106,15 +25106,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3094121": {
       "match_id": "3094121",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T04:00:00+08:00",
       "competition": "巴拉乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -25332,15 +25332,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3092478": {
       "match_id": "3092478",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T05:00:00+08:00",
       "competition": "中北美国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -25558,15 +25558,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2962659": {
       "match_id": "2962659",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:00:00+08:00",
       "competition": "阿甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -25784,15 +25784,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2962667": {
       "match_id": "2962667",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:00:00+08:00",
       "competition": "阿甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -26010,15 +26010,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2934829": {
       "match_id": "2934829",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:00:00+08:00",
       "competition": "阿乙曼特秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -26236,15 +26236,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3012211": {
       "match_id": "3012211",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:00:00+08:00",
       "competition": "哥伦乙秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -26462,15 +26462,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3092445": {
       "match_id": "3092445",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:00:00+08:00",
       "competition": "中北美国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -26688,15 +26688,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3094005": {
       "match_id": "3094005",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:05:00+08:00",
       "competition": "牙买超",
       "competition_domain": "CLUB_LEAGUE",
@@ -26914,15 +26914,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3074194": {
       "match_id": "3074194",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:15:00+08:00",
       "competition": "巴拉甲秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -27140,15 +27140,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3094122": {
       "match_id": "3094122",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:30:00+08:00",
       "competition": "巴拉乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -27366,15 +27366,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099078": {
       "match_id": "3099078",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:30:00+08:00",
       "competition": "巴伊乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -27592,15 +27592,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3094921": {
       "match_id": "3094921",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T06:55:00+08:00",
       "competition": "乌拉甲秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -27818,15 +27818,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099052": {
       "match_id": "3099052",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T07:00:00+08:00",
       "competition": "巴拉女杯",
       "competition_domain": "WOMEN_CLUB",
@@ -28044,15 +28044,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099077": {
       "match_id": "3099077",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T07:15:00+08:00",
       "competition": "巴伊乙",
       "competition_domain": "CLUB_LEAGUE",
@@ -28270,15 +28270,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3011883": {
       "match_id": "3011883",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T08:00:00+08:00",
       "competition": "哥伦甲秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -28496,15 +28496,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3092446": {
       "match_id": "3092446",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T08:00:00+08:00",
       "competition": "中北美国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -28722,15 +28722,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3092467": {
       "match_id": "3092467",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T08:00:00+08:00",
       "competition": "中北美国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -28948,15 +28948,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3092479": {
       "match_id": "3092479",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T08:00:00+08:00",
       "competition": "中北美国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -29174,15 +29174,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "2962655": {
       "match_id": "2962655",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T08:15:00+08:00",
       "competition": "阿甲",
       "competition_domain": "CLUB_LEAGUE",
@@ -29400,15 +29400,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3012213": {
       "match_id": "3012213",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T08:30:00+08:00",
       "competition": "哥伦乙秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -29626,15 +29626,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3036212": {
       "match_id": "3036212",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T09:00:00+08:00",
       "competition": "巴马甲秋",
       "competition_domain": "CLUB_LEAGUE",
@@ -29852,15 +29852,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3094006": {
       "match_id": "3094006",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T09:00:00+08:00",
       "competition": "牙买超",
       "competition_domain": "CLUB_LEAGUE",
@@ -30078,15 +30078,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3099061": {
       "match_id": "3099061",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T09:30:00+08:00",
       "competition": "斐济杯",
       "competition_domain": "DOMESTIC_CUP",
@@ -30304,15 +30304,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3092447": {
       "match_id": "3092447",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T10:00:00+08:00",
       "competition": "中北美国联",
       "competition_domain": "NATIONAL_OFFICIAL",
@@ -30530,15 +30530,15 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     },
     "3097391": {
       "match_id": "3097391",
-      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_084848",
+      "snapshot_id": "slate_raw_e2c130c86de5_asof_20261005_090038",
       "raw_snapshot_id": "slate_raw_e2c130c86de5",
-      "decision_at": "2026-10-05T08:48:48.305910+08:00",
+      "decision_at": "2026-10-05T09:00:38.777542+08:00",
       "kickoff_at": "2026-10-06T10:00:00+08:00",
       "competition": "国际友谊",
       "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -30756,7 +30756,7 @@
       },
       "asof_guard": {
         "feature_available_at_lte_decision_at": true,
-        "history_cutoff": "2026-10-05T08:48:48.305910+08:00",
+        "history_cutoff": "2026-10-05T09:00:38.777542+08:00",
         "same_match_snapshot_partition": true
       }
     }
