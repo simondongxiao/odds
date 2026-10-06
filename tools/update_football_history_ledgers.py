@@ -190,8 +190,10 @@ def main() -> int:
     v4 = {str(row.get("match_id")): row for row in v4_payload.get("matches", [])}
     source = str(args.slate_csv)
 
-    v4_rows = [v4_values(raw[mid], v4[mid], bridge.get(mid, {}), source) for mid in sorted(raw.keys()) if mid in v4]
-    v3_rows = [v3_values(raw[mid], bridge.get(mid, {}), source) for mid in sorted(raw.keys())]
+    # The Excel ledgers are bettable-history ledgers, not full roster dumps.
+    # Keep only the frozen production V3 actions and V4 A/B/C candidates.
+    v4_rows = [v4_values(raw[mid], v4[mid], bridge.get(mid, {}), source) for mid in sorted(raw.keys()) if mid in v4 and text(v4[mid].get("grade")) in {"A", "B", "C"}]
+    v3_rows = [v3_values(raw[mid], bridge.get(mid, {}), source) for mid in sorted(raw.keys()) if text(bridge.get(mid, {}).get("action")) in {"可投", "半仓可投"}]
     added_v3 = append_rows(args.v3_ledger, v3_rows, args.backup_dir / "v3")
     added_v4 = append_rows(args.v4_ledger, v4_rows, args.backup_dir / "v4")
     print(json.dumps({"list_date": args.list_date, "raw_rows": len(raw), "v3_rows_appended": added_v3, "v4_rows_appended": added_v4, "backup": str(args.backup_dir)}, ensure_ascii=False))
