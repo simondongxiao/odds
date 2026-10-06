@@ -1,6 +1,6 @@
 # V4 Ledger Integrity Audit
 
-- generated_at: 2026-10-06T08:57:57.376428+08:00
+- generated_at: 2026-10-06T09:36:44.949317+08:00
 - V4_logic_change_at: 2026-10-04T09:52:00+08:00
 - code_hash: `789c012f4ad6a78389460c3f9e3a243462cb55e4f0ceeebc179ec0f8bbec6503`
 - evaluated_rows: 165
