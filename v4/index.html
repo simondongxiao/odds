@@ -22,7 +22,7 @@
     <div>唯一正式名称：V4｜real_money=false｜所有 BET 固定 1U｜历史冻结决策不回刷</div>
     <div style="margin-top:9px"><a href="./diagnostics/">V4 诊断</a><a href="./expert/">V4 Expert Selector</a></div>
   </section>
-  <section class="note"><b>决策结构：</b>盘口档位仅作先验；市场意图仅作解释。先生成比赛级净胜球概率，再分别计算让球方与受让方 EV，最后结合不确定性输出 BET_GIVING / BET_RECEIVING / NO_BET。A/B/C/N 仅供分析，不影响固定 1U。</section>
+  <section class="note"><b>决策结构：</b>盘口档位仅作先验；市场意图仅作解释。先生成比赛级净胜球概率，再分别计算让球方与受让方 EV，最后结合不确定性和质量门槛输出 BET_GIVING / BET_RECEIVING / NO_BET。低质量或核心证据过稀的比赛只保留分析，不进入可投列表和 Excel。A/B/C/N 仅供分析，不影响固定 1U。</section>
   <section class="controls">
     <label>列表日 <select id="date"></select></label>
     <label class="bettable-toggle" title="只显示当前列表日已冻结的 V4 Shadow BET；仍为 real_money=false">
@@ -45,8 +45,9 @@ const plainTeam=x=>String(x??'').replace(/<[^>]*>/g,'').trim();
 const num=(x,n=3)=>x==null||x===''?'—':Number(x).toFixed(n); const pct=x=>x==null||x===''?'—':(Number(x)*100).toFixed(1)+'%';
 const value=(x,old='旧版未采集')=>x==null||x===''?old:esc(x); const settled=['W','HW','P','HL','L'];
 function resultText(x){const s=x.score||x.settlement?.score||'',r=x.result||x.settlement_state||x.settlement?.result||'',labels={W:'红',HW:'红半',P:'走',HL:'黑半',L:'黑'};return (s||r)?`${esc(s||'—')}<small>${esc(labels[r]||r||'—')}</small>`:'—'}
-function decisionCode(x){const direct=String(x.final_decision||'');if(direct)return direct;const side=String(x.selected_side||x.candidate_side||'').toLowerCase();if(['A','B','C'].includes(String(x.grade||''))){if(side==='giving')return 'BET_GIVING';if(side==='receiving')return 'BET_RECEIVING';return 'LEGACY_CANDIDATE'}if(String(x.grade||'')==='N')return 'NO_BET';return 'UNAVAILABLE'}
-function predictionLabel(x){const d=decisionCode(x);if(d.startsWith('BET_')||d==='LEGACY_CANDIDATE')return plainTeam(x.selected_team||x.candidate_team)||'球队待核';const labels={NO_BET:'不投',UNAVAILABLE:'不可用'};return labels[d]||d}
+function legacyLowQualityFrozen(x){return x.quality_gate_passed==null&&x.data_quality==='LOW'&&x.started_lock===true}
+function decisionCode(x){const direct=String(x.final_decision||'');if((x.quality_gate_passed===false||legacyLowQualityFrozen(x))&&direct.startsWith('BET_'))return 'NO_BET';if(direct)return direct;const side=String(x.selected_side||x.candidate_side||'').toLowerCase();if(['A','B','C'].includes(String(x.grade||''))){if(x.quality_gate_passed===false||legacyLowQualityFrozen(x))return 'NO_BET';if(side==='giving')return 'BET_GIVING';if(side==='receiving')return 'BET_RECEIVING';return 'LEGACY_CANDIDATE'}if(String(x.grade||'')==='N')return 'NO_BET';return 'UNAVAILABLE'}
+function predictionLabel(x){const d=decisionCode(x);if(d.startsWith('BET_')||d==='LEGACY_CANDIDATE')return plainTeam(x.selected_team||x.candidate_team)||'球队待核';if(d==='NO_BET'&&(x.quality_gate_passed===false||legacyLowQualityFrozen(x)))return '低质量拦截';const labels={NO_BET:'不投',UNAVAILABLE:'不可用'};return labels[d]||d}
 function signedLineText(x){const n=Number(x.selected_handicap_signed);return Number.isFinite(n)?`${n>0?'+':''}${n.toFixed(2)}`:'盘口待核'}
 function marketSidesText(x){const m=x.market||{},g=plainTeam(m.giving_team||x.giving_team)||'—',r=plainTeam(m.receiving_team||x.receiving_team)||'—',n=Math.abs(Number(x.market_line??x.selected_handicap_signed));return Number.isFinite(n)?`${g} -${n.toFixed(2)} / ${r} +${n.toFixed(2)}`:`${g} / ${r}`}
 function pnlValue(x){const raw=x.pnl_1u??x.settlement?.pnl_1u??x.pnl??x.settlement_pnl;if(raw==null||raw==='')return null;const n=Number(raw);return Number.isFinite(n)?n:null}

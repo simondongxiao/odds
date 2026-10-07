@@ -10,6 +10,7 @@ import csv
 import hashlib
 import json
 import math
+import re
 import statistics
 import sys
 from collections import Counter, defaultdict
@@ -31,6 +32,7 @@ PROBABILITY_VERSION = "MATCH_SPECIFIC_MARGIN_UNCALIBRATED"
 DIRECTION_RULE = "MATCH_SPECIFIC_DUAL_EV"
 CALIBRATION_STATUS = "UNCALIBRATED_SHADOW"
 FORWARD_STATUS = "FROZEN_FORWARD"
+LOGIC_CHANGE_AT = "2026-10-04T09:52:00+08:00"
 
 
 def finite(value: Any, default: float | None = None) -> float | None:
@@ -253,12 +255,21 @@ def evaluate_match(
     public_pull = evidence_value(row, "public_pull", "public_story_pull")
     elo = finite(row.get("elo_diff"))
 
-    # Fair margin begins with match-level de-vig 1X2 strength.  Handicap depth
-    # and historical bucket settlement are deliberately weak priors only.
-    football_margin = 1.18 * strength_log_ratio + (0.0015 * elo if elo is not None else 0.0)
-    bucket_margin = 0.16 * current_line + 0.12 * prior_signal
-    market_path_margin = 0.16 * line_move - 0.10 * water_move
-    raw_fair_margin = football_margin + bucket_margin + market_path_margin
+    shared_context = row.get("titan_context") if isinstance(row.get("titan_context"), dict) else {}
+    shared_ffl = shared_context.get("ffl") if isinstance(shared_context.get("ffl"), dict) else {}
+    # The shared FFL is computed before, and without, Asian handicap or water.
+    # The local fallback remains for legacy/manual invocations that do not yet
+    # carry a shared snapshot, but it likewise excludes AH depth/path.
+    ffl_supported = finite(shared_ffl.get("fair_goal_margin")) is not None and not str(shared_ffl.get("status", "")).startswith("UNAVAILABLE")
+    football_margin = finite(shared_ffl.get("fair_goal_margin")) if ffl_supported else None
+    if football_margin is None:
+        football_margin = 1.18 * strength_log_ratio + (0.0015 * elo if elo is not None else 0.0)
+    # The line bucket is a small, shrunk prior nudge.  It is not a side map:
+    # the same bucket can still resolve to either side or NO_BET after the
+    # match-level probability and price evidence are evaluated.
+    bucket_margin = clamp(0.22 * prior_signal, -0.15, 0.15)
+    market_path_margin = 0.0
+    raw_fair_margin = football_margin + bucket_margin
 
     missing_fundamentals = sum(value == "MISSING" for value in (rotation, injuries, lineup, form, motivation))
     data_score = 0.45 + 0.10 * (opening_line is not None) + 0.05 * bool(row.get("quote_at"))
@@ -292,9 +303,23 @@ def evaluate_match(
     )
     # Bayesian-style shrinkage toward zero margin under sparse/low-quality
     # evidence.  It changes confidence, not a preselected side.
-    fair_goal_margin = raw_fair_margin * (1.0 - 0.38 * uncertainty)
-    total_goals = clamp(2.62 - 1.05 * (devig["draw"] - 0.25), 1.55, 3.85)
-    distribution = margin_distribution(fair_goal_margin, total_goals)
+    shared_uncertainty = finite(shared_ffl.get("uncertainty"))
+    if shared_uncertainty is not None:
+        uncertainty = clamp(max(uncertainty, shared_uncertainty), 0.05, 0.95)
+    home_fair_goal_margin = raw_fair_margin
+    giving_home = market["giving_team"] == row.get("home_team")
+    fair_goal_margin = home_fair_goal_margin if giving_home else -home_fair_goal_margin
+    total_goals = finite(shared_ffl.get("predicted_home_goals"))
+    if total_goals is not None:
+        total_goals += finite(shared_ffl.get("predicted_away_goals"), 0.0) or 0.0
+    else:
+        total_goals = clamp(2.62 - 1.05 * (devig["draw"] - 0.25), 1.55, 3.85)
+    shared_distribution = shared_ffl.get("margin_distribution")
+    if isinstance(shared_distribution, dict) and shared_distribution:
+        home_distribution = normalise({int(key): float(value) for key, value in shared_distribution.items()})
+    else:
+        home_distribution = margin_distribution(home_fair_goal_margin, total_goals)
+    distribution = home_distribution if giving_home else {-margin: probability for margin, probability in home_distribution.items()}
     giving_probs = asian_probabilities(distribution, -current_line)
     mirrored = {-margin: probability for margin, probability in distribution.items()}
     receiving_probs = asian_probabilities(mirrored, current_line)
@@ -314,12 +339,46 @@ def evaluate_match(
     else:
         final_decision, reason = "BET_RECEIVING", "RECEIVING_VALIDATED_EDGE"
 
+    pre_gate_decision = final_decision
+    pre_gate_side = "giving" if final_decision == "BET_GIVING" else "receiving" if final_decision == "BET_RECEIVING" else ""
+    pre_gate_team = market["giving_team"] if pre_gate_side == "giving" else market["receiving_team"] if pre_gate_side == "receiving" else ""
+    pre_gate_ev = ev_giving if pre_gate_side == "giving" else ev_receiving if pre_gate_side == "receiving" else best_ev
+
+    # A positive EV from an unclassified or non-senior competition is still
+    # not an actionable bet.  The pre-10/01 cleaning contract first filters
+    # competition quality: only a curated senior TIER_1/2/3 competition (or
+    # an explicitly mapped senior cup such as 日皇杯) may reach the decision
+    # funnel.  Missing optional team/news fields are an evidence gap, not a
+    # reason to misclassify 巴西甲/巴西乙 as a low-level competition.
+    quality_gate_reasons: list[str] = []
+    senior_tier = level in {"TIER_1", "TIER_2", "TIER_3"}
+    youth_or_reserve = domain in {"NATIONAL_YOUTH", "CLUB_YOUTH"} or bool(
+        re.search(r"(?:U\d{1,2}|青年|后备|预备|reserve|reserves|academy|development)", competition, re.IGNORECASE)
+    )
+    if level in {"UNKNOWN", "TIER_4_PLUS"}:
+        quality_gate_reasons.append("LEAGUE_TIER_UNKNOWN")
+    if youth_or_reserve:
+        quality_gate_reasons.append("YOUTH_RESERVE_EXCLUDED")
+    # Keep a true minimum input floor for any competition, but do not turn
+    # five optional/MISSING context fields into a hard veto for known senior
+    # leagues.  This preserves the Skill's evidence-gap semantics.
+    if data_score < 0.55:
+        quality_gate_reasons.append("DATA_QUALITY_LOW")
+    if market_score < 0.65:
+        quality_gate_reasons.append("MARKET_SUPPORT_LOW")
+    if not senior_tier and missing_fundamentals >= 4:
+        quality_gate_reasons.append("CORE_EVIDENCE_TOO_SPARSE")
+    quality_gate_passed = not quality_gate_reasons
+    if not quality_gate_passed and final_decision.startswith("BET_"):
+        final_decision = "NO_BET"
+        reason = "LOW_QUALITY_GATE"
+
     selected_side = "giving" if final_decision == "BET_GIVING" else "receiving" if final_decision == "BET_RECEIVING" else ""
     selected_team = market["giving_team"] if selected_side == "giving" else market["receiving_team"] if selected_side == "receiving" else ""
     selected_water = giving_water if selected_side == "giving" else receiving_water if selected_side == "receiving" else None
     selected_handicap = -current_line if selected_side == "giving" else current_line if selected_side == "receiving" else None
     selected_probs = giving_probs if selected_side == "giving" else receiving_probs if selected_side == "receiving" else {}
-    selected_ev = ev_giving if selected_side == "giving" else ev_receiving if selected_side == "receiving" else best_ev
+    selected_ev = ev_giving if selected_side == "giving" else ev_receiving if selected_side == "receiving" else pre_gate_ev
 
     has_market_path = opening_line is not None and opening_giving_water is not None
     full_context = missing_fundamentals == 0 and (not cup_sensitive or (cup_format != "MISSING" and aggregate_state != "MISSING"))
@@ -335,8 +394,41 @@ def evaluate_match(
         grade = "C"
     else:
         grade = "N"
+    pre_gate_grade = grade
+    if not quality_gate_passed:
+        grade = "N"
 
     market_interpretation = str(row.get("normalized_intent") or row.get("intent_raw") or "unknown")
+    shared_diagnostic = shared_context.get("market_deviation") if isinstance(shared_context.get("market_deviation"), dict) else {}
+    interpretation_status = str(shared_diagnostic.get("interpretation") or "UNKNOWN")
+    evidence_coverage = {
+        "identity": "AVAILABLE" if row.get("match_id") and row.get("home_team") and row.get("away_team") else "MISSING",
+        "kickoff": "AVAILABLE" if row.get("kickoff") else "MISSING",
+        "asian_market": "AVAILABLE",
+        "euro_market": "AVAILABLE",
+        "ffl": "AVAILABLE" if ffl_supported else "MISSING_OPTIONAL",
+        "team_history": "AVAILABLE" if shared_context.get("data_quality") == "MARKET" else "SPARSE_OR_MISSING",
+        "market_path": "TWO_POINT_OBSERVATION" if opening_line is not None and opening_giving_water is not None else "STATIC_QUOTE",
+        "cross_book_quotes": "MISSING",
+        "real_flow": "MISSING",
+    }
+    public_proxy = shared_context.get("public_pull_proxy") if isinstance(shared_context.get("public_pull_proxy"), dict) else {"status": "MISSING"}
+    price_terms = None
+    if opening_line is not None and opening_giving_water is not None:
+        # The compact vector is calculated on the same frozen reference
+        # distribution.  It isolates quote-term changes from probability
+        # changes without inventing an intermediate quote.
+        def payoff(h: float, w: float, margin: int) -> float:
+            adjusted = margin + h
+            if adjusted > 0: return w
+            if adjusted < 0: return -1.0
+            return 0.0
+        price_terms = {
+            "comparison": "TWO_POINT_OBSERVATION",
+            "opening_giving_payoff": {str(m): payoff(-opening_depth, float(opening_giving_water), m) for m in range(-3, 4)},
+            "current_giving_payoff": {str(m): payoff(-current_line, giving_water, m) for m in range(-3, 4)},
+            "note": "四分之一盘完整结算仍由五状态映射；此处为条款变化诊断，不是方向命令",
+        }
     return {
         "domain": domain,
         "league_level": level,
@@ -356,13 +448,35 @@ def evaluate_match(
         "public_pull": {"status": public_pull, "score": None if public_pull == "MISSING" else finite(row.get("public_pull_score"))},
         "cup_context": {"format": cup_format, "aggregate_state": aggregate_state, "missing_is_not_veto": True},
         "fair_goal_margin": fair_goal_margin,
+        "ffl_home_fair_goal_margin": home_fair_goal_margin,
         "fair_handicap": round(fair_goal_margin * 4.0) / 4.0,
+        "ffl_home_fair_handicap": shared_ffl.get("fair_handicap"),
+        "fair_handicap_low": (shared_ffl.get("fair_handicap_low") if giving_home else -finite(shared_ffl.get("fair_handicap_high"), 0.0)) if shared_ffl else None,
+        "fair_handicap_high": (shared_ffl.get("fair_handicap_high") if giving_home else -finite(shared_ffl.get("fair_handicap_low"), 0.0)) if shared_ffl else None,
+        "fair_line_source": "TITAN_SHARED_FFL" if ffl_supported else "MARKET_REFERENCE_FALLBACK",
+        "titan_context_snapshot_id": shared_context.get("snapshot_id"),
+        "cmfl": shared_context.get("cmfl"),
+        "fair_line_consensus": shared_context.get("fair_line_consensus"),
+        "shared_market_deviation": shared_context.get("market_deviation"),
         "market_line": current_line,
         "line_gap": fair_goal_margin - current_line,
-        "bucket_prior": {"line_bucket": f"{current_line:.2f}", "signal": prior_signal, "sample": prior_sample, "role": "PRIOR_ONLY"},
+        "bucket_prior": {"line_bucket": f"{current_line:.2f}", "signal": prior_signal, "sample": prior_sample, "margin_nudge": bucket_margin, "role": "PRIOR_ONLY"},
         "market_path": {"opening_line": opening_line, "current_line": current_line, "line_move": line_move, "giving_water_move": water_move},
         "market_interpretation": market_interpretation,
         "intent_role": "INTERPRETATION_ONLY",
+        "interpretation_status": interpretation_status,
+        "evidence_coverage": evidence_coverage,
+        "data_integrity": "PASS",
+        "model_support": "FFL_SUPPORTED" if ffl_supported else "MARKET_REFERENCE_FALLBACK",
+        "decision_status": "BET" if final_decision.startswith("BET_") else "NO_BET",
+        "evidence_checklist": (shared_context.get("evidence_checklist") if isinstance(shared_context.get("evidence_checklist"), dict) else {
+            "observed": ["asian_line", "two_sided_water", "euro_1x2"],
+            "missing": ["cross_book_quotes", "real_flow"],
+            "compatible_explanations": [], "unidentifiable": ["bookmaker_intent", "current_net_position"],
+        }),
+        "public_attraction_features": public_proxy,
+        "quote_path": shared_context.get("quote_path") if isinstance(shared_context.get("quote_path"), dict) else {"status": "STATIC_QUOTE", "source_quote_at": row.get("quote_at", ""), "intermediate_quotes": "NOT_OBSERVED"},
+        "price_terms": price_terms,
         "data_quality": quality_label(data_score),
         "data_quality_score": data_score,
         "market_quality": quality_label(market_score),
@@ -381,6 +495,11 @@ def evaluate_match(
         "ev_receiving": ev_receiving,
         "final_decision": final_decision,
         "decision_reason": reason,
+        "pre_gate_final_decision": pre_gate_decision,
+        "pre_gate_selected_team": pre_gate_team,
+        "pre_gate_ev_mean": pre_gate_ev,
+        "quality_gate_passed": quality_gate_passed,
+        "quality_gate_reasons": quality_gate_reasons,
         "selected_side": selected_side,
         "selected_team": selected_team,
         "selected_water_hk": selected_water,
@@ -417,7 +536,7 @@ def evaluate_match(
         "calibration_status": CALIBRATION_STATUS,
         "probability_version": PROBABILITY_VERSION,
         "direction_rule_version": DIRECTION_RULE,
-        "reason_codes": [reason, "BUCKET_PRIOR_ONLY", "INTENT_INTERPRETATION_ONLY", f"EXPERT_{expert_tier}"],
+        "reason_codes": [reason, "BUCKET_PRIOR_ONLY", "INTENT_INTERPRETATION_ONLY", "FFL_OPTIONAL", f"EXPERT_{expert_tier}"],
     }
 
 
