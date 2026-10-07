@@ -9,6 +9,10 @@ description: Global senior football odds analysis, daily slate updates and seque
 
 V3 remains the only Production decision authority. V4 is `Forward Shadow` only and must never overwrite V3 actions, frozen decisions, dashboard production fields, or production Kelly. Use `references/v4-shadow-policy.md`, `references/v4-data-contract.md`, and `references/v4-promotion-gate.md`. V4 action candidates require authoritative `giving` or `receiving`; neutral and conditional rows are research-only. Historical replay and forward shadow performance must remain separate. Promotion is never automatic: the status stays `KEEP_V3_PRODUCTION` until the forward promotion gate passes and the user explicitly approves.
 
+### V4 Low-Quality Match Gate (2026-10-07)
+
+Low-quality or evidence-sparse matches are analysis-only and must never enter the current-date V4 bettable population. A V4 row is eligible for the current date only when `quality_gate_passed=true`; at minimum, the data-quality score and market-support score must pass the configured floor and core evidence must not be sparse. The gate is applied consistently in the V4 decision output, dashboard filter/red decision, timestamped bettable CSV, and V4 Excel ledger. A started/frozen legacy row may remain in the immutable audit history, but it is not a new current-date bet and must not be reintroduced into the current-date Excel or bettable export. A league or competition must never become almost fully bettable merely because the raw EV threshold is positive; quality-gate failure forces `NO_BET`/grade `N` and records the exact reason codes.
+
 ### Dual-Version Daily Update Contract (2026-09-13)
 
 The phrase `按照 Skill 做今天更新`, `严格按照 Skill 更新`, or an equivalent daily-update request means **run both V3 Legacy Production and V4 Shadow in the same update**. A response is not complete if it updates only one version.
