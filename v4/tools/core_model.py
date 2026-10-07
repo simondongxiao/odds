@@ -162,7 +162,17 @@ def league_level(competition: str, mapping: dict[str, str] | None = None) -> str
     if competition in mapping:
         return mapping[competition]
     info = normalize_dict(competition)
-    return {"T1": "TIER_1", "T2": "TIER_2", "T3": "TIER_3"}.get(info.get("tier"), "UNKNOWN")
+    inferred = {"T1": "TIER_1", "T2": "TIER_2", "T3": "TIER_3"}.get(info.get("tier"))
+    if inferred:
+        return inferred
+    # Restore the pre-10/01 adult-slate rule: an explicitly recognised
+    # official senior cup/continental competition is eligible for the same
+    # downstream EV funnel even when it has no league-style tier number.
+    # Youth/reserve/friendly competitions are still rejected by the quality
+    # gate below.
+    if info.get("senior_eligible") and info.get("competition_scope") in {"国内杯赛", "洲际正式赛"}:
+        return "TIER_1"
+    return "UNKNOWN"
 
 
 def quality_label(score: float) -> str:
@@ -353,12 +363,21 @@ def evaluate_match(
     quality_gate_reasons: list[str] = []
     senior_tier = level in {"TIER_1", "TIER_2", "TIER_3"}
     youth_or_reserve = domain in {"NATIONAL_YOUTH", "CLUB_YOUTH"} or bool(
-        re.search(r"(?:U\d{1,2}|青年|后备|预备|reserve|reserves|academy|development)", competition, re.IGNORECASE)
+        re.search(r"(?:U\d{1,2}|青年|青少年|青联|青杯|后备|预备|reserve|reserves|academy|development)", competition, re.IGNORECASE)
+    )
+    low_quality_competition = bool(
+        re.search(
+            r"(?:业余|意丁杯|西丁|瑞士丁|英北超|英南超|苏高联|巴高乙|巴戈乙|印班超|印西隆联|地区联赛|大学|校园)",
+            competition,
+            re.IGNORECASE,
+        )
     )
     if level in {"UNKNOWN", "TIER_4_PLUS"}:
         quality_gate_reasons.append("LEAGUE_TIER_UNKNOWN")
     if youth_or_reserve:
         quality_gate_reasons.append("YOUTH_RESERVE_EXCLUDED")
+    if low_quality_competition:
+        quality_gate_reasons.append("LOW_QUALITY_COMPETITION")
     # Keep a true minimum input floor for any competition, but do not turn
     # five optional/MISSING context fields into a hard veto for known senior
     # leagues.  This preserves the Skill's evidence-gap semantics.
