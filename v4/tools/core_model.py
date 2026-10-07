@@ -10,6 +10,7 @@ import csv
 import hashlib
 import json
 import math
+import re
 import statistics
 import sys
 from collections import Counter, defaultdict
@@ -338,12 +339,46 @@ def evaluate_match(
     else:
         final_decision, reason = "BET_RECEIVING", "RECEIVING_VALIDATED_EDGE"
 
+    pre_gate_decision = final_decision
+    pre_gate_side = "giving" if final_decision == "BET_GIVING" else "receiving" if final_decision == "BET_RECEIVING" else ""
+    pre_gate_team = market["giving_team"] if pre_gate_side == "giving" else market["receiving_team"] if pre_gate_side == "receiving" else ""
+    pre_gate_ev = ev_giving if pre_gate_side == "giving" else ev_receiving if pre_gate_side == "receiving" else best_ev
+
+    # A positive EV from an unclassified or non-senior competition is still
+    # not an actionable bet.  The pre-10/01 cleaning contract first filters
+    # competition quality: only a curated senior TIER_1/2/3 competition (or
+    # an explicitly mapped senior cup such as 日皇杯) may reach the decision
+    # funnel.  Missing optional team/news fields are an evidence gap, not a
+    # reason to misclassify 巴西甲/巴西乙 as a low-level competition.
+    quality_gate_reasons: list[str] = []
+    senior_tier = level in {"TIER_1", "TIER_2", "TIER_3"}
+    youth_or_reserve = domain in {"NATIONAL_YOUTH", "CLUB_YOUTH"} or bool(
+        re.search(r"(?:U\d{1,2}|青年|后备|预备|reserve|reserves|academy|development)", competition, re.IGNORECASE)
+    )
+    if level in {"UNKNOWN", "TIER_4_PLUS"}:
+        quality_gate_reasons.append("LEAGUE_TIER_UNKNOWN")
+    if youth_or_reserve:
+        quality_gate_reasons.append("YOUTH_RESERVE_EXCLUDED")
+    # Keep a true minimum input floor for any competition, but do not turn
+    # five optional/MISSING context fields into a hard veto for known senior
+    # leagues.  This preserves the Skill's evidence-gap semantics.
+    if data_score < 0.55:
+        quality_gate_reasons.append("DATA_QUALITY_LOW")
+    if market_score < 0.65:
+        quality_gate_reasons.append("MARKET_SUPPORT_LOW")
+    if not senior_tier and missing_fundamentals >= 4:
+        quality_gate_reasons.append("CORE_EVIDENCE_TOO_SPARSE")
+    quality_gate_passed = not quality_gate_reasons
+    if not quality_gate_passed and final_decision.startswith("BET_"):
+        final_decision = "NO_BET"
+        reason = "LOW_QUALITY_GATE"
+
     selected_side = "giving" if final_decision == "BET_GIVING" else "receiving" if final_decision == "BET_RECEIVING" else ""
     selected_team = market["giving_team"] if selected_side == "giving" else market["receiving_team"] if selected_side == "receiving" else ""
     selected_water = giving_water if selected_side == "giving" else receiving_water if selected_side == "receiving" else None
     selected_handicap = -current_line if selected_side == "giving" else current_line if selected_side == "receiving" else None
     selected_probs = giving_probs if selected_side == "giving" else receiving_probs if selected_side == "receiving" else {}
-    selected_ev = ev_giving if selected_side == "giving" else ev_receiving if selected_side == "receiving" else best_ev
+    selected_ev = ev_giving if selected_side == "giving" else ev_receiving if selected_side == "receiving" else pre_gate_ev
 
     has_market_path = opening_line is not None and opening_giving_water is not None
     full_context = missing_fundamentals == 0 and (not cup_sensitive or (cup_format != "MISSING" and aggregate_state != "MISSING"))
@@ -358,6 +393,9 @@ def evaluate_match(
     elif selected_ev > 0:
         grade = "C"
     else:
+        grade = "N"
+    pre_gate_grade = grade
+    if not quality_gate_passed:
         grade = "N"
 
     market_interpretation = str(row.get("normalized_intent") or row.get("intent_raw") or "unknown")
@@ -457,6 +495,11 @@ def evaluate_match(
         "ev_receiving": ev_receiving,
         "final_decision": final_decision,
         "decision_reason": reason,
+        "pre_gate_final_decision": pre_gate_decision,
+        "pre_gate_selected_team": pre_gate_team,
+        "pre_gate_ev_mean": pre_gate_ev,
+        "quality_gate_passed": quality_gate_passed,
+        "quality_gate_reasons": quality_gate_reasons,
         "selected_side": selected_side,
         "selected_team": selected_team,
         "selected_water_hk": selected_water,
