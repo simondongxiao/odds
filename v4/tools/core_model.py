@@ -165,13 +165,6 @@ def league_level(competition: str, mapping: dict[str, str] | None = None) -> str
     inferred = {"T1": "TIER_1", "T2": "TIER_2", "T3": "TIER_3"}.get(info.get("tier"))
     if inferred:
         return inferred
-    # Restore the pre-10/01 adult-slate rule: an explicitly recognised
-    # official senior cup/continental competition is eligible for the same
-    # downstream EV funnel even when it has no league-style tier number.
-    # Youth/reserve/friendly competitions are still rejected by the quality
-    # gate below.
-    if info.get("senior_eligible") and info.get("competition_scope") in {"国内杯赛", "洲际正式赛"}:
-        return "TIER_1"
     return "UNKNOWN"
 
 
@@ -267,19 +260,31 @@ def evaluate_match(
 
     shared_context = row.get("titan_context") if isinstance(row.get("titan_context"), dict) else {}
     shared_ffl = shared_context.get("ffl") if isinstance(shared_context.get("ffl"), dict) else {}
-    # The shared FFL is computed before, and without, Asian handicap or water.
-    # The local fallback remains for legacy/manual invocations that do not yet
-    # carry a shared snapshot, but it likewise excludes AH depth/path.
+    shared_cmfl = shared_context.get("cmfl") if isinstance(shared_context.get("cmfl"), dict) else {}
+    shared_consensus = shared_context.get("fair_line_consensus") if isinstance(shared_context.get("fair_line_consensus"), dict) else {}
+    # Fair-line precedence is independent of the Asian quote.  Do not replace
+    # an available CMFL with a raw 1X2 log-ratio fallback merely because FFL
+    # team-history data is unavailable.
     ffl_supported = finite(shared_ffl.get("fair_goal_margin")) is not None and not str(shared_ffl.get("status", "")).startswith("UNAVAILABLE")
-    football_margin = finite(shared_ffl.get("fair_goal_margin")) if ffl_supported else None
-    if football_margin is None:
+    cmfl_supported = finite(shared_cmfl.get("margin")) is not None and not str(shared_cmfl.get("status", "")).startswith("UNAVAILABLE")
+    consensus_margin = finite(shared_consensus.get("margin"))
+    if consensus_margin is not None:
+        football_margin = consensus_margin
+        fair_line_source = "TITAN_FAIR_LINE_CONSENSUS"
+    elif ffl_supported:
+        football_margin = finite(shared_ffl.get("fair_goal_margin"))
+        fair_line_source = "TITAN_SHARED_FFL"
+    elif cmfl_supported:
+        football_margin = finite(shared_cmfl.get("margin"))
+        fair_line_source = "TITAN_SHARED_CMFL"
+    else:
         football_margin = 1.18 * strength_log_ratio + (0.0015 * elo if elo is not None else 0.0)
-    # The line bucket is a small, shrunk prior nudge.  It is not a side map:
-    # the same bucket can still resolve to either side or NO_BET after the
-    # match-level probability and price evidence are evaluated.
-    bucket_margin = clamp(0.22 * prior_signal, -0.15, 0.15)
+        fair_line_source = "MARKET_REFERENCE_FALLBACK"
+    # The historical line bucket remains a diagnostic/prior only. It must not
+    # nudge the fair line and promote a whole bucket together.
+    bucket_margin = 0.0
     market_path_margin = 0.0
-    raw_fair_margin = football_margin + bucket_margin
+    raw_fair_margin = football_margin
 
     missing_fundamentals = sum(value == "MISSING" for value in (rotation, injuries, lineup, form, motivation))
     data_score = 0.45 + 0.10 * (opening_line is not None) + 0.05 * bool(row.get("quote_at"))
@@ -323,7 +328,9 @@ def evaluate_match(
     if total_goals is not None:
         total_goals += finite(shared_ffl.get("predicted_away_goals"), 0.0) or 0.0
     else:
-        total_goals = clamp(2.62 - 1.05 * (devig["draw"] - 0.25), 1.55, 3.85)
+        total_goals = finite(shared_cmfl.get("total"))
+        if total_goals is None:
+            total_goals = clamp(2.62 - 1.05 * (devig["draw"] - 0.25), 1.55, 3.85)
     shared_distribution = shared_ffl.get("margin_distribution")
     if isinstance(shared_distribution, dict) and shared_distribution:
         home_distribution = normalise({int(key): float(value) for key, value in shared_distribution.items()})
@@ -354,17 +361,13 @@ def evaluate_match(
     pre_gate_team = market["giving_team"] if pre_gate_side == "giving" else market["receiving_team"] if pre_gate_side == "receiving" else ""
     pre_gate_ev = ev_giving if pre_gate_side == "giving" else ev_receiving if pre_gate_side == "receiving" else best_ev
 
-    # A positive EV from an unclassified or non-senior competition is still
-    # not an actionable bet.  The pre-10/01 cleaning contract first filters
-    # competition quality: only a curated senior TIER_1/2/3 competition (or
-    # an explicitly mapped senior cup such as 日皇杯) may reach the decision
-    # funnel.  Missing optional team/news fields are an evidence gap, not a
-    # reason to misclassify 巴西甲/巴西乙 as a low-level competition.
+    # A positive EV is not enough.  Restore the pre-10/01 type-neutral funnel:
+    # competition type (including friendly/youth) is a risk feature, not an
+    # automatic veto.  Matches with unknown tier/type must clear a stronger
+    # evidence floor before they can be promoted.  Missing optional team/news
+    # fields remain visible evidence gaps rather than silent assumptions.
     quality_gate_reasons: list[str] = []
     senior_tier = level in {"TIER_1", "TIER_2", "TIER_3"}
-    youth_or_reserve = domain in {"NATIONAL_YOUTH", "CLUB_YOUTH"} or bool(
-        re.search(r"(?:U\d{1,2}|青年|青少年|青联|青杯|后备|预备|reserve|reserves|academy|development)", competition, re.IGNORECASE)
-    )
     low_quality_competition = bool(
         re.search(
             r"(?:业余|意丁杯|西丁|瑞士丁|英北超|英南超|苏高联|巴高乙|巴戈乙|印班超|印西隆联|地区联赛|大学|校园)",
@@ -372,21 +375,16 @@ def evaluate_match(
             re.IGNORECASE,
         )
     )
-    if level in {"UNKNOWN", "TIER_4_PLUS"}:
-        quality_gate_reasons.append("LEAGUE_TIER_UNKNOWN")
-    if youth_or_reserve:
-        quality_gate_reasons.append("YOUTH_RESERVE_EXCLUDED")
     if low_quality_competition:
         quality_gate_reasons.append("LOW_QUALITY_COMPETITION")
-    # Keep a true minimum input floor for any competition, but do not turn
-    # five optional/MISSING context fields into a hard veto for known senior
-    # leagues.  This preserves the Skill's evidence-gap semantics.
+    # Keep only the real core-market floor here. Unknown tier, youth/friendly
+    # type, and missing optional rotation/lineup/news fields are uncertainty
+    # inputs, not automatic no-bet decisions under the restored pre-10/01
+    # selection rule.
     if data_score < 0.55:
         quality_gate_reasons.append("DATA_QUALITY_LOW")
     if market_score < 0.65:
         quality_gate_reasons.append("MARKET_SUPPORT_LOW")
-    if not senior_tier and missing_fundamentals >= 4:
-        quality_gate_reasons.append("CORE_EVIDENCE_TOO_SPARSE")
     quality_gate_passed = not quality_gate_reasons
     if not quality_gate_passed and final_decision.startswith("BET_"):
         final_decision = "NO_BET"
@@ -472,7 +470,7 @@ def evaluate_match(
         "ffl_home_fair_handicap": shared_ffl.get("fair_handicap"),
         "fair_handicap_low": (shared_ffl.get("fair_handicap_low") if giving_home else -finite(shared_ffl.get("fair_handicap_high"), 0.0)) if shared_ffl else None,
         "fair_handicap_high": (shared_ffl.get("fair_handicap_high") if giving_home else -finite(shared_ffl.get("fair_handicap_low"), 0.0)) if shared_ffl else None,
-        "fair_line_source": "TITAN_SHARED_FFL" if ffl_supported else "MARKET_REFERENCE_FALLBACK",
+        "fair_line_source": fair_line_source,
         "titan_context_snapshot_id": shared_context.get("snapshot_id"),
         "cmfl": shared_context.get("cmfl"),
         "fair_line_consensus": shared_context.get("fair_line_consensus"),
