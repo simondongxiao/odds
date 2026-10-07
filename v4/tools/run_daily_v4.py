@@ -13,6 +13,10 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+ROOT = Path(r"D:\codex")
+if str(ROOT) not in os.sys.path:
+    os.sys.path.insert(0, str(ROOT))
+
 from raw_adapter import load_raw, write_raw
 from direction_contract import (
     derive_market_intent,
@@ -22,6 +26,7 @@ from core_model import (
     CALIBRATION_STATUS,
     DIRECTION_RULE,
     FORWARD_STATUS,
+    LOGIC_CHANGE_AT,
     MODEL_ID,
     MODEL_VERSION,
     PROBABILITY_VERSION,
@@ -30,10 +35,11 @@ from core_model import (
     write_runtime_diagnostics,
 )
 
-ROOT = Path(r"D:\codex")
+from football_titan_data import load_feature_snapshot
+
 TARGET_TZ = timezone(timedelta(hours=8))
 STATES = ("W", "HW", "P", "HL", "L")
-V4_LOGIC_CHANGE_AT = "2026-09-30T16:18:06+08:00"
+V4_LOGIC_CHANGE_AT = LOGIC_CHANGE_AT
 
 
 def sha(path: Path) -> str:
@@ -394,6 +400,8 @@ def main() -> None:
     parser.add_argument("--raw-csv", default="", help="Use a refreshed Titan CSV instead of the legacy HTML adapter.")
     args = parser.parse_args()
     now = datetime.now(TARGET_TZ)
+    shared_snapshot = load_feature_snapshot()
+    shared_matches = shared_snapshot.get("matches", {}) if isinstance(shared_snapshot, dict) else {}
     raw_rows = load_raw_csv(Path(args.raw_csv), args.list_date) if args.raw_csv else load_raw(args.list_date)
     raw_path = write_raw(raw_rows, args.list_date)
     training = ROOT / "outputs" / "football_odds_trader" / "research" / "v4_market_base_ready.csv"
@@ -454,21 +462,31 @@ def main() -> None:
                 "market": {"snapshot_id": raw_path.stem, "source": "Titan007", "observed_at": quote_at or now.isoformat(),
                 "home_team": row["home_team"], "away_team": row["away_team"], "competition": row.get("competition", ""), "home_handicap_signed": None, "away_handicap_signed": None, "home_water_hk": None, "away_water_hk": None,
                 "quote_at": quote_at, "last_confirmed_at": quote_at, "run_id": os.environ.get("FOOTBALL_RUN_ID", "")}}
+        base.update({
+            "data_integrity": "PASS" if row.get("match_id") and row.get("home_team") and row.get("away_team") and row.get("kickoff") else "FAIL",
+            "evidence_coverage": {"identity": "AVAILABLE", "kickoff": "AVAILABLE", "asian_market": "MISSING", "euro_market": "MISSING", "ffl": "MISSING_OPTIONAL", "real_flow": "MISSING"},
+            "model_support": "NOT_COMPUTED", "interpretation_status": "UNKNOWN", "decision_status": "UNAVAILABLE",
+            "evidence_checklist": {"observed": [], "missing": ["asian_market", "euro_market"], "compatible_explanations": [], "unidentifiable": ["bookmaker_intent", "current_net_position"]},
+        })
         m = parse_market(row)
         if str(row.get("state", "0")) != "0" or kickoff <= now:
             base.update(competition=row.get("competition", ""), analysis_status="NOT_PREMATCH", grade=None, rank=None,
-                        final_decision="UNAVAILABLE", reason_codes=["MATCH_NOT_PREMATCH"], score=row.get("score", ""))
+                        final_decision="UNAVAILABLE", reason_codes=["MATCH_NOT_PREMATCH"], score=row.get("score", ""),
+                        decision_status="NOT_PREMATCH", model_support="NOT_COMPUTED")
         elif not m.get("ok") or not row.get("ah_ok") or not row.get("euro_ok"):
             base.update(competition=row.get("competition", ""), analysis_status="MISSING_DATA", grade=None, rank=None,
-                        final_decision="UNAVAILABLE", reason_codes=["REQUIRED_MARKET_INPUT_MISSING"])
+                        final_decision="UNAVAILABLE", reason_codes=["REQUIRED_MARKET_INPUT_MISSING"],
+                        decision_status="UNAVAILABLE_CORE_MARKET_INPUT", model_support="INSUFFICIENT_SUPPORT",
+                        evidence_coverage={**base["evidence_coverage"], "asian_market": "AVAILABLE" if row.get("ah_ok") else "MISSING", "euro_market": "AVAILABLE" if row.get("euro_ok") else "MISSING"})
         elif m.get("pk"):
             base.update(competition=row.get("competition", ""), analysis_status="NEUTRAL", grade="N", rank=None,
                         final_decision="NO_BET", bet_unit=0.0, stake_rule="FIXED_1U",
-                        reason_codes=["PK_NO_GIVING_RECEIVING_IDENTITY"])
+                        reason_codes=["PK_NO_GIVING_RECEIVING_IDENTITY"], decision_status="NO_BET_NEUTRAL", model_support="MARKET_ONLY")
         else:
             raw_intent, intent_source = derive_market_intent(row, m)
             normalized_intent = raw_intent or "unknown"
-            model_row = {**row, "normalized_intent": normalized_intent}
+            titan_context = shared_matches.get(str(row["match_id"]), {})
+            model_row = {**row, "normalized_intent": normalized_intent, "titan_context": titan_context}
             bucket = m["bucket"] if m["bucket"] in alpha else "GLOBAL"
             result = evaluate_match(model_row, m, bucket_alpha=alpha.get(bucket))
             input_payload = {
@@ -477,6 +495,7 @@ def main() -> None:
                 "receiving_water": m.get("receiving_water"), "opening_line": m.get("opening_line"),
                 "euro": [row.get("euro_home"), row.get("euro_draw"), row.get("euro_away")],
                 "evidence_snapshot_id": evidence_snapshot_id, "competition": row.get("competition", ""),
+                "titan_context_snapshot_id": shared_snapshot.get("snapshot_id"),
             }
             input_hash = stable_hash(input_payload)
             decision_id = hashlib.sha256(f"{args.list_date}|{row['match_id']}|{input_hash}".encode()).hexdigest()[:20]
@@ -496,6 +515,7 @@ def main() -> None:
                 ev_p05=None, ev_p10=None, ev_p50=result.get("ev_mean"), ev_p90=None, ev_p95=None, p_ev_positive=None,
                 diagnostic_giving={"team": m["giving_team"], "water": m["giving_water"], "EV_mean": result["ev_giving"], "probabilities": result["giving_probabilities"], "status": "MATCH_SPECIFIC"},
                 diagnostic_receiving={"team": m["receiving_team"], "water": m["receiving_water"], "EV_mean": result["ev_receiving"], "probabilities": result["receiving_probabilities"], "status": "MATCH_SPECIFIC"},
+                titan_context=titan_context,
                 market={**base["market"], "home_handicap_signed": m["raw_line"], "away_handicap_signed": -m["raw_line"],
                         "titan_home_handicap_signed": m["raw_line"], "titan_away_handicap_signed": -m["raw_line"],
                         "home_water_hk": m["home_water"], "away_water_hk": m["away_water"],
