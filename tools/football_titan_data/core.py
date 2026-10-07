@@ -29,8 +29,8 @@ DB_PATH = DATA_ROOT / "titan_football.db"
 OUT_ROOT = ROOT / "outputs" / "football_odds_trader" / "titan_data"
 TZ = timezone(timedelta(hours=8))
 PARSER_VERSION = "titan-shared-v1"
-MODEL_VERSION = "FFL_SKELLAM_V1"
-LOGIC_CHANGE_AT = "2026-10-04T09:52:00+08:00"
+MODEL_VERSION = "FFL_CMFL_DISTRIBUTION_V2"
+LOGIC_CHANGE_AT = "2026-10-07T14:06:00+08:00"
 CALIBRATION_STATUS = "FAIR_LINE_UNCALIBRATED"
 DOMAINS = {
     "CLUB_LEAGUE", "DOMESTIC_CUP", "CONTINENTAL_CLUB", "NATIONAL_OFFICIAL",
@@ -43,6 +43,10 @@ STATUS_FIELDS = (
     "data_integrity", "evidence_coverage", "model_support",
     "calibration_status", "interpretation_status", "decision_status",
 )
+
+
+def clamp(value: float, low: float, high: float) -> float:
+    return min(high, max(low, value))
 
 
 SCHEMA = """
@@ -230,6 +234,14 @@ def margin_distribution(home_lambda: float, away_lambda: float) -> dict[int, flo
     return {k: v / total for k, v in raw.items()}
 
 
+def total_distribution(home_lambda: float, away_lambda: float) -> dict[int, float]:
+    """Independent-Poisson total-goal distribution used by the OU fit."""
+    raw = {total: sum(_poisson(h, home_lambda) * _poisson(total - h, away_lambda)
+                      for h in range(total + 1)) for total in range(0, 19)}
+    normalizer = sum(raw.values()) or 1.0
+    return {key: value / normalizer for key, value in raw.items()}
+
+
 def _status(margin: int, handicap: float) -> str:
     value = margin + handicap
     return "W" if value > 1e-9 else "L" if value < -1e-9 else "P"
@@ -255,6 +267,30 @@ def asian_states(distribution: dict[int, float], handicap: float) -> dict[str, f
     return states
 
 
+def ou_states(distribution: dict[int, float], line: float) -> dict[str, float]:
+    """Five-state settlement probabilities for the Over side of an OU line."""
+    states = {s: 0.0 for s in ("W", "HW", "P", "HL", "L")}
+    q = round(float(line) * 4)
+    parts = [q / 4.0] if q % 2 == 0 else [(q - 1) / 4.0, (q + 1) / 4.0]
+    for total, probability in distribution.items():
+        outcomes = []
+        for part in parts:
+            adjusted = float(total) - part
+            outcomes.append("W" if adjusted > 1e-9 else "L" if adjusted < -1e-9 else "P")
+        if len(outcomes) == 1 or outcomes[0] == outcomes[-1]:
+            state = outcomes[0]
+        elif set(outcomes) == {"W", "P"}:
+            state = "HW"
+        elif set(outcomes) == {"L", "P"}:
+            state = "HL"
+        elif set(outcomes) == {"W", "L"}:
+            state = "P"
+        else:
+            raise AssertionError(outcomes)
+        states[state] += probability
+    return states
+
+
 def fair_water(states: dict[str, float]) -> float | None:
     win = states["W"] + 0.5 * states["HW"]
     lose = states["L"] + 0.5 * states["HL"]
@@ -275,6 +311,16 @@ def fair_curve(distribution: dict[int, float]) -> list[dict[str, Any]]:
             "home_fair_water_hk": fair_water(home), "away_fair_water_hk": fair_water(away),
         })
     return result
+
+
+def fair_handicap_summary(distribution: dict[int, float]) -> float | None:
+    """Return a display-only curve summary, never a rounded mean margin."""
+    curve = fair_curve(distribution)
+    candidates = [item for item in curve if item.get("home_fair_water_hk") is not None]
+    if not candidates:
+        return None
+    selected = min(candidates, key=lambda item: abs(math.log(max(float(item["home_fair_water_hk"]), 1e-9))))
+    return float(selected["home_bet_handicap"])
 
 
 def settlement_payoff_vector(handicap: float, water: float, margins: range | list[int] | tuple[int, ...] = range(-9, 10)) -> dict[str, float]:
@@ -329,25 +375,89 @@ def _outcome_probs(distribution: dict[int, float]) -> tuple[float, float, float]
     return sum(p for m, p in distribution.items() if m > 0), distribution.get(0, 0.0), sum(p for m, p in distribution.items() if m < 0)
 
 
-def consensus_market_fair_line(euro: tuple[float | None, float | None, float | None], total_line: float | None) -> dict[str, Any]:
-    """CMFL uses only de-vig 1X2 and O/U total; it never reads Asian handicap."""
+def _devig_binary(over_water: float | None, under_water: float | None) -> tuple[float, float] | None:
+    if over_water is None or under_water is None or over_water <= -0.99 or under_water <= -0.99:
+        return None
+    raw = (1.0 / (1.0 + float(over_water)), 1.0 / (1.0 + float(under_water)))
+    total = sum(raw)
+    return (raw[0] / total, raw[1] / total) if total > 0 else None
+
+
+def consensus_market_fair_line(
+    euro: tuple[float | None, float | None, float | None],
+    total_line: float | None,
+    ou_prices: tuple[float | None, float | None] | None = None,
+) -> dict[str, Any]:
+    """Fit home/away lambdas to de-vig 1X2 and, when present, de-vig OU prices.
+
+    Asian handicap is deliberately absent from this function.  The AH quote is
+    read only by the caller after this complete distribution has been produced.
+    """
     if any(v is None or v <= 1 for v in euro):
-        return {"status": "UNAVAILABLE", "margin": None, "total": total_line}
-    target = _devig_1x2(float(euro[0]), float(euro[1]), float(euro[2]))
-    best: tuple[float, float, float, float] | None = None
-    totals = [float(total_line)] if total_line is not None and 1.0 <= total_line <= 5.0 else [x / 10 for x in range(18, 39)]
+        return {"status": "UNAVAILABLE", "margin": None, "total": total_line, "fit_quality": "UNAVAILABLE"}
+    target_1x2 = _devig_1x2(float(euro[0]), float(euro[1]), float(euro[2]))
+    target_ou = _devig_binary(*(ou_prices or (None, None)))
+    if total_line is None or not 1.0 <= float(total_line) <= 5.5:
+        target_ou = None
+    best: tuple[float, float, float, float, float, float] | None = None
+    observed_total_line = float(total_line) if total_line is not None and 1.0 <= float(total_line) <= 5.5 else 2.5
+    # A compact, reproducible grid is preferable to a hidden optimiser here.
+    # Keep the daily 200-300 match slate tractable while retaining enough
+    # resolution to distinguish OU price information from a pure line bucket.
+    if target_ou is not None:
+        totals = sorted({round(clamp(observed_total_line + offset, 1.2, 4.8), 2) for offset in (-1.0, -0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75, 1.0)})
+    else:
+        totals = [1.4 + 0.4 * index for index in range(9)]
     for total in totals:
-        for step in range(-60, 61):
+        for step in range(-50, 51):
             margin = step / 20.0
             home_lam = max(0.08, (total + margin) / 2)
             away_lam = max(0.08, (total - margin) / 2)
-            probs = _outcome_probs(margin_distribution(home_lam, away_lam))
-            loss = sum((probs[i] - target[i]) ** 2 for i in range(3))
-            candidate = (loss, margin, home_lam, away_lam)
+            distribution = margin_distribution(home_lam, away_lam)
+            observed_1x2 = _outcome_probs(distribution)
+            fit_1x2 = sum((observed_1x2[i] - target_1x2[i]) ** 2 for i in range(3))
+            fit_ou = None
+            total_goal_distribution = total_distribution(home_lam, away_lam)
+            if target_ou is not None:
+                ou = ou_states(total_goal_distribution, observed_total_line)
+                observed_over = ou["W"] + 0.5 * ou["HW"]
+                observed_under = ou["L"] + 0.5 * ou["HL"]
+                fit_ou = (observed_over - target_ou[0]) ** 2 + (observed_under - target_ou[1]) ** 2
+            combined = fit_1x2 + (fit_ou if fit_ou is not None else 0.0)
+            candidate = (combined, fit_1x2, fit_ou if fit_ou is not None else 0.0, home_lam, away_lam, total)
             if best is None or candidate < best:
                 best = candidate
     assert best
-    return {"status": "AVAILABLE", "margin": best[1], "total": best[2] + best[3], "fit_error": best[0], "devig_1x2": target}
+    combined, fit_1x2, fit_ou_value, home_lam, away_lam, fitted_total = best
+    fit_ou = fit_ou_value if target_ou is not None else None
+    if target_ou is None:
+        fit_quality = "FAIR_1X2_ONLY" if fit_1x2 <= 0.02 else "POOR_FIT"
+    elif combined <= 0.02 and fit_1x2 <= 0.015 and fit_ou <= 0.015:
+        fit_quality = "GOOD"
+    elif combined <= 0.06:
+        fit_quality = "FAIR"
+    else:
+        fit_quality = "POOR_FIT"
+    distribution = margin_distribution(home_lam, away_lam)
+    return {
+        "status": "AVAILABLE",
+        "margin": home_lam - away_lam,
+        "fair_goal_margin": home_lam - away_lam,
+        "fair_handicap": fair_handicap_summary(distribution),
+        "total": fitted_total,
+        "lambda_home": home_lam,
+        "lambda_away": away_lam,
+        "margin_distribution": {str(k): v for k, v in distribution.items()},
+        "fair_ah_curve": fair_curve(distribution),
+        "fit_error": combined,
+        "fit_error_1x2": fit_1x2,
+        "fit_error_ou": fit_ou,
+        "fit_quality": fit_quality,
+        "devig_1x2": target_1x2,
+        "devig_ou": {"over": target_ou[0], "under": target_ou[1]} if target_ou is not None else None,
+        "ou_line": observed_total_line if target_ou is not None else None,
+        "ou_prices_used": target_ou is not None,
+    }
 
 
 def fundamental_fair_line(home: dict[str, Any], away: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
@@ -359,7 +469,8 @@ def fundamental_fair_line(home: dict[str, Any], away: dict[str, Any], context: d
             "model_version": MODEL_VERSION, "predicted_home_goals": None,
             "predicted_away_goals": None, "fair_goal_margin": None,
             "fair_handicap": None, "fair_handicap_low": None, "fair_handicap_high": None,
-            "uncertainty": None, "margin_distribution": {}, "fair_ah_curve": [],
+            "ffl_mean_margin": None, "ffl_margin_distribution": {}, "ffl_uncertainty": None,
+            "ffl_support_level": "UNAVAILABLE", "uncertainty": None, "margin_distribution": {}, "fair_ah_curve": [],
             "inputs": {"home": home, "away": away, "context": context},
         }
     h_elo, a_elo = float(home.get("elo", 1500)), float(away.get("elo", 1500))
@@ -382,15 +493,21 @@ def fundamental_fair_line(home: dict[str, Any], away: dict[str, Any], context: d
     sample = int(home.get("sample_count", 0)) + int(away.get("sample_count", 0))
     missing = int(home.get("missing_count", 0)) + int(away.get("missing_count", 0))
     uncertainty = min(0.95, max(0.12, 0.62 / math.sqrt(max(1, sample / 4)) + 0.035 * missing))
-    central = round(margin * 4) / 4
+    support_level = "HIGH" if sample >= 24 and missing <= 2 else "MEDIUM" if sample >= 12 else "LOW"
+    curve = fair_curve(distribution)
+    # This is deliberately a curve summary.  It is not round(margin*4)/4.
+    curve_summary = fair_handicap_summary(distribution)
     return {
         "status": CALIBRATION_STATUS, "reason": "ASOF_TEAM_HISTORY_SUPPORTED", "model_version": MODEL_VERSION,
         "predicted_home_goals": home_lambda, "predicted_away_goals": away_lambda,
-        "fair_goal_margin": margin, "fair_handicap": central,
-        "fair_handicap_low": round((margin - uncertainty) * 4) / 4,
-        "fair_handicap_high": round((margin + uncertainty) * 4) / 4,
-        "uncertainty": uncertainty, "margin_distribution": {str(k): v for k, v in distribution.items()},
-        "fair_ah_curve": fair_curve(distribution),
+        "fair_goal_margin": margin, "ffl_mean_margin": margin,
+        "fair_handicap": curve_summary,
+        "fair_handicap_low": None, "fair_handicap_high": None,
+        "uncertainty": uncertainty, "ffl_uncertainty": uncertainty,
+        "ffl_support_level": support_level,
+        "margin_distribution": {str(k): v for k, v in distribution.items()},
+        "ffl_margin_distribution": {str(k): v for k, v in distribution.items()},
+        "fair_ah_curve": curve,
         "inputs": {"home": home, "away": away, "context": context},
     }
 
@@ -594,12 +711,34 @@ def build_shared_snapshot(raw_csv: Path | str, list_date: str, decision_at: date
         ffl_usable = ffl.get("fair_goal_margin") is not None
         euro = (_f(_first(row, "euro_full_current_home_or_over", "xml_euro_home")), _f(_first(row, "euro_full_current_line_or_draw", "xml_euro_draw")), _f(_first(row, "euro_full_current_away_or_under", "xml_euro_away")))
         total_line = _f(_first(row, "total_full_current_line_or_draw", "xml_total_line"))
-        cmfl = consensus_market_fair_line(euro, total_line)
-        cm_margin = cmfl.get("margin")
-        consensus = None if not ffl_usable and cm_margin is None else (
-            cm_margin if not ffl_usable else ffl["fair_goal_margin"] if cm_margin is None
-            else 0.55 * ffl["fair_goal_margin"] + 0.45 * float(cm_margin)
+        ou_prices = (
+            _f(_first(row, "total_full_current_home_or_over", "xml_total_over_water")),
+            _f(_first(row, "total_full_current_away_or_under", "xml_total_under_water")),
         )
+        cmfl = consensus_market_fair_line(euro, total_line, ou_prices)
+        cm_margin = cmfl.get("margin")
+        cmfl_usable = cm_margin is not None and cmfl.get("fit_quality") not in {"POOR_FIT", "UNAVAILABLE"}
+        ffl_dist = ffl.get("margin_distribution") if ffl_usable else {}
+        cmfl_dist = cmfl.get("margin_distribution") if cmfl_usable else {}
+        ffl_support = str(ffl.get("ffl_support_level") or "UNAVAILABLE")
+        # Do not average two unvalidated models.  Until independent walk-forward
+        # weights exist, select the supported primary distribution and expose the
+        # reason.  This is explicitly not a 50/50 consensus.
+        if ffl_usable and cmfl_usable:
+            if ffl_support in {"HIGH", "MEDIUM"} and cmfl.get("fit_quality") == "GOOD":
+                selected_model = "FFL_PRIMARY"
+                selected_dist = ffl_dist
+            else:
+                selected_model = "CMFL_PRIMARY"
+                selected_dist = cmfl_dist
+            consensus_state = "FAIR_MODEL_DISAGREEMENT" if abs(float(ffl["fair_goal_margin"]) - float(cm_margin)) > 0.75 else "PRIMARY_SELECTED_NO_OOT_FUSION"
+        elif ffl_usable:
+            selected_model, selected_dist, consensus_state = "FFL_PRIMARY", ffl_dist, "FFL_ONLY"
+        elif cmfl_usable:
+            selected_model, selected_dist, consensus_state = "CMFL_PRIMARY", cmfl_dist, "CMFL_ONLY"
+        else:
+            selected_model, selected_dist, consensus_state = "MARKET_CONDITIONAL", {}, "NO_FAIR_MODEL"
+        consensus = None if not selected_dist else sum(int(k) * float(v) for k, v in selected_dist.items())
         disagreement = None if cm_margin is None or not ffl_usable else abs(ffl["fair_goal_margin"] - float(cm_margin))
         diagnostic = _market_diagnostic(row, ffl, cmfl)
         current_line = _f(_first(row, "ah_full_current_line_or_draw", "xml_ah_line"))
@@ -608,7 +747,7 @@ def build_shared_snapshot(raw_csv: Path | str, list_date: str, decision_at: date
         opening_home_water = _f(row.get("ah_full_open_home_or_over"))
         opening_away_water = _f(row.get("ah_full_open_away_or_under"))
         current_away_water = _f(_first(row, "ah_full_current_away_or_under", "xml_ah_away_water"))
-        home_states = asian_states({int(k): v for k, v in ffl["margin_distribution"].items()}, current_line) if current_line is not None and ffl.get("margin_distribution") else None
+        home_states = asian_states({int(k): v for k, v in selected_dist.items()}, current_line) if current_line is not None and selected_dist else None
         price_terms = None
         current_giving_water = current_hw if current_line is not None and current_line > 0 else current_away_water
         opening_giving_water = opening_home_water if opening_line_value is not None and opening_line_value > 0 else opening_away_water
@@ -654,7 +793,7 @@ def build_shared_snapshot(raw_csv: Path | str, list_date: str, decision_at: date
                                   "real_flow_status": "MISSING"},
             "cup_match_state": context["cup_state"], "motivation": motivation,
             "lineup": None, "injuries": None, "ffl": ffl_feature, "cmfl": cmfl,
-            "fair_line_consensus": {"margin": consensus, "ffl_weight": 0.55 if ffl_usable and cm_margin is not None else 1.0 if ffl_usable else 0.0, "cmfl_weight": 0.45 if ffl_usable and cm_margin is not None else 1.0 if not ffl_usable and cm_margin is not None else 0.0, "disagreement": disagreement},
+            "fair_line_consensus": {"margin": consensus, "distribution": selected_dist, "source": selected_model, "state": consensus_state, "ffl_weight": 1.0 if selected_model == "FFL_PRIMARY" else 0.0, "cmfl_weight": 1.0 if selected_model == "CMFL_PRIMARY" else 0.0, "disagreement": disagreement},
             "market": {"opening_line": opening_line_value, "current_line": current_line, "home_water": current_hw, "away_water": current_away_water, "price_adjusted_home_gap_ev": price_adjusted_gap(current_line, current_hw, home_states), "price_term_comparison": price_terms},
             "market_deviation": diagnostic, "data_quality": "CORE" if home["sample_count"] + away["sample_count"] < 8 else "MARKET",
             "data_integrity": "PASS" if match_id and kickoff else "FAIL",
@@ -667,7 +806,7 @@ def build_shared_snapshot(raw_csv: Path | str, list_date: str, decision_at: date
                 "cross_book_quotes": "MISSING",
                 "real_flow": "MISSING",
             },
-            "model_support": "FFL_SUPPORTED" if ffl_usable else "MARKET_REFERENCE_FALLBACK" if cmfl.get("status") == "AVAILABLE" else "INSUFFICIENT_SUPPORT",
+            "model_support": selected_model,
             "interpretation_status": diagnostic.get("interpretation", "UNKNOWN"),
             "decision_status": "PRICE_EVALUATION_AVAILABLE" if current_line is not None and current_hw is not None and (cmfl.get("status") == "AVAILABLE" or ffl_usable) else "CORE_MARKET_INPUT_MISSING",
             "evidence_checklist": diagnostic.get("evidence_checklist", {}),
