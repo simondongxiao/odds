@@ -1,21 +1,29 @@
-"""V4 market identity and interpretation contract.
+"""V4 direction contract.
 
-Titan's signed Asian line is the only source of giving/receiving identity.
-Intent labels are interpretation-only and can never command the final side.
+This module is deliberately small and deterministic.  It makes Titan's signed
+Asian line the only source of team identity, and keeps intent-side mapping
+separate from the posterior/grade calculation.
 """
 from __future__ import annotations
 
 import re
 from typing import Any
 
-MAPPING_VERSION = "MATCH_SPECIFIC_DUAL_EV"
+MAPPING_VERSION = "V4_DIRECTION_FIXED_R1"
 STATES = ("W", "HW", "P", "HL", "L")
 KNOWN_SIDES = {"giving", "receiving", "neutral", "unknown"}
 
-KNOWN_INTENTS = {
-    "阻上/诱下", "降温保护/诱下", "真实示强/阻上", "诱下/上盘降温",
-    "阻上/降温保护", "诱上/阻下", "真实示弱/阻下", "阻下/下盘保护",
-    "平衡盘/等待临场确认", "平衡",
+INTENT_TO_SIDE = {
+    "阻上/诱下": "giving",
+    "降温保护/诱下": "giving",
+    "真实示强/阻上": "giving",
+    "诱下/上盘降温": "giving",
+    "阻上/降温保护": "giving",
+    "诱上/阻下": "receiving",
+    "真实示弱/阻下": "receiving",
+    "阻下/下盘保护": "receiving",
+    "平衡盘/等待临场确认": "neutral",
+    "平衡": "neutral",
 }
 
 
@@ -24,23 +32,22 @@ def normalize_intent(value: Any) -> str:
     if "亚盘意图候选：" in text:
         text = text.split("亚盘意图候选：", 1)[1]
     text = text.split("（", 1)[0].split("；", 1)[0]
-    for tag in KNOWN_INTENTS:
+    for tag in INTENT_TO_SIDE:
         if text == tag or tag in text:
             return tag
     if not text or any(x in text for x in ("未接入", "待核", "缺失", "无法判断")):
         return "unknown"
-    return text if text in KNOWN_INTENTS else "unknown"
+    return text if text in INTENT_TO_SIDE else "unknown"
 
 
 def map_intent(value: Any, *, pk: bool = False) -> dict[str, Any]:
-    """Compatibility adapter; intent no longer maps to a directional side."""
     normalized = normalize_intent(value)
-    side = "neutral" if pk else "unknown"
+    side = "neutral" if pk else INTENT_TO_SIDE.get(normalized, "unknown")
     return {
         "normalized_intent": normalized,
         "candidate_side": side,
         "mapping_rule_version": MAPPING_VERSION,
-        "mapping_reason": "PK has no giving/receiving identity" if pk else "INTERPRETATION_ONLY_NO_DIRECTION_COMMAND",
+        "mapping_reason": "authoritative canonical intent mapping" if side != "unknown" else "intent unavailable or not recognized",
     }
 
 
@@ -191,3 +198,4 @@ def assert_side_identity(market: dict[str, Any], candidate: dict[str, Any]) -> t
 
 def mirror_probs(probs: dict[str, float]) -> dict[str, float]:
     return {"W": probs.get("L", 0.0), "HW": probs.get("HL", 0.0), "P": probs.get("P", 0.0), "HL": probs.get("HW", 0.0), "L": probs.get("W", 0.0)}
+
