@@ -2,14 +2,20 @@
   "dates": [
     {
       "archive_type": "FORWARD_NATIVE",
+      "date": "2026-10-10",
+      "event_count": 45,
+      "file": "2026-10-10.json"
+    },
+    {
+      "archive_type": "FORWARD_NATIVE",
       "date": "2026-10-09",
-      "event_count": 35,
+      "event_count": 84,
       "file": "2026-10-09.json"
     },
     {
       "archive_type": "FORWARD_NATIVE",
       "date": "2026-10-08",
-      "event_count": 113,
+      "event_count": 175,
       "file": "2026-10-08.json"
     },
     {
@@ -129,7 +135,7 @@
     {
       "archive_type": "FORWARD_NATIVE",
       "date": "2026-09-18",
-      "event_count": 43,
+      "event_count": 44,
       "file": "2026-09-18.json"
     },
     {
@@ -141,7 +147,7 @@
     {
       "archive_type": "FORWARD_NATIVE",
       "date": "2026-09-16",
-      "event_count": 48,
+      "event_count": 49,
       "file": "2026-09-16.json"
     },
     {
@@ -265,5 +271,5 @@
       "file": "2026-08-26.json"
     }
   ],
-  "generated_at": "2026-10-07T00:46:11.306890+00:00"
+  "generated_at": "2026-10-07T23:46:08.539338+00:00"
 }
