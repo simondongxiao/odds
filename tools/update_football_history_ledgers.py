@@ -101,12 +101,29 @@ def resize_tables(ws, old_last: int, new_last: int) -> None:
         table.ref = f"{start}:{end_col}{new_last}"
 
 
-def append_rows(path: Path, rows: list[list[object]], backup_dir: Path) -> int:
-    if not rows:
-        return 0
+def append_rows(path: Path, rows: list[list[object]], backup_dir: Path, replace_date: str | None = None) -> int:
     wb = load_workbook(path, data_only=False)
     ws = wb["赛事明细"]
     old_last = table_last_row(ws)
+    removed = 0
+    if replace_date:
+        target_rows = [
+            row for row in range(4, old_last + 1)
+            if text(ws.cell(row, 1).value)[:10] == replace_date
+        ]
+        if target_rows:
+            backup_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, backup_dir / path.name)
+            for row in reversed(target_rows):
+                ws.delete_rows(row, 1)
+            removed = len(target_rows)
+            old_last -= removed
+            resize_tables(ws, old_last + removed, old_last)
+    if not rows:
+        if removed:
+            wb.save(path)
+        wb.close()
+        return 0
     existing: set[tuple[str, str, str]] = set()
     for row in range(4, old_last + 1):
         existing.add((text(ws.cell(row, 1).value)[:10], text(ws.cell(row, 6).value), text(ws.cell(row, 21).value) if ws.max_column >= 21 else ""))
@@ -120,8 +137,9 @@ def append_rows(path: Path, rows: list[list[object]], backup_dir: Path) -> int:
     if not pending:
         wb.close()
         return 0
-    backup_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(path, backup_dir / path.name)
+    if not removed:
+        backup_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, backup_dir / path.name)
     source_row = old_last
     for offset, values in enumerate(pending, start=1):
         target_row = old_last + offset
@@ -192,10 +210,23 @@ def main() -> int:
 
     # The Excel ledgers are bettable-history ledgers, not full roster dumps.
     # Keep only the frozen production V3 actions and V4 A/B/C candidates.
-    v4_rows = [v4_values(raw[mid], v4[mid], bridge.get(mid, {}), source) for mid in sorted(raw.keys()) if mid in v4 and text(v4[mid].get("grade")) in {"A", "B", "C"} and text(v4[mid].get("selected_team"))]
+    v4_rows = [
+        v4_values(raw[mid], v4[mid], bridge.get(mid, {}), source)
+        for mid in sorted(raw.keys())
+        if mid in v4
+        and text(v4[mid].get("grade")) in {"A", "B", "C"}
+        and text(v4[mid].get("selected_team"))
+        # From the 2026-10-07 model revision onward, only a passed quality
+        # gate may enter the bettable V4 ledger. Older historical rows do not
+        # carry this field and remain untouched.
+        and (args.list_date < "2026-10-07" or v4[mid].get("quality_gate_passed") is True)
+    ]
     v3_rows = [v3_values(raw[mid], bridge.get(mid, {}), source) for mid in sorted(raw.keys()) if text(bridge.get(mid, {}).get("action")) in {"可投", "半仓可投"}]
-    added_v3 = append_rows(args.v3_ledger, v3_rows, args.backup_dir / "v3")
-    added_v4 = append_rows(args.v4_ledger, v4_rows, args.backup_dir / "v4")
+    # Rebuild the current date in-place before appending. This removes stale
+    # low-quality rows left by the former append-only workflow while keeping
+    # all prior settled history intact and preserving the workbook styles.
+    added_v3 = append_rows(args.v3_ledger, v3_rows, args.backup_dir / "v3", replace_date=args.list_date)
+    added_v4 = append_rows(args.v4_ledger, v4_rows, args.backup_dir / "v4", replace_date=args.list_date)
     print(json.dumps({"list_date": args.list_date, "raw_rows": len(raw), "v3_rows_appended": added_v3, "v4_rows_appended": added_v4, "backup": str(args.backup_dir)}, ensure_ascii=False))
     return 0
 
