@@ -3,36 +3,36 @@
   "archive_type": "FORWARD_NATIVE",
   "hit_rate": null,
   "last_run_funnel": {
-    "blocked_events": 460,
-    "cold_start_priceable_events": 6,
-    "comparable_events": 40,
+    "blocked_events": 474,
+    "cold_start_priceable_events": 9,
+    "comparable_events": 22,
     "events": 524,
     "executable_events": 0,
     "fresh_market_events": 51,
-    "independent_priceable_events": 133,
+    "independent_priceable_events": 70,
     "market_observed_events": 126,
     "paper_bettable": 0,
     "paper_triggered_events": 0,
     "pricing_state_counts": {
-      "COLD_START_PRICEABLE": 6,
-      "NATIVE_PRICEABLE": 127,
-      "UNPRICEABLE": 391
+      "COLD_START_PRICEABLE": 9,
+      "NATIVE_PRICEABLE": 61,
+      "UNPRICEABLE": 454
     },
     "prior_only_price_events": 0,
     "raw_verified_market_events": 126,
-    "research_coupled_events": 80,
-    "research_priceable_events": 133,
-    "shadow_eligible_events": 22
+    "research_coupled_events": 23,
+    "research_priceable_events": 70,
+    "shadow_eligible_events": 12
   },
   "probability_calibration": "UNVALIDATED",
   "real_execution_allowed": false,
   "spread_execution_total": {
     "migration": {
       "canonical_execution_records": 96,
-      "canonical_signal_records": 516,
+      "canonical_signal_records": 517,
       "policy": "Earliest valid first-write per canonical event and market is the only statistical sample; later captures remain audit evidence.",
-      "raw_first_write_records_found": 2759,
-      "repeat_capture_records_excluded_from_statistics": 2243,
+      "raw_first_write_records_found": 2781,
+      "repeat_capture_records_excluded_from_statistics": 2264,
       "repeat_execution_records_excluded_from_statistics": 0
     },
     "model_validation": {
@@ -188,10 +188,10 @@
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
       "signal_hit_rate_ex_push": 0.5382436260623229,
       "signal_losses": 163,
-      "signal_pending": 111,
+      "signal_pending": 112,
       "signal_pushes": 5,
       "signal_wins": 190,
-      "signals": 469
+      "signals": 470
     },
     "spread_signal_layer": {
       "executed": 77,
@@ -204,10 +204,10 @@
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
       "signal_hit_rate_ex_push": 0.5382436260623229,
       "signal_losses": 163,
-      "signal_pending": 111,
+      "signal_pending": 112,
       "signal_pushes": 5,
       "signal_wins": 190,
-      "signals": 469
+      "signals": 470
     },
     "total_diagnostic_layer": {
       "bias_conclusion": "DESCRIPTIVE_ONLY_NOT_USED_FOR_PARAMETERS",
