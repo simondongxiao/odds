@@ -54,7 +54,14 @@ def sync_authoritative_excel_ledgers() -> dict[str, object]:
         (USER_V3_LEDGER, V3_LEDGER, "V3"),
         (USER_V4_LEDGER, V4_LEDGER, "V4"),
     ):
+        # The user-maintained WeChat temp directory is not persistent across
+        # sessions.  If it is unavailable, keep the already validated local
+        # canonical ledger instead of blocking a publish or reverting to a
+        # short snapshot.
         if not source.exists():
+            if target.exists():
+                synced.append(f"{label}:fallback:{target}")
+                continue
             missing.append(label)
             continue
         target.parent.mkdir(parents=True, exist_ok=True)
