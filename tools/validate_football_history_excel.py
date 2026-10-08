@@ -29,6 +29,10 @@ def parse_date(value: object) -> dt.date | None:
 
 def style_signature(ws, row: int) -> tuple[object, ...]:
     cells = [ws.cell(row, col) for col in (1, 2, 3, 5, 17, 19)]
+    def border_style(cell, side: str) -> object:
+        value = getattr(cell.border, side, None)
+        return getattr(value, "style", None)
+
     return tuple(
         (
             cell.style_id,
@@ -44,10 +48,10 @@ def style_signature(ws, row: int) -> tuple[object, ...]:
             cell.fill.fill_type,
             cell.fill.fgColor.type,
             cell.fill.fgColor.rgb if cell.fill.fgColor.type == "rgb" else None,
-            cell.border.left.style,
-            cell.border.right.style,
-            cell.border.top.style,
-            cell.border.bottom.style,
+            border_style(cell, "left"),
+            border_style(cell, "right"),
+            border_style(cell, "top"),
+            border_style(cell, "bottom"),
         )
         for cell in cells
     )

@@ -3267,7 +3267,9 @@ def html_doc_v2(
       font-size: 12px;
       line-height: 1.45;
     }}
-    .match-main {{ font-weight: 700; line-height: 1.35; }}
+    .match-main {{ font-weight: 700; line-height: 1.35; padding: 2px 4px; border-radius: 2px; }}
+    .history-high-match {{ background: #ffe2e2; color: #8f1d1d; }}
+    .history-low-match {{ background: #e2f5e5; color: #176b31; }}
     .match-meta {{ margin-top: 3px; color: var(--muted); font-size: 12px; }}
     .tag {{
       display: inline-flex;
@@ -4261,8 +4263,33 @@ function historyRateIds() {{
   if (mode === "全部") return null;
   return new Set(historyRateRows
     .filter(x => (x.version || "") === "V3")
-    .filter(x => mode === "high" ? String(x.rate_band || "").startsWith("高：") : String(x.rate_band || x.alert_band || "").startsWith("严重："))
+    .filter(x => concreteCompetitionName(x.competition))
+    .filter(x => Number(x.historical_settled_sample || 0) > 8 && Number.isFinite(Number(x.effective_win_rate)))
+    .filter(x => mode === "high" ? Number(x.effective_win_rate) > 0.55 : Number(x.effective_win_rate) < 0.45)
     .map(x => String(x.match_id || "")));
+}}
+
+function concreteCompetitionName(value) {{
+  const s = String(value || "").trim();
+  return Boolean(s) && !s.includes("系列") && !["全部", "未标注", "未知赛事", "UNKNOWN"].includes(s);
+}}
+
+function historyRateBandForMatch(r) {{
+  const competition = String(r.league || "").trim();
+  if (!concreteCompetitionName(competition)) return "";
+  const row = historyRateRows.find(x => String(x.version || "") === "V3"
+    && String(x.match_id || "") === String(r.match_id || "")
+    && String(x.competition || "").trim() === competition);
+  if (!row || Number(row.historical_settled_sample || 0) <= 8) return "";
+  const rate = Number(row.effective_win_rate);
+  if (!Number.isFinite(rate)) return "";
+  return rate > 0.55 ? "high" : rate < 0.45 ? "low" : "";
+}}
+
+function historyMatchClass(r) {{
+  const latest = allDates()[0] || "";
+  const band = String(r.date || "") === latest ? historyRateBandForMatch(r) : "";
+  return band ? ` history-${{band}}-match` : "";
 }}
 
 async function loadHistoryRates(date) {{
@@ -4286,7 +4313,7 @@ function historyRateAlertHtml(r) {{
     const pnl = x.pnl_1u === "" || x.pnl_1u == null ? "PnL 待核" : `PnL ${{Number(x.pnl_1u) >= 0 ? "+" : ""}}${{Number(x.pnl_1u).toFixed(2)}}U`;
     const roi = x.roi === "" || x.roi == null ? "ROI 待核" : `ROI ${{pct(Number(x.roi))}}`;
     return `${{clean(x.competition || r.league)}}｜近期${{x.historical_settled_sample ?? 0}}场｜红/半红/走/半黑/黑 ${{x.红 ?? 0}}/${{x.半红 ?? 0}}/${{x.走 ?? 0}}/${{x.半黑 ?? 0}}/${{x.黑 ?? 0}}｜有效胜率 ${{rate}}｜${{side}}：${{clean(x.selected_team || "方向待核")}}｜${{clean(band)}}｜${{pnl}}｜${{roi}}`;
-  }}).join("<br>")}}<br><span class="muted">口径：同名赛事、样本截止当前列表日前；高胜率≥55%，低胜率&lt;45%；45%-&lt;55%不纳入高低胜率列表。</span></div>`;
+  }}).join("<br>")}}<br><span class="muted">口径：同名具体联赛/杯赛、样本截止当前列表日前；高胜率&gt;55%，低胜率&lt;45%；45%-55%不纳入高低胜率列表。</span></div>`;
 }}
 
 function cupRegressionDecision(r, proposal) {{
@@ -4468,7 +4495,7 @@ function renderList(selectedMatch = null) {{
   list.innerHTML = rows.map((r, idx) => `
     <button class="match-item ${{!mobile && r.display_match === selected ? "active" : ""}}" data-idx="${{idx}}" aria-expanded="false">
       <div>
-        <div class="match-main">${{r.display_match}}</div>
+        <div class="match-main${{historyMatchClass(r)}}">${{r.display_match}}</div>
         <div class="match-meta">${{r.display_time}} ｜ ${{r.league}} ｜ ${{r.market}}：${{r.pick}} ｜ 比分：${{r.display_score}}</div>
       </div>
       <span class="tag ${{tagClass(r.display_status)}}">${{r.display_status}}</span>

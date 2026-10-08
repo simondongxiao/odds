@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import shutil
+import stat
 import subprocess
 from pathlib import Path
 
@@ -13,6 +14,8 @@ PUBLISH_REPO = ROOT / "github_publish" / "odds"
 V3_OUTPUT = WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader"
 V3_LEDGER = WORKSPACE / "技能项目" / "football_update" / "outputs__from_root" / "football_odds_trader" / "excel" / "football_odds_ledger_delta_conv.xlsx"
 V4_LEDGER = WORKSPACE / "技能项目" / "football_update" / "outputs__from_root" / "football_odds_trader" / "excel" / "football_odds_ledger_v4.xlsx"
+USER_V3_LEDGER = Path(r"D:\xwechat_files\dongxiaosf_f169\business\favorite\temp\football_odds_ledger_delta_conv.xlsx")
+USER_V4_LEDGER = Path(r"D:\xwechat_files\dongxiaosf_f169\business\favorite\temp\football_odds_ledger_v4.xlsx")
 EXCEL_VALIDATOR = WORKSPACE / "技能项目" / "football_update" / "tools" / "validate_football_history_excel.py"
 
 
@@ -37,6 +40,31 @@ def copy_dir(src: Path, dst: Path) -> bool:
     return True
 
 
+def sync_authoritative_excel_ledgers() -> dict[str, object]:
+    """Synchronize the user-maintained ledgers before any HTML validation.
+
+    The two explicitly maintained Excel files are the source of truth for
+    historical same-competition statistics.  The old local copies were only
+    short snapshots, which is how a competition with 23 settled rows became
+    a six-row, 100% display in HTML.
+    """
+    synced: list[str] = []
+    missing: list[str] = []
+    for source, target, label in (
+        (USER_V3_LEDGER, V3_LEDGER, "V3"),
+        (USER_V4_LEDGER, V4_LEDGER, "V4"),
+    ):
+        if not source.exists():
+            missing.append(label)
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists():
+            target.chmod(target.stat().st_mode | stat.S_IWRITE)
+        shutil.copy2(source, target)
+        synced.append(f"{label}:{source}")
+    return {"synced": synced, "missing": missing}
+
+
 def run_git(args: list[str], timeout: int = 120) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         ["git", "-C", str(PUBLISH_REPO), *args],
@@ -53,6 +81,16 @@ def publish(push: bool = True) -> dict[str, object]:
         raise FileNotFoundError(f"publish repo not found: {PUBLISH_REPO}")
     if not (PUBLISH_REPO / ".git").exists():
         raise FileNotFoundError(f"publish repo is not a git repo: {PUBLISH_REPO}")
+
+    excel_sync = sync_authoritative_excel_ledgers()
+    if excel_sync["missing"]:
+        return {
+            "copied": [],
+            "committed": False,
+            "pushed": False,
+            "excel_sync": excel_sync,
+            "error": "authoritative Excel ledger missing: " + ", ".join(excel_sync["missing"]),
+        }
 
     validation = subprocess.run(
         [
@@ -76,6 +114,7 @@ def publish(push: bool = True) -> dict[str, object]:
             "copied": [],
             "committed": False,
             "pushed": False,
+            "excel_sync": excel_sync,
             "error": "Excel history validation failed: " + (validation.stdout.strip() or validation.stderr.strip()),
         }
 
@@ -165,7 +204,10 @@ def publish(push: bool = True) -> dict[str, object]:
         reverse=True,
     ) if history_root.exists() else []
     if history_dirs:
-        copy_dir(history_dirs[0], PUBLISH_REPO / "reviews" / "league_history" / history_dirs[0].name)
+        # Keep the full rolling history set in the published site. Copying only
+        # the newest directory left older date pages stale after a ledger repair.
+        for history_dir in history_dirs:
+            copy_dir(history_dir, PUBLISH_REPO / "reviews" / "league_history" / history_dir.name)
     v4_daily = latest_file(WORKSPACE / "v4" / "outputs", "v4_decisions_*.json")
     if v4_daily:
         pairs.append((v4_daily, PUBLISH_REPO / "v4" / "data" / v4_daily.name.removeprefix("v4_decisions_")))
@@ -216,7 +258,7 @@ def publish(push: bool = True) -> dict[str, object]:
     diff = run_git(["diff", "--cached", "--quiet"])
     if diff.returncode == 0:
         if not push:
-            return {"copied": copied, "committed": False, "pushed": False, "message": "no changes"}
+            return {"copied": copied, "committed": False, "pushed": False, "excel_sync": excel_sync, "message": "no changes"}
         push_result = run_git(["push", "origin", "HEAD"], timeout=180)
         if push_result.returncode != 0:
             return {
@@ -241,15 +283,15 @@ def publish(push: bool = True) -> dict[str, object]:
                 "pushed": False,
                 "error": main_result.stderr.strip() or main_result.stdout.strip(),
             }
-        return {"copied": copied, "committed": False, "pushed": True, "message": "no changes; ensured main and gh-pages"}
+        return {"copied": copied, "committed": False, "pushed": True, "excel_sync": excel_sync, "message": "no changes; ensured main and gh-pages"}
 
     message = f"Update football odds dashboard {dt.datetime.now():%Y-%m-%d %H:%M}"
     commit = run_git(["commit", "-m", message])
     if commit.returncode != 0:
-        return {"copied": copied, "committed": False, "pushed": False, "error": commit.stderr.strip() or commit.stdout.strip()}
+        return {"copied": copied, "committed": False, "pushed": False, "excel_sync": excel_sync, "error": commit.stderr.strip() or commit.stdout.strip()}
 
     if not push:
-        return {"copied": copied, "committed": True, "pushed": False, "message": "committed without push"}
+        return {"copied": copied, "committed": True, "pushed": False, "excel_sync": excel_sync, "message": "committed without push"}
 
     push_result = run_git(["push", "origin", "HEAD"], timeout=180)
     if push_result.returncode != 0:
