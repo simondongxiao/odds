@@ -70,7 +70,12 @@
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
       "frozen_selection_lock": true,
-      "started_lock": true
+      "started_lock": true,
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3086985",
@@ -130,7 +135,12 @@
       "Cup_Intent": "诱下/上盘降温",
       "Cup_Raw_Intent": "诱下/上盘降温",
       "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
-      "started_lock": true
+      "started_lock": true,
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3086984",
@@ -190,7 +200,12 @@
       "Cup_Intent": "诱下/上盘降温",
       "Cup_Raw_Intent": "诱下/上盘降温",
       "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
-      "started_lock": true
+      "started_lock": true,
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3000101",
@@ -250,7 +265,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "started_lock": true
+      "started_lock": true,
+      "score": "0-2",
+      "display_score": "0-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3000096",
@@ -310,7 +330,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "started_lock": true
+      "started_lock": true,
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3086986",
@@ -369,7 +394,12 @@
       "Cup_Bayes_Weight": 0.135,
       "Cup_Intent": "诱下/上盘降温",
       "Cup_Raw_Intent": "诱下/上盘降温",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3001205",
@@ -428,7 +458,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3000094",
@@ -487,7 +522,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2940444",
@@ -546,7 +586,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-3",
+      "display_score": "2-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2940445",
@@ -605,7 +650,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-1",
+      "display_score": "3-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3000102",
@@ -664,7 +714,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3084341",
@@ -724,7 +779,12 @@
       "Cup_Intent": "诱上/阻下",
       "Cup_Raw_Intent": "诱上/阻下",
       "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3084342",
@@ -784,7 +844,12 @@
       "Cup_Intent": "诱上/阻下",
       "Cup_Raw_Intent": "诱上/阻下",
       "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-3",
+      "display_score": "1-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3043233",
@@ -843,7 +908,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-1",
+      "display_score": "3-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3043232",
@@ -902,7 +972,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-1",
+      "display_score": "0-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009391",
@@ -961,7 +1036,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-3",
+      "display_score": "3-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3043231",
@@ -1020,7 +1100,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009390",
@@ -1079,7 +1164,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "4-4",
+      "display_score": "4-4",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009514",
@@ -1138,7 +1228,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-1",
+      "display_score": "0-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009397",
@@ -1197,7 +1292,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-0",
+      "display_score": "3-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009516",
@@ -1256,7 +1356,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-2",
+      "display_score": "0-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3001204",
@@ -1315,7 +1420,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3035665",
@@ -1374,7 +1484,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-2",
+      "display_score": "0-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3097731",
@@ -1493,7 +1608,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014922",
@@ -1553,7 +1673,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "0-1",
+      "display_score": "0-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014534",
@@ -1612,7 +1737,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-3",
+      "display_score": "1-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014541",
@@ -1671,7 +1801,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014919",
@@ -1730,7 +1865,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3035663",
@@ -1789,7 +1929,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050580",
@@ -1849,7 +1994,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050577",
@@ -1909,7 +2059,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "2-2",
+      "display_score": "2-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3044287",
@@ -2087,7 +2242,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3089287",
@@ -2146,7 +2306,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3022076",
@@ -2205,7 +2370,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3097768",
@@ -2264,7 +2434,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3020905",
@@ -2323,7 +2498,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-2",
+      "display_score": "0-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3035666",
@@ -2382,7 +2562,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3095087",
@@ -3149,7 +3334,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "4-2",
+      "display_score": "4-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014107",
@@ -3208,7 +3398,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-3",
+      "display_score": "2-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014918",
@@ -3267,7 +3462,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-1",
+      "display_score": "3-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050955",
@@ -3326,7 +3526,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050952",
@@ -3385,7 +3590,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050958",
@@ -3444,7 +3654,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3051334",
@@ -3503,7 +3718,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-2",
+      "display_score": "0-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2913154",
@@ -3562,7 +3782,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2996493",
@@ -3622,7 +3847,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096434",
@@ -3681,7 +3911,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2913363",
@@ -3740,7 +3975,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3066750",
@@ -3799,7 +4039,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-4",
+      "display_score": "2-4",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3066888",
@@ -3858,7 +4103,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3066889",
@@ -3917,7 +4167,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3094539",
@@ -3976,7 +4231,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "0-4",
+      "display_score": "0-4",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2913357",
@@ -4035,7 +4295,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2913544",
@@ -4094,7 +4359,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009396",
@@ -4153,7 +4423,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "4-0",
+      "display_score": "4-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009511",
@@ -4213,7 +4488,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "3-3",
+      "display_score": "3-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009513",
@@ -4272,7 +4552,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009517",
@@ -4331,7 +4616,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3009512",
@@ -4390,7 +4680,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3089289",
@@ -4449,7 +4744,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3089283",
@@ -4567,7 +4867,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014108",
@@ -4626,7 +4931,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014543",
@@ -4686,7 +4996,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014540",
@@ -4745,7 +5060,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3097217",
@@ -4804,7 +5124,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3097216",
@@ -4863,7 +5188,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "0-2",
+      "display_score": "0-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2913360",
@@ -4922,7 +5252,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "4-0",
+      "display_score": "4-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2913359",
@@ -4981,7 +5316,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-3",
+      "display_score": "3-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096293",
@@ -5040,7 +5380,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050574",
@@ -5099,7 +5444,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050959",
@@ -5158,7 +5508,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-1",
+      "display_score": "0-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2926242",
@@ -5217,7 +5572,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3089286",
@@ -5276,7 +5636,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096435",
@@ -5335,7 +5700,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3089288",
@@ -5394,7 +5764,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014102",
@@ -5454,7 +5829,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014106",
@@ -5513,7 +5893,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-2",
+      "display_score": "2-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014537",
@@ -5572,7 +5957,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014915",
@@ -5632,7 +6022,12 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096297",
@@ -5691,7 +6086,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-3",
+      "display_score": "2-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096302",
@@ -5750,7 +6150,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096298",
@@ -5809,7 +6214,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2962661",
@@ -5868,7 +6278,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3097725",
@@ -5927,7 +6342,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2926248",
@@ -5986,7 +6406,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-2",
+      "display_score": "0-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2916718",
@@ -6045,7 +6470,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2934827",
@@ -6104,7 +6534,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2934834",
@@ -6163,7 +6598,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3051331",
@@ -6222,7 +6662,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050956",
@@ -6281,7 +6726,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3051338",
@@ -6340,7 +6790,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "4-2",
+      "display_score": "4-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3051339",
@@ -6399,7 +6854,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3050571",
@@ -6458,7 +6918,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-2",
+      "display_score": "2-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096583",
@@ -6517,7 +6982,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2916732",
@@ -6576,7 +7046,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3092454",
@@ -6635,7 +7110,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "平衡盘/等待临场确认",
       "Cup_Raw_Intent": "诱下/上盘降温",
-      "Cup_Intent_Reason": "MARKET_INTENT_CONFLICTS_WITH_MATCH_SPECIFIC_FAIR_LINE"
+      "Cup_Intent_Reason": "MARKET_INTENT_CONFLICTS_WITH_MATCH_SPECIFIC_FAIR_LINE",
+      "score": "8-1",
+      "display_score": "8-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3092500",
@@ -6695,7 +7175,12 @@
       "Cup_Intent": "诱上/阻下",
       "Cup_Raw_Intent": "诱上/阻下",
       "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "3-0",
+      "display_score": "3-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096436",
@@ -6754,7 +7239,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-3",
+      "display_score": "1-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3011882",
@@ -6813,7 +7303,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096294",
@@ -6872,7 +7367,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3061675",
@@ -6931,7 +7431,12 @@
       "Cup_Bayes_Weight": 0.135,
       "Cup_Intent": "诱下/上盘降温",
       "Cup_Raw_Intent": "诱下/上盘降温",
-      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL"
+      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3097735",
@@ -6990,7 +7495,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "亚盘线/两边水位不完整，不能判断",
       "Cup_Raw_Intent": "亚盘线/两边水位不完整，不能判断",
-      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING"
+      "Cup_Intent_Reason": "INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING",
+      "score": "0-1",
+      "display_score": "0-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014105",
@@ -7049,7 +7559,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "display_score": "0-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3014923",
@@ -7108,7 +7623,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "4-1",
+      "display_score": "4-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2916720",
@@ -7167,7 +7687,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3092512",
@@ -7226,7 +7751,12 @@
       "Cup_Bayes_Weight": 0.135,
       "Cup_Intent": "诱下/上盘降温",
       "Cup_Raw_Intent": "诱下/上盘降温",
-      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL"
+      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
+      "score": "2-3",
+      "display_score": "2-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096315",
@@ -7285,7 +7815,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-3",
+      "display_score": "2-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2955404",
@@ -7403,7 +7938,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2916723",
@@ -7462,7 +8002,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-1",
+      "display_score": "0-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2916722",
@@ -7521,7 +8066,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-2",
+      "display_score": "2-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2962666",
@@ -7580,7 +8130,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-1",
+      "display_score": "0-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2926249",
@@ -7639,7 +8194,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2916719",
@@ -7698,7 +8258,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-3",
+      "display_score": "2-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3012209",
@@ -7757,7 +8322,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2916727",
@@ -7816,7 +8386,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3011879",
@@ -7875,7 +8450,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "4-0",
+      "display_score": "4-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3061676",
@@ -7934,7 +8514,12 @@
       "Cup_Bayes_Weight": 0.165,
       "Cup_Intent": "诱上/阻下",
       "Cup_Raw_Intent": "诱上/阻下",
-      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL"
+      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2916730",
@@ -7993,7 +8578,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "display_score": "1-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3092433",
@@ -8052,7 +8642,12 @@
       "Cup_Bayes_Weight": 0.135,
       "Cup_Intent": "诱下/上盘降温",
       "Cup_Raw_Intent": "诱下/上盘降温",
-      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL"
+      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
+      "score": "1-1",
+      "display_score": "1-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3096437",
@@ -8111,7 +8706,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2942656",
@@ -8170,7 +8770,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-1",
+      "display_score": "2-1",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3092506",
@@ -8229,7 +8834,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "平衡盘/等待临场确认",
       "Cup_Raw_Intent": "诱下/上盘降温",
-      "Cup_Intent_Reason": "MARKET_INTENT_CONFLICTS_WITH_MATCH_SPECIFIC_FAIR_LINE"
+      "Cup_Intent_Reason": "MARKET_INTENT_CONFLICTS_WITH_MATCH_SPECIFIC_FAIR_LINE",
+      "score": "3-2",
+      "display_score": "3-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3061677",
@@ -8288,7 +8898,12 @@
       "Cup_Bayes_Weight": 0.165,
       "Cup_Intent": "诱上/阻下",
       "Cup_Raw_Intent": "诱上/阻下",
-      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL"
+      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
+      "score": "0-3",
+      "display_score": "0-3",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3092434",
@@ -8348,7 +8963,12 @@
       "Cup_Intent": "诱上/阻下",
       "Cup_Raw_Intent": "诱上/阻下",
       "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "2-0",
+      "display_score": "2-0",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "2962660",
@@ -8407,7 +9027,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3011885",
@@ -8466,7 +9091,12 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     },
     {
       "match_id": "3092435",
@@ -8525,7 +9155,12 @@
       "Cup_Bayes_Weight": 0,
       "Cup_Intent": "阻上/降温保护",
       "Cup_Raw_Intent": "阻上/降温保护",
-      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL"
+      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
+      "score": "1-2",
+      "display_score": "1-2",
+      "state": "-1",
+      "state_label": "完场",
+      "display_status": "完场"
     }
   ],
   "decision_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\dashboard\\index.html",
@@ -8533,5 +9168,7 @@
   "run_id": "RUN_20261004_120710",
   "raw_snapshot_id": "20261004_084919_titan007_odds_snapshot",
   "odds_cutoff": "20261004_084919",
-  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-04\\RUN_20261004_120710\\v3_decisions.json"
+  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-04\\RUN_20261004_120710\\v3_decisions.json",
+  "result_backfill_at": "2026-10-08T08:36:37.177108+08:00",
+  "result_backfill_source": "local Titan007 snapshot reconciliation; score-only immutable backfill"
 }
