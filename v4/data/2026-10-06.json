@@ -194,7 +194,18 @@
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
       "decision_id": "78f4349544bc19787ffe",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "score": "2-2",
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "-1",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00",
+        "score": "2-2"
+      }
     },
     {
       "match_id": "3087672",
@@ -1664,7 +1675,10 @@
         "pnl_1u": 1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -3040,7 +3054,10 @@
         "pnl_1u": 1.1,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -3731,7 +3748,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -4422,7 +4442,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -5208,7 +5231,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -6186,7 +6212,10 @@
         "pnl_1u": 0.9,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -6879,7 +6908,10 @@
         "pnl_1u": 0.9,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -7572,7 +7604,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -8257,7 +8292,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -8948,7 +8986,10 @@
         "pnl_1u": 0.75,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -10420,7 +10461,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -11111,7 +11155,10 @@
         "pnl_1u": 0.8,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -11802,7 +11849,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -12493,7 +12543,10 @@
         "pnl_1u": 0.9,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -13186,7 +13239,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -14251,7 +14307,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -15900,7 +15959,10 @@
         "pnl_1u": 0.85,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -18242,7 +18304,10 @@
         "pnl_1u": 0.94,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -19712,7 +19777,10 @@
         "pnl_1u": 0.85,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -20496,7 +20564,10 @@
         "pnl_1u": 0.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -21966,7 +22037,10 @@
         "pnl_1u": 0.45,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -22657,7 +22731,10 @@
         "pnl_1u": 0.85,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -24813,7 +24890,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -25783,7 +25863,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -25863,7 +25946,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "9022e88c3e70d13fc23e",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3095444",
@@ -26553,7 +26643,10 @@
         "pnl_1u": 0.98,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -28191,7 +28284,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "0b12cef0440460c9e06c",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3059210",
@@ -29652,7 +29752,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -31029,7 +31132,10 @@
         "pnl_1u": -0.5,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -32690,7 +32796,10 @@
         "pnl_1u": 1.08,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -33383,7 +33492,10 @@
         "pnl_1u": 0.96,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -35636,7 +35748,10 @@
         "pnl_1u": 0.74,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -35716,7 +35831,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "a99386ea616ba48472a3",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3097357",
@@ -35795,7 +35917,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "7cd1d33ffda47d7d79bb",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3097358",
@@ -35874,7 +36003,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "73228e4ff73632cab22d",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3097359",
@@ -35953,7 +36089,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "8619fad3cce11285783b",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3099873",
@@ -37327,7 +37470,10 @@
         "pnl_1u": 0.87,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -38196,7 +38342,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -38982,7 +39131,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -39675,7 +39827,10 @@
         "pnl_1u": 1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -40366,7 +40521,10 @@
         "pnl_1u": 1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -41132,9 +41290,19 @@
       "reason_codes": [
         "MATCH_NOT_PREMATCH"
       ],
-      "score": "",
+      "score": "0-0",
       "decision_id": "4bf7f4b40e4a115296c6",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00",
+      "result_state": "-10",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "-10",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00",
+        "score": "0-0"
+      }
     },
     {
       "match_id": "3094487",
@@ -41212,9 +41380,19 @@
       "reason_codes": [
         "MATCH_NOT_PREMATCH"
       ],
-      "score": "",
+      "score": "0-0",
       "decision_id": "adaaf97a0504247d3814",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00",
+      "result_state": "-10",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "-10",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00",
+        "score": "0-0"
+      }
     },
     {
       "match_id": "3094488",
@@ -41292,9 +41470,19 @@
       "reason_codes": [
         "MATCH_NOT_PREMATCH"
       ],
-      "score": "",
+      "score": "0-0",
       "decision_id": "a81d03738189820e9e9d",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00",
+      "result_state": "-10",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "-10",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00",
+        "score": "0-0"
+      }
     },
     {
       "match_id": "3094489",
@@ -41372,9 +41560,19 @@
       "reason_codes": [
         "MATCH_NOT_PREMATCH"
       ],
-      "score": "",
+      "score": "0-0",
       "decision_id": "47360a20f23eb62dcb20",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00",
+      "result_state": "-10",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "-10",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00",
+        "score": "0-0"
+      }
     },
     {
       "match_id": "3094490",
@@ -42159,7 +42357,10 @@
         "pnl_1u": 0.82,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -42852,7 +43053,10 @@
         "pnl_1u": 0.91,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -45007,7 +45211,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -45700,7 +45907,10 @@
         "pnl_1u": 0.87,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -46583,7 +46793,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -47369,7 +47582,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -48062,7 +48278,10 @@
         "pnl_1u": 1.01,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -49441,7 +49660,10 @@
         "pnl_1u": 0.97,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -50134,7 +50356,10 @@
         "pnl_1u": 0.85,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -50827,7 +51052,10 @@
         "pnl_1u": 0.92,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -51520,7 +51748,10 @@
         "pnl_1u": 0.92,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -52213,7 +52444,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -52906,7 +53140,10 @@
         "pnl_1u": 0.91,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -53599,7 +53836,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -54292,7 +54532,10 @@
         "pnl_1u": 0.92,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -54985,7 +55228,10 @@
         "pnl_1u": 0.87,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -56456,7 +56702,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -57832,7 +58081,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -58709,7 +58961,10 @@
         "pnl_1u": 0.91,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -59400,7 +59655,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -60186,7 +60444,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -60972,7 +61233,10 @@
         "pnl_1u": 0.91,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -61663,7 +61927,10 @@
         "pnl_1u": 0.86,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -62354,7 +62621,10 @@
         "pnl_1u": 0.93,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -63045,7 +63315,10 @@
         "pnl_1u": 0.89,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -64421,7 +64694,10 @@
         "pnl_1u": 0.95,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -65112,7 +65388,10 @@
         "pnl_1u": 1.01,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -66487,7 +66766,10 @@
         "pnl_1u": 0.82,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -67863,7 +68145,10 @@
         "pnl_1u": 0.9,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -69923,7 +70208,10 @@
         "pnl_1u": 1.04,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -70003,7 +70291,18 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "5bf962088a7c0071b450",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "score": "0-0",
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00",
+      "result_state": "-14",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "-14",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00",
+        "score": "0-0"
+      }
     },
     {
       "match_id": "3056748",
@@ -70082,7 +70381,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "07e076d87b5b3ff46e6a",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3097360",
@@ -71552,7 +71858,10 @@
         "pnl_1u": 0.38,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -72927,7 +73236,10 @@
         "pnl_1u": 0.375,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -73692,7 +74004,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "731cff2defeab24652b6",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3060919",
@@ -75756,7 +76075,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -76447,7 +76769,10 @@
         "pnl_1u": 0.93,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -77233,7 +77558,10 @@
         "pnl_1u": 1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -77926,7 +78254,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -79306,7 +79637,10 @@
         "pnl_1u": 0.39,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -81370,7 +81704,10 @@
         "pnl_1u": 1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -82063,7 +82400,10 @@
         "pnl_1u": 0.98,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -82756,7 +83096,10 @@
         "pnl_1u": 0.95,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -83449,7 +83792,10 @@
         "pnl_1u": 0.91,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -84142,7 +84488,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -84827,7 +85176,10 @@
         "pnl_1u": 0.86,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -85520,7 +85872,10 @@
         "pnl_1u": 0.85,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -86213,7 +86568,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -86906,7 +87264,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -87599,7 +87960,10 @@
         "pnl_1u": 0.87,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -89658,7 +90022,10 @@
         "pnl_1u": 0.82,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -91034,7 +91401,10 @@
         "pnl_1u": 1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -91799,7 +92169,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "327c73b234c163457e52",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3037432",
@@ -92489,7 +92866,10 @@
         "pnl_1u": 0.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -93180,7 +93560,10 @@
         "pnl_1u": 0.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -93260,7 +93643,14 @@
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
       "decision_id": "ca2dd4ec82c7a8b21b9d",
-      "settlement_status": "RESULT_PENDING_VERIFICATION"
+      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result_state": "0",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+      "settlement": {
+        "result_state": "0",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261006\\20261006_084028_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      }
     },
     {
       "match_id": "3044677",
@@ -94634,7 +95024,10 @@
         "pnl_1u": 0.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -95325,7 +95718,10 @@
         "pnl_1u": 0.85,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -95997,7 +96393,7 @@
       },
       "input_hash": "43f74592b1b2973429f242e7c26cdea43f6213e39ceb2636ba5a2b16c41eab9f",
       "frozen_selection_lock": true,
-      "score": "",
+      "score": "0-3",
       "result": "",
       "pnl_1u": "",
       "settlement_status": "RESULT_PENDING_VERIFICATION",
@@ -96005,14 +96401,16 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
       "settlement_updated_at": "2026-10-07T11:59:30.919171+08:00",
       "settlement": {
-        "score": "",
+        "score": "0-3",
         "result": "",
         "pnl_1u": "",
         "status": "NOT_FINAL_STATE_-12",
         "result_state": "-12",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
-      }
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
+      },
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00"
     },
     {
       "match_id": "3044681",
@@ -96702,7 +97100,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -97393,7 +97794,10 @@
         "pnl_1u": 0.425,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -98179,7 +98583,10 @@
         "pnl_1u": 0.83,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -99554,7 +99961,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -103672,7 +104082,10 @@
         "pnl_1u": 0.95,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -106421,7 +106834,10 @@
         "pnl_1u": 0.97,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -107106,7 +107522,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -109171,7 +109590,10 @@
         "pnl_1u": 0.78,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -109862,7 +110284,10 @@
         "pnl_1u": -1.0,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -110553,7 +110978,10 @@
         "pnl_1u": 0.89,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -111244,7 +111672,10 @@
         "pnl_1u": -0.5,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv"
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-07T12:00:10.428731+08:00"
       }
     },
     {
@@ -111923,20 +112354,22 @@
       "input_hash": "3faa58f07f2865e07b598a49d1075db43144ffae0a8f70e8d5e2aa28e92dd109",
       "frozen_selection_lock": true,
       "score": "0-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result": "HW",
+      "pnl_1u": 0.45,
+      "settlement_status": "SETTLED",
       "result_state": "3",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_3",
+        "score": "0-0",
+        "result": "HW",
+        "pnl_1u": 0.45,
+        "settlement_status": "SETTLED",
         "result_state": "3",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
       }
     },
     {
@@ -112618,13 +113051,13 @@
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
       "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
       "settlement": {
-        "score": "",
+        "score": "2-2",
         "result": "",
         "pnl_1u": "",
         "status": "NOT_FINAL_STATE_3",
         "result_state": "3",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
+        "updated_at": "2026-10-08T08:36:37.177108+08:00"
       }
     },
     {
@@ -113295,20 +113728,22 @@
       "input_hash": "9df6955785fb2fa48f1157674ce82a9867b6da2262ab56fcf9763295dfcc2a91",
       "frozen_selection_lock": true,
       "score": "0-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result": "W",
+      "pnl_1u": 0.87,
+      "settlement_status": "SETTLED",
       "result_state": "2",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_2",
+        "score": "0-0",
+        "result": "W",
+        "pnl_1u": 0.87,
+        "settlement_status": "SETTLED",
         "result_state": "2",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
       }
     },
     {
@@ -113987,20 +114422,22 @@
       "input_hash": "f52cefb1d768cb1156cee44558b9e303aec608efcf0392c84ac7023a8c1aa1de",
       "frozen_selection_lock": true,
       "score": "0-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
       "result_state": "3",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_3",
+        "score": "0-0",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
         "result_state": "3",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
       }
     },
     {
@@ -114681,20 +115118,22 @@
       "input_hash": "507fcb8ec3d26d35f0df14069c10d8f2573d305a4893a1cb9f284776a7159348",
       "frozen_selection_lock": true,
       "score": "1-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
       "result_state": "2",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_2",
+        "score": "1-0",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
         "result_state": "2",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
       }
     },
     {
@@ -115373,20 +115812,22 @@
       "input_hash": "9d487e3115e78f7e3083ef57443638c7cec13984af6c2b44596765a63e6713fd",
       "frozen_selection_lock": true,
       "score": "0-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
       "result_state": "2",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_2",
+        "score": "0-0",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
         "result_state": "2",
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
       }
     },
     {
@@ -116064,22 +116505,26 @@
       },
       "input_hash": "609b94f19ba47006481043ab0e1374bc8525325c9aa33df0b4b77c18afd9c8c3",
       "frozen_selection_lock": true,
-      "score": "0-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
-      "result_state": "1",
-      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
+      "score": "1-2",
+      "result": "W",
+      "pnl_1u": 0.77,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_1",
-        "result_state": "1",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
-      }
+        "score": "1-2",
+        "result": "W",
+        "pnl_1u": 0.77,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
+      },
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00"
     },
     {
       "match_id": "3097883",
@@ -116756,22 +117201,26 @@
       },
       "input_hash": "6320dd50d538945aa509e2138a021f69a90462fb78a596ce21ad1fdddeac5028",
       "frozen_selection_lock": true,
-      "score": "0-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
-      "result_state": "1",
-      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
+      "score": "1-0",
+      "result": "W",
+      "pnl_1u": 0.8,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_1",
-        "result_state": "1",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
-      }
+        "score": "1-0",
+        "result": "W",
+        "pnl_1u": 0.8,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
+      },
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00"
     },
     {
       "match_id": "3061680",
@@ -117450,22 +117899,26 @@
       },
       "input_hash": "aa3b10169ce3416e8f4e2930fc3419f705da745931bdf6b0aba0ddf1cc8103aa",
       "frozen_selection_lock": true,
-      "score": "1-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
-      "result_state": "1",
-      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T12:00:10.428731+08:00",
+      "score": "2-0",
+      "result": "HW",
+      "pnl_1u": 0.425,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_1",
-        "result_state": "1",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
-      }
+        "score": "2-0",
+        "result": "HW",
+        "pnl_1u": 0.425,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
+      },
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00"
     },
     {
       "match_id": "2908633",
@@ -118142,22 +118595,26 @@
       },
       "input_hash": "0b4a77b220b33e77136beb5838f38aff0e04c710274f850881d0f47eed328eeb",
       "frozen_selection_lock": true,
-      "score": "",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
-      "result_state": "0",
-      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T11:59:30.919171+08:00",
+      "score": "3-1",
+      "result": "W",
+      "pnl_1u": 0.91,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_0",
-        "result_state": "0",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
-      }
+        "score": "3-1",
+        "result": "W",
+        "pnl_1u": 0.91,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
+      },
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00"
     },
     {
       "match_id": "2940222",
@@ -118834,22 +119291,26 @@
       },
       "input_hash": "9503f5d98485fa755b7a6f5b67dbb6f9beacfd4468a83bd0a233b29d3abaefca",
       "frozen_selection_lock": true,
-      "score": "",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
-      "result_state": "0",
-      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-10-07T11:59:30.919171+08:00",
+      "score": "0-2",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "settlement_updated_at": "2026-10-08T08:49:40.951730+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_0",
-        "result_state": "0",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
-      }
+        "score": "0-2",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "status": "SETTLED",
+        "source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+        "updated_at": "2026-10-08T08:49:40.951730+08:00"
+      },
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00"
     },
     {
       "match_id": "3092491",
@@ -119522,26 +119983,31 @@
       },
       "input_hash": "e4a72cad88f20ee731e5649b3681328f87d23f3d38d3555fcd66b1cdd3d1b133",
       "frozen_selection_lock": true,
-      "score": "",
+      "score": "1-0",
       "result": "",
       "pnl_1u": "",
       "settlement_status": "RESULT_PENDING_VERIFICATION",
-      "result_state": "0",
-      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
       "settlement_updated_at": "2026-10-07T11:59:30.919171+08:00",
       "settlement": {
-        "score": "",
+        "score": "1-0",
         "result": "",
         "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_0",
-        "result_state": "0",
+        "status": "SCORE_BACKFILLED",
+        "result_state": "-1",
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261007\\20261007_083450_titan007_odds_snapshot.csv",
-        "updated_at": "2026-10-07T11:59:30.919171+08:00"
-      }
+        "updated_at": "2026-10-08T08:36:37.177108+08:00",
+        "result_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv"
+      },
+      "score_source": "D:\\codex\\技能项目\\soccerpredict\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261008\\20261008_074021_titan007_odds_snapshot.csv",
+      "score_updated_at": "2026-10-08T08:36:37.177108+08:00"
     }
   ],
   "started_lock_policy": "started rows and same-list-date frozen V4 A/B/C selections retain original pre-match prediction; only status/settlement/review may append",
   "run_id": "RUN_20261007_000524",
   "raw_snapshot_id": "20261006_084028_titan007_odds_snapshot",
-  "side_mapping_version": "MATCH_SPECIFIC_DUAL_EV"
+  "side_mapping_version": "MATCH_SPECIFIC_DUAL_EV",
+  "result_backfill_at": "2026-10-08T08:36:37.177108+08:00",
+  "result_backfill_source": "local Titan007 snapshot reconciliation; score-only immutable backfill"
 }
