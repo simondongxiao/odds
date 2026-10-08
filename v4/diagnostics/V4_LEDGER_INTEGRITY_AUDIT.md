@@ -1,9 +1,9 @@
 # V4 Ledger Integrity Audit
 
-- generated_at: 2026-10-08T07:47:14.586824+08:00
+- generated_at: 2026-10-08T22:37:35.978268+08:00
 - V4_logic_change_at: 2026-10-04T09:52:00+08:00
 - code_hash: `efcc993e2c60d81e22b3224da4dff2a87a2767f062b303f842d4e0afe5d90aa0`
-- evaluated_rows: 130
+- evaluated_rows: 67
 - frozen_historical_files: 17
 - historical_write_policy: Frozen Historical Decisions；本次运行不读取赛果生成赛前字段，不回写过去日期。
 - missing field counts: 0

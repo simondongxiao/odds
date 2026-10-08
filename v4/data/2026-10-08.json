@@ -4,7 +4,7 @@
   "model_version": "V4",
   "prior_snapshot_id": "prior-2026-10-08-v1",
   "real_money": false,
-  "generated_at": "2026-10-08T07:47:14.586824+08:00",
+  "generated_at": "2026-10-08T22:37:35.978268+08:00",
   "V4_logic_change_at": "2026-10-04T09:52:00+08:00",
   "code_hash": "efcc993e2c60d81e22b3224da4dff2a87a2767f062b303f842d4e0afe5d90aa0",
   "calibration_status": "UNCALIBRATED_SHADOW",
@@ -16,10 +16,13 @@
     "B": 30,
     "C": 4,
     "N": 85,
-    "neutral": 21,
-    "missing_data": 43,
-    "not_prematch": 1,
-    "errors": 0
+    "neutral": 8,
+    "missing_data": 16,
+    "not_prematch": 28,
+    "errors": 0,
+    "giving": 24,
+    "receiving": 18,
+    "no_bet": 88
   },
   "matches": [
     {
@@ -272,14 +275,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "斐济联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "4b19232dc96ed1ba04ee",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -330,7 +329,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100184",
@@ -583,14 +583,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "印班超",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "f490bcc595338038483f",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -641,7 +637,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100176",
@@ -893,14 +890,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "菲律甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "7659595d36e1ed5557e1",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -951,7 +944,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100187",
@@ -1022,16 +1016,17 @@
         ]
       },
       "competition": "印西隆联",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "1449ebee2193c9bf90d2"
+      "decision_id": "1449ebee2193c9bf90d2",
+      "started_lock": true
     },
     {
       "match_id": "3100165",
@@ -1102,16 +1097,17 @@
         ]
       },
       "competition": "印西隆联",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "c9b74d6490780c0354fb"
+      "decision_id": "c9b74d6490780c0354fb",
+      "started_lock": true
     },
     {
       "match_id": "3100190",
@@ -1363,14 +1359,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "斐济联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "7bf80af8450715b9077a",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -1421,7 +1413,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100203",
@@ -1674,14 +1667,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "印班超",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "80974e4e170269c934f9",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -1732,7 +1721,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097917",
@@ -1803,14 +1793,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "db14aca225b17cbe6da4"
+      "decision_id": "db14aca225b17cbe6da4",
+      "started_lock": true
     },
     {
       "match_id": "3097918",
@@ -1881,14 +1872,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "41771083798cf47cd039"
+      "decision_id": "41771083798cf47cd039",
+      "started_lock": true
     },
     {
       "match_id": "3097919",
@@ -1959,14 +1951,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "95a775776e28bfd2dc42"
+      "decision_id": "95a775776e28bfd2dc42",
+      "started_lock": true
     },
     {
       "match_id": "3100204",
@@ -2221,14 +2214,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "泰U21",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "4c4396391f41cc7771b9",
       "normalized_intent": "诱上/阻下",
@@ -2279,7 +2268,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100083",
@@ -2536,14 +2526,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "马统杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "1f6192ca97fbb45f919d",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -2596,7 +2582,8 @@
       },
       "titan_context": {},
       "input_hash": "0d1549c88dafc289060dab287353f8c9fd1ffe60160929cbdc86607a16b5d097",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3100084",
@@ -2851,14 +2838,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "缅甸U20",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "beb2d072c6a6e35a8d96",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -2909,7 +2892,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100140",
@@ -3161,14 +3145,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "aaa6c2fa97fae81ecdb8",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -3219,7 +3199,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097920",
@@ -3290,14 +3271,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "5e0ba5ac80591ca0e1dc"
+      "decision_id": "5e0ba5ac80591ca0e1dc",
+      "started_lock": true
     },
     {
       "match_id": "3099126",
@@ -3368,14 +3350,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "5db72999e5817dde95a2"
+      "decision_id": "5db72999e5817dde95a2",
+      "started_lock": true
     },
     {
       "match_id": "2997202",
@@ -3627,14 +3610,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "越女联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "aaf5367f915a560dd1fd",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -3685,7 +3664,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "2997203",
@@ -3937,14 +3917,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "越女联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "e0145253a2648f06d11e",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -3995,7 +3971,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "2965045",
@@ -4247,14 +4224,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "哈萨克甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "5bfb65f5105afda0fd68",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -4305,7 +4278,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "2965047",
@@ -4376,16 +4350,17 @@
         ]
       },
       "competition": "哈萨克甲",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "ad40349e9f1445770167"
+      "decision_id": "ad40349e9f1445770167",
+      "started_lock": true
     },
     {
       "match_id": "2971104",
@@ -4640,14 +4615,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌兹甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "ab97a1b509a975730a5e",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -4700,7 +4671,8 @@
       },
       "titan_context": {},
       "input_hash": "c83238f1fbd0df93d3ea347fbb2a9cd9d45b1821e4c58519c38d8e36b2286e29",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3097921",
@@ -4771,14 +4743,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "b237d2093c6c5753b8b0"
+      "decision_id": "b237d2093c6c5753b8b0",
+      "started_lock": true
     },
     {
       "match_id": "3094013",
@@ -5035,14 +5008,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "土杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "bbf4fcb44a9d8683807a",
       "normalized_intent": "真实示弱/阻下",
@@ -5095,7 +5064,8 @@
       },
       "titan_context": {},
       "input_hash": "53bb9e33d4a2018f7602f1851502dcdf60d725cc9a7e60383b6e53fb27c4e4c9",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "2965041",
@@ -5166,16 +5136,17 @@
         ]
       },
       "competition": "哈萨克甲",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "6abd01eee6407f034020"
+      "decision_id": "6abd01eee6407f034020",
+      "started_lock": true
     },
     {
       "match_id": "2965044",
@@ -5246,16 +5217,17 @@
         ]
       },
       "competition": "哈萨克甲",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "ef6cdc5d03822ca1aa32"
+      "decision_id": "ef6cdc5d03822ca1aa32",
+      "started_lock": true
     },
     {
       "match_id": "2971102",
@@ -5510,14 +5482,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌兹甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "038b2e54eebb05a4107c",
       "normalized_intent": "真实示弱/阻下",
@@ -5570,7 +5538,8 @@
       },
       "titan_context": {},
       "input_hash": "f26fa3f36c25b91118ae9cd65933b9ed7aaf72d7ac014f86eaadfc30dc2bd943",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3100178",
@@ -5641,16 +5610,17 @@
         ]
       },
       "competition": "菲律甲",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "8224f6b152483eabc25c"
+      "decision_id": "8224f6b152483eabc25c",
+      "started_lock": true
     },
     {
       "match_id": "3064188",
@@ -5721,14 +5691,15 @@
         ]
       },
       "competition": "坦桑超",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "a8bb25d99f819e572825"
+      "decision_id": "a8bb25d99f819e572825",
+      "started_lock": true
     },
     {
       "match_id": "3100172",
@@ -5980,14 +5951,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "格鲁丙",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "d876c6b4e686d85e1efe",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -6038,7 +6005,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097941",
@@ -6109,14 +6077,15 @@
         ]
       },
       "competition": "国际友谊",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "e5e523c1169568c04eec"
+      "decision_id": "e5e523c1169568c04eec",
+      "started_lock": true
     },
     {
       "match_id": "3097922",
@@ -6187,14 +6156,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "76739bdac500947bf818"
+      "decision_id": "76739bdac500947bf818",
+      "started_lock": true
     },
     {
       "match_id": "3097923",
@@ -6265,14 +6235,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "5e94f8b17eb836253d28"
+      "decision_id": "5e94f8b17eb836253d28",
+      "started_lock": true
     },
     {
       "match_id": "3097924",
@@ -6343,14 +6314,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "6ac63f51071525af2823"
+      "decision_id": "6ac63f51071525af2823",
+      "started_lock": true
     },
     {
       "match_id": "2997204",
@@ -6602,14 +6574,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "越女联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "1a6eae8b2d4919a563f9",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -6660,7 +6628,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097912",
@@ -6912,14 +6881,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿塞甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "d69e6eccb62cce1b9bc3",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -6970,7 +6935,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3006575",
@@ -7219,14 +7185,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "东盟锦标",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "bc3e6be6bd07c474aa8e",
       "normalized_intent": "阻下/下盘保护",
@@ -7277,7 +7239,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100139",
@@ -7348,16 +7311,17 @@
         ]
       },
       "competition": "阿曼锦U21",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "87a67533fc09b452b2e7"
+      "decision_id": "87a67533fc09b452b2e7",
+      "started_lock": true
     },
     {
       "match_id": "3098388",
@@ -7609,14 +7573,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "黎巴联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "c606b11675229567beda",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -7667,7 +7627,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3098389",
@@ -7919,14 +7880,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "黎巴联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "e1d588660ce0f377c048",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -7977,7 +7934,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3098390",
@@ -8229,14 +8187,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "黎巴联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "52e0b5c1039f22797cd3",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -8287,7 +8241,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3004506",
@@ -8539,14 +8494,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "黑山甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "586541ae6b0625fd4e12",
       "normalized_intent": "阻上/诱下",
@@ -8597,7 +8548,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3004510",
@@ -8849,14 +8801,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "黑山甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "f857d471caf122a4e668",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -8907,7 +8855,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097915",
@@ -9159,14 +9108,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "不丹廷联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "b9a57cdd90dfbd8ba3c3",
       "normalized_intent": "阻上/诱下",
@@ -9217,7 +9162,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097896",
@@ -9288,14 +9234,15 @@
         ]
       },
       "competition": "女奥非预",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "2842b74836935f2011b6"
+      "decision_id": "2842b74836935f2011b6",
+      "started_lock": true
     },
     {
       "match_id": "3099127",
@@ -9366,14 +9313,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "a53ffbf16d8fdd97c6bc"
+      "decision_id": "a53ffbf16d8fdd97c6bc",
+      "started_lock": true
     },
     {
       "match_id": "3097925",
@@ -9444,14 +9392,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "4c568a70a9cd411be263"
+      "decision_id": "4c568a70a9cd411be263",
+      "started_lock": true
     },
     {
       "match_id": "3097926",
@@ -9522,14 +9471,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "41077880b2f56e348977"
+      "decision_id": "41077880b2f56e348977",
+      "started_lock": true
     },
     {
       "match_id": "3100179",
@@ -9781,14 +9731,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "伊拉甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "a1df24f6ba6907441cc2",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -9839,7 +9785,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100209",
@@ -10091,14 +10038,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "伊拉甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "384d8154a4123e505104",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -10149,7 +10092,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3006574",
@@ -10404,14 +10348,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "东盟锦标",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "752b509e51949974a20d",
       "normalized_intent": "诱上/阻下",
@@ -10464,7 +10404,8 @@
       },
       "titan_context": {},
       "input_hash": "7b28b01d528391873683a91c4575a46d595cd4372573bfae3f3f404f8929b39a",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3006576",
@@ -10713,14 +10654,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "东盟锦标",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "5db1261c5ee1eacd0a0d",
       "normalized_intent": "诱上/阻下",
@@ -10773,7 +10710,8 @@
       },
       "titan_context": {},
       "input_hash": "a3c60dc023bf1128e54474d71b94f2ab52041594c12648637fcd31695758c1d8",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3100063",
@@ -11028,14 +10966,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿曼锦U21",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "b1f040c757b8c61539dc",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -11086,7 +11020,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3085268",
@@ -11338,14 +11273,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "越南联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "bc88381cff78d8e17144",
       "normalized_intent": "真实示弱/阻下",
@@ -11396,7 +11327,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3098343",
@@ -11648,14 +11580,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "伊朗超",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "3b40ab6fd7700cdad108",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -11706,7 +11634,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3098344",
@@ -11777,16 +11706,17 @@
         ]
       },
       "competition": "伊朗超",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "710fe9bd75f1cb8f4fd0"
+      "decision_id": "710fe9bd75f1cb8f4fd0",
+      "started_lock": true
     },
     {
       "match_id": "3097900",
@@ -12041,14 +11971,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "埃及甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "7ac1e9c10e10fce5179e",
       "normalized_intent": "真实示弱/阻下",
@@ -12101,7 +12027,8 @@
       },
       "titan_context": {},
       "input_hash": "cfbc6dd3c3d5621a2ec9d2c6a4c7f47734cfd4d806714a7e3452e8699ef29a46",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3097901",
@@ -12356,14 +12283,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "埃及甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "97058fa5a3ad16b5a2c0",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -12416,7 +12339,8 @@
       },
       "titan_context": {},
       "input_hash": "1ec055f23037d58ad61f831746dafffa9d87b3e912a3ecb6dc7513deb1ff9ecc",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3097902",
@@ -12671,14 +12595,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "埃及甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "8bd125be0acfc8fc2463",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -12731,7 +12651,8 @@
       },
       "titan_context": {},
       "input_hash": "dc431029a2ae20071a96c848eda572af101548519939bf2e6345dd222ace3cc4",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3097903",
@@ -12986,14 +12907,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "埃及甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "8e2b10ac6e1afb325b06",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -13046,7 +12963,8 @@
       },
       "titan_context": {},
       "input_hash": "a647d96ac7edd345f38188323bf97580095f7b8c8a20804021f932ea63c4cf2a",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3097904",
@@ -13301,14 +13219,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "埃及甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "6f95f1ad32164f116e17",
       "normalized_intent": "阻下/下盘保护",
@@ -13361,7 +13275,8 @@
       },
       "titan_context": {},
       "input_hash": "f68bd661546f98e652b03c6013371f46e53f920c48194e0c0e2af628a53e5b0c",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3100138",
@@ -13613,14 +13528,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "印盾联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "d5012da0090e4f72742f",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -13671,7 +13582,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100167",
@@ -13742,16 +13654,17 @@
         ]
       },
       "competition": "伊拉甲",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "7847a367403159600b88"
+      "decision_id": "7847a367403159600b88",
+      "started_lock": true
     },
     {
       "match_id": "3100078",
@@ -14003,14 +13916,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "莫桑冠",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "8d59502571acd0cf53f9",
       "normalized_intent": "阻上/诱下",
@@ -14061,7 +13970,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097913",
@@ -14316,14 +14226,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "挪威U19",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "51e5c3ca73f3eab49c11",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -14374,7 +14280,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3098391",
@@ -14626,14 +14533,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "黎巴联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "5d96e6e4693b0335f040",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -14684,7 +14587,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3096850",
@@ -14755,16 +14659,17 @@
         ]
       },
       "competition": "约旦杯",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "4acc4423395213681cbe"
+      "decision_id": "4acc4423395213681cbe",
+      "started_lock": true
     },
     {
       "match_id": "3096851",
@@ -15021,14 +14926,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "约旦杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "c6ea3bbf509511a3774c",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -15081,7 +14982,8 @@
       },
       "titan_context": {},
       "input_hash": "962d252c264a4568083d1e33bdf07a79f56cfe52278cf9739f27f4e77ee5a589",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3048121",
@@ -15157,10 +15059,11 @@
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "MATCH_NOT_PREMATCH"
+        "STARTED_DECISION_LOCKED"
       ],
       "score": "",
-      "decision_id": "59638899b6ffc115f7d0"
+      "decision_id": "59638899b6ffc115f7d0",
+      "started_lock": true
     },
     {
       "match_id": "3048122",
@@ -15231,14 +15134,15 @@
         ]
       },
       "competition": "阿美甲",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "26440ba52554e9a194ad"
+      "decision_id": "26440ba52554e9a194ad",
+      "started_lock": true
     },
     {
       "match_id": "2971101",
@@ -15493,14 +15397,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌兹甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "d76a38c0637de0eac1dc",
       "normalized_intent": "真实示强/阻上",
@@ -15553,7 +15453,8 @@
       },
       "titan_context": {},
       "input_hash": "ec34365d0f21f1e4a90d834e24a1181bf7012252c893cc4e6782a0e0ffe86a34",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3099932",
@@ -15624,14 +15525,15 @@
         ]
       },
       "competition": "津巴超",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "f9253d16b4918fd9fb5d"
+      "decision_id": "f9253d16b4918fd9fb5d",
+      "started_lock": true
     },
     {
       "match_id": "3058806",
@@ -15702,14 +15604,15 @@
         ]
       },
       "competition": "布隆迪超",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "62acbb7017ce0f296db1"
+      "decision_id": "62acbb7017ce0f296db1",
+      "started_lock": true
     },
     {
       "match_id": "3100077",
@@ -15961,14 +15864,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "吉尔超联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "30271e830ba797d8deec",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -16019,7 +15918,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097929",
@@ -16271,14 +16171,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "3b85cb432496aace197e",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -16329,7 +16225,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097898",
@@ -16581,14 +16478,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "女奥非预",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "42446290bea25039315f",
       "normalized_intent": "真实示弱/阻下",
@@ -16639,7 +16532,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3074488",
@@ -16894,14 +16788,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌干超",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "0291d4730343e4d07d45",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -16954,7 +16844,8 @@
       },
       "titan_context": {},
       "input_hash": "b7c8c1d76cd84f21e374dbf02ab97bfd255f2462005bce06bb2ab3520621ac28",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3074490",
@@ -17209,14 +17100,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌干超",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "0d73f3a2d89c6f0b7776",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -17269,7 +17156,8 @@
       },
       "titan_context": {},
       "input_hash": "37759f302f77136be0c4b5c9efadbd4e1a50f5a66d63134e7fc5815cec1e3940",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3074491",
@@ -17524,14 +17412,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌干超",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "2370820fa14cd310d1c2",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -17584,7 +17468,8 @@
       },
       "titan_context": {},
       "input_hash": "f7e9fcd9b102fa5103cd3a23ddade78388120beecb01036848bfd13cb75ca8e2",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3096234",
@@ -17841,14 +17726,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿联酋杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "83927550c81aa725dc22",
       "normalized_intent": "阻下/下盘保护",
@@ -17901,7 +17782,8 @@
       },
       "titan_context": {},
       "input_hash": "fd31ec9bb7af2292bccff5c9e1315656af14cc095ec7b3c8d7c50a0704ceb71e",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3096235",
@@ -18158,14 +18040,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿联酋杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "c75ced1ecea2bc8cf3bd",
       "normalized_intent": "真实示弱/阻下",
@@ -18218,7 +18096,8 @@
       },
       "titan_context": {},
       "input_hash": "7bff6ad19b1c7bd9b8ed1f0a2217ef900b07e857be5fd84e0f7e8a60363e20d7",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3097930",
@@ -18473,14 +18352,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿联U21",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "f8e905781644297e2b92",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -18531,7 +18406,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097934",
@@ -18786,14 +18662,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿联U21",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "03de389a25c872ea4453",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -18844,7 +18716,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097935",
@@ -18915,14 +18788,15 @@
         ]
       },
       "competition": "阿联U21",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "e5f50b27ca7b44f03f7f"
+      "decision_id": "e5f50b27ca7b44f03f7f",
+      "started_lock": true
     },
     {
       "match_id": "3097936",
@@ -18993,14 +18867,15 @@
         ]
       },
       "competition": "阿联U21",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "70d975a5e6d8d4b046f1"
+      "decision_id": "70d975a5e6d8d4b046f1",
+      "started_lock": true
     },
     {
       "match_id": "3097937",
@@ -19071,14 +18946,15 @@
         ]
       },
       "competition": "阿联U21",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "4deef41282a85a6132e4"
+      "decision_id": "4deef41282a85a6132e4",
+      "started_lock": true
     },
     {
       "match_id": "3098349",
@@ -19330,14 +19206,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "伊朗超",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "90e071bf25eedd5e4e5a",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -19388,7 +19260,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3064189",
@@ -19459,16 +19332,17 @@
         ]
       },
       "competition": "坦桑超",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "b8a1f69f7d6a74029a8f"
+      "decision_id": "b8a1f69f7d6a74029a8f",
+      "started_lock": true
     },
     {
       "match_id": "3097938",
@@ -19723,14 +19597,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿联U21",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "267e63d8b561430380be",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -19781,7 +19651,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3098345",
@@ -19852,16 +19723,17 @@
         ]
       },
       "competition": "伊朗超",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "ba798b9dbddfaf42880f"
+      "decision_id": "ba798b9dbddfaf42880f",
+      "started_lock": true
     },
     {
       "match_id": "3100141",
@@ -20113,14 +19985,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "a1177e216c63404e4481",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -20171,7 +20039,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3100177",
@@ -20426,14 +20295,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "卡塔尔U20",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "7ff3455daf398594ac6b",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -20484,7 +20349,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3094146",
@@ -20555,16 +20421,17 @@
         ]
       },
       "competition": "埃及联杯",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "a4f2eecd78ccca4e91ea"
+      "decision_id": "a4f2eecd78ccca4e91ea",
+      "started_lock": true
     },
     {
       "match_id": "3094166",
@@ -20821,14 +20688,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "埃及联杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "2fb209e23c0ba4ae6e7b",
       "normalized_intent": "真实示弱/阻下",
@@ -20881,7 +20744,8 @@
       },
       "titan_context": {},
       "input_hash": "5f5096ccae71a08a4365512dbb13095904a7311b53314539d79506806408879d",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3094012",
@@ -21138,14 +21002,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "土杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "114805b511ca5ae84455",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -21198,7 +21058,8 @@
       },
       "titan_context": {},
       "input_hash": "bf224948ce98e21d9f77d2ece823d82d881dd71bbb1dff2b3c86a1a169d615dd",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3096852",
@@ -21455,14 +21316,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "约旦杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "173cebacb2e45baf8087",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -21515,7 +21372,8 @@
       },
       "titan_context": {},
       "input_hash": "e98c11a52a0742ae00e408628cbf320b6918b08501039f7505e3de9a0aa66052",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3096221",
@@ -21772,14 +21630,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "女挪威杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "942aece8762aa692ed18",
       "normalized_intent": "真实示弱/阻下",
@@ -21832,7 +21686,8 @@
       },
       "titan_context": {},
       "input_hash": "e7d9a58e9998cb8181d358061bce16bee0cef834e6aa51f0958d6062310304cd",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3098511",
@@ -22084,14 +21939,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿尔乙西",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "7a4a4296763f76a2f066",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -22142,7 +21993,8 @@
         },
         "status": "MATCH_SPECIFIC"
       },
-      "titan_context": {}
+      "titan_context": {},
+      "started_lock": true
     },
     {
       "match_id": "3097911",
@@ -22213,14 +22065,15 @@
         ]
       },
       "competition": "阿塞甲",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "73acf05a06fb7b6b45b5"
+      "decision_id": "73acf05a06fb7b6b45b5",
+      "started_lock": true
     },
     {
       "match_id": "3097939",
@@ -22291,14 +22144,15 @@
         ]
       },
       "competition": "国际友谊",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "c4692948d23ca400bb72"
+      "decision_id": "c4692948d23ca400bb72",
+      "started_lock": true
     },
     {
       "match_id": "3097940",
@@ -22369,14 +22223,15 @@
         ]
       },
       "competition": "国际友谊",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "7470e7e4920554fde979"
+      "decision_id": "7470e7e4920554fde979",
+      "started_lock": true
     },
     {
       "match_id": "3097927",
@@ -22447,14 +22302,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "089e4fea84cb0d0a1aa1"
+      "decision_id": "089e4fea84cb0d0a1aa1",
+      "started_lock": true
     },
     {
       "match_id": "3097928",
@@ -22525,14 +22381,15 @@
         ]
       },
       "competition": "中亚女U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "f6517b2b9eef50a407a6"
+      "decision_id": "f6517b2b9eef50a407a6",
+      "started_lock": true
     },
     {
       "match_id": "3096223",
@@ -22789,14 +22646,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "女挪威杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "b942d29154053d4e10fa",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -22849,7 +22702,8 @@
       },
       "titan_context": {},
       "input_hash": "75ca7181cdccb368a2ba96697cf0918c24e19be7a7234a751ddd80514ce27b7f",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "started_lock": true
     },
     {
       "match_id": "3097899",
@@ -22920,14 +22774,15 @@
         ]
       },
       "competition": "女奥非预",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "02389bb0a775838c0373"
+      "decision_id": "02389bb0a775838c0373",
+      "started_lock": true
     },
     {
       "match_id": "3037808",
@@ -22944,7 +22799,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -22971,7 +22826,7 @@
         "away_water_hk": 0.82,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": -0.25,
         "titan_away_handicap_signed": 0.25,
         "giving_team": "杜海勒",
@@ -23254,7 +23109,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -23281,7 +23136,7 @@
         "away_water_hk": 0.91,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "塞帕汉",
@@ -23879,7 +23734,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -23906,7 +23761,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "阿洛顿",
@@ -24189,16 +24044,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "5651a5700a245b9fd5f9",
+      "parent_decision_id": "dc13f4ac4c3ec015b93c",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24216,7 +24071,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24250,7 +24105,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "dc13f4ac4c3ec015b93c"
+      "decision_id": "fc675cc5573d81d9e8de"
     },
     {
       "match_id": "3097996",
@@ -24267,16 +24122,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "82f2dd5ac89efe345a7d",
+      "parent_decision_id": "b3668df75957bce95e40",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24294,7 +24149,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24328,7 +24183,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "b3668df75957bce95e40"
+      "decision_id": "eb33deb8358522c43309"
     },
     {
       "match_id": "3097997",
@@ -24345,16 +24200,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "20741f8495557ad0f84e",
+      "parent_decision_id": "5a8b24c9219a978de660",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24372,7 +24227,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24406,7 +24261,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "5a8b24c9219a978de660"
+      "decision_id": "32c2a87a27edd3681ee0"
     },
     {
       "match_id": "3097998",
@@ -24423,16 +24278,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "a2a2dd4d9cb848c2ed72",
+      "parent_decision_id": "9a1b5063d9a82eefc5cf",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24450,7 +24305,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24484,7 +24339,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "9a1b5063d9a82eefc5cf"
+      "decision_id": "735fbe8c21ae6787a724"
     },
     {
       "match_id": "3097999",
@@ -24501,16 +24356,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "21c905092f1bad7d6d52",
+      "parent_decision_id": "eb3263f76c4db4eb90b2",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24528,7 +24383,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24562,7 +24417,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "eb3263f76c4db4eb90b2"
+      "decision_id": "8920f5a2915974672834"
     },
     {
       "match_id": "3098000",
@@ -24579,16 +24434,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "50151476be2cd41addd7",
+      "parent_decision_id": "446f332607b0c0816f94",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24606,7 +24461,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24640,7 +24495,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "446f332607b0c0816f94"
+      "decision_id": "6d2009ad4148e324151a"
     },
     {
       "match_id": "3098001",
@@ -24657,16 +24512,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "f0d99799f3ee20c534fb",
+      "parent_decision_id": "09b23ff91966f63daa9e",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24684,7 +24539,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24718,7 +24573,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "09b23ff91966f63daa9e"
+      "decision_id": "f89c91456acc865f6a34"
     },
     {
       "match_id": "3098002",
@@ -24735,16 +24590,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "2bee0497b71ccc17f59a",
+      "parent_decision_id": "33a3a624a7f1b1726638",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24762,7 +24617,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24796,7 +24651,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "33a3a624a7f1b1726638"
+      "decision_id": "798930f18868ddb91288"
     },
     {
       "match_id": "3098003",
@@ -24813,16 +24668,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "02f92d8c9f8f3af52a89",
+      "parent_decision_id": "bd1a9fd947284f848c12",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24840,7 +24695,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24874,7 +24729,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "bd1a9fd947284f848c12"
+      "decision_id": "060e514e12493fc7c829"
     },
     {
       "match_id": "3098004",
@@ -24891,16 +24746,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "05ff239b9af7c32ccf25",
+      "parent_decision_id": "2144538a8f94f1fb95d7",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24918,7 +24773,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -24952,7 +24807,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "2144538a8f94f1fb95d7"
+      "decision_id": "714d75341daae95d0c9d"
     },
     {
       "match_id": "3098005",
@@ -24969,16 +24824,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "c546894404aac0765e25",
+      "parent_decision_id": "594d43607bbc92a0e86f",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -24996,7 +24851,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -25030,7 +24885,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "594d43607bbc92a0e86f"
+      "decision_id": "248c6ea79e04926d6611"
     },
     {
       "match_id": "3098008",
@@ -25047,16 +24902,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 15.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 0.373,
       "hours_from_last_refresh_to_kickoff": 15.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "2232109d127b8be8d216",
+      "parent_decision_id": "933117321f921db0200b",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -25074,7 +24929,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -25108,7 +24963,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "933117321f921db0200b"
+      "decision_id": "ddc3126993cc9b08c67e"
     },
     {
       "match_id": "3074648",
@@ -25125,7 +24980,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -25152,7 +25007,7 @@
         "away_water_hk": 0.78,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.0,
         "titan_away_handicap_signed": -1.0,
         "giving_team": "卡米尔",
@@ -25435,7 +25290,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -25462,7 +25317,7 @@
         "away_water_hk": 0.98,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "哈萨隆",
@@ -26060,7 +25915,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -26087,7 +25942,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "蒂米什瓦拉",
@@ -26370,7 +26225,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -26397,7 +26252,7 @@
         "away_water_hk": 0.93,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "胡齐斯坦钢铁",
@@ -26680,7 +26535,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -26707,7 +26562,7 @@
         "away_water_hk": 1.03,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": -0.25,
         "titan_away_handicap_signed": 0.25,
         "giving_team": "塔博拉联队",
@@ -26990,7 +26845,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -27017,7 +26872,7 @@
         "away_water_hk": 0.93,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "班热维尔",
@@ -28564,16 +28419,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 16.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 1.373,
       "hours_from_last_refresh_to_kickoff": 16.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "8ab17270f4c5c785c033",
+      "parent_decision_id": "be9f3ea11c924e85fbb4",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -28591,7 +28446,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -28627,7 +28482,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "be9f3ea11c924e85fbb4"
+      "decision_id": "236bfda42f2e58f0109a"
     },
     {
       "match_id": "3004509",
@@ -28644,7 +28499,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -28671,7 +28526,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.0,
         "titan_away_handicap_signed": -1.0,
         "giving_team": "莫纳尔",
@@ -29588,16 +29443,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 16.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 1.373,
       "hours_from_last_refresh_to_kickoff": 16.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "3a8dd5061d24b42f79dd",
+      "parent_decision_id": "c92bc330e337a6c71986",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -29615,7 +29470,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -29651,7 +29506,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "c92bc330e337a6c71986"
+      "decision_id": "708b0fef74fde6b54895"
     },
     {
       "match_id": "3100171",
@@ -29668,7 +29523,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -29695,7 +29550,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "比尔舒华夏普尔U19",
@@ -29981,7 +29836,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -30008,7 +29863,7 @@
         "away_water_hk": 0.85,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": -0.25,
         "titan_away_handicap_signed": 0.25,
         "giving_team": "马里女足",
@@ -30291,7 +30146,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -30318,7 +30173,7 @@
         "away_water_hk": 0.83,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.5,
         "titan_away_handicap_signed": -1.5,
         "giving_team": "米格代尔哈曼",
@@ -30601,7 +30456,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -30628,7 +30483,7 @@
         "away_water_hk": 0.85,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.0,
         "titan_away_handicap_signed": -1.0,
         "giving_team": "挪威女足U23",
@@ -30911,7 +30766,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -30938,7 +30793,7 @@
         "away_water_hk": 0.83,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "瑞典女足U23",
@@ -31221,7 +31076,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -31248,7 +31103,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "夏普尔霍",
@@ -32159,7 +32014,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -32186,7 +32041,7 @@
         "away_water_hk": 0.76,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "威柯拉",
@@ -32469,7 +32324,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -32496,7 +32351,7 @@
         "away_water_hk": 0.85,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "奥特士邦",
@@ -33093,16 +32948,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 17.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 2.373,
       "hours_from_last_refresh_to_kickoff": 17.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "9ba223321fb224503c40",
+      "parent_decision_id": "7c10e9fef50724f8d585",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -33120,7 +32975,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -33156,7 +33011,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "7c10e9fef50724f8d585"
+      "decision_id": "156b442b65ee20421321"
     },
     {
       "match_id": "3100206",
@@ -33173,16 +33028,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 17.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 2.373,
       "hours_from_last_refresh_to_kickoff": 17.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "a9ee7b976bb498c6abf2",
+      "parent_decision_id": "560b43094fba03b301bd",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -33200,7 +33055,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -33236,7 +33091,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "560b43094fba03b301bd"
+      "decision_id": "4572aefad9747eb50063"
     },
     {
       "match_id": "3074953",
@@ -33253,7 +33108,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -33280,7 +33135,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "荷兹利亚夏普尔",
@@ -33563,7 +33418,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -33590,7 +33445,7 @@
         "away_water_hk": 0.79,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "克卢日",
@@ -33873,16 +33728,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 17.713,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 2.873,
       "hours_from_last_refresh_to_kickoff": 17.828,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "995b02e388d9f9689899",
+      "parent_decision_id": "e598edb2f8f5f681b26e",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -33900,7 +33755,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -33936,7 +33791,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "e598edb2f8f5f681b26e"
+      "decision_id": "147c3ee9dac68f6f9595"
     },
     {
       "match_id": "3079169",
@@ -33953,16 +33808,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 17.713,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 2.873,
       "hours_from_last_refresh_to_kickoff": 17.828,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "d005d452ee16705ff411",
+      "parent_decision_id": "f77004e59c4791c9e6fb",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -33980,7 +33835,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -34014,7 +33869,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "f77004e59c4791c9e6fb"
+      "decision_id": "ba2cc4ecf5238b652c05"
     },
     {
       "match_id": "3071923",
@@ -34346,7 +34201,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -34373,7 +34228,7 @@
         "away_water_hk": 0.98,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "特安崔亚",
@@ -34657,16 +34512,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 18.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 3.373,
       "hours_from_last_refresh_to_kickoff": 18.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "6a7d9fc9b72fc5fc8f42",
+      "parent_decision_id": "d525f926d48c2098a4f1",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -34684,7 +34539,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -34718,7 +34573,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "d525f926d48c2098a4f1"
+      "decision_id": "94c47d6e172df6c601f1"
     },
     {
       "match_id": "3097905",
@@ -34735,7 +34590,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -34762,7 +34617,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": -0.25,
         "titan_away_handicap_signed": 0.25,
         "giving_team": "CA塔勒瑞斯后备队",
@@ -35046,7 +34901,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -35073,7 +34928,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.75,
         "titan_away_handicap_signed": -1.75,
         "giving_team": "贝尔格拉诺后备队",
@@ -35357,7 +35212,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -35384,7 +35239,7 @@
         "away_water_hk": 0.92,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "戈多伊克鲁斯后备队",
@@ -35668,7 +35523,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -35695,7 +35550,7 @@
         "away_water_hk": 0.77,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.25,
         "titan_away_handicap_signed": -1.25,
         "giving_team": "拉鲁斯后备队",
@@ -35979,7 +35834,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -36006,7 +35861,7 @@
         "away_water_hk": 0.92,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": -0.75,
         "titan_away_handicap_signed": 0.75,
         "giving_team": "沙士菲后备队",
@@ -36290,7 +36145,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -36317,7 +36172,7 @@
         "away_water_hk": 0.88,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": -1.5,
         "titan_away_handicap_signed": 1.5,
         "giving_team": "德国女足U23",
@@ -36600,7 +36455,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -36627,7 +36482,7 @@
         "away_water_hk": 0.98,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "米涅罗竞技青年队",
@@ -36911,7 +36766,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -36938,7 +36793,7 @@
         "away_water_hk": 0.98,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "高士路青年队",
@@ -37222,16 +37077,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 18.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 3.373,
       "hours_from_last_refresh_to_kickoff": 18.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "3f791259f062d7853102",
+      "parent_decision_id": "b957d43e7c929c257d81",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -37249,7 +37104,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -37285,7 +37140,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "b957d43e7c929c257d81"
+      "decision_id": "3f327e3d942b5d84d038"
     },
     {
       "match_id": "3098021",
@@ -37302,7 +37157,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -37329,7 +37184,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.0,
         "titan_away_handicap_signed": -1.0,
         "giving_team": "格雷米奥青年队",
@@ -37613,7 +37468,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -37640,7 +37495,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "布基纳法索女足",
@@ -37923,16 +37778,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 18.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 3.373,
       "hours_from_last_refresh_to_kickoff": 18.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "626581f619134a3c10ea",
+      "parent_decision_id": "526155c65f64537204bd",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -37950,7 +37805,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -37986,7 +37841,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "526155c65f64537204bd"
+      "decision_id": "200d35137b1336947a20"
     },
     {
       "match_id": "3100208",
@@ -38003,7 +37858,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -38030,7 +37885,7 @@
         "away_water_hk": 0.85,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 2.75,
         "titan_away_handicap_signed": -2.75,
         "giving_team": "卡芬姆U19",
@@ -38316,7 +38171,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -38343,7 +38198,7 @@
         "away_water_hk": 0.78,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "CD隆达",
@@ -38626,7 +38481,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -38653,7 +38508,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "德罗赫达镇",
@@ -38936,7 +38791,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -38963,7 +38818,7 @@
         "away_water_hk": 0.91,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.25,
         "titan_away_handicap_signed": -1.25,
         "giving_team": "沙姆洛克流浪",
@@ -39561,16 +39416,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 19.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 4.373,
       "hours_from_last_refresh_to_kickoff": 19.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "7d7c73d80e6b6b0f09b3",
+      "parent_decision_id": "f417068e708bed7e4230",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -39588,7 +39443,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -39622,7 +39477,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "f417068e708bed7e4230"
+      "decision_id": "13179df7ea18bf455737"
     },
     {
       "match_id": "3071685",
@@ -39639,7 +39494,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -39666,7 +39521,7 @@
         "away_water_hk": 0.8,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.25,
         "titan_away_handicap_signed": -1.25,
         "giving_team": "竞技足球会",
@@ -39949,7 +39804,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -39976,7 +39831,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "弗拉门戈青年队",
@@ -40260,14 +40115,14 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
       "quote_age_at_decision": 0.077,
       "hours_from_decision_to_kickoff": 20.25,
       "hours_from_last_refresh_to_kickoff": 20.328,
-      "is_morning_baseline": true,
+      "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
       "parent_decision_id": "cb99b7effa8977eaf899",
       "monitoring_bucket": "MONITORING_BUCKET",
@@ -40287,7 +40142,7 @@
         "away_water_hk": 0.73,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "本廷塔克纳",
@@ -41194,16 +41049,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 20.713,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 5.873,
       "hours_from_last_refresh_to_kickoff": 20.828,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "c80cf6c11182257f0746",
+      "parent_decision_id": "26cf093834284db71c77",
       "monitoring_bucket": "MONITORING_BUCKET",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -41221,7 +41076,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -41257,7 +41112,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "26cf093834284db71c77"
+      "decision_id": "b1639450a3e85f991c47"
     },
     {
       "match_id": "3098023",
@@ -41274,14 +41129,14 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
       "quote_age_at_decision": 0.077,
       "hours_from_decision_to_kickoff": 20.75,
       "hours_from_last_refresh_to_kickoff": 20.828,
-      "is_morning_baseline": true,
+      "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
       "parent_decision_id": "893a20e75a8db2216acc",
       "monitoring_bucket": "MONITORING_BUCKET",
@@ -41301,7 +41156,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "圣保罗青年队",
@@ -41585,14 +41440,14 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
       "quote_age_at_decision": 0.077,
       "hours_from_decision_to_kickoff": 22.25,
       "hours_from_last_refresh_to_kickoff": 22.328,
-      "is_morning_baseline": true,
+      "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
       "parent_decision_id": "736601c3e90940b45964",
       "monitoring_bucket": "MONITORING_BUCKET",
@@ -41612,7 +41467,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 1.5,
         "titan_away_handicap_signed": -1.5,
         "giving_team": "小保加后备队",
@@ -43156,14 +43011,14 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
       "quote_age_at_decision": 0.077,
       "hours_from_decision_to_kickoff": 23.25,
       "hours_from_last_refresh_to_kickoff": 23.328,
-      "is_morning_baseline": true,
+      "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
       "parent_decision_id": "f31c669c2394524649a8",
       "monitoring_bucket": "MONITORING_BUCKET",
@@ -43183,7 +43038,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "东方守护者FC",
@@ -43466,14 +43321,14 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
       "quote_age_at_decision": 0.077,
       "hours_from_decision_to_kickoff": 23.25,
       "hours_from_last_refresh_to_kickoff": 23.328,
-      "is_morning_baseline": true,
+      "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
       "parent_decision_id": "a7392896137842638ca2",
       "monitoring_bucket": "MONITORING_BUCKET",
@@ -43493,7 +43348,7 @@
         "away_water_hk": 0.8,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "博塔弗戈RJ青年队",
@@ -43777,14 +43632,14 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
       "quote_age_at_decision": 0.077,
       "hours_from_decision_to_kickoff": 23.333,
       "hours_from_last_refresh_to_kickoff": 23.411,
-      "is_morning_baseline": true,
+      "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
       "parent_decision_id": "b867b3102d56556479ed",
       "monitoring_bucket": "MONITORING_BUCKET",
@@ -43804,7 +43659,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "国民竞技",
@@ -44087,16 +43942,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
-      "decision_at": "2026-10-08T07:47:14.586824+08:00",
+      "run_id": "RUN_20261008_223704",
+      "decision_at": "2026-10-08T22:37:35.978268+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-      "quote_age_at_decision": 0.115,
-      "hours_from_decision_to_kickoff": 24.213,
+      "quote_age_at_decision": 14.954,
+      "hours_from_decision_to_kickoff": 9.373,
       "hours_from_last_refresh_to_kickoff": 24.328,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "4703695f0069304d7e7b",
+      "parent_decision_id": "ef74cdc2844dd06fa259",
       "monitoring_bucket": "MONITORING_BUCKET",
       "prior_snapshot_id": "prior-2026-10-08-v1",
       "odds_snapshot_id": "snapshot",
@@ -44114,7 +43969,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649"
+        "run_id": "RUN_20261008_223704"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -44148,7 +44003,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "ef74cdc2844dd06fa259"
+      "decision_id": "23e4d9136d31aac7fc24"
     },
     {
       "match_id": "2910911",
@@ -45110,14 +44965,14 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
       "quote_age_at_decision": 0.077,
       "hours_from_decision_to_kickoff": 25.417,
       "hours_from_last_refresh_to_kickoff": 25.494,
-      "is_morning_baseline": true,
+      "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
       "parent_decision_id": "7288199a8688eca487ca",
       "monitoring_bucket": "MONITORING_BUCKET",
@@ -45137,7 +44992,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": -0.75,
         "titan_away_handicap_signed": 0.75,
         "giving_team": "百万富翁",
@@ -45420,7 +45275,7 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261008_074649",
+      "run_id": "RUN_20261008_223704",
       "decision_at": "2026-10-08T07:44:59.408325+08:00",
       "quote_at": "2026-10-08T07:40:21+08:00",
       "last_confirmed_at": "2026-10-08T07:40:21+08:00",
@@ -45447,7 +45302,7 @@
         "away_water_hk": 0.89,
         "quote_at": "2026-10-08T07:40:21+08:00",
         "last_confirmed_at": "2026-10-08T07:40:21+08:00",
-        "run_id": "RUN_20261008_074649",
+        "run_id": "RUN_20261008_223704",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "国际圣卡洛斯",
@@ -45717,7 +45572,7 @@
     }
   ],
   "started_lock_policy": "started rows and same-list-date frozen V4 A/B/C selections retain original pre-match prediction; only status/settlement/review may append",
-  "run_id": "RUN_20261008_074649",
+  "run_id": "RUN_20261008_223704",
   "raw_snapshot_id": "20261008_074021_titan007_odds_snapshot",
   "side_mapping_version": "MATCH_SPECIFIC_DUAL_EV"
 }
