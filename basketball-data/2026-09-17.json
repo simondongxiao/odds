@@ -316714,6 +316714,2399 @@
       }
     }
   ],
+  "formal_manual_ledger": {
+    "actual_fill_note": "未补录人工成交时，盈亏按冻结信号盘口的一单位正式手动账面结算；不代表券商成交回单。",
+    "authorization": "USER_AUTHORIZED_FORMAL_MANUAL_LEDGER_2026-10-08",
+    "by_layer": {
+      "PROVISIONAL": {
+        "formal_manual_pnl_units": 0.8099999999999994,
+        "formal_manual_roi": 0.0139655172413793,
+        "hit_rate_ex_push": 0.543859649122807,
+        "losses": 26,
+        "pending": 42,
+        "pushes": 1,
+        "records": 100,
+        "settled": 58,
+        "wins": 31
+      },
+      "QUALIFIED": {
+        "formal_manual_pnl_units": 7.839999999999999,
+        "formal_manual_roi": 0.09799999999999999,
+        "hit_rate_ex_push": 0.5769230769230769,
+        "losses": 33,
+        "pending": 10,
+        "pushes": 2,
+        "records": 90,
+        "settled": 80,
+        "wins": 45
+      },
+      "TITAN_PROVISIONAL": {
+        "formal_manual_pnl_units": 3.039999999999999,
+        "formal_manual_roi": 0.16888888888888884,
+        "hit_rate_ex_push": 0.6111111111111112,
+        "losses": 7,
+        "pending": 10,
+        "pushes": 0,
+        "records": 28,
+        "settled": 18,
+        "wins": 11
+      }
+    },
+    "dedupe": {
+      "excluded": [
+        {
+          "formal_record_id": "provisional:6c4d20ca9c6acfe6bce5d38b4255c38d",
+          "kept_formal_record_id": "qualified:af6760ea8e868a73e8e733524f78",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6de32006a28109fdcf03384dfd258d00",
+          "kept_formal_record_id": "qualified:2eb7f991197155a3b0be7ab83ea4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:96b305ed47d6b6f1cd060bab8cb28f1b",
+          "kept_formal_record_id": "qualified:c4d10f7787f7340df1b8b0b40b0f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9c26ea5c7ffaec9a29996cc623267a8c",
+          "kept_formal_record_id": "qualified:ff21df119909067ddebffe811db7",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b63680dd13ad7869c62a460136b8d570",
+          "kept_formal_record_id": "qualified:d3e137633054a7f989e35f967978",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0ec1ba84ad88a556d206e89fa6d78197",
+          "kept_formal_record_id": "provisional:9209a34aba9755181c1fdeb32a8afb8f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1eed015ae9a5652a33da4e22f1676474",
+          "kept_formal_record_id": "qualified:c4d10f7787f7340df1b8b0b40b0f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:22e0f360ce4ac93bd34671ec39edfe2b",
+          "kept_formal_record_id": "qualified:af6760ea8e868a73e8e733524f78",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:498458ace17a3440e16fa6482c3a615c",
+          "kept_formal_record_id": "provisional:69306910a7e4ed87bec6391d84b65408",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:50cfae96ffd2503844021473d84ad7a8",
+          "kept_formal_record_id": "provisional:4ebc30fe4300e4f553a74ecd3d0105c9",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:59036f202beeeecd60faebcfc6c57282",
+          "kept_formal_record_id": "provisional:301ee5225d918bc9f0cfc185090e4d10",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:68d7dc58729e1914b58aa7fbf4741e86",
+          "kept_formal_record_id": "provisional:c4fb771aa09f1fcc8dd8bcce8352fa95",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6961075aa70e681c99b8c9000fa0888e",
+          "kept_formal_record_id": "qualified:ff21df119909067ddebffe811db7",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6a6c7abd08b317f50c3e13532efb5b0d",
+          "kept_formal_record_id": "provisional:95494bf0f1ead2ac6025ddd8711803aa",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8380e8d24f6b2502b486db614c3f8030",
+          "kept_formal_record_id": "provisional:d0fa7bbf16566ef9ae93324f70d6a088",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:83f6bd5cab1db4b3274c500180589ea8",
+          "kept_formal_record_id": "provisional:4110f1f5ecaaa53e4d81b89ac754cbb3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8c03ccc70df1a7786eac5a4f467ac245",
+          "kept_formal_record_id": "provisional:a214402e5c3d6f34d10d1d37acfe64e2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:beaca88f84333e94eefca6e970c614a4",
+          "kept_formal_record_id": "qualified:2eb7f991197155a3b0be7ab83ea4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f49311f71fa1bf6ec02638ca7e5b3f25",
+          "kept_formal_record_id": "qualified:d3e137633054a7f989e35f967978",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f75bd8314e09d0e6af368b76186409fb",
+          "kept_formal_record_id": "provisional:f264d4851a171070854066db7b125b7e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ffd54b90f6df1fab97ad9618bd80f66a",
+          "kept_formal_record_id": "provisional:d9db7e8544179b95fe2a07abcdcd47ea",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:10691accfd863dcc262a880a76bd7cfe",
+          "kept_formal_record_id": "provisional:4110f1f5ecaaa53e4d81b89ac754cbb3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:192e77c0aa94b1da1ec508c4cb1ad733",
+          "kept_formal_record_id": "provisional:d9db7e8544179b95fe2a07abcdcd47ea",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1e755db51bcd0bd5d8797bd2b084b49f",
+          "kept_formal_record_id": "provisional:301ee5225d918bc9f0cfc185090e4d10",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:41184eca93615a70b078683504ea8c86",
+          "kept_formal_record_id": "provisional:a214402e5c3d6f34d10d1d37acfe64e2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6ce7d843dcb29ec5826eacde8389808d",
+          "kept_formal_record_id": "provisional:95494bf0f1ead2ac6025ddd8711803aa",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7305f6bd47b9d1e6f2f8c036297e170c",
+          "kept_formal_record_id": "provisional:4ebc30fe4300e4f553a74ecd3d0105c9",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:be714c82508430f4e004176c0746ade5",
+          "kept_formal_record_id": "provisional:c4fb771aa09f1fcc8dd8bcce8352fa95",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e50df51f327caed6cceacde23a75b153",
+          "kept_formal_record_id": "provisional:f264d4851a171070854066db7b125b7e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fc5da01487de7a60871c48e693b25ef6",
+          "kept_formal_record_id": "provisional:d0fa7bbf16566ef9ae93324f70d6a088",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "qualified:618a7b6c0d9795a202b26f6a839f",
+          "kept_formal_record_id": "provisional:a214402e5c3d6f34d10d1d37acfe64e2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:2b8338760f0b60c7c0c12e9b1b990cbf",
+          "kept_formal_record_id": "provisional:4ebc30fe4300e4f553a74ecd3d0105c9",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ac997005c2f3f2f31e19e062a88e7604",
+          "kept_formal_record_id": "provisional:4110f1f5ecaaa53e4d81b89ac754cbb3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:df89bb2e81025ce58120b13009cf8536",
+          "kept_formal_record_id": "provisional:d9db7e8544179b95fe2a07abcdcd47ea",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e845b2d71b54b93f5dbfb8bf2fd808b0",
+          "kept_formal_record_id": "provisional:95494bf0f1ead2ac6025ddd8711803aa",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7d97319610d3758535e0fc817aace16a",
+          "kept_formal_record_id": "provisional:95494bf0f1ead2ac6025ddd8711803aa",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1f1cc3b7546f9338768d62cebd3ce994",
+          "kept_formal_record_id": "provisional:95494bf0f1ead2ac6025ddd8711803aa",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0318a89351378686ee8d154816a4093d",
+          "kept_formal_record_id": "provisional:541b7d4500ad3b37297d55d40588e968",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7b59f4c068f40d47bb044baeec4eb1c4",
+          "kept_formal_record_id": "provisional:95324e040508bd516e4b7276c2c2d724",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a9e100d235a51d2a3e3a4e901fc7d574",
+          "kept_formal_record_id": "provisional:f997e44321288fb0385deb64a8277afe",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:af08ba152a9436deebd1e16fde57fe0b",
+          "kept_formal_record_id": "provisional:1ddc418bde21c10f6e9c5135da988d73",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b38ee4d7aa655e58d92d5197784708f9",
+          "kept_formal_record_id": "provisional:640f80f13f70fc17d7bfee28253a8b6b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:36381e475ea10d7ebf149053dfbd49b5",
+          "kept_formal_record_id": "provisional:dd4edffda173307062a4a6813fb3e001",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:643c5a99edd6068b11d7a745f4441596",
+          "kept_formal_record_id": "provisional:affdab0e08d39e4542a22b9a59387619",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:93eb7bb0c98328e1d1a7866c9ddb8f5c",
+          "kept_formal_record_id": "provisional:d71ed2ebe1bfd51f0d111703d6b358e5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:971385cc026f86e01573b55fbf8ef380",
+          "kept_formal_record_id": "provisional:315291ec6facecca213d004f2f833fcf",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a8f037749c6fa13b66d4c4763bc74d4a",
+          "kept_formal_record_id": "provisional:33f7d9e585deedb338f9325b536e850c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:de4ce8549d6baa4de1b42211178799c8",
+          "kept_formal_record_id": "provisional:194d5f55a6ab47edd9064b72bef30e66",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f1dc5e14f45b033258aad343b97d1511",
+          "kept_formal_record_id": "provisional:5e4ce2c323e3c5c1dfd593926b8c42a8",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:39882f703c6c5fc5cf0ac3f5323d4f86",
+          "kept_formal_record_id": "provisional:5e4ce2c323e3c5c1dfd593926b8c42a8",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:453d8854443f8c0da409926273dc4743",
+          "kept_formal_record_id": "provisional:affdab0e08d39e4542a22b9a59387619",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:5357f4da415c556583d1c73cd218f0df",
+          "kept_formal_record_id": "provisional:194d5f55a6ab47edd9064b72bef30e66",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:92d00debad441a8d81cb543c20ab9481",
+          "kept_formal_record_id": "provisional:d71ed2ebe1bfd51f0d111703d6b358e5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:97b3747707c2d444a1b8ecd19cb03ee2",
+          "kept_formal_record_id": "provisional:33f7d9e585deedb338f9325b536e850c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a0f13f80c163963534d4d51c3140a727",
+          "kept_formal_record_id": "provisional:315291ec6facecca213d004f2f833fcf",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fa873d657d224ae2c6cc682b8a43e99e",
+          "kept_formal_record_id": "provisional:a968bacbe7e0224deba9076b06066414",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:13841f65662031b51fefb26345cadb6f",
+          "kept_formal_record_id": "provisional:d71ed2ebe1bfd51f0d111703d6b358e5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:3d183f55a81e33dde5b12a0163902faf",
+          "kept_formal_record_id": "provisional:a968bacbe7e0224deba9076b06066414",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:601d2122d0a985620397eaea2346810a",
+          "kept_formal_record_id": "provisional:194d5f55a6ab47edd9064b72bef30e66",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:908631405f63f736ec62340bb8ac2c84",
+          "kept_formal_record_id": "provisional:33f7d9e585deedb338f9325b536e850c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ac5afc0f304469611eeb89ee65fac0d6",
+          "kept_formal_record_id": "provisional:37163d3ceb9acc3dad286cb1fd3ce7e3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b722e7e5e3b11785654ff080ab1f07c4",
+          "kept_formal_record_id": "provisional:5e4ce2c323e3c5c1dfd593926b8c42a8",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:da3c1edbc718415bc3e6725caf510001",
+          "kept_formal_record_id": "provisional:315291ec6facecca213d004f2f833fcf",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:dcc43aea438eac58613f134daf8452bf",
+          "kept_formal_record_id": "provisional:affdab0e08d39e4542a22b9a59387619",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:40af3b8ae4d878aaa73a5ddab4e007ed",
+          "kept_formal_record_id": "qualified:0bfac364714a4800b3c954a6a295",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:6a1c14e74240e821683b9075320396c7",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:77662a0f2a47f5feee124e7844207e44",
+          "kept_formal_record_id": "qualified:0f6932fb343ae409d3c8315d6cb4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:c045018c7e32b95187be9eaac1e3dd0a",
+          "kept_formal_record_id": "qualified:2582f0b5f032e059bc2b1b4ab44c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:11bc39831ead956505cb17ce0484963b",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1451f47fed91bb6acd9b84fb17f423f9",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:2a38d4aebc012885e95ee1f42792bb10",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4b2ca904ae116960afcdf0d0c3bd97b4",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4bf04fdd2184a735123d853d20377ba4",
+          "kept_formal_record_id": "provisional:c18be60eda8984e411120df183526c27",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4e4bba8c7bfe08061aaf5d61d3184a0a",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4f093bb5d25b79dae730e128b3ac4464",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:514841188ff119c21e9b40d09cce6157",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a917168551d9bf881cd13e8e23cbdbe2",
+          "kept_formal_record_id": "provisional:32253cb37ed447d459650ff77f53e659",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b3d2161487df96333830d087caad59e1",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:bfbcea9bd3c7074e2ba8c644a3ea0cb0",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c321c2cab102818acbcbbf6ab8629dbd",
+          "kept_formal_record_id": "provisional:fc0e2b0d7d585f53860283638c10dbd2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c48765cb7a7b3875da64dc19df4517f5",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ebd4968e541698f575a359c14fa843e8",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ef2a67356eec3c3ecbc00a9c84a8c768",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fddf19eab7de4e71f392f6630878ff37",
+          "kept_formal_record_id": "provisional:fab2018b67b8f480fdcb3c560c04660f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fe53adb6db697967fd3fe60bf98059b0",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ffe81a7ec45f5ffb249dc5bc2698ce9e",
+          "kept_formal_record_id": "provisional:9c8564d5439c46bfe4cab404de34e724",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:01f2e003b323cff5c3d62690d9aaf78a",
+          "kept_formal_record_id": "titan_provisional:160f7f8a3e440823f4b35bcd2ca4f7fc",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:04b3a33b50ba26ff8328b22a1db138f7",
+          "kept_formal_record_id": "titan_provisional:2d10f48013081637ba53a9183c6ce6bf",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:4006a84b2a8e62d205706211781fe460",
+          "kept_formal_record_id": "titan_provisional:0bda2ac81f997d8e8df6fc1d65247e6d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:429026961fbb598037e37b84d6b1ccff",
+          "kept_formal_record_id": "qualified:0bfac364714a4800b3c954a6a295",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:53ecc3f9f747630c5e9eb08e7bfb963a",
+          "kept_formal_record_id": "qualified:0f6932fb343ae409d3c8315d6cb4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:61d1a9cef7a6153f2e120d0b2cbac67c",
+          "kept_formal_record_id": "qualified:2582f0b5f032e059bc2b1b4ab44c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:659a13b2fcd44ba4c2bded8467c78a9f",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:6d7edd5589f1646e01cca78b704feff5",
+          "kept_formal_record_id": "titan_provisional:4501b3b4f471fa78f2b0f0cbe40fb42c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:71d8d784f725f3f3ef74412fe1653f4d",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:7a53854b5653db88da69cd740deff188",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:7f2463dae2489250b1f7d80ba564107b",
+          "kept_formal_record_id": "titan_provisional:60f220910cb50d5f96bac59c18a30229",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:df9632cb4fe47ba48fe417a1267dd4e9",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:f5fc41345065ea139976317131f6e7d0",
+          "kept_formal_record_id": "titan_provisional:80f92c6708135cc612baa2b7a1904f5b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:006779232275cb54f61828c14bf02d62",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1af26196d4230e7c5d6bf59c8c596f3c",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:40b32e633cd07f4ba7bda670effcaf89",
+          "kept_formal_record_id": "provisional:32253cb37ed447d459650ff77f53e659",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:46b2cfe73ece42cf1037bc4ac79e668d",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:58efa957e12c88951882f9381f822c71",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:5afbcd1ad0fcf824c6edf7c2e504f81c",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7fecd988b8e12ac407ba55210bf2a508",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a059bdab3cb817928d57fe12b7fac024",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b2fa235f3833cdb727cd018e339db789",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b35c3100fdcbaddd06dad9ff86f8d8a4",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b4156c9dea4f396f7623ff572f8634ff",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b6270ee6fd8d7c0b3ec559ffcb1a47b2",
+          "kept_formal_record_id": "provisional:fab2018b67b8f480fdcb3c560c04660f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:bcb63d2cb4df8f2adeac4f90ff62852f",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ee8b9b1b713a99f512ed8c39b86573cb",
+          "kept_formal_record_id": "provisional:c18be60eda8984e411120df183526c27",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f1810bdf92bcc7095bf91fbcc48f0d9c",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f5240b28f8ed3767f01e53eecd37b6c8",
+          "kept_formal_record_id": "provisional:fc0e2b0d7d585f53860283638c10dbd2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fd5ff72a080d826dcdf66410e5f38f17",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:03f9b766a0cae4ce5043ecea4ac53cef",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:1ace9e68a72a9f8edc541824c6a399a3",
+          "kept_formal_record_id": "titan_provisional:80f92c6708135cc612baa2b7a1904f5b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:1f3a2690c162fcd17542108452e6f70c",
+          "kept_formal_record_id": "titan_provisional:60f220910cb50d5f96bac59c18a30229",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:2bab4ec96934a46f827e6580095654ce",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:4171dd5058060fcc72908a861b50dfc3",
+          "kept_formal_record_id": "titan_provisional:0bda2ac81f997d8e8df6fc1d65247e6d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:67f27a2a25a6677221077e14b7c7e0be",
+          "kept_formal_record_id": "titan_provisional:160f7f8a3e440823f4b35bcd2ca4f7fc",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:97225a41fa0a26585d95826d31a861c5",
+          "kept_formal_record_id": "qualified:0bfac364714a4800b3c954a6a295",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:977e5a577d0328eaf35973a8f388446e",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9c0a9e6fd00e885957d0ae8172bec538",
+          "kept_formal_record_id": "titan_provisional:1513bebb1d0b7f0d0f83be1b0540421f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:a36502d26a5a033c70f84c85819c3924",
+          "kept_formal_record_id": "qualified:0f6932fb343ae409d3c8315d6cb4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:b00af695bc6380d9d35dba28411c3642",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:c1f75c7c06667e06a37060ead697d79e",
+          "kept_formal_record_id": "titan_provisional:2d10f48013081637ba53a9183c6ce6bf",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:e6b42ecc7d6bf53709d365da03385f18",
+          "kept_formal_record_id": "titan_provisional:4501b3b4f471fa78f2b0f0cbe40fb42c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:e959b9a777ecae3d143b4ecb1e04cc9b",
+          "kept_formal_record_id": "qualified:2582f0b5f032e059bc2b1b4ab44c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0e0e4860e4131aa4b6a4ec1904fb6cf3",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:204f1f1957a3059aa020e466f9accb9b",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:26030f33478c99569534391619a7bfc4",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:3027fe4c622f7da932bbeff43eda04ee",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:38cf2e488471329d044b7eba7afcd254",
+          "kept_formal_record_id": "provisional:32253cb37ed447d459650ff77f53e659",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:390ed07759d28c5879b0422fe160b47e",
+          "kept_formal_record_id": "provisional:081bdd121c92ba94b99bb34ef2f3281c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4d6e2811a29913226297137326ac6c7c",
+          "kept_formal_record_id": "provisional:fc0e2b0d7d585f53860283638c10dbd2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:5dcabe70aaf8672cc554dc64947d5bb8",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6c3ee396b427f5e353c5885b5e98e6b2",
+          "kept_formal_record_id": "provisional:c18be60eda8984e411120df183526c27",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6e3d75391ccd3c8c15ad541e0a163be2",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8172467e16e6be9e4fc7ff55ca231547",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ab8d0a7374cf17a3373063f35e01cc59",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:bbf87bda5176283ebaf49fb70dd113b5",
+          "kept_formal_record_id": "provisional:fab2018b67b8f480fdcb3c560c04660f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c14e78240f905e1ef67b85caefdfb8c3",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c33bcabbf4031422c8d945c57fb31f51",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:d73028ff55469886ed30c1cd60c9d664",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e6edea8205e4ec4927bf00d88c81dc78",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ea66f05cb2107d0c617ac958d3a3a852",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:052adeb9e36518d2e0e60c72a3fe33e9",
+          "kept_formal_record_id": "qualified:0f6932fb343ae409d3c8315d6cb4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:08abe0c0207681a8d4fb0554b3ba284d",
+          "kept_formal_record_id": "qualified:2582f0b5f032e059bc2b1b4ab44c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:0bf2a9b1ea9eddc6b6ad0a186fd8df57",
+          "kept_formal_record_id": "titan_provisional:1513bebb1d0b7f0d0f83be1b0540421f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:0e9c4ded601e6281d47a54fa5ce8e80f",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:2df12f05e73d4785999ddd251c2d46fd",
+          "kept_formal_record_id": "titan_provisional:0bda2ac81f997d8e8df6fc1d65247e6d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:57d8ff15a26ebed3796cc55a9c3b6be4",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:5a9db9f71453178a5660e6160a4f92df",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:5cc33acc35baa982697a920164ad8595",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:6ae9d22ca064463e93f2d85b6707afa4",
+          "kept_formal_record_id": "titan_provisional:2d10f48013081637ba53a9183c6ce6bf",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9373abbbee7a95ee47db71b3aafa831a",
+          "kept_formal_record_id": "qualified:0bfac364714a4800b3c954a6a295",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:aea103586e8b11886b6356fcf5e972d7",
+          "kept_formal_record_id": "titan_provisional:80f92c6708135cc612baa2b7a1904f5b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:e5e15880d052f1eb5bf1fd896f301ce7",
+          "kept_formal_record_id": "titan_provisional:60f220910cb50d5f96bac59c18a30229",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:e7b27229d53bb629d977e9fdc35eca20",
+          "kept_formal_record_id": "titan_provisional:160f7f8a3e440823f4b35bcd2ca4f7fc",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1e234bf75d56b1f814a24bd623817c18",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6bff83483fc3ddeef935a2c6821954d4",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7fb7f67e6d2765e0ff7d4bf3f6edd9b7",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:878823a0934c06bc047d1aa89ba8443f",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8e376c827b0e960a50e726d67d2de107",
+          "kept_formal_record_id": "provisional:fc0e2b0d7d585f53860283638c10dbd2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9b0f843771ebb7ee17463c6557591235",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9bc5e664db49bca8493099831462ca54",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a2985c63ee7ec41716ca4a198067e335",
+          "kept_formal_record_id": "provisional:fab2018b67b8f480fdcb3c560c04660f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a91d6333bb5a53f81951fe98b10ab761",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a943af81add0be41520036934d993bcb",
+          "kept_formal_record_id": "provisional:081bdd121c92ba94b99bb34ef2f3281c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:bb6773bd980982c470ee5e6abab83474",
+          "kept_formal_record_id": "provisional:32253cb37ed447d459650ff77f53e659",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c7cddeb57c1e55ae4121aec32e7c818e",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f4d06bc8383da798a7a048d3cf4036a4",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:055e41283ac7127b5da03236be800931",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:12010f5f45b7553868facb6d1912a360",
+          "kept_formal_record_id": "qualified:037fb74b256769a2d1b7edf7fce9",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:1a404a57934e55a0f211f5972a92fef0",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:1e2f3580528c5c558a994b4d44d84f20",
+          "kept_formal_record_id": "qualified:0f6932fb343ae409d3c8315d6cb4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:1f39e38b17c58405bcc9c21c263c0c76",
+          "kept_formal_record_id": "titan_provisional:2d10f48013081637ba53a9183c6ce6bf",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:20db93ae23cb284aeeb8ddb616d13ffe",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:24d11e25187a5fadc9ee246b0aa8a5da",
+          "kept_formal_record_id": "titan_provisional:60f220910cb50d5f96bac59c18a30229",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:2edce3d16d113a6133ea1efa437e93fd",
+          "kept_formal_record_id": "qualified:0d744db1beef74247d92c50ca121",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:4c4ca60540685f870c2365a9bd821c21",
+          "kept_formal_record_id": "qualified:195d79f44b851701cade260f1909",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:4fdb95fc3afa4ba6dfcc5743a3021bb2",
+          "kept_formal_record_id": "qualified:f4a094df7368b7859223d417535a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:5bf15d5e404101fd9fd9435608f6326d",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:8980aa2c7ebc43b58a8e88f3aac0aba2",
+          "kept_formal_record_id": "titan_provisional:1513bebb1d0b7f0d0f83be1b0540421f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:8dc10e390e4439a51f602bebd8e9d26a",
+          "kept_formal_record_id": "qualified:9e218e9b5ead0b3a87e1048e286a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:a33fd7dc10a7bad21cb00ab33289ec3b",
+          "kept_formal_record_id": "qualified:0bfac364714a4800b3c954a6a295",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:addd84f24d376970f9689a47f671661e",
+          "kept_formal_record_id": "titan_provisional:0bda2ac81f997d8e8df6fc1d65247e6d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:cf480eff6edb7ff6f03506963af24a8e",
+          "kept_formal_record_id": "qualified:68987d1857f8e20e84d79456465a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "qualified:69ae50ddb35e01a3291c4e66188f",
+          "kept_formal_record_id": "titan_provisional:60f220910cb50d5f96bac59c18a30229",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "qualified:79706371a509d882188bbc65f8ab",
+          "kept_formal_record_id": "titan_provisional:0bda2ac81f997d8e8df6fc1d65247e6d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:244a2631af176cc8c65e3345a0b86be1",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:30320263c778a1037dab80f4a2b60562",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4029cb8d5a0f4af2eca60fd26e84574b",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4cadda4cee05c57da37c0e625ecc80a0",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:525fd00e5e7e97074f11a03b638357c9",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:536ec7563b842ba7acfdc169c340e9b9",
+          "kept_formal_record_id": "provisional:c18be60eda8984e411120df183526c27",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:801aa01f84b0d3df130a18033b348f48",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:90d1c7111e49cad6753cab83d466f12b",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:94e85f9ab9549cf2754ee379adb6a719",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:96b6c6dee33251d335aea14a51790b49",
+          "kept_formal_record_id": "provisional:fc0e2b0d7d585f53860283638c10dbd2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9ef667549c255bd81d2f1589677303da",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b7d540649cb51bd8441716cabceca617",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c78b784b55ccb41e6c2ac0421699c3c2",
+          "kept_formal_record_id": "provisional:fab2018b67b8f480fdcb3c560c04660f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:cbb13126e591738620d2175939b5f8a7",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:dd87dc0e853ee42383653dce70baaf88",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e8be7f05b818a3133ac5831f8185bf92",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f73756e5c3bf7730268dc09a8ce11d42",
+          "kept_formal_record_id": "provisional:081bdd121c92ba94b99bb34ef2f3281c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:0ad5004038a5d6fca1c64a0e69054c9c",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:324a91ef52a87d6159d141e87683e433",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:3268e0abf468dc7f75b018fe8c5e6f7c",
+          "kept_formal_record_id": "titan_provisional:2d10f48013081637ba53a9183c6ce6bf",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:55e4c08d2a1844d30d699c5f0521e06b",
+          "kept_formal_record_id": "qualified:68987d1857f8e20e84d79456465a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:641db1ef14ea7b6b0124657dc1444c69",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:74eb5c50f4224652a5dc8a0f3a05f194",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:772348b45ea165839fa3dfb9f49385c5",
+          "kept_formal_record_id": "qualified:195d79f44b851701cade260f1909",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:862ddf5e2b9b9c19f75d27dc57509ea5",
+          "kept_formal_record_id": "qualified:037fb74b256769a2d1b7edf7fce9",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:86a3bbfe37cfe311fb208e8f2125a85d",
+          "kept_formal_record_id": "qualified:f4a094df7368b7859223d417535a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9cd7a0d64d479463d56a96122f097427",
+          "kept_formal_record_id": "titan_provisional:60f220910cb50d5f96bac59c18a30229",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:c0dd672fe70421d6b90d8e40db139757",
+          "kept_formal_record_id": "titan_provisional:1513bebb1d0b7f0d0f83be1b0540421f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:d45ec1e65ab8fc4332b27b48a1708827",
+          "kept_formal_record_id": "qualified:0f6932fb343ae409d3c8315d6cb4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:dba95b2a22e47f86e4879a09142b629e",
+          "kept_formal_record_id": "qualified:0d744db1beef74247d92c50ca121",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:ebc6be69e139fa760f16b55282502362",
+          "kept_formal_record_id": "qualified:9e218e9b5ead0b3a87e1048e286a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:ef9b804d039a8db1fe7ef83cd26298f1",
+          "kept_formal_record_id": "titan_provisional:0bda2ac81f997d8e8df6fc1d65247e6d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:02e3426893d015df82975756899db8ea",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:2014922eec43464af2c10e2facc60f95",
+          "kept_formal_record_id": "provisional:fab2018b67b8f480fdcb3c560c04660f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:385393d277f34a1fd6a1ac5957047ba7",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:39b1d453e88f23398ad6b6b9d78d1318",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:3eae3165277a44bdc9aa92bd146adec1",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4a976ce353c413c0eaa2745d24de80c3",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:631d1d05f1812cfbeb1ac5d9117675c9",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6e062e9b5736d3d2431da71e17118c55",
+          "kept_formal_record_id": "provisional:fb9a97d9b877bacaa13d83d2810ad015",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6e5ed5941215ef48c14ee3d25647fca2",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:71dee7de68f2da4fd6d304ed9ae3087b",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7b87c3d87ea65adfc33f23afb4d67eb6",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8297f47f8a91c9b8757cbdaf44f6953a",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:895864ba60ec9460241a78f815cec1d8",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9963b1ba772b1c8a66017eea05435364",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9c4fac2e61d43c36cbab3c49405fc2da",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b4264852b7eaeee032bd41cdedf1de4b",
+          "kept_formal_record_id": "provisional:32253cb37ed447d459650ff77f53e659",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ea84b9e50d76668e183ef4cf2057a9b7",
+          "kept_formal_record_id": "provisional:c18be60eda8984e411120df183526c27",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:2770565c18bb5bcdc4fb6d4e30146168",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:46b02288d79d24830733b802476bd05a",
+          "kept_formal_record_id": "qualified:195d79f44b851701cade260f1909",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:854d46777323d1e4f495271375cdd160",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9c018b3169c7036f4ac2860425bb7e59",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:a5b422611704a6657b2694f27ce134a3",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:eabe8e20539bb1f58c1e6154068cc752",
+          "kept_formal_record_id": "qualified:f4a094df7368b7859223d417535a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:fc2d3a305d3e1bc6e350abf8c8ce50c4",
+          "kept_formal_record_id": "titan_provisional:60f220910cb50d5f96bac59c18a30229",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:03e0331bfbab09c9676775702eea0973",
+          "kept_formal_record_id": "provisional:ca4a08b3eb22fab4826a1b5d7a2f38fb",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:300338b05e88a9cafde77581b79d690a",
+          "kept_formal_record_id": "provisional:fab2018b67b8f480fdcb3c560c04660f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:31b7b4b348975f1a82ce8b3498ff70d1",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:369d23c6ba75ca9c7321d231ad378969",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:46ef218ab703f61364c2dc6fe4100303",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6b7290740ed461e4d0789298646d3782",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6ea24602280852ed61c97d19f3bd681a",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:70c5f88948b0733737968dd1585548ed",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7288af1c0332629452f9656d0409a360",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:79100e01a4e878392f78b51cb715d499",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9a8aa167f8913f60973097bb0ddb44b1",
+          "kept_formal_record_id": "provisional:fb9a97d9b877bacaa13d83d2810ad015",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a985e5805b17bfad8c09e0e595108a3e",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c0531f472853cc01a85a330c64b5d238",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c36d1e1b06836dc59510a9a524c1356c",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:cb97d26a7d3d6c0ecf50e45d906256a2",
+          "kept_formal_record_id": "provisional:c18be60eda8984e411120df183526c27",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e2daa82d898092facc984a7904e040be",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f091022f59d93946e5b1b10a11f44fee",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fefbb5df1ec8e9bc6163da526af54680",
+          "kept_formal_record_id": "provisional:32253cb37ed447d459650ff77f53e659",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:080952ad789adc484b252de08d4dee29",
+          "kept_formal_record_id": "qualified:f4a094df7368b7859223d417535a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:4d5ee7bfc4e675a36394c606f397eafe",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:56196a42230f849dee28643e0f520108",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:86e86886917e9498dadd2cae563c2db0",
+          "kept_formal_record_id": "qualified:195d79f44b851701cade260f1909",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:c5427e6345fd7a480ba77f6c1cf32c92",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:caf75f3be5e8cb868cb0721e4c0c024e",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0a86c8d26e37da03631c51a4f6b05dc2",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0dbf0eed058babc3058cd8d3d2b027f8",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:54b43b5c31e5b30139b2858c0077d45d",
+          "kept_formal_record_id": "provisional:c1a4a3acea7a22a4a2b8f60cf312d289",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:5952a85e6466012ec9c39ba6fc6c8b88",
+          "kept_formal_record_id": "provisional:32253cb37ed447d459650ff77f53e659",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:69754aa692014ce5d686c8baaa8a20b9",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7c1c924cb5fa684cea6bc5934a66c4cd",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8e0df3ec834573c07706bb88d86869d4",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8e2a0ba348b064f835086348bd1268e5",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9912bc0cc33af4452a3243f7de8c70bb",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a80b3d51bd882f7410c4b2c5617c19b6",
+          "kept_formal_record_id": "provisional:fb9a97d9b877bacaa13d83d2810ad015",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a9393ae14d0263845e35dcfb271e2162",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b8fbf5901f87ace5e39e1508a131dcb2",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c0249bc2c51769f14880000f74b90fea",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c5bf6a4e5e9d3e0ed41b558d3701081a",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:d29f31a08456830317769a4223413fec",
+          "kept_formal_record_id": "provisional:c18be60eda8984e411120df183526c27",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:dea6f22d27f07b67b0a09549b27e4949",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e04bd7446921c80bd6dd613f7da9c6aa",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e0c61378ccb602f6fb8de7905c45920a",
+          "kept_formal_record_id": "provisional:fab2018b67b8f480fdcb3c560c04660f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fe3de0c2f679789886d38ebc1e7fed0c",
+          "kept_formal_record_id": "provisional:ca4a08b3eb22fab4826a1b5d7a2f38fb",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:12fd2c9e2ff4747534103f784c72bac7",
+          "kept_formal_record_id": "titan_provisional:60f220910cb50d5f96bac59c18a30229",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:1b9e58ddef0283e727ede5918fdc264f",
+          "kept_formal_record_id": "qualified:f4a094df7368b7859223d417535a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:1e66dd6152a02e7b456f9d495f11ffc3",
+          "kept_formal_record_id": "qualified:195d79f44b851701cade260f1909",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:23450bb483b2789c681cfc165641807e",
+          "kept_formal_record_id": "qualified:e9dcb87bb3a2bc35bcbb6d1ff6d3",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:49e18b4570fb4be562f8373638a49de0",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:b520227edd5cdb2bb79bdbce8f4ac2b3",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:cc57c1969085198a7490a39459e1e6cf",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0de7fa4676cb5755623a7eb090fecbe7",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1d8b346e21abb11136ec20c965d9eb22",
+          "kept_formal_record_id": "provisional:68e0d130ba606489da8c9fd4b2ac587a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:30f8487371e99b32667406ca5f73583a",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:42ca6c5200880e1e7dfe4948bf4bffbe",
+          "kept_formal_record_id": "provisional:fb9a97d9b877bacaa13d83d2810ad015",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:5aa806f022a8010b91c05573eb2b7a07",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:67abc7c2fc40bda4debb42585e4dec04",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:75cbd73df3c48794f635f066238a2a83",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8a539fc7a23af64316a946a36beb7c21",
+          "kept_formal_record_id": "provisional:32253cb37ed447d459650ff77f53e659",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:90bc964230150922c34114aae84da63b",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:99873757b0619fffd957def158071bc7",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ab3d917a141c42e0752831c8a7dae863",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b6091dc6e9a296939a960250aa48f669",
+          "kept_formal_record_id": "provisional:c18be60eda8984e411120df183526c27",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:bb435274c620d03ebe2f9e2213ce8484",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:bf952637becac41b70167e50a13f2b9c",
+          "kept_formal_record_id": "provisional:c1a4a3acea7a22a4a2b8f60cf312d289",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c28c4a9c26d6f772068171db4c484820",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:d4346cabcf5545f2b53e9c4cd68c94f0",
+          "kept_formal_record_id": "provisional:ca4a08b3eb22fab4826a1b5d7a2f38fb",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:de3637d3f8e144a472c7b626899aff6a",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f1651c6ebbabaa0baa60a873c8cd1bd4",
+          "kept_formal_record_id": "provisional:c1fa59c89bba3972744c5f65e5c2b19a",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:11c87f723f3c9dbed17e5597a2eacb36",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:872699cb5786131a49a942dbe9615774",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:b7be93ed2684adb2d75b54f6c29d4633",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:e797cc06490ef1e567eea655f9d312a7",
+          "kept_formal_record_id": "qualified:195d79f44b851701cade260f1909",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0048304e8c4b5d7c7843fddcb23eaed4",
+          "kept_formal_record_id": "provisional:062d9cc38ca2597262fc1b868871a707",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0ad29b76040461aa05097241128cd08c",
+          "kept_formal_record_id": "provisional:ca4a08b3eb22fab4826a1b5d7a2f38fb",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:239f4bccdf150146f86f5f854a9a7a23",
+          "kept_formal_record_id": "provisional:59b3b59060f031e71c28b2e3f819ec42",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:3453bbba0eb313321129defc307ac86f",
+          "kept_formal_record_id": "provisional:c1a4a3acea7a22a4a2b8f60cf312d289",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:616aa94ac4a9abe630519b8653cc7d20",
+          "kept_formal_record_id": "provisional:b8e0fff3718ffb9fb13c5741a227fd34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:6b1127900ff7a0184d41d6cf22eebd0d",
+          "kept_formal_record_id": "provisional:65a1b5afae08efef98ec93ef2c1b17c4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:85ec9580f20e66659c9770f6801cb289",
+          "kept_formal_record_id": "provisional:9a3cd2103c248c0a8105f81fad889130",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8673f0bb3374bdfcb710556e8dac8e7b",
+          "kept_formal_record_id": "provisional:a22102855ddbb7960d905fcdb680f902",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:86be1a3ede707488ddd595452daf0e51",
+          "kept_formal_record_id": "provisional:9bd2783e62a9394cd49f0add853db9ab",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:8e8c0b77e8d1045998ae4cb8c610f731",
+          "kept_formal_record_id": "provisional:40b1196a8a8d6fa86d7c35de44f12011",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9bdd3e6d036aab52a53773f6f623115a",
+          "kept_formal_record_id": "provisional:4369d7c38450ce00b1e793165fd4696b",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a5c341ace223698f397c0a981cd29872",
+          "kept_formal_record_id": "provisional:e71703d2d980a5a6d88dcf3c92e65dcb",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b99153b323408b67067c8ac0f2b9d686",
+          "kept_formal_record_id": "provisional:10a480c9ef8a5dd62bf2ee8e88ae4945",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ba44fc0b58b478bc7e11758c2309246c",
+          "kept_formal_record_id": "provisional:19e152529113a502161a59efd72f3904",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fa71a6d2794e62023a2ccb13f67588ef",
+          "kept_formal_record_id": "provisional:c816cffaa3faaceb1df7396c7e717f5d",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:48d235f468eb6c588640c798a3a2b808",
+          "kept_formal_record_id": "titan_provisional:efc01f2758cf2b15cdcf011b5f139f0c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:6121b849fec712b3d853a504b984b752",
+          "kept_formal_record_id": "qualified:195d79f44b851701cade260f1909",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:6a3ccd68c50be2a0b1b10fc58b2b49a4",
+          "kept_formal_record_id": "titan_provisional:be58de6a55f69030946ffbf2b32a0c81",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:e34272e854a4110ad8cd2e94bb971595",
+          "kept_formal_record_id": "titan_provisional:864b86582f421b9c4cf4259d7665c3a5",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c66b0aa880392c031fcfd22ec74bd55c",
+          "kept_formal_record_id": "provisional:ca4a08b3eb22fab4826a1b5d7a2f38fb",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "qualified:1d9f5ff785f51612acd0957b5d74",
+          "kept_formal_record_id": "titan_provisional:d0477dbfee28566c00b4c59163b2ffae",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b8d8728263d062d4a13a55ee7d6f4079",
+          "kept_formal_record_id": "provisional:1e3540407907ef295cfba230c65d34ed",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:db6d45cb30491fc5d8b12ec37bf2369c",
+          "kept_formal_record_id": "provisional:6a774f69be882af4c01a1964492dd90c",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:46d0e2abb2d358a56eefbc6003ec1a48",
+          "kept_formal_record_id": "titan_provisional:f469ff7e255f69895161e68204c9d5b2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:617c0e5f99e9d49db3b1893bf5c8bb71",
+          "kept_formal_record_id": "qualified:d8a3b3c90ee15bfff1e1952a15c2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:7388c5af0226deaabe5fece226864f46",
+          "kept_formal_record_id": "titan_provisional:7b5275969df1df25a851b86f1e43e263",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:84f792b45e31a6a3dbffed31dc7ab34f",
+          "kept_formal_record_id": "titan_provisional:d0477dbfee28566c00b4c59163b2ffae",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:d63ddd15909cfcf05fe6246ffde71cca",
+          "kept_formal_record_id": "qualified:adb7aed16155214aad4d6883f616",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "qualified:be6ba447685de2aaa8a8e634b273",
+          "kept_formal_record_id": "titan_provisional:30291ae81121cc22b7b0157cc3c51cc7",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:719cb35d947ece44a5780b4508fcfd44",
+          "kept_formal_record_id": "provisional:dd47e7b30757c553bea713493b0cea34",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:83584e5c1597154c99d828aff2f22629",
+          "kept_formal_record_id": "provisional:782747fbbb62faadbc296f5c1148bcf0",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:462250dc73e4dd190da51a72d43a59fe",
+          "kept_formal_record_id": "titan_provisional:30291ae81121cc22b7b0157cc3c51cc7",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:5b1d7f0a5da1c250509a8bdec93a17c2",
+          "kept_formal_record_id": "titan_provisional:7db2c294a6adb62cb26c0992c59c7096",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:7aa268b9d5caf0c73a9dbfd99a168051",
+          "kept_formal_record_id": "titan_provisional:1b77f540c77da725344d20867bac47ea",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:858b9748ad74ecf2f363ce8533746241",
+          "kept_formal_record_id": "qualified:d8a3b3c90ee15bfff1e1952a15c2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:c75e5473972a03499fc7dda1430b273a",
+          "kept_formal_record_id": "qualified:adb7aed16155214aad4d6883f616",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:870645b4aa36fcaab9457599ecc4fabe",
+          "kept_formal_record_id": "qualified:550859096aae8c6af9bce5778f92",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0c10e7c31fd6e1b6926c2316eea60fc5",
+          "kept_formal_record_id": "provisional:f6696eca8a459a849b37b2068271e396",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:168d5e2f24fa6c70f0b8fac111caaf02",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:3cbe86fae6f99c11a7e4d03551e7ff54",
+          "kept_formal_record_id": "provisional:d051ea7d30e1502e41e645acb173dd1e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:92857c5611c5e0269d02a4d83179063a",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:f356ba8d01a2d8ee4a9dff121be9dab7",
+          "kept_formal_record_id": "provisional:b2e639493c57dcd86cc57fbfbe6345b4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "qualified:44f0e07c920acad5c60d3e7f758a",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:2d88c5f0341de5a380905f268d1f9706",
+          "kept_formal_record_id": "provisional:f6696eca8a459a849b37b2068271e396",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:395a446ed66f3112f96959e513a1ca04",
+          "kept_formal_record_id": "provisional:d051ea7d30e1502e41e645acb173dd1e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:d382daf0187e1d3e22acbb2521dc9e79",
+          "kept_formal_record_id": "provisional:b2e639493c57dcd86cc57fbfbe6345b4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ea76df2fa89ab86cd29e33efccb58364",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:0934f58d9944de4c7ddd0dff5b6bcd27",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:7b03e81a3a4bd2d61715d2bcd540af48",
+          "kept_formal_record_id": "qualified:dd142bebfedfe3421a20bd96e115",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9a7abdc6ffe1756074fab5e0a5df5a3f",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:14ff173454d459645a31c9970420b9ba",
+          "kept_formal_record_id": "provisional:5ef7fc20d418f32b15ff3d38ef67a0f8",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:2e47a103f30581224432be57a886e82f",
+          "kept_formal_record_id": "provisional:c04037f1a7bb55816fb8d501b5b508ce",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:64be59e6727654521efa8756ed62d9e3",
+          "kept_formal_record_id": "provisional:f6696eca8a459a849b37b2068271e396",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:89461996f6a8830b9a213fbc8fd6af04",
+          "kept_formal_record_id": "provisional:b2e639493c57dcd86cc57fbfbe6345b4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:966ecc2b4ff1d47b0cade2963bef1383",
+          "kept_formal_record_id": "provisional:292dff8743279fc801975b0bc4e05457",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:981ded50870b30cce69704ead6e76a79",
+          "kept_formal_record_id": "provisional:12db16c90ee4d45e9fbb03a5d312d358",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c6eacc77f5e25ca31cb8d12dc356e77f",
+          "kept_formal_record_id": "provisional:6762df1ca0480e1c56b96953ec69d559",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:d3f666601f9d005cd0e90e52f7589ed1",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e7fbbe56df88cc90a0fd8125533068b6",
+          "kept_formal_record_id": "provisional:6e6494f39438bb38cf618cc687b4009e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fe6d8feba96c843ec6a432d395ca9280",
+          "kept_formal_record_id": "provisional:d051ea7d30e1502e41e645acb173dd1e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:08632f6d1f9bbe6d1288b035879ef067",
+          "kept_formal_record_id": "qualified:dd142bebfedfe3421a20bd96e115",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:5ec8aaa9396cda73c8dff47e44d8f620",
+          "kept_formal_record_id": "qualified:6ce18c82a0c30d05b8b3a842c121",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9939d8a2a345ce52350518354b14c42e",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:b9ebcc0c16a09406743c2fccf41f243d",
+          "kept_formal_record_id": "titan_provisional:9d73ffb3ce1deadf615e1d55c8642ead",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:bb0bb987807f42994f2561a8b0c9864c",
+          "kept_formal_record_id": "titan_provisional:dcbacf2bb64363d4a0107b54bf269f08",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:ea7c7780b2b148ab82a86bc29b15f274",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:09eb6499812fbfec493847a237524d42",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1bce9433c9b5ad9c3be051526ca3c8dc",
+          "kept_formal_record_id": "provisional:d051ea7d30e1502e41e645acb173dd1e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4df55c08977185a8032f254b9292481f",
+          "kept_formal_record_id": "provisional:c017302601866ecc902d149322fbe7b0",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:5b182603baec815d027632592a5280aa",
+          "kept_formal_record_id": "provisional:5ef7fc20d418f32b15ff3d38ef67a0f8",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:5e0dd22085c04141e4fc3983926e5a7b",
+          "kept_formal_record_id": "provisional:6762df1ca0480e1c56b96953ec69d559",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:71f651230ee310de20d89761ec3d0ebd",
+          "kept_formal_record_id": "provisional:c04037f1a7bb55816fb8d501b5b508ce",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:9ace2d0d671da02471d30336afbf3ee9",
+          "kept_formal_record_id": "provisional:f6696eca8a459a849b37b2068271e396",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b0a2234634b85e4122ebc96cb8c6afb9",
+          "kept_formal_record_id": "provisional:b2e639493c57dcd86cc57fbfbe6345b4",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b252172b079be5644246f4d6cac5085e",
+          "kept_formal_record_id": "provisional:292dff8743279fc801975b0bc4e05457",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b2f8d7086de6cbf437bfce401bcca965",
+          "kept_formal_record_id": "provisional:6e6494f39438bb38cf618cc687b4009e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:ee271432b00c5fe14ef65b89074c81b0",
+          "kept_formal_record_id": "provisional:12db16c90ee4d45e9fbb03a5d312d358",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:1a0597eb6772f4dfeffa772a8a655e0f",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:277e13d7316708034da05544317c0b4d",
+          "kept_formal_record_id": "titan_provisional:dcbacf2bb64363d4a0107b54bf269f08",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:58fef3dcd5b6f77b5e3505ccb5678564",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:5e4490ec292b4254f4eb0166561e65f2",
+          "kept_formal_record_id": "qualified:dd142bebfedfe3421a20bd96e115",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:75c7478de5a6f321578d8ed845886fa9",
+          "kept_formal_record_id": "titan_provisional:9d73ffb3ce1deadf615e1d55c8642ead",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9bcbbc94cc131ae7d765ae09fef008b0",
+          "kept_formal_record_id": "qualified:6ce18c82a0c30d05b8b3a842c121",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:07579f4ec9c9f4af92358b8f9efaa131",
+          "kept_formal_record_id": "provisional:6762df1ca0480e1c56b96953ec69d559",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:15811524963f66963bc4323f2fa1946f",
+          "kept_formal_record_id": "provisional:292dff8743279fc801975b0bc4e05457",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1e35e7603f5d6986c7a4f31fc236b0c8",
+          "kept_formal_record_id": "provisional:c017302601866ecc902d149322fbe7b0",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:50aba5485d78392d7d198677bb1074ca",
+          "kept_formal_record_id": "provisional:c04037f1a7bb55816fb8d501b5b508ce",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:85dff4bd50c3d580ed530e044bc60c71",
+          "kept_formal_record_id": "provisional:5ef7fc20d418f32b15ff3d38ef67a0f8",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:aba096e83df04b457fcbdd3b325b6f24",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b1e4f3412d83473513e831f522b8a066",
+          "kept_formal_record_id": "provisional:0b3d9fc923bf540f098bee1fedce053f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b8cbe57338d3000c22380342b49791d4",
+          "kept_formal_record_id": "provisional:f6696eca8a459a849b37b2068271e396",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c5d83280548c1d7290078a13faec5391",
+          "kept_formal_record_id": "provisional:6e6494f39438bb38cf618cc687b4009e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:d4e5e05df97894e1f60a882039e36f67",
+          "kept_formal_record_id": "provisional:12db16c90ee4d45e9fbb03a5d312d358",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:fcb2dd32e6def2ddde8d9e87a96fdd6c",
+          "kept_formal_record_id": "provisional:d051ea7d30e1502e41e645acb173dd1e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:284892816dd1192a5b3040bc44ce5e47",
+          "kept_formal_record_id": "titan_provisional:dcbacf2bb64363d4a0107b54bf269f08",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:52a8573dacbfc8cf6708c9c414783dc8",
+          "kept_formal_record_id": "qualified:6ce18c82a0c30d05b8b3a842c121",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:72dc51276b27d038b1fa3ccede79ea5b",
+          "kept_formal_record_id": "titan_provisional:9d73ffb3ce1deadf615e1d55c8642ead",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:8f0542cd20564ed1a07f67b1b05584ce",
+          "kept_formal_record_id": "titan_provisional:ffd81c0a49704e5f092ef6f906109299",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:920b0bf8eccf593ac59d9524bf1debcb",
+          "kept_formal_record_id": "qualified:dd142bebfedfe3421a20bd96e115",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:924608c6127a0f0e01d92a8c8025b659",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:98707724624d889680b14cd250b948f1",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:ffe72da70f92f8570f4d45b4b13dfc81",
+          "kept_formal_record_id": "titan_provisional:34622e43bb7751991907155e4405c658",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:2df4586a5209d7378e2252d69baa060a",
+          "kept_formal_record_id": "provisional:c04037f1a7bb55816fb8d501b5b508ce",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:36ba626665fef21c026fdf5e92ed58f1",
+          "kept_formal_record_id": "provisional:c017302601866ecc902d149322fbe7b0",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:378708cad2d17a946fca2ada7103a626",
+          "kept_formal_record_id": "provisional:292dff8743279fc801975b0bc4e05457",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:618e5736f8297b9a638a997eb95dc4fb",
+          "kept_formal_record_id": "provisional:d051ea7d30e1502e41e645acb173dd1e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:657a38054e74c203b6fd028209623119",
+          "kept_formal_record_id": "provisional:6762df1ca0480e1c56b96953ec69d559",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:7c0546139237fab422ad5d2260efe0bc",
+          "kept_formal_record_id": "provisional:5ef7fc20d418f32b15ff3d38ef67a0f8",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a6503e45589033208da7bab1b9df93e3",
+          "kept_formal_record_id": "provisional:6e6494f39438bb38cf618cc687b4009e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c93ad72c207b58847853b04d3ad0e63d",
+          "kept_formal_record_id": "provisional:f6696eca8a459a849b37b2068271e396",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:d5062267d0ebf0618c9a4cb298f7bcbb",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:dbfed966f51de54a3cac82d66cfcdb4e",
+          "kept_formal_record_id": "provisional:12db16c90ee4d45e9fbb03a5d312d358",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:e829fedb88c89005fa983ce9d19874ab",
+          "kept_formal_record_id": "provisional:0b3d9fc923bf540f098bee1fedce053f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:0b37742ed06a8cc09cc404408c343ebe",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:11b4058d0b9a31fe8d91bed871bfea3e",
+          "kept_formal_record_id": "qualified:dd142bebfedfe3421a20bd96e115",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:2f9ac3584e17d6f2df6ffbb33017c93f",
+          "kept_formal_record_id": "qualified:6ce18c82a0c30d05b8b3a842c121",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:73e8c922cf9cd73c3ff7bb51f774330d",
+          "kept_formal_record_id": "qualified:c8416fe526ba934c9fd47a869cf2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:7695c94aa9e7f6823fdf0cbb4d64f31c",
+          "kept_formal_record_id": "titan_provisional:9d73ffb3ce1deadf615e1d55c8642ead",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9acc69044e34a5ff36092b7df4be432f",
+          "kept_formal_record_id": "titan_provisional:34622e43bb7751991907155e4405c658",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:9c80b0cd8c310c9c70c8700bc0f280bb",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:c59a53dd1fd58f598228705a96d9c372",
+          "kept_formal_record_id": "titan_provisional:ffd81c0a49704e5f092ef6f906109299",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:e32d8748be338b3a8a1590efa23a97f4",
+          "kept_formal_record_id": "titan_provisional:dcbacf2bb64363d4a0107b54bf269f08",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:0aa17c844f74911b96f36143b823f504",
+          "kept_formal_record_id": "provisional:0b3d9fc923bf540f098bee1fedce053f",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:171d59ddfa07bd22455814d4fbe8f6ed",
+          "kept_formal_record_id": "provisional:6762df1ca0480e1c56b96953ec69d559",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1f897aa1b2c5d6a7167e3815225045f7",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:35ec79e3590afdf9864f1ec9ce021973",
+          "kept_formal_record_id": "provisional:f6696eca8a459a849b37b2068271e396",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:4b6ff95713cb1fc5e271eba94b5e9132",
+          "kept_formal_record_id": "provisional:d051ea7d30e1502e41e645acb173dd1e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:a23e4463be45ab16c938b5b4142e81cb",
+          "kept_formal_record_id": "provisional:c04037f1a7bb55816fb8d501b5b508ce",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:aa11b71b088e6a5a946bf8874bf8dfdb",
+          "kept_formal_record_id": "provisional:5ef7fc20d418f32b15ff3d38ef67a0f8",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:bb9d5f2c0ffed146ca6a2ea90eb6d0f9",
+          "kept_formal_record_id": "provisional:12db16c90ee4d45e9fbb03a5d312d358",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c8b65b9c322bee81e5b5e3ed71edc45b",
+          "kept_formal_record_id": "provisional:c017302601866ecc902d149322fbe7b0",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:cdedb5413522a202fc867bebc1896d77",
+          "kept_formal_record_id": "provisional:292dff8743279fc801975b0bc4e05457",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:d93e8cb5054feeaa787660929f111abb",
+          "kept_formal_record_id": "provisional:6e6494f39438bb38cf618cc687b4009e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:057382d8740c7967ad21a9db856e7821",
+          "kept_formal_record_id": "qualified:dd142bebfedfe3421a20bd96e115",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:05f6390c0a2f09e6118b473cb4b27406",
+          "kept_formal_record_id": "titan_provisional:9d73ffb3ce1deadf615e1d55c8642ead",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:13be900b73734585c7309e247f778059",
+          "kept_formal_record_id": "qualified:c8416fe526ba934c9fd47a869cf2",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:2de454ab299486a3bd1cf589a78867ec",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:53190ade91cd1b041392cfce3e72b638",
+          "kept_formal_record_id": "qualified:6ce18c82a0c30d05b8b3a842c121",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:6f9ae9d0c4a56d4131c1b9c042fc29d0",
+          "kept_formal_record_id": "titan_provisional:dcbacf2bb64363d4a0107b54bf269f08",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:755d2ad7b84217ea0bb0e227083f27d9",
+          "kept_formal_record_id": "titan_provisional:ffd81c0a49704e5f092ef6f906109299",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:95f509724482dd99d223296f662d4c8a",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "titan_provisional:d5054d2b5d9e28a78be743201e4c57e1",
+          "kept_formal_record_id": "titan_provisional:34622e43bb7751991907155e4405c658",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:1272dce4014288bb854ba86d5ba29271",
+          "kept_formal_record_id": "provisional:26b052b8db932017763497c14948cd6e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:225a3100765f9e1c27e73d08bc1cdd85",
+          "kept_formal_record_id": "provisional:f6696eca8a459a849b37b2068271e396",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:b7321adbe91b9e9d7e3e2a7e956f8719",
+          "kept_formal_record_id": "provisional:901de502ba768d086cbd220933ff1313",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        },
+        {
+          "formal_record_id": "provisional:c896cc478e381e6acc4d29cdff9b7a2e",
+          "kept_formal_record_id": "provisional:d051ea7d30e1502e41e645acb173dd1e",
+          "reason": "DUPLICATE_EVENT_MARKET_FIRST_WRITE_SUPERSEDED"
+        }
+      ],
+      "key": "canonical team-pair + tip time + market"
+    },
+    "generated_at": "2026-10-08T15:02:13.858068+00:00",
+    "included_layers": [
+      "QUALIFIED",
+      "PROVISIONAL",
+      "TITAN_PROVISIONAL"
+    ],
+    "schema_version": "formal-manual-ledger-1.0",
+    "source_ledgers_immutable": true,
+    "summary": {
+      "formal_manual_pnl_units": 11.689999999999998,
+      "formal_manual_roi": 0.07493589743589742,
+      "hit_rate_ex_push": 0.5686274509803921,
+      "losses": 66,
+      "pending": 62,
+      "pushes": 3,
+      "records": 218,
+      "settled": 156,
+      "wins": 87
+    }
+  },
   "funnel": {
     "blocked_events": 37,
     "comparable_events": 0,
