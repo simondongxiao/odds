@@ -3378,16 +3378,21 @@ def html_doc_v2(
     }}
     .history-rate-alert strong {{ color: #b71c1c; }}
     .history-rate-alert .muted {{ color: #a94442; font-weight: 600; }}
-    .history-rate-alert {{
-      margin: 8px 0;
-      padding: 8px 10px;
-      border: 1px solid #f0a0a0;
-      background: #fff5f5;
-      color: #9d1c1c;
-      line-height: 1.5;
-    }}
-    .history-rate-alert strong {{ color: #b71c1c; }}
-    .history-rate-alert .muted {{ color: #a94442; font-weight: 600; }}
+    .history-rate-record {{ margin-top: 6px; padding: 6px 7px; border: 1px solid #f3c2c2; background: #fff; color: #334155; }}
+    .history-rate-top {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; }}
+    .history-rate-band {{ padding: 1px 5px; border-radius: 3px; font-size: 11px; font-weight: 800; background: #eef2f7; color: #475569; }}
+    .history-rate-band.high {{ background: #e6f6ec; color: #138a48; }}
+    .history-rate-band.low {{ background: #fff0f0; color: #b42318; }}
+    .history-rate-metrics {{ display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 4px; font-size: 12px; }}
+    .history-rate-metrics span {{ white-space: nowrap; }}
+    .history-rate-metrics b {{ font-weight: 900; }}
+    .history-rate-outcomes {{ display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; font-size: 11px; }}
+    .settle-pill {{ padding: 1px 5px; border-radius: 3px; font-weight: 800; background: #f8fafc; }}
+    .settle-win, .settle-profit {{ color: #138a48; }}
+    .settle-half-win {{ color: #0b7d55; }}
+    .settle-push, .settle-neutral {{ color: #64748b; }}
+    .settle-half-loss {{ color: #d14d2a; }}
+    .settle-loss {{ color: #b42318; }}
     .intent-ev-badge {{
       margin-top: 8px;
       padding: 7px 8px;
@@ -4306,14 +4311,32 @@ function historyRateAlertHtml(r) {{
     .filter(x => String(x.match_id || "") === String(r.match_id || ""))
     ;
   if (!rows.length) return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong><br>本场暂无对应的 Excel 历史记录；历史样本按当前列表日前的已结算冻结记录计算。</div>`;
-  return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong><br>${{rows.map(x => {{
+  return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong>${{rows.map(x => {{
     const side = x.market_side === "upper" ? "上盘" : x.market_side === "receiving" ? "下盘" : (x.market_side || "方向待核");
     const band = x.rate_band || x.alert_band || "常规样本";
-    const rate = x.effective_win_rate === "" || x.effective_win_rate == null ? "—" : pct(Number(x.effective_win_rate));
-    const pnl = x.pnl_1u === "" || x.pnl_1u == null ? "PnL 待核" : `PnL ${{Number(x.pnl_1u) >= 0 ? "+" : ""}}${{Number(x.pnl_1u).toFixed(2)}}U`;
-    const roi = x.roi === "" || x.roi == null ? "ROI 待核" : `ROI ${{pct(Number(x.roi))}}`;
-    return `${{clean(x.competition || r.league)}}｜近期${{x.historical_settled_sample ?? 0}}场｜红/半红/走/半黑/黑 ${{x.红 ?? 0}}/${{x.半红 ?? 0}}/${{x.走 ?? 0}}/${{x.半黑 ?? 0}}/${{x.黑 ?? 0}}｜有效胜率 ${{rate}}｜${{side}}：${{clean(x.selected_team || "方向待核")}}｜${{clean(band)}}｜${{pnl}}｜${{roi}}`;
-  }}).join("<br>")}}<br><span class="muted">口径：同名具体联赛/杯赛、样本截止当前列表日前；高胜率&gt;55%，低胜率&lt;45%；45%-55%不纳入高低胜率列表。</span></div>`;
+    const rateValue = Number(x.effective_win_rate);
+    const rate = x.effective_win_rate === "" || x.effective_win_rate == null ? "—" : pct(rateValue);
+    const rateClass = Number.isFinite(rateValue) ? (rateValue > 0.55 ? "settle-profit" : rateValue < 0.45 ? "settle-loss" : "settle-neutral") : "settle-neutral";
+    const pnlValue = Number(x.pnl_1u);
+    const hasPnl = x.pnl_1u !== "" && x.pnl_1u != null && Number.isFinite(pnlValue);
+    const pnl = hasPnl ? `${{pnlValue >= 0 ? "+" : ""}}${{pnlValue.toFixed(2)}}U` : "待核";
+    const pnlClass = hasPnl ? (pnlValue >= 0 ? "settle-profit" : "settle-loss") : "settle-neutral";
+    const roiValue = Number(x.roi);
+    const hasRoi = x.roi !== "" && x.roi != null && Number.isFinite(roiValue);
+    const roi = hasRoi ? pct(roiValue) : "待核";
+    const roiClass = hasRoi ? (roiValue >= 0 ? "settle-profit" : "settle-loss") : "settle-neutral";
+    const bandClass = String(band).includes("高") ? "high" : String(band).includes("低") ? "low" : "";
+    const outcomes = [
+      ["红", x.红 ?? 0, "settle-win"], ["半红", x.半红 ?? 0, "settle-half-win"], ["走", x.走 ?? 0, "settle-push"],
+      ["半黑", x.半黑 ?? 0, "settle-half-loss"], ["黑", x.黑 ?? 0, "settle-loss"]
+    ].map(([label, value, cls]) => `<span class="settle-pill ${{cls}}">${{label}} ${{value}}</span>`).join("");
+    return `<div class="history-rate-record">
+      <div class="history-rate-top"><strong>${{clean(x.competition || r.league)}}</strong><span class="history-rate-band ${{bandClass}}">${{clean(band)}}</span></div>
+      <div class="history-rate-metrics"><span>近期 <b>${{x.historical_settled_sample ?? 0}}场</b></span><span>有效胜率 <b class="${{rateClass}}">${{rate}}</b></span><span class="${{pnlClass}}">PnL <b>${{pnl}}</b></span><span class="${{roiClass}}">ROI <b>${{roi}}</b></span></div>
+      <div class="history-rate-outcomes">${{outcomes}}</div>
+      <div class="muted">${{side}}：${{clean(x.selected_team || "方向待核")}}</div>
+    </div>`;
+  }}).join("")}}<div class="muted" style="margin-top:5px;">口径：同名具体联赛/杯赛；统计截止当前列表日前已结算记录；高胜率&gt;55%，低胜率&lt;45%，45%-55%为常规样本。</div></div>`;
 }}
 
 function cupRegressionDecision(r, proposal) {{
