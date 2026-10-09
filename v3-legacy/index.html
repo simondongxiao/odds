@@ -551,7 +551,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-10-09 18:10 ｜ 数据目录：D:\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
+    <div class="source">更新时间：2026-10-09 18:15 ｜ 数据目录：D:\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
   </header>
 
   <section class="pattern-dock">
@@ -600,9 +600,6 @@
         <label class="bettable-toggle" title="只显示当前日期下通过严格skill漏斗的可投注/半仓可投注赛事；已开赛/已结算的候选保留用于回看，不代表可赛后下注">
           <input type="checkbox" id="bettableFilter">
           <span>筛选当日可投注赛事</span>
-        </label>
-        <label class="rate-filter">历史联赛胜率
-          <select id="historyRateFilter"><option value="全部">全部</option><option value="high">高胜率参考</option><option value="low">低胜率风险</option></select>
         </label>
       </div>
       <div class="searchbox"><input id="matchSearch" placeholder="搜索中文比赛、联赛、盘口"></div>
@@ -1316,21 +1313,6 @@ function bettableFilterEnabled() {
   return Boolean(document.getElementById("bettableFilter")?.checked);
 }
 
-function historyRateMode() {
-  return document.getElementById("historyRateFilter")?.value || "全部";
-}
-
-function historyRateIds() {
-  const mode = historyRateMode();
-  if (mode === "全部") return null;
-  return new Set(historyRateRows
-    .filter(x => (x.version || "") === "V3")
-    .filter(x => concreteCompetitionName(x.competition))
-    .filter(x => Number(x.historical_settled_sample || 0) > 8 && Number.isFinite(Number(x.effective_win_rate)))
-    .filter(x => mode === "high" ? Number(x.effective_win_rate) > 0.55 : Number(x.effective_win_rate) < 0.45)
-    .map(x => String(x.match_id || "")));
-}
-
 function concreteCompetitionName(value) {
   const s = String(value || "").trim();
   return Boolean(s) && !s.includes("系列") && !["全部", "未标注", "未知赛事", "UNKNOWN"].includes(s);
@@ -1493,8 +1475,7 @@ function rowsForDate() {
   const filtered = cardsData
     .filter(r => r.date === d)
     .filter(r => !q || Object.values(r).join(" ").toLowerCase().includes(q));
-  const rateIds = historyRateIds();
-  const rateFiltered = rateIds ? filtered.filter(r => rateIds.has(String(r.match_id || ""))) : filtered;
+  const rateFiltered = filtered;
 
   if (bettableFilterEnabled()) {
     // V3 is the production authority: once a daily decision is frozen, the
@@ -1808,7 +1789,7 @@ function renderDetail(r) {
   document.getElementById("marketTag").textContent = r.odds_status || (r.matched_odds ? "Titan007部分赔率已匹配" : "赔率待核");
   document.getElementById("oddsTable").innerHTML = oddsRows(r);
   document.getElementById("pickBox").innerHTML =
-    `${historyRateAlertHtml(r)}<div class="intent-ev-badge">${intentEvBadge(r)}</div>`;
+    `<div class="intent-ev-badge">${intentEvBadge(r)}</div>`;
 
   document.getElementById("historyBox").innerHTML = `
     <div class="kv"><div class="k">双方历史战绩</div><div class="v">${clean(r.h2h_source)}</div></div>
@@ -1895,7 +1876,6 @@ function init() {
   document.getElementById("dateSelect").addEventListener("change", async () => { await loadHistoryRates(document.getElementById("dateSelect").value); renderList(); });
   document.getElementById("matchSearch").addEventListener("input", () => renderList());
   document.getElementById("bettableFilter").addEventListener("change", () => renderList());
-  document.getElementById("historyRateFilter").addEventListener("change", () => renderList());
   window.addEventListener("resize", () => {
     const rows = rowsForDate();
     const active = document.querySelector(".match-item.active");
