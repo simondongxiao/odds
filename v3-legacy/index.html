@@ -434,6 +434,11 @@
     .history-rate-metrics span { white-space: nowrap; }
     .history-rate-metrics b { font-weight: 900; }
     .history-rate-outcomes { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; font-size: 11px; }
+    .history-dropdown { margin-top: 6px; border-top: 1px dashed #efb4b4; padding-top: 4px; }
+    .history-dropdown summary { cursor: pointer; text-align: right; color: #b42318; font-weight: 800; font-size: 11px; list-style: none; }
+    .history-dropdown summary::-webkit-details-marker { display: none; }
+    .history-dropdown summary::after { content: " ▼"; font-size: 10px; }
+    .history-dropdown[open] summary::after { content: " ▲"; }
     .history-detail { margin-top: 6px; border-top: 1px dashed #cbd5e1; padding-top: 5px; font-size: 10px; line-height: 1.35; }
     .history-detail-row { display: grid; grid-template-columns: 76px minmax(125px, 1fr) 42px 38px 54px; gap: 4px; align-items: center; }
     .history-detail-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -551,7 +556,7 @@
       <h1>足球盘口模拟操盘台</h1>
       <div class="sub">日期筛选、中文比赛、赔率盘口、基本面拉力、资金流与历史胜率</div>
     </div>
-    <div class="source">更新时间：2026-10-09 18:15 ｜ 数据目录：D:\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
+    <div class="source">更新时间：2026-10-09 18:19 ｜ 数据目录：D:\codex<br><a href="snapshots/2026-09-04_184454/index.html">9/4 18:44 旧版可投快照</a></div>
   </header>
 
   <section class="pattern-dock">
@@ -1379,11 +1384,11 @@ function historyRateAlertHtml(r) {
       ["半黑", x.半黑 ?? 0, "settle-half-loss"], ["黑", x.黑 ?? 0, "settle-loss"]
     ].map(([label, value, cls]) => `<span class="settle-pill ${cls}">${label} ${value}</span>`).join("");
     const detailRows = Array.isArray(x.history_matches) ? x.history_matches : [];
-    const details = detailRows.length ? `<div class="history-detail"><div class="muted">Excel同赛事历史明细（已结算）</div>${detailRows.map(d => {
+    const details = detailRows.length ? `<details class="history-dropdown"><summary>展开历史比赛（${detailRows.length}场）</summary><div class="history-detail"><div class="muted">Excel同赛事历史明细（已结算）</div>${detailRows.map(d => {
       const dp = d.pnl_1u === "" || d.pnl_1u == null ? "—" : `${Number(d.pnl_1u) >= 0 ? "+" : ""}${Number(d.pnl_1u).toFixed(2)}U`;
       const dr = d.roi === "" || d.roi == null ? "—" : pct(Number(d.roi));
       return `<div class="history-detail-row"><span>${clean(d.date)}</span><span title="${clean(d.match)}">${clean(d.match)}</span><span>${clean(d.score || "—")}</span><span>${clean(d.settlement || "—")}</span><span>${dp} / ${dr}</span></div>`;
-    }).join("")}</div>` : "";
+    }).join("")}</div></details>` : "";
     return `<div class="history-rate-record">
       <div class="history-rate-top"><strong>${clean(x.competition || r.league)}</strong><span class="history-rate-band ${bandClass}">${clean(band)}</span></div>
       <div class="history-rate-metrics"><span>近期 <b>${x.historical_settled_sample ?? 0}场</b></span><span>有效胜率 <b class="${rateClass}">${rate}</b></span><span class="${pnlClass}">PnL <b>${pnl}</b></span><span class="${roiClass}">ROI <b>${roi}</b></span></div>
@@ -1789,7 +1794,7 @@ function renderDetail(r) {
   document.getElementById("marketTag").textContent = r.odds_status || (r.matched_odds ? "Titan007部分赔率已匹配" : "赔率待核");
   document.getElementById("oddsTable").innerHTML = oddsRows(r);
   document.getElementById("pickBox").innerHTML =
-    `<div class="intent-ev-badge">${intentEvBadge(r)}</div>`;
+    `${historyRateAlertHtml(r)}<div class="intent-ev-badge">${intentEvBadge(r)}</div>`;
 
   document.getElementById("historyBox").innerHTML = `
     <div class="kv"><div class="k">双方历史战绩</div><div class="v">${clean(r.h2h_source)}</div></div>
