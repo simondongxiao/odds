@@ -41,6 +41,8 @@ BETEXPLORER_NEXT = "https://www.betexplorer.com/football/next/"
 BETEXPLORER_ODDS = "https://www.betexplorer.com/match-odds/{event_id}/0/ah/bestOdds/?lang=en"
 ROSTER_ROOT = OUT_ROOT.parents[1] / "ledger" / "slate_rosters"
 HTTP_CACHE = OUT_ROOT / "cache" / "http"
+SNAPSHOT_META_INDEX = HTTP_CACHE / "snapshot_metadata_index_v1.json"
+PREMATCH_ODDS_INDEX = HTTP_CACHE / "prematch_odds_index_v1.json"
 _REQUEST_LOCK = threading.Lock()
 _LAST_REQUEST_AT = 0.0
 _MIN_REQUEST_INTERVAL = float(os.environ.get("TITAN_MIN_REQUEST_INTERVAL", "0.30"))
@@ -891,7 +893,8 @@ def match_betexplorer_to_titan(
         mapped_events[match_id] = scored[0][1]
 
     out: dict[str, dict[str, object]] = {}
-    for match_id, event in mapped_events.items():
+
+    def fetch_event(match_id: str, event: dict[str, str]) -> tuple[str, dict[str, object] | None, str]:
         try:
             url = BETEXPLORER_ODDS.format(event_id=event["betexplorer_id"])
             _path, raw = fetch_betexplorer_event(
@@ -910,9 +913,20 @@ def match_betexplorer_to_titan(
                     "betexplorer_home_en": event["home_en"],
                     "betexplorer_away_en": event["away_en"],
                 })
-                out[match_id] = ah
+                return match_id, ah, ""
         except Exception as exc:
-            print(f"betexplorer_match_failed={match_id}:{exc}", file=sys.stderr)
+            return match_id, None, str(exc)
+        return match_id, None, ""
+
+    max_workers = max(1, int(os.environ.get("BETEXPLORER_MAX_WORKERS", "8")))
+    with ThreadPoolExecutor(max_workers=min(max_workers, max(1, len(mapped_events)))) as pool:
+        futures = [pool.submit(fetch_event, match_id, event) for match_id, event in mapped_events.items()]
+        for future in as_completed(futures):
+            match_id, value, error = future.result()
+            if value:
+                out[match_id] = value
+            if error:
+                print(f"betexplorer_match_failed={match_id}:{error}", file=sys.stderr)
     print(f"betexplorer_schedule={len(schedule)} betexplorer_joined={len(mapped_events)} betexplorer_mapped={len(out)} betexplorer_ambiguous={ambiguous}", file=sys.stderr)
     return out
 
@@ -1085,12 +1099,12 @@ def enrich_future_odds(
 
     # English labels are only join metadata for BetExplorer; they are not a
     # current market.  Reuse the last successful label snapshot when present
-    # and put a hard cap on fresh metadata calls for low-coverage fixtures.
-    # This keeps the broad public fallback responsive even when a legacy
-    # txt/1x2 handler times out for obscure leagues.
+    # and allow an optional operator cap on fresh metadata calls for
+    # low-coverage fixtures.  The default is unlimited so the optimization
+    # never drops a fallback join merely because the slate is large.
     metadata_fields = ("home_en", "away_en", "league_en", "match_time_en")
-    prior_rows = latest_snapshot_rows_by_id(stamp)
-    metadata_fetch_limit = max(0, int(os.environ.get("TITAN_EURO_METADATA_LIMIT", "240")))
+    prior_rows = latest_snapshot_metadata_by_id(stamp)
+    metadata_fetch_limit = max(0, int(os.environ.get("TITAN_EURO_METADATA_LIMIT", "0")))
     metadata_fetch_ids: set[str] = set()
     for match_id in sorted(ids_to_fetch, key=lambda key: str(future_rows[key].get("bj_time", ""))):
         row = future_rows[match_id]
@@ -1098,8 +1112,40 @@ def enrich_future_odds(
         for field in metadata_fields:
             if not str(row.get(field, "") or "").strip() and str(prior.get(field, "") or "").strip():
                 row[field] = prior[field]
-        if not (str(row.get("home_en", "") or "").strip() and str(row.get("away_en", "") or "").strip()):
-            if len(metadata_fetch_ids) < metadata_fetch_limit:
+        probe_row = dict(row)
+        probe_row.update(rows.get(match_id) or {})
+        probe_row.update(lines.get(match_id, {}))
+        probe_row.update(euro.get(match_id, {}))
+        fallback_probe = fivehundred.get(match_id, {}) or betexplorer.get(match_id, {})
+        if fallback_probe:
+            probe_row.update(fallback_probe)
+        # Fetch txt/1x2 only where the aggregate Euro board is incomplete or
+        # where a missing English label is required for BetExplorer matching.
+        # Previously every row missing labels consumed a detail request even
+        # when its Euro triplet was already complete and no AH fallback was
+        # needed.
+        euro_complete = all(
+            str(value or "").strip()
+            for value in (
+                probe_row.get("euro_full_current_home_or_over"),
+                probe_row.get("euro_full_current_line_or_draw"),
+                probe_row.get("euro_full_current_away_or_under"),
+            )
+        )
+        labels_missing = not (
+            str(probe_row.get("home_en", "") or "").strip()
+            and str(probe_row.get("away_en", "") or "").strip()
+        )
+        ah_complete = all(
+            str(value or "").strip()
+            for value in (
+                probe_row.get("ah_full_current_home_or_over"),
+                probe_row.get("ah_full_current_line_or_draw"),
+                probe_row.get("ah_full_current_away_or_under"),
+            )
+        )
+        if (not euro_complete or (labels_missing and not ah_complete)):
+            if metadata_fetch_limit <= 0 or len(metadata_fetch_ids) < metadata_fetch_limit:
                 metadata_fetch_ids.add(match_id)
     print(
         f"euro_metadata_reused={len(ids_to_fetch) - len(metadata_fetch_ids)} "
@@ -1407,23 +1453,99 @@ def snapshot_csv_files() -> list[Path]:
     return sorted(OUT_ROOT.glob("**/*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime)
 
 
-def load_prior_prematch_odds(current_stamp: str) -> dict[str, dict[str, str]]:
-    prematch: dict[str, dict[str, str]] = {}
-    for path in snapshot_csv_files():
-        if path.name.startswith(current_stamp):
-            continue
+def _snapshot_signature(path: Path) -> dict[str, int]:
+    stat = path.stat()
+    return {"size": int(stat.st_size), "mtime_ns": int(stat.st_mtime_ns)}
+
+
+def _incremental_snapshot_index(
+    index_path: Path,
+    current_stamp: str,
+    mode: str,
+) -> dict[str, dict[str, str]]:
+    """Read only new immutable snapshots after the first build.
+
+    The old implementation reparsed every historical CSV twice on every
+    refresh: once for started-match odds and once for English labels.  The
+    snapshots are append-only, so an index keyed by file signature preserves
+    the same latest-row semantics while making later refreshes proportional to
+    the number of new snapshots.  If a snapshot is changed or removed, the
+    index is rebuilt conservatively.
+    """
+    files = [path for path in snapshot_csv_files() if not path.name.startswith(current_stamp)]
+    signatures = {str(path): _snapshot_signature(path) for path in files}
+    cached: dict[str, object] = {}
+    try:
+        cached_value = json.loads(index_path.read_text(encoding="utf-8"))
+        if isinstance(cached_value, dict):
+            cached = cached_value
+    except (OSError, json.JSONDecodeError):
+        cached = {}
+
+    cached_files = cached.get("files") if isinstance(cached.get("files"), dict) else {}
+    cached_rows = cached.get("rows") if isinstance(cached.get("rows"), dict) else {}
+    rebuild = cached.get("version") != 1 or cached.get("mode") != mode
+    if set(cached_files) - set(signatures):
+        rebuild = True
+    if any(cached_files.get(path) != signature for path, signature in signatures.items() if path in cached_files):
+        rebuild = True
+    rows: dict[str, dict[str, str]] = {} if rebuild else {
+        str(match_id): dict(value)
+        for match_id, value in cached_rows.items()
+        if isinstance(value, dict)
+    }
+    processed_files: dict[str, dict[str, int]] = {} if rebuild else {
+        str(path): dict(signature)
+        for path, signature in cached_files.items()
+        if path in signatures and isinstance(signature, dict)
+    }
+    pending = files if rebuild else [path for path in files if str(path) not in processed_files]
+    for path in pending:
         try:
-            with path.open("r", encoding="utf-8-sig", newline="") as f:
-                rows = list(csv.DictReader(f))
-        except Exception:
+            with path.open("r", encoding="utf-8-sig", newline="") as handle:
+                for source_row in csv.DictReader(handle):
+                    match_id = str(source_row.get("match_id") or "").strip()
+                    if not match_id:
+                        continue
+                    if mode == "prematch":
+                        if str(source_row.get("state") or "").strip() != "0":
+                            continue
+                        projected = {
+                            key: str(value or "")
+                            for key, value in source_row.items()
+                            if is_odds_key(key)
+                        }
+                        if not any(value.strip() for value in projected.values()):
+                            continue
+                        projected.update({
+                            "match_id": match_id,
+                            "state": str(source_row.get("state") or ""),
+                            "snapshot_stamp": str(source_row.get("snapshot_stamp") or ""),
+                        })
+                    else:
+                        projected = {
+                            key: str(source_row.get(key) or "")
+                            for key in (
+                                "match_id", "state", "home_en", "away_en", "league_en",
+                                "match_time_en", "snapshot_stamp", "list_date", "home_cn",
+                                "away_cn", "league_cn", "bj_time",
+                            )
+                        }
+                    projected["_source"] = str(path)
+                    rows[match_id] = projected
+        except (OSError, UnicodeError):
             continue
-        for row in rows:
-            match_id = (row.get("match_id") or "").strip()
-            if not match_id or (row.get("state") or "").strip() != "0":
-                continue
-            if any((row.get(key) or "").strip() for key in row if is_odds_key(key)):
-                prematch[match_id] = row
-    return prematch
+        processed_files[str(path)] = signatures[str(path)]
+
+    if rebuild or pending:
+        index_path.parent.mkdir(parents=True, exist_ok=True)
+        payload = {"version": 1, "mode": mode, "files": signatures, "rows": rows}
+        index_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+    return rows
+
+
+def load_prior_prematch_odds(current_stamp: str) -> dict[str, dict[str, str]]:
+    return _incremental_snapshot_index(PREMATCH_ODDS_INDEX, current_stamp, "prematch")
 
 
 def freeze_started_match_odds(rows: list[dict[str, object]], current_stamp: str) -> int:
@@ -1583,12 +1705,20 @@ def latest_snapshot_rows_by_id(current_stamp: str) -> dict[str, dict[str, str]]:
     return out
 
 
+def latest_snapshot_metadata_by_id(current_stamp: str) -> dict[str, dict[str, str]]:
+    """Return the small metadata projection used by the public fallback join."""
+    return _incremental_snapshot_index(SNAPSHOT_META_INDEX, current_stamp, "metadata")
+
+
 def restore_missing_roster_rows(
     rows_by_id: dict[str, dict[str, object]],
     roster: dict[str, dict[str, str]],
     current_stamp: str,
     target_list_date: str,
 ) -> int:
+    missing_ids = [str(match_id or "").strip() for match_id in roster if str(match_id or "").strip() not in rows_by_id]
+    if not missing_ids:
+        return 0
     prior_rows = latest_snapshot_rows_by_id(current_stamp)
     restored = 0
     for match_id, locked in roster.items():
@@ -1910,9 +2040,17 @@ def main() -> int:
     future_count = 0
     future_added = 0
     try:
-        bf_path = fetch("bfdata_ut.js", stamp, out_dir)
-        sb_path = fetch("sbOddsData.js", stamp, out_dir)
-        xml_path = fetch("ch_goalbf3.xml", stamp, out_dir)
+        # These three immutable public feeds are independent.  Fetch them
+        # together so a slow XML/VBS endpoint does not hold the other two
+        # behind it.
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            feed_futures = {
+                name: pool.submit(fetch, name, stamp, out_dir)
+                for name in ("bfdata_ut.js", "sbOddsData.js", "ch_goalbf3.xml")
+            }
+            bf_path = feed_futures["bfdata_ut.js"].result()
+            sb_path = feed_futures["sbOddsData.js"].result()
+            xml_path = feed_futures["ch_goalbf3.xml"].result()
     except Exception as exc:
         print(f"fetch_failed: {exc}", file=sys.stderr)
         return 2
@@ -1956,37 +2094,45 @@ def main() -> int:
             apply_list_date_lock(match_id, item, target_list_date, f"Next_{ymd}", roster, global_roster)
         save_roster(today, roster)
         future_count = len(future_rows)
-        common_path, common_raw = fetch_url(
-            f"{BF_BASE}/CommonInterface.ashx?type=3&date={today.isoformat()}",
-            stamp,
-            out_dir,
-            f"CommonInterface_type3_{ymd}.txt",
-            referer=str(future_path),
-        )
-        common_lines = parse_common_lines(decode_text(common_raw))
-        # Titan's aggregate Europe page is an optional source.  It has
-        # intermittent 500 responses; that must not short-circuit the
-        # per-match Asian/total VIP pages, which are the core V3/V4 inputs.
-        euro = {}
-        try:
-            euro_path, euro_raw = fetch_url(
+        # These are independent supplements after the Next page is parsed.
+        # Run them concurrently; each source still has its own strict parser
+        # and a failed optional source remains an explicit missing-data state.
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            common_future = pool.submit(
+                fetch_url,
+                f"{BF_BASE}/CommonInterface.ashx?type=3&date={today.isoformat()}",
+                stamp,
+                out_dir,
+                f"CommonInterface_type3_{ymd}.txt",
+                str(future_path),
+            )
+            euro_future = pool.submit(
+                fetch_url,
                 EURO_INDEX,
                 stamp,
                 out_dir,
                 f"index_vip_{ymd}.html",
-                referer=str(future_path),
+                str(future_path),
             )
-            euro = parse_euro_index(decode_text(euro_raw))
-        except Exception as exc:
-            print(f"euro_optional_fetch_failed: {exc}", file=sys.stderr)
-        fivehundred_fallback: dict[str, dict[str, object]] = {}
-        try:
-            five_feed = load_fivehundred_odds(stamp, out_dir, target_list_date)
-            fivehundred_fallback = match_fivehundred_to_titan(future_rows, five_feed, stamp)
-        except Exception as exc:
-            # 500.com is a supplement.  A WAF/error page must be visible in
-            # logs but can never make a missing market look bettable.
-            print(f"fivehundred_optional_fetch_failed: {exc}", file=sys.stderr)
+            five_future = pool.submit(load_fivehundred_odds, stamp, out_dir, target_list_date)
+            common_path, common_raw = common_future.result()
+            common_lines = parse_common_lines(decode_text(common_raw))
+            euro = {}
+            try:
+                _euro_path, euro_raw = euro_future.result()
+                euro = parse_euro_index(decode_text(euro_raw))
+            except Exception as exc:
+                # Titan's aggregate Europe page is optional.  Its failure
+                # cannot short-circuit the core Asian/total attempts.
+                print(f"euro_optional_fetch_failed: {exc}", file=sys.stderr)
+            fivehundred_fallback: dict[str, dict[str, object]] = {}
+            try:
+                five_feed = five_future.result()
+                fivehundred_fallback = match_fivehundred_to_titan(future_rows, five_feed, stamp)
+            except Exception as exc:
+                # 500.com is a supplement.  A WAF/error page must be visible
+                # in logs but can never make missing data look bettable.
+                print(f"fivehundred_optional_fetch_failed: {exc}", file=sys.stderr)
         future_added = enrich_future_odds(
             rows_by_id,
             future_rows,

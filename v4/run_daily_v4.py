@@ -293,8 +293,18 @@ def main() -> None:
                     ev = posterior(side_prior, selected_line, float(candidate["candidate_water"]), int(row["match_id"]))
                     grade = "A" if ev["ev_mean"] > 0 and ev["ev_p10"] > 0 and ev["p_ev_positive"] >= .95 else "B" if ev["ev_mean"] > 0 and ev["p_ev_positive"] >= .85 else "C" if ev["ev_mean"] > 0 else "N"
                     decision_id = hashlib.sha256(f"{args.list_date}|{row['match_id']}|{prior_id}|{MODEL_ID}|{side}".encode()).hexdigest()[:20]
-                    giving_ev = posterior(alpha[bucket], -abs(float(m["raw_line"])), float(m["giving_water"]), int(row["match_id"]) + 17)
-                    receiving_ev = posterior(receiving[bucket], abs(float(m["raw_line"])), float(m["receiving_water"]), int(row["match_id"]) + 29)
+                    # The selected-side posterior has exactly the same alpha,
+                    # line and water as its diagnostic counterpart.  Reuse it
+                    # for that side; the other diagnostic still gets its own
+                    # posterior.  This removes one of three 5,000-draw Monte
+                    # Carlo passes per evaluated match without changing the
+                    # selected grade, EV or decision path.
+                    if side == "giving":
+                        giving_ev = ev
+                        receiving_ev = posterior(receiving[bucket], abs(float(m["raw_line"])), float(m["receiving_water"]), int(row["match_id"]) + 29)
+                    else:
+                        receiving_ev = ev
+                        giving_ev = posterior(alpha[bucket], -abs(float(m["raw_line"])), float(m["giving_water"]), int(row["match_id"]) + 17)
                     base.update(competition=row.get("competition", ""), analysis_status="EVALUATED", grade=grade, rank=None, decision_id=decision_id,
                                 normalized_intent=intent["normalized_intent"], intent_source=intent_source,
                                 candidate_side=side, candidate_team=candidate["candidate_team"], candidate_water=candidate["candidate_water"],
