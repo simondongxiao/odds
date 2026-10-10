@@ -507,6 +507,20 @@ def _parse_fivehundred_triplet(value: str) -> tuple[float, float, float] | None:
     return left, line, right
 
 
+def _parse_fivehundred_europe_triplet(value: str) -> tuple[float, float, float] | None:
+    """Parse 500.com's three-way decimal odds (not an AH line)."""
+    parts = [part.strip() for part in str(value or "").split(",")]
+    if len(parts) != 3:
+        return None
+    try:
+        values = tuple(float(part) for part in parts)
+    except (TypeError, ValueError):
+        return None
+    if any(value <= 1.0 or value > 100.0 for value in values):
+        return None
+    return values  # type: ignore[return-value]
+
+
 def _fetch_fivehundred_xml(url: str, stamp: str, out_dir: Path, label: str) -> ET.Element:
     # A cache-buster is intentional: 500.com occasionally serves a short WAF
     # page with HTTP 200.  Never cache that page as if it were a feed.
@@ -585,10 +599,13 @@ def match_fivehundred_to_titan(
                 continue
             asian_attrs = item.get("asian_attrs", {})
             dxq_attrs = item.get("dxq_attrs", {})
+            europe_attrs = item.get("europe_attrs", {})
             if not isinstance(asian_attrs, dict):
                 asian_attrs = {}
             if not isinstance(dxq_attrs, dict):
                 dxq_attrs = {}
+            if not isinstance(europe_attrs, dict):
+                europe_attrs = {}
             asian = None
             asian_company = ""
             for company in ("bet365", "am", "hg", "lb"):
@@ -603,13 +620,22 @@ def match_fivehundred_to_titan(
                 if total:
                     total_company = company
                     break
-            if not asian and not total:
+            euro = None
+            euro_company = ""
+            for company in ("bet365", "avg", "am", "hg", "lb"):
+                euro = _parse_fivehundred_europe_triplet(str(europe_attrs.get(company, "")))
+                if euro:
+                    euro_company = company
+                    break
+            if not asian and not total and not euro:
                 continue
             candidate = dict(item)
             candidate["_asian"] = asian
             candidate["_asian_company"] = asian_company
             candidate["_total"] = total
             candidate["_total_company"] = total_company
+            candidate["_euro"] = euro
+            candidate["_euro_company"] = euro_company
             scored.append((score, candidate))
         if not scored:
             continue
@@ -641,6 +667,14 @@ def match_fivehundred_to_titan(
                 "total_full_current_away_or_under": total[2],
                 "total_full_company": f"500.com {candidate.get('_total_company', '')}".strip(),
                 "future_total_fetch_fallback": "500_COM_PUBLIC_XML",
+            })
+        euro = candidate.get("_euro")
+        if isinstance(euro, tuple):
+            out.update({
+                "euro_full_current_home_or_over": euro[0],
+                "euro_full_current_line_or_draw": euro[1],
+                "euro_full_current_away_or_under": euro[2],
+                "euro_full_company": f"500.com {candidate.get('_euro_company', '')}".strip(),
             })
         mapped[titan_id] = out
     print(f"fivehundred_feed={len(feed)} fivehundred_mapped={len(mapped)} fivehundred_ambiguous={ambiguous}", file=sys.stderr)
@@ -1197,6 +1231,49 @@ def enrich_future_odds(
                 base_row.update(fallback)
                 base_row.pop("future_ah_fetch_error", None)
                 completed[match_id] = (base_row, True or fetched_any)
+
+        # Some reused labels did not need a fresh txt/1x2 request above.  For
+        # the small set of BetExplorer Asian matches only, add the real public
+        # Titan 1X2 snapshot so V4 can evaluate the complete market tuple.
+        for match_id in betexplorer:
+            if match_id not in completed:
+                continue
+            base_row, fetched_any = completed[match_id]
+            euro_ok = all(
+                str(base_row.get(key, "") or "").strip()
+                for key in (
+                    "euro_full_current_home_or_over",
+                    "euro_full_current_line_or_draw",
+                    "euro_full_current_away_or_under",
+                )
+            )
+            if euro_ok:
+                continue
+            try:
+                _path, raw = fetch_url(
+                    f"{EURO_TXT_BASE}/{match_id}.js",
+                    stamp,
+                    out_dir,
+                    f"future_{match_id}_euro_public_fallback.js",
+                    referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm",
+                )
+                euro_row = parse_euro_txt(decode_text(raw)).get(str(match_id), {})
+                if euro_row:
+                    for key in (
+                        "euro_full_current_home_or_over",
+                        "euro_full_current_line_or_draw",
+                        "euro_full_current_away_or_under",
+                        "euro_full_open_home_or_over",
+                        "euro_full_open_line_or_draw",
+                        "euro_full_open_away_or_under",
+                        "euro_full_company",
+                    ):
+                        if key in euro_row:
+                            base_row[key] = euro_row[key]
+                    completed[match_id] = (base_row, True)
+            except Exception as exc:
+                base_row["future_euro_fallback_error"] = str(exc)
+                completed[match_id] = (base_row, fetched_any)
 
     # Titan's VIP detail host can reset urllib/curl connections in the early
     # morning while still serving the same pages to a real Chromium client.
