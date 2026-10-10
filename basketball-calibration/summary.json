@@ -3,42 +3,43 @@
   "archive_type": "FORWARD_NATIVE",
   "hit_rate": null,
   "last_run_funnel": {
-    "blocked_events": 633,
-    "cold_start_priceable_events": 0,
-    "comparable_events": 44,
-    "comparable_markets": 56,
-    "events": 682,
+    "blocked_events": 394,
+    "cold_start_priceable_events": 2,
+    "comparable_events": 109,
+    "comparable_markets": 116,
+    "events": 488,
     "executable_events": 0,
-    "fresh_market_events": 64,
-    "independent_priceable_events": 90,
+    "fresh_market_events": 187,
+    "independent_priceable_events": 224,
     "market_key": "canonical_event_id + market_type",
-    "market_observed_events": 310,
-    "market_observed_markets": 620,
-    "market_records": 1364,
-    "paper_bettable": 1,
-    "paper_triggered_events": 1,
-    "paper_triggered_markets": 1,
-    "paper_triggered_spread_markets": 1,
-    "paper_triggered_total_markets": 0,
+    "market_observed_events": 242,
+    "market_observed_markets": 484,
+    "market_records": 976,
+    "paper_bettable": 4,
+    "paper_triggered_events": 4,
+    "paper_triggered_markets": 5,
+    "paper_triggered_spread_markets": 4,
+    "paper_triggered_total_markets": 1,
     "pricing_state_counts": {
-      "NATIVE_PRICEABLE": 90,
-      "UNPRICEABLE": 592
+      "COLD_START_PRICEABLE": 2,
+      "NATIVE_PRICEABLE": 222,
+      "UNPRICEABLE": 264
     },
     "prior_only_price_events": 0,
-    "raw_verified_market_events": 310,
-    "research_coupled_events": 57,
-    "research_priceable_events": 90,
-    "shadow_eligible_events": 20
+    "raw_verified_market_events": 242,
+    "research_coupled_events": 145,
+    "research_priceable_events": 224,
+    "shadow_eligible_events": 32
   },
   "probability_calibration": "UNVALIDATED",
   "real_execution_allowed": false,
   "spread_execution_total": {
     "migration": {
-      "canonical_execution_records": 127,
-      "canonical_signal_records": 745,
+      "canonical_execution_records": 140,
+      "canonical_signal_records": 949,
       "policy": "Earliest valid first-write per canonical event and market is the only statistical sample; later captures remain audit evidence.",
-      "raw_first_write_records_found": 3487,
-      "repeat_capture_records_excluded_from_statistics": 2742,
+      "raw_first_write_records_found": 3698,
+      "repeat_capture_records_excluded_from_statistics": 2749,
       "repeat_execution_records_excluded_from_statistics": 0
     },
     "model_validation": {
@@ -49,10 +50,10 @@
       "no_auto_tuning": true,
       "probability_calibration": {
         "SPREAD": {
-          "Brier": 0.24268595596307094,
-          "ECE": 0.13350137773527418,
-          "LogLoss": 0.6756952597649003,
-          "N": 54,
+          "Brier": 0.23979422286490829,
+          "ECE": 0.13123425838731934,
+          "LogLoss": 0.6696359894007499,
+          "N": 55,
           "buckets": {
             "60-62%": {
               "N": 8,
@@ -91,13 +92,13 @@
               "predicted": 0.6648214760476908
             },
             "68-70%": {
-              "N": 6,
-              "actual": 0.6666666666666666,
-              "brier": 0.21986253334501282,
-              "calibration_gap": 0.025407788247826968,
-              "log_loss": 0.6309345528005669,
+              "N": 7,
+              "actual": 0.7142857142857143,
+              "brier": 0.202512134756037,
+              "calibration_gap": -0.023036649012102672,
+              "log_loss": 0.5945789306156648,
               "overconfidence": false,
-              "predicted": 0.6920744549144936
+              "predicted": 0.6912490652736116
             },
             "70%+": {
               "N": 12,
@@ -113,11 +114,20 @@
           "status": "PROVISIONAL"
         },
         "TOTAL": {
-          "Brier": 0.26116332578017926,
-          "ECE": 0.3637582535455886,
-          "LogLoss": 0.7160334308303858,
-          "N": 12,
+          "Brier": 0.2488984452927227,
+          "ECE": 0.3679844932663829,
+          "LogLoss": 0.6912411150479061,
+          "N": 13,
           "buckets": {
+            "58-60%": {
+              "N": 1,
+              "actual": 1.0,
+              "brier": 0.17530916236798325,
+              "calibration_gap": -0.41869936991591383,
+              "log_loss": 0.5424872203530281,
+              "overconfidence": false,
+              "predicted": 0.5813006300840862
+            },
             "60-62%": {
               "N": 2,
               "actual": 1.0,
@@ -184,40 +194,40 @@
       "note": "No price-exhausted classification is inferred without same-contract before/after recheck evidence."
     },
     "spread_execution_layer": {
-      "executed": 105,
+      "executed": 117,
       "execution_losses": 30,
-      "execution_pending": 33,
+      "execution_pending": 44,
       "execution_pnl_units": 6.229999999999999,
       "execution_pushes": 2,
-      "execution_roi": 0.08652777777777776,
-      "execution_wins": 40,
+      "execution_roi": 0.08534246575342463,
+      "execution_wins": 41,
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
-      "signal_hit_rate_ex_push": 0.5415472779369628,
-      "signal_losses": 160,
-      "signal_pending": 326,
+      "signal_hit_rate_ex_push": 0.5244565217391305,
+      "signal_losses": 175,
+      "signal_pending": 509,
       "signal_pushes": 3,
-      "signal_wins": 189,
-      "signals": 678
+      "signal_wins": 193,
+      "signals": 880
     },
     "spread_signal_layer": {
-      "executed": 105,
+      "executed": 117,
       "execution_losses": 30,
-      "execution_pending": 33,
+      "execution_pending": 44,
       "execution_pnl_units": 6.229999999999999,
       "execution_pushes": 2,
-      "execution_roi": 0.08652777777777776,
-      "execution_wins": 40,
+      "execution_roi": 0.08534246575342463,
+      "execution_wins": 41,
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
-      "signal_hit_rate_ex_push": 0.5415472779369628,
-      "signal_losses": 160,
-      "signal_pending": 326,
+      "signal_hit_rate_ex_push": 0.5244565217391305,
+      "signal_losses": 175,
+      "signal_pending": 509,
       "signal_pushes": 3,
-      "signal_wins": 189,
-      "signals": 678
+      "signal_wins": 193,
+      "signals": 880
     },
     "total_diagnostic_layer": {
       "bias_conclusion": "DESCRIPTIVE_ONLY_NOT_USED_FOR_PARAMETERS",
-      "settled_total_observations": 40,
+      "settled_total_observations": 38,
       "status": "EXPERIMENTAL_DIAGNOSTIC_ONLY"
     }
   }
