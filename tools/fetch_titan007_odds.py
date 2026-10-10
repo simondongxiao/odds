@@ -33,7 +33,11 @@ EURO_TXT_BASE = "https://txt.titan007.com/1x2"
 FIVEHUNDRED_MATCH_XML = "https://www.500.com/static/public/jczq/xml/match/match.xml"
 FIVEHUNDRED_ODDS_XML = "https://www.500.com/static/public/jczq/xml/odds/odds.xml"
 FIVEHUNDRED_REFERER = "https://trade.500.com/jczq/"
+# The landing page intentionally exposes only a small "next 10" slice.  The
+# public next-matches page contains the broader fixture roster (including the
+# major leagues and the Japan/Korea tiers we use as the first fallback).
 BETEXPLORER_HOME = "https://www.betexplorer.com/football/"
+BETEXPLORER_NEXT = "https://www.betexplorer.com/football/next/"
 BETEXPLORER_ODDS = "https://www.betexplorer.com/match-odds/{event_id}/0/ah/bestOdds/?lang=en"
 ROSTER_ROOT = OUT_ROOT.parents[1] / "ledger" / "slate_rosters"
 HTTP_CACHE = OUT_ROOT / "cache" / "http"
@@ -183,6 +187,35 @@ def fetch_url(url: str, stamp: str, out_dir: Path, label: str, referer: str = RE
         raise last_error
     target.write_bytes(raw)
     save_public_cache(url, raw)
+    return target, raw
+
+
+def fetch_betexplorer_event(url: str, stamp: str, out_dir: Path, label: str, referer: str) -> tuple[Path, bytes]:
+    """Fetch a public BetExplorer event page with a short bounded timeout.
+
+    BetExplorer is a supplement.  A single dead/slow event must never hold the
+    whole daily refresh behind Titan's strict missing-data gate.
+    """
+    safe = re.sub(r"[^A-Za-z0-9_.-]+", "_", label).strip("_")
+    target = out_dir / f"{stamp}_{safe}"
+    cached = cached_public_payload(url)
+    if cached is not None:
+        target.write_bytes(cached)
+        return target, cached
+    throttle(float(os.environ.get("BETEXPLORER_MIN_REQUEST_INTERVAL", "0.15")))
+    req = urllib.request.Request(
+        url,
+        headers={
+            "Referer": referer,
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
+            "Accept": "application/json,text/plain,*/*",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=float(os.environ.get("BETEXPLORER_TIMEOUT", "10"))) as resp:
+        raw = resp.read()
+    target.write_bytes(raw)
+    if len(raw) > 2048:
+        save_public_cache(url, raw)
     return target, raw
 
 
@@ -672,6 +705,70 @@ def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, st
     return out
 
 
+def parse_betexplorer_next_schedule(text: str, target_date: str) -> list[dict[str, str]]:
+    """Parse BetExplorer's broader upcoming-fixture page.
+
+    ``/football/`` is capped at the next ten upcoming matches.  The
+    ``/football/next/`` page uses ``ul[data-dt]`` blocks instead of the table
+    rows used by the landing page, so keep a dedicated parser and preserve
+    the same conservative date/team join contract.
+    """
+    target = dt.date.fromisoformat(target_date)
+    out: list[dict[str, str]] = []
+    for match in re.finditer(r"<ul\b[^>]*data-dt=['\"]([^'\"]+)['\"][^>]*>(.*?)</ul>", text, re.I | re.S):
+        parts = [part.strip() for part in match.group(1).split(",")]
+        if len(parts) < 5:
+            continue
+        try:
+            if dt.date(int(parts[2]), int(parts[1]), int(parts[0])) != target:
+                continue
+        except ValueError:
+            continue
+        block = match.group(2)
+        link = re.search(
+            r"<a\b[^>]*data-live-cell=['\"]matchlink['\"][^>]*href=['\"]([^'\"]+)['\"][^>]*>(.*?)</a>",
+            block,
+            re.I | re.S,
+        )
+        if not link:
+            # Attribute order is not contractual; accept the reverse order.
+            link = re.search(
+                r"<a\b[^>]*href=['\"]([^'\"]+)['\"][^>]*data-live-cell=['\"]matchlink['\"][^>]*>(.*?)</a>",
+                block,
+                re.I | re.S,
+            )
+        if not link:
+            continue
+        href = html.unescape(link.group(1))
+        event_id = href.rstrip("/").split("/")[-1]
+        if not event_id:
+            continue
+        home_match = re.search(
+            r"<div\b[^>]*class=['\"][^'\"]*participantHome[^'\"]*['\"][^>]*>.*?<p\b[^>]*>(.*?)</p>",
+            block,
+            re.I | re.S,
+        )
+        away_match = re.search(
+            r"<div\b[^>]*class=['\"][^'\"]*participantAway[^'\"]*['\"][^>]*>.*?<p\b[^>]*>(.*?)</p>",
+            block,
+            re.I | re.S,
+        )
+        if not home_match or not away_match:
+            continue
+        home_en = clean_html_text(home_match.group(1))
+        away_en = clean_html_text(away_match.group(1))
+        if not home_en or not away_en:
+            continue
+        out.append({
+            "betexplorer_id": event_id,
+            "home_en": home_en,
+            "away_en": away_en,
+            "betexplorer_dt": ",".join(parts[:5]),
+            "betexplorer_href": href,
+        })
+    return out
+
+
 def parse_betexplorer_asian(text: str) -> dict[str, float | str]:
     """Pick a real BetExplorer AH line from a preferred bookmaker row.
 
@@ -725,8 +822,16 @@ def match_betexplorer_to_titan(
     """Use BetExplorer's public JSON AH endpoint as a bounded fallback."""
     out_dir.mkdir(parents=True, exist_ok=True)
     try:
+        _path, raw = fetch_url(BETEXPLORER_NEXT, stamp, out_dir, "betexplorer_football_next.html")
+        schedule = parse_betexplorer_next_schedule(decode_text(raw), target_date)
+        # Keep the landing-page slice as well: it currently contains several
+        # Japan/Korea fixtures that are not repeated on BetExplorer's broad
+        # next-matches page.  Dedupe by the provider event id.
         _path, raw = fetch_url(BETEXPLORER_HOME, stamp, out_dir, "betexplorer_football.html")
-        schedule = parse_betexplorer_schedule(decode_text(raw), target_date)
+        landing_schedule = parse_betexplorer_schedule(decode_text(raw), target_date)
+        by_event = {event["betexplorer_id"]: event for event in schedule}
+        by_event.update({event["betexplorer_id"]: event for event in landing_schedule})
+        schedule = list(by_event.values())
     except Exception as exc:
         print(f"betexplorer_schedule_failed={exc}", file=sys.stderr)
         return {}
@@ -755,7 +860,13 @@ def match_betexplorer_to_titan(
     for match_id, event in mapped_events.items():
         try:
             url = BETEXPLORER_ODDS.format(event_id=event["betexplorer_id"])
-            _path, raw = fetch_url(url, stamp, out_dir, f"betexplorer_{event['betexplorer_id']}_ah.json", referer=BETEXPLORER_HOME)
+            _path, raw = fetch_betexplorer_event(
+                url,
+                stamp,
+                out_dir,
+                f"betexplorer_{event['betexplorer_id']}_ah.json",
+                referer=BETEXPLORER_HOME,
+            )
             payload = json.loads(decode_text(raw))
             market_html = str(payload.get("odds", "")) if isinstance(payload, dict) else ""
             ah = parse_betexplorer_asian(market_html)
@@ -937,6 +1048,30 @@ def enrich_future_odds(
     ids_to_fetch = list(future_rows)
     fivehundred = fivehundred or {}
     betexplorer = betexplorer or {}
+
+    # English labels are only join metadata for BetExplorer; they are not a
+    # current market.  Reuse the last successful label snapshot when present
+    # and put a hard cap on fresh metadata calls for low-coverage fixtures.
+    # This keeps the broad public fallback responsive even when a legacy
+    # txt/1x2 handler times out for obscure leagues.
+    metadata_fields = ("home_en", "away_en", "league_en", "match_time_en")
+    prior_rows = latest_snapshot_rows_by_id(stamp)
+    metadata_fetch_limit = max(0, int(os.environ.get("TITAN_EURO_METADATA_LIMIT", "240")))
+    metadata_fetch_ids: set[str] = set()
+    for match_id in sorted(ids_to_fetch, key=lambda key: str(future_rows[key].get("bj_time", ""))):
+        row = future_rows[match_id]
+        prior = prior_rows.get(match_id, {})
+        for field in metadata_fields:
+            if not str(row.get(field, "") or "").strip() and str(prior.get(field, "") or "").strip():
+                row[field] = prior[field]
+        if not (str(row.get("home_en", "") or "").strip() and str(row.get("away_en", "") or "").strip()):
+            if len(metadata_fetch_ids) < metadata_fetch_limit:
+                metadata_fetch_ids.add(match_id)
+    print(
+        f"euro_metadata_reused={len(ids_to_fetch) - len(metadata_fetch_ids)} "
+        f"euro_metadata_fetch={len(metadata_fetch_ids)}",
+        file=sys.stderr,
+    )
     vip_allowed = os.environ.get("TITAN_SKIP_VIP", "0") != "1"
     vip_probe_error = ""
     if vip_allowed and os.environ.get("TITAN_FORCE_VIP", "0") != "1" and ids_to_fetch:
@@ -967,7 +1102,10 @@ def enrich_future_odds(
         vip_probe_error = "skipped_vip_after_endpoint_failure"
 
     def fetch_one(match_id: str) -> tuple[str, dict[str, object], bool]:
-        base_row = dict(rows.get(match_id) or future_rows[match_id])
+        # Start from the enriched future row so reused English labels survive
+        # even when the live schedule row already exists in ``rows``.
+        base_row = dict(future_rows[match_id])
+        base_row.update(rows.get(match_id) or {})
         base_row.update(lines.get(match_id, {})); base_row.update(euro.get(match_id, {}))
         fetched_any = False
         fallback = fivehundred.get(match_id, {})
@@ -1001,14 +1139,15 @@ def enrich_future_odds(
                         fetched_any = True
             except Exception as exc:
                 base_row["future_total_fetch_error"] = str(exc)
-        try:
-            _path, raw = fetch_url(f"{EURO_TXT_BASE}/{match_id}.js", stamp, out_dir, f"future_{match_id}_euro.js", referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm")
-            euro_row = parse_euro_txt(decode_text(raw)).get(str(match_id), {})
-            if euro_row:
-                base_row.update(euro_row)
-                fetched_any = True
-        except Exception as exc:
-            base_row["future_euro_fetch_error"] = str(exc)
+        if match_id in metadata_fetch_ids:
+            try:
+                _path, raw = fetch_url(f"{EURO_TXT_BASE}/{match_id}.js", stamp, out_dir, f"future_{match_id}_euro.js", referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm")
+                euro_row = parse_euro_txt(decode_text(raw)).get(str(match_id), {})
+                if euro_row:
+                    base_row.update(euro_row)
+                    fetched_any = True
+            except Exception as exc:
+                base_row["future_euro_fetch_error"] = str(exc)
         return match_id, base_row, fetched_any
 
     added = 0
