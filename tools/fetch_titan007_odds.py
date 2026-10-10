@@ -490,6 +490,20 @@ def _parse_handicap_text(value: str) -> float | None:
         line = aliases[text]
         return -line if negative else line
     parts = re.split(r"[/\\]", text)
+    if len(parts) == 2:
+        # Mobile Analysis expresses quarter-ball lines as numeric pairs such
+        # as ``-0/0.5``.  Treat the pair as the midpoint while preserving the
+        # sign; this is a source value, not an inferred market.
+        numeric_parts: list[float] = []
+        for part in parts:
+            try:
+                numeric_parts.append(abs(float(part)))
+            except ValueError:
+                numeric_parts = []
+                break
+        if len(numeric_parts) == 2:
+            line = sum(numeric_parts) / 2.0
+            return -line if negative else line
     if len(parts) == 2 and parts[0] in aliases and parts[1] in aliases:
         line = (aliases[parts[0]] + aliases[parts[1]]) / 2.0
         return -line if negative else line
@@ -1229,6 +1243,210 @@ def browser_recover_vip_pages(
     return recovered_ah, recovered_total, failed
 
 
+def parse_mobile_analysis_triplet(values: list[str]) -> dict[str, float | str]:
+    """Parse the six realOdds spans from the mobile Analysis market row.
+
+    The mobile page presents three opening values followed by three current
+    values.  For Asian handicap those are home water, line, away water; for
+    totals they are over water, line, under water.  Keep the exact source
+    values and reject malformed/placeholder rows instead of manufacturing a
+    fallback market.
+    """
+    values = [clean_html_text(value) for value in values]
+    if len(values) < 6:
+        return {}
+    values = values[:6]
+    open_home = text_to_float(values[0])
+    open_line = _parse_handicap_text(values[1])
+    open_away = text_to_float(values[2])
+    current_home = text_to_float(values[3])
+    current_line = _parse_handicap_text(values[4])
+    current_away = text_to_float(values[5])
+    if None in (open_home, open_line, open_away, current_home, current_line, current_away):
+        return {}
+    if not all(0.20 <= float(value) <= 2.50 for value in (open_home, open_away, current_home, current_away)):
+        return {}
+    return {
+        "company": "Titan007 Mobile Analysis",
+        "open_home": open_home,
+        "open_line": open_line,
+        "open_away": open_away,
+        "current_home": current_home,
+        "current_line": current_line,
+        "current_away": current_away,
+    }
+
+
+def browser_recover_mobile_analysis_pages(
+    completed: dict[str, tuple[dict[str, object], bool]],
+    ids_to_fetch: list[str],
+    stamp: str,
+    out_dir: Path,
+) -> tuple[int, int, int]:
+    """Recover missing markets from Titan's mobile Analysis page.
+
+    This is a separate host and a separate circuit from the VIP detail pages.
+    It is intentionally sequential by default because the mobile endpoint is
+    the broad-coverage safety net for a large daily slate.
+    """
+    jobs: list[tuple[str, str]] = []
+    markets = {
+        item.strip().lower()
+        for item in os.environ.get("TITAN_MOBILE_BROWSER_MARKETS", "ah,total").split(",")
+        if item.strip().lower() in {"ah", "total"}
+    } or {"ah"}
+    for match_id in ids_to_fetch:
+        row = completed[match_id][0]
+        ah_complete = all(
+            str(row.get(key, "") or "").strip()
+            for key in (
+                "ah_full_current_home_or_over",
+                "ah_full_current_line_or_draw",
+                "ah_full_current_away_or_under",
+            )
+        )
+        total_complete = all(
+            str(row.get(key, "") or "").strip()
+            for key in (
+                "total_full_current_home_or_over",
+                "total_full_current_line_or_draw",
+                "total_full_current_away_or_under",
+            )
+        )
+        if "ah" in markets and not ah_complete:
+            jobs.append((match_id, "ah"))
+        if "total" in markets and not total_complete:
+            jobs.append((match_id, "total"))
+    if not jobs:
+        return 0, 0, 0
+
+    jobs.sort(key=lambda item: browser_market_priority(completed[item[0]][0]))
+    batch_limit = max(0, int(os.environ.get("TITAN_MOBILE_BROWSER_BATCH_LIMIT", "0")))
+    queued_jobs = len(jobs)
+    if batch_limit:
+        jobs = jobs[:batch_limit]
+
+    chrome_candidates = (
+        Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
+        Path(r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"),
+        Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
+    )
+    executable = next((path for path in chrome_candidates if path.exists()), None)
+    if executable is None:
+        raise RuntimeError("Chromium executable unavailable for Titan mobile fallback")
+
+    async def fetch_all() -> list[tuple[str, str, dict[str, float | str], str]]:
+        from playwright.async_api import async_playwright
+
+        timeout_ms = max(5_000, int(os.environ.get("TITAN_MOBILE_BROWSER_TIMEOUT_MS", "20_000")))
+        request_interval = max(0.15, float(os.environ.get("TITAN_MOBILE_BROWSER_REQUEST_INTERVAL", "0.45")))
+        max_attempts = max(1, int(os.environ.get("TITAN_MOBILE_BROWSER_ATTEMPTS", "2")))
+        save_browser_html = os.environ.get("TITAN_SAVE_BROWSER_HTML", "0") == "1"
+        next_request_at = 0.0
+        request_lock = asyncio.Lock()
+        host_blocked = False
+
+        async def before_request() -> bool:
+            nonlocal next_request_at
+            async with request_lock:
+                if host_blocked:
+                    return False
+                now = time.monotonic()
+                wait = max(0.0, next_request_at - now)
+                next_request_at = max(now, next_request_at) + request_interval
+            if wait:
+                await asyncio.sleep(wait)
+            return not host_blocked
+
+        async with async_playwright() as playwright:
+            browser = await playwright.chromium.launch(headless=True, executable_path=str(executable))
+            context = await browser.new_context(
+                ignore_https_errors=True,
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
+            )
+            page = await context.new_page()
+            results: list[tuple[str, str, dict[str, float | str], str]] = []
+            try:
+                for index, (match_id, market) in enumerate(jobs, start=1):
+                    if not await before_request():
+                        results.append((match_id, market, {}, "mobile_host_cooldown"))
+                        continue
+                    row_selector = f'#Odds tr[onclick^="GoDetail({1 if market == "ah" else 2},"]'
+                    last_error = ""
+                    for attempt in range(max_attempts):
+                        try:
+                            response = await page.goto(
+                                f"https://m.titan007.com/analy/Analysis/{match_id}.htm",
+                                wait_until="domcontentloaded",
+                                timeout=timeout_ms,
+                            )
+                            market_row = page.locator(row_selector).first
+                            spans = (
+                                await market_row.locator(".realOdds").all_inner_texts()
+                                if await market_row.count()
+                                else []
+                            )
+                            parsed = parse_mobile_analysis_triplet(spans)
+                            status = str(response.status if response else "")
+                            if parsed:
+                                if save_browser_html:
+                                    html_text = await page.content()
+                                    await asyncio.to_thread(
+                                        (out_dir / f"{stamp}_future_{match_id}_{market}_mobile_browser.html").write_text,
+                                        html_text,
+                                        encoding="utf-8",
+                                    )
+                                results.append((match_id, market, parsed, ""))
+                                break
+                            last_error = f"mobile_empty_market_http_{status}"
+                        except Exception as exc:
+                            last_error = f"{type(exc).__name__}: {exc}"
+                        if attempt + 1 < max_attempts:
+                            await asyncio.sleep(1.0 * (attempt + 1))
+                    else:
+                        results.append((match_id, market, {}, last_error or "mobile_empty_market"))
+                    if index % 50 == 0:
+                        print(f"future_mobile_progress={index}/{len(jobs)}", file=sys.stderr)
+            finally:
+                await browser.close()
+            return results
+
+    results = asyncio.run(fetch_all())
+    recovered_ah = 0
+    recovered_total = 0
+    failed = 0
+    for match_id, market, parsed, error in results:
+        base_row, fetched_any = completed[match_id]
+        if parsed:
+            prefix = "ah" if market == "ah" else "total"
+            base_row.update({
+                f"{prefix}_full_open_home_or_over": parsed["open_home"],
+                f"{prefix}_full_open_line_or_draw": parsed["open_line"],
+                f"{prefix}_full_open_away_or_under": parsed["open_away"],
+                f"{prefix}_full_current_home_or_over": parsed["current_home"],
+                f"{prefix}_full_current_line_or_draw": parsed["current_line"],
+                f"{prefix}_full_current_away_or_under": parsed["current_away"],
+                f"{prefix}_full_company": parsed["company"],
+                f"future_{market}_fetch_fallback": "TITAN_MOBILE_ANALYSIS",
+            })
+            base_row.pop(f"future_{market}_fetch_error", None)
+            base_row.pop(f"future_{market}_browser_error", None)
+            fetched_any = True
+            if market == "ah":
+                recovered_ah += 1
+            else:
+                recovered_total += 1
+        else:
+            failed += 1
+            base_row[f"future_{market}_mobile_browser_error"] = error
+        completed[match_id] = (base_row, fetched_any)
+    print(
+        f"future_mobile_queue={queued_jobs} batch={len(jobs)} skipped={max(0, queued_jobs - len(jobs))}",
+        file=sys.stderr,
+    )
+    return recovered_ah, recovered_total, failed
+
+
 def parse_euro_index(text: str) -> dict[str, dict[str, float | str]]:
     out: dict[str, dict[str, float | str]] = {}
     pattern = re.compile(
@@ -1589,6 +1807,27 @@ def enrich_future_odds(
                 base_row["future_browser_fallback_error"] = str(exc)
                 completed[match_id] = (base_row, fetched_any)
             print(f"future_browser_fallback_failed={exc}", file=sys.stderr)
+    # The mobile Analysis page is a separate, broad-coverage Titan endpoint.
+    # It remains usable when the VIP detail host is rate-limited, and exposes
+    # the source opening/current AH and total triplets in the rendered DOM.
+    # Run it after VIP recovery so it only fills still-missing markets.
+    if ids_to_fetch and os.environ.get("TITAN_ENABLE_MOBILE_FALLBACK", "1") == "1":
+        try:
+            mobile_recovered_ah, mobile_recovered_total, mobile_failed = browser_recover_mobile_analysis_pages(
+                completed, ids_to_fetch, stamp, out_dir,
+            )
+            print(
+                f"future_mobile_recovered_ah={mobile_recovered_ah} "
+                f"future_mobile_recovered_total={mobile_recovered_total} "
+                f"future_mobile_failed={mobile_failed}",
+                file=sys.stderr,
+            )
+        except Exception as exc:
+            for match_id in ids_to_fetch:
+                base_row, fetched_any = completed[match_id]
+                base_row["future_mobile_fallback_error"] = str(exc)
+                completed[match_id] = (base_row, fetched_any)
+            print(f"future_mobile_fallback_failed={exc}", file=sys.stderr)
     # Keep the old serial Playwright path available only as an explicit
     # emergency mode; the async Chromium path above is the normal fallback.
     if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "legacy":
