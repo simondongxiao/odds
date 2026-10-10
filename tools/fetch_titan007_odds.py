@@ -2040,17 +2040,26 @@ def main() -> int:
     future_count = 0
     future_added = 0
     try:
-        # These three immutable public feeds are independent.  Fetch them
-        # together so a slow XML/VBS endpoint does not hold the other two
-        # behind it.
+        # These three immutable public feeds are independent.  The schedule
+        # is required; SB odds and change XML are supplements.  A supplement
+        # failure must not discard the roster or prevent later strict market
+        # fallbacks from running.
         with ThreadPoolExecutor(max_workers=3) as pool:
             feed_futures = {
                 name: pool.submit(fetch, name, stamp, out_dir)
                 for name in ("bfdata_ut.js", "sbOddsData.js", "ch_goalbf3.xml")
             }
             bf_path = feed_futures["bfdata_ut.js"].result()
-            sb_path = feed_futures["sbOddsData.js"].result()
-            xml_path = feed_futures["ch_goalbf3.xml"].result()
+            try:
+                sb_path = feed_futures["sbOddsData.js"].result()
+            except Exception as exc:
+                sb_path = None
+                print(f"sbodds_optional_fetch_failed: {exc}", file=sys.stderr)
+            try:
+                xml_path = feed_futures["ch_goalbf3.xml"].result()
+            except Exception as exc:
+                xml_path = None
+                print(f"change_xml_optional_fetch_failed: {exc}", file=sys.stderr)
     except Exception as exc:
         print(f"fetch_failed: {exc}", file=sys.stderr)
         return 2
@@ -2066,8 +2075,8 @@ def main() -> int:
     schedule = parse_schedule(read_text(bf_path))
     for item in schedule.values():
         item["snapshot_stamp"] = stamp
-    sbodds = parse_sbodds(read_text(sb_path))
-    changes = parse_change_xml(read_text(xml_path))
+    sbodds = parse_sbodds(read_text(sb_path)) if sb_path else {}
+    changes = parse_change_xml(read_text(xml_path)) if xml_path else {}
     rows_by_id = {str(row["match_id"]): row for row in build_rows(schedule, sbodds, changes)}
 
     try:
@@ -2115,8 +2124,13 @@ def main() -> int:
                 str(future_path),
             )
             five_future = pool.submit(load_fivehundred_odds, stamp, out_dir, target_list_date)
-            common_path, common_raw = common_future.result()
-            common_lines = parse_common_lines(decode_text(common_raw))
+            common_lines = {}
+            try:
+                _common_path, common_raw = common_future.result()
+                common_lines = parse_common_lines(decode_text(common_raw))
+            except Exception as exc:
+                # CommonInterface is an index hint, not the roster authority.
+                print(f"common_interface_optional_fetch_failed: {exc}", file=sys.stderr)
             euro = {}
             try:
                 _euro_path, euro_raw = euro_future.result()
