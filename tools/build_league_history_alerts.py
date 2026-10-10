@@ -66,7 +66,16 @@ def read_history(path: Path, cutoff: str) -> dict[str, dict[str, object]]:
     status_col = headers.get("结算状态", 16)
     result_col = headers.get("红黑", 17)
     water_col = headers.get("投注水位", 18)
-    stats: dict[str, dict[str, object]] = defaultdict(lambda: {"counts": Counter(), "pnl": 0.0, "pnl_rows": 0})
+    pnl_col = headers.get("盈亏(u)", 19)
+    match_col = headers.get("具体比赛", 6)
+    score_col = headers.get("赛果", 15)
+    team_col = headers.get("投注方", 12)
+    line_col = headers.get("即时盘口", 8)
+    action_col = headers.get("投注动作", 14)
+    source_col = headers.get("比分来源", headers.get("来源", 20))
+    stats: dict[str, dict[str, object]] = defaultdict(
+        lambda: {"counts": Counter(), "pnl": 0.0, "pnl_rows": 0, "details": []}
+    )
     for row in range(4, last + 1):
         list_date = str(ws.cell(row, date_col).value or "")[:10]
         if not list_date or list_date >= cutoff:
@@ -82,10 +91,35 @@ def read_history(path: Path, cutoff: str) -> dict[str, dict[str, object]]:
             counts = bucket["counts"]
             assert isinstance(counts, Counter)
             counts[result] += 1
-            pnl = settled_pnl(result, ws.cell(row, water_col).value)
+            pnl = None
+            if pnl_col:
+                raw_pnl = ws.cell(row, pnl_col).value
+                try:
+                    pnl = float(raw_pnl)
+                except (TypeError, ValueError):
+                    pnl = None
+            if pnl is None:
+                pnl = settled_pnl(result, ws.cell(row, water_col).value)
             if pnl is not None:
                 bucket["pnl"] = float(bucket["pnl"]) + pnl
                 bucket["pnl_rows"] = int(bucket["pnl_rows"]) + 1
+            details = bucket["details"]
+            assert isinstance(details, list)
+            details.append(
+                {
+                    "date": list_date,
+                    "match": clean_team(ws.cell(row, match_col).value),
+                    "score": clean(ws.cell(row, score_col).value),
+                    "selected_team": clean_team(ws.cell(row, team_col).value),
+                    "settlement": result,
+                    "water": ws.cell(row, water_col).value,
+                    "pnl_1u": round(float(pnl), 4) if pnl is not None else "",
+                    "roi": round(float(pnl), 8) if pnl is not None else "",
+                    "line": clean(ws.cell(row, line_col).value),
+                    "action": clean(ws.cell(row, action_col).value),
+                    "source": clean(ws.cell(row, source_col).value),
+                }
+            )
     return stats
 
 
@@ -140,13 +174,14 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
     current_rows = read_all_matches(matches_json, version) if matches_json else read_bettable(bettable, version)
     for item in current_rows:
         competition = clean(item.get("competition"))
-        bucket = history.get(competition, {"counts": Counter(), "pnl": 0.0, "pnl_rows": 0})
+        bucket = history.get(competition, {"counts": Counter(), "pnl": 0.0, "pnl_rows": 0, "details": []})
         counts = bucket["counts"]
         assert isinstance(counts, Counter)
         sample = sum(counts.values())
         win_rate = rate(counts)
         pnl = float(bucket["pnl"])
         roi = pnl / sample if sample else None
+        history_details = list(bucket.get("details", []))
         if sample >= 8 and win_rate is not None and win_rate < 0.45:
             alert = "严重：历史有效胜率<45%"
         else:
@@ -178,6 +213,7 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
                 "alert_band": alert,
                 "rate_band": band,
                 "history_cutoff": f"list_date < {cutoff}",
+                "history_matches": history_details,
             }
         )
     return output
