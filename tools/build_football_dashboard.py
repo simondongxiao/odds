@@ -1793,10 +1793,17 @@ def odds_summary(
     euro, euro_ok = odds_triplet_text(row, "euro", "欧赔主/平/客缺失")
     total, total_ok = odds_triplet_text(row, "total", "大小球线/两边水位缺失")
     any_odds = ah_ok or euro_ok or total_ok
+    source_marker = str(
+        row.get("ah_full_company")
+        or row.get("future_ah_fetch_fallback")
+        or row.get("total_full_company")
+        or "Titan007"
+    )
+    source_label = "500.com公开XML" if "500.com" in source_marker or "500_COM" in source_marker else "Titan007"
     odds_status = (
-        "Titan007赔率已匹配"
+        f"{source_label}赔率已匹配"
         if ah_ok and euro_ok and total_ok
-        else ("Titan007部分赔率已匹配" if any_odds else "赔率未匹配")
+        else (f"{source_label}部分赔率已匹配" if any_odds else "赔率未匹配")
     )
     euro_devig = "欧赔缺失-未去水"
     try:
