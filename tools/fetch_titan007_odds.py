@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
+import hashlib
 import html
 import json
 import re
@@ -11,19 +12,64 @@ import shutil
 import subprocess
 import sys
 import time
+import threading
+import unicodedata
 import os
 import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
-BASE = "https://livestatic.titan007.com/vbsxml"
+# The livestatic host intermittently resets TLS connections.  The bf host
+# serves the same official Titan007 VBS/XML payloads and is the stable
+# transport fallback for the daily refresh.
+BASE = "https://bf.titan007.com/vbsxml"
 REFERER = "https://live.titan007.com/oldIndexall.aspx"
 OUT_ROOT = Path(r"D:\codex\v3_legacy\outputs\football_odds_trader\raw\titan007")
 BF_BASE = "https://bf.titan007.com"
 VIP_BASE = "https://vip.titan007.com"
 EURO_INDEX = "https://1x2.titan007.com/index_vip.aspx"
+EURO_TXT_BASE = "https://txt.titan007.com/1x2"
+FIVEHUNDRED_MATCH_XML = "https://www.500.com/static/public/jczq/xml/match/match.xml"
+FIVEHUNDRED_ODDS_XML = "https://www.500.com/static/public/jczq/xml/odds/odds.xml"
+FIVEHUNDRED_REFERER = "https://trade.500.com/jczq/"
+BETEXPLORER_HOME = "https://www.betexplorer.com/football/"
+BETEXPLORER_ODDS = "https://www.betexplorer.com/match-odds/{event_id}/0/ah/bestOdds/?lang=en"
 ROSTER_ROOT = OUT_ROOT.parents[1] / "ledger" / "slate_rosters"
+HTTP_CACHE = OUT_ROOT / "cache" / "http"
+_REQUEST_LOCK = threading.Lock()
+_LAST_REQUEST_AT = 0.0
+_MIN_REQUEST_INTERVAL = float(os.environ.get("TITAN_MIN_REQUEST_INTERVAL", "0.30"))
+
+
+def throttle(min_interval_seconds: float | None = None) -> None:
+    """Bound request rate across worker threads for Titan public pages."""
+    global _LAST_REQUEST_AT
+    if min_interval_seconds is None:
+        min_interval_seconds = _MIN_REQUEST_INTERVAL
+    with _REQUEST_LOCK:
+        wait = min_interval_seconds - (time.monotonic() - _LAST_REQUEST_AT)
+        if wait > 0:
+            time.sleep(wait)
+        _LAST_REQUEST_AT = time.monotonic()
+
+
+def cached_public_payload(url: str, max_age_seconds: int = 300) -> bytes | None:
+    key = hashlib.sha256(url.encode("utf-8")).hexdigest()
+    path = HTTP_CACHE / f"{key}.bin"
+    if path.exists() and time.time() - path.stat().st_mtime <= max_age_seconds:
+        return path.read_bytes()
+    return None
+
+
+def save_public_cache(url: str, raw: bytes) -> None:
+    HTTP_CACHE.mkdir(parents=True, exist_ok=True)
+    key = hashlib.sha256(url.encode("utf-8")).hexdigest()
+    (HTTP_CACHE / f"{key}.bin").write_bytes(raw)
+    (HTTP_CACHE / f"{key}.json").write_text(
+        json.dumps({"url": url, "fetched_at": dt.datetime.now(dt.timezone.utc).isoformat(), "bytes": len(raw)}, ensure_ascii=False),
+        encoding="utf-8",
+    )
 
 
 def fetch(name: str, stamp: str, out_dir: Path) -> Path:
@@ -37,14 +83,55 @@ def fetch(name: str, stamp: str, out_dir: Path) -> Path:
             "Accept": "*/*",
         },
     )
-    with urllib.request.urlopen(req, timeout=20) as resp:
-        target.write_bytes(resp.read())
+    raw = cached_public_payload(f"{BASE}/{name}")
+    if raw is not None and len(raw) <= 2048:
+        # Do not reuse a cached 404/500 HTML error as if it were market data.
+        raw = None
+    last_error = None
+    curl = shutil.which("curl.exe") or shutil.which("curl")
+    # The public VBS/XML files are sometimes served by a slow legacy handler.
+    # Probe with curl first so one stale endpoint cannot stall the daily run.
+    if raw is None and curl:
+        try:
+            completed = subprocess.run(
+                [
+                    curl, "-k", "-sS", "-L", "--max-time", "15",
+                    "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
+                    "-e", REFERER, "-H", "Accept: */*", url,
+                ],
+                check=True,
+                capture_output=True,
+                timeout=20,
+            )
+            if completed.stdout:
+                raw = completed.stdout
+        except Exception as curl_exc:
+            last_error = curl_exc
+    if raw is None:
+        for attempt in range(2):
+            try:
+                throttle()
+                with urllib.request.urlopen(req, timeout=12) as resp:
+                    raw = resp.read()
+                break
+            except Exception as exc:
+                last_error = exc
+                time.sleep(0.5 * (attempt + 1))
+    if raw is None:
+        raise last_error or RuntimeError("Titan public fetch failed")
+    if len(raw) > 2048:
+        save_public_cache(f"{BASE}/{name}", raw)
+    target.write_bytes(raw)
     return target
 
 
 def fetch_url(url: str, stamp: str, out_dir: Path, label: str, referer: str = REFERER) -> tuple[Path, bytes]:
     safe = re.sub(r"[^A-Za-z0-9_.-]+", "_", label).strip("_")
     target = out_dir / f"{stamp}_{safe}"
+    cached = cached_public_payload(url)
+    if cached is not None:
+        target.write_bytes(cached)
+        return target, cached
     cache_key = f"r=007{int(time.time() * 1000)}"
     fresh_url = f"{url}&{cache_key}" if "?" in url else f"{url}?{cache_key}"
     urls = [fresh_url]
@@ -53,6 +140,25 @@ def fetch_url(url: str, stamp: str, out_dir: Path, label: str, referer: str = RE
     last_error: Exception | None = None
     raw = b""
     for candidate in urls:
+        curl = shutil.which("curl.exe") or shutil.which("curl")
+        if curl:
+            try:
+                throttle()
+                completed = subprocess.run(
+                    [
+                        curl, "-k", "-sS", "-L", "--max-time", "15",
+                        "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
+                        "-e", referer, "-H", "Accept: */*", candidate,
+                    ],
+                    check=True,
+                    capture_output=True,
+                    timeout=20,
+                )
+                if completed.stdout:
+                    raw = completed.stdout
+                    break
+            except Exception as curl_exc:
+                last_error = curl_exc
         req = urllib.request.Request(
             candidate,
             headers={
@@ -61,32 +167,22 @@ def fetch_url(url: str, stamp: str, out_dir: Path, label: str, referer: str = RE
                 "Accept": "*/*",
             },
         )
-        try:
-            with urllib.request.urlopen(req, timeout=12) as resp:
-                raw = resp.read()
+        for attempt in range(2):
+            try:
+                throttle()
+                with urllib.request.urlopen(req, timeout=12) as resp:
+                    raw = resp.read()
+                break
+            except Exception as exc:
+                last_error = exc
+                time.sleep(0.75 * (attempt + 1))
+        if raw:
             break
-        except Exception as exc:
-            last_error = exc
-            curl = shutil.which("curl.exe") or shutil.which("curl")
-            if curl:
-                try:
-                    completed = subprocess.run(
-                        [
-                            curl, "-sS", "-L", "--max-time", "20",
-                            "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
-                            "-e", referer, "-H", "Accept: */*", candidate,
-                        ],
-                        check=True, capture_output=True, timeout=25,
-                    )
-                    if completed.stdout:
-                        raw = completed.stdout
-                        break
-                except Exception as curl_exc:
-                    last_error = curl_exc
     else:
         assert last_error is not None
         raise last_error
     target.write_bytes(raw)
+    save_public_cache(url, raw)
     return target, raw
 
 
@@ -126,7 +222,10 @@ def parse_schedule(text: str) -> dict[str, dict[str, str]]:
             "home_rank_or_stage": row[22] if len(row) > 22 else "",
             "away_rank_or_stage": row[23] if len(row) > 23 else "",
             "initial_ah_hint": row[29] if len(row) > 29 else "",
-            "initial_total_hint": row[43] if len(row) > 43 else "",
+            # Titan's current bfdata_ut schema puts the opening total line at
+            # index 46.  Index 43 is the year from the date tuple; treating it
+            # as a total line silently creates a bogus "2026" market hint.
+            "initial_total_hint": row[46] if len(row) > 46 else "",
         }
     return matches
 
@@ -162,7 +261,13 @@ def parse_sbodds(text: str) -> dict[str, list[list[float | None]]]:
 
 def parse_change_xml(text: str) -> dict[str, dict[str, str]]:
     changes: dict[str, dict[str, str]] = {}
-    root = ET.fromstring(text)
+    try:
+        root = ET.fromstring(text)
+    except ET.ParseError:
+        # Titan auxiliary XML may return an HTML 404 page while the main
+        # roster remains available.  Treat that auxiliary source as missing;
+        # never interpret the error page as market data.
+        return changes
     for node in root.findall(".//m"):
         fields = (node.text or "").split(",")
         if len(fields) < 13:
@@ -255,6 +360,415 @@ def parse_common_lines(text: str) -> dict[str, dict[str, str]]:
             "future_ah_line_hint": ah_line,
             "future_total_line_hint": total_line,
         }
+    return out
+
+
+def _fivehundred_team_key(value: str) -> str:
+    """Normalize 500.com/Titan team labels for conservative cross-source joins."""
+    text = clean_html_text(value)
+    text = unicodedata.normalize("NFKC", text).lower()
+    text = re.sub(
+        r"(?<![a-z])(fc|cf|sc|afc|ac|cd|fk|sk|sv|if|bk|ik|as|us|ud|ue)(?![a-z])",
+        "",
+        text,
+        flags=re.I,
+    )
+    text = text.replace("队", "")
+    return re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", text)
+
+
+FIVEHUNDRED_TEAM_ALIASES = {
+    "京都": "京都不死鸟",
+    "町田泽维": "町田泽维亚",
+    "拜仁": "拜仁慕尼黑",
+    "巴列卡诺": "巴列卡诺竞技",
+    "毕尔巴鄂": "毕尔巴鄂竞技",
+    "柏林联合": "柏林联合",
+    "埃沃斯堡": "埃弗斯堡",
+    "伊普斯": "伊普斯维奇",
+    "维拉": "阿斯顿维拉",
+    "布伦特": "布伦特福德",
+    "马竞": "马德里竞技",
+}
+
+
+def _fivehundred_team_canonical(value: str) -> str:
+    key = _fivehundred_team_key(value)
+    return _fivehundred_team_key(FIVEHUNDRED_TEAM_ALIASES.get(key, key))
+
+
+def _fivehundred_match_time(value: str) -> tuple[str, str] | None:
+    match = re.search(r"(\d{4}-\d{1,2}-\d{1,2})\s+(\d{1,2}:\d{2})", str(value or ""))
+    if not match:
+        return None
+    year, month, day = match.group(1).split("-")
+    hour, minute = match.group(2).split(":")
+    return f"{int(year):04d}-{int(month):02d}-{int(day):02d}", f"{int(hour):02d}:{minute}"
+
+
+def _future_row_time(value: str, year: str) -> tuple[str, str] | None:
+    match = re.search(r"(\d{1,2})-(\d{1,2})\s+(\d{1,2}:\d{2})", str(value or ""))
+    if not match:
+        return None
+    month, day = match.group(1), match.group(2)
+    hour, minute = match.group(3).split(":")
+    return f"{int(year):04d}-{int(month):02d}-{int(day):02d}", f"{int(hour):02d}:{minute}"
+
+
+def _parse_handicap_text(value: str) -> float | None:
+    text = unicodedata.normalize("NFKC", clean_html_text(value)).strip().lower()
+    if not text:
+        return None
+    negative = text.startswith("受") or text.startswith("-")
+    text = text.lstrip("受让 ")
+    aliases = {
+        "平手": 0.0,
+        "平": 0.0,
+        "平手/半球": 0.25,
+        "平/半": 0.25,
+        "平半": 0.25,
+        "半球": 0.5,
+        "半": 0.5,
+        "半球/一球": 0.75,
+        "半/一": 0.75,
+        "半一": 0.75,
+        "一球": 1.0,
+        "一": 1.0,
+        "一球/球半": 1.25,
+        "一/球半": 1.25,
+        "一球半": 1.5,
+        "球半": 1.5,
+        "球半/两球": 1.75,
+        "球半/二": 1.75,
+        "两球": 2.0,
+        "二球": 2.0,
+        "两球/两球半": 2.25,
+        "二/二半": 2.25,
+        "两球半": 2.5,
+    }
+    number = re.fullmatch(r"[-+]?\d+(?:\.\d+)?", text)
+    if number:
+        line = float(number.group(0))
+        return -abs(line) if negative else line
+    if text in aliases:
+        line = aliases[text]
+        return -line if negative else line
+    parts = re.split(r"[/\\]", text)
+    if len(parts) == 2 and parts[0] in aliases and parts[1] in aliases:
+        line = (aliases[parts[0]] + aliases[parts[1]]) / 2.0
+        return -line if negative else line
+    return None
+
+
+def _parse_fivehundred_triplet(value: str) -> tuple[float, float, float] | None:
+    parts = [part.strip() for part in str(value or "").split(",")]
+    if len(parts) != 3:
+        return None
+    try:
+        left, right = float(parts[0]), float(parts[2])
+    except (TypeError, ValueError):
+        return None
+    line = _parse_handicap_text(parts[1])
+    if line is None or not (0.01 <= left <= 3.0 and 0.01 <= right <= 3.0):
+        return None
+    return left, line, right
+
+
+def _fetch_fivehundred_xml(url: str, stamp: str, out_dir: Path, label: str) -> ET.Element:
+    # A cache-buster is intentional: 500.com occasionally serves a short WAF
+    # page with HTTP 200.  Never cache that page as if it were a feed.
+    fresh_url = f"{url}?x={int(time.time() * 1000)}"
+    _path, raw = fetch_url(fresh_url, stamp, out_dir, label, referer=FIVEHUNDRED_REFERER)
+    text = decode_text(raw).lstrip()
+    if "<matches>" not in text or "<match" not in text:
+        raise RuntimeError(f"500.com XML invalid or WAF page: bytes={len(raw)}")
+    try:
+        return ET.fromstring(text)
+    except ET.ParseError as exc:
+        raise RuntimeError(f"500.com XML parse failed: {exc}") from exc
+
+
+def load_fivehundred_odds(stamp: str, out_dir: Path, target_date: str) -> dict[str, dict[str, object]]:
+    """Load the public 500.com current Asian/OU feed for exact cross-source joins.
+
+    This is a supplement, not a replacement for Titan IDs.  It intentionally
+    returns only rows whose teams and Beijing kickoff minute agree; unmatched
+    Titan fixtures remain missing and therefore unbettable.
+    """
+    match_root = _fetch_fivehundred_xml(FIVEHUNDRED_MATCH_XML, stamp, out_dir, "fivehundred_match.xml")
+    odds_root = _fetch_fivehundred_xml(FIVEHUNDRED_ODDS_XML, stamp, out_dir, "fivehundred_odds.xml")
+    feed: dict[str, dict[str, object]] = {}
+    for node in match_root.findall(".//match"):
+        item: dict[str, object] = dict(node.attrib)
+        item["fivehundred_id"] = str(node.attrib.get("id", ""))
+        feed[str(node.attrib.get("id", ""))] = item
+    for node in odds_root.findall(".//match"):
+        item = feed.setdefault(str(node.attrib.get("id", "")), {"fivehundred_id": str(node.attrib.get("id", ""))})
+        item["processdate"] = node.attrib.get("processdate", "")
+        for child in node:
+            item[f"{child.tag}_attrs"] = dict(child.attrib)
+
+    mapped: dict[str, dict[str, object]] = {}
+    five_by_time: dict[tuple[str, str], list[dict[str, object]]] = {}
+    for item in feed.values():
+        item_time = _fivehundred_match_time(f"{item.get('matchdate', '')} {item.get('matchtime', '')}")
+        if item_time:
+            five_by_time.setdefault(item_time, []).append(item)
+
+    # The caller performs the actual Titan join.  Keep the feed keyed by 500
+    # ID here and expose its prebuilt time index for the join helper below.
+    return {"__feed__": feed, "__by_time__": five_by_time, "__target_date__": target_date}  # type: ignore[return-value]
+
+
+def match_fivehundred_to_titan(
+    future_rows: dict[str, dict[str, str]], five: dict[str, dict[str, object]], stamp: str,
+) -> dict[str, dict[str, object]]:
+    feed = five.get("__feed__", {})
+    by_time = five.get("__by_time__", {})
+    if not isinstance(feed, dict) or not isinstance(by_time, dict):
+        return {}
+    target_year = stamp[:4]
+    mapped: dict[str, dict[str, object]] = {}
+    ambiguous = 0
+    for titan_id, row in future_rows.items():
+        time_key = _future_row_time(str(row.get("bj_time", "")), target_year)
+        if not time_key:
+            continue
+        candidates = by_time.get(time_key, [])
+        home_key = _fivehundred_team_canonical(str(row.get("home_cn", "")))
+        away_key = _fivehundred_team_canonical(str(row.get("away_cn", "")))
+        scored: list[tuple[int, dict[str, object]]] = []
+        for item in candidates:
+            five_home = _fivehundred_team_canonical(str(item.get("homename", "")))
+            five_away = _fivehundred_team_canonical(str(item.get("awayname", "")))
+            if not home_key or not away_key or not five_home or not five_away:
+                continue
+            score = 0
+            if home_key == five_home:
+                score += 50
+            if away_key == five_away:
+                score += 50
+            if score < 90:
+                continue
+            asian_attrs = item.get("asian_attrs", {})
+            dxq_attrs = item.get("dxq_attrs", {})
+            if not isinstance(asian_attrs, dict):
+                asian_attrs = {}
+            if not isinstance(dxq_attrs, dict):
+                dxq_attrs = {}
+            asian = None
+            asian_company = ""
+            for company in ("bet365", "am", "hg", "lb"):
+                asian = _parse_fivehundred_triplet(str(asian_attrs.get(company, "")))
+                if asian:
+                    asian_company = company
+                    break
+            total = None
+            total_company = ""
+            for company in ("bet365", "am", "hg", "lb"):
+                total = _parse_fivehundred_triplet(str(dxq_attrs.get(company, "")))
+                if total:
+                    total_company = company
+                    break
+            if not asian and not total:
+                continue
+            candidate = dict(item)
+            candidate["_asian"] = asian
+            candidate["_asian_company"] = asian_company
+            candidate["_total"] = total
+            candidate["_total_company"] = total_company
+            scored.append((score, candidate))
+        if not scored:
+            continue
+        scored.sort(key=lambda pair: pair[0], reverse=True)
+        if len(scored) > 1 and scored[0][0] == scored[1][0]:
+            ambiguous += 1
+            continue
+        candidate = scored[0][1]
+        out: dict[str, object] = {
+            "fivehundred_id": candidate.get("fivehundred_id", ""),
+            "fivehundred_processdate": candidate.get("processdate", ""),
+            "fivehundred_matchdate": candidate.get("matchdate", ""),
+            "fivehundred_matchtime": candidate.get("matchtime", ""),
+        }
+        asian = candidate.get("_asian")
+        if isinstance(asian, tuple):
+            out.update({
+                "ah_full_current_home_or_over": asian[0],
+                "ah_full_current_line_or_draw": asian[1],
+                "ah_full_current_away_or_under": asian[2],
+                "ah_full_company": f"500.com {candidate.get('_asian_company', '')}".strip(),
+                "future_ah_fetch_fallback": "500_COM_PUBLIC_XML",
+            })
+        total = candidate.get("_total")
+        if isinstance(total, tuple):
+            out.update({
+                "total_full_current_home_or_over": total[0],
+                "total_full_current_line_or_draw": total[1],
+                "total_full_current_away_or_under": total[2],
+                "total_full_company": f"500.com {candidate.get('_total_company', '')}".strip(),
+                "future_total_fetch_fallback": "500_COM_PUBLIC_XML",
+            })
+        mapped[titan_id] = out
+    print(f"fivehundred_feed={len(feed)} fivehundred_mapped={len(mapped)} fivehundred_ambiguous={ambiguous}", file=sys.stderr)
+    return mapped
+
+
+def _betexplorer_team_key(value: str) -> str:
+    """Normalize English team names for the public BetExplorer join."""
+    text = unicodedata.normalize("NFKC", html.unescape(clean_html_text(value))).lower()
+    text = re.sub(r"\b(fc|cf|sc|afc|ac|fk|sk|club|women|w|u19|u20|u21|u23|b)\b", " ", text)
+    return re.sub(r"[^a-z0-9]+", "", text)
+
+
+def _team_name_similarity(left: str, right: str) -> float:
+    """Return a conservative name score for cross-site fixture matching."""
+    a = _betexplorer_team_key(left)
+    b = _betexplorer_team_key(right)
+    if not a or not b:
+        return 0.0
+    if a == b:
+        return 1.0
+    if a in b or b in a:
+        return min(len(a), len(b)) / max(len(a), len(b))
+    # Avoid a new dependency in the daily scraper; this is only a secondary
+    # join after date and home/away order have already been checked.
+    from difflib import SequenceMatcher
+    return SequenceMatcher(None, a, b).ratio()
+
+
+def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, str]]:
+    """Parse the public daily fixture index into event ids and English teams."""
+    target = dt.date.fromisoformat(target_date)
+    out: list[dict[str, str]] = []
+    for match in re.finditer(r"<tr\b[^>]*data-dt=['\"]([^'\"]+)['\"][^>]*>(.*?)</tr>", text, re.I | re.S):
+        parts = [part.strip() for part in match.group(1).split(",")]
+        if len(parts) < 5:
+            continue
+        try:
+            if dt.date(int(parts[2]), int(parts[1]), int(parts[0])) != target:
+                continue
+        except ValueError:
+            continue
+        row_html = match.group(2)
+        link = re.search(r"<a\b[^>]*href=['\"]([^'\"]*/football/[^'\"]+)['\"][^>]*>(.*?)</a>", row_html, re.I | re.S)
+        if not link:
+            continue
+        display = clean_html_text(link.group(2))
+        teams = re.split(r"\s+-\s+", display, maxsplit=1)
+        if len(teams) != 2:
+            continue
+        href = html.unescape(link.group(1))
+        event_id = href.rstrip("/").split("/")[-1]
+        if not event_id:
+            continue
+        out.append({
+            "betexplorer_id": event_id,
+            "home_en": teams[0].strip(),
+            "away_en": teams[1].strip(),
+            "betexplorer_dt": ",".join(parts[:5]),
+            "betexplorer_href": href,
+        })
+    return out
+
+
+def parse_betexplorer_asian(text: str) -> dict[str, float | str]:
+    """Pick a real BetExplorer AH line from a preferred bookmaker row.
+
+    The endpoint returns many alternate handicap lines.  Select the preferred
+    bookmaker's line whose two prices are closest to a balanced 1.90/1.90
+    market, which is the public page's main market rather than an extreme
+    alternate line.  No value is synthesized when the endpoint has no odds.
+    """
+    preferred = ("bet365", "pinnacle", "sbo", "betfair exchange")
+    candidates: list[tuple[int, float, float, float, float, str]] = []
+    for table_match in re.finditer(r"<table\b[^>]*data-handicap=['\"]([^'\"]+)['\"][^>]*>(.*?)</table>", text, re.I | re.S):
+        try:
+            line = float(table_match.group(1))
+        except ValueError:
+            continue
+        table_html = table_match.group(2)
+        for row in re.findall(r"<tr\b[^>]*>.*?</tr>", table_html, re.I | re.S):
+            name_match = re.search(r"<a\b[^>]*data-bid=['\"][^'\"]+['\"][^>]*>(.*?)</a>", row, re.I | re.S)
+            if not name_match:
+                continue
+            company = clean_html_text(name_match.group(1))
+            company_key = company.lower().replace(" ", "")
+            preference = next((idx for idx, item in enumerate(preferred) if item.replace(" ", "") in company_key), 99)
+            if preference == 99:
+                continue
+            odds = [text_to_float(value) for value in re.findall(r"data-odd=['\"]([0-9]+(?:\.[0-9]+)?)['\"]", row, re.I)]
+            if len(odds) < 2 or odds[0] is None or odds[1] is None:
+                continue
+            balance = abs(float(odds[0]) - 1.90) + abs(float(odds[1]) - 1.90)
+            candidates.append((preference, balance, line, float(odds[0]), float(odds[1]), company))
+    if not candidates:
+        return {}
+    candidates.sort(key=lambda item: (item[0], item[1]))
+    _preference, _balance, line, home, away, company = candidates[0]
+    return {
+        "ah_full_current_home_or_over": home,
+        "ah_full_current_line_or_draw": line,
+        "ah_full_current_away_or_under": away,
+        "ah_full_company": f"BetExplorer {company}",
+        "future_ah_fetch_fallback": "BETEXPLORER_PUBLIC_JSON",
+    }
+
+
+def match_betexplorer_to_titan(
+    future_rows: dict[str, dict[str, str]],
+    euro: dict[str, dict[str, float | str]],
+    stamp: str,
+    out_dir: Path,
+    target_date: str,
+) -> dict[str, dict[str, object]]:
+    """Use BetExplorer's public JSON AH endpoint as a bounded fallback."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        _path, raw = fetch_url(BETEXPLORER_HOME, stamp, out_dir, "betexplorer_football.html")
+        schedule = parse_betexplorer_schedule(decode_text(raw), target_date)
+    except Exception as exc:
+        print(f"betexplorer_schedule_failed={exc}", file=sys.stderr)
+        return {}
+    mapped_events: dict[str, dict[str, str]] = {}
+    ambiguous = 0
+    for match_id, row in future_rows.items():
+        source = euro.get(match_id, {})
+        home_en = str(source.get("home_en", "") or "")
+        away_en = str(source.get("away_en", "") or "")
+        if not home_en or not away_en:
+            continue
+        scored: list[tuple[float, dict[str, str]]] = []
+        for event in schedule:
+            score = (_team_name_similarity(home_en, event["home_en"]) + _team_name_similarity(away_en, event["away_en"])) / 2.0
+            if score >= 0.70:
+                scored.append((score, event))
+        scored.sort(key=lambda item: item[0], reverse=True)
+        if not scored or scored[0][0] < 0.78:
+            continue
+        if len(scored) > 1 and scored[0][0] - scored[1][0] < 0.06:
+            ambiguous += 1
+            continue
+        mapped_events[match_id] = scored[0][1]
+
+    out: dict[str, dict[str, object]] = {}
+    for match_id, event in mapped_events.items():
+        try:
+            url = BETEXPLORER_ODDS.format(event_id=event["betexplorer_id"])
+            _path, raw = fetch_url(url, stamp, out_dir, f"betexplorer_{event['betexplorer_id']}_ah.json", referer=BETEXPLORER_HOME)
+            payload = json.loads(decode_text(raw))
+            market_html = str(payload.get("odds", "")) if isinstance(payload, dict) else ""
+            ah = parse_betexplorer_asian(market_html)
+            if ah:
+                ah.update({
+                    "betexplorer_id": event["betexplorer_id"],
+                    "betexplorer_home_en": event["home_en"],
+                    "betexplorer_away_en": event["away_en"],
+                })
+                out[match_id] = ah
+        except Exception as exc:
+            print(f"betexplorer_match_failed={match_id}:{exc}", file=sys.stderr)
+    print(f"betexplorer_schedule={len(schedule)} betexplorer_joined={len(mapped_events)} betexplorer_mapped={len(out)} betexplorer_ambiguous={ambiguous}", file=sys.stderr)
     return out
 
 
@@ -352,42 +866,292 @@ def parse_euro_index(text: str) -> dict[str, dict[str, float | str]]:
     return out
 
 
-def enrich_future_odds(rows: dict[str, dict[str, object]], future_rows: dict[str, dict[str, str]], lines: dict[str, dict[str, str]], euro: dict[str, dict[str, float | str]], stamp: str, out_dir: Path) -> int:
-    ids_to_fetch = [match_id for match_id in future_rows if match_id in lines]
+def parse_euro_txt(text: str) -> dict[str, dict[str, float | str]]:
+    """Parse Titan's per-match txt/1x2 JS fallback.
+
+    The public aggregate 1x2 page is intermittently unavailable, while the
+    per-match JS contains the same bookmaker opening/current 1X2 values.
+    Average only complete numeric bookmaker rows to retain the existing
+    Titan007百家欧赔均值 semantics.
+    """
+    id_match = re.search(r"var\s+ScheduleID\s*=\s*(\d+)", text, re.I)
+    if not id_match:
+        return {}
+    game_match = re.search(r"var\s+game\s*=\s*Array\((.*?)\);\s*var\s+gameDetail", text, re.I | re.S)
+    if not game_match:
+        return {}
+    current: list[tuple[float, float, float]] = []
+    opening: list[tuple[float, float, float]] = []
+    for item in re.findall(r'"([^"\\]*(?:\\.[^"\\]*)*)"', game_match.group(1)):
+        fields = item.split("|")
+        if len(fields) < 13:
+            continue
+        try:
+            op = tuple(float(fields[idx]) for idx in (3, 4, 5))
+            cur = tuple(float(fields[idx]) for idx in (10, 11, 12))
+        except (TypeError, ValueError):
+            continue
+        if all(value > 1.0 for value in op + cur):
+            opening.append(op); current.append(cur)
+    if not current:
+        return {}
+    avg = lambda rows, idx: round(sum(row[idx] for row in rows) / len(rows), 4)
+    match_id = id_match.group(1)
+    result: dict[str, float | str] = {
+            "euro_full_current_home_or_over": avg(current, 0),
+            "euro_full_current_line_or_draw": avg(current, 1),
+            "euro_full_current_away_or_under": avg(current, 2),
+            "euro_full_open_home_or_over": avg(opening, 0),
+            "euro_full_open_line_or_draw": avg(opening, 1),
+            "euro_full_open_away_or_under": avg(opening, 2),
+            "euro_full_company": "Titan007百家欧赔均值(txt/1x2)",
+    }
+    # These public English labels are used only for a conservative secondary
+    # source join (BetExplorer).  They never replace the Titan Chinese
+    # fixture identity or the immutable match id.
+    for key, pattern in (
+        ("home_en", r"var\s+hometeam\s*=\s*[\"'](.*?)[\"']"),
+        ("away_en", r"var\s+guestteam\s*=\s*[\"'](.*?)[\"']"),
+        ("league_en", r"var\s+matchname\s*=\s*[\"'](.*?)[\"']"),
+        ("match_time_en", r"var\s+MatchTime\s*=\s*[\"'](.*?)[\"']"),
+    ):
+        value = re.search(pattern, text, re.I | re.S)
+        if value:
+            result[key] = html.unescape(value.group(1)).strip()
+    return {match_id: result}
+
+
+def enrich_future_odds(
+    rows: dict[str, dict[str, object]],
+    future_rows: dict[str, dict[str, str]],
+    lines: dict[str, dict[str, str]],
+    euro: dict[str, dict[str, float | str]],
+    stamp: str,
+    out_dir: Path,
+    fivehundred: dict[str, dict[str, object]] | None = None,
+    betexplorer: dict[str, dict[str, object]] | None = None,
+) -> int:
+    # CommonInterface is only a hint/index and may be incomplete.  The daily
+    # page must not silently omit matches when that optional feed has only a
+    # partial response; fetch each scheduled match's VIP Asian/total detail.
+    ids_to_fetch = list(future_rows)
+    fivehundred = fivehundred or {}
+    betexplorer = betexplorer or {}
+    vip_allowed = os.environ.get("TITAN_SKIP_VIP", "0") != "1"
+    vip_probe_error = ""
+    if vip_allowed and os.environ.get("TITAN_FORCE_VIP", "0") != "1" and ids_to_fetch:
+        # Probe once before launching hundreds of workers.  The current VIP
+        # host closes the connection for every request; without this gate the
+        # refresh wastes time and produces identical per-match failures.
+        probe_limit = max(1, int(os.environ.get("TITAN_VIP_PROBE_LIMIT", "10")))
+        vip_probe_ok = False
+        for probe_id in ids_to_fetch[:probe_limit]:
+            try:
+                _path, raw = fetch_url(
+                    f"{VIP_BASE}/AsianOdds_n.aspx?id={probe_id}&l=0",
+                    stamp,
+                    out_dir,
+                    f"vip_probe_{probe_id}_asian.html",
+                    referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm",
+                )
+                if parse_primary_odds_triplet(decode_text(raw)):
+                    vip_probe_ok = True
+                    break
+            except Exception as exc:
+                vip_probe_error = str(exc)
+        if not vip_probe_ok:
+            vip_allowed = False
+            vip_probe_error = vip_probe_error or "vip_asian_endpoint_empty_or_unparseable"
+            print(f"vip_global_disabled={vip_probe_error}", file=sys.stderr)
+    elif not vip_allowed:
+        vip_probe_error = "skipped_vip_after_endpoint_failure"
 
     def fetch_one(match_id: str) -> tuple[str, dict[str, object], bool]:
         base_row = dict(rows.get(match_id) or future_rows[match_id])
         base_row.update(lines.get(match_id, {})); base_row.update(euro.get(match_id, {}))
         fetched_any = False
+        fallback = fivehundred.get(match_id, {})
+        if not fallback:
+            fallback = betexplorer.get(match_id, {})
+        if fallback:
+            base_row.update(fallback)
+            fetched_any = True
+
+        if not vip_allowed:
+            if not base_row.get("future_ah_fetch_fallback"):
+                base_row["future_ah_fetch_error"] = vip_probe_error
+            if not base_row.get("future_total_fetch_fallback"):
+                base_row["future_total_fetch_error"] = vip_probe_error
+        else:
+            try:
+                if not base_row.get("future_ah_fetch_fallback"):
+                    _path, raw = fetch_url(f"{VIP_BASE}/AsianOdds_n.aspx?id={match_id}&l=0", stamp, out_dir, f"future_{match_id}_asian.html", referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm")
+                    ah = parse_primary_odds_triplet(decode_text(raw))
+                    if ah:
+                        base_row.update({"ah_full_open_home_or_over": ah["open_home"], "ah_full_open_line_or_draw": ah["open_line"], "ah_full_open_away_or_under": ah["open_away"], "ah_full_current_home_or_over": ah["current_home"], "ah_full_current_line_or_draw": ah["current_line"], "ah_full_current_away_or_under": ah["current_away"], "ah_full_company": ah["company"]})
+                        fetched_any = True
+            except Exception as exc:
+                base_row["future_ah_fetch_error"] = str(exc)
+            try:
+                if not base_row.get("future_total_fetch_fallback"):
+                    _path, raw = fetch_url(f"{VIP_BASE}/OverDown_n.aspx?id={match_id}&l=0", stamp, out_dir, f"future_{match_id}_total.html", referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm")
+                    total = parse_primary_odds_triplet(decode_text(raw))
+                    if total:
+                        base_row.update({"total_full_open_home_or_over": total["open_home"], "total_full_open_line_or_draw": total["open_line"], "total_full_open_away_or_under": total["open_away"], "total_full_current_home_or_over": total["current_home"], "total_full_current_line_or_draw": total["current_line"], "total_full_current_away_or_under": total["current_away"], "total_full_company": total["company"]})
+                        fetched_any = True
+            except Exception as exc:
+                base_row["future_total_fetch_error"] = str(exc)
         try:
-            _path, raw = fetch_url(f"{VIP_BASE}/AsianOdds_n.aspx?id={match_id}&l=0", stamp, out_dir, f"future_{match_id}_asian.html", referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm")
-            ah = parse_primary_odds_triplet(decode_text(raw))
-            if ah:
-                base_row.update({"ah_full_open_home_or_over": ah["open_home"], "ah_full_open_line_or_draw": ah["open_line"], "ah_full_open_away_or_under": ah["open_away"], "ah_full_current_home_or_over": ah["current_home"], "ah_full_current_line_or_draw": ah["current_line"], "ah_full_current_away_or_under": ah["current_away"], "ah_full_company": ah["company"]})
+            _path, raw = fetch_url(f"{EURO_TXT_BASE}/{match_id}.js", stamp, out_dir, f"future_{match_id}_euro.js", referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm")
+            euro_row = parse_euro_txt(decode_text(raw)).get(str(match_id), {})
+            if euro_row:
+                base_row.update(euro_row)
                 fetched_any = True
         except Exception as exc:
-            base_row["future_ah_fetch_error"] = str(exc)
-        try:
-            _path, raw = fetch_url(f"{VIP_BASE}/OverDown_n.aspx?id={match_id}&l=0", stamp, out_dir, f"future_{match_id}_total.html", referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm")
-            total = parse_primary_odds_triplet(decode_text(raw))
-            if total:
-                base_row.update({"total_full_open_home_or_over": total["open_home"], "total_full_open_line_or_draw": total["open_line"], "total_full_open_away_or_under": total["open_away"], "total_full_current_home_or_over": total["current_home"], "total_full_current_line_or_draw": total["current_line"], "total_full_current_away_or_under": total["away"], "total_full_company": total["company"]})
-                # Retain the existing total alias fields used by the V3 parser.
-                base_row["total_full_current_away_or_under"] = total["current_away"]
-                fetched_any = True
-        except Exception as exc:
-            base_row["future_total_fetch_error"] = str(exc)
+            base_row["future_euro_fetch_error"] = str(exc)
         return match_id, base_row, fetched_any
 
     added = 0
     # Bounded concurrency avoids a slow detail endpoint serially blocking the
     # whole slate while keeping the source load moderate.
-    with ThreadPoolExecutor(max_workers=6) as pool:
+    max_workers = max(1, int(os.environ.get("TITAN_MAX_WORKERS", "10")))
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
         futures = [pool.submit(fetch_one, match_id) for match_id in ids_to_fetch]
         completed: dict[str, tuple[dict[str, object], bool]] = {}
         for future in as_completed(futures):
             match_id, base_row, fetched_any = future.result()
             completed[match_id] = (base_row, fetched_any)
+
+    # BetExplorer exposes English fixture labels only after its schedule page
+    # has been joined to Titan's per-match euro.js metadata.  That metadata is
+    # fetched above, so run this bounded secondary-source join here rather than
+    # before enrich_future_odds (where the aggregate euro index has no team
+    # names and necessarily produces zero joins).  500.com remains preferred;
+    # BetExplorer only fills rows still missing a real Asian market.
+    if not betexplorer and os.environ.get("TITAN_ENABLE_BETEXPLORER", "1") == "1":
+        euro_metadata = {
+            match_id: {
+                key: base_row.get(key, "")
+                for key in ("home_en", "away_en")
+            }
+            for match_id, (base_row, _fetched_any) in completed.items()
+        }
+        try:
+            betexplorer = match_betexplorer_to_titan(
+                future_rows,
+                euro_metadata,
+                stamp,
+                out_dir,
+                os.environ.get(
+                    "FOOTBALL_LIST_DATE",
+                    dt.datetime.strptime(stamp[:8], "%Y%m%d").date().isoformat(),
+                ),
+            )
+        except Exception as exc:
+            print(f"betexplorer_after_euro_failed={exc}", file=sys.stderr)
+            betexplorer = {}
+        for match_id, fallback in betexplorer.items():
+            if not fallback or match_id not in completed:
+                continue
+            base_row, fetched_any = completed[match_id]
+            if not base_row.get("future_ah_fetch_fallback"):
+                base_row.update(fallback)
+                base_row.pop("future_ah_fetch_error", None)
+                completed[match_id] = (base_row, True or fetched_any)
+
+    # Titan's VIP detail host can reset urllib/curl connections in the early
+    # morning while still serving the same pages to a real Chromium client.
+    # Recover only failed pages in one persistent headless-browser session so
+    # a transport failure is never misreported as "market not opened".
+    failed_ids = [
+        match_id for match_id in ids_to_fetch
+        if completed[match_id][0].get("future_ah_fetch_error")
+        or completed[match_id][0].get("future_total_fetch_error")
+    ]
+    browser_recovered = 0
+    # Browser fallback is intentionally opt-in.  A blocked/empty VIP page can
+    # otherwise make a daily refresh wait 30 seconds per match even after the
+    # curl transport has already completed the usable responses.
+    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "0") == "1":
+        try:
+            from playwright.sync_api import sync_playwright
+
+            chrome_candidates = (
+                Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
+                Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"),
+                Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
+            )
+            executable = next((path for path in chrome_candidates if path.exists()), None)
+            if executable is None:
+                raise RuntimeError("Chromium executable unavailable for Titan VIP fallback")
+
+            with sync_playwright() as playwright:
+                browser = playwright.chromium.launch(headless=True, executable_path=str(executable))
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36"
+                )
+                page = context.new_page()
+                referer = f"{BF_BASE}/football/Next_{stamp[:8]}.htm"
+                for match_id in failed_ids:
+                    base_row, fetched_any = completed[match_id]
+                    if base_row.get("future_ah_fetch_error"):
+                        try:
+                            page.goto(
+                                f"{VIP_BASE}/AsianOdds_n.aspx?id={match_id}&l=0",
+                                wait_until="domcontentloaded", timeout=30_000, referer=referer,
+                            )
+                            text = page.content()
+                            (out_dir / f"{stamp}_future_{match_id}_asian_browser.html").write_text(text, encoding="utf-8")
+                            ah = parse_primary_odds_triplet(text)
+                            if ah:
+                                base_row.update({
+                                    "ah_full_open_home_or_over": ah["open_home"],
+                                    "ah_full_open_line_or_draw": ah["open_line"],
+                                    "ah_full_open_away_or_under": ah["open_away"],
+                                    "ah_full_current_home_or_over": ah["current_home"],
+                                    "ah_full_current_line_or_draw": ah["current_line"],
+                                    "ah_full_current_away_or_under": ah["current_away"],
+                                    "ah_full_company": ah["company"],
+                                    "future_ah_fetch_fallback": "PLAYWRIGHT_CHROMIUM",
+                                })
+                                base_row.pop("future_ah_fetch_error", None)
+                                fetched_any = True
+                                browser_recovered += 1
+                        except Exception as exc:
+                            base_row["future_ah_browser_error"] = str(exc)
+                    if base_row.get("future_total_fetch_error"):
+                        try:
+                            page.goto(
+                                f"{VIP_BASE}/OverDown_n.aspx?id={match_id}&l=0",
+                                wait_until="domcontentloaded", timeout=30_000, referer=referer,
+                            )
+                            text = page.content()
+                            (out_dir / f"{stamp}_future_{match_id}_total_browser.html").write_text(text, encoding="utf-8")
+                            total = parse_primary_odds_triplet(text)
+                            if total:
+                                base_row.update({
+                                    "total_full_open_home_or_over": total["open_home"],
+                                    "total_full_open_line_or_draw": total["open_line"],
+                                    "total_full_open_away_or_under": total["open_away"],
+                                    "total_full_current_home_or_over": total["current_home"],
+                                    "total_full_current_line_or_draw": total["current_line"],
+                                    "total_full_current_away_or_under": total["current_away"],
+                                    "total_full_company": total["company"],
+                                    "future_total_fetch_fallback": "PLAYWRIGHT_CHROMIUM",
+                                })
+                                base_row.pop("future_total_fetch_error", None)
+                                fetched_any = True
+                        except Exception as exc:
+                            base_row["future_total_browser_error"] = str(exc)
+                    completed[match_id] = (base_row, fetched_any)
+                browser.close()
+        except Exception as exc:
+            for match_id in failed_ids:
+                base_row, fetched_any = completed[match_id]
+                base_row["future_browser_fallback_error"] = str(exc)
+                completed[match_id] = (base_row, fetched_any)
+        print(f"future_browser_recovered={browser_recovered}/{len(failed_ids)}", file=sys.stderr)
+
     for idx, match_id in enumerate(ids_to_fetch, 1):
         base_row, fetched_any = completed[match_id]
         if match_id not in rows:
@@ -961,9 +1725,17 @@ def main() -> int:
             referer=REFERER,
         )
         future_rows = parse_future_schedule(decode_text(future_raw))
+        # The Next page contains several future list dates.  A daily refresh
+        # must only materialize the requested list date; fetching later dates
+        # wastes requests and can block the current day's publication when a
+        # VIP endpoint is slow or unavailable.
+        target_mmdd = today.strftime("%m-%d")
+        future_rows = {
+            match_id: item
+            for match_id, item in future_rows.items()
+            if str(item.get("bj_time", "")).strip().startswith(target_mmdd)
+        }
         for match_id, item in future_rows.items():
-            if roster and match_id not in roster:
-                continue
             item["snapshot_stamp"] = stamp
             apply_list_date_lock(match_id, item, target_list_date, f"Next_{ymd}", roster, global_roster)
         save_roster(today, roster)
@@ -976,15 +1748,38 @@ def main() -> int:
             referer=str(future_path),
         )
         common_lines = parse_common_lines(decode_text(common_raw))
-        euro_path, euro_raw = fetch_url(
-            EURO_INDEX,
+        # Titan's aggregate Europe page is an optional source.  It has
+        # intermittent 500 responses; that must not short-circuit the
+        # per-match Asian/total VIP pages, which are the core V3/V4 inputs.
+        euro = {}
+        try:
+            euro_path, euro_raw = fetch_url(
+                EURO_INDEX,
+                stamp,
+                out_dir,
+                f"index_vip_{ymd}.html",
+                referer=str(future_path),
+            )
+            euro = parse_euro_index(decode_text(euro_raw))
+        except Exception as exc:
+            print(f"euro_optional_fetch_failed: {exc}", file=sys.stderr)
+        fivehundred_fallback: dict[str, dict[str, object]] = {}
+        try:
+            five_feed = load_fivehundred_odds(stamp, out_dir, target_list_date)
+            fivehundred_fallback = match_fivehundred_to_titan(future_rows, five_feed, stamp)
+        except Exception as exc:
+            # 500.com is a supplement.  A WAF/error page must be visible in
+            # logs but can never make a missing market look bettable.
+            print(f"fivehundred_optional_fetch_failed: {exc}", file=sys.stderr)
+        future_added = enrich_future_odds(
+            rows_by_id,
+            future_rows,
+            common_lines,
+            euro,
             stamp,
             out_dir,
-            f"index_vip_{ymd}.html",
-            referer=str(future_path),
+            fivehundred=fivehundred_fallback,
         )
-        euro = parse_euro_index(decode_text(euro_raw))
-        future_added = enrich_future_odds(rows_by_id, future_rows, common_lines, euro, stamp, out_dir)
     except Exception as exc:
         print(f"future_fetch_failed: {exc}", file=sys.stderr)
 
