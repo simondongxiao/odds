@@ -31,6 +31,54 @@ def csv_write(path, rows):
         writer.writerows(rows)
 
 
+def refresh_v4_embedded_fallback(list_date: str, payload: dict, history: dict | None = None) -> None:
+    """Keep the file:// V4 fallback synchronized with the delivered JSON.
+
+    The dashboard normally fetches ``v4/dashboard/data/*.json``.  A local
+    file opened directly cannot rely on fetch(), so the HTML embeds a daily
+    payload and the collapsed history payload.  Refresh both assignments from
+    the same finalization inputs; otherwise the UI can silently display an
+    older PnL/ROI snapshot while the JSON is current.
+    """
+    html_path = ROOT / "v4" / "dashboard" / "index.html"
+    if not html_path.exists():
+        return
+    html = html_path.read_text(encoding="utf-8")
+    daily_pattern = re.compile(
+        r"window\.__embeddedDatePayloads=(.*?);\r?\nwindow\.__embeddedHistoryPayloads=",
+        re.S,
+    )
+    daily_match = daily_pattern.search(html)
+    if not daily_match:
+        raise RuntimeError("V4 embedded daily payload marker not found")
+    try:
+        daily_payloads = json.loads(daily_match.group(1))
+    except json.JSONDecodeError as exc:
+        raise RuntimeError("V4 embedded daily payload is invalid JSON") from exc
+    daily_payloads[str(list_date)] = payload
+    html = html[:daily_match.start(1)] + json.dumps(
+        daily_payloads, ensure_ascii=False, separators=(",", ":")
+    ) + html[daily_match.end(1):]
+
+    if history is not None:
+        history_pattern = re.compile(
+            r"window\.__embeddedHistoryPayloads=(.*?);\r?\n(?:/\* EMBEDDED_DAILY_FALLBACK_END \*/\r?\n)?let payload",
+            re.S,
+        )
+        history_match = history_pattern.search(html)
+        if not history_match:
+            raise RuntimeError("V4 embedded history payload marker not found")
+        try:
+            history_payloads = json.loads(history_match.group(1))
+        except json.JSONDecodeError as exc:
+            raise RuntimeError("V4 embedded history payload is invalid JSON") from exc
+        history_payloads[str(list_date)] = history
+        html = html[:history_match.start(1)] + json.dumps(
+            history_payloads, ensure_ascii=False, separators=(",", ":")
+        ) + html[history_match.end(1):]
+    html_path.write_text(html, encoding="utf-8")
+
+
 def frozen_hash(rows):
     post = {"score", "result", "pnl_1u", "settlement", "settlement_status", "result_state", "result_source", "settlement_updated_at"}
     data = [{k: v for k, v in row.items() if k not in post} for row in rows]
@@ -194,6 +242,11 @@ def main():
             "settled_all_grades": sum(r.get("result") in LABEL for r in rows),
             "prematch_hash": before, "prematch_unchanged": True,
             "unconfirmed_future_status_corrected": len(status_corrections)}
+    current_v4_payload = daily.read_json(ROOT / f"v4/dashboard/data/{date}.json", {})
+    current_history = daily.read_json(
+        run_dir / "reviews" / f"league_history_alert_{date}.json", {}
+    )
+    refresh_v4_embedded_fallback(date, current_v4_payload, current_history)
     post_match_fields = {
         "score", "display_score", "state", "state_label", "display_status",
         "status", "result", "pnl", "result_source",

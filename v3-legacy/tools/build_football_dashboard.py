@@ -1952,10 +1952,25 @@ def odds_summary(
     euro, euro_ok = odds_triplet_text(row, "euro", "欧赔主/平/客缺失")
     total, total_ok = odds_triplet_text(row, "total", "大小球线/两边水位缺失")
     any_odds = ah_ok or euro_ok or total_ok
+    source_hint = " ".join(
+        str(row.get(key, "") or "")
+        for key in (
+            "ah_full_company",
+            "future_ah_fetch_fallback",
+            "total_full_company",
+            "future_total_fetch_fallback",
+        )
+    )
+    if "500.com" in source_hint or "500_COM_PUBLIC_XML" in source_hint:
+        source_label = "500.com公开XML"
+    elif "BetExplorer" in source_hint or "BETEXPLORER_PUBLIC_JSON" in source_hint:
+        source_label = "BetExplorer公开JSON"
+    else:
+        source_label = "Titan007"
     odds_status = (
-        "Titan007赔率已匹配"
+        f"{source_label}赔率已匹配"
         if ah_ok and euro_ok and total_ok
-        else ("Titan007部分赔率已匹配" if any_odds else "赔率未匹配")
+        else (f"{source_label}部分赔率已匹配" if any_odds else "赔率未匹配")
     )
     euro_devig = "欧赔缺失-未去水"
     try:
@@ -3243,6 +3258,16 @@ def html_doc_v2(
       background: #dceeff;
       box-shadow: inset 4px 0 0 var(--red);
     }}
+    .match-item.history-high-match {{
+      background: #fff0f0;
+      box-shadow: inset 4px 0 0 #c73838;
+    }}
+    .match-item.history-low-match {{
+      background: #f0fbf2;
+      box-shadow: inset 4px 0 0 #2d9a55;
+    }}
+    .match-item.active.history-high-match {{ background: #ffe2e2; }}
+    .match-item.active.history-low-match {{ background: #e2f5e5; }}
     .mobile-detail {{
       display: none;
     }}
@@ -3387,6 +3412,16 @@ def html_doc_v2(
     .history-rate-metrics span {{ white-space: nowrap; }}
     .history-rate-metrics b {{ font-weight: 900; }}
     .history-rate-outcomes {{ display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; font-size: 11px; }}
+    .history-dropdown {{ margin-top: 6px; border-top: 1px dashed #efb4b4; padding-top: 4px; }}
+    .history-dropdown summary {{ cursor: pointer; text-align: right; color: #b42318; font-weight: 800; font-size: 11px; list-style: none; }}
+    .history-dropdown summary::-webkit-details-marker {{ display: none; }}
+    .history-dropdown summary::after {{ content: " ▼"; font-size: 10px; }}
+    .history-dropdown[open] summary::after {{ content: " ▲"; }}
+    .history-detail {{ margin-top: 6px; border-top: 1px dashed #cbd5e1; padding-top: 5px; font-size: 10px; line-height: 1.35; }}
+    .history-detail-row {{ display: grid; grid-template-columns: 76px minmax(125px, 1fr) 42px 38px 54px; gap: 4px; align-items: center; }}
+    .history-detail-row span {{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+    .history-high-team {{ color: #b42318; background: #ffe2e2; border: 1px solid #ef9a9a; border-radius: 3px; padding: 0 3px; font-weight: 800; }}
+    .history-low-team {{ color: #176b31; background: #e2f5e5; border: 1px solid #9bd2a6; border-radius: 3px; padding: 0 3px; font-weight: 800; }}
     .settle-pill {{ padding: 1px 5px; border-radius: 3px; font-weight: 800; background: #f8fafc; }}
     .settle-win, .settle-profit {{ color: #138a48; }}
     .settle-half-win {{ color: #0b7d55; }}
@@ -4259,21 +4294,6 @@ function bettableFilterEnabled() {{
   return Boolean(document.getElementById("bettableFilter")?.checked);
 }}
 
-function historyRateMode() {{
-  return document.getElementById("historyRateFilter")?.value || "全部";
-}}
-
-function historyRateIds() {{
-  const mode = historyRateMode();
-  if (mode === "全部") return null;
-  return new Set(historyRateRows
-    .filter(x => (x.version || "") === "V3")
-    .filter(x => concreteCompetitionName(x.competition))
-    .filter(x => Number(x.historical_settled_sample || 0) > 8 && Number.isFinite(Number(x.effective_win_rate)))
-    .filter(x => mode === "high" ? Number(x.effective_win_rate) > 0.55 : Number(x.effective_win_rate) < 0.45)
-    .map(x => String(x.match_id || "")));
-}}
-
 function concreteCompetitionName(value) {{
   const s = String(value || "").trim();
   return Boolean(s) && !s.includes("系列") && !["全部", "未标注", "未知赛事", "UNKNOWN"].includes(s);
@@ -4285,16 +4305,40 @@ function historyRateBandForMatch(r) {{
   const row = historyRateRows.find(x => String(x.version || "") === "V3"
     && String(x.match_id || "") === String(r.match_id || "")
     && String(x.competition || "").trim() === competition);
-  if (!row || Number(row.historical_settled_sample || 0) <= 8) return "";
+  if (!row || Number(row.historical_settled_sample || 0) < 8) return "";
   const rate = Number(row.effective_win_rate);
   if (!Number.isFinite(rate)) return "";
   return rate > 0.55 ? "high" : rate < 0.45 ? "low" : "";
+}}
+
+function historyRateMode() {{
+  return document.getElementById("historyRateFilter")?.value || "全部";
+}}
+
+function historyRateIds() {{
+  const mode = historyRateMode();
+  if (mode === "全部") return null;
+  return new Set(historyRateRows
+    .filter(x => String(x.version || "") === "V3")
+    .filter(x => concreteCompetitionName(x.competition))
+    .filter(x => Number(x.historical_settled_sample || 0) >= 8 && Number.isFinite(Number(x.effective_win_rate)))
+    .filter(x => mode === "high" ? Number(x.effective_win_rate) > 0.55 : Number(x.effective_win_rate) < 0.45)
+    .map(x => String(x.match_id || "")));
 }}
 
 function historyMatchClass(r) {{
   const latest = allDates()[0] || "";
   const band = String(r.date || "") === latest ? historyRateBandForMatch(r) : "";
   return band ? ` history-${{band}}-match` : "";
+}}
+
+function historyMatchTeams(r) {{
+  const match = String(r.display_match || "");
+  const parts = match.split(/\s+vs\s+/i);
+  if (parts.length !== 2) return match;
+  const band = String(r.date || "") === (allDates()[0] || "") ? historyRateBandForMatch(r) : "";
+  const cls = band === "high" ? "history-high-team" : band === "low" ? "history-low-team" : "";
+  return `<span class="${{cls}}">${{parts[0]}}</span> vs <span class="${{cls}}">${{parts[1]}}</span>`;
 }}
 
 async function loadHistoryRates(date) {{
@@ -4330,11 +4374,18 @@ function historyRateAlertHtml(r) {{
       ["红", x.红 ?? 0, "settle-win"], ["半红", x.半红 ?? 0, "settle-half-win"], ["走", x.走 ?? 0, "settle-push"],
       ["半黑", x.半黑 ?? 0, "settle-half-loss"], ["黑", x.黑 ?? 0, "settle-loss"]
     ].map(([label, value, cls]) => `<span class="settle-pill ${{cls}}">${{label}} ${{value}}</span>`).join("");
+    const detailRows = Array.isArray(x.history_matches) ? x.history_matches : [];
+    const details = detailRows.length ? `<details class="history-dropdown"><summary>展开历史比赛（${{detailRows.length}}场）</summary><div class="history-detail"><div class="muted">Excel同赛事历史明细（已结算）</div>${{detailRows.map(d => {{
+      const dp = d.pnl_1u === "" || d.pnl_1u == null ? "—" : `${{Number(d.pnl_1u) >= 0 ? "+" : ""}}${{Number(d.pnl_1u).toFixed(2)}}U`;
+      const dr = d.roi === "" || d.roi == null ? "—" : pct(Number(d.roi));
+      return `<div class="history-detail-row"><span>${{clean(d.date)}}</span><span title="${{clean(d.match)}}">${{clean(d.match)}}</span><span>${{clean(d.score || "—")}}</span><span>${{clean(d.settlement || "—")}}</span><span>${{dp}} / ${{dr}}</span></div>`;
+    }}).join("")}}</div></details>` : "";
     return `<div class="history-rate-record">
       <div class="history-rate-top"><strong>${{clean(x.competition || r.league)}}</strong><span class="history-rate-band ${{bandClass}}">${{clean(band)}}</span></div>
       <div class="history-rate-metrics"><span>近期 <b>${{x.historical_settled_sample ?? 0}}场</b></span><span>有效胜率 <b class="${{rateClass}}">${{rate}}</b></span><span class="${{pnlClass}}">PnL <b>${{pnl}}</b></span><span class="${{roiClass}}">ROI <b>${{roi}}</b></span></div>
       <div class="history-rate-outcomes">${{outcomes}}</div>
       <div class="muted">${{side}}：${{clean(x.selected_team || "方向待核")}}</div>
+      ${{details}}
     </div>`;
   }}).join("")}}<div class="muted" style="margin-top:5px;">口径：同名具体联赛/杯赛；统计截止当前列表日前已结算记录；高胜率&gt;55%，低胜率&lt;45%，45%-55%为常规样本。</div></div>`;
 }}
@@ -4516,9 +4567,9 @@ function renderList(selectedMatch = null) {{
   const selectedRow = rows.find(r => r.display_match === selected) || rows[0];
   const mobile = isMobileView();
   list.innerHTML = rows.map((r, idx) => `
-    <button class="match-item ${{!mobile && r.display_match === selected ? "active" : ""}}" data-idx="${{idx}}" aria-expanded="false">
+    <button class="match-item ${{!mobile && r.display_match === selected ? "active" : ""}}${{historyMatchClass(r)}}" data-idx="${{idx}}" aria-expanded="false">
       <div>
-        <div class="match-main${{historyMatchClass(r)}}">${{r.display_match}}</div>
+        <div class="match-main${{historyMatchClass(r)}}">${{historyMatchTeams(r)}}</div>
         <div class="match-meta">${{r.display_time}} ｜ ${{r.league}} ｜ ${{r.market}}：${{r.pick}} ｜ 比分：${{r.display_score}}</div>
       </div>
       <span class="tag ${{tagClass(r.display_status)}}">${{r.display_status}}</span>
