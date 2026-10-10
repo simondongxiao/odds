@@ -147,11 +147,11 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
         win_rate = rate(counts)
         pnl = float(bucket["pnl"])
         roi = pnl / sample if sample else None
-        if sample > 8 and win_rate is not None and win_rate < 0.45:
+        if sample >= 8 and win_rate is not None and win_rate < 0.45:
             alert = "严重：历史有效胜率<45%"
         else:
             alert = ""
-        if sample > 8 and win_rate is not None and win_rate > 0.55:
+        if sample >= 8 and win_rate is not None and win_rate > 0.55:
             band = "高：历史有效胜率>55%"
         else:
             band = alert
