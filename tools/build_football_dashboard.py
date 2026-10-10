@@ -8,11 +8,12 @@ import re
 import shutil
 from collections import defaultdict
 from pathlib import Path
+import football_decision_versioning as versioning
+import football_competition_normalizer as competition_normalizer
+import football_intent_engine as intent_engine
 
-import v3_cup_match_state as cup_v3
 
-
-ROOT = Path(r"D:\codex\v3_legacy\outputs\football_odds_trader")
+ROOT = Path(r"D:\codex\outputs\football_odds_trader")
 LEDGER = ROOT / "ledger" / "simulated_bets.csv"
 DASHBOARD_DIR = ROOT / "dashboard"
 RAW_TITAN = ROOT / "raw" / "titan007"
@@ -483,15 +484,11 @@ def asian_line_label(value: float | None) -> str:
 
 
 def normalize_intent_tag(intent_text: str) -> str:
-    match = re.search(r"亚盘意图候选：([^（。]+)", intent_text or "")
-    if not match:
-        return ""
-    return canonical_intent_tag(match.group(1))
+    return intent_engine.canonicalize(intent_text).get("intent_canonical", "")
 
 
 def canonical_intent_tag(tag: str) -> str:
-    compact = re.sub(r"\s+", "", tag or "")
-    return INTENT_TAG_ALIASES.get(compact, compact)
+    return intent_engine.canonicalize(tag).get("intent_canonical", "")
 
 
 def canonical_display_text(text: str) -> str:
@@ -655,66 +652,7 @@ def load_intent_matrix() -> dict[str, object]:
 
 
 def dashboard_micro_region(league: str) -> str:
-    from european_competition_scope import competition_scope
-    standalone = competition_scope(league)
-    if standalone:
-        return standalone
-    text = str(league or "")
-    if any(k in text for k in ("美职", "美冠", "美甲", "美乙", "美国", "加拿大", "加拿")):
-        return "北美系列"
-    if any(
-        k in text
-        for k in (
-            "巴西",
-            "巴甲",
-            "巴乙",
-            "阿根",
-            "阿甲",
-            "阿乙",
-            "智利",
-            "厄瓜",
-            "乌拉",
-            "哥伦",
-            "巴拉",
-            "玻利",
-            "秘鲁",
-            "委内",
-            "南美",
-            "解放",
-        )
-    ):
-        return "南美系列"
-    if any(k in text for k in ("日职", "日乙", "日丙", "天皇杯", "日皇", "韩K", "韩职", "韩国", "韩足")):
-        return "日韩系列"
-    if any(k in text for k in ("科威", "哈萨", "卡塔", "阿联", "沙特", "阿曼", "乌兹", "亚冠", "伊朗", "约旦", "巴林")):
-        return "西亚/中亚系列"
-    if text.startswith(("英", "西", "意", "德", "法")):
-        return "欧洲五大系列"
-    if any(
-        k in text
-        for k in (
-            "欧",
-            "荷",
-            "葡",
-            "比",
-            "土",
-            "瑞典",
-            "挪",
-            "俄",
-            "乌克",
-            "丹麦",
-            "瑞士",
-            "捷",
-            "克亚",
-            "冰岛",
-            "罗",
-            "希腊",
-            "苏",
-            "拉脱",
-        )
-    ):
-        return "欧洲非五大系列"
-    return "其他系列"
+    return competition_normalizer.normalize(league).micro_region
 
 
 def load_micro_edge() -> dict[str, object]:
@@ -831,20 +769,6 @@ def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
         for p in DETAIL_LEDGER.glob("bettable_event_detail_*.csv")
         if "frozen" in p.name.lower() or "freeze" in p.name.lower()
     ]
-    # V3 Legacy's immutable production decision exports use an English schema
-    # and are the authoritative source for historical bettable rows.
-    # There may be several attempts for one date; only the latest timestamped
-    # snapshot is eligible, preventing an older decision set from resurfacing.
-    latest_legacy_freeze: dict[str, Path] = {}
-    for path in DETAIL_LEDGER.glob("v3_legacy_decision_freeze_*.csv"):
-        match = re.search(r"v3_legacy_decision_freeze_(\d{4}-\d{2}-\d{2})_", path.name)
-        if not match:
-            continue
-        date_key = match.group(1)
-        previous = latest_legacy_freeze.get(date_key)
-        if previous is None or path.stat().st_mtime > previous.stat().st_mtime:
-            latest_legacy_freeze[date_key] = path
-    frozen_detail_files.extend(latest_legacy_freeze.values())
     signal_files = list(DETAIL_LEDGER.glob("bettable_signal_freeze_*.csv"))
     canonical_signal_dates: set[str] = set()
     for p in signal_files:
@@ -877,27 +801,6 @@ def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
     for path in files:
         source_is_frozen = "frozen" in path.name.lower() or "freeze" in path.name.lower()
         for row in read_csv(path):
-            if path.name.startswith("v3_legacy_decision_freeze_"):
-                freeze_action = str(row.get("action", "") or "").strip()
-                if freeze_action not in {"可投", "半仓可投"}:
-                    continue
-                row = {
-                    "日期": str(row.get("list_date", "") or "").strip(),
-                    "比赛ID": str(row.get("match_id", "") or "").strip(),
-                    "赛事": str(row.get("competition", "") or "").strip(),
-                    "比赛": str(row.get("match", "") or "").strip(),
-                    "动作": "反向" if str(row.get("direction", "") or "").strip() == "reverse" else "正向",
-                    "选择方向": str(row.get("direction", "") or "").strip(),
-                    "投注盘向": str(row.get("selected_side", "") or "").strip(),
-                    "投注球队": str(row.get("selected_team", "") or "").strip(),
-                    "选中水位": str(row.get("water", "") or "").strip(),
-                    "综合胜率": str(row.get("probability", "") or "").strip(),
-                    "通过阈值": str(row.get("threshold", "") or "").strip(),
-                    "仓位系数": "0.5" if freeze_action == "半仓可投" else "1.0",
-                    "结算标签": "",
-                    "实际盈亏Unit": "",
-                    "_source_file": str(path),
-                }
             action = str(row.get("动作", "") or "").strip()
             if action not in {"正向", "反向"}:
                 continue
@@ -912,42 +815,6 @@ def load_frozen_bettable_lookup() -> dict[str, dict[str, str]]:
                 keep_or_set(f"sim:{sim_id}", row, source_is_frozen)
             for key in frozen_match_keys(date, match):
                 keep_or_set(key, row, source_is_frozen)
-
-    # The legacy daily freeze export uses the stable `today_bettable_YYYY-MM-DD.csv`
-    # name and a compact schema.  It is still an immutable decision source even
-    # though its filename does not contain "freeze".
-    for path in sorted(DETAIL_LEDGER.glob("today_bettable_*.csv")):
-        for source in read_csv(path):
-            date = normalize_date_key(source.get("列表日", ""))
-            match = str(source.get("比赛", "") or "").strip()
-            if not date or not match:
-                continue
-            raw_direction = str(source.get("方向", "") or "").strip().lower()
-            action = "反向" if raw_direction == "reverse" else "正向" if raw_direction == "forward" else ""
-            if not action:
-                continue
-            selected = str(source.get("选择球队", "") or "").strip()
-            selected_team = re.split(r"[（(]", selected, maxsplit=1)[0].strip()
-            side_match = re.search(r"(?:上盘|下盘)", selected)
-            normalized = {
-                "日期": date,
-                "比赛ID": "",
-                "赛事": str(source.get("赛事", "") or "").strip(),
-                "比赛": match,
-                "动作": action,
-                "选择方向": action,
-                "投注盘向": side_match.group(0) if side_match else "",
-                "投注球队": selected_team,
-                "选中水位": str(source.get("水位", "") or "").strip(),
-                "综合胜率": str(source.get("胜率", "") or "").strip(),
-                "通过阈值": str(source.get("阈值", "") or "").strip(),
-                "仓位系数": "1.0",
-                "结算标签": "",
-                "实际盈亏Unit": "",
-                "_source_file": str(path),
-            }
-            for key in frozen_match_keys(date, clean_team(match)):
-                keep_or_set(key, normalized, True)
     for row in legacy_frozen_bettable_rows():
         match_id = match_id_from_row(row)
         sim_id = str(row.get("比赛ID", "") or "").strip()
@@ -1340,15 +1207,12 @@ TITAN_STATE_LABELS = {
     "-13": "中断",
     "-14": "推迟",
     "0": "未开赛",
-    # Titan007's odds snapshot uses 3 for a match with a final score.
-    # Keep it separate from live states 1/2 so settled rows are not shown as live.
-    "3": "已结算",
 }
 
 
 def is_titan_live_state(state: str) -> bool:
     try:
-        return int((state or "").strip()) in {1, 2}
+        return int((state or "").strip()) > 0
     except ValueError:
         return False
 
@@ -1367,25 +1231,13 @@ def titan_state_name(state: str) -> str:
     return f"状态待核({state})" if state else "状态待核"
 
 
-def titan_state_label(state: str, matched: bool, result: str, kickoff: str = "", score: str = "") -> str:
+def titan_state_label(state: str, matched: bool, result: str) -> str:
     if result and any(term in result for term in ("取消", "延期", "推迟", "腰斩", "中断")):
         return "取消/延期"
     if result and ("未匹配" in result or "待人工核验" in result):
         return "待核"
     if state == "-1":
         return "已结算" if result and result not in {"待赛", "待填"} else "完场"
-    if state == "3":
-        return "已结算"
-    # A stale live snapshot must not remain labelled as live indefinitely.
-    # Without a verified final source, use an explicit review status rather than
-    # fabricating a settled result.
-    if is_titan_live_state(state) and re.fullmatch(r"\d+\s*-\s*\d+", str(score or "")):
-        try:
-            started = dt.datetime.strptime(str(kickoff), "%Y-%m-%d %H:%M")
-            if started <= dt.datetime.now() - dt.timedelta(minutes=150) and str(score).replace(" ", "") != "0-0":
-                return "已完场待核"
-        except ValueError:
-            pass
     if result and result not in {"待赛", "待填"}:
         if is_titan_abnormal_state(state):
             return titan_state_name(state)
@@ -1395,15 +1247,6 @@ def titan_state_label(state: str, matched: bool, result: str, kickoff: str = "",
     if not matched:
         return "待核"
     if state == "0":
-        # A past kickoff with no verified final source is not a future match.
-        # Keep the result unresolved without fabricating a score or settlement.
-        try:
-            if kickoff:
-                started = dt.datetime.strptime(str(kickoff), "%Y-%m-%d %H:%M")
-                if started <= dt.datetime.now():
-                    return "赛果待核"
-        except ValueError:
-            pass
         return "未开赛"
     if is_titan_live_state(state):
         return "进行中"
@@ -1870,10 +1713,8 @@ def odds_summary(
     odds: dict[str, dict[str, str]],
     final_scores: dict[str, dict[str, str]] | None = None,
     ledger_row: dict[str, str] | None = None,
-    detail: dict[str, str] | None = None,
 ) -> dict[str, str]:
     final_scores = final_scores or {}
-    detail = detail or {}
     match_id = match_id_from_row(ledger_row or {})
     ledger_date = (ledger_row or {}).get("日期", "").strip()
     row = (
@@ -1952,21 +1793,13 @@ def odds_summary(
     euro, euro_ok = odds_triplet_text(row, "euro", "欧赔主/平/客缺失")
     total, total_ok = odds_triplet_text(row, "total", "大小球线/两边水位缺失")
     any_odds = ah_ok or euro_ok or total_ok
-    source_hint = " ".join(
-        str(row.get(key, "") or "")
-        for key in (
-            "ah_full_company",
-            "future_ah_fetch_fallback",
-            "total_full_company",
-            "future_total_fetch_fallback",
-        )
+    source_marker = str(
+        row.get("ah_full_company")
+        or row.get("future_ah_fetch_fallback")
+        or row.get("total_full_company")
+        or "Titan007"
     )
-    if "500.com" in source_hint or "500_COM_PUBLIC_XML" in source_hint:
-        source_label = "500.com公开XML"
-    elif "BetExplorer" in source_hint or "BETEXPLORER_PUBLIC_JSON" in source_hint:
-        source_label = "BetExplorer公开JSON"
-    else:
-        source_label = "Titan007"
+    source_label = "500.com公开XML" if "500.com" in source_marker or "500_COM" in source_marker else "Titan007"
     odds_status = (
         f"{source_label}赔率已匹配"
         if ah_ok and euro_ok and total_ok
@@ -1984,38 +1817,8 @@ def odds_summary(
             euro_devig = f"主{fair[0]:.1%} / 平{fair[1]:.1%} / 客{fair[2]:.1%}；返还率{1 / overround:.1%}"
     except Exception:
         euro_devig = "欧赔缺失-未去水"
-    competition = (ledger_row or {}).get("赛事", "")
-    kickoff_text = f"2026-{row.get('bj_time','')}"
-    decision_at = dt.datetime.now().astimezone()
-    # The match-state/domain gateway is deliberately evaluated before Intent.
-    # Missing context is explicit MISSING and is not converted to a cup-name veto.
-    cup_gateway = cup_v3.cup_match_state_gateway(
-        competition,
-        ledger_row or {},
-        detail,
-        decision_at=decision_at,
-        kickoff_at=cup_v3.parse_time(kickoff_text),
-    )
     intent_text = asian_intent_candidate(row)
     intent_tag = normalize_intent_tag(intent_text)
-    cup_context = cup_v3.enrich_cup_context(
-        competition,
-        row,
-        ledger_row or {},
-        detail,
-        intent_tag,
-        kickoff_at=kickoff_text,
-        decision_at=decision_at,
-        precomputed_gateway=cup_gateway,
-    )
-    if cup_context.get("Cup_Refactor_Eligible"):
-        refined_tag = str(cup_context.get("Cup_Intent") or intent_tag)
-        if refined_tag != intent_tag:
-            intent_text += (
-                f" 杯赛比赛级校验：{cup_context.get('Cup_Intent_Reason')}；"
-                f"原标签={intent_tag or cup_v3.MISSING}，校验后={refined_tag}。"
-            )
-            intent_tag = refined_tag
     team_fields = intent_team_fields(row, intent_tag)
     current_line = safe_float(row.get("ah_full_current_line_or_draw", ""))
     ah_home_now = safe_float(row.get("ah_full_current_home_or_over", ""))
@@ -2065,7 +1868,6 @@ def odds_summary(
         "total_ok": total_ok,
         "any_odds": any_odds,
         "odds_status": odds_status,
-        "cup_context": cup_context,
     }
 
 
@@ -2081,9 +1883,8 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
     cards = []
     for r in today_rows:
         match = r.get("比赛", "")
-        detail_hint = details.get(match_id_from_row(r), {}) or details.get(match, {}) or {}
-        o = odds_summary(match, odds, final_scores, r, detail_hint)
-        detail = details.get(o.get("match_id", "")) or detail_hint or {}
+        o = odds_summary(match, odds, final_scores, r)
+        detail = details.get(o.get("match_id", "")) or details.get(match) or {}
         matched = o["time"] != "未匹配"
         raw_date = r.get("日期", "")
         date = normalize_date_key(raw_date)
@@ -2093,7 +1894,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
             shown_match = o["source_match"]
         shown_time = display_time(o["time"], matched, date)
         shown_score = display_score(o["score"], result, matched)
-        shown_status = titan_state_label(o["state"], matched, result, o.get("time", ""), o.get("score", ""))
+        shown_status = titan_state_label(o["state"], matched, result)
         decimal = extract_decimal(r.get("模拟盘口/价格", ""))
         status = classify_action(r)
         goal_status, goal_detail = goal_model_audit(r, matched)
@@ -2131,6 +1932,10 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
             or frozen_bettable.get(f"match:{shown_match_key}")
             or {}
         )
+        if date == TODAY.isoformat():
+            # Today's started plans are restored as whole snapshots below.
+            # A long-run ledger must not freeze still-upcoming quotes.
+            frozen = {}
         frozen_action = str(frozen.get("动作", "") or "").strip()
         frozen_mode = "reverse" if frozen_action == "反向" else ("forward" if frozen_action == "正向" else "none")
         frozen_stake_coef = safe_float(frozen.get("仓位系数", ""))
@@ -2232,65 +2037,15 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
                 "grade": r.get("过程评级", ""),
                 "error": clean_missing_odds_text(r.get("错误类型", "")),
                 "update": clean_missing_odds_text(translate_text(r.get("模型更新", ""))),
-                **o.get("cup_context", {}),
                 **gateway_card_fields(r, frozen),
             }
         )
     cards.sort(key=lambda r: (not r["matched_odds"], str(r["time"]), str(r["league"]), str(r["match"])))
     cards = apply_saved_dashboard_decisions(cards)
-    cards = dedupe_current_match_ids(cards)
-    return apply_historical_settlement_overlay(cards), compute_stats(ledger_rows)
-
-
-def apply_historical_settlement_overlay(cards: list[dict[str, object]]) -> list[dict[str, object]]:
-    """Overlay independently verified final AH settlements only.
-
-    The old settlement ledger contains score fields copied from a dashboard
-    snapshot.  It is retained for audit, but it is not a final-result source.
-    """
-    settled = {}
-    for path in sorted(DETAIL_LEDGER.glob("v3_verified_final_*.csv")):
-        for row in read_csv(path):
-            match_id = str(row.get("match_id", "") or "").strip()
-            date = normalize_date_key(row.get("list_date", ""))
-            if match_id and date and row.get("settlement_state") in {"W", "HW", "P", "HL", "L"}:
-                settled[f"{date}|{match_id}"] = row
-    label = {"W": "红", "HW": "红半", "P": "走", "HL": "黑半", "L": "黑"}
     for card in cards:
-        row = settled.get(f"{normalize_date_key(card.get('date', ''))}|{str(card.get('match_id', '')).strip()}")
-        if not row:
-            continue
-        score = str(row.get("score", "") or "").strip()
-        state = str(row.get("settlement_state", "") or "").strip()
-        card.update(
-            score=score or card.get("score", ""),
-            display_score=score or card.get("display_score", ""),
-            state="-1",
-            state_label="已结算",
-            display_status="已结算",
-            result=label.get(state, state),
-            pnl=str(row.get("pnl_flat_1u", "") or ""),
-            status="赢" if state in {"W", "HW"} else "走" if state == "P" else "输",
-        )
-        if card.get("frozen_bettable"):
-            card["frozen_bettable_settlement"] = label.get(state, state)
-            card["frozen_bettable_pnl"] = safe_float(row.get("pnl_flat_1u", ""))
-    # Preserve the frozen candidate list while making unverified settlement
-    # explicit.  Never expose the stale ledger score as a final result.
-    verified_ids = set(settled)
-    for card in cards:
-        key = f"{normalize_date_key(card.get('date', ''))}|{str(card.get('match_id', '')).strip()}"
-        if normalize_date_key(card.get("date", "")) == "2026-09-12" and card.get("frozen_bettable") and key not in verified_ids:
-            card.update(
-                display_status="待核",
-                state_label="待核",
-                result="待核",
-                pnl="不计",
-                status="待核",
-                display_score="待核",
-            )
-            card["settlement_verification"] = "RESULT_UNVERIFIED"
-    return cards
+        if isinstance(card.get("saved_skill_decision"), dict):
+            card["decision_result"] = card["saved_skill_decision"]
+    return cards, compute_stats(ledger_rows)
 
 
 def apply_saved_dashboard_decisions(cards: list[dict]) -> list[dict]:
@@ -2381,27 +2136,6 @@ def apply_saved_dashboard_decisions(cards: list[dict]) -> list[dict]:
                 label = result.get("结算标签", "")
                 card.update(result=label, pnl=result.get("实际盈亏Unit", ""), status="走" if label == "走水" else "赢" if label.startswith("红") else "输")
     return list(by_key.values())
-
-
-def dedupe_current_match_ids(cards: list[dict]) -> list[dict]:
-    """Keep one visible current-day card per stable Titan match id."""
-    output: list[dict] = []
-    positions: dict[str, int] = {}
-    for card in cards:
-        if str(card.get("date", "")) != TODAY.isoformat() or not card.get("match_id"):
-            output.append(card)
-            continue
-        key = str(card["match_id"])
-        if key not in positions:
-            positions[key] = len(output)
-            output.append(card)
-            continue
-        current = output[positions[key]]
-        current_score = sum(bool(current.get(name)) for name in ("ah_ok", "euro_ok", "total_ok", "saved_skill_decision"))
-        candidate_score = sum(bool(card.get(name)) for name in ("ah_ok", "euro_ok", "total_ok", "saved_skill_decision"))
-        if candidate_score > current_score:
-            output[positions[key]] = card
-    return output
 
 
 def gateway_card_fields(row: dict, frozen: dict) -> dict:
@@ -2949,29 +2683,7 @@ def html_doc_v2(
     top5_backtest: dict[str, object],
 ) -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    # The page must open on the newest list_date actually embedded in cards.
-    # Do not depend on current.json here: the daily orchestrator can rebuild
-    # this HTML before advancing that pointer, which previously left a fresh
-    # 10/03 page opening on 10/02.
-    card_dates = {
-        str(card.get("date") or "").strip()
-        for card in cards
-        if str(card.get("date") or "").strip()
-    }
-    default_date = max(card_dates) if card_dates else TODAY.isoformat()
-    current_pointer = Path(r"D:\codex\outputs\football_odds_trader\dashboard\data\current.json")
-    if not current_pointer.exists():
-        current_pointer = DASHBOARD_DIR / "data" / "current.json"
-    try:
-        pointer = json.loads(current_pointer.read_text(encoding="utf-8"))
-        pointer_date = str(pointer.get("display_list_date") or pointer.get("list_date") or "").strip()
-        if pointer_date and pointer_date in card_dates:
-            # A stale pointer must never move the landing view behind the
-            # newest embedded list_date.  It is retained only when it is not
-            # older than the card-derived maximum.
-            default_date = max(default_date, pointer_date)
-    except Exception:
-        pass
+    default_date = TODAY.isoformat()
     backtest_box = render_sequential_backtest_box(backtest)
     # Keep the top-five split backtest files generated, but do not render the bulky
     # table in the dashboard header.
@@ -3258,16 +2970,6 @@ def html_doc_v2(
       background: #dceeff;
       box-shadow: inset 4px 0 0 var(--red);
     }}
-    .match-item.history-high-match {{
-      background: #fff0f0;
-      box-shadow: inset 4px 0 0 #c73838;
-    }}
-    .match-item.history-low-match {{
-      background: #f0fbf2;
-      box-shadow: inset 4px 0 0 #2d9a55;
-    }}
-    .match-item.active.history-high-match {{ background: #ffe2e2; }}
-    .match-item.active.history-low-match {{ background: #e2f5e5; }}
     .mobile-detail {{
       display: none;
     }}
@@ -3292,9 +2994,7 @@ def html_doc_v2(
       font-size: 12px;
       line-height: 1.45;
     }}
-    .match-main {{ font-weight: 700; line-height: 1.35; padding: 2px 4px; border-radius: 2px; }}
-    .history-high-match {{ background: #ffe2e2; color: #8f1d1d; }}
-    .history-low-match {{ background: #e2f5e5; color: #176b31; }}
+    .match-main {{ font-weight: 700; line-height: 1.35; }}
     .match-meta {{ margin-top: 3px; color: var(--muted); font-size: 12px; }}
     .tag {{
       display: inline-flex;
@@ -3393,41 +3093,6 @@ def html_doc_v2(
       line-height: 1.55;
       overflow-wrap: anywhere;
     }}
-    .history-rate-alert {{
-      margin: 8px 0;
-      padding: 8px 10px;
-      border: 1px solid #f0a0a0;
-      background: #fff5f5;
-      color: #9d1c1c;
-      line-height: 1.5;
-    }}
-    .history-rate-alert strong {{ color: #b71c1c; }}
-    .history-rate-alert .muted {{ color: #a94442; font-weight: 600; }}
-    .history-rate-record {{ margin-top: 6px; padding: 6px 7px; border: 1px solid #f3c2c2; background: #fff; color: #334155; }}
-    .history-rate-top {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; }}
-    .history-rate-band {{ padding: 1px 5px; border-radius: 3px; font-size: 11px; font-weight: 800; background: #eef2f7; color: #475569; }}
-    .history-rate-band.high {{ background: #e6f6ec; color: #138a48; }}
-    .history-rate-band.low {{ background: #fff0f0; color: #b42318; }}
-    .history-rate-metrics {{ display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 4px; font-size: 12px; }}
-    .history-rate-metrics span {{ white-space: nowrap; }}
-    .history-rate-metrics b {{ font-weight: 900; }}
-    .history-rate-outcomes {{ display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; font-size: 11px; }}
-    .history-dropdown {{ margin-top: 6px; border-top: 1px dashed #efb4b4; padding-top: 4px; }}
-    .history-dropdown summary {{ cursor: pointer; text-align: right; color: #b42318; font-weight: 800; font-size: 11px; list-style: none; }}
-    .history-dropdown summary::-webkit-details-marker {{ display: none; }}
-    .history-dropdown summary::after {{ content: " ▼"; font-size: 10px; }}
-    .history-dropdown[open] summary::after {{ content: " ▲"; }}
-    .history-detail {{ margin-top: 6px; border-top: 1px dashed #cbd5e1; padding-top: 5px; font-size: 10px; line-height: 1.35; }}
-    .history-detail-row {{ display: grid; grid-template-columns: 76px minmax(125px, 1fr) 42px 38px 54px; gap: 4px; align-items: center; }}
-    .history-detail-row span {{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
-    .history-high-team {{ color: #b42318; background: #ffe2e2; border: 1px solid #ef9a9a; border-radius: 3px; padding: 0 3px; font-weight: 800; }}
-    .history-low-team {{ color: #176b31; background: #e2f5e5; border: 1px solid #9bd2a6; border-radius: 3px; padding: 0 3px; font-weight: 800; }}
-    .settle-pill {{ padding: 1px 5px; border-radius: 3px; font-weight: 800; background: #f8fafc; }}
-    .settle-win, .settle-profit {{ color: #138a48; }}
-    .settle-half-win {{ color: #0b7d55; }}
-    .settle-push, .settle-neutral {{ color: #64748b; }}
-    .settle-half-loss {{ color: #d14d2a; }}
-    .settle-loss {{ color: #b42318; }}
     .intent-ev-badge {{
       margin-top: 8px;
       padding: 7px 8px;
@@ -3572,15 +3237,11 @@ def html_doc_v2(
     <aside class="left">
       <div class="section-title">日期与比赛</div>
       <div class="date-strip">
-        <label>列表日</label>
         <select id="dateSelect"></select>
         <div class="mini-stat" id="dateCount">0 场</div>
         <label class="bettable-toggle" title="只显示当前日期下通过严格skill漏斗的可投注/半仓可投注赛事；已开赛/已结算的候选保留用于回看，不代表可赛后下注">
           <input type="checkbox" id="bettableFilter">
           <span>筛选当日可投注赛事</span>
-        </label>
-        <label class="rate-filter">历史联赛胜率
-          <select id="historyRateFilter"><option value="全部">全部</option><option value="high">高胜率参考</option><option value="low">低胜率风险</option></select>
         </label>
       </div>
       <div class="searchbox"><input id="matchSearch" placeholder="搜索中文比赛、联赛、盘口"></div>
@@ -3647,7 +3308,6 @@ def html_doc_v2(
 <script>
 const cardsData = {js_data(cards)};
 cardsData.forEach((r, idx) => {{ r.__initialIndex = idx; }});
-let historyRateRows = [];
 const stats = {js_data(stats)};
 const defaultDate = "{default_date}";
 const intentMatrixData = stats.intent_matrix || {{tags: [], matrix: [], detail: [], source: "未生成"}};
@@ -4073,14 +3733,7 @@ function cupContextRows(r) {{
   const fields = [["Assessment_Team_Name", "网关评估球队"], ["Match_Nature", "赛事属性"],
     ["Schedule_Density", "赛程密度"], ["Rotation_Risk", "轮换风险"],
     ["Strategic_Intent", "战意评级"], ["Selected_Venue", "所选侧主客场"],
-    ["Adjusted_Confidence", "调整后信心评分"], ["Gateway_Status", "赛制与轮换网关"],
-    ["Competition_Domain", "杯赛赛事域"], ["Cup_Match_State", "杯赛阶段"],
-    ["Cup_Qualification_Utility", "晋级效用"], ["Cup_Rotation_Risk", "杯赛轮换证据"],
-    ["Cup_Rest_Days", "休息天数"], ["Cup_Context_Missing", "杯赛缺失字段"],
-    ["Football_Pull_Score", "足球拉力评分"], ["Public_Pull", "公众拉力"],
-    ["fair_goal_margin", "公平净胜球代理"], ["fair_handicap", "公平盘口代理"],
-    ["line_gap", "实际盘-Fair Line"], ["Cup_Bayes_Level", "贝叶斯收缩层级"],
-    ["Cup_Bayes_Posterior", "杯赛后验有效率"], ["Cup_Decision_Logic", "杯赛决策约束"]];
+    ["Adjusted_Confidence", "调整后信心评分"], ["Gateway_Status", "赛制与轮换网关"]];
   return fields.map(([key, label]) => {{
     let value = key === "Assessment_Team_Name" ? (r[key] || r.Assessment_Team_ID) : r[key];
     if (key === "Gateway_Status") value = ({{PASS:"前置通过，待后续校验", QUARTER_CAP:"最多0.25标准仓", SKIP:"强制跳过", DATA_PENDING:"资料待核"}})[value] || value;
@@ -4294,151 +3947,9 @@ function bettableFilterEnabled() {{
   return Boolean(document.getElementById("bettableFilter")?.checked);
 }}
 
-function concreteCompetitionName(value) {{
-  const s = String(value || "").trim();
-  return Boolean(s) && !s.includes("系列") && !["全部", "未标注", "未知赛事", "UNKNOWN"].includes(s);
-}}
-
-function historyRateBandForMatch(r) {{
-  const competition = String(r.league || "").trim();
-  if (!concreteCompetitionName(competition)) return "";
-  const row = historyRateRows.find(x => String(x.version || "") === "V3"
-    && String(x.match_id || "") === String(r.match_id || "")
-    && String(x.competition || "").trim() === competition);
-  if (!row || Number(row.historical_settled_sample || 0) < 8) return "";
-  const rate = Number(row.effective_win_rate);
-  if (!Number.isFinite(rate)) return "";
-  return rate > 0.55 ? "high" : rate < 0.45 ? "low" : "";
-}}
-
-function historyRateMode() {{
-  return document.getElementById("historyRateFilter")?.value || "全部";
-}}
-
-function historyRateIds() {{
-  const mode = historyRateMode();
-  if (mode === "全部") return null;
-  return new Set(historyRateRows
-    .filter(x => String(x.version || "") === "V3")
-    .filter(x => concreteCompetitionName(x.competition))
-    .filter(x => Number(x.historical_settled_sample || 0) >= 8 && Number.isFinite(Number(x.effective_win_rate)))
-    .filter(x => mode === "high" ? Number(x.effective_win_rate) > 0.55 : Number(x.effective_win_rate) < 0.45)
-    .map(x => String(x.match_id || "")));
-}}
-
-function historyMatchClass(r) {{
-  const latest = allDates()[0] || "";
-  const band = String(r.date || "") === latest ? historyRateBandForMatch(r) : "";
-  return band ? ` history-${{band}}-match` : "";
-}}
-
-function historyMatchTeams(r) {{
-  const match = String(r.display_match || "");
-  const parts = match.split(/\s+vs\s+/i);
-  if (parts.length !== 2) return match;
-  const band = String(r.date || "") === (allDates()[0] || "") ? historyRateBandForMatch(r) : "";
-  const cls = band === "high" ? "history-high-team" : band === "low" ? "history-low-team" : "";
-  return `<span class="${{cls}}">${{parts[0]}}</span> vs <span class="${{cls}}">${{parts[1]}}</span>`;
-}}
-
-async function loadHistoryRates(date) {{
-  historyRateRows = [];
-  try {{
-    const response = await fetch(`../reviews/league_history/${{date}}/league_history_alert_${{date}}.json?ts=${{Date.now()}}`);
-    if (response.ok) historyRateRows = (await response.json()).rows || [];
-  }} catch (e) {{ historyRateRows = []; }}
-}}
-
-function historyRateAlertHtml(r) {{
-  const rows = historyRateRows
-    .filter(x => String(x.version || "") === "V3")
-    .filter(x => String(x.match_id || "") === String(r.match_id || ""))
-    ;
-  if (!rows.length) return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong><br>本场暂无对应的 Excel 历史记录；历史样本按当前列表日前的已结算冻结记录计算。</div>`;
-  return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong>${{rows.map(x => {{
-    const side = x.market_side === "upper" ? "上盘" : x.market_side === "receiving" ? "下盘" : (x.market_side || "方向待核");
-    const band = x.rate_band || x.alert_band || "常规样本";
-    const rateValue = Number(x.effective_win_rate);
-    const rate = x.effective_win_rate === "" || x.effective_win_rate == null ? "—" : pct(rateValue);
-    const rateClass = Number.isFinite(rateValue) ? (rateValue > 0.55 ? "settle-profit" : rateValue < 0.45 ? "settle-loss" : "settle-neutral") : "settle-neutral";
-    const pnlValue = Number(x.pnl_1u);
-    const hasPnl = x.pnl_1u !== "" && x.pnl_1u != null && Number.isFinite(pnlValue);
-    const pnl = hasPnl ? `${{pnlValue >= 0 ? "+" : ""}}${{pnlValue.toFixed(2)}}U` : "待核";
-    const pnlClass = hasPnl ? (pnlValue >= 0 ? "settle-profit" : "settle-loss") : "settle-neutral";
-    const roiValue = Number(x.roi);
-    const hasRoi = x.roi !== "" && x.roi != null && Number.isFinite(roiValue);
-    const roi = hasRoi ? pct(roiValue) : "待核";
-    const roiClass = hasRoi ? (roiValue >= 0 ? "settle-profit" : "settle-loss") : "settle-neutral";
-    const bandClass = String(band).includes("高") ? "high" : String(band).includes("低") ? "low" : "";
-    const outcomes = [
-      ["红", x.红 ?? 0, "settle-win"], ["半红", x.半红 ?? 0, "settle-half-win"], ["走", x.走 ?? 0, "settle-push"],
-      ["半黑", x.半黑 ?? 0, "settle-half-loss"], ["黑", x.黑 ?? 0, "settle-loss"]
-    ].map(([label, value, cls]) => `<span class="settle-pill ${{cls}}">${{label}} ${{value}}</span>`).join("");
-    const detailRows = Array.isArray(x.history_matches) ? x.history_matches : [];
-    const details = detailRows.length ? `<details class="history-dropdown"><summary>展开历史比赛（${{detailRows.length}}场）</summary><div class="history-detail"><div class="muted">Excel同赛事历史明细（已结算）</div>${{detailRows.map(d => {{
-      const dp = d.pnl_1u === "" || d.pnl_1u == null ? "—" : `${{Number(d.pnl_1u) >= 0 ? "+" : ""}}${{Number(d.pnl_1u).toFixed(2)}}U`;
-      const dr = d.roi === "" || d.roi == null ? "—" : pct(Number(d.roi));
-      return `<div class="history-detail-row"><span>${{clean(d.date)}}</span><span title="${{clean(d.match)}}">${{clean(d.match)}}</span><span>${{clean(d.score || "—")}}</span><span>${{clean(d.settlement || "—")}}</span><span>${{dp}} / ${{dr}}</span></div>`;
-    }}).join("")}}</div></details>` : "";
-    return `<div class="history-rate-record">
-      <div class="history-rate-top"><strong>${{clean(x.competition || r.league)}}</strong><span class="history-rate-band ${{bandClass}}">${{clean(band)}}</span></div>
-      <div class="history-rate-metrics"><span>近期 <b>${{x.historical_settled_sample ?? 0}}场</b></span><span>有效胜率 <b class="${{rateClass}}">${{rate}}</b></span><span class="${{pnlClass}}">PnL <b>${{pnl}}</b></span><span class="${{roiClass}}">ROI <b>${{roi}}</b></span></div>
-      <div class="history-rate-outcomes">${{outcomes}}</div>
-      <div class="muted">${{side}}：${{clean(x.selected_team || "方向待核")}}</div>
-      ${{details}}
-    </div>`;
-  }}).join("")}}<div class="muted" style="margin-top:5px;">口径：同名具体联赛/杯赛；统计截止当前列表日前已结算记录；高胜率&gt;55%，低胜率&lt;45%，45%-55%为常规样本。</div></div>`;
-}}
-
-function cupRegressionDecision(r, proposal) {{
-  if (!r.Cup_Refactor_Eligible) return proposal;
-  const details = [...(proposal.details || [])];
-  details.push(`杯赛前置网关：state=${{r.Cup_Match_State || "MISSING"}}，utility=${{r.Cup_Qualification_Utility || "MISSING"}}，rotation=${{r.Cup_Rotation_Risk || "MISSING"}}；缺失字段=${{r.Cup_Context_Missing || "NONE"}}。`);
-  details.push(`拉力拆解：Football Pull=${{r.Football_Pull_Score ?? "MISSING"}}；Public Pull=${{r.Public_Pull ?? "MISSING"}}；fair_handicap=${{r.fair_handicap ?? "MISSING"}}；line_gap=${{r.line_gap ?? "MISSING"}}。`);
-  details.push(`四级收缩：${{r.Cup_Bayes_Level || "MISSING"}}，posterior=${{r.Cup_Bayes_Posterior ? pct(Number(r.Cup_Bayes_Posterior)) : "MISSING"}}，L1/L2/L3/L4 n=${{r.Cup_Bayes_Local_N || 0}}/${{r.Cup_Bayes_Domain_N || 0}}/${{r.Cup_Bayes_Micro_N || 0}}/${{r.Cup_Bayes_Global_N || 0}}。`);
-  if (String(r.Cup_Intent || "") === "平衡盘/等待临场确认") {{
-    const reason = `杯赛比赛级Fair Line与原盘口Intent冲突：${{r.Cup_Intent_Reason || "CONFLICT"}}；不是按杯种禁投`;
-    return {{...proposal, action:"不投", mode:"none", team:"无，不投", reason, details,
-      cupRegressionGuard:"MATCH_SPECIFIC_INTENT_CONFLICT"}};
-  }}
-  if (!isBettableDecision(proposal)) return {{...proposal, details}};
-  const posterior = Number(r.Cup_Bayes_Posterior || 0);
-  const weight = Number(r.Cup_Bayes_Weight || 0);
-  const baseRate = Number(proposal.rate || 0);
-  if (!(posterior > 0) || !(weight > 0) || !(baseRate > 0)) return {{...proposal, details}};
-  const adjustedRate = baseRate * (1 - weight) + posterior * weight;
-  const threshold = Number(proposal.threshold || breakevenThreshold(Number(proposal.water || 0)) || 0);
-  details.push(`杯赛收缩后胜率=${{pct(adjustedRate)}}（原${{pct(baseRate)}}，历史后验权重${{pct(weight)}}）；赛事名不直接决定动作。`);
-  if (threshold > 0 && adjustedRate < threshold) {{
-    const reason = `杯赛分层收缩后胜率${{pct(adjustedRate)}}低于水位阈值${{pct(threshold)}}；由比赛状态+分层证据触发，不是杯赛一刀切`;
-    return {{...proposal, action:"不投", reason, details, rate:adjustedRate,
-      cupRegressionGuard:"HIERARCHICAL_SUPPORT_BELOW_PRICE"}};
-  }}
-  return {{...proposal, details, rate:adjustedRate,
-    reason:`${{proposal.reason}}；杯赛分层收缩后${{pct(adjustedRate)}}仍通过`,
-    cupRegressionGuard:"COVERAGE_RETAINED"}};
-}}
-
 function plannedSkillDecision(r) {{
-  const frozen = frozenSkillDecision(r);
-  if (frozen) return frozen;
-  const cell = intentMatrixCell(String(r.intent_line_bucket || "").trim(), String(r.intent_tag || "").trim());
-  const filterOptions = {{ ignoreStateGate: true }};
-  const rawProposal = r.top5_policy && r.top5_policy.is_top5
-    ? top5Decision(r, cell, filterOptions) || frameworkDecision(r, cell, filterOptions)
-    : frameworkDecision(r, cell, filterOptions);
-  const proposal = cupRegressionDecision(r, rawProposal);
-  const previous = r.previous_saved_decision;
-  const proposedIndex = String(r.match || "").split(" vs ").indexOf(String(proposal.team || "").split("（")[0]);
-  if (previous && isBettableDecision(previous) && isBettableDecision(proposal)
-      && r.previous_selected_index >= 0 && proposedIndex >= 0
-      && r.previous_selected_index !== proposedIndex) {{
-    const reason = `变盘改向待核：原计划${{previous.team}}；新候选${{proposal.team}}。尚无独立逆公众阻力证据，本次暂停，不沿用旧水位追投。`;
-    return {{...proposal, action:"不投", mode:"none", team:"无，不投", reason,
-      details:[...(proposal.details || []), reason], previousDecision:previous, proposedDecision:proposal,
-      currentExecutionStatus:"REVERSAL_EVIDENCE_PENDING"}};
-  }}
-  return proposal;
+  if (r.decision_result) return r.decision_result;
+  return {{action:"不投", mode:"none", team:"", reason:"NO_VALID_PREMATCH_DECISION", eligibility:"NO_VALID_PREMATCH_DECISION"}};
 }}
 
 function isBettableDecision(decision) {{
@@ -4471,25 +3982,19 @@ function rowsForDate() {{
   const filtered = cardsData
     .filter(r => r.date === d)
     .filter(r => !q || Object.values(r).join(" ").toLowerCase().includes(q));
-  const rateIds = historyRateIds();
-  const rateFiltered = rateIds ? filtered.filter(r => rateIds.has(String(r.match_id || ""))) : filtered;
 
   if (bettableFilterEnabled()) {{
-    // V3 is the production authority: once a daily decision is frozen, the
-    // filter must display that decision verbatim for both current and old
-    // list dates. Recomputing the newest date in the browser could turn a
-    // valid backend bettable row into an apparent zero after a refresh.
-    const frozenRows = rateFiltered.filter(r => r.frozen_bettable || isBettableDecision(r.saved_skill_decision));
+    const latestDate = allDates()[0] || "";
+    const isHistorical = Boolean(latestDate && d < latestDate);
+    const frozenRows = isHistorical ? filtered.filter(r => r.frozen_bettable) : [];
     if (frozenRows.length > 0) {{
       return frozenRows.sort((a, b) => {{
         return (kickoffSortValue(a) - kickoffSortValue(b))
           || String(a.display_match).localeCompare(String(b.display_match), "zh-Hans-CN");
       }});
     }}
-    const latestDate = allDates()[0] || "";
-    const isHistorical = Boolean(latestDate && d < latestDate);
     const shouldRebuildLegacy = isHistorical && frozenRows.length === 0 && legacyComputedBettableDates.has(d);
-    const bettableBase = isHistorical && !shouldRebuildLegacy ? frozenRows : rateFiltered;
+    const bettableBase = isHistorical && !shouldRebuildLegacy ? frozenRows : filtered;
     return bettableBase
       .map(r => ({{ r, decision: plannedSkillDecision(r) }}))
       .filter(x => isBettableDecision(x.decision))
@@ -4505,15 +4010,9 @@ function rowsForDate() {{
       .map(x => x.r);
   }}
 
-  return rateFiltered.sort((a, b) => {{
+  return filtered.sort((a, b) => {{
       return Number(a.__initialIndex || 0) - Number(b.__initialIndex || 0);
     }});
-}}
-
-function isAbnormalCard(r) {{
-  const s = String(r.state || "");
-  return ["-10", "-11", "-12", "-13", "-14"].includes(s)
-    || ["取消", "延期", "取消/延期", "中止", "中断", "中止/中断"].includes(String(r.display_status || ""));
 }}
 
 function rankedRowsForDateLegacy() {{
@@ -4539,9 +4038,7 @@ function rankedRowsForDateLegacy() {{
 
 function renderDates() {{
   const dates = allDates();
-  // Always land on the newest embedded list_date. defaultDate remains only
-  // as a compatibility fallback for an empty/legacy payload.
-  const selected = dates[0] || defaultDate;
+  const selected = dates.includes(defaultDate) ? defaultDate : dates[0];
   document.getElementById("dateSelect").innerHTML = dates.map(d => `<option value="${{d}}" ${{d === selected ? "selected" : ""}}>${{d}}</option>`).join("");
 }}
 
@@ -4553,8 +4050,7 @@ function renderList(selectedMatch = null) {{
   const isShortBettableList = onlyBettable && rows.length > 0 && rows.length <= 8;
   if (left) left.classList.toggle("short-list", isShortBettableList);
   list.scrollTop = 0;
-  const activeCount = rows.filter(r => !isAbnormalCard(r)).length;
-  document.getElementById("dateCount").textContent = onlyBettable ? `${{rows.length}} 场可投` : `${{activeCount}} 场（取消/延期不计）`;
+  document.getElementById("dateCount").textContent = onlyBettable ? `${{rows.length}} 场可投` : `${{rows.length}} 场`;
   if (!rows.length) {{
     if (left) left.classList.remove("short-list");
     list.innerHTML = onlyBettable
@@ -4567,9 +4063,9 @@ function renderList(selectedMatch = null) {{
   const selectedRow = rows.find(r => r.display_match === selected) || rows[0];
   const mobile = isMobileView();
   list.innerHTML = rows.map((r, idx) => `
-    <button class="match-item ${{!mobile && r.display_match === selected ? "active" : ""}}${{historyMatchClass(r)}}" data-idx="${{idx}}" aria-expanded="false">
+    <button class="match-item ${{!mobile && r.display_match === selected ? "active" : ""}}" data-idx="${{idx}}" aria-expanded="false">
       <div>
-        <div class="match-main${{historyMatchClass(r)}}">${{historyMatchTeams(r)}}</div>
+        <div class="match-main">${{r.display_match}}</div>
         <div class="match-meta">${{r.display_time}} ｜ ${{r.league}} ｜ ${{r.market}}：${{r.pick}} ｜ 比分：${{r.display_score}}</div>
       </div>
       <span class="tag ${{tagClass(r.display_status)}}">${{r.display_status}}</span>
@@ -4786,7 +4282,7 @@ function renderDetail(r) {{
   document.getElementById("marketTag").textContent = r.odds_status || (r.matched_odds ? "Titan007部分赔率已匹配" : "赔率待核");
   document.getElementById("oddsTable").innerHTML = oddsRows(r);
   document.getElementById("pickBox").innerHTML =
-    `${{historyRateAlertHtml(r)}}<div class="intent-ev-badge">${{intentEvBadge(r)}}</div>`;
+    `<div class="intent-ev-badge">${{intentEvBadge(r)}}</div>`;
 
   document.getElementById("historyBox").innerHTML = `
     <div class="kv"><div class="k">双方历史战绩</div><div class="v">${{clean(r.h2h_source)}}</div></div>
@@ -4870,17 +4366,16 @@ function init() {{
   renderIntentMatrix();
   renderTagPerformance();
   renderDates();
-  document.getElementById("dateSelect").addEventListener("change", async () => {{ await loadHistoryRates(document.getElementById("dateSelect").value); renderList(); }});
+  document.getElementById("dateSelect").addEventListener("change", () => renderList());
   document.getElementById("matchSearch").addEventListener("input", () => renderList());
   document.getElementById("bettableFilter").addEventListener("change", () => renderList());
-  document.getElementById("historyRateFilter").addEventListener("change", () => renderList());
   window.addEventListener("resize", () => {{
     const rows = rowsForDate();
     const active = document.querySelector(".match-item.active");
     const row = active ? rows[Number(active.dataset.idx)] : null;
     renderMobileDetail(row, active);
   }});
-  loadHistoryRates(document.getElementById("dateSelect").value).then(() => renderList());
+  renderList();
 }}
 
 init();
@@ -4901,6 +4396,7 @@ def main() -> int:
     shutil.copy2(output, snapshot_dir / "index.html")
     print(f"dashboard={output}")
     print(f"dashboard_snapshot={snapshot_dir / 'index.html'}")
+    print("dashboard_mode=render_only")
     print(f"cards={len(cards)} settled={stats['settled']} win_rate={stats['win_rate']}")
     return 0
 

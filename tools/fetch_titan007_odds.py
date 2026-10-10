@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import csv
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import datetime as dt
@@ -981,12 +982,251 @@ def parse_primary_odds_triplet(text: str) -> dict[str, float | str]:
         )
     if not candidates:
         return {}
+    # Browser-rendered Titan pages may contain a visible but malformed
+    # promotional/live row (for example 7.14/0.02).  Those are not valid HK
+    # Asian prices and must not win the bookmaker preference just because the
+    # company name matches first.  Keep only plausible decimal prices when at
+    # least one complete row is available.
+    usable = [
+        cand
+        for cand in candidates
+        if all(0.20 <= float(cand[key]) <= 2.50 for key in (
+            "open_home", "open_away", "current_home", "current_away"
+        ))
+    ]
+    if usable:
+        candidates = usable
     preferences = ("Crow", "36", "澳", "易胜", "伟", "明", "10", "12", "利", "盈", "18")
     for pref in preferences:
         for cand in candidates:
             if pref in str(cand["company"]):
                 return cand
     return candidates[0]
+
+
+def browser_market_priority(row: dict[str, object]) -> tuple[int, str, str]:
+    """Order the browser recovery queue by coverage value, then kickoff.
+
+    Titan's VIP detail host is rate limited.  A bounded queue must therefore
+    spend its first batch on the leagues the dashboard promises to cover:
+    top-five Europe, North/South America, Japan/Korea, and explicit tier/cup
+    competitions.  This changes only fetch order; it never fills a market.
+    """
+    text = " ".join(
+        str(row.get(key, "") or "")
+        for key in ("league_cn", "league_tw", "league_en", "competition")
+    ).lower()
+    if any(token in text for token in (
+        "英超", "西甲", "意甲", "德甲", "法甲", "premier league", "la liga",
+        "serie a", "bundesliga", "ligue 1",
+    )):
+        priority = 0
+    elif any(token in text for token in (
+        "美职联", "美大联盟", "墨西", "巴西", "阿甲", "阿乙", "哥伦比亚",
+        "智利", "厄瓜多尔", "乌拉圭", "mls", "liga mx", "brazil", "argentina",
+        "colombia", "chile", "ecuador", "uruguay", "concacaf", "conmebol",
+    )):
+        priority = 1
+    elif any(token in text for token in (
+        "日职", "日乙", "日丙", "日足", "日本", "韩k", "韩国", "j.league",
+        "japan", "k league", "korea",
+    )):
+        priority = 2
+    elif any(token in text for token in (
+        "tier_1", "tier_2", "tier_3", "一级", "二级", "三级", "杯", "cup",
+        "championship", "league 1", "league 2",
+    )):
+        priority = 3
+    else:
+        priority = 4
+    kickoff = str(row.get("bj_time") or row.get("match_time_en") or "")
+    match_id = str(row.get("match_id") or "")
+    return priority, kickoff, match_id
+
+
+def browser_recover_vip_pages(
+    completed: dict[str, tuple[dict[str, object], bool]],
+    ids_to_fetch: list[str],
+    stamp: str,
+    out_dir: Path,
+) -> tuple[int, int, int]:
+    """Recover missing Titan VIP markets through a real Chromium session.
+
+    The VIP host rejects the curl/urllib transport but serves the same pages
+    to Chromium.  Use bounded async pages so this fallback restores coverage
+    without serially opening a new browser for every match.  Returned odds are
+    still parsed from the source HTML; no value is inferred or synthesized.
+    """
+    jobs: list[tuple[str, str]] = []
+    markets = {
+        item.strip().lower()
+        for item in os.environ.get("TITAN_BROWSER_MARKETS", "ah").split(",")
+        if item.strip().lower() in {"ah", "total"}
+    } or {"ah"}
+    for match_id in ids_to_fetch:
+        row = completed[match_id][0]
+        ah_complete = all(
+            str(row.get(key, "") or "").strip()
+            for key in (
+                "ah_full_current_home_or_over",
+                "ah_full_current_line_or_draw",
+                "ah_full_current_away_or_under",
+            )
+        )
+        total_complete = all(
+            str(row.get(key, "") or "").strip()
+            for key in (
+                "total_full_current_home_or_over",
+                "total_full_current_line_or_draw",
+                "total_full_current_away_or_under",
+            )
+        )
+        if "ah" in markets and not ah_complete:
+            jobs.append((match_id, "ah"))
+        if "total" in markets and not total_complete:
+            jobs.append((match_id, "total"))
+    if not jobs:
+        return 0, 0, 0
+
+    # Do not fan out an entire 1,000-match slate against a rate-limited host.
+    # The next daily refresh will resume from the still-missing rows.  Set the
+    # variable to 0 explicitly when a controlled full pass is desired.
+    jobs.sort(key=lambda item: browser_market_priority(completed[item[0]][0]))
+    batch_limit = max(0, int(os.environ.get("TITAN_BROWSER_BATCH_LIMIT", "240")))
+    queued_jobs = len(jobs)
+    if batch_limit:
+        jobs = jobs[:batch_limit]
+
+    chrome_candidates = (
+        Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
+        Path(r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"),
+        Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
+    )
+    executable = next((path for path in chrome_candidates if path.exists()), None)
+    if executable is None:
+        raise RuntimeError("Chromium executable unavailable for Titan VIP fallback")
+
+    async def fetch_all() -> list[tuple[str, str, dict[str, float | str], str]]:
+        from playwright.async_api import async_playwright
+
+        max_workers = max(1, int(os.environ.get("TITAN_BROWSER_MAX_WORKERS", "1")))
+        timeout_ms = max(5_000, int(os.environ.get("TITAN_BROWSER_TIMEOUT_MS", "20_000")))
+        max_attempts = max(1, int(os.environ.get("TITAN_BROWSER_ATTEMPTS", "2")))
+        request_interval = max(0.0, float(os.environ.get("TITAN_BROWSER_REQUEST_INTERVAL", "0.75")))
+        save_browser_html = os.environ.get("TITAN_SAVE_BROWSER_HTML", "0") == "1"
+        semaphore = asyncio.Semaphore(max_workers)
+        request_lock = asyncio.Lock()
+        block_lock = asyncio.Lock()
+        next_request_at = 0.0
+        host_blocked = False
+
+        async def before_request() -> bool:
+            nonlocal next_request_at
+            async with request_lock:
+                if host_blocked:
+                    return False
+                now = time.monotonic()
+                wait = max(0.0, next_request_at - now)
+                next_request_at = max(now, next_request_at) + request_interval
+            if wait:
+                await asyncio.sleep(wait)
+            return not host_blocked
+
+        async def trip_circuit(error: str) -> None:
+            nonlocal host_blocked
+            marker = error.upper()
+            if any(token in marker for token in (
+                "HTTP2_PROTOCOL_ERROR", "ERR_EMPTY_RESPONSE", "ERR_CONNECTION_CLOSED",
+                "HTTP_443", "CONNECTION_RESET",
+            )):
+                async with block_lock:
+                    host_blocked = True
+
+        async with async_playwright() as playwright:
+            browser = await playwright.chromium.launch(headless=True, executable_path=str(executable))
+            context = await browser.new_context(
+                ignore_https_errors=True,
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
+            )
+
+            async def fetch_one(match_id: str, market: str) -> tuple[str, str, dict[str, float | str], str]:
+                async with semaphore:
+                    endpoint = "AsianOdds_n.aspx" if market == "ah" else "OverDown_n.aspx"
+                    url = f"{VIP_BASE}/{endpoint}?id={match_id}&l=0"
+                    last_error = ""
+                    for attempt in range(max_attempts):
+                        if not await before_request():
+                            return match_id, market, {}, "browser_host_cooldown"
+                        page = await context.new_page()
+                        try:
+                            response = await page.goto(
+                                url,
+                                wait_until="domcontentloaded",
+                                timeout=timeout_ms,
+                                referer=f"{BF_BASE}/football/Next_{stamp[:8]}.htm",
+                            )
+                            html_text = await page.content()
+                            parsed = parse_primary_odds_triplet(html_text)
+                            status = str(response.status if response else "")
+                            if parsed:
+                                if save_browser_html:
+                                    await asyncio.to_thread(
+                                        (out_dir / f"{stamp}_future_{match_id}_{market}_browser.html").write_text,
+                                        html_text,
+                                        encoding="utf-8",
+                                    )
+                                return match_id, market, parsed, ""
+                            last_error = f"browser_empty_market_http_{status}"
+                            await trip_circuit(last_error)
+                        except Exception as exc:
+                            last_error = f"{type(exc).__name__}: {exc}"
+                            await trip_circuit(last_error)
+                        finally:
+                            await page.close()
+                        if host_blocked:
+                            return match_id, market, {}, last_error or "browser_host_cooldown"
+                        if attempt + 1 < max_attempts:
+                            await asyncio.sleep(1.5 * (attempt + 1))
+                    return match_id, market, {}, last_error
+
+            try:
+                return await asyncio.gather(*(fetch_one(match_id, market) for match_id, market in jobs))
+            finally:
+                await browser.close()
+
+    results = asyncio.run(fetch_all())
+    recovered_ah = 0
+    recovered_total = 0
+    failed = 0
+    for match_id, market, parsed, error in results:
+        base_row, fetched_any = completed[match_id]
+        if parsed:
+            prefix = "ah" if market == "ah" else "total"
+            base_row.update({
+                f"{prefix}_full_open_home_or_over": parsed["open_home"],
+                f"{prefix}_full_open_line_or_draw": parsed["open_line"],
+                f"{prefix}_full_open_away_or_under": parsed["open_away"],
+                f"{prefix}_full_current_home_or_over": parsed["current_home"],
+                f"{prefix}_full_current_line_or_draw": parsed["current_line"],
+                f"{prefix}_full_current_away_or_under": parsed["current_away"],
+                f"{prefix}_full_company": f"Titan007 Chromium {parsed['company']}",
+                f"future_{market}_fetch_fallback": "PLAYWRIGHT_CHROMIUM",
+            })
+            base_row.pop(f"future_{market}_fetch_error", None)
+            fetched_any = True
+            if market == "ah":
+                recovered_ah += 1
+            else:
+                recovered_total += 1
+        else:
+            failed += 1
+            base_row[f"future_{market}_browser_error"] = error
+        completed[match_id] = (base_row, fetched_any)
+    print(
+        f"future_browser_queue={queued_jobs} batch={len(jobs)} skipped={max(0, queued_jobs - len(jobs))}",
+        file=sys.stderr,
+    )
+    return recovered_ah, recovered_total, failed
 
 
 def parse_euro_index(text: str) -> dict[str, dict[str, float | str]]:
@@ -1331,10 +1571,27 @@ def enrich_future_odds(
         or completed[match_id][0].get("future_total_fetch_error")
     ]
     browser_recovered = 0
-    # Browser fallback is intentionally opt-in.  A blocked/empty VIP page can
-    # otherwise make a daily refresh wait 30 seconds per match even after the
-    # curl transport has already completed the usable responses.
-    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "0") == "1":
+    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "1":
+        try:
+            browser_recovered_ah, browser_recovered_total, browser_failed = browser_recover_vip_pages(
+                completed, ids_to_fetch, stamp, out_dir,
+            )
+            browser_recovered = browser_recovered_ah + browser_recovered_total
+            print(
+                f"future_browser_recovered_ah={browser_recovered_ah} "
+                f"future_browser_recovered_total={browser_recovered_total} "
+                f"future_browser_failed={browser_failed}",
+                file=sys.stderr,
+            )
+        except Exception as exc:
+            for match_id in failed_ids:
+                base_row, fetched_any = completed[match_id]
+                base_row["future_browser_fallback_error"] = str(exc)
+                completed[match_id] = (base_row, fetched_any)
+            print(f"future_browser_fallback_failed={exc}", file=sys.stderr)
+    # Keep the old serial Playwright path available only as an explicit
+    # emergency mode; the async Chromium path above is the normal fallback.
+    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "legacy":
         try:
             from playwright.sync_api import sync_playwright
 
@@ -1558,7 +1815,10 @@ def freeze_started_match_odds(rows: list[dict[str, object]], current_stamp: str)
         if not match_id or state == "0" or not prior:
             continue
         for key, value in prior.items():
-            if is_odds_key(key):
+            # An older snapshot may contain the column but no market value.
+            # Never let that empty placeholder erase a real quote fetched in
+            # the current refresh (especially after the browser fallback).
+            if is_odds_key(key) and str(value or "").strip():
                 row[key] = value
         row["odds_frozen_from_snapshot"] = prior.get("snapshot_stamp", "")
         row["latest_snapshot_stamp"] = current_stamp
