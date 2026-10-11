@@ -350,6 +350,17 @@ def normalize_date_key(value: str) -> str:
     return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
 
 
+def display_date_from_kickoff(time_value: str, fallback: str) -> str:
+    """Use the Beijing kickoff date in the V3 date selector.
+
+    Keep the Excel list/snapshot date for joins and frozen decisions, but do
+    not make a next-day slate appear under the scrape date.  For example,
+    rows listed on 10/10 with a 10/11 kickoff must be selectable as 10/11.
+    """
+    match = re.match(r"\s*(\d{4}-\d{1,2}-\d{1,2})\b", str(time_value or ""))
+    return normalize_date_key(match.group(1)) if match else normalize_date_key(fallback)
+
+
 def frozen_match_keys(date: str, match: str) -> list[str]:
     date_key = normalize_date_key(date)
     variants: list[str] = []
@@ -2092,6 +2103,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
         if date == TODAY.isoformat() and o.get("source_match"):
             shown_match = o["source_match"]
         shown_time = display_time(o["time"], matched, date)
+        display_date = display_date_from_kickoff(o.get("time", ""), date)
         shown_score = display_score(o["score"], result, matched)
         shown_status = titan_state_label(o["state"], matched, result, o.get("time", ""), o.get("score", ""))
         decimal = extract_decimal(r.get("模拟盘口/价格", ""))
@@ -2148,6 +2160,7 @@ def build_rows() -> tuple[list[dict[str, object]], dict[str, object]]:
         cards.append(
             {
                 "date": date,
+                "display_date": display_date,
                 "league": translate_text(r.get("赛事", "")),
                 "match": shown_match,
                 "display_match": shown_match,
@@ -2954,9 +2967,9 @@ def html_doc_v2(
     # this HTML before advancing that pointer, which previously left a fresh
     # 10/03 page opening on 10/02.
     card_dates = {
-        str(card.get("date") or "").strip()
+        str(card.get("display_date") or card.get("date") or "").strip()
         for card in cards
-        if str(card.get("date") or "").strip()
+        if str(card.get("display_date") or card.get("date") or "").strip()
     }
     default_date = max(card_dates) if card_dates else TODAY.isoformat()
     current_pointer = Path(r"D:\codex\outputs\football_odds_trader\dashboard\data\current.json")
@@ -4326,9 +4339,13 @@ function historyRateIds() {{
     .map(x => String(x.match_id || "")));
 }}
 
+function cardViewDate(r) {{
+  return String(r.display_date || r.date || "").trim();
+}}
+
 function historyMatchClass(r) {{
   const latest = allDates()[0] || "";
-  const band = String(r.date || "") === latest ? historyRateBandForMatch(r) : "";
+  const band = cardViewDate(r) === latest ? historyRateBandForMatch(r) : "";
   return band ? ` history-${{band}}-match` : "";
 }}
 
@@ -4336,7 +4353,7 @@ function historyMatchTeams(r) {{
   const match = String(r.display_match || "");
   const parts = match.split(/\s+vs\s+/i);
   if (parts.length !== 2) return match;
-  const band = String(r.date || "") === (allDates()[0] || "") ? historyRateBandForMatch(r) : "";
+  const band = cardViewDate(r) === (allDates()[0] || "") ? historyRateBandForMatch(r) : "";
   const cls = band === "high" ? "history-high-team" : band === "low" ? "history-low-team" : "";
   return `<span class="${{cls}}">${{parts[0]}}</span> vs <span class="${{cls}}">${{parts[1]}}</span>`;
 }}
@@ -4349,6 +4366,23 @@ async function loadHistoryRates(date) {{
   }} catch (e) {{ historyRateRows = []; }}
 }}
 
+function currentHistoryDirection(r) {{
+  const saved = r.saved_skill_decision || null;
+  const savedAction = String(saved?.action || "").trim();
+  const savedTeam = clean(saved?.team || "").trim();
+  if ((savedAction === "可投" || savedAction === "半仓可投") && savedTeam && savedTeam !== "无，不投") {{
+    return `${{savedAction}}｜${{savedTeam}}`;
+  }}
+  const frozenAction = String(r.frozen_bettable_action || "").trim();
+  const frozenTeam = clean(r.frozen_bettable_team || "").trim();
+  if (r.frozen_bettable && frozenAction) {{
+    return `${{frozenAction}}${{frozenTeam ? `｜${{frozenTeam}}` : ""}}`;
+  }}
+  const intentTeam = clean(r.intent_forward_team || r.intent_upper_team || "").trim();
+  if (r.ah_ok && intentTeam) return `盘口候选｜${{intentTeam}}`;
+  return "";
+}}
+
 function historyRateAlertHtml(r) {{
   const rows = historyRateRows
     .filter(x => String(x.version || "") === "V3")
@@ -4357,6 +4391,9 @@ function historyRateAlertHtml(r) {{
   if (!rows.length) return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong><br>本场暂无对应的 Excel 历史记录；历史样本按当前列表日前的已结算冻结记录计算。</div>`;
   return `<div class="history-rate-alert"><strong>Excel历史同名赛事统计（动态）</strong>${{rows.map(x => {{
     const side = x.market_side === "upper" ? "上盘" : x.market_side === "receiving" ? "下盘" : (x.market_side || "方向待核");
+    const currentDirection = currentHistoryDirection(r);
+    const historicalDirection = x.selected_team ? `${{side}}：${{clean(x.selected_team)}}` : (side === "方向待核" ? "" : side);
+    const direction = currentDirection || historicalDirection || "方向待核";
     const band = x.rate_band || x.alert_band || "常规样本";
     const rateValue = Number(x.effective_win_rate);
     const rate = x.effective_win_rate === "" || x.effective_win_rate == null ? "—" : pct(rateValue);
@@ -4384,10 +4421,34 @@ function historyRateAlertHtml(r) {{
       <div class="history-rate-top"><strong>${{clean(x.competition || r.league)}}</strong><span class="history-rate-band ${{bandClass}}">${{clean(band)}}</span></div>
       <div class="history-rate-metrics"><span>近期 <b>${{x.historical_settled_sample ?? 0}}场</b></span><span>有效胜率 <b class="${{rateClass}}">${{rate}}</b></span><span class="${{pnlClass}}">PnL <b>${{pnl}}</b></span><span class="${{roiClass}}">ROI <b>${{roi}}</b></span></div>
       <div class="history-rate-outcomes">${{outcomes}}</div>
-      <div class="muted">${{side}}：${{clean(x.selected_team || "方向待核")}}</div>
+      <div class="muted">方向：${{clean(direction)}}</div>
       ${{details}}
     </div>`;
   }}).join("")}}<div class="muted" style="margin-top:5px;">口径：同名具体联赛/杯赛；统计截止当前列表日前已结算记录；高胜率&gt;55%，低胜率&lt;45%，45%-55%为常规样本。</div></div>`;
+}}
+
+function listPickText(r) {{
+  const saved = r.saved_skill_decision || null;
+  const savedAction = String(saved?.action || "").trim();
+  const savedTeam = clean(saved?.team || "").trim();
+  if (savedAction === "可投" || savedAction === "半仓可投") {{
+    return `${{savedAction}}｜${{savedTeam || "方向已识别"}}`;
+  }}
+  if (savedAction === "不投") {{
+    if (savedTeam && savedTeam !== "无，不投") return `不投｜候选方向：${{savedTeam}}`;
+    const reason = clean(saved?.reason || "").trim();
+    if (reason) return `不投｜${{reason}}`;
+  }}
+  const frozenAction = String(r.frozen_bettable_action || "").trim();
+  const frozenTeam = clean(r.frozen_bettable_team || "").trim();
+  if (r.frozen_bettable && frozenAction) {{
+    return `${{frozenAction}}｜${{frozenTeam || "方向已识别"}}`;
+  }}
+  if (r.ah_ok) {{
+    const intent = clean(r.asian_intent || "").split("。", 1)[0].trim();
+    return intent ? `盘口已抓取｜${{intent}}` : "盘口已抓取｜方向待核";
+  }}
+  return "亚盘/两边水位缺失｜方向待核";
 }}
 
 function cupRegressionDecision(r, proposal) {{
@@ -4462,14 +4523,14 @@ function kickoffSortValue(r) {{
 }}
 
 function allDates() {{
-  return [...new Set(cardsData.map(r => r.date).filter(Boolean))].sort().reverse();
+  return [...new Set(cardsData.map(cardViewDate).filter(Boolean))].sort().reverse();
 }}
 
 function rowsForDate() {{
   const d = document.getElementById("dateSelect").value;
   const q = document.getElementById("matchSearch").value.trim().toLowerCase();
   const filtered = cardsData
-    .filter(r => r.date === d)
+    .filter(r => cardViewDate(r) === d)
     .filter(r => !q || Object.values(r).join(" ").toLowerCase().includes(q));
   const rateIds = historyRateIds();
   const rateFiltered = rateIds ? filtered.filter(r => rateIds.has(String(r.match_id || ""))) : filtered;
@@ -4520,7 +4581,7 @@ function rankedRowsForDateLegacy() {{
   const d = document.getElementById("dateSelect").value;
   const q = document.getElementById("matchSearch").value.trim().toLowerCase();
   return cardsData
-    .filter(r => r.date === d)
+    .filter(r => cardViewDate(r) === d)
     .filter(r => !q || Object.values(r).join(" ").toLowerCase().includes(q))
     .sort((a, b) => {{
       const am = a.matched_odds ? 0 : 1;
@@ -4570,7 +4631,7 @@ function renderList(selectedMatch = null) {{
     <button class="match-item ${{!mobile && r.display_match === selected ? "active" : ""}}${{historyMatchClass(r)}}" data-idx="${{idx}}" aria-expanded="false">
       <div>
         <div class="match-main${{historyMatchClass(r)}}">${{historyMatchTeams(r)}}</div>
-        <div class="match-meta">${{r.display_time}} ｜ ${{r.league}} ｜ ${{r.market}}：${{r.pick}} ｜ 比分：${{r.display_score}}</div>
+        <div class="match-meta">${{r.display_time}} ｜ ${{r.league}} ｜ ${{r.market}}：${{listPickText(r)}} ｜ 比分：${{r.display_score}}</div>
       </div>
       <span class="tag ${{tagClass(r.display_status)}}">${{r.display_status}}</span>
     </button>
@@ -4781,7 +4842,7 @@ function renderDetail(r) {{
   const proxy = modelProxy(r);
   const kelly = kellyCalc(r);
   document.getElementById("selectedTitle").textContent = r.display_match;
-  document.getElementById("selectedMeta").textContent = `${{r.date}} ｜ ${{r.display_time}} ｜ ${{r.league}} ｜ 排名/阶段：${{clean(r.rank)}} ｜ 球探状态：${{clean(r.state_label || r.state)}}（${{clean(r.state)}}）`;
+  document.getElementById("selectedMeta").textContent = `${{cardViewDate(r)}} ｜ ${{r.display_time}} ｜ ${{r.league}} ｜ 排名/阶段：${{clean(r.rank)}} ｜ 球探状态：${{clean(r.state_label || r.state)}}（${{clean(r.state)}}）`;
   document.getElementById("selectedScore").textContent = clean(r.display_score);
   document.getElementById("marketTag").textContent = r.odds_status || (r.matched_odds ? "Titan007部分赔率已匹配" : "赔率待核");
   document.getElementById("oddsTable").innerHTML = oddsRows(r);

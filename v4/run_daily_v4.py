@@ -266,7 +266,17 @@ def main() -> None:
         elif not m.get("ok") or not row.get("ah_ok") or not row.get("euro_ok"):
             base.update(competition=row.get("competition", ""), analysis_status="MISSING_DATA", grade=None, rank=None, reason_codes=["REQUIRED_MARKET_INPUT_MISSING"])
         elif m.get("pk"):
-            base.update(competition=row.get("competition", ""), analysis_status="NEUTRAL", grade=None, rank=None, reason_codes=["PK_NEUTRAL_NO_GIVING_SIDE"])
+            # A zero Asian line is a valid PK market, not a missing market.
+            # Preserve the line and both waters for the all-matches view.
+            base.update(
+                competition=row.get("competition", ""), analysis_status="NEUTRAL", grade="N", rank=None,
+                final_decision="NO_BET", reason_codes=["PK_NEUTRAL_NO_GIVING_SIDE"],
+                market={**base["market"], "pk": True, "home_handicap_signed": m["raw_line"], "away_handicap_signed": -m["raw_line"],
+                        "titan_home_handicap_signed": m["raw_line"], "titan_away_handicap_signed": -m["raw_line"],
+                        "home_water_hk": m["home_water"], "away_water_hk": m["away_water"],
+                        "giving_team": "", "receiving_team": "", "giving_water": None, "receiving_water": None,
+                        "side_identity": "Titan signed AH PK"},
+            )
         else:
             raw_intent, intent_source = derive_market_intent(row, m)
             intent = map_intent(raw_intent, pk=False)

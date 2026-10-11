@@ -479,9 +479,20 @@ def main() -> None:
                         decision_status="UNAVAILABLE_CORE_MARKET_INPUT", model_support="INSUFFICIENT_SUPPORT",
                         evidence_coverage={**base["evidence_coverage"], "asian_market": "AVAILABLE" if row.get("ah_ok") else "MISSING", "euro_market": "AVAILABLE" if row.get("euro_ok") else "MISSING"})
         elif m.get("pk"):
-            base.update(competition=row.get("competition", ""), analysis_status="NEUTRAL", grade="N", rank=None,
-                        final_decision="NO_BET", bet_unit=0.0, stake_rule="FIXED_1U",
-                        reason_codes=["PK_NO_GIVING_RECEIVING_IDENTITY"], decision_status="NO_BET_NEUTRAL", model_support="MARKET_ONLY")
+            # A zero Asian line is a valid PK market, not a missing market.
+            # Preserve the line and both waters in the payload even though
+            # there is no giving/receiving side to evaluate.
+            base.update(
+                competition=row.get("competition", ""), analysis_status="NEUTRAL", grade="N", rank=None,
+                final_decision="NO_BET", bet_unit=0.0, stake_rule="FIXED_1U",
+                reason_codes=["PK_NO_GIVING_RECEIVING_IDENTITY"], decision_status="NO_BET_NEUTRAL", model_support="MARKET_ONLY",
+                evidence_coverage={**base["evidence_coverage"], "asian_market": "AVAILABLE", "euro_market": "AVAILABLE"},
+                market={**base["market"], "pk": True, "home_handicap_signed": m["raw_line"], "away_handicap_signed": -m["raw_line"],
+                        "titan_home_handicap_signed": m["raw_line"], "titan_away_handicap_signed": -m["raw_line"],
+                        "home_water_hk": m["home_water"], "away_water_hk": m["away_water"],
+                        "giving_team": "", "receiving_team": "", "giving_water": None, "receiving_water": None,
+                        "side_identity": "Titan signed AH PK"},
+            )
         else:
             raw_intent, intent_source = derive_market_intent(row, m)
             normalized_intent = raw_intent or "unknown"
