@@ -16,7 +16,7 @@ SHADOW ONLY; real_money=false.
   "v4_N": 90,
   "v4_neutral": 14,
   "v4_missing": 494,
-  "v4_not_prematch": 388
+  "v4_not_prematch": 405
 }
 
 Grouped review is descriptive frozen-cohort settlement, not a new edge or model rule. Missing fundamentals/lineups/true flow remain unverified. ROI uses frozen 1U population; unresolved results are pending, not losses or pushes.
