@@ -1,0 +1,40 @@
+[
+  {
+    "path": "index.html",
+    "before_bytes": 49340729,
+    "after_bytes": 5038664,
+    "blocks": [
+      {
+        "json_sha256": "10cf5a5813e6271b1021a227d9e09a8ae7f7fbe65271d00a6c91a6dc015f183f",
+        "lossless": true,
+        "original_bytes": 46644146,
+        "compressed_bytes": 3293196
+      },
+      {
+        "json_sha256": "dbed8e6b15dc15cbfbc4488af0257fb9e1516e07139aace4cd6fa638a5afdc6a",
+        "lossless": true,
+        "original_bytes": 2298674,
+        "compressed_bytes": 169369
+      }
+    ]
+  },
+  {
+    "path": "v3-legacy/index.html",
+    "before_bytes": 49340730,
+    "after_bytes": 5038665,
+    "blocks": [
+      {
+        "json_sha256": "10cf5a5813e6271b1021a227d9e09a8ae7f7fbe65271d00a6c91a6dc015f183f",
+        "lossless": true,
+        "original_bytes": 46644146,
+        "compressed_bytes": 3293196
+      },
+      {
+        "json_sha256": "dbed8e6b15dc15cbfbc4488af0257fb9e1516e07139aace4cd6fa638a5afdc6a",
+        "lossless": true,
+        "original_bytes": 2298674,
+        "compressed_bytes": 169369
+      }
+    ]
+  }
+]

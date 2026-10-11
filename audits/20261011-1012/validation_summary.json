@@ -1,0 +1,322 @@
+{
+  "2026-10-11": {
+    "list_date": "2026-10-11",
+    "run_id": "RUN_20261011_202740",
+    "raw_snapshot": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261011\\20261011_201744_titan007_odds_snapshot.csv",
+    "roster": 1038,
+    "v3_roster": 170,
+    "v4_roster": 1038,
+    "ah_six_values": 173,
+    "ah_missing": 865,
+    "total_six_values": 175,
+    "model_counts": {
+      "total": 1038,
+      "v3_computed": 170,
+      "v3_bettable": 26,
+      "v3_half": 0,
+      "v3_no_bet": 144,
+      "v3_missing": 868,
+      "v4_computed": 125,
+      "v4_A": 6,
+      "v4_B": 21,
+      "v4_C": 8,
+      "v4_N": 90,
+      "v4_neutral": 14,
+      "v4_missing": 494,
+      "v4_not_prematch": 405
+    },
+    "source_failures": {
+      "MOBILE_EMPTY_MARKET_HTTP_443": 424,
+      "MOBILE_EMPTY_MARKET_HTTP_200": 441
+    },
+    "v3_reasons": {
+      "标签历史或微观组合样本缺失": 38,
+      "V3未输出有效决策；缺盘口或未满足模型适用条件": 868,
+      "综合胜率55.4%低于水位阈值58.5%": 1,
+      "亚盘盘口/两边水位缺失": 71,
+      "通过：综合胜率57.6% >= 阈值56.6%；风控状态A-正常态": 5,
+      "风控熔断/静默：状态C-熔断/静默观望": 3,
+      "通过：综合胜率58.4% >= 阈值58.2%；风控状态A-正常态": 1,
+      "通过：综合胜率59.2% >= 阈值58.5%；风控状态A-正常态": 1,
+      "标签历史与微观组合无正期望方向": 2,
+      "综合胜率53.2%低于水位阈值55.8%": 1,
+      "同盘口档位风控未通过：同盘口同标签样本69>8且反向胜率38.3%<40%": 1,
+      "综合胜率55.4%低于水位阈值59.1%": 4,
+      "综合胜率55.4%低于水位阈值59.8%": 1,
+      "综合胜率51.4%低于水位阈值52.8%": 1,
+      "通过：综合胜率57.6% >= 阈值57.6%；风控状态A-正常态": 2,
+      "通过：综合胜率55.5% >= 阈值50.8%；风控状态A-正常态": 1,
+      "综合胜率57.6%低于水位阈值57.9%": 1,
+      "综合胜率55.5%低于水位阈值58.5%": 1,
+      "通过：综合胜率52.9% >= 阈值51.5%；风控状态A-正常态": 1,
+      "通过：综合胜率58.4% >= 阈值56.3%；风控状态A-正常态": 2,
+      "通过：综合胜率57.6% >= 阈值56.9%；风控状态A-正常态": 2,
+      "通过：综合胜率57.6% >= 阈值56.3%；风控状态A-正常态": 2,
+      "通过：综合胜率58.4% >= 阈值57.9%；风控状态A-正常态": 1,
+      "通过：综合胜率58.4% >= 阈值57.2%；风控状态A-正常态": 1,
+      "综合胜率53.2%低于水位阈值55.2%": 1,
+      "综合胜率49.8%低于水位阈值53.3%": 1,
+      "综合胜率51.4%低于水位阈值53.3%": 2,
+      "综合胜率53.2%低于水位阈值57.9%": 1,
+      "通过：综合胜率55.9% >= 阈值54.6%；风控状态A-正常态": 1,
+      "通过：综合胜率58.4% >= 阈值57.6%；风控状态A-正常态": 1,
+      "通过：综合胜率55.9% >= 阈值53.3%；风控状态A-正常态": 1,
+      "综合胜率55.4%低于水位阈值60.5%": 1,
+      "同盘口档位风控未通过：同盘口同标签样本87>8且正向胜率36.4%<40%": 1,
+      "综合胜率55.1%低于水位阈值59.1%": 1,
+      "综合胜率57.9%低于水位阈值58.5%": 2,
+      "综合胜率51.8%低于水位阈值55.5%": 1,
+      "综合胜率48.4%低于水位阈值55.2%": 1,
+      "通过：综合胜率57.9% >= 阈值56.6%；风控状态A-正常态": 2,
+      "综合胜率57.9%低于水位阈值59.8%": 1,
+      "通过：综合胜率57.9% >= 阈值57.2%；风控状态A-正常态": 1,
+      "同盘口档位风控未通过：同盘口同标签样本9>8且反向胜率33.3%<40%": 1,
+      "综合胜率55.5%低于水位阈值57.9%": 1,
+      "综合胜率57.6%低于水位阈值59.1%": 2,
+      "通过：综合胜率59.2% >= 阈值58.2%；风控状态A-正常态": 1,
+      "同盘口档位风控未通过：同盘口同标签样本26>8且反向胜率25.0%<40%": 1,
+      "综合胜率57.6%低于水位阈值60.8%": 1
+    },
+    "v4_reasons": {
+      "STARTED_DECISION_LOCKED": 472,
+      "MATCH_NOT_PREMATCH": 33,
+      "GIVING_VALIDATED_EDGE": 10,
+      "BUCKET_PRIOR_ONLY": 56,
+      "INTENT_INTERPRETATION_ONLY": 56,
+      "FFL_OPTIONAL": 56,
+      "EXPERT_MARKET": 56,
+      "PK_NO_GIVING_RECEIVING_IDENTITY": 11,
+      "REQUIRED_MARKET_INPUT_MISSING": 466,
+      "EDGE_BELOW_UNCERTAINTY_THRESHOLD": 16,
+      "LOW_QUALITY_GATE": 28,
+      "RECEIVING_VALIDATED_EDGE": 2
+    },
+    "errors": [],
+    "delivery_verification": {
+      "V3": {
+        "roster": 170,
+        "started_compared": 80,
+        "dashboard_rows": 170,
+        "dashboard_frozen_bettable": 26
+      },
+      "V4": {
+        "roster": 1038,
+        "started_compared": 436,
+        "A": 6,
+        "B": 21,
+        "C": 8,
+        "N": 90,
+        "computed_rows": 125,
+        "match_specific_rows_checked": 56,
+        "bet_giving": 10,
+        "bet_receiving": 2,
+        "no_bet": 44
+      },
+      "settlements_checked": 55,
+      "settlements_checked_by_version": {
+        "V3": 23,
+        "V4_SHADOW": 32
+      },
+      "yesterday": {
+        "target": "2026-10-10",
+        "v3": {
+          "frozen_bettable": 27,
+          "settled": 23,
+          "counts": {
+            "L": 13,
+            "HW": 2,
+            "W": 7,
+            "P": 1
+          },
+          "effective_win_rate": 0.38095238095238093,
+          "pnl_1u": -5.615,
+          "roi": -0.208,
+          "settled_roi": -0.2441,
+          "roi_denominator": "FROZEN_BETTABLE_1U",
+          "pending": 4
+        },
+        "v4": {
+          "frozen_bettable": 46,
+          "settled": 32,
+          "counts": {
+            "L": 10,
+            "W": 13,
+            "HW": 6,
+            "HL": 2,
+            "P": 1
+          },
+          "effective_win_rate": 0.5925925925925926,
+          "pnl_1u": 11.465,
+          "roi": 0.2492,
+          "settled_roi": 0.3583,
+          "roi_denominator": "FROZEN_BETTABLE_1U",
+          "pending": 14
+        },
+        "csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-10-10_20261011_203506.csv",
+        "report": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-10-10_20261011_203506.md"
+      },
+      "errors": [],
+      "pass": true
+    },
+    "pass": true,
+    "history_policy": {
+      "min_settled": 8,
+      "red": "effective_win_rate > 0.55",
+      "green": "effective_win_rate < 0.45",
+      "source": "validated Excel only",
+      "details": "collapsed"
+    },
+    "real_money_v4": false,
+    "v3_locked_roster": 1038,
+    "v3_decision_rows": 170,
+    "v3_bettable": 26,
+    "v4_bettable": 30,
+    "v3_current_execution_allowed": 13,
+    "v4_current_execution_allowed": 7,
+    "execution_as_of": "2026-10-11T20:27:40.243877+08:00",
+    "retained_old_bets_with_missing_current_ah": [
+      "3051344",
+      "3013721",
+      "3000832",
+      "3026065",
+      "3040763",
+      "3050589",
+      "3050963"
+    ],
+    "v4_abc_observation_count": 35,
+    "v4_observation_note": "ABC等级冻结观察池与final_decision可投导出分开；C级可以保留NO_BET，历史ABC复盘不是本次实际可投人数"
+  },
+  "2026-10-12": {
+    "list_date": "2026-10-12",
+    "run_id": "RUN_20261011_203951",
+    "raw_snapshot": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261011\\20261011_202158_titan007_odds_snapshot.csv",
+    "roster": 106,
+    "v3_roster": 25,
+    "v4_roster": 106,
+    "ah_six_values": 10,
+    "ah_missing": 96,
+    "total_six_values": 11,
+    "model_counts": {
+      "total": 106,
+      "v3_computed": 25,
+      "v3_bettable": 0,
+      "v3_half": 0,
+      "v3_no_bet": 25,
+      "v3_missing": 81,
+      "v4_computed": 8,
+      "v4_A": 0,
+      "v4_B": 3,
+      "v4_C": 1,
+      "v4_N": 4,
+      "v4_neutral": 2,
+      "v4_missing": 95,
+      "v4_not_prematch": 1
+    },
+    "source_failures": {
+      "mobile_empty_market_http_200": 89,
+      "mobile_empty_market_http_443": 7
+    },
+    "v3_reasons": {
+      "亚盘盘口/两边水位缺失": 20,
+      "V3未输出有效决策；缺盘口或未满足模型适用条件": 81,
+      "标签历史或微观组合样本缺失": 3,
+      "综合胜率58.4%低于水位阈值58.8%": 1,
+      "风控熔断/静默：状态C-熔断/静默观望": 1
+    },
+    "v4_reasons": {
+      "REQUIRED_MARKET_INPUT_MISSING": 95,
+      "GIVING_VALIDATED_EDGE": 2,
+      "BUCKET_PRIOR_ONLY": 8,
+      "INTENT_INTERPRETATION_ONLY": 8,
+      "FFL_OPTIONAL": 8,
+      "EXPERT_MARKET": 8,
+      "MATCH_NOT_PREMATCH": 1,
+      "RECEIVING_VALIDATED_EDGE": 1,
+      "PK_NO_GIVING_RECEIVING_IDENTITY": 2,
+      "LOW_QUALITY_GATE": 4,
+      "EDGE_BELOW_UNCERTAINTY_THRESHOLD": 1
+    },
+    "errors": [],
+    "delivery_verification": {
+      "V3": {
+        "roster": 25,
+        "started_compared": 0,
+        "dashboard_rows": 25,
+        "dashboard_frozen_bettable": 0
+      },
+      "V4": {
+        "roster": 106,
+        "started_compared": 0,
+        "A": 0,
+        "B": 3,
+        "C": 1,
+        "N": 4,
+        "computed_rows": 8,
+        "match_specific_rows_checked": 8,
+        "bet_giving": 2,
+        "bet_receiving": 1,
+        "no_bet": 5
+      },
+      "settlements_checked": 17,
+      "settlements_checked_by_version": {
+        "V3": 6,
+        "V4_SHADOW": 11
+      },
+      "yesterday": {
+        "target": "2026-10-11",
+        "v3": {
+          "frozen_bettable": 26,
+          "settled": 6,
+          "counts": {
+            "W": 3,
+            "L": 3
+          },
+          "effective_win_rate": 0.5,
+          "pnl_1u": -0.5,
+          "roi": -0.0192,
+          "settled_roi": -0.0833,
+          "roi_denominator": "FROZEN_BETTABLE_1U",
+          "pending": 20
+        },
+        "v4": {
+          "frozen_bettable": 35,
+          "settled": 11,
+          "counts": {
+            "L": 6,
+            "W": 4,
+            "HL": 1
+          },
+          "effective_win_rate": 0.38095238095238093,
+          "pnl_1u": -2.77,
+          "roi": -0.0791,
+          "settled_roi": -0.2518,
+          "roi_denominator": "FROZEN_BETTABLE_1U",
+          "pending": 24
+        },
+        "csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-10-11_20261011_204203.csv",
+        "report": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-10-11_20261011_204203.md"
+      },
+      "errors": [],
+      "pass": true
+    },
+    "pass": true,
+    "history_policy": {
+      "min_settled": 8,
+      "red": "effective_win_rate > 0.55",
+      "green": "effective_win_rate < 0.45",
+      "source": "validated Excel only",
+      "details": "collapsed"
+    },
+    "real_money_v4": false,
+    "v3_locked_roster": 106,
+    "v3_decision_rows": 25,
+    "v3_bettable": 0,
+    "v4_bettable": 3,
+    "v3_current_execution_allowed": 0,
+    "v4_current_execution_allowed": 3,
+    "execution_as_of": "2026-10-11T20:39:51.838794+08:00",
+    "retained_old_bets_with_missing_current_ah": [],
+    "v4_abc_observation_count": 4,
+    "v4_observation_note": "ABC等级冻结观察池与final_decision可投导出分开；C级可以保留NO_BET，历史ABC复盘不是本次实际可投人数"
+  }
+}
