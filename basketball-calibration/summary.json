@@ -15,10 +15,10 @@
     "market_observed_events": 138,
     "market_observed_markets": 276,
     "market_records": 642,
-    "paper_bettable": 2,
-    "paper_triggered_events": 2,
-    "paper_triggered_markets": 2,
-    "paper_triggered_spread_markets": 2,
+    "paper_bettable": 0,
+    "paper_triggered_events": 0,
+    "paper_triggered_markets": 0,
+    "paper_triggered_spread_markets": 0,
     "paper_triggered_total_markets": 0,
     "pricing_state_counts": {
       "COLD_START_PRICEABLE": 1,
@@ -38,8 +38,8 @@
       "canonical_execution_records": 147,
       "canonical_signal_records": 1048,
       "policy": "Earliest valid first-write per canonical event and market is the only statistical sample; later captures remain audit evidence.",
-      "raw_first_write_records_found": 4113,
-      "repeat_capture_records_excluded_from_statistics": 3065,
+      "raw_first_write_records_found": 4162,
+      "repeat_capture_records_excluded_from_statistics": 3114,
       "repeat_execution_records_excluded_from_statistics": 0
     },
     "model_validation": {
