@@ -1,0 +1,38 @@
+version: v2.4
+default_tier: TIER_3
+
+# Tier controls residual uncertainty and paper-entry eligibility. A league that
+# is not explicitly classified is deliberately treated as TIER_3.
+tiers:
+  TIER_1:
+    label: "成熟主流联赛"
+    residual_scale_multiplier: 1.00
+    leagues: [NBA, WNBA]
+    aliases: [NBA, WNBA, 美国职业篮球联赛, 美国男子职业篮球联赛, 美国女子职业篮球联赛]
+  TIER_2:
+    label: "结构化职业联赛"
+    residual_scale_multiplier: 1.15
+    leagues: [EUROLEAGUE, EUROCUP, AUSTRALIA_NBL, JAPAN_BLEAGUE, KOREA_KBL, CBA_REGULAR, CBA_PLAYOFF]
+    aliases: [EUROLEAGUE, EuroLeague, Euroleague Basketball, 欧洲篮球联赛, 欧洲篮球冠军联赛, EUROCUP, EuroCup, 欧洲杯, AUSTRALIA_NBL, NBL Australia, 澳大利亚国家篮球联赛, JAPAN_BLEAGUE, B.League, KOREA_KBL, KBL, CBA, CBA常规赛, CBA季后赛, 中国男子篮球职业联赛]
+  TIER_3:
+    label: "高不确定性赛事"
+    residual_scale_multiplier: 1.45
+    leagues: [NBA_SUMMER, G_LEAGUE, NCAAB, WNCAAB, CBA_PRESEASON, CBA_SUMMER, CBA_CLUB_CUP, CHINA_CLUB_WARMUP, FIBA_MEN, FIBA_WOMEN, FIBA_QUALIFIER, FIBA_YOUTH, B_LEAGUE, KBL, NBL_AU, CZECH_NBL, SWEDEN_BASKETETTAN, FINLAND_DIVISION_1, VTB_UNITED, ENBL, ICELAND_WOMEN, ROMANIA_CUP, SWITZERLAND_NBL, SWITZERLAND_WOMEN, HUNGARY_NB1, BELARUS_LEAGUE, SLOVAKIA_LEAGUE, NORWAY_BLNO, GREECE_WOMEN_CUP, TUNISIA_LEAGUE, UAE_CUP, CANADA_WOMEN_ABL, ESTONIA_LATVIA_LEAGUE, UGANDA_WOMEN_LEAGUE, KENYA_WOMEN_LEAGUE, PUERTO_RICO_WOMEN, AMERICAS_WOMEN, COLOMBIA_LEAGUE, BRAZIL_PAULISTA, EL_SALVADOR_LEAGUE, PHILIPPINES_UAAP, PHILIPPINES_MPBL, SINGAPORE_NBL, WEST_ASIA_SUPER_LEAGUE, KOREA_UNIVERSITY_MEN, KOREA_UNIVERSITY_WOMEN, FRIENDLY_CLUB, OTHER_DISCOVERED]
+    aliases: [NBA夏季联赛, NBA Summer League, G League, G-League, NCAA, NCAA男子篮球, NCAA Men's Basketball, NCAA女子篮球, NCAAB, WNCAAB, CBA夏季联赛, CBA季前, CBA季前赛, CBA俱乐部杯, 热身赛, 邀请赛, 捷克篮球甲联联赛, 瑞典甲, 芬兰甲, VTB联, VTB杯, ENBL, 波多黎各联女篮, 新加坡NBL, 菲UAAP, 菲MPBL, 韩大学联, 韩大学女联, 希女杯, 突尼联, 阿联酋杯, 加女篮ABL, 爱沙尼亚与拉脱维亚篮球联合联赛, 乌干女联, 肯女篮联]
+    paper_entry_requires:
+      roster_stability_30d: true
+      roster_stability_window_days: 30
+      internal_roster_stability_evidence: true
+    missing_roster_stability_status: DIAGNOSTIC_ONLY
+
+model_family_policy:
+  WNBA:
+    evaluation_channel: WNBA_ONLY
+    estimator: time_weighted_opponent_adjusted_ridge
+    cross_league_training_forbidden: true
+  NBA:
+    evaluation_channel: NBA_ONLY
+  CBA_REGULAR:
+    evaluation_channel: CBA_ONLY
+  CBA_PLAYOFF:
+    evaluation_channel: CBA_ONLY

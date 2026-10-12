@@ -1,0 +1,92 @@
+name: Basketball daily update and Feishu delivery
+
+on:
+  schedule:
+    # 07:00 Asia/Shanghai = 23:00 UTC on the previous day.
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: "Optional Beijing date (YYYY-MM-DD); blank means today"
+        required: false
+        type: string
+      notify:
+        description: "Send the result to Feishu"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: basketball-daily
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: Asia/Shanghai
+      BASKETBALL_DATE: ${{ inputs.target_date || '' }}
+      BASKETBALL_RUN_ROOT: ${{ github.workspace }}/.basketball-run
+      BASKETBALL_PUBLIC_DIR: ${{ github.workspace }}/public
+    steps:
+      - name: Checkout automation source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Checkout published dashboard state
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: public
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install runtime dependencies
+        run: python -m pip install --disable-pip-version-check openpyxl PyYAML curl-cffi
+
+      - name: Run basketball daily engine
+        run: python automation/run_basketball_daily.py
+
+      - name: Publish dashboard to gh-pages
+        run: |
+          git -C public config user.name "github-actions[bot]"
+          git -C public config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C public add basketball-v2.html basketball.html basketball-data basketball-sources
+          if git -C public diff --cached --quiet; then
+            echo "No dashboard changes"
+          else
+            git -C public commit -m "Automated basketball daily update $(date -u +%F)"
+            git -C public push origin HEAD:gh-pages
+          fi
+
+      - name: Notify Feishu
+        if: ${{ always() && (github.event_name != 'workflow_dispatch' || inputs.notify) }}
+        continue-on-error: true
+        env:
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+          RUN_STATUS: ${{ job.status }}
+        run: python automation/notify_feishu.py --data public/basketball-data/latest.json --status "$RUN_STATUS"
+
+      - name: Upload run audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: basketball-daily-audit-${{ github.run_id }}
+          path: |
+            .basketball-run/audits
+            .basketball-run/manifests
+            .basketball-run/logs
+          if-no-files-found: ignore
+          retention-days: 14

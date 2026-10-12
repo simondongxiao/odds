@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "purpose": "Paper-only market integrity gate. It quarantines a materially divergent current MAIN quote without editing the raw quote, price history, frozen first write, pricing parameters, probabilities, Kelly, or model weights.",
+  "minimum_fresh_main_quotes": 2,
+  "max_deviation_from_cross_book_median": {
+    "SPREAD": 4.0,
+    "TOTAL": 8.0
+  },
+  "policy": "When at least the configured number of same-event, same-market, same-period and same-overtime-rule fresh MAIN quotes exist, any quote beyond the configured median deviation is retained as raw evidence but is not eligible for a new paper entry. The event receives PROVIDER_DISAGREEMENT and stays observation-only until a later fresh capture resolves the divergence."
+}

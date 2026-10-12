@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "policy": "Only repair_v22 FORWARD_NATIVE predictions with frozen genuine inputs may enter new paper statistics; legacy files remain immutable.",
+  "excluded_source_script": "scripts/run_step5rf2.py",
+  "reason": "Hardcoded pace/ratings/roster values and raw ranking differences created the old 4.5/1.71/153 example.",
+  "excluded_event_legacy_id": "FIBA_WOMEN:Spain-USA-2026-09-12T18:00:00+00:00",
+  "action": "AUDIT_ONLY_NOT_MODEL_VALIDATION",
+  "rewrite_legacy_ledger": false
+}

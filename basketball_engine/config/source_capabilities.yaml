@@ -1,0 +1,12 @@
+version: 1
+sources:
+  espn:nba: {schedule: true, odds: false, results: true, boxscore: true, injuries: false, lineup: false, historical: true, production_status: DISCOVERY_ACTIVE}
+  espn:wnba: {schedule: true, odds: false, results: true, boxscore: true, injuries: false, lineup: false, historical: true, production_status: DISCOVERY_ACTIVE}
+  espn:mens-college-basketball: {schedule: true, odds: false, results: true, boxscore: true, injuries: false, lineup: false, historical: true, production_status: DISCOVERY_ACTIVE}
+  espn:womens-college-basketball: {schedule: true, odds: false, results: true, boxscore: true, injuries: false, lineup: false, historical: true, production_status: DISCOVERY_ACTIVE}
+  sofascore: {schedule: true, odds: false, results: true, boxscore: true, injuries: false, lineup: false, historical: true, production_status: DISCOVERY_ACTIVE}
+  fiba_official: {schedule: true, odds: false, results: true, boxscore: true, injuries: true, lineup: true, historical: true, production_status: DISCOVERY_ONLY}
+  7m: {schedule: true, odds: true, results: true, boxscore: true, injuries: false, lineup: false, historical: true, production_status: MARKET_ACTIVE}
+  titan007_nba: {schedule: true, odds: true, results: true, boxscore: false, injuries: false, lineup: false, historical: true, production_status: PRODUCTION_VERIFIED}
+  cba_specific: {schedule: false, odds: false, results: false, boxscore: false, injuries: false, lineup: false, historical: false, production_status: CONFIGURED_ONLY}
+  odds_board: {schedule: false, odds: true, results: false, boxscore: false, injuries: false, lineup: false, historical: true, production_status: CONFIGURED_ONLY}

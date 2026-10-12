@@ -1,0 +1,29 @@
+score_site:
+  feed_provider: qiutan
+  source_group: score_site
+  upstream_provider: UNKNOWN
+  urls:
+    - https://nba.titan007.com/match/{bj_date_compact}.htm
+  price_formats: [hong_kong, malay, indonesia, decimal]
+  overtime_rule: UNKNOWN
+
+TITAN007:
+  source_group: score_site
+  feed_provider: TITAN007
+  upstream_provider: titan007_nba
+  schedule_url: https://lq3.titan007.com/NBA/today2.xml?t={epoch_ms}
+  odds_urls:
+    - https://lq3.titan007.com/NBA/nbaGoal1.xml?t={epoch_ms}
+    - https://lq3.titan007.com/NBA/nbaGoal2.xml?t={epoch_ms}
+    - https://lq3.titan007.com/NBA/nbaGoal3.xml?t={epoch_ms}
+    - https://lq3.titan007.com/NBA/nbaGoal8.xml?t={epoch_ms}
+    - https://lq3.titan007.com/NBA/nbaGoal9.xml?t={epoch_ms}
+  analysis_url: https://nba.titan007.com/analysis/{source_event_id}.htm
+  schedule_timezone: Asia/Shanghai
+  price_format: hong_kong
+  # Titan goal is a team-1 giving magnitude when positive; normalize it to
+  # the dashboard convention: negative = team1 gives, positive = team1 receives.
+  spread_line_basis: titan_goal_team1_gives_positive
+  source_timestamp_semantics: current_board_capture_only
+  overtime_rule: UNKNOWN
+  missing_market_policy: retain_event_and_mark_no_current_board_quote

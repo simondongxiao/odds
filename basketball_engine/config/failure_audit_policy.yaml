@@ -1,0 +1,37 @@
+version: v2.3
+artifact: audits/post_mortem.json
+append_only: true
+
+trigger:
+  settlement_outcomes: [LOSS]
+  require_frozen_prediction: true
+  require_verified_final_score: true
+
+labels:
+  GARBAGE_TIME_COVER:
+    applies_to: [SPREAD]
+    requires: [quarter_scores, frozen_spread_contract, verified_final_score]
+    trigger:
+      selected_side_covering_at_end_q3: true
+      selected_side_q4_margin_lte: -8
+      final_spread_result: LOSS
+  THREE_POINT_VARIANCE:
+    applies_to: [SPREAD, TOTAL]
+    requires: [pregame_same_competition_3p_baseline, final_3p_makes_and_attempts]
+    trigger:
+      absolute_3p_percentage_zscore_gte: 2.5
+  ROSTER_NOISE:
+    applies_to: [SPREAD, TOTAL]
+    requires: [frozen_expected_minutes, actual_player_minutes, frozen_roster_snapshot]
+    trigger:
+      core_player_actual_minutes_lt: 10
+      core_player_pregame_expected_minutes_gte: 20
+  FOUL_ENGINE_BURST:
+    applies_to: [TOTAL]
+    requires: [regulation_final_120_seconds_scoring, regulation_final_score, frozen_total_contract]
+    trigger:
+      final_120_seconds_share_of_regulation_total_gt: 0.15
+
+fallback_label: CAUSE_UNKNOWN_INSUFFICIENT_DATA
+automatic_parameter_change: forbidden
+automatic_kelly_change: forbidden

@@ -1,0 +1,17 @@
+version: 1
+window_days: 30
+box_score_minutes:
+  minimum_games_per_team: 3
+  minimum_players_with_minutes_per_game: 5
+  minimum_total_player_minutes_per_game: 100
+  rotation_minutes_floor: 8
+  minimum_stable_rotation_players: 4
+pregame_lineups:
+  minimum_snapshots_per_team: 2
+  minimum_players_per_snapshot: 5
+  minimum_stable_players: 4
+governance:
+  evidence_must_precede_cutoff: true
+  source_url_or_raw_path_required: true
+  missing_status: ROSTER_STABILITY_MISSING
+  note: Lightweight Tier-3 roster evidence only; it never lowers history, edge, probability, EV, or market-integrity thresholds.

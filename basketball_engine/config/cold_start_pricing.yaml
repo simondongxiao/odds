@@ -1,0 +1,29 @@
+version: 1
+description: >-
+  Audited cold-start priors. These are governance priors, not calibrated
+  performance parameters. They may not lower the formal paper or execution
+  gates and must be evaluated prospectively before promotion.
+status_lifecycle: [DISCOVERY, BOOTSTRAP, SHADOW, PROVISIONAL, QUALIFIED]
+source_weights:
+  current_season: 1.0
+  previous_season: 0.60
+  older_history: 0.30
+competition_adjustments:
+  SAME_COMPETITION: 1.00
+  TIER1_CONTINENTAL: 0.92
+  TIER1_DOMESTIC: 1.00
+  TIER2_DOMESTIC: 0.88
+  CUP: 0.82
+  FRIENDLY: 0.65
+  NATIONAL_WINDOW: 0.90
+  UNKNOWN: 0.55
+thresholds:
+  research_ess_min: 3.0
+  cold_start_ess_min: 6.0
+  shadow_ess_min: 8.0
+  current_season_min_games_for_shadow: 2
+  max_age_days: 730
+residual_scale:
+  native: 1.0
+  cold_start: 1.25
+  prior_only: 1.45

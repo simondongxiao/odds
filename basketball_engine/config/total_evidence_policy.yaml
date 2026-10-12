@@ -1,0 +1,20 @@
+version: 1
+soft_missing_uncertainty:
+  per_item_multiplier: 1.05
+  maximum_multiplier: 1.50
+  applies_to: TOTAL_RESIDUAL_ONLY
+  threshold_changes: false
+overtime_history:
+  minimum_observations_for_stable_profile: 3
+  full_score_baseline_contract: EMBEDDED_IN_HISTORICAL_FULL_TIME_TOTALS
+  missing_data_treatment: SOFT_MISSING_WIDEN_TOTAL_RESIDUAL_ONLY
+  note: >
+    Total pricing and settlement use full-game scores including overtime. When
+    pre-cutoff period/regulation facts exist, retain both teams' overtime rate
+    and overtime scoring profile for audit and uncertainty. Do not add that
+    expected score a second time to a fair total already trained on final
+    scores; missing overtime detail is not an execution blocker by itself.
+governance:
+  source: INITIAL_CONSERVATIVE_PRIOR
+  direction_bias: NONE
+  note: Soft-missing evidence can only widen total uncertainty; it cannot create a direction or lower an execution threshold.

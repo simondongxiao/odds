@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "purpose": "Paper-only execution lifecycle. This configuration labels entry and recheck phases; it does not tune pricing, probability, sigma, Kelly, or model weights.",
+  "real_execution_allowed": false,
+  "early_entry": {
+    "opens_minutes_before_tip": 240,
+    "closes_minutes_before_tip": 90,
+    "threshold_source": "INITIAL_PRIOR",
+    "require_verified_quote": true,
+    "require_paper_model_eligible": true
+  },
+  "late_recheck_minutes_before_tip": [30, 10, 5],
+  "revalidation_drift_limits": {
+    "SPREAD": {
+      "max_line_change_points": 2.0,
+      "max_decimal_odds_deterioration": 0.08
+    },
+    "TOTAL": {
+      "max_line_change_points": 3.0,
+      "max_decimal_odds_deterioration": 0.08
+    },
+    "policy": "Initial paper-only revalidation prior. A same-contract quote beyond either limit forces an explicit direction-aware recheck; it never vetoes an entry by itself. The current same-contract paper gate decides eligibility, while the frozen first-write record remains immutable."
+  },
+  "revision_policy": "APPEND_ONLY",
+  "price_exhausted_policy": "Only classify PRICE_EXHAUSTED when an immutable first-write signal and a later same-contract recheck both exist and the later recheck fails solely because the price no longer passes. Never infer it from a missing quote."
+}

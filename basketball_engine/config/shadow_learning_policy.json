@@ -1,0 +1,32 @@
+{
+  "schema_version": "shadow-learning-policy-1.0",
+  "levels": ["RESEARCH_SIGNAL", "PROVISIONAL_SHADOW", "TITAN_PROVISIONAL_SHADOW", "QUALIFIED_SHADOW", "EXECUTABLE"],
+  "provisional": {
+    "per_soft_reason_residual_multiplier_add": 0.08,
+    "maximum_residual_multiplier": 1.50,
+    "strategy_return_eligible": false,
+    "real_execution_allowed": false
+  },
+  "qualified": {
+    "champion_gate_unchanged": true,
+    "minimum_raw_games_per_team": 8,
+    "minimum_unique_opponents_per_team": 3
+  },
+  "gate_challenger": {
+    "minimum_forward_native_samples": 50,
+    "auto_promotion_allowed": false
+  },
+  "ledger_isolation": {
+    "qualified": "ledger/repair_v22_settlements",
+    "provisional": "ledger/repair_v22_provisional_settlements",
+    "titan_provisional": "ledger/titan_provisional_settlements",
+    "research": "ledger/repair_v22_research_settlements"
+  },
+  "formal_manual_accounting": {
+    "authorization": "USER_AUTHORIZED_FORMAL_MANUAL_LEDGER_2026-10-08",
+    "include_historical_and_future": ["QUALIFIED", "PROVISIONAL_SHADOW", "TITAN_PROVISIONAL_SHADOW"],
+    "exclude": ["RESEARCH_SIGNAL"],
+    "physical_source_ledgers_remain_immutable": true,
+    "fill_assumption_until_user_records_order": "FROZEN_SIGNAL_ONE_UNIT"
+  }
+}

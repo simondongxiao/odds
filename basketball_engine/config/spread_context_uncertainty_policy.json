@@ -1,0 +1,22 @@
+{
+  "schema_version": "spread-context-uncertainty-policy-1.0",
+  "combine_rule": "MAX_OF_CONTEXT_PENALTIES",
+  "unknown_context": {
+    "injury": 1.10,
+    "rotation": 1.10,
+    "net_rating": 1.00
+  },
+  "season_regime": {
+    "PRESEASON": {"residual_multiplier": 1.20, "historical_weight_multiplier": 0.75, "historical_weight_after_days": 120},
+    "EARLY_REGULAR": {"residual_multiplier": 1.10, "historical_weight_multiplier": 0.90, "historical_weight_after_days": 180},
+    "REGULAR": {"residual_multiplier": 1.00, "historical_weight_multiplier": 1.00, "historical_weight_after_days": 99999},
+    "PLAYOFF": {"residual_multiplier": 1.00, "historical_weight_multiplier": 1.00, "historical_weight_after_days": 99999},
+    "SUMMER_LEAGUE": {"residual_multiplier": 1.30, "historical_weight_multiplier": 0.50, "historical_weight_after_days": 60}
+  },
+  "data_quality": {
+    "complete": "DATA_QUALITY_A",
+    "partial": "DATA_QUALITY_B",
+    "context_sparse": "DATA_QUALITY_C",
+    "core_missing": "DATA_QUALITY_D"
+  }
+}

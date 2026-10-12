@@ -1,0 +1,26 @@
+7M:
+  full_game_spread:
+    overtime_rule: UNKNOWN
+    price_format: hong_kong
+    sign_contract: source_handicap_requires_team_mapping
+    evidence_url: https://basket.7m.com.cn/free_gb.aspx
+    confidence: LOW
+
+TITAN007:
+  full_game_spread:
+    overtime_rule: UNKNOWN
+    price_format: hong_kong
+    sign_contract: signed_team1_handicap_from_goal_field
+    evidence_url: https://lq3.titan007.com/nba.htm
+    confidence: MEDIUM
+  full_game_total:
+    overtime_rule: UNKNOWN
+    price_format: hong_kong
+    sign_contract: over_under_from_goal_xml_total_fields
+    evidence_url: https://lq3.titan007.com/nba.htm
+    confidence: MEDIUM
+  full_game_total:
+    overtime_rule: UNKNOWN
+    price_format: hong_kong
+    evidence_url: https://basket.7m.com.cn/free_gb.aspx
+    confidence: LOW

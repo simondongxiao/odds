@@ -1,0 +1,8 @@
+version: step3-v1
+default_market_weight: 0.50
+student_t_df: 6
+min_quality_for_priced: 55
+min_quality_for_market_anchored: 25
+residual_priors:
+  spread: {scale: 12.0, df: 6, uncertainty_source: prior}
+  total: {scale: 17.0, df: 6, uncertainty_source: prior}

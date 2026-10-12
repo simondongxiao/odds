@@ -1,0 +1,70 @@
+{
+  "schema_version": 3,
+  "global_full_game_contract": {
+    "overtime_rule": "INCLUDING_OT",
+    "unknown_source_rule_handling": "ASSUME_INCLUDING_OT_WITH_AUDIT",
+    "policy_evidence": "USER_CONFIRMED_GLOBAL_FULL_GAME_INCLUDING_OT_2026-10-08",
+    "note": "All spread and total analysis/selection contracts use full game including overtime. An omitted source-level rule is retained as source metadata and is not itself an execution blocker; an explicit regulation-only contract remains incompatible."
+  },
+  "companies": {
+    "0": {
+      "price_format": "HK",
+      "spread_line_basis": "FLAG",
+      "spread_flag_map": {"0": -1, "1": 1},
+      "timestamp_semantics": "LAST_CHANGE",
+      "current_board_contract_verified": true,
+      "overtime_rule": "INCLUDING_OT",
+      "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
+      "comparison_scope": "PAPER_RESEARCH_ONLY"
+    },
+    "1": {
+      "price_format": "HK",
+      "spread_line_basis": "FLAG",
+      "spread_flag_map": {"0": -1, "1": 1},
+      "timestamp_semantics": "LAST_CHANGE",
+      "current_board_contract_verified": true,
+      "overtime_rule": "INCLUDING_OT",
+      "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
+      "comparison_scope": "PAPER_RESEARCH_ONLY"
+    },
+    "2": {
+      "price_format": "HK",
+      "spread_line_basis": "FLAG",
+      "spread_flag_map": {"0": -1, "1": 1},
+      "timestamp_semantics": "LAST_CHANGE",
+      "current_board_contract_verified": true,
+      "overtime_rule": "INCLUDING_OT",
+      "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
+      "comparison_scope": "PAPER_RESEARCH_ONLY"
+    },
+    "3": {
+      "price_format": "HK",
+      "spread_line_basis": "FLAG",
+      "spread_flag_map": {"0": -1, "1": 1},
+      "timestamp_semantics": "LAST_CHANGE",
+      "current_board_contract_verified": true,
+      "overtime_rule": "INCLUDING_OT",
+      "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
+      "comparison_scope": "PAPER_RESEARCH_ONLY"
+    },
+    "4": {
+      "price_format": "HK",
+      "spread_line_basis": "FLAG",
+      "spread_flag_map": {"0": -1, "1": 1},
+      "timestamp_semantics": "LAST_CHANGE",
+      "current_board_contract_verified": true,
+      "overtime_rule": "INCLUDING_OT",
+      "rule_evidence": "USER_CONFIRMED_PROJECT_POLICY_FULL_GAME_INCLUDING_OT_2026-09-15",
+      "comparison_scope": "PAPER_RESEARCH_ONLY"
+    }
+  },
+  "platform_semantics_evidence": {
+    "js_odds_path": "D:/codex/outputs/basketball_odds_trader/raw/source_scout/sevenm_basket/js_odds.js",
+    "js_odds_sha256": "F6B588DE43AE1B660A0F0E0B8BA0FD5C35F36A12092993DDA21D6DF825452C3F",
+    "js_fun_path": "D:/codex/outputs/basketball_odds_trader/raw/source_scout/sevenm_basket/js_fun.js",
+    "js_fun_sha256": "92C17EF570C1E972CC5B116E285275915E414E9169E53C24EE327CBC625CCAB8",
+    "contract": "HB=[team1_price,team2_price,last_change,line,handicap_side_flag,rolling_reference,is_rolling,is_main]; TP=[over_price,under_price,last_change,total,rolling_reference,is_rolling,is_main]. handicap_side_flag 0 means team1 gives, 1 means team2 gives.",
+    "price_format_basis": "7M Asian-odds board publishes positive Hong Kong water; decimal price equals raw water plus 1."
+  },
+  "note": "The 7M platform schema verifies side, main-market, price and current-board semantics for all five legal namespaces. INCLUDING_OT is the user's full-game paper-comparison policy, not a claim about real-money bookmaker settlement. Real execution remains disabled."
+}

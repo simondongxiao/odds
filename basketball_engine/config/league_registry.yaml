@@ -1,0 +1,191 @@
+version: 3
+timezone: Asia/Shanghai
+league_families:
+  NBA: {sport: basketball, countries: [USA], season_type: regular}
+  WNBA: {sport: basketball, countries: [USA], season_type: regular}
+  NBA_SUMMER: {sport: basketball, countries: [USA], season_type: summer}
+  G_LEAGUE: {sport: basketball, countries: [USA], season_type: regular}
+  NCAAB: {sport: basketball, countries: [USA], season_type: college_men}
+  WNCAAB: {sport: basketball, countries: [USA], season_type: college_women}
+  EUROLEAGUE: {sport: basketball, countries: [Europe], season_type: regular}
+  CBA_REGULAR: {sport: basketball, countries: [China], competition: CBA, season_type: regular}
+  CBA_PLAYOFF: {sport: basketball, countries: [China], competition: CBA, season_type: playoff}
+  CBA_PRESEASON: {sport: basketball, countries: [China], competition: CBA, season_type: preseason}
+  CBA_SUMMER: {sport: basketball, countries: [China], competition: CBA, season_type: summer}
+  CBA_CLUB_CUP: {sport: basketball, countries: [China], competition: CBA, season_type: club_cup}
+  CHINA_CLUB_WARMUP: {sport: basketball, countries: [China], competition: club_warmup, season_type: warmup}
+  FIBA_MEN: {sport: basketball, countries: [International], organizer: FIBA, gender: men}
+  FIBA_WOMEN: {sport: basketball, countries: [International], organizer: FIBA, gender: women}
+  FIBA_QUALIFIER: {sport: basketball, countries: [International], organizer: FIBA, season_type: qualifier}
+  FIBA_YOUTH: {sport: basketball, countries: [International], organizer: FIBA, season_type: youth}
+  B_LEAGUE: {sport: basketball, countries: [Japan], competition: B.League}
+  KBL: {sport: basketball, countries: [South Korea], competition: KBL}
+  NBL_AU: {sport: basketball, countries: [Australia], competition: NBL}
+  CHINA_CBA: {sport: basketball, countries: [China], competition_type: CLUB_LEAGUE, parent: CBA}
+  CHINA_WCBA: {sport: basketball, countries: [China], competition_type: CLUB_LEAGUE, parent: WCBA}
+  CHINA_NBL: {sport: basketball, countries: [China], competition_type: CLUB_LEAGUE, parent: NBL}
+  CHINA_CUBA: {sport: basketball, countries: [China], competition_type: UNIVERSITY, parent: CUBA}
+  CHINA_UNIVERSITY_OTHER: {sport: basketball, countries: [China], competition_type: UNIVERSITY}
+  CHINA_YOUTH: {sport: basketball, countries: [China], competition_type: YOUTH}
+  CHINA_CLUB_CUP: {sport: basketball, countries: [China], competition_type: CLUB_CUP}
+  CHINA_FRIENDLY: {sport: basketball, countries: [China], competition_type: FRIENDLY}
+  FIBA_CONTINENTAL: {sport: basketball, countries: [International], competition_type: NATIONAL_TEAM}
+  FIBA_FRIENDLY: {sport: basketball, countries: [International], competition_type: FRIENDLY}
+  JAPAN_BLEAGUE: {sport: basketball, countries: [Japan], competition_type: CLUB_LEAGUE}
+  JAPAN_WOMEN: {sport: basketball, countries: [Japan], competition_type: CLUB_LEAGUE, gender: women}
+  JAPAN_CUP: {sport: basketball, countries: [Japan], competition_type: CLUB_CUP}
+  KOREA_KBL: {sport: basketball, countries: [South Korea], competition_type: CLUB_LEAGUE}
+  KOREA_WOMEN: {sport: basketball, countries: [South Korea], competition_type: CLUB_LEAGUE, gender: women}
+  KOREA_CUP: {sport: basketball, countries: [South Korea], competition_type: CLUB_CUP}
+  AUSTRALIA_NBL: {sport: basketball, countries: [Australia], competition_type: CLUB_LEAGUE}
+  AUSTRALIA_WNBL: {sport: basketball, countries: [Australia], competition_type: CLUB_LEAGUE, gender: women}
+  NEW_ZEALAND: {sport: basketball, countries: [New Zealand], competition_type: CLUB_LEAGUE}
+  OCEANIA_OTHER: {sport: basketball, countries: [Oceania], competition_type: CLUB_LEAGUE}
+  EUROCUP: {sport: basketball, countries: [Europe], competition_type: CLUB_LEAGUE}
+  EUROPE_DOMESTIC: {sport: basketball, countries: [Europe], competition_type: CLUB_LEAGUE}
+  CZECH_NBL: {sport: basketball, countries: [Czech Republic], region: Europe, competition_type: CLUB_LEAGUE, gender: men, regulation_minutes: 40, overtime_minutes: 5, rule_source: CZECH_FEDERATION_FIBA_RULES}
+  SWEDEN_BASKETETTAN: {sport: basketball, countries: [Sweden], region: Europe, competition_type: CLUB_LEAGUE}
+  FINLAND_DIVISION_1: {sport: basketball, countries: [Finland], region: Europe, competition_type: CLUB_LEAGUE, regulation_minutes: 40, overtime_minutes: 5, rule_source: BASKET_FINLAND_OFFICIAL_RULES}
+  VTB_UNITED: {sport: basketball, countries: [Europe], region: Europe, competition_type: CLUB_LEAGUE, regulation_minutes: 40, overtime_minutes: 5, rule_source: VTB_OFFICIAL_RULES}
+  ENBL: {sport: basketball, countries: [Europe], region: Europe, competition_type: CLUB_LEAGUE}
+  ICELAND_WOMEN: {sport: basketball, countries: [Iceland], region: Europe, competition_type: CLUB_LEAGUE, gender: women}
+  ROMANIA_CUP: {sport: basketball, countries: [Romania], region: Europe, competition_type: CLUB_CUP, regulation_minutes: 40, overtime_minutes: 5, rule_source: ROMANIAN_FEDERATION_RULES}
+  SWITZERLAND_NBL: {sport: basketball, countries: [Switzerland], region: Europe, competition_type: CLUB_LEAGUE}
+  SWITZERLAND_WOMEN: {sport: basketball, countries: [Switzerland], region: Europe, competition_type: CLUB_LEAGUE, gender: women}
+  HUNGARY_NB1: {sport: basketball, countries: [Hungary], region: Europe, competition_type: CLUB_LEAGUE, regulation_minutes: 40, overtime_minutes: 5, rule_source: HUNGARIAN_FEDERATION_RULES}
+  BELARUS_LEAGUE: {sport: basketball, countries: [Belarus], region: Europe, competition_type: CLUB_LEAGUE}
+  SLOVAKIA_LEAGUE: {sport: basketball, countries: [Slovakia], region: Europe, competition_type: CLUB_LEAGUE}
+  NORWAY_BLNO: {sport: basketball, countries: [Norway], region: Europe, competition_type: CLUB_LEAGUE}
+  GREECE_WOMEN_CUP: {sport: basketball, countries: [Greece], region: Europe, competition_type: CLUB_CUP, gender: women}
+  TUNISIA_LEAGUE: {sport: basketball, countries: [Tunisia], region: Africa, competition_type: CLUB_LEAGUE}
+  UAE_CUP: {sport: basketball, countries: [United Arab Emirates], region: Asia, competition_type: CLUB_CUP}
+  CANADA_WOMEN_ABL: {sport: basketball, countries: [Canada], region: Americas, competition_type: CLUB_LEAGUE, gender: women}
+  ESTONIA_LATVIA_LEAGUE: {sport: basketball, countries: [Estonia, Latvia], region: Europe, competition_type: CLUB_LEAGUE, regulation_minutes: 40, overtime_minutes: 5, rule_source: ESTLAT_OFFICIAL_FIBA_RULES}
+  UGANDA_WOMEN_LEAGUE: {sport: basketball, countries: [Uganda], region: Africa, competition_type: CLUB_LEAGUE, gender: women}
+  KENYA_WOMEN_LEAGUE: {sport: basketball, countries: [Kenya], region: Africa, competition_type: CLUB_LEAGUE, gender: women}
+  ADRIATIC: {sport: basketball, countries: [Europe], competition_type: CLUB_LEAGUE}
+  EASTERN_EUROPE: {sport: basketball, countries: [Europe], competition_type: CLUB_LEAGUE}
+  NORTHERN_EUROPE: {sport: basketball, countries: [Europe], competition_type: CLUB_LEAGUE}
+  OTHER_EUROPE: {sport: basketball, countries: [Europe], competition_type: CLUB_LEAGUE}
+  NORTH_AMERICA_CLUB: {sport: basketball, countries: [USA], competition_type: CLUB_LEAGUE}
+  AMERICAS_OTHER: {sport: basketball, countries: [Americas], competition_type: CLUB_LEAGUE}
+  PUERTO_RICO_WOMEN: {sport: basketball, countries: [Puerto Rico], region: Americas, competition_type: CLUB_LEAGUE, gender: women}
+  AMERICAS_WOMEN: {sport: basketball, countries: [Americas], region: Americas, competition_type: CLUB_LEAGUE, gender: women}
+  COLOMBIA_LEAGUE: {sport: basketball, countries: [Colombia], region: Americas, competition_type: CLUB_LEAGUE}
+  BRAZIL_PAULISTA: {sport: basketball, countries: [Brazil], region: Americas, competition_type: CLUB_LEAGUE}
+  EL_SALVADOR_LEAGUE: {sport: basketball, countries: [El Salvador], region: Americas, competition_type: CLUB_LEAGUE}
+  GULF: {sport: basketball, countries: [Gulf], competition_type: CLUB_LEAGUE}
+  MIDDLE_EAST: {sport: basketball, countries: [Middle East], competition_type: CLUB_LEAGUE}
+  SOUTHEAST_ASIA: {sport: basketball, countries: [Southeast Asia], competition_type: CLUB_LEAGUE}
+  PHILIPPINES: {sport: basketball, countries: [Philippines], competition_type: CLUB_LEAGUE}
+  PHILIPPINES_UAAP: {sport: basketball, countries: [Philippines], region: Asia, competition_type: UNIVERSITY}
+  PHILIPPINES_MPBL: {sport: basketball, countries: [Philippines], region: Asia, competition_type: CLUB_LEAGUE}
+  SINGAPORE_NBL: {sport: basketball, countries: [Singapore], region: Asia, competition_type: CLUB_LEAGUE}
+  WEST_ASIA_SUPER_LEAGUE: {sport: basketball, countries: [Middle East], region: Asia, competition_type: CLUB_LEAGUE, regulation_minutes: 40, overtime_minutes: 5, rule_source: FIBA_OFFICIAL_RULES}
+  KOREA_UNIVERSITY: {sport: basketball, countries: [South Korea], region: Asia, competition_type: UNIVERSITY, regulation_minutes: 40, overtime_minutes: 5, rule_source: KOREA_BASKETBALL_ASSOCIATION_RULES}
+  KOREA_UNIVERSITY_MEN: {sport: basketball, countries: [South Korea], region: Asia, competition_type: UNIVERSITY, gender: men}
+  KOREA_UNIVERSITY_WOMEN: {sport: basketball, countries: [South Korea], region: Asia, competition_type: UNIVERSITY, gender: women}
+  FRIENDLY_CLUB: {sport: basketball, countries: [International], region: Other, competition_type: FRIENDLY}
+  TAIWAN_REGION: {sport: basketball, countries: [Taiwan], competition_type: CLUB_LEAGUE}
+  OTHER_ASIA: {sport: basketball, countries: [Asia], competition_type: CLUB_LEAGUE}
+  UNCLASSIFIED_DISCOVERED: {sport: basketball, countries: [Unknown], competition_type: UNKNOWN}
+  OTHER_DISCOVERED: {sport: basketball, countries: [Other], season_type: discovered}
+sources:
+  broad:
+    - espn_scoreboard
+    - sofascore_scheduled_events
+    - thesportsdb_basketball
+  official:
+    - fiba_event_calendar
+    - fiba_games_results
+    - nbl_official_schedule
+    - nba_stats_scoreboard
+  league_specific:
+    - cba_specific_schedule
+    - official_club_schedule
+    - national_league_schedule
+  odds_board:
+    - odds_board_discovery
+aliases:
+  teams:
+    "Guangdong Southern Tigers": 广东宏远
+    广东宏远: 广东宏远
+    广东东阳光: 广东宏远
+    "Guangdong Dongguan": 广东宏远
+  leagues:
+    NBA: NBA
+    NBA季前: NBA
+    NBA季前赛: NBA
+    CBA: CBA_REGULAR
+    CBA常规赛: CBA_REGULAR
+    CBA季后赛: CBA_PLAYOFF
+    CBA季前: CBA_PRESEASON
+    CBA季前赛: CBA_PRESEASON
+    中国男子篮球职业联赛: CBA_REGULAR
+    WCBA: CHINA_WCBA
+    中国女子篮球联赛: CHINA_WCBA
+    CUBA: CHINA_CUBA
+    中国大学生篮球联赛: CHINA_CUBA
+    NBL: AUSTRALIA_NBL
+    NBL(A): AUSTRALIA_NBL
+    "NBL Australia": AUSTRALIA_NBL
+    "Australian NBL": AUSTRALIA_NBL
+    澳大利亚国家篮球联赛: AUSTRALIA_NBL
+    澳大利亚NBL: AUSTRALIA_NBL
+    B.League: JAPAN_BLEAGUE
+    日本B联赛: JAPAN_BLEAGUE
+    KBL: KOREA_KBL
+    韩国篮球联赛: KOREA_KBL
+    EuroCup: EUROCUP
+    欧洲杯: EUROCUP
+    欧协杯: EUROCUP
+    EuroLeague: EUROLEAGUE
+    "Euroleague Basketball": EUROLEAGUE
+    欧洲篮球联赛: EUROLEAGUE
+    欧洲篮球冠军联赛: EUROLEAGUE
+    捷克篮球甲联联赛: CZECH_NBL
+    捷甲: CZECH_NBL
+    瑞典甲: SWEDEN_BASKETETTAN
+    芬兰甲: FINLAND_DIVISION_1
+    芬兰篮球甲级联赛: FINLAND_DIVISION_1
+    VTB联: VTB_UNITED
+    VTB杯: VTB_UNITED
+    ENBL: ENBL
+    冰岛女子篮球超级联赛: ICELAND_WOMEN
+    罗马尼亚篮球杯赛: ROMANIA_CUP
+    瑞士甲: SWITZERLAND_NBL
+    瑞士女子篮球联赛: SWITZERLAND_WOMEN
+    匈牙利篮球甲级联赛: HUNGARY_NB1
+    白俄超: BELARUS_LEAGUE
+    斯伐甲: SLOVAKIA_LEAGUE
+    挪威篮球超级联赛: NORWAY_BLNO
+    希女杯: GREECE_WOMEN_CUP
+    突尼联: TUNISIA_LEAGUE
+    阿联酋杯: UAE_CUP
+    加女篮ABL: CANADA_WOMEN_ABL
+    爱沙尼亚与拉脱维亚篮球联合联赛: ESTONIA_LATVIA_LEAGUE
+    乌干女联: UGANDA_WOMEN_LEAGUE
+    肯女篮联: KENYA_WOMEN_LEAGUE
+    波多黎各联女篮: PUERTO_RICO_WOMEN
+    波多女篮: PUERTO_RICO_WOMEN
+    美洲女子篮球联赛: AMERICAS_WOMEN
+    哥伦甲: COLOMBIA_LEAGUE
+    哥伦比亚篮球甲级联赛: COLOMBIA_LEAGUE
+    巴西圣保利斯塔联赛: BRAZIL_PAULISTA
+    萨尔篮: EL_SALVADOR_LEAGUE
+    菲UAAP: PHILIPPINES_UAAP
+    菲MPBL: PHILIPPINES_MPBL
+    菲MPBL季后: PHILIPPINES_MPBL
+    新加坡NBL: SINGAPORE_NBL
+    西亚篮球超级联赛: WEST_ASIA_SUPER_LEAGUE
+    西亚联: WEST_ASIA_SUPER_LEAGUE
+    韩国大学篮球联赛: KOREA_UNIVERSITY
+    韩大学联: KOREA_UNIVERSITY_MEN
+    韩大学女联: KOREA_UNIVERSITY_WOMEN
+    友谊赛: FRIENDLY_CLUB
+    FIBA国家队: FIBA_MEN
+    亚洲杯: FIBA_CONTINENTAL
+
+competition_schema:
+  required: [canonical_league_id, canonical_name, country, region, league_family, competition_type, gender, age_group, season, tier, regulation_minutes, quarter_minutes, overtime_minutes, discovery_sources, odds_sources, stats_sources, team_aliases, active_status]
+  statuses: [REGISTERED, DISCOVERY_ACTIVE, MARKET_ACTIVE, PRICING_ACTIVE, PRODUCTION_VERIFIED, CONFIGURED_ONLY, TEST_ONLY, DISCOVERY_ONLY, FAILED]
