@@ -1,0 +1,62 @@
+{
+  "V3": {
+    "roster": 25,
+    "started_compared": 0,
+    "dashboard_rows": 25,
+    "dashboard_frozen_bettable": 0
+  },
+  "V4": {
+    "roster": 106,
+    "started_compared": 0,
+    "A": 0,
+    "B": 3,
+    "C": 1,
+    "N": 4,
+    "computed_rows": 8,
+    "match_specific_rows_checked": 8,
+    "bet_giving": 2,
+    "bet_receiving": 1,
+    "no_bet": 5
+  },
+  "settlements_checked": 17,
+  "settlements_checked_by_version": {
+    "V3": 6,
+    "V4_SHADOW": 11
+  },
+  "yesterday": {
+    "target": "2026-10-11",
+    "v3": {
+      "frozen_bettable": 26,
+      "settled": 6,
+      "counts": {
+        "W": 3,
+        "L": 3
+      },
+      "effective_win_rate": 0.5,
+      "pnl_1u": -0.5,
+      "roi": -0.0192,
+      "settled_roi": -0.0833,
+      "roi_denominator": "FROZEN_BETTABLE_1U",
+      "pending": 20
+    },
+    "v4": {
+      "frozen_bettable": 35,
+      "settled": 11,
+      "counts": {
+        "L": 6,
+        "W": 4,
+        "HL": 1
+      },
+      "effective_win_rate": 0.38095238095238093,
+      "pnl_1u": -2.77,
+      "roi": -0.0791,
+      "settled_roi": -0.2518,
+      "roi_denominator": "FROZEN_BETTABLE_1U",
+      "pending": 24
+    },
+    "csv": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-10-11_20261011_204203.csv",
+    "report": "D:\\codex\\outputs\\football_odds_trader\\reviews\\daily_performance\\yesterday_performance_2026-10-11_20261011_204203.md"
+  },
+  "errors": [],
+  "pass": true
+}

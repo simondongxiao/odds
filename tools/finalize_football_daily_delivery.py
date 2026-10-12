@@ -50,7 +50,10 @@ def refresh_v4_embedded_fallback(list_date: str, payload: dict, history: dict | 
     )
     daily_match = daily_pattern.search(html)
     if not daily_match:
-        raise RuntimeError("V4 embedded daily payload marker not found")
+        # Current V4 dashboard loads static JSON directly and no longer embeds
+        # a fallback payload.  The JSON export is the authoritative delivery
+        # artifact in that layout, so there is nothing to rewrite here.
+        return
     try:
         daily_payloads = json.loads(daily_match.group(1))
     except json.JSONDecodeError as exc:
@@ -85,6 +88,23 @@ def frozen_hash(rows):
     return hashlib.sha256(json.dumps(data, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
+def extract_cards_payload(html: str, with_span: bool = False):
+    """Decode the embedded V3 card array without depending on later filters."""
+    declaration = re.search(r"(?:const|let|var)\s+cardsData\s*=\s*", html)
+    if not declaration:
+        raise RuntimeError("V3 cards payload not found")
+    start = declaration.end()
+    try:
+        payload, _ = json.JSONDecoder().raw_decode(html[start:])
+    except json.JSONDecodeError as exc:
+        raise RuntimeError("V3 cards payload is invalid JSON") from exc
+    if not isinstance(payload, list):
+        raise RuntimeError("V3 cards payload is not an array")
+    if with_span:
+        return payload, start, start + _
+    return payload
+
+
 def main():
     run_dir = Path(sys.argv[1])
     manifest = daily.read_json(run_dir / "run_manifest.json", {})
@@ -101,10 +121,9 @@ def main():
     html_path = ROOT / "v3_legacy/outputs/football_odds_trader/dashboard/index.html"
     shutil.copy2(html_path, backup / "v3_index.html")
     html = html_path.read_text(encoding="utf-8")
-    match = re.search(r"const cardsData = (.*?);\r?\n(?:cardsData\.forEach|const stats)", html, re.S)
-    if not match:
-        raise RuntimeError("V3 cards payload not found")
-    cards = json.loads(match.group(1))
+    # Legacy V3 pages have used both ``let`` and ``const`` for the embedded
+    # card payload. Decode the JSON array before any subsequent filter code.
+    cards, cards_start, cards_end = extract_cards_payload(html, with_span=True)
     # The legacy builder rebuilds the entire cards payload. For historical
     # list dates this is not an authority for pre-match fields: recover those
     # from the pre-run backup and overlay only result/status fields.
@@ -112,10 +131,7 @@ def main():
     baseline_cards = []
     if pre_run_html.exists():
         baseline_text = pre_run_html.read_text(encoding="utf-8")
-        baseline_match = re.search(r"const cardsData = (.*?);\r?\n(?:cardsData\.forEach|const stats)", baseline_text, re.S)
-        if not baseline_match:
-            raise RuntimeError("pre-run V3 cards payload not found")
-        baseline_cards = json.loads(baseline_match.group(1))
+        baseline_cards = extract_cards_payload(baseline_text)
     audit = {"run_id": manifest["run_id"], "dates": {}, "real_money": False}
     all_results = []
     for target in (yesterday, date):
@@ -318,7 +334,7 @@ def main():
             continue
         seen[key] = card
         unique_cards.append(card)
-    html = html[:match.start(1)] + json.dumps(unique_cards, ensure_ascii=False) + html[match.end(1):]
+    html = html[:cards_start] + json.dumps(unique_cards, ensure_ascii=False) + html[cards_end:]
     html_path.write_text(html, encoding="utf-8")
     family = OUT / "v4_shadow/daily_artifacts" / date / manifest["run_id"]
     current = daily.read_json(ROOT / f"v4/outputs/v4_decisions_{date}.json", {})

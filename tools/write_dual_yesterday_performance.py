@@ -10,7 +10,13 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from asian_settlement import mirror_result, settle_giving
+from asian_settlement import (
+    RESULT_LABEL,
+    mirror_result,
+    pnl_for_result,
+    settle_giving,
+    settle_selected,
+)
 
 ROOT = Path(r"D:\codex")
 OUT = ROOT / "outputs" / "football_odds_trader"
@@ -84,7 +90,10 @@ def settle(home_goals: int, away_goals: int, selection: str, home_handicap: floa
 
 
 def pnl(result: str, water: float) -> float:
-    return {"W": water, "HW": water / 2, "P": 0.0, "HL": -0.5, "L": -1.0}[result]
+    value = pnl_for_result(result, water)
+    if value is None:
+        raise ValueError(f"water is required for {result}")
+    return value
 
 
 def effective_rate(counter: Counter[str]) -> float | None:
@@ -171,8 +180,11 @@ def settle_v3(rows: list[dict[str, Any]], raw: dict[str, dict[str, str]]) -> lis
             # expected by settle(): giving side = negative handicap.
             giving_team = team if side == "upper" else (away if team == home else home)
             home_handicap = -line if giving_team == home else line
-            giving_result = settle(int(hs), int(aws), "home" if giving_team == home else "away", home_handicap)
-            result = giving_result if team == giving_team else {"W": "L", "HW": "HL", "P": "P", "HL": "HW", "L": "W"}[giving_result]
+            selected_signed = -abs(line) if side == "upper" else abs(line)
+            selected_side = "home" if team == home else "away"
+            result = settle_selected(
+                int(hs), int(aws), selected_side, selected_signed, water,
+            )["result"]
         out.append({
             "version": "V3", "match_id": match_id, "list_date": row.get("list_date", ""),
             "competition": row.get("competition", ""), "match": row.get("match", ""),
@@ -214,9 +226,10 @@ def settle_v4(rows: list[dict[str, Any]], raw: dict[str, dict[str, str]]) -> lis
             if giving_team not in {home, away}:
                 reason = "MISSING_V4_GIVING_TEAM"
             else:
-                giving_margin = int(hs) - int(aws) if giving_team == home else int(aws) - int(hs)
-                giving_result = settle_giving(giving_margin, abs(selected_line))
-                result = giving_result if candidate_side == "giving" else mirror_result(giving_result) if candidate_side == "receiving" else ""
+                result = settle_selected(
+                    int(hs), int(aws), team, selected_line, water,
+                    home_team=home, away_team=away,
+                )["result"] if candidate_side in {"giving", "receiving"} else ""
                 if not result:
                     reason = "MISSING_V4_CANDIDATE_SIDE"
         out.append({

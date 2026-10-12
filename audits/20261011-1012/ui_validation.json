@@ -1,0 +1,88 @@
+{
+  "v3-legacy": {
+    "dates": [
+      {
+        "date": "2026-10-11",
+        "historyRows": 2076,
+        "details": 3,
+        "openedDetails": 0,
+        "historyText": true,
+        "rows": 0,
+        "controls": [
+          "dateSelect",
+          "bettableFilter",
+          "historyRateFilter"
+        ]
+      },
+      {
+        "date": "2026-10-12",
+        "historyRows": 212,
+        "details": 3,
+        "openedDetails": 0,
+        "historyText": true,
+        "rows": 0,
+        "controls": [
+          "dateSelect",
+          "bettableFilter",
+          "historyRateFilter"
+        ]
+      }
+    ],
+    "page_errors": [],
+    "frozen_filter": {
+      "v4Rows": 0,
+      "executionWarnings": true,
+      "redTeams": 10,
+      "greenTeams": 14
+    },
+    "high_filter_rows": 0,
+    "low_filter_rows": 0,
+    "history_dropdown_click_pass": true
+  },
+  "v4": {
+    "dates": [
+      {
+        "date": "2026-10-11",
+        "historyRows": 2076,
+        "details": 447,
+        "openedDetails": 0,
+        "historyText": true,
+        "rows": 1038,
+        "controls": [
+          "date",
+          "bettableOnly",
+          "historyRateFilter",
+          "competition",
+          "decision",
+          "grade"
+        ]
+      },
+      {
+        "date": "2026-10-12",
+        "historyRows": 212,
+        "details": 57,
+        "openedDetails": 0,
+        "historyText": true,
+        "rows": 106,
+        "controls": [
+          "date",
+          "bettableOnly",
+          "historyRateFilter",
+          "competition",
+          "decision",
+          "grade"
+        ]
+      }
+    ],
+    "page_errors": [],
+    "frozen_filter": {
+      "v4Rows": 30,
+      "executionWarnings": true,
+      "redTeams": 6,
+      "greenTeams": 16
+    },
+    "high_filter_rows": 19,
+    "low_filter_rows": 85,
+    "history_dropdown_click_pass": true
+  }
+}
