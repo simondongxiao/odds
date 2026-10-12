@@ -1,0 +1,78 @@
+name: Football daily update and Feishu delivery
+
+on:
+  schedule:
+    # 07:00 Asia/Shanghai = 23:00 UTC on the previous day.
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: football-daily-update
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  update-and-notify:
+    # The production V3/V4 runner needs the existing D:\codex Excel ledgers,
+    # Titan snapshots, and the local task folder. Register one Windows runner
+    # with these standard labels before enabling the schedule.
+    runs-on: [self-hosted, Windows, X64]
+    timeout-minutes: 60
+    env:
+      FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+      FOOTBALL_OUTPUT_ROOT: D:\codex\outputs\football_odds_trader
+      FOOTBALL_UPDATE_SCRIPT: D:\codex\技能项目\football_update\run_football_update.py
+      FOOTBALL_PYTHON: D:\python\python.exe
+      FOOTBALL_DASHBOARD_URL: https://simondongxiao.github.io/odds/v4/
+
+    steps:
+      - name: Checkout automation code
+        uses: actions/checkout@v4
+
+      - name: Run the existing V3/V4 daily update
+        id: football_update
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $python = $env:FOOTBALL_PYTHON
+          if (-not (Test-Path -LiteralPath $python)) {
+            $python = (Get-Command python).Source
+          }
+          $listDate = & $python -c "from datetime import datetime, timezone, timedelta; print(datetime.now(timezone(timedelta(hours=8))).date().isoformat())"
+          $env:FOOTBALL_LIST_DATE = $listDate.Trim()
+
+          # Let the local publisher push through the Actions token without
+          # writing the token into the repository's git config.
+          $token = "${{ github.token }}"
+          $basic = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("x-access-token:$token"))
+          $env:GIT_CONFIG_COUNT = "1"
+          $env:GIT_CONFIG_KEY_0 = "http.https://github.com/.extraheader"
+          $env:GIT_CONFIG_VALUE_0 = "AUTHORIZATION: basic $basic"
+          $publishRepo = Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds"
+          if (Test-Path -LiteralPath (Join-Path $publishRepo ".git")) {
+            git -C $publishRepo fetch origin main gh-pages --quiet
+          }
+
+          & $python $env:FOOTBALL_UPDATE_SCRIPT --list-date $env:FOOTBALL_LIST_DATE
+          if ($LASTEXITCODE -ne 0) {
+            throw "football update failed with exit code $LASTEXITCODE"
+          }
+
+      - name: Send Feishu result
+        if: always()
+        shell: pwsh
+        env:
+          UPDATE_OUTCOME: ${{ steps.football_update.outcome }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $python = $env:FOOTBALL_PYTHON
+          if (-not (Test-Path -LiteralPath $python)) {
+            $python = (Get-Command python).Source
+          }
+          $listDate = & $python -c "from datetime import datetime, timezone, timedelta; print(datetime.now(timezone(timedelta(hours=8))).date().isoformat())"
+          & $python "$env:GITHUB_WORKSPACE\tools\send_feishu_daily_report.py" --list-date $listDate.Trim() --status $env:UPDATE_OUTCOME
