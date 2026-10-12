@@ -3,7 +3,7 @@ import hashlib, json, os, re, sys, tempfile
 from datetime import datetime, timedelta, timezone, date
 from pathlib import Path
 from typing import Any
-CODEX_ROOT=Path(r'D:\codex')
+CODEX_ROOT=Path(os.environ.get('CODEX_ROOT', Path(__file__).resolve().parents[3]))
 if str(CODEX_ROOT) not in sys.path:sys.path.insert(0,str(CODEX_ROOT))
 from odds_shared.canonical_entities import default_registry, normalize_label, canonicalize_event
 BJ = timezone(timedelta(hours=8))

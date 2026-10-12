@@ -11,6 +11,7 @@ import hashlib
 import json
 import re
 import unicodedata
+import os
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from functools import lru_cache
@@ -18,7 +19,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-REGISTRY_PATH = Path(r"D:\codex\config\canonical_entity_registry.json")
+REGISTRY_PATH = Path(os.environ.get("CANONICAL_ENTITY_REGISTRY", Path(__file__).resolve().parents[1] / "config" / "canonical_entity_registry.json"))
 
 
 def normalize_label(value: Any) -> str:
