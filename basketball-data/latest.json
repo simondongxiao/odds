@@ -227432,13 +227432,14 @@
   },
   "paper_ledger_history": {
     "schema_version": "paper-ledger-history-1.0",
-    "generated_at": "2026-10-12T12:04:22.568181+00:00",
+    "generated_at": "2026-10-12T12:44:43.968469+00:00",
     "source_workbook": "D:\\codex\\outputs\\basketball_odds_trader\\paper_ledger\\basketball_paper_ledger_20260915_20261013_cumulative_v28.xlsx",
     "settled_ledger_rows": 141,
     "records": {
       "7m:742197": {
         "event_id": "7m:742197",
         "league": "NBA季前",
+        "league_family": "NBA",
         "team1": "华盛顿奇才[东15]",
         "team2": "布鲁克林篮网[东13]",
         "same_matchup": {
@@ -227450,6 +227451,16 @@
           "pnl_units": null,
           "roi": null,
           "status": "NO_EXACT_SAMPLE"
+        },
+        "league_overall": {
+          "n": 6,
+          "wins": 2,
+          "losses": 4,
+          "pushes": 0,
+          "win_rate": 0.3333,
+          "pnl_units": -2.04,
+          "roi": -0.34,
+          "status": "SETTLED_SAMPLE"
         },
         "team1_same_league": {
           "n": 0,
@@ -227476,6 +227487,7 @@
       "7m:742375": {
         "event_id": "7m:742375",
         "league": "NBA季前",
+        "league_family": "NBA",
         "team1": "亚特兰大老鹰[东6]",
         "team2": "俄克拉荷马城雷霆[西1]",
         "same_matchup": {
@@ -227488,15 +227500,25 @@
           "roi": null,
           "status": "NO_EXACT_SAMPLE"
         },
-        "team1_same_league": {
-          "n": 0,
-          "wins": 0,
-          "losses": 0,
+        "league_overall": {
+          "n": 6,
+          "wins": 2,
+          "losses": 4,
           "pushes": 0,
-          "win_rate": null,
-          "pnl_units": null,
-          "roi": null,
-          "status": "NO_EXACT_SAMPLE"
+          "win_rate": 0.3333,
+          "pnl_units": -2.04,
+          "roi": -0.34,
+          "status": "SETTLED_SAMPLE"
+        },
+        "team1_same_league": {
+          "n": 1,
+          "wins": 0,
+          "losses": 1,
+          "pushes": 0,
+          "win_rate": 0.0,
+          "pnl_units": -1.0,
+          "roi": -1.0,
+          "status": "SETTLED_SAMPLE"
         },
         "team2_same_league": {
           "n": 0,
@@ -227513,6 +227535,7 @@
       "7m:742353": {
         "event_id": "7m:742353",
         "league": "NBA季前",
+        "league_family": "NBA",
         "team1": "纽约尼克斯[东3]",
         "team2": "明尼苏达森林狼[西6]",
         "same_matchup": {
@@ -227525,15 +227548,25 @@
           "roi": null,
           "status": "NO_EXACT_SAMPLE"
         },
-        "team1_same_league": {
-          "n": 0,
-          "wins": 0,
-          "losses": 0,
+        "league_overall": {
+          "n": 6,
+          "wins": 2,
+          "losses": 4,
           "pushes": 0,
-          "win_rate": null,
-          "pnl_units": null,
-          "roi": null,
-          "status": "NO_EXACT_SAMPLE"
+          "win_rate": 0.3333,
+          "pnl_units": -2.04,
+          "roi": -0.34,
+          "status": "SETTLED_SAMPLE"
+        },
+        "team1_same_league": {
+          "n": 1,
+          "wins": 0,
+          "losses": 1,
+          "pushes": 0,
+          "win_rate": 0.0,
+          "pnl_units": -1.0,
+          "roi": -1.0,
+          "status": "SETTLED_SAMPLE"
         },
         "team2_same_league": {
           "n": 0,
@@ -227550,9 +227583,20 @@
       "7m:745331": {
         "event_id": "7m:745331",
         "league": "墨联季后",
+        "league_family": "墨联",
         "team1": "多拉多斯[6]",
         "team2": "弗雷斯尼洛虾[11]",
         "same_matchup": {
+          "n": 0,
+          "wins": 0,
+          "losses": 0,
+          "pushes": 0,
+          "win_rate": null,
+          "pnl_units": null,
+          "roi": null,
+          "status": "NO_EXACT_SAMPLE"
+        },
+        "league_overall": {
           "n": 0,
           "wins": 0,
           "losses": 0,
@@ -227585,6 +227629,6 @@
         "source": "D:\\codex\\outputs\\basketball_odds_trader\\paper_ledger\\basketball_paper_ledger_20260915_20261013_cumulative_v28.xlsx"
       }
     },
-    "display_note": "仅展示累计 Excel 中已结算且统计纳入的记录；同对阵无样本时不借用其它盘口桶。"
+    "display_note": "联赛统计按联赛主名合并季前、常规赛、季后赛；仅使用累计 Excel 中已结算且统计纳入的同市场记录。"
   }
 }
