@@ -1,7 +1,7 @@
 {
   "list_date": "2026-10-12",
-  "run_id": "RUN_20261012_080359",
-  "generated_at": "2026-10-12T08:03:59.207114+08:00",
+  "run_id": "RUN_20261012_195046",
+  "generated_at": "2026-10-12T19:50:46.339949+08:00",
   "matches": [
     {
       "identity": {
@@ -48,7 +48,7 @@
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "NEUTRAL",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -73,7 +73,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -124,7 +124,7 @@
       },
       "v4_shadow": {
         "grade": "B",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "山西崇德荣海",
         "side": "giving",
         "ev_mean": 0.12181759407460438,
@@ -149,7 +149,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -200,7 +200,7 @@
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.7522083285081071,
@@ -225,7 +225,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -270,13 +270,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.7298283574713373,
@@ -301,7 +301,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -346,13 +346,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.9358097900519601,
@@ -377,7 +377,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -422,13 +422,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.004236243456578748,
@@ -453,7 +453,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -498,13 +498,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -529,7 +529,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -574,13 +574,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -605,7 +605,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -656,7 +656,7 @@
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.6714390946587705,
@@ -681,7 +681,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -726,13 +726,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.22316845576780087,
@@ -757,7 +757,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -802,13 +802,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.06546703629622075,
@@ -833,7 +833,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -878,13 +878,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.2336550189117667,
@@ -909,7 +909,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -954,13 +954,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.8499020402701961,
@@ -985,7 +985,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1030,13 +1030,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.13463026777064746,
@@ -1061,7 +1061,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1106,13 +1106,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1137,7 +1137,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1188,7 +1188,7 @@
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "NEUTRAL",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1213,7 +1213,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1264,7 +1264,7 @@
       },
       "v4_shadow": {
         "grade": "B",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "雅尔卡",
         "side": "receiving",
         "ev_mean": 0.863316635606193,
@@ -1289,7 +1289,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1334,13 +1334,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1365,7 +1365,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1410,13 +1410,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1441,7 +1441,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1492,7 +1492,7 @@
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "NEUTRAL",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1517,7 +1517,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1562,13 +1562,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.15821119951788915,
@@ -1593,7 +1593,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1638,13 +1638,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1669,7 +1669,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1714,13 +1714,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1745,7 +1745,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1790,13 +1790,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1821,7 +1821,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1866,13 +1866,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -1897,7 +1897,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -1948,7 +1948,7 @@
       },
       "v4_shadow": {
         "grade": "C",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.036469999361821714,
@@ -1973,7 +1973,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2018,13 +2018,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.07057585383672543,
@@ -2049,7 +2049,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2094,13 +2094,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": -0.00409380583611485,
@@ -2125,7 +2125,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2170,13 +2170,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": -0.037731583812614655,
@@ -2201,7 +2201,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2246,13 +2246,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "NEUTRAL",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -2277,7 +2277,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2322,13 +2322,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.035058849061680775,
@@ -2353,7 +2353,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2404,7 +2404,7 @@
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.2633882757473629,
@@ -2429,7 +2429,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2474,13 +2474,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.17135354302119254,
@@ -2505,7 +2505,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2556,7 +2556,7 @@
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -2581,7 +2581,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2632,7 +2632,7 @@
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": -0.0765740251951754,
@@ -2657,7 +2657,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2702,13 +2702,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": null,
-        "status": "MISSING_DATA",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -2733,7 +2733,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2778,13 +2778,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.045033256616723694,
@@ -2809,7 +2809,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2854,13 +2854,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.5275054528842595,
@@ -2885,7 +2885,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -2930,13 +2930,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.5460900817105774,
@@ -2961,7 +2961,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3006,13 +3006,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.4695691334967842,
@@ -3037,7 +3037,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3082,13 +3082,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": -0.03952344057014395,
@@ -3113,7 +3113,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3158,13 +3158,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "NEUTRAL",
+        "status": "NOT_PREMATCH",
         "team": "",
         "side": "",
         "ev_mean": null,
@@ -3189,7 +3189,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3234,13 +3234,13 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
       "v4_shadow": {
         "grade": "N",
-        "status": "EVALUATED",
+        "status": "FROZEN_PREMATCH_DECISION",
         "team": "",
         "side": "",
         "ev_mean": 0.21787569029819556,
@@ -3265,7 +3265,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3306,12 +3306,12 @@
         "water": 0,
         "probability": 0,
         "reason": "标签历史或微观组合样本缺失",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "f94df393139f9d1ef3ef",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "2bc24f02d621918c7527",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -3341,7 +3341,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3382,12 +3382,12 @@
         "water": 0,
         "probability": 0,
         "reason": "亚盘盘口/两边水位缺失",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "c6d70a3c49719ff9113c",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "5599ff78ba6cb6bb2d44",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -3405,8 +3405,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "848be8b64c3df10497ca",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "a5fa77a01453477ba403",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -3417,7 +3417,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3462,7 +3462,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -3481,8 +3481,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "9f4df7e5bf741cf1d215",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "1ed0ec3d3a98909af13a",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -3493,7 +3493,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3538,7 +3538,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -3557,8 +3557,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "e6d318063fa102c9ebe8",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "31339d8ea9a5425a82ed",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -3569,7 +3569,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3614,7 +3614,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -3633,8 +3633,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "ae91a7683ca4f4e3ab03",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "1bd477fed35875991918",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -3645,7 +3645,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3690,7 +3690,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -3709,8 +3709,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "8f9f36b34bf2da677d48",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "06a06e7c0a242475c424",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -3721,7 +3721,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3766,7 +3766,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -3785,8 +3785,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "ef74730999a5509657d1",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "35b08e3a72caa36298c5",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -3797,7 +3797,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3842,7 +3842,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -3861,8 +3861,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "75f59c345cf037858757",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "0c7b8c9168860cae2bde",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -3873,7 +3873,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3918,7 +3918,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -3937,8 +3937,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "51cf8ed8f9fea897d9ad",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "e2c7b2cc127fac2eeac5",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -3949,7 +3949,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -3994,7 +3994,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4013,8 +4013,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "d3569107dac6a2a14edd",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "11d714b00a610f97956b",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -4025,7 +4025,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4070,7 +4070,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4089,8 +4089,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "98078c2344444cb61573",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "0c5abee0be72e1bdb893",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -4101,7 +4101,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4146,7 +4146,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4165,8 +4165,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:45:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "c82fcfcfa9a79e8bcfb3",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "dac18d1c468ebc9455fe",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -4177,7 +4177,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4222,7 +4222,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4241,8 +4241,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "98a0ccef1f118c39eff0",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "5a41aa7b3aba24964673",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -4253,7 +4253,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4298,7 +4298,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4317,8 +4317,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "879e84c202200f16b992",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "bdf0ad492a328dfb85b0",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -4329,7 +4329,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4374,7 +4374,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4393,8 +4393,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "45a673e525e5e78e1d64",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "6b758edfe1c4f567d2ce",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -4405,7 +4405,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4450,7 +4450,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4469,8 +4469,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "8adcff1810b36e7ed6e0",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "4a59e4a827f5539f0107",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -4481,7 +4481,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4526,7 +4526,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4545,8 +4545,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "3366ee8270797809ec1e",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "d67cb7a635d14c457c12",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -4557,7 +4557,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4602,7 +4602,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4621,8 +4621,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "829f953454de968e2cc9",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "f712c15eeaf7469ddfea",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -4633,7 +4633,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "进行中",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4678,7 +4678,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4697,8 +4697,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "5e4ca9598f9a4013532e",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "87693bd78908293e5862",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -4709,7 +4709,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4750,12 +4750,12 @@
         "water": 0,
         "probability": 0,
         "reason": "亚盘盘口/两边水位缺失",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "3547b6872f7077ff4d30",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "d8c5f810637249957829",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -4773,8 +4773,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "2d94ca029df76d39aafc",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "2e53f76f96fb34652c0a",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -4785,7 +4785,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4826,12 +4826,12 @@
         "water": 0,
         "probability": 0,
         "reason": "亚盘盘口/两边水位缺失",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "221a00402140580c5c8b",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "748adcd2c041cf556c8a",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -4849,8 +4849,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "7990fc8edd0fbe4f855d",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "548f18e0f9680dcbb74a",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -4861,7 +4861,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4906,7 +4906,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -4925,8 +4925,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "9e9dd4e8a69307a2a1f9",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "0f69fffa4cd3bbe2f3ae",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -4937,7 +4937,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -4982,7 +4982,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5001,8 +5001,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "551103b4f7c0d3a4cf7d",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "b99f39c4b9ede93aeb83",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -5013,7 +5013,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5058,7 +5058,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5077,8 +5077,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:05:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "ad668c880bb8196ab5ca",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "e45869f5b93907f76751",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -5089,7 +5089,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5134,7 +5134,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5153,8 +5153,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:05:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "c82d325680db69ffea95",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "e7cd82db2f712f769757",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -5165,7 +5165,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5210,7 +5210,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5229,8 +5229,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:25:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "937c265ae231f73ef89f",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "16cedeb59ab2c96bb37d",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -5241,7 +5241,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5286,7 +5286,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5305,8 +5305,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "05ff0f7b20952b4b9e2d",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "703e26051bbfb9e39b42",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -5317,7 +5317,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5362,7 +5362,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5381,8 +5381,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "da17a49edba1710c2c1c",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "c4001796cb94ce4d9734",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -5393,7 +5393,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5438,7 +5438,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5457,8 +5457,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "57ee653dde06e301dd52",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "14179f0fbdba9ff48968",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -5469,7 +5469,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5514,7 +5514,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5533,8 +5533,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "d2dee85b5a87057987e5",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "72baffaa616c93eb76e3",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -5545,7 +5545,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5590,7 +5590,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5609,8 +5609,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "2d706cbb2a4c530fb2c2",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "f2ac747819b08e3d4ae5",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -5621,7 +5621,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5666,7 +5666,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5685,8 +5685,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "a4c5f6c273b08ffb2aa0",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "86f1db8b838060ab9c87",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -5697,7 +5697,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5738,12 +5738,12 @@
         "water": 0,
         "probability": 0,
         "reason": "标签历史或微观组合样本缺失",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T21:45:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "4d89641071599032d2f1",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "a036dd9b15083bbb996a",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -5773,7 +5773,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5814,12 +5814,12 @@
         "water": 0.76,
         "probability": 0.584,
         "reason": "综合胜率58.4%低于水位阈值58.8%",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "9822d5b307dce349fce1",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "767e37d60cab1564a44d",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -5849,7 +5849,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5894,7 +5894,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -5913,8 +5913,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "f2c3fe848a02b77eec43",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "cff548707da4e9a136d6",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -5925,7 +5925,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -5966,12 +5966,12 @@
         "water": 0,
         "probability": 0,
         "reason": "杯赛比赛级Fair Line与原盘口Intent冲突：INDEPENDENT_FAIR_LINE_OR_DIRECTION_MISSING；不是按杯种禁投",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "7e9991a9538a660b143a",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "b4cc632f1f0c4b03d72a",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -6001,7 +6001,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6046,7 +6046,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6065,8 +6065,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "1c0c04f0a36ec803868e",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "06435c7fa1b2fe206d9e",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -6077,7 +6077,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6122,7 +6122,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6141,8 +6141,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "c214c6d4105d97378044",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "8c3106a05b8a0f84150a",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -6153,7 +6153,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6198,7 +6198,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6217,8 +6217,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "4d5c1c943846d4f6d026",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "503e2ad643bf2cc3eca2",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -6229,7 +6229,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6274,7 +6274,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6293,8 +6293,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "608be2e8d53b7c7fe3d1",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "7125dfc9c744e6e071c6",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -6305,7 +6305,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6350,7 +6350,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6369,8 +6369,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "839114ace7e418599dd9",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "78b61f6dc2e459d5e9e2",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -6381,7 +6381,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6426,7 +6426,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6445,8 +6445,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "11013ba0640676b09c2d",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "e064c195add722f6a123",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -6457,7 +6457,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6502,7 +6502,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6521,8 +6521,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "b86c63aada801775cbb6",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "24ad21120f15e62eba8b",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -6533,7 +6533,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6578,7 +6578,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6597,8 +6597,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "7e47cfa4038e3b7f2418",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "aa6128ef18cba242b865",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -6609,7 +6609,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6654,7 +6654,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6673,8 +6673,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "dcf77dd62012c546e4a1",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "d578ccaaf2cfda4709f3",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -6685,7 +6685,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6726,12 +6726,12 @@
         "water": 0,
         "probability": 0,
         "reason": "标签历史或微观组合样本缺失",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:15:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "c42f921cb6fbc0e869c2",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "ca8383d999f9f87bac5f",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -6761,7 +6761,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6806,7 +6806,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6825,8 +6825,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:25:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "efc79a6cbe6a38a768ad",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "3ac937a28df9fd1fcb07",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -6837,7 +6837,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6878,12 +6878,12 @@
         "water": 0,
         "probability": 0,
         "reason": "亚盘盘口/两边水位缺失",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "5a1762dac71508b5a065",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "eac8b6077df9508242fd",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -6901,8 +6901,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "9b932eeb682be08cd5e5",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "6f9d518be07fe1993d2c",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -6913,7 +6913,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -6958,7 +6958,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -6977,8 +6977,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "7351d8e27f97bb9dc4d0",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "a043923e246f5683e594",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -6989,7 +6989,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7034,7 +7034,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7053,8 +7053,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "301d4eb75c8a0edc1b35",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "86f752a081428d57279b",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -7065,7 +7065,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7110,7 +7110,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7129,8 +7129,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T22:55:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "4a0acdbe6fa898eaa6ee",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "984f35b56ce4ccaa1a95",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -7141,7 +7141,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7186,7 +7186,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7205,8 +7205,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "a7e4a89138298909a092",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "9990889e064b8fac2fff",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -7217,7 +7217,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7262,7 +7262,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7293,7 +7293,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7338,7 +7338,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7357,8 +7357,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "11d92c52fd8d57b67c21",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "4f0cc457d0494b4841a8",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -7369,7 +7369,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7414,7 +7414,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7433,8 +7433,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "2a274947a6405901c1c0",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "0e33933e66b9f43ba4e1",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -7445,7 +7445,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7490,7 +7490,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7509,8 +7509,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "184ed624f6bfa13a8b45",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "d02928cb5037d26e46e2",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -7521,7 +7521,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7566,7 +7566,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7585,8 +7585,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "8c48b46e1babc809840b",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "5415914cd55a993021bd",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -7597,7 +7597,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7638,12 +7638,12 @@
         "water": 0.65,
         "probability": 0.5760000000000001,
         "reason": "综合胜率57.6%低于水位阈值62.6%",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "1c86d00ec0d69893ad47",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "72be487304e660428bbc",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -7661,8 +7661,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "96eeba108e8d8a7ecf4b",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "d33d04767146f1f4dcb5",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -7673,7 +7673,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7714,12 +7714,12 @@
         "water": 0,
         "probability": 0,
         "reason": "亚盘盘口/两边水位缺失",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "45d22185659dcf5d9e02",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "9f71b928e1060e01c236",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -7737,8 +7737,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "09e93b60fb7098b7bac8",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "d96e84ec24d7cc295173",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -7749,7 +7749,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7790,12 +7790,12 @@
         "water": 0,
         "probability": 0,
         "reason": "杯赛比赛级Fair Line与原盘口Intent冲突：MARKET_INTENT_CONFLICTS_WITH_MATCH_SPECIFIC_FAIR_LINE；不是按杯种禁投",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "ff64b16f52be07063ff6",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "aa0c8a0423c8024357ab",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -7825,7 +7825,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7870,7 +7870,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7889,8 +7889,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "268714f33750a2e740cd",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "c4434f0027eb6c0ba69a",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -7901,7 +7901,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -7946,7 +7946,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -7965,8 +7965,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "332b5646953901a6dd75",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "f8df2fbbcdeb637afdd1",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -7977,7 +7977,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8022,7 +8022,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8041,8 +8041,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "80ae9bcb1ba1ab911ceb",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "d3f06319f3e21a4d46b8",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -8053,7 +8053,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8098,7 +8098,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8117,8 +8117,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "7d18b6601b8d6ed46182",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "8fdb2b59c720a31099d2",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -8129,7 +8129,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8174,7 +8174,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8193,8 +8193,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:15:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "ec23ea37fa316b285f62",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "196ec94c6353ba240c91",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -8205,7 +8205,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8250,7 +8250,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8269,8 +8269,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "e613b0849092c652d0f6",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "92ba2c6fc431c2c925c3",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -8281,7 +8281,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8322,12 +8322,12 @@
         "water": 0,
         "probability": 0,
         "reason": "杯赛比赛级Fair Line与原盘口Intent冲突：MARKET_INTENT_CONFLICTS_WITH_MATCH_SPECIFIC_FAIR_LINE；不是按杯种禁投",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "095a0f1af8d43314df33",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "5e45233d0e3e402de874",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -8357,7 +8357,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8398,12 +8398,12 @@
         "water": 0.9,
         "probability": 0.5479999999999999,
         "reason": "风控熔断/静默：状态C-熔断/静默观望",
-        "decision_at": "2026-10-12T08:12:26+08:00",
+        "decision_at": "2026-10-12T19:51:28+08:00",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "672dd5336659f6a79ac9",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "c8892b499c2a5f929d02",
         "is_latest_valid_prematch": true
       },
       "v4_shadow": {
@@ -8421,8 +8421,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "afddd7498abff53f9f47",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "1d5aec83ad95d8fe6b83",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -8433,7 +8433,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8478,7 +8478,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8497,8 +8497,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "2a58faf4219fd0901b3f",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "00f1419f18843f9f5185",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -8509,7 +8509,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8554,7 +8554,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8573,8 +8573,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "37628bcf4934b34fd580",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "d6a778543548e2c31210",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -8585,7 +8585,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8630,7 +8630,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8649,8 +8649,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "841f3fa9d4f012a515ff",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "fc1efa4d9ccb980e0312",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -8661,7 +8661,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8706,7 +8706,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8725,8 +8725,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "0765b3e39520453a94ea",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "49a11807e5656542b19b",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -8737,7 +8737,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8782,7 +8782,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8801,8 +8801,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "96b52aa933ff8e4bfbe7",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "e0176b7765148b5b1b39",
         "is_latest_valid_prematch": true
       },
       "settlement": {
@@ -8813,7 +8813,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8858,7 +8858,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8877,8 +8877,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "d648483f9c8ee6942db6",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "633e977d6cf7534dc5e8",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -8889,7 +8889,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -8934,7 +8934,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -8953,8 +8953,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T23:45:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "746acd75feea7efed7ee",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "cd2658051e4a4c579fb9",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -8965,7 +8965,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "REFRESHED"
@@ -9010,7 +9010,7 @@
         "quote_at": "",
         "last_confirmed_at": "",
         "kickoff_at": "",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "decision_id": "",
         "is_latest_valid_prematch": false
       },
@@ -9029,8 +9029,8 @@
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
-        "run_id": "RUN_20261012_080359",
-        "decision_id": "c8a7f6225903722df421",
+        "run_id": "RUN_20261012_195046",
+        "decision_id": "f96bc9d852594ea39f67",
         "is_latest_valid_prematch": false
       },
       "settlement": {
@@ -9041,7 +9041,7 @@
         "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261012\\20261012_080359_titan007_odds_snapshot.csv",
         "state": "未开赛",
         "data_status": "赛前市场输入",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
         "refresh_status": "本次未刷新到-保留上一版快照"

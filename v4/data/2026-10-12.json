@@ -4,7 +4,7 @@
   "model_version": "V4",
   "prior_snapshot_id": "prior-2026-10-12-v1",
   "real_money": false,
-  "generated_at": "2026-10-12T08:12:01.391180+08:00",
+  "generated_at": "2026-10-12T19:50:51.615965+08:00",
   "V4_logic_change_at": "2026-10-04T09:52:00+08:00",
   "code_hash": "efcc993e2c60d81e22b3224da4dff2a87a2767f062b303f842d4e0afe5d90aa0",
   "calibration_status": "UNCALIBRATED_SHADOW",
@@ -16,9 +16,9 @@
     "B": 8,
     "C": 3,
     "N": 60,
-    "neutral": 16,
-    "missing_data": 31,
-    "not_prematch": 1,
+    "neutral": 11,
+    "missing_data": 20,
+    "not_prematch": 17,
     "errors": 0,
     "giving": 6,
     "receiving": 2,
@@ -94,16 +94,18 @@
         ]
       },
       "competition": "女日联杯",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "3ec140a76be45d9aba6f"
+      "decision_id": "3ec140a76be45d9aba6f",
+      "score": "0-0",
+      "started_lock": true
     },
     {
       "match_id": "3087149",
@@ -1253,14 +1255,10 @@
         ]
       },
       "reason_codes": [
-        "GIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "中乙",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "5e9bfa86ce74e0d55731",
       "normalized_intent": "降温保护/诱下",
@@ -2461,7 +2459,9 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "9f4b545df58dc7f9f14826a0ce573115b3eda283c9635b5b72f841136f81d37e"
+      "input_hash": "9f4b545df58dc7f9f14826a0ce573115b3eda283c9635b5b72f841136f81d37e",
+      "started_lock": true,
+      "frozen_selection_lock": true
     },
     {
       "match_id": "3087150",
@@ -3583,14 +3583,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_CORE"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "中乙",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "06ac218bc9a76ce3558f",
       "normalized_intent": "unknown",
@@ -4722,7 +4718,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e312572c78815512a7a32ba207f531169624e218282e591d5a4c6833cca0e266"
+      "input_hash": "e312572c78815512a7a32ba207f531169624e218282e591d5a4c6833cca0e266",
+      "started_lock": true
     },
     {
       "match_id": "3087678",
@@ -5846,14 +5843,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_CORE"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "中乙降A",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "78a2b818362aa2c4ed73",
       "normalized_intent": "unknown",
@@ -6985,7 +6978,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e0fd5c12f83c2dc2e909a10227ed1cce8be9263d3afd24b0d166c0ecf2d552fc"
+      "input_hash": "e0fd5c12f83c2dc2e909a10227ed1cce8be9263d3afd24b0d166c0ecf2d552fc",
+      "started_lock": true
     },
     {
       "match_id": "3101767",
@@ -8133,14 +8127,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "印班超",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "691172d33d0424162a8e",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -9341,7 +9331,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e6c53eabc3c2a057a99d928ead78fd39b28c9ec777505d19fb9a223c0144cabe"
+      "input_hash": "e6c53eabc3c2a057a99d928ead78fd39b28c9ec777505d19fb9a223c0144cabe",
+      "started_lock": true
     },
     {
       "match_id": "3100439",
@@ -10488,14 +10479,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "0444a4c4175d4856555e",
       "normalized_intent": "阻下/下盘保护",
@@ -11696,7 +11683,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "be28c43394662422a31e5ef0b71e94ab7df5e8ba4a5eb33baecafcea23ce5c61"
+      "input_hash": "be28c43394662422a31e5ef0b71e94ab7df5e8ba4a5eb33baecafcea23ce5c61",
+      "started_lock": true
     },
     {
       "match_id": "3099610",
@@ -11767,14 +11755,15 @@
         ]
       },
       "competition": "马来A1联",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "a942b9ab3874b7b9f404"
+      "decision_id": "a942b9ab3874b7b9f404",
+      "started_lock": true
     },
     {
       "match_id": "3056038",
@@ -11845,14 +11834,15 @@
         ]
       },
       "competition": "乌克U21",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "55c43ccfff11df7b0a84"
+      "decision_id": "55c43ccfff11df7b0a84",
+      "started_lock": true
     },
     {
       "match_id": "3044299",
@@ -12999,14 +12989,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌克乙",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "053192576296687f749d",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -14207,7 +14193,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "9869cef829be80806813954383ff2ae9f18a8b2d6e9cb839ed0f62410b42536d"
+      "input_hash": "9869cef829be80806813954383ff2ae9f18a8b2d6e9cb839ed0f62410b42536d",
+      "started_lock": true
     },
     {
       "match_id": "3100440",
@@ -15354,14 +15341,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "62251d8047ebfc1b4848",
       "normalized_intent": "阻下/下盘保护",
@@ -16562,7 +16545,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "b8a3da92aa1b10c8892eade10de1a23086d2fa1052fd57b839c8c14a2df8862c"
+      "input_hash": "b8a3da92aa1b10c8892eade10de1a23086d2fa1052fd57b839c8c14a2df8862c",
+      "started_lock": true
     },
     {
       "match_id": "3101084",
@@ -17705,14 +17689,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "ce0089f6343e949b13df",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -18909,7 +18889,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "1d340871a052624285a7ff86855cddbd04613d3ae9825b075c585371c2640b95"
+      "input_hash": "1d340871a052624285a7ff86855cddbd04613d3ae9825b075c585371c2640b95",
+      "started_lock": true
     },
     {
       "match_id": "3101242",
@@ -20056,14 +20037,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "4b194f5e86d8a0a32bf6",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -21264,7 +21241,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "22a69a7521466b323541578eb81726902a264028760ee6def923fe69ce1bb9b0"
+      "input_hash": "22a69a7521466b323541578eb81726902a264028760ee6def923fe69ce1bb9b0",
+      "started_lock": true
     },
     {
       "match_id": "2997205",
@@ -22411,14 +22389,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "越女联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "00dbbc7be2e781b378ce",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -23619,7 +23593,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e9e3697684d179aa3f04f277fd071351de09e4d137e2dad18358ad972fcb6f46"
+      "input_hash": "e9e3697684d179aa3f04f277fd071351de09e4d137e2dad18358ad972fcb6f46",
+      "started_lock": true
     },
     {
       "match_id": "2997206",
@@ -24762,14 +24737,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "越女联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "8ac28ee51498331ddd16",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -25966,7 +25937,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "3e129a31cf07dd20305c9c137a87fcfc89f1c5143bfd86f94ace05314193659b"
+      "input_hash": "3e129a31cf07dd20305c9c137a87fcfc89f1c5143bfd86f94ace05314193659b",
+      "started_lock": true
     },
     {
       "match_id": "2997273",
@@ -26037,14 +26009,15 @@
         ]
       },
       "competition": "欧青U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "14a424ce640c4f48b7bb"
+      "decision_id": "14a424ce640c4f48b7bb",
+      "started_lock": true
     },
     {
       "match_id": "3012527",
@@ -26115,16 +26088,17 @@
         ]
       },
       "competition": "乌克超",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "e701b1d97c2d07cb4f21"
+      "decision_id": "e701b1d97c2d07cb4f21",
+      "started_lock": true
     },
     {
       "match_id": "3099752",
@@ -27276,14 +27250,10 @@
         ]
       },
       "reason_codes": [
-        "RECEIVING_VALIDATED_EDGE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "以杯",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "4bf52bd162658afa31d0",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -28484,7 +28454,9 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "5cd720358d9d75153bf3e46a21517d077da79353aa700b54fe578c39188c9d68"
+      "input_hash": "5cd720358d9d75153bf3e46a21517d077da79353aa700b54fe578c39188c9d68",
+      "started_lock": true,
+      "frozen_selection_lock": true
     },
     {
       "match_id": "3056040",
@@ -28555,14 +28527,15 @@
         ]
       },
       "competition": "乌克U21",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "f8177e7f2674563fb563"
+      "decision_id": "f8177e7f2674563fb563",
+      "started_lock": true
     },
     {
       "match_id": "3056043",
@@ -28633,14 +28606,15 @@
         ]
       },
       "competition": "乌克U21",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "82646380c071934e731c"
+      "decision_id": "82646380c071934e731c",
+      "started_lock": true
     },
     {
       "match_id": "3044297",
@@ -28711,16 +28685,17 @@
         ]
       },
       "competition": "乌克乙",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "e0450a029fe802a9e6a9"
+      "decision_id": "e0450a029fe802a9e6a9",
+      "started_lock": true
     },
     {
       "match_id": "3100288",
@@ -29867,14 +29842,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "9ee60ab88effd6eb36b8",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -31075,7 +31046,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "690e8e5b19be09d3d7f96f065c7ca347601d0fa297a2815cb45dee4ff5f55cd6"
+      "input_hash": "690e8e5b19be09d3d7f96f065c7ca347601d0fa297a2815cb45dee4ff5f55cd6",
+      "started_lock": true
     },
     {
       "match_id": "3101085",
@@ -31146,14 +31118,15 @@
         ]
       },
       "competition": "国际友谊",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "9061184d8e05eae5adcc"
+      "decision_id": "9061184d8e05eae5adcc",
+      "started_lock": true
     },
     {
       "match_id": "3061583",
@@ -31224,14 +31197,15 @@
         ]
       },
       "competition": "女欧U19",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "5ab1cd8e1478d7224dd5"
+      "decision_id": "5ab1cd8e1478d7224dd5",
+      "started_lock": true
     },
     {
       "match_id": "3061584",
@@ -31302,14 +31276,15 @@
         ]
       },
       "competition": "女欧U19",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "63fd052a3512446fefe6"
+      "decision_id": "63fd052a3512446fefe6",
+      "started_lock": true
     },
     {
       "match_id": "3094398",
@@ -31380,14 +31355,15 @@
         ]
       },
       "competition": "女欧U17",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "21ca56527a66ff9f8a28"
+      "decision_id": "21ca56527a66ff9f8a28",
+      "started_lock": true
     },
     {
       "match_id": "2971106",
@@ -32531,14 +32507,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌兹甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "b86a676a138a2d96d899",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -33739,7 +33711,9 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "348500a457feb31a0100979313f732124d1346ca6e0146a6b19699dae4b4162d"
+      "input_hash": "348500a457feb31a0100979313f732124d1346ca6e0146a6b19699dae4b4162d",
+      "started_lock": true,
+      "frozen_selection_lock": true
     },
     {
       "match_id": "3101661",
@@ -34886,14 +34860,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "希丙",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "d1698f9f65566272de01",
       "normalized_intent": "阻上/诱下",
@@ -36094,7 +36064,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "fef1dfbb763082148004b255c4e696f8195012250a9718375aa4e1ec2a30a16c"
+      "input_hash": "fef1dfbb763082148004b255c4e696f8195012250a9718375aa4e1ec2a30a16c",
+      "started_lock": true
     },
     {
       "match_id": "3101778",
@@ -37242,14 +37213,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "巴拉后备",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "3758f27a7167fc3d5961",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -38450,7 +38417,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "272c1746f12086518ba03d8846861120afa216cfbde883c35830e900ca98fa5b"
+      "input_hash": "272c1746f12086518ba03d8846861120afa216cfbde883c35830e900ca98fa5b",
+      "started_lock": true
     },
     {
       "match_id": "3101785",
@@ -39598,14 +39566,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "巴拉后备",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "1fad1a1b27e491bd7062",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -40806,7 +40770,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "1a688987a258ab7d0ed80d768c51cf0d82f0747ae84e0ee5087ab843468645a8"
+      "input_hash": "1a688987a258ab7d0ed80d768c51cf0d82f0747ae84e0ee5087ab843468645a8",
+      "started_lock": true
     },
     {
       "match_id": "3101784",
@@ -40877,16 +40842,17 @@
         ]
       },
       "competition": "印班超",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "7a130b8a54fe70e37109"
+      "decision_id": "7a130b8a54fe70e37109",
+      "started_lock": true
     },
     {
       "match_id": "3100287",
@@ -42033,14 +41999,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "国际友谊",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "8f7c238566c69f4d255e",
       "normalized_intent": "诱上/阻下",
@@ -43241,7 +43203,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "656269c94f68e8438bd4e81ed167ce71f2128d034b5de2cdac1b7a3a65805f86"
+      "input_hash": "656269c94f68e8438bd4e81ed167ce71f2128d034b5de2cdac1b7a3a65805f86",
+      "started_lock": true
     },
     {
       "match_id": "3035678",
@@ -44388,14 +44351,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌克甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "43a883b1ab568fa169ba",
       "normalized_intent": "阻上/诱下",
@@ -45596,7 +45555,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "ceeb0b7300a9c6775016768a4e5f2d86b269af928eda992499c33976aadfab50"
+      "input_hash": "ceeb0b7300a9c6775016768a4e5f2d86b269af928eda992499c33976aadfab50",
+      "started_lock": true
     },
     {
       "match_id": "3048118",
@@ -46743,14 +46703,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "阿美甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "74fda48e7b5e4927f55b",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -47951,7 +47907,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "f8be90ec13528b0319dbbd4cfad17f5aed1af9b820b3363aa2c68dc147591326"
+      "input_hash": "f8be90ec13528b0319dbbd4cfad17f5aed1af9b820b3363aa2c68dc147591326",
+      "started_lock": true
     },
     {
       "match_id": "2971107",
@@ -48022,14 +47979,15 @@
         ]
       },
       "competition": "乌兹甲",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "0b32c0c13507cb204541"
+      "decision_id": "0b32c0c13507cb204541",
+      "started_lock": true
     },
     {
       "match_id": "2971108",
@@ -49173,14 +49131,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "乌兹甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "55fb49fa0846d587de3f",
       "normalized_intent": "阻下/下盘保护",
@@ -50381,7 +50335,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "c8beef3f245d22c7e69fb83f7aeb52eec65bc82369c028ad86a1efef876f7cf7"
+      "input_hash": "c8beef3f245d22c7e69fb83f7aeb52eec65bc82369c028ad86a1efef876f7cf7",
+      "started_lock": true
     },
     {
       "match_id": "3101454",
@@ -50452,14 +50407,15 @@
         ]
       },
       "competition": "国际友谊",
-      "analysis_status": "MISSING_DATA",
+      "analysis_status": "NOT_PREMATCH",
       "grade": null,
       "rank": null,
       "final_decision": "UNAVAILABLE",
       "reason_codes": [
-        "REQUIRED_MARKET_INPUT_MISSING"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "6b7bc5bb0eba7d1601e4"
+      "decision_id": "6b7bc5bb0eba7d1601e4",
+      "started_lock": true
     },
     {
       "match_id": "2997207",
@@ -51606,14 +51562,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "越女联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "8142245d08b5393ba015",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -52814,7 +52766,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e5dfc5e0766b1a8f6015c71757e7d0c320641fbaa0684aee005d8445cde46f11"
+      "input_hash": "e5dfc5e0766b1a8f6015c71757e7d0c320641fbaa0684aee005d8445cde46f11",
+      "started_lock": true
     },
     {
       "match_id": "3101786",
@@ -53964,14 +53917,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "科索U19",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "5b426b7d24e2987b007e",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -55172,7 +55121,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "55c2149c20c1cd3341b241cf98cb35cc711f37376a461486c563eda4805fa008"
+      "input_hash": "55c2149c20c1cd3341b241cf98cb35cc711f37376a461486c563eda4805fa008",
+      "started_lock": true
     },
     {
       "match_id": "3087679",
@@ -56296,14 +56246,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_CORE"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "中乙降A",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "1f28a310c16aaa6b1afb",
       "normalized_intent": "unknown",
@@ -57435,7 +57381,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "ccce77ff82a90ccef5661a35e38cc6b45ff78a9ef3256eac8e853fc6c7fa3ebb"
+      "input_hash": "ccce77ff82a90ccef5661a35e38cc6b45ff78a9ef3256eac8e853fc6c7fa3ebb",
+      "started_lock": true
     },
     {
       "match_id": "3087711",
@@ -58563,14 +58510,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_CORE"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "中乙降B",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "68922b94cf1f69955293",
       "normalized_intent": "unknown",
@@ -59706,7 +59649,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "ce631683644c6694e6ff84611427ef4d02d92b21e2db04ffa8fb88115c1d33ac"
+      "input_hash": "ce631683644c6694e6ff84611427ef4d02d92b21e2db04ffa8fb88115c1d33ac",
+      "started_lock": true
     },
     {
       "match_id": "3047394",
@@ -60853,14 +60797,10 @@
         ]
       },
       "reason_codes": [
-        "EDGE_BELOW_UNCERTAINTY_THRESHOLD",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "新加坡联",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "071dc16aabc8032c9df6",
       "normalized_intent": "阻下/下盘保护",
@@ -62061,7 +62001,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e964b13651571d36b55cf6565bceadf544f504d1ecd1da3cf6b14e4678ca629c"
+      "input_hash": "e964b13651571d36b55cf6565bceadf544f504d1ecd1da3cf6b14e4678ca629c",
+      "started_lock": true
     },
     {
       "match_id": "3099618",
@@ -62132,16 +62073,17 @@
         ]
       },
       "competition": "伊朗甲",
-      "analysis_status": "NEUTRAL",
+      "analysis_status": "NOT_PREMATCH",
       "grade": "N",
       "rank": null,
       "final_decision": "NO_BET",
       "bet_unit": 0.0,
       "stake_rule": "FIXED_1U",
       "reason_codes": [
-        "PK_NO_GIVING_RECEIVING_IDENTITY"
+        "STARTED_DECISION_LOCKED"
       ],
-      "decision_id": "8c388094b694b3fc5613"
+      "decision_id": "8c388094b694b3fc5613",
+      "started_lock": true
     },
     {
       "match_id": "3077277",
@@ -63291,14 +63233,10 @@
         ]
       },
       "reason_codes": [
-        "LOW_QUALITY_GATE",
-        "BUCKET_PRIOR_ONLY",
-        "INTENT_INTERPRETATION_ONLY",
-        "FFL_OPTIONAL",
-        "EXPERT_MARKET"
+        "STARTED_DECISION_LOCKED"
       ],
       "competition": "希腊甲",
-      "analysis_status": "EVALUATED",
+      "analysis_status": "FROZEN_PREMATCH_DECISION",
       "rank": null,
       "decision_id": "97e0f797ce5830ea01ab",
       "normalized_intent": "平衡盘/等待临场确认",
@@ -64502,7 +64440,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "1f11146c240f5482d6e130c3ddae6fb98a61bb4fd3cdb60ad0cb20db86427554"
+      "input_hash": "1f11146c240f5482d6e130c3ddae6fb98a61bb4fd3cdb60ad0cb20db86427554",
+      "started_lock": true
     },
     {
       "match_id": "3014119",
@@ -66876,16 +66815,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 11.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.152,
       "hours_from_last_refresh_to_kickoff": 11.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "870db49e1c45e6e23e1c",
+      "parent_decision_id": "848be8b64c3df10497ca",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -66903,7 +66842,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -66937,7 +66876,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "848be8b64c3df10497ca"
+      "decision_id": "a5fa77a01453477ba403"
     },
     {
       "match_id": "3098396",
@@ -66954,16 +66893,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 11.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.152,
       "hours_from_last_refresh_to_kickoff": 11.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "693850e6dbc958d97035",
+      "parent_decision_id": "9f4df7e5bf741cf1d215",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -66981,7 +66920,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -67015,7 +66954,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "9f4df7e5bf741cf1d215"
+      "decision_id": "1ed0ec3d3a98909af13a"
     },
     {
       "match_id": "3024557",
@@ -67032,16 +66971,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 11.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.152,
       "hours_from_last_refresh_to_kickoff": 11.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "a23805631d03c28d9f75",
+      "parent_decision_id": "e6d318063fa102c9ebe8",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -67059,7 +66998,7 @@
         "away_water_hk": 0.93,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.5,
         "titan_away_handicap_signed": 0.5,
         "giving_team": "舒拉克",
@@ -67133,7 +67072,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -0.3999999999999999,
@@ -68174,7 +68113,7 @@
       "competition": "阿美超",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "e6d318063fa102c9ebe8",
+      "decision_id": "31339d8ea9a5425a82ed",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "舒拉克",
@@ -68226,9 +68165,9 @@
       "titan_context": {
         "match_id": "3024557",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
         "competition": "阿美超",
         "competition_domain": "CLUB_LEAGUE",
@@ -69372,11 +69311,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "2ab16a244dc0f556cefe588380f364fe04cd137c0d533bbf6ff8f9a36056b78e"
+      "input_hash": "b5c4afdb2e3791b99c49d273b56170d318635a448a357cb8b67cbaab597988b3"
     },
     {
       "match_id": "2955843",
@@ -69393,16 +69332,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 11.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.152,
       "hours_from_last_refresh_to_kickoff": 11.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "48ce1dd2b83bffa4eb40",
+      "parent_decision_id": "ae91a7683ca4f4e3ab03",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -69420,7 +69359,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -69456,7 +69395,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "ae91a7683ca4f4e3ab03"
+      "decision_id": "1bd477fed35875991918"
     },
     {
       "match_id": "3101787",
@@ -69473,16 +69412,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 11.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.152,
       "hours_from_last_refresh_to_kickoff": 11.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "",
+      "parent_decision_id": "8f9f36b34bf2da677d48",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -69500,7 +69439,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 1.75,
         "titan_away_handicap_signed": -1.75,
         "giving_team": "NK布拉沃U19",
@@ -69574,7 +69513,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 1.65,
@@ -70615,7 +70554,7 @@
       "competition": "斯亚U19",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "8f9f36b34bf2da677d48",
+      "decision_id": "06a06e7c0a242475c424",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "NK布拉沃U19",
@@ -70667,9 +70606,9 @@
       "titan_context": {
         "match_id": "3101787",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
         "competition": "斯亚U19",
         "competition_domain": "NATIONAL_YOUTH",
@@ -71810,11 +71749,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "14a4a1310affde1a7a904fc683cdf9c67770cd73176b2aed76576b290295d590"
+      "input_hash": "d17acba05e494c0acf5ce9017c5db4f0b0c2843f7696f83565dd34fa7a860eee"
     },
     {
       "match_id": "3100947",
@@ -71831,16 +71770,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 11.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.152,
       "hours_from_last_refresh_to_kickoff": 11.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "da2eb7dfa54478666eff",
+      "parent_decision_id": "ef74730999a5509657d1",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -71858,7 +71797,7 @@
         "away_water_hk": 0.8,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 2.5,
         "titan_away_handicap_signed": -2.5,
         "giving_team": "喀麦隆U20",
@@ -71932,7 +71871,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 2.1500000000000004,
@@ -72971,7 +72910,7 @@
       "competition": "非青杯外",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "ef74730999a5509657d1",
+      "decision_id": "35b08e3a72caa36298c5",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "喀麦隆U20",
@@ -73023,9 +72962,9 @@
       "titan_context": {
         "match_id": "3100947",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T20:00:00+08:00",
         "competition": "非青杯外",
         "competition_domain": "DOMESTIC_CUP",
@@ -74166,11 +74105,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "0cc4d4edb64fe7e3e8852c93af04744369374506f59297123dbe5eeff6c34dc9"
+      "input_hash": "fd3fe1f08110919789b1ccedc503c657c6690a2a1684d0b3b0c4f7a184ea5dd7"
     },
     {
       "match_id": "3099976",
@@ -74187,16 +74126,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 11.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.152,
       "hours_from_last_refresh_to_kickoff": 11.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "13938bcdf456ca2e7bff",
+      "parent_decision_id": "75f59c345cf037858757",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -74214,7 +74153,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -74248,7 +74187,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "75f59c345cf037858757"
+      "decision_id": "0c7b8c9168860cae2bde"
     },
     {
       "match_id": "3099619",
@@ -74265,16 +74204,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.652,
       "hours_from_last_refresh_to_kickoff": 12.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "6f54e7516374fa3f3a98",
+      "parent_decision_id": "51cf8ed8f9fea897d9ad",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -74292,7 +74231,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -74328,7 +74267,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "51cf8ed8f9fea897d9ad"
+      "decision_id": "e2c7b2cc127fac2eeac5"
     },
     {
       "match_id": "3100982",
@@ -74345,16 +74284,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.652,
       "hours_from_last_refresh_to_kickoff": 12.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "204f338aef403e00916c",
+      "parent_decision_id": "d3569107dac6a2a14edd",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -74372,7 +74311,7 @@
         "away_water_hk": 0.98,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.5,
         "titan_away_handicap_signed": 0.5,
         "giving_team": "法国女足U23",
@@ -74446,7 +74385,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -0.4500000000000002,
@@ -75484,7 +75423,7 @@
       "competition": "国际友谊",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "d3569107dac6a2a14edd",
+      "decision_id": "11d714b00a610f97956b",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "法国女足U23",
@@ -75536,9 +75475,9 @@
       "titan_context": {
         "match_id": "3100982",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T20:30:00+08:00",
         "competition": "国际友谊",
         "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -76679,11 +76618,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "bcf21ce77a3ec951d512e3affa3d57fb33d2b60813e9e07906c95dc446d2f299"
+      "input_hash": "846e10a7443ba0112146ebef0556b574110077e7efd0c911cd4a7c850fd94b1e"
     },
     {
       "match_id": "3101440",
@@ -76700,16 +76639,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.652,
       "hours_from_last_refresh_to_kickoff": 12.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "4c9109a5679febe61f7c",
+      "parent_decision_id": "98078c2344444cb61573",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -76727,7 +76666,7 @@
         "away_water_hk": 1.76,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.25,
         "titan_away_handicap_signed": 0.25,
         "giving_team": "九龙城U22",
@@ -76799,7 +76738,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 1.35,
@@ -77817,7 +77756,7 @@
       "competition": "香港U22",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "98078c2344444cb61573",
+      "decision_id": "0c5abee0be72e1bdb893",
       "normalized_intent": "unknown",
       "intent_source": "NO_OPENING_INTENT_INPUT",
       "giving_team": "九龙城U22",
@@ -77869,9 +77808,9 @@
       "titan_context": {
         "match_id": "3101440",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T20:30:00+08:00",
         "competition": "香港U22",
         "competition_domain": "UNKNOWN",
@@ -78943,11 +78882,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "07aa4f9a41279041e0b74c7edcfa6c6a1e58c06ecfc81efa18fd48d33f58950b"
+      "input_hash": "b5682151c27904fb955cce7745ddaa199b3d4173f21d5e08884787bf428f11ba"
     },
     {
       "match_id": "2984055",
@@ -78964,16 +78903,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.55,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.902,
       "hours_from_last_refresh_to_kickoff": 12.684,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "20c00b1df6e10cabb474",
+      "parent_decision_id": "c82fcfcfa9a79e8bcfb3",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -78991,7 +78930,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -79025,7 +78964,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "c82fcfcfa9a79e8bcfb3"
+      "decision_id": "dac18d1c468ebc9455fe"
     },
     {
       "match_id": "3098395",
@@ -79042,16 +78981,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "078d4f5e56846e7c7588",
+      "parent_decision_id": "98a0ccef1f118c39eff0",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -79069,7 +79008,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -79103,7 +79042,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "98a0ccef1f118c39eff0"
+      "decision_id": "5a41aa7b3aba24964673"
     },
     {
       "match_id": "2998373",
@@ -79120,16 +79059,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "7aa199d7ead487da9f6c",
+      "parent_decision_id": "879e84c202200f16b992",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -79147,7 +79086,7 @@
         "away_water_hk": 0.85,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -2.0,
         "titan_away_handicap_signed": 2.0,
         "giving_team": "FC斯特鲁加",
@@ -79221,7 +79160,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -1.9000000000000001,
@@ -80259,7 +80198,7 @@
       "competition": "北马其甲",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "879e84c202200f16b992",
+      "decision_id": "bdf0ad492a328dfb85b0",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "FC斯特鲁加",
@@ -80311,9 +80250,9 @@
       "titan_context": {
         "match_id": "2998373",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
         "competition": "北马其甲",
         "competition_domain": "CLUB_LEAGUE",
@@ -81454,11 +81393,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "47a8e4cf8c2b5ff8a0223c7facd76f190604b3ab3bfbe95a750f047f1638b5f3"
+      "input_hash": "c63207febf52d928d29c7828c180fc011f85a42bdf1efa52d16bfa6e6e1d303d"
     },
     {
       "match_id": "3017530",
@@ -81475,16 +81414,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "a01a98e3a7aa61d184ba",
+      "parent_decision_id": "45a673e525e5e78e1d64",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -81502,7 +81441,7 @@
         "away_water_hk": 0.86,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "卡利亚里青年队",
@@ -81576,7 +81515,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.1499999999999999,
@@ -82618,7 +82557,7 @@
       "competition": "意青联",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "45a673e525e5e78e1d64",
+      "decision_id": "6b758edfe1c4f567d2ce",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "卡利亚里青年队",
@@ -82670,9 +82609,9 @@
       "titan_context": {
         "match_id": "3017530",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
         "competition": "意青联",
         "competition_domain": "UNKNOWN",
@@ -83816,11 +83755,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e96e92e0697dd304114027a020c2ca62e2ee8c2b0b53b14f95804defaf684333"
+      "input_hash": "af3d6bb47f0fa74b27e159315eb7e6f17d60556c0fb9f342199d2f48c3250d90"
     },
     {
       "match_id": "3017535",
@@ -83837,16 +83776,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "600e32c5f17d98101c69",
+      "parent_decision_id": "8adcff1810b36e7ed6e0",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -83864,7 +83803,7 @@
         "away_water_hk": 0.56,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 1.5,
         "titan_away_handicap_signed": -1.5,
         "giving_team": "莎索罗青年队",
@@ -83938,7 +83877,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 1.2000000000000002,
@@ -84977,7 +84916,7 @@
       "competition": "意青联",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "8adcff1810b36e7ed6e0",
+      "decision_id": "4a59e4a827f5539f0107",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "莎索罗青年队",
@@ -85029,9 +84968,9 @@
       "titan_context": {
         "match_id": "3017535",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
         "competition": "意青联",
         "competition_domain": "UNKNOWN",
@@ -86172,11 +86111,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "6a70810b4f4e6ef4e2f26131f9942ca6b5f73cd5505924887004ece84eb70809"
+      "input_hash": "8f0e711ae0f93f0604df865a2b9dcf832835ed0205f36fee3701977fb5a5efd2"
     },
     {
       "match_id": "3048126",
@@ -86193,16 +86132,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "21de6c7e5d23f7b4568c",
+      "parent_decision_id": "3366ee8270797809ec1e",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -86220,7 +86159,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -86254,7 +86193,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "3366ee8270797809ec1e"
+      "decision_id": "d67cb7a635d14c457c12"
     },
     {
       "match_id": "3048127",
@@ -86271,16 +86210,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "b94de1a9039962514582",
+      "parent_decision_id": "829f953454de968e2cc9",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -86298,7 +86237,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -86333,7 +86272,7 @@
         "MATCH_NOT_PREMATCH"
       ],
       "score": "",
-      "decision_id": "829f953454de968e2cc9"
+      "decision_id": "f712c15eeaf7469ddfea"
     },
     {
       "match_id": "3048128",
@@ -86350,16 +86289,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "16eb8a29e49ae1327b7b",
+      "parent_decision_id": "5e4ca9598f9a4013532e",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -86377,7 +86316,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -86411,7 +86350,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "5e4ca9598f9a4013532e"
+      "decision_id": "87693bd78908293e5862"
     },
     {
       "match_id": "2971111",
@@ -86428,16 +86367,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "d12af48ffb51f8ff21f4",
+      "parent_decision_id": "2d94ca029df76d39aafc",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -86455,7 +86394,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -86489,7 +86428,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "2d94ca029df76d39aafc"
+      "decision_id": "2e53f76f96fb34652c0a"
     },
     {
       "match_id": "2971112",
@@ -86506,16 +86445,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "2ddcde4eb269e0326ccb",
+      "parent_decision_id": "7990fc8edd0fbe4f855d",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -86533,7 +86472,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -86567,7 +86506,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "7990fc8edd0fbe4f855d"
+      "decision_id": "548f18e0f9680dcbb74a"
     },
     {
       "match_id": "3101807",
@@ -86584,16 +86523,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "",
+      "parent_decision_id": "9e9dd4e8a69307a2a1f9",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -86611,7 +86550,7 @@
         "away_water_hk": 0.8,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 1.5,
         "titan_away_handicap_signed": -1.5,
         "giving_team": "JKU FC",
@@ -86685,7 +86624,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 1.35,
@@ -87723,7 +87662,7 @@
       "competition": "桑给超",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "9e9dd4e8a69307a2a1f9",
+      "decision_id": "0f69fffa4cd3bbe2f3ae",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "JKU FC",
@@ -87775,9 +87714,9 @@
       "titan_context": {
         "match_id": "3101807",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:00:00+08:00",
         "competition": "桑给超",
         "competition_domain": "CLUB_LEAGUE",
@@ -88918,11 +88857,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "4b1246ea6a260dc16028d87a616376e79da030f47bf6c21ff451467b1a48a0c3"
+      "input_hash": "0360c548190df6a2a76c01e8afbfc20cfbc73134914aa0e92171031636dbf8ea"
     },
     {
       "match_id": "3099975",
@@ -88939,16 +88878,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.152,
       "hours_from_last_refresh_to_kickoff": 12.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "f2df7a7a6e07e1b75fcd",
+      "parent_decision_id": "551103b4f7c0d3a4cf7d",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -88966,7 +88905,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -89002,7 +88941,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "551103b4f7c0d3a4cf7d"
+      "decision_id": "b99f39c4b9ede93aeb83"
     },
     {
       "match_id": "3101788",
@@ -89019,16 +88958,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.883,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.236,
       "hours_from_last_refresh_to_kickoff": 13.017,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "",
+      "parent_decision_id": "ad668c880bb8196ab5ca",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -89046,7 +88985,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -1.75,
         "titan_away_handicap_signed": 1.75,
         "giving_team": "沙巴柏杜拜U21",
@@ -89118,7 +89057,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -1.2999999999999998,
@@ -90157,7 +90096,7 @@
       "competition": "阿联U21杯",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "ad668c880bb8196ab5ca",
+      "decision_id": "e45869f5b93907f76751",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "沙巴柏杜拜U21",
@@ -90209,9 +90148,9 @@
       "titan_context": {
         "match_id": "3101788",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:05:00+08:00",
         "competition": "阿联U21杯",
         "competition_domain": "NATIONAL_YOUTH",
@@ -91348,11 +91287,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e135d73991e863a570110d6c32c12fefbeabe09408d1d6120f0f8b0dc9fbb5bb"
+      "input_hash": "92552b68be54413203a0e8f975aa5f7316a90d56cc16e2c172192af5e0c926c8"
     },
     {
       "match_id": "3101789",
@@ -91369,16 +91308,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 12.883,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.236,
       "hours_from_last_refresh_to_kickoff": 13.017,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "",
+      "parent_decision_id": "c82d325680db69ffea95",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -91396,7 +91335,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -1.75,
         "titan_away_handicap_signed": 1.75,
         "giving_team": "詹辛拉U21",
@@ -91470,7 +91409,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -1.4500000000000002,
@@ -92511,7 +92450,7 @@
       "competition": "阿联U21杯",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "c82d325680db69ffea95",
+      "decision_id": "e7cd82db2f712f769757",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "詹辛拉U21",
@@ -92563,9 +92502,9 @@
       "titan_context": {
         "match_id": "3101789",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:05:00+08:00",
         "competition": "阿联U21杯",
         "competition_domain": "NATIONAL_YOUTH",
@@ -93706,11 +93645,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "9b7534e6a5f8a9d3e46121b0c8ba10fbb20389e88dd806d145a0daee597e726c"
+      "input_hash": "f1a9956690f5a8a66a8bd3bb2230a9d3b7c772e1b0735b1f7e9df0f4ed806d2f"
     },
     {
       "match_id": "3101803",
@@ -93727,16 +93666,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.216,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.569,
       "hours_from_last_refresh_to_kickoff": 13.35,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "",
+      "parent_decision_id": "937c265ae231f73ef89f",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -93754,7 +93693,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.75,
         "titan_away_handicap_signed": 0.75,
         "giving_team": "塔亚文后备队",
@@ -93828,7 +93767,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -0.6499999999999999,
@@ -94867,7 +94806,7 @@
       "competition": "沙地后备",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "937c265ae231f73ef89f",
+      "decision_id": "16cedeb59ab2c96bb37d",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "塔亚文后备队",
@@ -94919,9 +94858,9 @@
       "titan_context": {
         "match_id": "3101803",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:25:00+08:00",
         "competition": "沙地后备",
         "competition_domain": "UNKNOWN",
@@ -96062,11 +96001,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "a4c811fa73aa6456f08903ec1b768adc34f1a96239c13f37b34af988af46b092"
+      "input_hash": "5705e5d18fa07462b8ac68237d80ab48167db97f9e8c3c1ba5ddcf0477c9d668"
     },
     {
       "match_id": "3099620",
@@ -96083,16 +96022,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.652,
       "hours_from_last_refresh_to_kickoff": 13.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "e1a6613b81e6befe0855",
+      "parent_decision_id": "05ff0f7b20952b4b9e2d",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -96110,7 +96049,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -96146,7 +96085,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "05ff0f7b20952b4b9e2d"
+      "decision_id": "703e26051bbfb9e39b42"
     },
     {
       "match_id": "3099621",
@@ -96163,16 +96102,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.652,
       "hours_from_last_refresh_to_kickoff": 13.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "f59902ee6bb79b0325cf",
+      "parent_decision_id": "da17a49edba1710c2c1c",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -96190,7 +96129,7 @@
         "away_water_hk": 0.99,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "塞柏",
@@ -96264,7 +96203,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.6499999999999999,
@@ -97302,7 +97241,7 @@
       "competition": "伊朗甲",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "da17a49edba1710c2c1c",
+      "decision_id": "c4001796cb94ce4d9734",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "塞柏",
@@ -97354,9 +97293,9 @@
       "titan_context": {
         "match_id": "3099621",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
         "competition": "伊朗甲",
         "competition_domain": "CLUB_LEAGUE",
@@ -98497,11 +98436,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "8cc1c57328e64da1a17940b2b2bde17555fcf257e34d363cab37d18b3c97fb18"
+      "input_hash": "ef861d0d5b9c849ab2833328a3bbaa52b17137c8d0f06231f020360e22dae32a"
     },
     {
       "match_id": "3098006",
@@ -98518,16 +98457,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.652,
       "hours_from_last_refresh_to_kickoff": 13.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "00d17eeeb97d1a957933",
+      "parent_decision_id": "57ee653dde06e301dd52",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -98545,7 +98484,7 @@
         "away_water_hk": 0.39,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 1.5,
         "titan_away_handicap_signed": -1.5,
         "giving_team": "阿尔扎维亚",
@@ -98617,7 +98556,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 1.0499999999999998,
@@ -99653,7 +99592,7 @@
       "competition": "利比亚甲",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "57ee653dde06e301dd52",
+      "decision_id": "14179f0fbdba9ff48968",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "阿尔扎维亚",
@@ -99705,9 +99644,9 @@
       "titan_context": {
         "match_id": "3098006",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
         "competition": "利比亚甲",
         "competition_domain": "CLUB_LEAGUE",
@@ -100844,11 +100783,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "40eca43178e22c60681f241ae9bb3f35b7b273483edcbc31ca0fea6e5a34ca22"
+      "input_hash": "3ce59ef8ffec854f078d3edd2cd451f79415252c940253cb91c78e6ed863cb3d"
     },
     {
       "match_id": "3098007",
@@ -100865,16 +100804,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.652,
       "hours_from_last_refresh_to_kickoff": 13.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "040bc777f0f9e88bd2bb",
+      "parent_decision_id": "d2dee85b5a87057987e5",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -100892,7 +100831,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -100928,7 +100867,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "d2dee85b5a87057987e5"
+      "decision_id": "72baffaa616c93eb76e3"
     },
     {
       "match_id": "3101798",
@@ -100945,16 +100884,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.652,
       "hours_from_last_refresh_to_kickoff": 13.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "",
+      "parent_decision_id": "2d706cbb2a4c530fb2c2",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -100972,7 +100911,7 @@
         "away_water_hk": 0.83,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "乌拉圭民族后备队",
@@ -101046,7 +100985,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.3500000000000001,
@@ -102085,7 +102024,7 @@
       "competition": "乌拉后备",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "2d706cbb2a4c530fb2c2",
+      "decision_id": "f2ac747819b08e3d4ae5",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "乌拉圭民族后备队",
@@ -102137,9 +102076,9 @@
       "titan_context": {
         "match_id": "3101798",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
         "competition": "乌拉后备",
         "competition_domain": "UNKNOWN",
@@ -103280,11 +103219,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "9400fdc2e76f1fee33322e9cadbea50f1714e3396e41e267f543574ca1edd84f"
+      "input_hash": "14ef9da1c2350549230cb4fe842715ca450b31dd717cf4fdd69cf5ee5e1f1def"
     },
     {
       "match_id": "3101800",
@@ -103301,16 +103240,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 1.652,
       "hours_from_last_refresh_to_kickoff": 13.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "",
+      "parent_decision_id": "a4c5f6c273b08ffb2aa0",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -103328,7 +103267,7 @@
         "away_water_hk": 1.0,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "尤文图德德拉后备队",
@@ -103402,7 +103341,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.3999999999999999,
@@ -104441,7 +104380,7 @@
       "competition": "乌拉后备",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "a4c5f6c273b08ffb2aa0",
+      "decision_id": "86f1db8b838060ab9c87",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "尤文图德德拉后备队",
@@ -104493,9 +104432,9 @@
       "titan_context": {
         "match_id": "3101800",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T21:30:00+08:00",
         "competition": "乌拉后备",
         "competition_domain": "UNKNOWN",
@@ -105636,11 +105575,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "970377ac529783657b54bbf9325c41185e91ede5d44a3d8c7efc1c012b6fc821"
+      "input_hash": "88cd0fa36b31d0b3fca24e8a540c1bdc3c1edaf9ca6b6d7c9b9c2bc35476bc55"
     },
     {
       "match_id": "3068932",
@@ -110373,16 +110312,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "7824242e8fd8dd2f8ee8",
+      "parent_decision_id": "f2c3fe848a02b77eec43",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -110400,7 +110339,7 @@
         "away_water_hk": 1.19,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 1.0,
         "titan_away_handicap_signed": -1.0,
         "giving_team": "布拉加U23",
@@ -110474,7 +110413,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 1.2000000000000002,
@@ -111518,7 +111457,7 @@
       "competition": "葡U23",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "f2c3fe848a02b77eec43",
+      "decision_id": "cff548707da4e9a136d6",
       "normalized_intent": "真实示弱/阻下",
       "intent_source": "FLAT_LINE_GIVING_WATER_DROP",
       "giving_team": "布拉加U23",
@@ -111570,9 +111509,9 @@
       "titan_context": {
         "match_id": "3056302",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
         "competition": "葡U23",
         "competition_domain": "NATIONAL_YOUTH",
@@ -112716,11 +112655,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "221a6016f60e500277eeb75b1eb535b9509260756b9851ba87987ffd3c70b0e6"
+      "input_hash": "db207f77bf1e24b8203dc8754aecce23d37fa8a87d42f6ab10fd1ce33e15fe3d"
     },
     {
       "match_id": "3100307",
@@ -115080,7 +115019,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "cce112511551cc2ea8b754f89870377e27806bd91c22fd659d7da4d19143d1a9"
+      "input_hash": "cce112511551cc2ea8b754f89870377e27806bd91c22fd659d7da4d19143d1a9",
+      "frozen_selection_lock": true
     },
     {
       "match_id": "3059464",
@@ -115097,16 +115037,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "f09552ad9738cf622f78",
+      "parent_decision_id": "1c0c04f0a36ec803868e",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -115124,7 +115064,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -115160,7 +115100,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "1c0c04f0a36ec803868e"
+      "decision_id": "06435c7fa1b2fe206d9e"
     },
     {
       "match_id": "3059465",
@@ -115177,16 +115117,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "4a9759b5790b5e25183b",
+      "parent_decision_id": "c214c6d4105d97378044",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -115204,7 +115144,7 @@
         "away_water_hk": 1.99,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.25,
         "titan_away_handicap_signed": 0.25,
         "giving_team": "恩比",
@@ -115276,7 +115216,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.3500000000000001,
@@ -116296,7 +116236,7 @@
       "competition": "埃及超",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "c214c6d4105d97378044",
+      "decision_id": "8c3106a05b8a0f84150a",
       "normalized_intent": "unknown",
       "intent_source": "NO_OPENING_INTENT_INPUT",
       "giving_team": "恩比",
@@ -116348,9 +116288,9 @@
       "titan_context": {
         "match_id": "3059465",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
         "competition": "埃及超",
         "competition_domain": "CLUB_LEAGUE",
@@ -117425,11 +117365,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "13a704dbef5bbb451d8cac9d2adb3f1e873df8c447e79e2ed7c7ec0e641c946b"
+      "input_hash": "2fe4dd32e2013dde100d1a6851e876aff14f2914d439c5d5e059c064c630d624"
     },
     {
       "match_id": "3100371",
@@ -117446,16 +117386,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "f0d2ce64d8cfdf2f6dd1",
+      "parent_decision_id": "4d5c1c943846d4f6d026",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -117473,7 +117413,7 @@
         "away_water_hk": 1.8,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "东北联",
@@ -117545,7 +117485,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -0.8500000000000001,
@@ -118565,7 +118505,7 @@
       "competition": "印度超",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "4d5c1c943846d4f6d026",
+      "decision_id": "503e2ad643bf2cc3eca2",
       "normalized_intent": "unknown",
       "intent_source": "NO_OPENING_INTENT_INPUT",
       "giving_team": "东北联",
@@ -118617,9 +118557,9 @@
       "titan_context": {
         "match_id": "3100371",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
         "competition": "印度超",
         "competition_domain": "CLUB_LEAGUE",
@@ -119694,11 +119634,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e0a72baac1d3af38d0b29c99f3fe5ce3b05b6a91a3b2f360b9ee383c5216366a"
+      "input_hash": "3cc542c5356dc83d12e3caac614b18ece7357a2d4c2e0560f811397b9a909b21"
     },
     {
       "match_id": "3101776",
@@ -119715,16 +119655,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "9830e52663fe108dee8b",
+      "parent_decision_id": "608be2e8d53b7c7fe3d1",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -119742,7 +119682,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "慕拉U19",
@@ -119816,7 +119756,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.2999999999999998,
@@ -120857,7 +120797,7 @@
       "competition": "斯亚U19",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "608be2e8d53b7c7fe3d1",
+      "decision_id": "7125dfc9c744e6e071c6",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "慕拉U19",
@@ -120909,9 +120849,9 @@
       "titan_context": {
         "match_id": "3101776",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
         "competition": "斯亚U19",
         "competition_domain": "NATIONAL_YOUTH",
@@ -122052,11 +121992,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "2d6cda35b716a75f908c1bce959bb7314b62676aad4661102da224da41791e1a"
+      "input_hash": "6e7d9cbfa1cfc6a7c71110395d522b20354ab62f9aae17684bfeab33a67d00dd"
     },
     {
       "match_id": "3101799",
@@ -122073,16 +122013,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "",
+      "parent_decision_id": "839114ace7e418599dd9",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -122100,7 +122040,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -122136,7 +122076,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "839114ace7e418599dd9"
+      "decision_id": "78b61f6dc2e459d5e9e2"
     },
     {
       "match_id": "3101086",
@@ -122153,16 +122093,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "efc36d7713e00c882f15",
+      "parent_decision_id": "11013ba0640676b09c2d",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -122180,7 +122120,7 @@
         "away_water_hk": 0.7,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.5,
         "titan_away_handicap_signed": 0.5,
         "giving_team": "格鲁吉亚女足",
@@ -122254,7 +122194,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -0.6499999999999999,
@@ -123295,7 +123235,7 @@
       "competition": "国际友谊",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "11013ba0640676b09c2d",
+      "decision_id": "e064c195add722f6a123",
       "normalized_intent": "真实示弱/阻下",
       "intent_source": "FLAT_LINE_GIVING_WATER_DROP",
       "giving_team": "格鲁吉亚女足",
@@ -123347,9 +123287,9 @@
       "titan_context": {
         "match_id": "3101086",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
         "competition": "国际友谊",
         "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -124493,11 +124433,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "3f68028d309cb587234f528364155e59e750dd7c3ab4188b4456532d4b68c097"
+      "input_hash": "66ee2984949eadce07ed0884e90493144e3bd1fcd5be0dec11364e1717c56422"
     },
     {
       "match_id": "3101087",
@@ -124514,16 +124454,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "6175e045513f1ae85e92",
+      "parent_decision_id": "b86c63aada801775cbb6",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -124541,7 +124481,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -124575,7 +124515,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "b86c63aada801775cbb6"
+      "decision_id": "24ad21120f15e62eba8b"
     },
     {
       "match_id": "3101773",
@@ -124592,16 +124532,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "293f8de10b6757bc606a",
+      "parent_decision_id": "7e47cfa4038e3b7f2418",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -124619,7 +124559,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.5,
         "titan_away_handicap_signed": 0.5,
         "giving_team": "安曼团结U20",
@@ -124693,7 +124633,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -0.5,
@@ -125734,7 +125674,7 @@
       "competition": "约旦U20",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "7e47cfa4038e3b7f2418",
+      "decision_id": "aa6128ef18cba242b865",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "安曼团结U20",
@@ -125786,9 +125726,9 @@
       "titan_context": {
         "match_id": "3101773",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
         "competition": "约旦U20",
         "competition_domain": "NATIONAL_YOUTH",
@@ -126929,11 +126869,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "b1437da524a51d2bd5571a0dfeb0a3c125c072d0adc1f28a6d35ce569aa379f3"
+      "input_hash": "89bfc364fffeaa686e177d04bcc54f6c5ff45f44efec7be351afc5a196856258"
     },
     {
       "match_id": "3101774",
@@ -126950,16 +126890,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 13.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.152,
       "hours_from_last_refresh_to_kickoff": 13.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "0eae8be1c8060e37e9dd",
+      "parent_decision_id": "dcf77dd62012c546e4a1",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -126977,7 +126917,7 @@
         "away_water_hk": 0.81,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.75,
         "titan_away_handicap_signed": 0.75,
         "giving_team": "伊哈连姆沙U20",
@@ -127051,7 +126991,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -0.7000000000000002,
@@ -128092,7 +128032,7 @@
       "competition": "约旦U20",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "dcf77dd62012c546e4a1",
+      "decision_id": "d578ccaaf2cfda4709f3",
       "normalized_intent": "降温保护/诱下",
       "intent_source": "MARKET_MOVE_SHALLOWER_WITH_GIVING_WATER_DROP",
       "giving_team": "伊哈连姆沙U20",
@@ -128144,9 +128084,9 @@
       "titan_context": {
         "match_id": "3101774",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:00:00+08:00",
         "competition": "约旦U20",
         "competition_domain": "NATIONAL_YOUTH",
@@ -129287,11 +129227,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "747fb257ff713ab17dbff9b51e118f321f5ce51fb17c650bb7761113f2b28dbe"
+      "input_hash": "e3ff23444d8a4baac508c5d5cd48cf999acbc2aeb3f4231cfdb7b8f148707066"
     },
     {
       "match_id": "3014111",
@@ -131659,16 +131599,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.216,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.569,
       "hours_from_last_refresh_to_kickoff": 14.35,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "",
+      "parent_decision_id": "efc79a6cbe6a38a768ad",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -131686,7 +131626,7 @@
         "away_water_hk": 0.8,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "瓦克拉U20",
@@ -131760,7 +131700,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.1499999999999999,
@@ -132801,7 +132741,7 @@
       "competition": "卡塔尔U20",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "efc79a6cbe6a38a768ad",
+      "decision_id": "3ac937a28df9fd1fcb07",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "瓦克拉U20",
@@ -132853,9 +132793,9 @@
       "titan_context": {
         "match_id": "3101790",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:25:00+08:00",
         "competition": "卡塔尔U20",
         "competition_domain": "NATIONAL_YOUTH",
@@ -133996,11 +133936,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "3e9d2fdd357ac58eb780f7cfa2f6e41713830538eb59dda68734b8a9cfdf8f84"
+      "input_hash": "4c369f486a86d05128d874c68d43be0c915cd70cd1d1d7e5c146bad6c37a6bbd"
     },
     {
       "match_id": "3099753",
@@ -134017,16 +133957,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.652,
       "hours_from_last_refresh_to_kickoff": 14.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "da8036d89c42f7541814",
+      "parent_decision_id": "9b932eeb682be08cd5e5",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -134044,7 +133984,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -134078,7 +134018,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "9b932eeb682be08cd5e5"
+      "decision_id": "6f9d518be07fe1993d2c"
     },
     {
       "match_id": "3099622",
@@ -134095,16 +134035,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.652,
       "hours_from_last_refresh_to_kickoff": 14.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "7c703093eb5570441999",
+      "parent_decision_id": "7351d8e27f97bb9dc4d0",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -134122,7 +134062,7 @@
         "away_water_hk": 0.83,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "阿巴斯港石油",
@@ -134196,7 +134136,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.75,
@@ -135234,7 +135174,7 @@
       "competition": "伊朗甲",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "7351d8e27f97bb9dc4d0",
+      "decision_id": "a043923e246f5683e594",
       "normalized_intent": "阻上/诱下",
       "intent_source": "MARKET_MOVE_DEEPER_WITH_GIVING_WATER_RISE",
       "giving_team": "阿巴斯港石油",
@@ -135286,9 +135226,9 @@
       "titan_context": {
         "match_id": "3099622",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:30:00+08:00",
         "competition": "伊朗甲",
         "competition_domain": "CLUB_LEAGUE",
@@ -136429,11 +136369,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "e22d0114bde84a3fd01cf134844bf6f479b7d3b8cc898d150e11537a15e370c2"
+      "input_hash": "e5be78e2f031407115f888b8bac9d42c22ac8fdd8fd7bbab9ae5dd6e3f84f7f5"
     },
     {
       "match_id": "3099623",
@@ -136450,16 +136390,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 2.652,
       "hours_from_last_refresh_to_kickoff": 14.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "606a042e0971be9b59ce",
+      "parent_decision_id": "301d4eb75c8a0edc1b35",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -136477,7 +136417,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "帕尔斯布什尔",
@@ -136551,7 +136491,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.6000000000000001,
@@ -137589,7 +137529,7 @@
       "competition": "伊朗甲",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "301d4eb75c8a0edc1b35",
+      "decision_id": "86f752a081428d57279b",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "帕尔斯布什尔",
@@ -137641,9 +137581,9 @@
       "titan_context": {
         "match_id": "3099623",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T22:30:00+08:00",
         "competition": "伊朗甲",
         "competition_domain": "CLUB_LEAGUE",
@@ -138784,11 +138724,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "cc8a9040d47ce4f13aba4d4b1b27e733aa30a4a6e5a0972650b12bc5798eacd0"
+      "input_hash": "1a2125d695779de33212ef4e6924d608873b7a339737570bab338f8b31a5aa22"
     },
     {
       "match_id": "3048503",
@@ -138805,16 +138745,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.716,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.069,
       "hours_from_last_refresh_to_kickoff": 14.85,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "ec8216d715115209ada3",
+      "parent_decision_id": "4a0acdbe6fa898eaa6ee",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -138832,7 +138772,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -138868,7 +138808,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "4a0acdbe6fa898eaa6ee"
+      "decision_id": "984f35b56ce4ccaa1a95"
     },
     {
       "match_id": "3036446",
@@ -138885,16 +138825,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "c4ed0453c09072dd1cec",
+      "parent_decision_id": "a7e4a89138298909a092",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -138912,7 +138852,7 @@
         "away_water_hk": 0.86,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 2.0,
         "titan_away_handicap_signed": -2.0,
         "giving_team": "塞萨洛尼基",
@@ -138986,7 +138926,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 1.8499999999999999,
@@ -140027,7 +139967,7 @@
       "competition": "希腊超",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "a7e4a89138298909a092",
+      "decision_id": "9990889e064b8fac2fff",
       "normalized_intent": "真实示弱/阻下",
       "intent_source": "FLAT_LINE_GIVING_WATER_DROP",
       "giving_team": "塞萨洛尼基",
@@ -140079,9 +140019,9 @@
       "titan_context": {
         "match_id": "3036446",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
         "competition": "希腊超",
         "competition_domain": "CLUB_LEAGUE",
@@ -141225,11 +141165,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "381c53ab0fe4a1255346a36429aa2643fec89aaba422d4a15df7b306a8b63ee3"
+      "input_hash": "225e9fc0515d89fd196b08bd63504a0e7e645e3fc3b14673773dcb2ce84abd65"
     },
     {
       "match_id": "3085214",
@@ -143587,7 +143527,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "7380d885c3435ac66378284724ff19bb07a4aacea8bd6142b93b22eceb8f2513"
+      "input_hash": "7380d885c3435ac66378284724ff19bb07a4aacea8bd6142b93b22eceb8f2513",
+      "frozen_selection_lock": true
     },
     {
       "match_id": "3010437",
@@ -143604,16 +143545,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "d4dd4c983760e991ba79",
+      "parent_decision_id": "11d92c52fd8d57b67c21",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -143631,7 +143572,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -143667,7 +143608,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "11d92c52fd8d57b67c21"
+      "decision_id": "4f0cc457d0494b4841a8"
     },
     {
       "match_id": "2997274",
@@ -143684,16 +143625,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "6c39097e794c225fcaa9",
+      "parent_decision_id": "2a274947a6405901c1c0",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -143711,7 +143652,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -143745,7 +143686,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "2a274947a6405901c1c0"
+      "decision_id": "0e33933e66b9f43ba4e1"
     },
     {
       "match_id": "3094399",
@@ -143762,16 +143703,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "9e7914cc9c791b8548e8",
+      "parent_decision_id": "184ed624f6bfa13a8b45",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -143789,7 +143730,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -143823,7 +143764,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "184ed624f6bfa13a8b45"
+      "decision_id": "d02928cb5037d26e46e2"
     },
     {
       "match_id": "3037941",
@@ -143840,16 +143781,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "3ccf0aa8abc0857ae736",
+      "parent_decision_id": "8c48b46e1babc809840b",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -143867,7 +143808,7 @@
         "away_water_hk": 0.96,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "莫拉斯",
@@ -143941,7 +143882,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.6499999999999999,
@@ -144982,7 +144923,7 @@
       "competition": "斯伐甲",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "8c48b46e1babc809840b",
+      "decision_id": "5415914cd55a993021bd",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "莫拉斯",
@@ -145034,9 +144975,9 @@
       "titan_context": {
         "match_id": "3037941",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
         "competition": "斯伐甲",
         "competition_domain": "CLUB_LEAGUE",
@@ -146180,11 +146121,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "dbd68990023720ac35a4ea5ff332398d84a75756577a278ca674ede91f45ab7a"
+      "input_hash": "d98b61d5124dce4d55754a0a1383d144dbc8e8207b967409864024913fc9f652"
     },
     {
       "match_id": "2940760",
@@ -146201,16 +146142,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "cb23f4ff2abf7ee05005",
+      "parent_decision_id": "96eeba108e8d8a7ecf4b",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -146228,7 +146169,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -146264,7 +146205,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "96eeba108e8d8a7ecf4b"
+      "decision_id": "d33d04767146f1f4dcb5"
     },
     {
       "match_id": "3099746",
@@ -146281,16 +146222,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "02dae56e051369f72c5f",
+      "parent_decision_id": "09e93b60fb7098b7bac8",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -146308,7 +146249,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -146342,7 +146283,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "09e93b60fb7098b7bac8"
+      "decision_id": "d96e84ec24d7cc295173"
     },
     {
       "match_id": "3099756",
@@ -148702,7 +148643,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "40bbaa2a49e68ba3cf9b4a8d9b3c819e740fc9486f6d2c71a72db914612b74f2"
+      "input_hash": "40bbaa2a49e68ba3cf9b4a8d9b3c819e740fc9486f6d2c71a72db914612b74f2",
+      "frozen_selection_lock": true
     },
     {
       "match_id": "3024555",
@@ -148719,16 +148661,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "0d748ad79e1e966918f7",
+      "parent_decision_id": "268714f33750a2e740cd",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -148746,7 +148688,7 @@
         "away_water_hk": 0.95,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 1.75,
         "titan_away_handicap_signed": -1.75,
         "giving_team": "叶里温凤凰",
@@ -148820,7 +148762,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 1.7000000000000002,
@@ -149858,7 +149800,7 @@
       "competition": "阿美超",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "268714f33750a2e740cd",
+      "decision_id": "c4434f0027eb6c0ba69a",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "叶里温凤凰",
@@ -149910,9 +149852,9 @@
       "titan_context": {
         "match_id": "3024555",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
         "competition": "阿美超",
         "competition_domain": "CLUB_LEAGUE",
@@ -151053,11 +150995,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "cd0b0c3beb3bb243eff9fea7ceb2d815a80aeb96159cb88e0dad22238f3bcb0a"
+      "input_hash": "6df1764981e8ee8f0d0d610d0240a67979013e30ef6f6d2a74e74ffc391476b7"
     },
     {
       "match_id": "3100950",
@@ -151074,16 +151016,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "b16d5d3acbef6c05a3a4",
+      "parent_decision_id": "332b5646953901a6dd75",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -151101,7 +151043,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -151135,7 +151077,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "332b5646953901a6dd75"
+      "decision_id": "f8df2fbbcdeb637afdd1"
     },
     {
       "match_id": "3064196",
@@ -151152,16 +151094,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "76c400f70e97468dc4cb",
+      "parent_decision_id": "80ae9bcb1ba1ab911ceb",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -151179,7 +151121,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -151215,7 +151157,7 @@
       "reason_codes": [
         "PK_NO_GIVING_RECEIVING_IDENTITY"
       ],
-      "decision_id": "80ae9bcb1ba1ab911ceb"
+      "decision_id": "d3f06319f3e21a4d46b8"
     },
     {
       "match_id": "3101088",
@@ -151232,16 +151174,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 14.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.152,
       "hours_from_last_refresh_to_kickoff": 14.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "dd7f95a7fec508420417",
+      "parent_decision_id": "7d18b6601b8d6ed46182",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -151259,7 +151201,7 @@
         "away_water_hk": 0.84,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -1.75,
         "titan_away_handicap_signed": 1.75,
         "giving_team": "法罗群岛女足",
@@ -151333,7 +151275,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -1.6500000000000001,
@@ -152374,7 +152316,7 @@
       "competition": "国际友谊",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "7d18b6601b8d6ed46182",
+      "decision_id": "8fdb2b59c720a31099d2",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "法罗群岛女足",
@@ -152426,9 +152368,9 @@
       "titan_context": {
         "match_id": "3101088",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:00:00+08:00",
         "competition": "国际友谊",
         "competition_domain": "INTERNATIONAL_FRIENDLY",
@@ -153572,11 +153514,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "61914106a66f6fd0b1cc7b0f2c8fca09ce5b40b7ed9d5aa8c561c10e5254fe44"
+      "input_hash": "19ea15ef0b8935ab8c961979a080c4fcb9aeae779207bbbd60d21f3cea16d9d9"
     },
     {
       "match_id": "3048506",
@@ -153593,16 +153535,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.05,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.402,
       "hours_from_last_refresh_to_kickoff": 15.184,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "f0c15f74fcc3ad6ee1d0",
+      "parent_decision_id": "ec23ea37fa316b285f62",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -153620,7 +153562,7 @@
         "away_water_hk": 0.84,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "阿尔纳泽马",
@@ -153694,7 +153636,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.5,
@@ -154735,7 +154677,7 @@
       "competition": "沙地甲",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "ec23ea37fa316b285f62",
+      "decision_id": "196ec94c6353ba240c91",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "阿尔纳泽马",
@@ -154787,9 +154729,9 @@
       "titan_context": {
         "match_id": "3048506",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:15:00+08:00",
         "competition": "沙地甲",
         "competition_domain": "CLUB_LEAGUE",
@@ -155933,11 +155875,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "ebc6b5d4cb1727aeb230b4a4bc41aeae1669a8f9ce3b92204cec040d37c95832"
+      "input_hash": "900a03285fb00c8b2775ec41008f56d447f560c55d242c38accb1ac808171a0b"
     },
     {
       "match_id": "3086354",
@@ -155954,16 +155896,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.652,
       "hours_from_last_refresh_to_kickoff": 15.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "4aae226e89a8c05e6d02",
+      "parent_decision_id": "e613b0849092c652d0f6",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -155981,7 +155923,7 @@
         "away_water_hk": 1.8,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.5,
         "titan_away_handicap_signed": 0.5,
         "giving_team": "爵士",
@@ -156053,7 +155995,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.3999999999999999,
@@ -157070,7 +157012,7 @@
       "competition": "芬乙D降",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "e613b0849092c652d0f6",
+      "decision_id": "92ba2c6fc431c2c925c3",
       "normalized_intent": "unknown",
       "intent_source": "NO_OPENING_INTENT_INPUT",
       "giving_team": "爵士",
@@ -157122,9 +157064,9 @@
       "titan_context": {
         "match_id": "3086354",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
         "competition": "芬乙D降",
         "competition_domain": "CLUB_LEAGUE",
@@ -158196,11 +158138,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "157e9cdd0ebdef0b86fea356f02ec4f2a090bfdf6af491e92cb7d999cd1df2d4"
+      "input_hash": "5aa841b576152e135f6d20af3491aa92e2f00bd293f9c6d13d65b77a72e49e87"
     },
     {
       "match_id": "3099748",
@@ -160560,7 +160502,8 @@
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "a13c10a6aff2951fdca1a2d95c0ab15ad1057610be4481137c6f4b7cda89e659"
+      "input_hash": "a13c10a6aff2951fdca1a2d95c0ab15ad1057610be4481137c6f4b7cda89e659",
+      "frozen_selection_lock": true
     },
     {
       "match_id": "2926334",
@@ -160577,16 +160520,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.652,
       "hours_from_last_refresh_to_kickoff": 15.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "5d08c60f1c24ef8e973b",
+      "parent_decision_id": "afddd7498abff53f9f47",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -160604,7 +160547,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": -0.25,
         "titan_away_handicap_signed": 0.25,
         "giving_team": "坎尔托塔",
@@ -160678,7 +160621,7 @@
       "fair_handicap_low": -0.0,
       "fair_handicap_high": -0.0,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": -0.1499999999999999,
@@ -161719,7 +161662,7 @@
       "competition": "智利乙",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "afddd7498abff53f9f47",
+      "decision_id": "1d5aec83ad95d8fe6b83",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "坎尔托塔",
@@ -161771,9 +161714,9 @@
       "titan_context": {
         "match_id": "2926334",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
         "competition": "智利乙",
         "competition_domain": "CLUB_LEAGUE",
@@ -162917,11 +162860,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "cdd5af601476985254bbe758786dd70b2d9aea46d4289babc4a4a73e781fe7a6"
+      "input_hash": "0db5289edb3db4cb3cf032b23e2e85ccdd517b76196c6bdad365b4011ddc99c3"
     },
     {
       "match_id": "3100979",
@@ -162938,16 +162881,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.652,
       "hours_from_last_refresh_to_kickoff": 15.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "ecb8b6e83d0bd8bb719d",
+      "parent_decision_id": "2a58faf4219fd0901b3f",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -162965,7 +162908,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -162999,7 +162942,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "2a58faf4219fd0901b3f"
+      "decision_id": "00f1419f18843f9f5185"
     },
     {
       "match_id": "3100980",
@@ -163016,16 +162959,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.652,
       "hours_from_last_refresh_to_kickoff": 15.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "03f2393163d353e3c4ed",
+      "parent_decision_id": "37628bcf4934b34fd580",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -163043,7 +162986,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -163077,7 +163020,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "37628bcf4934b34fd580"
+      "decision_id": "d6a778543548e2c31210"
     },
     {
       "match_id": "3100354",
@@ -163094,16 +163037,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.652,
       "hours_from_last_refresh_to_kickoff": 15.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "8cde3db623b3d49a49c4",
+      "parent_decision_id": "841f3fa9d4f012a515ff",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -163121,7 +163064,7 @@
         "away_water_hk": 0.93,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.25,
         "titan_away_handicap_signed": -0.25,
         "giving_team": "AS瓦加杜古",
@@ -163195,7 +163138,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.25,
@@ -164233,7 +164176,7 @@
       "competition": "布法联",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "841f3fa9d4f012a515ff",
+      "decision_id": "fc1efa4d9ccb980e0312",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "AS瓦加杜古",
@@ -164285,9 +164228,9 @@
       "titan_context": {
         "match_id": "3100354",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
         "competition": "布法联",
         "competition_domain": "UNKNOWN",
@@ -165428,11 +165371,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "a40460eacc46137b0385567ac678476d7d6c4af224bf9f1ed1266e8056a507a6"
+      "input_hash": "a3456590f38f37c76838304f4b734acfd9d9d65ed7ca8e63887d8a33e5aa2b23"
     },
     {
       "match_id": "3100355",
@@ -165449,16 +165392,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.652,
       "hours_from_last_refresh_to_kickoff": 15.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "9f5440b4103f082415ff",
+      "parent_decision_id": "0765b3e39520453a94ea",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -165476,7 +165419,7 @@
         "away_water_hk": 0.8,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.75,
         "titan_away_handicap_signed": -0.75,
         "giving_team": "US武装部队",
@@ -165550,7 +165493,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.6499999999999999,
@@ -166588,7 +166531,7 @@
       "competition": "布法联",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "0765b3e39520453a94ea",
+      "decision_id": "49a11807e5656542b19b",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "US武装部队",
@@ -166640,9 +166583,9 @@
       "titan_context": {
         "match_id": "3100355",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
         "competition": "布法联",
         "competition_domain": "UNKNOWN",
@@ -167783,11 +167726,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "00653b5e7ef936d608c2079acfb1363bf14a188f91e15493c9f8be4766ca52bb"
+      "input_hash": "6857f46f9b64a37ecb40034d49b69c34f76f135d5c400f351e591bde10f3eeb0"
     },
     {
       "match_id": "3100356",
@@ -167804,16 +167747,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.652,
       "hours_from_last_refresh_to_kickoff": 15.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": true,
-      "parent_decision_id": "8c2e5c876f66bd212d7e",
+      "parent_decision_id": "96b52aa933ff8e4bfbe7",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -167831,7 +167774,7 @@
         "away_water_hk": 0.9,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359",
+        "run_id": "RUN_20261012_195046",
         "titan_home_handicap_signed": 0.5,
         "titan_away_handicap_signed": -0.5,
         "giving_team": "法索",
@@ -167905,7 +167848,7 @@
       "fair_handicap_low": null,
       "fair_handicap_high": null,
       "fair_line_source": "MARKET_REFERENCE_FALLBACK",
-      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+      "titan_context_snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
       "cmfl": {
         "status": "AVAILABLE",
         "margin": 0.5499999999999999,
@@ -168943,7 +168886,7 @@
       "competition": "布法联",
       "analysis_status": "EVALUATED",
       "rank": null,
-      "decision_id": "96b52aa933ff8e4bfbe7",
+      "decision_id": "e0176b7765148b5b1b39",
       "normalized_intent": "平衡盘/等待临场确认",
       "intent_source": "MARKET_MOVE_BALANCED",
       "giving_team": "法索",
@@ -168995,9 +168938,9 @@
       "titan_context": {
         "match_id": "3100356",
         "canonical_event_id": null,
-        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_081159",
+        "snapshot_id": "slate_raw_99d7193a4b9c_asof_20261012_195049",
         "raw_snapshot_id": "slate_raw_99d7193a4b9c",
-        "decision_at": "2026-10-12T08:11:59.712108+08:00",
+        "decision_at": "2026-10-12T19:50:49.872417+08:00",
         "kickoff_at": "2026-10-12T23:30:00+08:00",
         "competition": "布法联",
         "competition_domain": "UNKNOWN",
@@ -170138,11 +170081,11 @@
         },
         "asof_guard": {
           "feature_available_at_lte_decision_at": true,
-          "history_cutoff": "2026-10-12T08:11:59.712108+08:00",
+          "history_cutoff": "2026-10-12T19:50:49.872417+08:00",
           "same_match_snapshot_partition": true
         }
       },
-      "input_hash": "cc9eccc3d48117d0e9edeffbe6843187ac5ed2f99d8aaa866beca89174987485"
+      "input_hash": "7e67dd751fa934f28b6611f8e647f385c3c7f72d417da4fe08a5d29657cf21cc"
     },
     {
       "match_id": "3100289",
@@ -170159,16 +170102,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.3,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.652,
       "hours_from_last_refresh_to_kickoff": 15.434,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "0a476f8781922235d061",
+      "parent_decision_id": "d648483f9c8ee6942db6",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -170186,7 +170129,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -170220,7 +170163,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "d648483f9c8ee6942db6"
+      "decision_id": "633e977d6cf7534dc5e8"
     },
     {
       "match_id": "2967728",
@@ -170237,16 +170180,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 15.55,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 3.902,
       "hours_from_last_refresh_to_kickoff": 15.684,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "9b071b3599d79903742c",
+      "parent_decision_id": "746acd75feea7efed7ee",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -170264,7 +170207,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -170298,7 +170241,7 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "746acd75feea7efed7ee"
+      "decision_id": "cd2658051e4a4c579fb9"
     },
     {
       "match_id": "3098394",
@@ -170315,16 +170258,16 @@
       "calibration_status": "UNCALIBRATED_SHADOW",
       "forward_status": "FROZEN_FORWARD",
       "real_money": false,
-      "run_id": "RUN_20261012_080359",
-      "decision_at": "2026-10-12T08:12:01.391180+08:00",
+      "run_id": "RUN_20261012_195046",
+      "decision_at": "2026-10-12T19:50:51.615965+08:00",
       "quote_at": "2026-10-12T08:03:59+08:00",
       "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-      "quote_age_at_decision": 0.134,
-      "hours_from_decision_to_kickoff": 11.8,
+      "quote_age_at_decision": 11.781,
+      "hours_from_decision_to_kickoff": 0.152,
       "hours_from_last_refresh_to_kickoff": 11.934,
       "is_morning_baseline": false,
       "is_latest_valid_prematch": false,
-      "parent_decision_id": "519398b395111e78fe27",
+      "parent_decision_id": "c8a7f6225903722df421",
       "monitoring_bucket": "",
       "prior_snapshot_id": "prior-2026-10-12-v1",
       "odds_snapshot_id": "snapshot",
@@ -170342,7 +170285,7 @@
         "away_water_hk": null,
         "quote_at": "2026-10-12T08:03:59+08:00",
         "last_confirmed_at": "2026-10-12T08:03:59+08:00",
-        "run_id": "RUN_20261012_080359"
+        "run_id": "RUN_20261012_195046"
       },
       "data_integrity": "PASS",
       "evidence_coverage": {
@@ -170376,11 +170319,11 @@
       "reason_codes": [
         "REQUIRED_MARKET_INPUT_MISSING"
       ],
-      "decision_id": "c8a7f6225903722df421"
+      "decision_id": "f96bc9d852594ea39f67"
     }
   ],
   "started_lock_policy": "started rows and same-list-date frozen V4 A/B/C selections retain original pre-match prediction; only status/settlement/review may append",
-  "run_id": "RUN_20261012_080359",
+  "run_id": "RUN_20261012_195046",
   "raw_snapshot_id": "20261012_080359_titan007_odds_snapshot",
   "side_mapping_version": "MATCH_SPECIFIC_DUAL_EV"
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": "football-dashboard-manifest-v1",
   "list_date": "2026-10-12",
-  "generated_at": "2026-10-12T08:17:10.685519+08:00",
+  "generated_at": "2026-10-12T19:52:34.920320+08:00",
   "full": {
     "path": "data_full.json",
     "rows": 1591
@@ -10,16 +10,16 @@
     "path": "data_filtered.json",
     "rows": 12
   },
-  "workbook_sha256": "2902ac2c3769fa9b94b938b0cb610f33f78af032e446a6d552111470cea54916",
+  "workbook_sha256": "66416f0e21d0aa658028bb608ac86135b69d7cceb09c4fc662d66fc9d0fdfaa0",
   "count_shrink_audit": {
     "status": "PASS",
     "blocked": false,
     "list_date": "2026-10-12",
-    "previous_total": 106,
+    "previous_total": 119,
     "incoming_total": 119,
     "contract_total": 119,
     "official_exception_count": 0,
-    "generated_at": "2026-10-12T08:11:59.630201+08:00"
+    "generated_at": "2026-10-12T19:50:49.782235+08:00"
   },
   "reconciliation": {
     "schema_version": "football-three-way-reconciliation-v1",
@@ -32,8 +32,8 @@
     "full_history_key_count": 1591,
     "filtered_subset_of_full": true,
     "mismatches": [],
-    "workbook": "D:\\codex\\outputs\\football_odds_trader\\excel\\football_odds_ledger_v4.xlsx",
-    "workbook_sha256": "2902ac2c3769fa9b94b938b0cb610f33f78af032e446a6d552111470cea54916",
-    "generated_at": "2026-10-12T08:17:10.739737+08:00"
+    "workbook": "D:\\codex\\技能项目\\football_update\\outputs__from_root\\football_odds_trader\\excel\\football_odds_ledger_v4.xlsx",
+    "workbook_sha256": "66416f0e21d0aa658028bb608ac86135b69d7cceb09c4fc662d66fc9d0fdfaa0",
+    "generated_at": "2026-10-12T19:52:34.981742+08:00"
   }
 }
