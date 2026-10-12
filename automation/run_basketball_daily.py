@@ -20,7 +20,7 @@ def main() -> int:
     root.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
     scripts = repo / "basketball_engine" / "scripts"
-    env["PYTHONPATH"] = str(scripts) + os.pathsep + env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = str(repo / "basketball_engine") + os.pathsep + str(scripts) + os.pathsep + env.get("PYTHONPATH", "")
     seed = [sys.executable, str(repo / "automation" / "seed_basketball_state.py"), "--public", str(public), "--root", str(root)]
     subprocess.run(seed, check=True, env=env)
     entry = scripts / "run_basketball_daily.py"
@@ -52,3 +52,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
