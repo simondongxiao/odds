@@ -631,3 +631,40 @@ Fair Center 区间优先由已载入历史的时间块 bootstrap 生成；历史
 ## v4.6 手动实盘模式
 
 用户明确要求后，`FORWARD_NATIVE` 新信号进入 `MANUAL_LIVE_CANDIDATE`：页面按“手动实盘候选”展示，`real_execution_allowed=true` 仅表示允许人工依据冻结方向下单；`automated_execution_allowed=false`、`manual_order_required=true`，系统不得调用任何自动下注接口。`real_bet_flag` 和真实成交信息只有在人工补录确认后才能为真，不得由模型触发自动填写。重复首写、盘口失效、比赛开始、规则不明和所有既有 Hard Block 继续禁止进入手动实盘候选。历史纸面首写记录不可回写；切换只对后续 `FORWARD_NATIVE` 运行生效。
+
+
+## v4.10 日更编排、回填与 GitHub/飞书交付合同
+
+本节把 2026-10-13 实际日更中暴露的错误固化为生产顺序。它不改变 Fair Line、概率、Evidence Gate、Edge/EV 阈值、纸面账本口径或真实资金关闭原则，只规定采集、回填、展示和交付的可重复编排。
+
+### 固定的日更顺序
+
+1. **先结算、后生成当天候选。** 每轮启动先扫描所有不可变前向首写和待结算记录，优先回填前一日及更早已结束比赛的最终比分、加时口径、赛果来源 URL、settlement_id 和 PnL。只补齐仍为 PENDING 的记录；不得重写首写盘口、方向、赔率、冻结输入哈希或历史结论。结算结果必须同步到对应日期 JSON、latest.json、累计 Excel 和 HTML 的同一市场行。
+2. **再发现和抓取目标日。** 赛事库存按 canonical event 保留。次日盘口尚未发布时写 NO_MARKET/UNPRICEABLE、inventory_retained=true、next_market_retry_at 和 source health，不得从事件清单删除，也不得把空响应当作 0 盘口。HTTP 请求统一走指数退避，并记录每次 URL、状态码、异常、耗时和重试序号。
+3. **再做统一实体和盘口匹配。** 先用 canonical_team_id、competition_key、gender、阶段和“双方规范化主客队 + 开赛时间 ±5 分钟”连续性键合并 7M/Titan/ESPN/SofaScore。来源名称不同不能产生两场比赛或两种相反结论；身份无法唯一确认时停在 SOURCE_CONFLICT/CANONICALIZATION_MISMATCH，而不是猜测合并。展示名称优先使用注册表中的中文名，原始英文名仅保留在审计字段。
+4. **最后定价和发布。** 当前挂牌必须经过本轮实际验证、比赛未开始、结算规则明确和 TTL 检查才参与定价；收到时间、报价变动时间和当前挂牌确认时间分开保存。生成 JSON、Excel、HTML 后做一致性检查：canonical event 不重复、赛事数与漏斗一致、同赛事多市场不丢失、赛果颜色/中文名/列宽契约成立。Excel 有公式时先以 LibreOffice 或等价引擎重算缓存，再原子替换正式文件。
+
+### 联赛和历史统计口径
+
+NBA、NBA季前、NBA常规赛、NBA季后赛统一使用 league_key=NBA 做同联赛累计胜率和盈亏；season_phase 仍单独保留用于审计和分组诊断。其它同一联赛的季前、常规、季后也遵循同样规则，除非用户明确要求阶段隔离。墨联、日B联赛、瑞典甲等必须通过联赛别名注册表归并，不能因网页具体名称不同而显示“无样本”。
+
+### 幂等、性能和页面验收
+
+同一 target_date 重跑必须只追加新的原始快照和新的健康审计，不复制 event、首写或 settlement。历史、Box Score 和赛程基线在初始化阶段一次读取并构建内存索引，逐场循环禁止再次读 JSON/JS；SQLite 查询必须命中复合索引；非核心诊断仅在内容签名变化时写盘。每轮必须记录开始/结束时间、HTTP 尝试与成功数、缓存命中、索引加载耗时、定价耗时和发布耗时，连续超时或失败不能静默成功。
+
+HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_key 统计并支持展开/收起；同赛事历史按 canonical event/team，而不是网页字符串。所有结束比赛必须显示比分，W/L/P 使用稳定颜色，行宽和中文名由固定渲染契约验证。公开 URL 的缓存参数只能用于刷新浏览器，不能改变数据日期。
+
+### GitHub Actions 与飞书通知
+
+生产仓库的 .github/workflows/basketball-daily.yml 使用 0 23 * * *（UTC，即北京时间每天 07:00），同时支持 workflow_dispatch.target_date 重跑指定北京时间日期。工作流从 main 运行引擎，从 gh-pages 种子化最近状态，生成目标日 JSON/HTML 后提交 gh-pages；提交前保留并合并并发产生的最新页面状态，避免覆盖足球或人工更新。提交得到的 SHA 必须写入步骤输出并等待 Pages workflow 对该 SHA 返回 completed/success，只有部署成功或页面已是最新时才发送飞书页面链接。
+
+飞书只读取 GitHub Secret FEISHU_WEBHOOK，禁止把 webhook 写入仓库、日志、数据或 HTML。通知至少包含北京时间日期、运行状态、赛事数、纸面可投数、Pages 状态、发布提交短 SHA、Actions 运行链接和 https://simondongxiao.github.io/odds/basketball-v2.html。引擎失败时也发送失败状态；发送失败按 2/4 秒重试三次并把原因留在 Actions 日志。真实资金执行永久关闭。
+
+### 每轮最低验收
+
+- python -m py_compile automation/*.py basketball_engine/scripts/run_basketball_daily.py 通过；
+- python D:\codex\skills\skill-creator\scripts\quick_validate.py D:\codex\skills\basketball-odds-trader 通过；
+- 目标日与前一日回填 JSON 中 event、settlement、league_key、中文展示名可按 canonical key 对齐；
+- NO_MARKET 赛事仍在库存，429/空响应有退避审计；
+- gh-pages 提交后 Pages 成功，飞书消息只在此后发送；
+- 任何失败不得删除不可变账本、历史档案或把 PENDING 伪装成已结算。

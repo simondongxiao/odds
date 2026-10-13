@@ -10,7 +10,10 @@ from pathlib import Path
 
 
 def load(path: Path):
-    return json.loads(path.read_text(encoding="utf-8"))
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
 
 
 def triggered(event: dict):
@@ -39,6 +42,10 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Send a compact basketball daily result to Feishu")
     ap.add_argument("--data", required=True)
     ap.add_argument("--status", default="success")
+    ap.add_argument("--commit", default="")
+    ap.add_argument("--deploy-status", default="not-run")
+    ap.add_argument("--run-url", default="")
+    ap.add_argument("--url", default="https://simondongxiao.github.io/odds/basketball-v2.html")
     args = ap.parse_args()
     webhook = os.environ.get("FEISHU_WEBHOOK", "").strip()
     if not webhook:
@@ -49,7 +56,13 @@ def main() -> int:
     latest = load(Path(args.data))
     day = latest.get("date_bj") or latest.get("date") or "未知日期"
     funnel = latest.get("funnel") or {}
-    lines = [f"篮球日更｜{day}", f"运行状态：{args.status}", f"赛事数：{len(latest.get('events') or [])}", f"纸面可投：{funnel.get('paper_bettable', '—')}"]
+    lines = [
+        f"篮球日更｜{day}",
+        f"运行状态：{args.status}",
+        f"赛事数：{len(latest.get('events') or [])}",
+        f"纸面可投：{funnel.get('paper_bettable', '—')}",
+        f"Pages：{args.deploy_status}",
+    ]
     picks = []
     for row in latest.get("events") or []:
         picks.extend(triggered(row))
@@ -59,7 +72,11 @@ def main() -> int:
     if picks:
         lines.append("纸面候选：")
         lines.extend(f"- {item}" for item in picks[:8])
-    lines.append("页面：https://simondongxiao.github.io/odds/basketball-v2.html")
+    lines.append(f"页面：{args.url}")
+    if args.commit:
+        lines.append(f"发布提交：{args.commit[:12]}")
+    if args.run_url:
+        lines.append(f"Actions：{args.run_url}")
     payload = json.dumps({"msg_type": "text", "content": {"text": "\n".join(lines)}}, ensure_ascii=False).encode("utf-8")
     request = urllib.request.Request(webhook, data=payload, headers={"Content-Type": "application/json"}, method="POST")
     last_error = None
