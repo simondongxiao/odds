@@ -885,9 +885,13 @@ def parse_betexplorer_asian(text: str) -> dict[str, float | str]:
         return {}
     candidates.sort(key=lambda item: (item[0], item[1]))
     _preference, _balance, provider_line, home, away, company = candidates[0]
-    # BetExplorer uses the standard bookmaker sign (negative home = home
-    # gives).  Normalize to this project's Titan contract (positive home =
-    # home gives) before the row enters V3/V4.
+    # BetExplorer exposes the standard bookmaker perspective: a negative
+    # home line means the home team gives the handicap, while a positive home
+    # line means the home team receives it.  The football project contract
+    # used by V3/V4 is the opposite signed convention (positive home line
+    # means the home team gives).  Normalize at ingestion so every downstream
+    # model and ledger sees one sign contract.  Keep the provider sign for
+    # audit/debugging; never let it leak into the model-facing field.
     line = -float(provider_line)
     return {
         "ah_full_current_home_or_over": home,
