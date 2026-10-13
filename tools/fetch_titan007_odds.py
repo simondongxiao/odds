@@ -730,9 +730,11 @@ def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, st
         if len(parts) < 5:
             continue
         try:
-            if dt.date(int(parts[2]), int(parts[1]), int(parts[0])) != target:
+            provider_dt = dt.datetime(int(parts[2]), int(parts[1]), int(parts[0]), int(parts[3]), int(parts[4]))
+            local_dt = provider_dt + dt.timedelta(hours=int(os.environ.get("BETEXPLORER_UTC_OFFSET_HOURS", "8")))
+            if local_dt.date() != target:
                 continue
-        except ValueError:
+        except (ValueError, IndexError):
             continue
         row_html = match.group(2)
         link = re.search(r"<a\b[^>]*href=['\"]([^'\"]*/football/[^'\"]+)['\"][^>]*>(.*?)</a>", row_html, re.I | re.S)
@@ -751,6 +753,7 @@ def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, st
             "home_en": teams[0].strip(),
             "away_en": teams[1].strip(),
             "betexplorer_dt": ",".join(parts[:5]),
+            "bj_time": local_dt.strftime("%m-%d %H:%M"),
             "betexplorer_href": href,
         })
     return out
@@ -771,9 +774,11 @@ def parse_betexplorer_next_schedule(text: str, target_date: str) -> list[dict[st
         if len(parts) < 5:
             continue
         try:
-            if dt.date(int(parts[2]), int(parts[1]), int(parts[0])) != target:
+            provider_dt = dt.datetime(int(parts[2]), int(parts[1]), int(parts[0]), int(parts[3]), int(parts[4]))
+            local_dt = provider_dt + dt.timedelta(hours=int(os.environ.get("BETEXPLORER_UTC_OFFSET_HOURS", "8")))
+            if local_dt.date() != target:
                 continue
-        except ValueError:
+        except (ValueError, IndexError):
             continue
         block = match.group(2)
         link = re.search(
@@ -815,9 +820,35 @@ def parse_betexplorer_next_schedule(text: str, target_date: str) -> list[dict[st
             "home_en": home_en,
             "away_en": away_en,
             "betexplorer_dt": ",".join(parts[:5]),
+            "bj_time": local_dt.strftime("%m-%d %H:%M"),
             "betexplorer_href": href,
         })
     return out
+
+
+def load_betexplorer_schedule(stamp: str, out_dir: Path, target_date: str) -> list[dict[str, str]]:
+    """Load the BetExplorer schedule using Beijing-date normalization.
+
+    BetExplorer's ``data-dt`` is UTC.  The old join compared that raw date to
+    Titan's Beijing ``list_date`` and silently discarded every fixture that
+    crossed midnight.  Reuse the saved response when available so a second
+    pass does not issue another schedule request during the same run.
+    """
+    next_path = _maybe_saved(out_dir, stamp, "betexplorer_football_next.html")
+    if next_path:
+        next_text = next_path.read_text(encoding="utf-8", errors="replace")
+    else:
+        _path, raw = fetch_url(BETEXPLORER_NEXT, stamp, out_dir, "betexplorer_football_next.html")
+        next_text = decode_text(raw)
+    landing_path = _maybe_saved(out_dir, stamp, "betexplorer_football.html")
+    if landing_path:
+        landing_text = landing_path.read_text(encoding="utf-8", errors="replace")
+    else:
+        _path, raw = fetch_url(BETEXPLORER_HOME, stamp, out_dir, "betexplorer_football.html")
+        landing_text = decode_text(raw)
+    by_event = {event["betexplorer_id"]: event for event in parse_betexplorer_next_schedule(next_text, target_date)}
+    by_event.update({event["betexplorer_id"]: event for event in parse_betexplorer_schedule(landing_text, target_date)})
+    return list(by_event.values())
 
 
 def parse_betexplorer_asian(text: str) -> dict[str, float | str]:
@@ -873,16 +904,10 @@ def match_betexplorer_to_titan(
     """Use BetExplorer's public JSON AH endpoint as a bounded fallback."""
     out_dir.mkdir(parents=True, exist_ok=True)
     try:
-        _path, raw = fetch_url(BETEXPLORER_NEXT, stamp, out_dir, "betexplorer_football_next.html")
-        schedule = parse_betexplorer_next_schedule(decode_text(raw), target_date)
         # Keep the landing-page slice as well: it currently contains several
         # Japan/Korea fixtures that are not repeated on BetExplorer's broad
         # next-matches page.  Dedupe by the provider event id.
-        _path, raw = fetch_url(BETEXPLORER_HOME, stamp, out_dir, "betexplorer_football.html")
-        landing_schedule = parse_betexplorer_schedule(decode_text(raw), target_date)
-        by_event = {event["betexplorer_id"]: event for event in schedule}
-        by_event.update({event["betexplorer_id"]: event for event in landing_schedule})
-        schedule = list(by_event.values())
+        schedule = load_betexplorer_schedule(stamp, out_dir, target_date)
     except Exception as exc:
         print(f"betexplorer_schedule_failed={exc}", file=sys.stderr)
         return {}
@@ -944,6 +969,132 @@ def match_betexplorer_to_titan(
                 print(f"betexplorer_match_failed={match_id}:{error}", file=sys.stderr)
     print(f"betexplorer_schedule={len(schedule)} betexplorer_joined={len(mapped_events)} betexplorer_mapped={len(out)} betexplorer_ambiguous={ambiguous}", file=sys.stderr)
     return out
+
+
+def _betexplorer_competition(event: dict[str, str]) -> tuple[str, str]:
+    """Return stable display labels from a BetExplorer fixture URL."""
+    parts = [part for part in str(event.get("betexplorer_href", "")).split("/") if part]
+    slug = parts[2] if len(parts) >= 3 and parts[0] == "football" else ""
+    labels = {
+        "championship": "英冠",
+        "champions-league": "欧冠",
+        "europa-league": "欧联",
+        "conference-league": "欧协联",
+    }
+    return labels.get(slug, f"BE:{slug}" if slug else "BE:UNKNOWN"), slug.replace("-", " ").title()
+
+
+def build_betexplorer_supplemental_rows(
+    future_rows: dict[str, dict[str, str]],
+    euro: dict[str, dict[str, float | str]],
+    stamp: str,
+    out_dir: Path,
+    target_date: str,
+) -> dict[str, dict[str, object]]:
+    """Append fixtures absent from Titan's Next page using BetExplorer IDs.
+
+    BetExplorer is a roster supplement here, not a replacement for Titan's
+    numeric match IDs.  Supplemental rows are marked explicitly, receive a
+    stable ``BE_<event_id>`` key, and stay outside the Titan detail/browser
+    recovery queue.  This prevents a source-coverage gap from becoming an
+    apparent odds transport failure while keeping the fixture available in
+    the full ledger and HTML audit view.
+    """
+    if os.environ.get("TITAN_ENABLE_BETEXPLORER_SUPPLEMENT", "1") != "1":
+        return {}
+    try:
+        schedule = load_betexplorer_schedule(stamp, out_dir, target_date)
+    except Exception as exc:
+        print(f"betexplorer_supplement_schedule_failed={exc}", file=sys.stderr)
+        return {}
+    if not schedule:
+        print("betexplorer_supplement_schedule=0", file=sys.stderr)
+        return {}
+
+    existing_pairs: list[tuple[str, str]] = []
+    for source in euro.values():
+        home = _betexplorer_team_key(str(source.get("home_en", "") or ""))
+        away = _betexplorer_team_key(str(source.get("away_en", "") or ""))
+        if home and away:
+            existing_pairs.append((home, away))
+
+    def already_in_titan(event: dict[str, str]) -> bool:
+        home = _betexplorer_team_key(event.get("home_en", ""))
+        away = _betexplorer_team_key(event.get("away_en", ""))
+        if not home or not away:
+            return False
+        for existing_home, existing_away in existing_pairs:
+            score = (_team_name_similarity(home, existing_home) + _team_name_similarity(away, existing_away)) / 2.0
+            if score >= 0.90:
+                return True
+        return False
+
+    candidates = [event for event in schedule if not already_in_titan(event)]
+    if not candidates:
+        print(f"betexplorer_supplement_schedule={len(schedule)} supplemental=0", file=sys.stderr)
+        return {}
+
+    def fetch_one(event: dict[str, str]) -> tuple[str, dict[str, object]]:
+        event_id = event["betexplorer_id"]
+        market: dict[str, object] = {}
+        try:
+            saved = _maybe_saved(out_dir, stamp, f"betexplorer_{event_id}_ah.json")
+            if saved:
+                raw = saved.read_bytes()
+            else:
+                _path, raw = fetch_betexplorer_event(
+                    BETEXPLORER_ODDS.format(event_id=event_id),
+                    stamp,
+                    out_dir,
+                    f"betexplorer_{event_id}_ah.json",
+                    referer=BETEXPLORER_HOME,
+                )
+            payload = json.loads(decode_text(raw))
+            market_html = str(payload.get("odds", "")) if isinstance(payload, dict) else ""
+            market = parse_betexplorer_asian(market_html)
+        except Exception as exc:
+            market["future_ah_supplement_error"] = str(exc)
+        competition_cn, competition_en = _betexplorer_competition(event)
+        match_id = f"BE_{event_id}"
+        row: dict[str, object] = {
+            "match_id": match_id,
+            "league_cn": competition_cn,
+            "league_en": competition_en,
+            "league_tw": "",
+            "home_cn": event.get("home_en", ""),
+            "away_cn": event.get("away_en", ""),
+            "home_en": event.get("home_en", ""),
+            "away_en": event.get("away_en", ""),
+            "bj_time": event.get("bj_time", ""),
+            "match_time_en": event.get("betexplorer_dt", ""),
+            "state": "0",
+            "home_score": "",
+            "away_score": "",
+            "source_page": "BetExplorer supplemental",
+            "source_provider": "BetExplorer",
+            "betexplorer_id": event_id,
+            "betexplorer_href": event.get("betexplorer_href", ""),
+            "supplemental_roster": "BETEXPLORER_ONLY",
+            "market_coverage_note": "BetExplorer AH only; Titan numeric detail ID unavailable",
+        }
+        row.update(market)
+        if not market.get("ah_full_current_home_or_over"):
+            row["future_ah_market_status"] = "NOT_PUBLISHED"
+        return match_id, row
+
+    output: dict[str, dict[str, object]] = {}
+    max_workers = max(1, int(os.environ.get("BETEXPLORER_SUPPLEMENT_MAX_WORKERS", "8")))
+    with ThreadPoolExecutor(max_workers=min(max_workers, len(candidates))) as pool:
+        futures = [pool.submit(fetch_one, event) for event in candidates]
+        for future in as_completed(futures):
+            match_id, row = future.result()
+            output[match_id] = row
+    print(
+        f"betexplorer_supplement_schedule={len(schedule)} supplemental={len(output)} "
+        f"supplement_with_ah={sum(1 for row in output.values() if row.get('ah_full_current_home_or_over'))}",
+        file=sys.stderr,
+    )
+    return output
 
 
 def text_to_float(value: str) -> float | None:
@@ -2672,6 +2823,29 @@ def main() -> int:
             out_dir,
             fivehundred=fivehundred_fallback,
         )
+        # BetExplorer can carry major competitions that are absent from the
+        # Titan Next page altogether (for example Championship/UCL fixtures).
+        # Add those rows after Titan enrichment so their provider IDs never
+        # enter the Titan VIP/mobile recovery queue.
+        supplemental_rows = build_betexplorer_supplemental_rows(
+            future_rows,
+            euro,
+            stamp,
+            out_dir,
+            target_list_date,
+        )
+        for match_id, item in supplemental_rows.items():
+            item["snapshot_stamp"] = stamp
+            apply_list_date_lock(
+                match_id,
+                item,
+                target_list_date,
+                "BetExplorer_supplemental",
+                roster,
+                global_roster,
+            )
+            rows_by_id[match_id] = item
+        future_added += len(supplemental_rows)
     except Exception as exc:
         print(f"future_fetch_failed: {exc}", file=sys.stderr)
 
