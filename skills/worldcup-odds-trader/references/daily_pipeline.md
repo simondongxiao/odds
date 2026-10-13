@@ -35,7 +35,7 @@ Run a count-shrink guard by competition and date. If the incoming roster falls b
 - Render current data from the date JSON and keep historical details collapsed behind an explicit control. Include the selected `?date=YYYY-MM-DD` URL in notifications.
 - Preserve the V4 controls: date, current bettable filter, historical league-rate filter, competition, final decision, and grade. A missing control is a failed build.
 - Validate the local file, raw GitHub file, and GitHub Pages response after publish. Use cache-busting query strings only for verification; do not create duplicate data files.
-- The scheduled workflow runs at `0 23 * * *` (07:00 Asia/Shanghai) on a self-hosted Windows runner because the production fetcher and ledgers live under `D:\codex`. Check those paths before the update and fail with a clear message if they are unavailable.
+- The morning workflow runs at `0 23 * * *` (07:00 Asia/Shanghai) for the current list date. A separate evening workflow runs at `0 12 * * *` (20:00 Asia/Shanghai) and always passes the next Beijing calendar date to the updater. Both run on a self-hosted Windows runner because the production fetcher and ledgers live under `D:\codex`; check those paths before the update and fail with a clear message if they are unavailable.
 - Keep the Feishu webhook only in the GitHub Actions secret `FEISHU_WEBHOOK_URL`. Send a result message after both success and failure, including list date, run id, roster, V3/V4 computed and actionable counts, shrink-guard status, history row count, and the dated HTML link. Never write the webhook into source, generated JSON, or logs.
 
 ## Failure policy

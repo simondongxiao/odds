@@ -1,0 +1,89 @@
+name: Football next-day evening update and Feishu delivery
+
+on:
+  schedule:
+    # 20:00 Asia/Shanghai = 12:00 UTC.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: football-next-day-update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update-and-notify:
+    runs-on: [self-hosted, Windows, X64]
+    timeout-minutes: 60
+    env:
+      FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+      FOOTBALL_OUTPUT_ROOT: D:\codex\outputs\football_odds_trader
+      FOOTBALL_UPDATE_SCRIPT: D:\codex\技能项目\football_update\run_football_update.py
+      FOOTBALL_PYTHON: D:\python\python.exe
+      FOOTBALL_DASHBOARD_URL: https://simondongxiao.github.io/odds/v4/
+
+    steps:
+      - name: Checkout automation code
+        uses: actions/checkout@v4
+
+      - name: Preflight production runner
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $required = @{
+            "FOOTBALL_OUTPUT_ROOT" = $env:FOOTBALL_OUTPUT_ROOT
+            "FOOTBALL_UPDATE_SCRIPT" = $env:FOOTBALL_UPDATE_SCRIPT
+            "FOOTBALL_PUBLISH_REPO" = (Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds")
+          }
+          foreach ($item in $required.GetEnumerator()) {
+            if (-not (Test-Path -LiteralPath $item.Value)) {
+              throw "Missing production path $($item.Key): $($item.Value). Register the Windows runner with the D:\\codex data tree mounted."
+            }
+          }
+          if (-not $env:FEISHU_WEBHOOK_URL) {
+            throw "FEISHU_WEBHOOK_URL GitHub Actions secret is missing."
+          }
+          Write-Host "Production runner preflight passed."
+
+      - name: Run next-day V3/V4 update
+        id: football_update
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $python = $env:FOOTBALL_PYTHON
+          if (-not (Test-Path -LiteralPath $python)) {
+            $python = (Get-Command python).Source
+          }
+          $listDate = & $python -c "from datetime import datetime, timezone, timedelta; print((datetime.now(timezone(timedelta(hours=8))).date() + timedelta(days=1)).isoformat())"
+          $env:FOOTBALL_LIST_DATE = $listDate.Trim()
+          $token = "${{ github.token }}"
+          $basic = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("x-access-token:$token"))
+          $env:GIT_CONFIG_COUNT = "1"
+          $env:GIT_CONFIG_KEY_0 = "http.https://github.com/.extraheader"
+          $env:GIT_CONFIG_VALUE_0 = "AUTHORIZATION: basic $basic"
+          $env:GIT_TERMINAL_PROMPT = "0"
+          $publishRepo = Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds"
+          git -C $publishRepo fetch origin main gh-pages --quiet
+          & $python $env:FOOTBALL_UPDATE_SCRIPT --list-date $env:FOOTBALL_LIST_DATE
+          if ($LASTEXITCODE -ne 0) {
+            throw "next-day football update failed with exit code $LASTEXITCODE"
+          }
+
+      - name: Send Feishu result
+        if: always()
+        shell: pwsh
+        env:
+          UPDATE_OUTCOME: ${{ steps.football_update.outcome }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $python = $env:FOOTBALL_PYTHON
+          if (-not (Test-Path -LiteralPath $python)) {
+            $python = (Get-Command python).Source
+          }
+          $listDate = & $python -c "from datetime import datetime, timezone, timedelta; print((datetime.now(timezone(timedelta(hours=8))).date() + timedelta(days=1)).isoformat())"
+          & $python "$env:GITHUB_WORKSPACE\tools\send_feishu_daily_report.py" --list-date $listDate.Trim() --status $env:UPDATE_OUTCOME
