@@ -15044,19 +15044,19 @@
         "home_team": "河内公安",
         "away_team": "鹿岛鹿角",
         "competition": "亚冠精英",
-        "home_handicap_signed": 1.25,
-        "away_handicap_signed": -1.25,
+        "home_handicap_signed": -1.25,
+        "away_handicap_signed": 1.25,
         "home_water_hk": 1.97,
         "away_water_hk": 1.86,
         "quote_at": "2026-10-13T19:50:03+08:00",
         "last_confirmed_at": "2026-10-13T19:50:03+08:00",
         "run_id": "RUN_20261013_200217",
-        "titan_home_handicap_signed": 1.25,
-        "titan_away_handicap_signed": -1.25,
-        "giving_team": "河内公安",
-        "receiving_team": "鹿岛鹿角",
-        "giving_water": 1.97,
-        "receiving_water": 1.86,
+        "titan_home_handicap_signed": -1.25,
+        "titan_away_handicap_signed": 1.25,
+        "giving_team": "鹿岛鹿角",
+        "receiving_team": "河内公安",
+        "giving_water": 1.86,
+        "receiving_water": 1.97,
         "side_identity": "Titan signed AH"
       },
       "data_integrity": "PASS",
@@ -16007,8 +16007,8 @@
           ]
         }
       },
-      "market_line": 1.25,
-      "line_gap": -3.0415804948872003,
+      "market_line": -1.25,
+      "line_gap": -0.5415804948872005,
       "bucket_prior": {
         "line_bucket": "1.25",
         "signal": 0.01212121212121212,
@@ -16018,7 +16018,7 @@
       },
       "market_path": {
         "opening_line": -1.25,
-        "current_line": 1.25,
+        "current_line": -1.25,
         "line_move": 0.0,
         "giving_water_move": 0.0
       },
@@ -16075,35 +16075,35 @@
         "9": 1.5083650248305797e-10
       },
       "giving_probabilities": {
-        "W": 0.010877049117482461,
-        "HW": 0.0,
-        "P": 0.0,
-        "HL": 0.048568187999921165,
-        "L": 0.9405547628825964
-      },
-      "receiving_probabilities": {
         "W": 0.9405547628825964,
         "HW": 0.048568187999921165,
         "P": 0.0,
         "HL": 0.0,
         "L": 0.010877049117482461
       },
-      "p_giving_cover": 0.010877049117482461,
-      "p_receiving_cover": 0.964838856882557,
+      "receiving_probabilities": {
+        "W": 0.010877049117482461,
+        "HW": 0.0,
+        "P": 0.0,
+        "HL": 0.048568187999921165,
+        "L": 0.9405547628825964
+      },
+      "p_giving_cover": 0.964838856882557,
+      "p_receiving_cover": 0.010877049117482461,
       "p_push": 0.0,
-      "ev_giving": -0.9434110701211166,
-      "ev_receiving": 1.7837232246840737,
-      "final_decision": "BET_RECEIVING",
+      "ev_giving": 1.7837232246840737,
+      "ev_receiving": -0.9434110701211166,
+      "final_decision": "BET_GIVING",
       "decision_reason": "RECEIVING_VALIDATED_EDGE",
       "pre_gate_final_decision": "BET_RECEIVING",
       "pre_gate_selected_team": "鹿岛鹿角",
       "pre_gate_ev_mean": 1.7837232246840737,
       "quality_gate_passed": true,
       "quality_gate_reasons": [],
-      "selected_side": "receiving",
+      "selected_side": "giving",
       "selected_team": "鹿岛鹿角",
       "selected_water_hk": 1.86,
-      "selected_handicap_signed": 1.25,
+      "selected_handicap_signed": -1.25,
       "selected_probabilities": {
         "W": 0.9405547628825964,
         "HW": 0.048568187999921165,
@@ -16136,6 +16136,7 @@
         ]
       },
       "reason_codes": [
+        "DIRECTION_REPAIRED_BETEXPLORER_SIGN",
         "RECEIVING_VALIDATED_EDGE",
         "BUCKET_PRIOR_ONLY",
         "INTENT_INTERPRETATION_ONLY",
@@ -16148,11 +16149,11 @@
       "decision_id": "bfda0019c968fe164fd9",
       "normalized_intent": "unknown",
       "intent_source": "NO_OPENING_WATER_INTENT_INPUT",
-      "giving_team": "河内公安",
-      "receiving_team": "鹿岛鹿角",
-      "giving_water_hk": 1.97,
-      "receiving_water_hk": 1.86,
-      "candidate_side": "receiving",
+      "giving_team": "鹿岛鹿角",
+      "receiving_team": "河内公安",
+      "giving_water_hk": 1.86,
+      "receiving_water_hk": 1.97,
+      "candidate_side": "giving",
       "candidate_team": "鹿岛鹿角",
       "opposite_water_hk": 1.97,
       "probabilities": {
@@ -16169,19 +16170,6 @@
       "ev_p95": null,
       "p_ev_positive": null,
       "diagnostic_giving": {
-        "team": "河内公安",
-        "water": 1.97,
-        "EV_mean": -0.9434110701211166,
-        "probabilities": {
-          "W": 0.010877049117482461,
-          "HW": 0.0,
-          "P": 0.0,
-          "HL": 0.048568187999921165,
-          "L": 0.9405547628825964
-        },
-        "status": "MATCH_SPECIFIC"
-      },
-      "diagnostic_receiving": {
         "team": "鹿岛鹿角",
         "water": 1.86,
         "EV_mean": 1.7837232246840737,
@@ -16191,6 +16179,19 @@
           "P": 0.0,
           "HL": 0.0,
           "L": 0.010877049117482461
+        },
+        "status": "MATCH_SPECIFIC"
+      },
+      "diagnostic_receiving": {
+        "team": "河内公安",
+        "water": 1.97,
+        "EV_mean": -0.9434110701211166,
+        "probabilities": {
+          "W": 0.010877049117482461,
+          "HW": 0.0,
+          "P": 0.0,
+          "HL": 0.048568187999921165,
+          "L": 0.9405547628825964
         },
         "status": "MATCH_SPECIFIC"
       },
@@ -17280,20 +17281,22 @@
       },
       "input_hash": "9e31f26419a23f1505266a2ea9d775e6e98f8827b0906fce1c7d168c32ab4088",
       "score": "0-1",
-      "result": "W",
-      "pnl_1u": 1.86,
+      "result": "HL",
+      "pnl_1u": -0.5,
       "settlement_status": "SETTLED",
       "result_state": "-1",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261013\\20261013_224201_titan007_odds_snapshot.csv",
       "settlement_updated_at": "2026-10-13T22:48:37.003010+08:00",
       "settlement": {
         "score": "0-1",
-        "result": "W",
-        "pnl_1u": 1.86,
+        "result": "HL",
+        "pnl_1u": -0.5,
         "settlement_status": "SETTLED",
         "result_state": "-1",
-        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261013\\20261013_224201_titan007_odds_snapshot.csv"
-      }
+        "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261013\\20261013_224201_titan007_odds_snapshot.csv",
+        "status": "SETTLED"
+      },
+      "direction_repair": "BetExplorer provider sign normalized: 鹿岛鹿角 gives 1.25; selected line -1.25"
     },
     {
       "match_id": "3094388",

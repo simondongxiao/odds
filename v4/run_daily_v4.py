@@ -246,6 +246,22 @@ def receiving_alpha(alpha: dict[str, dict[str, float]]) -> dict[str, dict[str, f
     }
 
 
+def _direction_sign_flip(old: dict, current: dict) -> bool:
+    """Detect a legacy home-line sign snapshot that needs one-time migration.
+
+    A normal refresh may change a line, but it should not change the sign while
+    keeping the exact same absolute quarter-line.  That pattern is the legacy
+    BetExplorer provider-sign bug fixed at ingestion.  Started rows remain
+    locked except for this explicit market-identity repair.
+    """
+    try:
+        old_line = float((old.get("market") or {}).get("home_handicap_signed"))
+        new_line = float((current.get("market") or {}).get("home_handicap_signed"))
+    except (TypeError, ValueError):
+        return False
+    return abs(old_line) > 1e-9 and abs(old_line + new_line) < 1e-9
+
+
 def preserve_started_output(decisions: list[dict], daily: Path, now: datetime, list_date: str) -> list[dict]:
     """Keep prior same-date V4 decisions when a refresh emits only future rows."""
     if not daily.exists():
@@ -280,7 +296,28 @@ def preserve_started_output(decisions: list[dict], daily: Path, now: datetime, l
         })
         if old.get("grade") is not None and old.get("ev_mean") is not None:
             frozen["analysis_status"] = "FROZEN_PREMATCH_DECISION"
-        frozen["reason_codes"] = ["STARTED_DECISION_LOCKED"]
+        if _direction_sign_flip(old, row):
+            # Migrate only market identity and the directly dependent frozen
+            # side fields.  Score/settlement fields remain append-only and are
+            # handled by the settlement backfill step.
+            direction_fields = (
+                "market", "market_line", "line_gap", "market_path",
+                "giving_team", "receiving_team", "giving_water_hk",
+                "receiving_water_hk", "candidate_side", "candidate_team",
+                "selected_side", "selected_team", "selected_handicap_signed",
+                "selected_water_hk", "opposite_water_hk", "final_decision",
+                "giving_probabilities", "receiving_probabilities",
+                "probabilities", "selected_probabilities", "p_giving_cover",
+                "p_receiving_cover", "ev_giving", "ev_receiving", "ev_mean",
+                "diagnostic_giving", "diagnostic_receiving",
+            )
+            for key in direction_fields:
+                if key in row:
+                    frozen[key] = row[key]
+            frozen["direction_repair"] = "LEGACY_BETEXPLORER_SIGN_NORMALIZED"
+            frozen["reason_codes"] = ["DIRECTION_REPAIRED_BETEXPLORER_SIGN"]
+        if "direction_repair" not in frozen:
+            frozen["reason_codes"] = ["STARTED_DECISION_LOCKED"]
         frozen["started_lock"] = True
         merged.append(frozen)
 
