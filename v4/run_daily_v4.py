@@ -95,6 +95,13 @@ def load_raw_csv(path: Path, list_date: str) -> list[dict]:
             hw = _first(source, "ah_full_current_home_or_over", "xml_ah_home_water")
             line = _first(source, "ah_full_current_line_or_draw", "xml_ah_line")
             aw = _first(source, "ah_full_current_away_or_under", "xml_ah_away_water")
+            ah_company = _first(source, "ah_full_company")
+            ah_line_convention = _first(source, "ah_line_convention")
+            if "betexplorer" in ah_company.lower() and ah_line_convention != "TITAN_HOME_SIGN_POSITIVE_GIVING":
+                try:
+                    line = str(-float(line))
+                except (TypeError, ValueError):
+                    pass
             open_hw = _first(source, "ah_full_open_home_or_over")
             open_line = _first(source, "ah_full_open_line_or_draw", "initial_ah_hint")
             open_aw = _first(source, "ah_full_open_away_or_under")
@@ -109,6 +116,7 @@ def load_raw_csv(path: Path, list_date: str) -> list[dict]:
                 "asian_raw": "/".join((hw, line, aw)) if hw and line and aw else "",
                 "euro_raw": "/".join((euro_home, euro_draw, euro_away)) if euro_home and euro_draw and euro_away else "",
                 "ah_full_current_home_or_over": hw, "ah_full_current_line_or_draw": line, "ah_full_current_away_or_under": aw,
+                "ah_full_company": ah_company, "ah_line_convention": "TITAN_HOME_SIGN_POSITIVE_GIVING",
                 "ah_full_open_home_or_over": open_hw, "ah_full_open_line_or_draw": open_line, "ah_full_open_away_or_under": open_aw,
                 "totals_raw": "/".join((_first(source, "total_full_current_line_or_draw"), _first(source, "total_full_current_home_or_over"), _first(source, "total_full_current_away_or_under"))),
                 "ah_ok": bool(hw and line and aw), "euro_ok": bool(euro_home and euro_draw and euro_away),

@@ -884,12 +884,19 @@ def parse_betexplorer_asian(text: str) -> dict[str, float | str]:
     if not candidates:
         return {}
     candidates.sort(key=lambda item: (item[0], item[1]))
-    _preference, _balance, line, home, away, company = candidates[0]
+    _preference, _balance, provider_line, home, away, company = candidates[0]
+    # BetExplorer uses the standard bookmaker sign (negative home = home
+    # gives).  Normalize to this project's Titan contract (positive home =
+    # home gives) before the row enters V3/V4.
+    line = -float(provider_line)
     return {
         "ah_full_current_home_or_over": home,
         "ah_full_current_line_or_draw": line,
         "ah_full_current_away_or_under": away,
         "ah_full_company": f"BetExplorer {company}",
+        "betexplorer_provider_line": float(provider_line),
+        "betexplorer_line_convention": "STANDARD_HOME_SIGN_NEGATIVE_GIVING",
+        "ah_line_convention": "TITAN_HOME_SIGN_POSITIVE_GIVING",
         "future_ah_fetch_fallback": "BETEXPLORER_PUBLIC_JSON",
     }
 
