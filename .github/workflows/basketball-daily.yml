@@ -81,8 +81,21 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "sha=$(git -C public rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           else
-            git -C public commit -m "Automated basketball daily update $(date -u +%F)"
-            git -C public push origin HEAD:gh-pages
+            for attempt in 1 2 3; do
+              git -C public commit -m "Automated basketball daily update $(date -u +%F)"
+              if git -C public push origin HEAD:gh-pages; then
+                break
+              fi
+              if [ "$attempt" = "3" ]; then
+                echo "gh-pages push conflicted after 3 attempts" >&2
+                exit 1
+              fi
+              echo "gh-pages moved during publish; rebasing generated payload (attempt $attempt)"
+              git -C public fetch origin gh-pages
+              git -C public reset --hard origin/gh-pages
+              cp -a "$stage"/basketball-v2.html "$stage"/basketball.html "$stage"/basketball-data "$stage"/basketball-sources public/
+              git -C public add basketball-v2.html basketball.html basketball-data basketball-sources
+            done
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "sha=$(git -C public rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           fi
