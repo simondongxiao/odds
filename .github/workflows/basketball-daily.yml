@@ -61,6 +61,17 @@ jobs:
 
       - name: Publish dashboard to gh-pages
         run: |
+          # The dashboard branch may receive a football or manual update while
+          # this long-running basketball crawl is in progress. Preserve the
+          # generated basketball payload, reset to the newest remote tip, then
+          # commit the payload on top so publishing is fast-forward safe.
+          stage="$RUNNER_TEMP/basketball-dashboard-publish"
+          rm -rf "$stage"
+          mkdir -p "$stage"
+          cp -a public/basketball-v2.html public/basketball.html public/basketball-data public/basketball-sources "$stage/"
+          git -C public fetch origin gh-pages
+          git -C public reset --hard origin/gh-pages
+          cp -a "$stage"/basketball-v2.html "$stage"/basketball.html "$stage"/basketball-data "$stage"/basketball-sources public/
           git -C public config user.name "github-actions[bot]"
           git -C public config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git -C public add basketball-v2.html basketball.html basketball-data basketball-sources
