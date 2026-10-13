@@ -1130,31 +1130,22 @@ def browser_recover_vip_pages(
         save_browser_html = os.environ.get("TITAN_SAVE_BROWSER_HTML", "0") == "1"
         semaphore = asyncio.Semaphore(max_workers)
         request_lock = asyncio.Lock()
-        block_lock = asyncio.Lock()
         next_request_at = 0.0
-        host_blocked = False
+        # A single HTTP/2 reset used to trip a global circuit breaker and
+        # mark every remaining match as a browser failure.  That made a
+        # transient VIP outage look like a complete market outage.  Keep the
+        # browser session alive and let the mobile endpoint decide whether a
+        # market is genuinely unpublished.
 
         async def before_request() -> bool:
             nonlocal next_request_at
             async with request_lock:
-                if host_blocked:
-                    return False
                 now = time.monotonic()
                 wait = max(0.0, next_request_at - now)
                 next_request_at = max(now, next_request_at) + request_interval
             if wait:
                 await asyncio.sleep(wait)
-            return not host_blocked
-
-        async def trip_circuit(error: str) -> None:
-            nonlocal host_blocked
-            marker = error.upper()
-            if any(token in marker for token in (
-                "HTTP2_PROTOCOL_ERROR", "ERR_EMPTY_RESPONSE", "ERR_CONNECTION_CLOSED",
-                "HTTP_443", "CONNECTION_RESET",
-            )):
-                async with block_lock:
-                    host_blocked = True
+            return True
 
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(headless=True, executable_path=str(executable))
@@ -1191,14 +1182,10 @@ def browser_recover_vip_pages(
                                     )
                                 return match_id, market, parsed, ""
                             last_error = f"browser_empty_market_http_{status}"
-                            await trip_circuit(last_error)
                         except Exception as exc:
                             last_error = f"{type(exc).__name__}: {exc}"
-                            await trip_circuit(last_error)
                         finally:
                             await page.close()
-                        if host_blocked:
-                            return match_id, market, {}, last_error or "browser_host_cooldown"
                         if attempt + 1 < max_attempts:
                             await asyncio.sleep(1.5 * (attempt + 1))
                     return match_id, market, {}, last_error
@@ -1338,25 +1325,21 @@ def browser_recover_mobile_analysis_pages(
     async def fetch_all() -> list[tuple[str, str, dict[str, float | str], str]]:
         from playwright.async_api import async_playwright
 
-        timeout_ms = max(5_000, int(os.environ.get("TITAN_MOBILE_BROWSER_TIMEOUT_MS", "20_000")))
-        request_interval = max(0.15, float(os.environ.get("TITAN_MOBILE_BROWSER_REQUEST_INTERVAL", "0.45")))
-        max_attempts = max(1, int(os.environ.get("TITAN_MOBILE_BROWSER_ATTEMPTS", "2")))
+        timeout_ms = max(5_000, int(os.environ.get("TITAN_MOBILE_BROWSER_TIMEOUT_MS", "25_000")))
+        request_interval = max(0.15, float(os.environ.get("TITAN_MOBILE_BROWSER_REQUEST_INTERVAL", "0.60")))
+        max_attempts = max(1, int(os.environ.get("TITAN_MOBILE_BROWSER_ATTEMPTS", "3")))
         save_browser_html = os.environ.get("TITAN_SAVE_BROWSER_HTML", "0") == "1"
         next_request_at = 0.0
         request_lock = asyncio.Lock()
-        host_blocked = False
-
         async def before_request() -> bool:
             nonlocal next_request_at
             async with request_lock:
-                if host_blocked:
-                    return False
                 now = time.monotonic()
                 wait = max(0.0, next_request_at - now)
                 next_request_at = max(now, next_request_at) + request_interval
             if wait:
                 await asyncio.sleep(wait)
-            return not host_blocked
+            return True
 
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(headless=True, executable_path=str(executable))
@@ -1375,12 +1358,21 @@ def browser_recover_mobile_analysis_pages(
                     last_error = ""
                     for attempt in range(max_attempts):
                         try:
+                            scheme = "https" if attempt % 2 == 0 else "http"
                             response = await page.goto(
-                                f"https://m.titan007.com/analy/Analysis/{match_id}.htm",
+                                f"{scheme}://m.titan007.com/analy/Analysis/{match_id}.htm?refresh={stamp}_{attempt}",
                                 wait_until="domcontentloaded",
                                 timeout=timeout_ms,
                             )
+                            # The mobile page is static HTML, but the row
+                            # attribute has changed casing/spacing before.
+                            # Keep the strict market id while allowing the
+                            # harmless attribute-format variants.
                             market_row = page.locator(row_selector).first
+                            if not await market_row.count():
+                                market_row = page.locator(
+                                    f'#Odds tr[onclick*="GoDetail({1 if market == "ah" else 2},"]'
+                                ).first
                             spans = (
                                 await market_row.locator(".realOdds").all_inner_texts()
                                 if await market_row.count()
@@ -1398,7 +1390,13 @@ def browser_recover_mobile_analysis_pages(
                                     )
                                 results.append((match_id, market, parsed, ""))
                                 break
-                            last_error = f"mobile_empty_market_http_{status}"
+                            last_error = (
+                                f"market_not_published_http_{status}"
+                                if not await page.locator(
+                                    f'#Odds tr[onclick*="GoDetail({1 if market == "ah" else 2},"]'
+                                ).count()
+                                else f"mobile_market_parse_failed_http_{status}"
+                            )
                         except Exception as exc:
                             last_error = f"{type(exc).__name__}: {exc}"
                         if attempt + 1 < max_attempts:
@@ -1415,6 +1413,7 @@ def browser_recover_mobile_analysis_pages(
     recovered_ah = 0
     recovered_total = 0
     failed = 0
+    not_published = 0
     for match_id, market, parsed, error in results:
         base_row, fetched_any = completed[match_id]
         if parsed:
@@ -1437,11 +1436,22 @@ def browser_recover_mobile_analysis_pages(
             else:
                 recovered_total += 1
         else:
-            failed += 1
-            base_row[f"future_{market}_mobile_browser_error"] = error
+            if error.startswith("market_not_published_"):
+                # A valid 200 response with no matching market row is a
+                # source state, not a transport failure.  Preserve it as an
+                # explicit missing-data reason so the model cannot mistake it
+                # for a fetch outage or a zero-priced market.
+                base_row[f"future_{market}_market_status"] = "NOT_PUBLISHED"
+                not_published += 1
+                base_row.pop(f"future_{market}_mobile_browser_error", None)
+                base_row.pop(f"future_{market}_fetch_error", None)
+            else:
+                failed += 1
+                base_row[f"future_{market}_mobile_browser_error"] = error
         completed[match_id] = (base_row, fetched_any)
     print(
-        f"future_mobile_queue={queued_jobs} batch={len(jobs)} skipped={max(0, queued_jobs - len(jobs))}",
+        f"future_mobile_queue={queued_jobs} batch={len(jobs)} skipped={max(0, queued_jobs - len(jobs))} "
+        f"not_published={not_published}",
         file=sys.stderr,
     )
     return recovered_ah, recovered_total, failed
@@ -1789,7 +1799,7 @@ def enrich_future_odds(
         or completed[match_id][0].get("future_total_fetch_error")
     ]
     browser_recovered = 0
-    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "1":
+    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "1" and not vip_probe_error:
         try:
             browser_recovered_ah, browser_recovered_total, browser_failed = browser_recover_vip_pages(
                 completed, ids_to_fetch, stamp, out_dir,
@@ -1807,6 +1817,13 @@ def enrich_future_odds(
                 base_row["future_browser_fallback_error"] = str(exc)
                 completed[match_id] = (base_row, fetched_any)
             print(f"future_browser_fallback_failed={exc}", file=sys.stderr)
+    elif failed_ids and vip_probe_error:
+        # The one-shot VIP probe already proved that the endpoint is
+        # unreachable from this runner.  Do not fan out the same known-bad
+        # request to every match; the mobile Analysis fallback below is the
+        # independent recovery path and gives a truthful 200/no-market
+        # result when a fixture has no published Asian line yet.
+        print(f"future_browser_skipped_due_probe={vip_probe_error}", file=sys.stderr)
     # The mobile Analysis page is a separate, broad-coverage Titan endpoint.
     # It remains usable when the VIP detail host is rate-limited, and exposes
     # the source opening/current AH and total triplets in the rendered DOM.
