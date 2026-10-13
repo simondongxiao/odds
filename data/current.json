@@ -2,8 +2,8 @@
   "list_date": "2026-10-14",
   "display_list_date": "2026-10-14",
   "date_file": "./data/dates/2026-10-14.json",
-  "generated_at": "2026-10-13T23:44:28.926107+08:00",
-  "run_id": "RUN_20261013_234428",
+  "generated_at": "2026-10-14T00:09:31.941424+08:00",
+  "run_id": "RUN_20261014_000931",
   "today_update_status": "COMPLETE_DATA_REFRESH",
   "total_matches": 228,
   "prematch_matches": 219,
@@ -16,14 +16,14 @@
     "status": "V3_PRODUCTION_UPDATED"
   },
   "v4": {
-    "computed_count": 25,
+    "computed_count": 36,
     "A_count": 0,
     "B_count": 10,
     "C_count": 1,
-    "N_count": 14,
-    "neutral_count": 2,
-    "missing_count": 192,
-    "not_prematch_count": 9,
+    "N_count": 25,
+    "neutral_count": 3,
+    "missing_count": 170,
+    "not_prematch_count": 19,
     "real_money": false,
     "status": "V4_SHADOW_UPDATED"
   }
