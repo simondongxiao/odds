@@ -1436,7 +1436,7 @@ def browser_recover_mobile_analysis_pages(
             else:
                 recovered_total += 1
         else:
-            if error.startswith("market_not_published_"):
+            if error.startswith(("market_not_published_", "mobile_empty_market_http_200")):
                 # A valid 200 response with no matching market row is a
                 # source state, not a transport failure.  Preserve it as an
                 # explicit missing-data reason so the model cannot mistake it

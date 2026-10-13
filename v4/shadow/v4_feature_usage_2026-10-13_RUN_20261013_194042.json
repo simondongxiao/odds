@@ -1,0 +1,22 @@
+{
+  "list_date": "2026-10-13",
+  "run_id": "RUN_20261013_194042",
+  "rows": 132,
+  "coverage": {
+    "line_bucket_prior": 9,
+    "competition_domain": 9,
+    "league_level": 9,
+    "intent_interpretation": 9,
+    "euro_odds": 33,
+    "asian_movement_available": 9,
+    "water_used": 9,
+    "totals_available": 4,
+    "timing_available": 132,
+    "team_history": 0,
+    "ffl_optional": 0,
+    "public_attraction_proxy": 9,
+    "real_flow": 0,
+    "cup_state": 9
+  },
+  "model_note": "V4 uses a match-specific margin distribution; line bucket is a shrunk prior only, intent is interpretation-only, and FFL is optional."
+}
