@@ -5,10 +5,6 @@ description: Global senior football odds analysis, daily slate updates and seque
 
 # Global Football Odds Trader
 
-## Daily V3/V4 Pipeline Reliability
-
-For repeatable V3/V4 daily updates, score backfills, settlement, Excel/JSON/HTML reconciliation, and GitHub/Feishu delivery, read [references/daily_pipeline.md](references/daily_pipeline.md) before running the pipeline.
-
 ## V4 Shadow Separation (2026-09-13)
 
 V3 remains the only Production decision authority. V4 is `Forward Shadow` only and must never overwrite V3 actions, frozen decisions, dashboard production fields, or production Kelly. Use `references/v4-shadow-policy.md`, `references/v4-data-contract.md`, and `references/v4-promotion-gate.md`. V4 action candidates require authoritative `giving` or `receiving`; neutral and conditional rows are research-only. Historical replay and forward shadow performance must remain separate. Promotion is never automatic: the status stays `KEEP_V3_PRODUCTION` until the forward promotion gate passes and the user explicitly approves.

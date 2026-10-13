@@ -1,0 +1,15 @@
+{
+  "schema_version": "football-three-way-reconciliation-v1",
+  "status": "PASS",
+  "source": "excel_cache",
+  "excel_rows": 1965,
+  "full_json_rows": 1965,
+  "filtered_json_rows": 11,
+  "excel_history_key_count": 1965,
+  "full_history_key_count": 1965,
+  "filtered_subset_of_full": true,
+  "mismatches": [],
+  "workbook": "D:\\codex\\技能项目\\football_update\\outputs__from_root\\football_odds_trader\\excel\\football_odds_ledger_v4.xlsx",
+  "workbook_sha256": "a51cfba93f27fd2f3fe3772baa9bbd3df7cc973b8ecb8937bd8cca99370f2cd6",
+  "generated_at": "2026-10-13T23:46:56.047846+08:00"
+}

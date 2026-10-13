@@ -261,10 +261,26 @@ def main() -> None:
                 "prior_snapshot_id": prior_id, "decision_at": now.isoformat(), "market": {"snapshot_id": raw_path.stem, "source": "LEGACY_RAW_FIELD_EXPORT", "observed_at": now.isoformat(),
                 "home_team": row["home_team"], "away_team": row["away_team"], "competition": row.get("competition", ""), "home_handicap_signed": None, "away_handicap_signed": None, "home_water_hk": None, "away_water_hk": None}}
         m = parse_market(row)
+        # Keep a verified Asian market visible even when the optional European
+        # board is absent. The row remains unavailable for V4 betting until
+        # its evidence gate passes, but the dashboard must show the real line.
+        if m.get("ok"):
+            base["market"].update({
+                "home_handicap_signed": m.get("raw_line"),
+                "away_handicap_signed": -m.get("raw_line") if m.get("raw_line") is not None else None,
+                "home_water_hk": m.get("home_water"),
+                "away_water_hk": m.get("away_water"),
+                "giving_team": m.get("giving_team", ""),
+                "receiving_team": m.get("receiving_team", ""),
+                "giving_water": m.get("giving_water"),
+                "receiving_water": m.get("receiving_water"),
+                "market_status": "ASIAN_AVAILABLE_EURO_MISSING" if not row.get("euro_ok") else "ASIAN_AND_EURO_AVAILABLE",
+            })
         if str(row.get("state", "0")) != "0" or kickoff <= now:
             base.update(competition=row.get("competition", ""), analysis_status="NOT_PREMATCH", grade=None, rank=None, reason_codes=["MATCH_NOT_PREMATCH"])
         elif not m.get("ok") or not row.get("ah_ok") or not row.get("euro_ok"):
-            base.update(competition=row.get("competition", ""), analysis_status="MISSING_DATA", grade=None, rank=None, reason_codes=["REQUIRED_MARKET_INPUT_MISSING"])
+            missing_reason = "EURO_MARKET_MISSING" if m.get("ok") and row.get("ah_ok") and not row.get("euro_ok") else "REQUIRED_MARKET_INPUT_MISSING"
+            base.update(competition=row.get("competition", ""), analysis_status="MISSING_DATA", grade=None, rank=None, reason_codes=[missing_reason])
         elif m.get("pk"):
             base.update(competition=row.get("competition", ""), analysis_status="NEUTRAL", grade=None, rank=None, reason_codes=["PK_NEUTRAL_NO_GIVING_SIDE"])
         else:
