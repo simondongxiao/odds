@@ -2,7 +2,7 @@
 name: basketball-odds-trader
 description: 篮球数据核验、Source-Agnostic Evidence、Titan007 Feature Store、真实比分与球员/球队技术统计独立定价、盘口比较和纸面模拟。v4.4固定“先盘口、再双方资料库、再刷新盘口比较Edge”的生产顺序，采用联赛均值锚定的滚动OOS攻防效率与MatchupAdj，分离Fair Center与Game Outcome不确定性并输出W/P/L、Probability Edge、EV与市场信息风险；将NBA/CBA Spread伤停、轮换和Net Rating改为Adjustment/Uncertainty层；统一多源历史证据合同与Titan独立Provisional账本；不允许真实下注，不把工程测试当作策略有效性。
 ---
-# 篮球研究与纸面模拟 v4.4
+# 篮球研究与纸面模拟 v4.10
 
 ## v4.9 全局实体注册、时段感知盘口与性能合同
 
