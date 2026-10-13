@@ -2691,6 +2691,20 @@ def main() -> int:
     rows = list(rows_by_id.values())
     frozen_count = freeze_started_match_odds(rows, stamp)
 
+    # A previous refresh may have written a transport error before the mobile
+    # fallback confirmed that the page was a valid HTTP 200 with no market row.
+    # Do not carry that stale error into later snapshots.  Keep the missing
+    # market explicit so downstream V3/V4 gates still reject it safely.
+    for row in rows:
+        for market in ("ah", "total"):
+            status_key = f"future_{market}_market_status"
+            mobile_error_key = f"future_{market}_mobile_browser_error"
+            if row.get(mobile_error_key) == "mobile_empty_market_http_200":
+                row[status_key] = "NOT_PUBLISHED"
+                row.pop(mobile_error_key, None)
+                row.pop(f"future_{market}_browser_error", None)
+                row.pop(f"future_{market}_fetch_error", None)
+
     csv_path = out_dir / f"{stamp}_titan007_odds_snapshot.csv"
     fieldnames = sorted({key for row in rows for key in row.keys()})
     with csv_path.open("w", newline="", encoding="utf-8-sig") as f:
