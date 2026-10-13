@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   update-and-notify:
@@ -30,6 +30,25 @@ jobs:
     steps:
       - name: Checkout automation code
         uses: actions/checkout@v4
+
+      - name: Preflight production runner
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $required = @{
+            "FOOTBALL_OUTPUT_ROOT" = $env:FOOTBALL_OUTPUT_ROOT
+            "FOOTBALL_UPDATE_SCRIPT" = $env:FOOTBALL_UPDATE_SCRIPT
+            "FOOTBALL_PUBLISH_REPO" = (Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds")
+          }
+          foreach ($item in $required.GetEnumerator()) {
+            if (-not (Test-Path -LiteralPath $item.Value)) {
+              throw "Missing production path $($item.Key): $($item.Value). Register the Windows runner with the D:\codex data tree mounted."
+            }
+          }
+          if (-not $env:FEISHU_WEBHOOK_URL) {
+            throw "FEISHU_WEBHOOK_URL GitHub Actions secret is missing."
+          }
+          Write-Host "Production runner preflight passed."
 
       - name: Run the existing V3/V4 daily update
         id: football_update
@@ -54,6 +73,7 @@ jobs:
           $env:GIT_CONFIG_KEY_0 = "http.https://github.com/.extraheader"
           $env:GIT_CONFIG_VALUE_0 = "AUTHORIZATION: basic $basic"
           $publishRepo = Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds"
+          $env:GIT_TERMINAL_PROMPT = "0"
           if (Test-Path -LiteralPath (Join-Path $publishRepo ".git")) {
             git -C $publishRepo fetch origin main gh-pages --quiet
           }

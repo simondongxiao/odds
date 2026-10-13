@@ -33,6 +33,12 @@ def shanghai_today() -> str:
     return dt.datetime.now(CN_TZ).date().isoformat()
 
 
+def date_payload(root: Path, list_date: str) -> dict[str, Any] | None:
+    path = root / "dashboard" / "data" / "dates" / f"{list_date}.json"
+    payload = read_json(path)
+    return payload if isinstance(payload, dict) else None
+
+
 def latest_history_alert(root: Path, list_date: str) -> dict[str, Any] | None:
     path = root / "reviews" / "league_history" / list_date / f"league_history_alert_{list_date}.json"
     payload = read_json(path)
@@ -49,21 +55,33 @@ def build_summary(root: Path, list_date: str, status: str) -> str:
     v3 = run.get("v3", {}) if isinstance(run, dict) else {}
     if not v3:
         v3 = current.get("v3", {}) if isinstance(current, dict) else {}
+    payload = date_payload(root, list_date)
+    matches = payload.get("matches", []) if payload else []
+    v4_rows = [m.get("v4_shadow", {}) for m in matches if isinstance(m, dict)]
+    giving = sum(1 for row in v4_rows if row.get("side") == "giving")
+    receiving = sum(1 for row in v4_rows if row.get("side") == "receiving")
+    v4_bettable = giving + receiving
+    v4_computed = sum(1 for row in v4_rows if row.get("status") == "EVALUATED")
     history = latest_history_alert(root, list_date)
     history_rows = len(history.get("rows", [])) if history else 0
     guard = ((run.get("steps", {}) if isinstance(run, dict) else {}).get("row_count_shrink_guard", {}) or {})
     guard_status = guard.get("status") or ("PASS" if guard.get("ok") else "UNKNOWN")
-    run_id = run.get("run_id") or current.get("run_id") or "未找到运行编号"
-    dashboard_url = os.environ.get("FOOTBALL_DASHBOARD_URL", "https://simondongxiao.github.io/odds/v4/")
+    run_id = (payload or {}).get("run_id") or run.get("run_id") or current.get("run_id") or "未找到运行编号"
+    base_dashboard_url = os.environ.get("FOOTBALL_DASHBOARD_URL", "https://simondongxiao.github.io/odds/v4/").rstrip("/")
+    dashboard_url = f"{base_dashboard_url}/?date={list_date}"
+    roster_total = len(matches) or run.get("roster_total", current.get("total_matches", "未知"))
+    v4_computed_display = v4_computed or metrics.get("v4_computed", metrics.get("computed_count", "未知"))
+    v4_b_display = metrics.get("v4_B", metrics.get("B_count", "未知"))
+    v4_c_display = metrics.get("v4_C", metrics.get("C_count", "未知"))
 
     lines = [
         "⚽ 足球 V3/V4 每日更新",
         f"状态：{status}",
         f"列表日：{list_date}",
         f"运行编号：{run_id}",
-        f"赛事总数：{run.get('roster_total', current.get('total_matches', '未知'))}",
+        f"赛事总数：{roster_total}",
         f"V3：计算 {v3.get('v3_computed', v3.get('computed_count', '未知'))} 场，可投 {v3.get('v3_bettable', v3.get('bettable_count', '未知'))} 场",
-        f"V4：计算 {metrics.get('v4_computed', metrics.get('computed_count', '未知'))} 场，B {metrics.get('v4_B', metrics.get('B_count', '未知'))}，C {metrics.get('v4_C', metrics.get('C_count', '未知'))}",
+        f"V4：计算 {v4_computed_display} 场，BET可投 {v4_bettable} 场（让球 {giving} / 受让 {receiving}），B {v4_b_display}，C {v4_c_display}",
         f"缩表审计：{guard_status}",
         f"同赛事历史统计：{history_rows} 条",
         f"看板：{dashboard_url}",
