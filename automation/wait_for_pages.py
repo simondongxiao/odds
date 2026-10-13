@@ -22,6 +22,11 @@ def api_get(url: str, token: str) -> dict:
         return json.loads(response.read().decode("utf-8", errors="replace") or "{}")
 
 
+def current_branch_sha(repo: str, token: str) -> str:
+    payload = api_get(f"https://api.github.com/repos/{repo}/git/ref/heads/gh-pages", token)
+    return str(((payload.get("object") or {}).get("sha") or "")).strip()
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Wait for the GitHub Pages workflow for a published commit")
     ap.add_argument("--sha", required=True)
@@ -35,12 +40,13 @@ def main() -> int:
         raise SystemExit("GITHUB_TOKEN and GITHUB_REPOSITORY are required")
     endpoint = f"https://api.github.com/repos/{repo}/actions/workflows/{args.workflow}/runs?branch=gh-pages&per_page=20"
     deadline = time.monotonic() + max(30, args.timeout)
+    expected_sha = args.sha
     last = None
     while time.monotonic() < deadline:
         try:
             payload = api_get(endpoint, token)
             runs = payload.get("workflow_runs") or []
-            matched = [row for row in runs if row.get("head_sha") == args.sha]
+            matched = [row for row in runs if row.get("head_sha") == expected_sha]
             if matched:
                 run = sorted(matched, key=lambda row: row.get("created_at", ""), reverse=True)[0]
                 state = {"id": run.get("id"), "status": run.get("status"), "conclusion": run.get("conclusion"), "url": run.get("html_url")}
@@ -50,7 +56,21 @@ def main() -> int:
                 if run.get("status") == "completed":
                     if run.get("conclusion") == "success":
                         return 0
-                    raise SystemExit(f"Pages workflow failed: {json.dumps(state, ensure_ascii=False)}")
+                    # A Pages run can be cancelled when football or a manual
+                    # publisher advances gh-pages. Follow the newer branch
+                    # head instead of treating that expected concurrency as a
+                    # failed basketball deployment.
+                    branch_sha = current_branch_sha(repo, token)
+                    if branch_sha and branch_sha != expected_sha:
+                        expected_sha = branch_sha
+                        print(json.dumps({"superseded_by": expected_sha}, ensure_ascii=False), flush=True)
+                    elif run.get("conclusion") not in {"cancelled", "skipped"}:
+                        raise SystemExit(f"Pages workflow failed: {json.dumps(state, ensure_ascii=False)}")
+            else:
+                branch_sha = current_branch_sha(repo, token)
+                if branch_sha and branch_sha != expected_sha:
+                    expected_sha = branch_sha
+                    print(json.dumps({"superseded_by": expected_sha}, ensure_ascii=False), flush=True)
         except (OSError, ValueError, urllib.error.HTTPError) as exc:
             print(json.dumps({"warning": str(exc)}, ensure_ascii=False), flush=True)
         time.sleep(max(2, args.interval))
