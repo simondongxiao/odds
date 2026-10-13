@@ -4,10 +4,12 @@ on:
   schedule:
     # 07:00 Asia/Shanghai = 23:00 UTC on the previous day.
     - cron: "0 23 * * *"
+    # 20:00 Asia/Shanghai = 12:00 UTC; this run targets tomorrow in Beijing time.
+    - cron: "0 12 * * *"
   workflow_dispatch:
     inputs:
       target_date:
-        description: "Optional Beijing date (YYYY-MM-DD); blank means today"
+        description: "Optional Beijing target date (YYYY-MM-DD); blank follows the schedule"
         required: false
         type: string
       notify:
@@ -29,7 +31,6 @@ jobs:
     timeout-minutes: 35
     env:
       TZ: Asia/Shanghai
-      BASKETBALL_DATE: ${{ inputs.target_date || '' }}
       BASKETBALL_RUN_ROOT: ${{ github.workspace }}/.basketball-run
       BASKETBALL_PUBLIC_DIR: ${{ github.workspace }}/public
     steps:
@@ -55,6 +56,40 @@ jobs:
 
       - name: Install runtime dependencies
         run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Resolve Beijing target date
+        id: target
+        env:
+          OVERRIDE_DATE: ${{ inputs.target_date || '' }}
+          SCHEDULE_CRON: ${{ github.event.schedule || '' }}
+        run: |
+          python - <<'PY'
+          import os
+          from datetime import date, timedelta
+          from zoneinfo import ZoneInfo
+          from datetime import datetime
+
+          override = os.environ.get("OVERRIDE_DATE", "").strip()
+          schedule = os.environ.get("SCHEDULE_CRON", "").strip()
+          if override:
+              target = date.fromisoformat(override)
+              run_kind = "MANUAL_TARGET_DATE"
+          else:
+              today = datetime.now(ZoneInfo("Asia/Shanghai")).date()
+              if schedule == "0 12 * * *":
+                  target = today + timedelta(days=1)
+                  run_kind = "NEXT_DAY_EVENING"
+              else:
+                  target = today
+                  run_kind = "TODAY_MORNING"
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as fh:
+              fh.write(f"BASKETBALL_DATE={target.isoformat()}\n")
+              fh.write(f"BASKETBALL_RUN_KIND={run_kind}\n")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+              fh.write(f"date={target.isoformat()}\n")
+              fh.write(f"kind={run_kind}\n")
+          print(f"Beijing target date: {target.isoformat()} ({run_kind})")
+          PY
 
       - name: Run basketball daily engine
         run: python automation/run_basketball_daily.py
@@ -115,6 +150,7 @@ jobs:
           RUN_STATUS: ${{ job.status }}
           PUBLISHED_SHA: ${{ steps.publish.outputs.sha }}
           DEPLOY_STATUS: ${{ steps.publish.outputs.changed == 'true' && 'success' || 'already-current' }}
+          RUN_KIND: ${{ steps.target.outputs.kind }}
           RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: >-
           python automation/notify_feishu.py
@@ -122,6 +158,7 @@ jobs:
           --status "$RUN_STATUS"
           --commit "$PUBLISHED_SHA"
           --deploy-status "$DEPLOY_STATUS"
+          --run-kind "$RUN_KIND"
           --run-url "$RUN_URL"
 
       - name: Upload run audit

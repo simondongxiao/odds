@@ -44,6 +44,7 @@ def main() -> int:
     ap.add_argument("--status", default="success")
     ap.add_argument("--commit", default="")
     ap.add_argument("--deploy-status", default="not-run")
+    ap.add_argument("--run-kind", default="")
     ap.add_argument("--run-url", default="")
     ap.add_argument("--url", default="https://simondongxiao.github.io/odds/basketball-v2.html")
     args = ap.parse_args()
@@ -63,6 +64,9 @@ def main() -> int:
         f"纸面可投：{funnel.get('paper_bettable', '—')}",
         f"Pages：{args.deploy_status}",
     ]
+    if args.run_kind:
+        kind_label = {"TODAY_MORNING": "当天早间", "NEXT_DAY_EVENING": "次日晚间", "MANUAL_TARGET_DATE": "手动指定日期"}.get(args.run_kind, args.run_kind)
+        lines.insert(1, f"运行类型：{kind_label}")
     picks = []
     for row in latest.get("events") or []:
         picks.extend(triggered(row))
