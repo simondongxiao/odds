@@ -40,6 +40,7 @@ FIVEHUNDRED_REFERER = "https://trade.500.com/jczq/"
 BETEXPLORER_HOME = "https://www.betexplorer.com/football/"
 BETEXPLORER_NEXT = "https://www.betexplorer.com/football/next/"
 BETEXPLORER_ODDS = "https://www.betexplorer.com/match-odds/{event_id}/0/ah/bestOdds/?lang=en"
+BETEXPLORER_EURO_ODDS = "https://www.betexplorer.com/match-odds/{event_id}/0/1x2/bestOdds/?lang=en"
 ROSTER_ROOT = OUT_ROOT.parents[1] / "ledger" / "slate_rosters"
 HTTP_CACHE = OUT_ROOT / "cache" / "http"
 SNAPSHOT_META_INDEX = HTTP_CACHE / "snapshot_metadata_index_v1.json"
@@ -730,9 +731,11 @@ def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, st
         if len(parts) < 5:
             continue
         try:
-            if dt.date(int(parts[2]), int(parts[1]), int(parts[0])) != target:
+            provider_dt = dt.datetime(int(parts[2]), int(parts[1]), int(parts[0]), int(parts[3]), int(parts[4]))
+            local_dt = provider_dt + dt.timedelta(hours=int(os.environ.get("BETEXPLORER_UTC_OFFSET_HOURS", "8")))
+            if local_dt.date() != target:
                 continue
-        except ValueError:
+        except (ValueError, IndexError):
             continue
         row_html = match.group(2)
         link = re.search(r"<a\b[^>]*href=['\"]([^'\"]*/football/[^'\"]+)['\"][^>]*>(.*?)</a>", row_html, re.I | re.S)
@@ -751,6 +754,7 @@ def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, st
             "home_en": teams[0].strip(),
             "away_en": teams[1].strip(),
             "betexplorer_dt": ",".join(parts[:5]),
+            "bj_time": local_dt.strftime("%m-%d %H:%M"),
             "betexplorer_href": href,
         })
     return out
@@ -771,9 +775,11 @@ def parse_betexplorer_next_schedule(text: str, target_date: str) -> list[dict[st
         if len(parts) < 5:
             continue
         try:
-            if dt.date(int(parts[2]), int(parts[1]), int(parts[0])) != target:
+            provider_dt = dt.datetime(int(parts[2]), int(parts[1]), int(parts[0]), int(parts[3]), int(parts[4]))
+            local_dt = provider_dt + dt.timedelta(hours=int(os.environ.get("BETEXPLORER_UTC_OFFSET_HOURS", "8")))
+            if local_dt.date() != target:
                 continue
-        except ValueError:
+        except (ValueError, IndexError):
             continue
         block = match.group(2)
         link = re.search(
@@ -815,9 +821,89 @@ def parse_betexplorer_next_schedule(text: str, target_date: str) -> list[dict[st
             "home_en": home_en,
             "away_en": away_en,
             "betexplorer_dt": ",".join(parts[:5]),
+            "bj_time": local_dt.strftime("%m-%d %H:%M"),
             "betexplorer_href": href,
         })
     return out
+
+
+def load_betexplorer_schedule(stamp: str, out_dir: Path, target_date: str) -> list[dict[str, str]]:
+    """Load the BetExplorer schedule using Beijing-date normalization.
+
+    BetExplorer's ``data-dt`` is UTC.  The old join compared that raw date to
+    Titan's Beijing ``list_date`` and silently discarded every fixture that
+    crossed midnight.  Reuse the saved response when available so a second
+    pass does not issue another schedule request during the same run.
+    """
+    next_path = _maybe_saved(out_dir, stamp, "betexplorer_football_next.html")
+    if next_path:
+        next_text = next_path.read_text(encoding="utf-8", errors="replace")
+    else:
+        _path, raw = fetch_url(BETEXPLORER_NEXT, stamp, out_dir, "betexplorer_football_next.html")
+        next_text = decode_text(raw)
+    landing_path = _maybe_saved(out_dir, stamp, "betexplorer_football.html")
+    if landing_path:
+        landing_text = landing_path.read_text(encoding="utf-8", errors="replace")
+    else:
+        _path, raw = fetch_url(BETEXPLORER_HOME, stamp, out_dir, "betexplorer_football.html")
+        landing_text = decode_text(raw)
+    by_event = {event["betexplorer_id"]: event for event in parse_betexplorer_next_schedule(next_text, target_date)}
+    by_event.update({event["betexplorer_id"]: event for event in parse_betexplorer_schedule(landing_text, target_date)})
+    return list(by_event.values())
+
+
+def parse_betexplorer_euro(text: str) -> dict[str, float | str]:
+    """Parse a BetExplorer best-odds 1X2 response.
+
+    Supplemental fixtures do not have Titan numeric IDs, so their Titan
+    ``euro.js`` request cannot succeed.  BetExplorer exposes the same three
+    current 1X2 prices through ``/0/1x2/bestOdds``.  Prefer Bet365 when it is
+    present, then use a stable bookmaker row with three valid prices.
+    """
+    raw = str(text or "")
+    rows = re.findall(r"<tr\b([^>]*)>(.*?)</tr>", raw, flags=re.I | re.S)
+    preferred = {
+        "bet365": 0,
+        "pinnacle": 1,
+        "williamhill": 2,
+        "william hill": 2,
+        "betway": 3,
+        "1xbet": 4,
+    }
+    candidates: list[tuple[int, str, list[float]]] = []
+    for attrs, body in rows:
+        match = re.search(r"data-bookie=[\"']([^\"']+)", attrs + body, flags=re.I)
+        if not match:
+            # Current BetExplorer markup keeps only a numeric bookmaker id on
+            # the row and puts the readable bookmaker name on the first cell.
+            match = re.search(r"dataLayer\.push\(\{['\"]event-name['\"]:\s*['\"]([^'\"]+)", body, flags=re.I)
+        bookmaker = str(match.group(1) if match else "").strip().lower()
+        if not bookmaker:
+            continue
+        values: list[float] = []
+        for value in re.findall(r"data-odd=[\"']([0-9]+(?:\.[0-9]+)?)[\"']", body, flags=re.I):
+            try:
+                number = float(value)
+            except ValueError:
+                continue
+            if number > 1.0:
+                values.append(number)
+        if len(values) < 3:
+            continue
+        candidates.append((preferred.get(bookmaker, 50), bookmaker, values[:3]))
+    if not candidates:
+        return {}
+    _rank, bookmaker, values = sorted(candidates, key=lambda item: item[0])[0]
+    return {
+        "euro_full_current_home_or_over": values[0],
+        "euro_full_current_line_or_draw": values[1],
+        "euro_full_current_away_or_under": values[2],
+        "euro_full_open_home_or_over": values[0],
+        "euro_full_open_line_or_draw": values[1],
+        "euro_full_open_away_or_under": values[2],
+        "euro_full_company": f"BetExplorer {bookmaker}",
+        "euro_source": "BETEXPLORER_1X2_BEST_ODDS",
+    }
 
 
 def parse_betexplorer_asian(text: str) -> dict[str, float | str]:
@@ -853,12 +939,23 @@ def parse_betexplorer_asian(text: str) -> dict[str, float | str]:
     if not candidates:
         return {}
     candidates.sort(key=lambda item: (item[0], item[1]))
-    _preference, _balance, line, home, away, company = candidates[0]
+    _preference, _balance, provider_line, home, away, company = candidates[0]
+    # BetExplorer exposes the standard bookmaker perspective: a negative
+    # home line means the home team gives the handicap, while a positive home
+    # line means the home team receives it.  The football project contract
+    # used by V3/V4 is the opposite signed convention (positive home line
+    # means the home team gives).  Normalize at ingestion so every downstream
+    # model and ledger sees one sign contract.  Keep the provider sign for
+    # audit/debugging; never let it leak into the model-facing field.
+    line = -float(provider_line)
     return {
         "ah_full_current_home_or_over": home,
         "ah_full_current_line_or_draw": line,
         "ah_full_current_away_or_under": away,
         "ah_full_company": f"BetExplorer {company}",
+        "betexplorer_provider_line": float(provider_line),
+        "betexplorer_line_convention": "STANDARD_HOME_SIGN_NEGATIVE_GIVING",
+        "ah_line_convention": "TITAN_HOME_SIGN_POSITIVE_GIVING",
         "future_ah_fetch_fallback": "BETEXPLORER_PUBLIC_JSON",
     }
 
@@ -873,16 +970,10 @@ def match_betexplorer_to_titan(
     """Use BetExplorer's public JSON AH endpoint as a bounded fallback."""
     out_dir.mkdir(parents=True, exist_ok=True)
     try:
-        _path, raw = fetch_url(BETEXPLORER_NEXT, stamp, out_dir, "betexplorer_football_next.html")
-        schedule = parse_betexplorer_next_schedule(decode_text(raw), target_date)
         # Keep the landing-page slice as well: it currently contains several
         # Japan/Korea fixtures that are not repeated on BetExplorer's broad
         # next-matches page.  Dedupe by the provider event id.
-        _path, raw = fetch_url(BETEXPLORER_HOME, stamp, out_dir, "betexplorer_football.html")
-        landing_schedule = parse_betexplorer_schedule(decode_text(raw), target_date)
-        by_event = {event["betexplorer_id"]: event for event in schedule}
-        by_event.update({event["betexplorer_id"]: event for event in landing_schedule})
-        schedule = list(by_event.values())
+        schedule = load_betexplorer_schedule(stamp, out_dir, target_date)
     except Exception as exc:
         print(f"betexplorer_schedule_failed={exc}", file=sys.stderr)
         return {}
@@ -944,6 +1035,152 @@ def match_betexplorer_to_titan(
                 print(f"betexplorer_match_failed={match_id}:{error}", file=sys.stderr)
     print(f"betexplorer_schedule={len(schedule)} betexplorer_joined={len(mapped_events)} betexplorer_mapped={len(out)} betexplorer_ambiguous={ambiguous}", file=sys.stderr)
     return out
+
+
+def _betexplorer_competition(event: dict[str, str]) -> tuple[str, str]:
+    """Return stable display labels from a BetExplorer fixture URL."""
+    parts = [part for part in str(event.get("betexplorer_href", "")).split("/") if part]
+    slug = parts[2] if len(parts) >= 3 and parts[0] == "football" else ""
+    labels = {
+        "championship": "英冠",
+        "champions-league": "欧冠",
+        "europa-league": "欧联",
+        "conference-league": "欧协联",
+    }
+    return labels.get(slug, f"BE:{slug}" if slug else "BE:UNKNOWN"), slug.replace("-", " ").title()
+
+
+def build_betexplorer_supplemental_rows(
+    future_rows: dict[str, dict[str, str]],
+    euro: dict[str, dict[str, float | str]],
+    stamp: str,
+    out_dir: Path,
+    target_date: str,
+) -> dict[str, dict[str, object]]:
+    """Append fixtures absent from Titan's Next page using BetExplorer IDs.
+
+    BetExplorer is a roster supplement here, not a replacement for Titan's
+    numeric match IDs.  Supplemental rows are marked explicitly, receive a
+    stable ``BE_<event_id>`` key, and stay outside the Titan detail/browser
+    recovery queue.  This prevents a source-coverage gap from becoming an
+    apparent odds transport failure while keeping the fixture available in
+    the full ledger and HTML audit view.
+    """
+    if os.environ.get("TITAN_ENABLE_BETEXPLORER_SUPPLEMENT", "1") != "1":
+        return {}
+    try:
+        schedule = load_betexplorer_schedule(stamp, out_dir, target_date)
+    except Exception as exc:
+        print(f"betexplorer_supplement_schedule_failed={exc}", file=sys.stderr)
+        return {}
+    if not schedule:
+        print("betexplorer_supplement_schedule=0", file=sys.stderr)
+        return {}
+
+    existing_pairs: list[tuple[str, str]] = []
+    for source in euro.values():
+        home = _betexplorer_team_key(str(source.get("home_en", "") or ""))
+        away = _betexplorer_team_key(str(source.get("away_en", "") or ""))
+        if home and away:
+            existing_pairs.append((home, away))
+
+    def already_in_titan(event: dict[str, str]) -> bool:
+        home = _betexplorer_team_key(event.get("home_en", ""))
+        away = _betexplorer_team_key(event.get("away_en", ""))
+        if not home or not away:
+            return False
+        for existing_home, existing_away in existing_pairs:
+            score = (_team_name_similarity(home, existing_home) + _team_name_similarity(away, existing_away)) / 2.0
+            if score >= 0.90:
+                return True
+        return False
+
+    candidates = [event for event in schedule if not already_in_titan(event)]
+    if not candidates:
+        print(f"betexplorer_supplement_schedule={len(schedule)} supplemental=0", file=sys.stderr)
+        return {}
+
+    def fetch_one(event: dict[str, str]) -> tuple[str, dict[str, object]]:
+        event_id = event["betexplorer_id"]
+        market: dict[str, object] = {}
+        try:
+            saved = _maybe_saved(out_dir, stamp, f"betexplorer_{event_id}_ah.json")
+            if saved:
+                raw = saved.read_bytes()
+            else:
+                _path, raw = fetch_betexplorer_event(
+                    BETEXPLORER_ODDS.format(event_id=event_id),
+                    stamp,
+                    out_dir,
+                    f"betexplorer_{event_id}_ah.json",
+                    referer=BETEXPLORER_HOME,
+                )
+            payload = json.loads(decode_text(raw))
+            market_html = str(payload.get("odds", "")) if isinstance(payload, dict) else ""
+            market = parse_betexplorer_asian(market_html)
+        except Exception as exc:
+            market["future_ah_supplement_error"] = str(exc)
+        # BetExplorer-only fixtures have no Titan numeric ID, so fetch their
+        # 1X2 prices from the same public provider instead of leaving euro
+        # fields blank by construction.
+        try:
+            euro_saved = _maybe_saved(out_dir, stamp, f"betexplorer_{event_id}_1x2.json")
+            if euro_saved:
+                euro_raw = euro_saved.read_bytes()
+            else:
+                _path, euro_raw = fetch_betexplorer_event(
+                    BETEXPLORER_EURO_ODDS.format(event_id=event_id),
+                    stamp,
+                    out_dir,
+                    f"betexplorer_{event_id}_1x2.json",
+                    referer=BETEXPLORER_HOME,
+                )
+            euro_payload = json.loads(decode_text(euro_raw))
+            euro_html = str(euro_payload.get("odds", "")) if isinstance(euro_payload, dict) else ""
+            market.update(parse_betexplorer_euro(euro_html))
+        except Exception as exc:
+            market["future_euro_supplement_error"] = str(exc)
+        competition_cn, competition_en = _betexplorer_competition(event)
+        match_id = f"BE_{event_id}"
+        row: dict[str, object] = {
+            "match_id": match_id,
+            "league_cn": competition_cn,
+            "league_en": competition_en,
+            "league_tw": "",
+            "home_cn": event.get("home_en", ""),
+            "away_cn": event.get("away_en", ""),
+            "home_en": event.get("home_en", ""),
+            "away_en": event.get("away_en", ""),
+            "bj_time": event.get("bj_time", ""),
+            "match_time_en": event.get("betexplorer_dt", ""),
+            "state": "0",
+            "home_score": "",
+            "away_score": "",
+            "source_page": "BetExplorer supplemental",
+            "source_provider": "BetExplorer",
+            "betexplorer_id": event_id,
+            "betexplorer_href": event.get("betexplorer_href", ""),
+            "supplemental_roster": "BETEXPLORER_ONLY",
+            "market_coverage_note": "BetExplorer AH + 1X2; Titan numeric detail ID unavailable",
+        }
+        row.update(market)
+        if not market.get("ah_full_current_home_or_over"):
+            row["future_ah_market_status"] = "NOT_PUBLISHED"
+        return match_id, row
+
+    output: dict[str, dict[str, object]] = {}
+    max_workers = max(1, int(os.environ.get("BETEXPLORER_SUPPLEMENT_MAX_WORKERS", "8")))
+    with ThreadPoolExecutor(max_workers=min(max_workers, len(candidates))) as pool:
+        futures = [pool.submit(fetch_one, event) for event in candidates]
+        for future in as_completed(futures):
+            match_id, row = future.result()
+            output[match_id] = row
+    print(
+        f"betexplorer_supplement_schedule={len(schedule)} supplemental={len(output)} "
+        f"supplement_with_ah={sum(1 for row in output.values() if row.get('ah_full_current_home_or_over'))}",
+        file=sys.stderr,
+    )
+    return output
 
 
 def text_to_float(value: str) -> float | None:
@@ -1130,31 +1367,22 @@ def browser_recover_vip_pages(
         save_browser_html = os.environ.get("TITAN_SAVE_BROWSER_HTML", "0") == "1"
         semaphore = asyncio.Semaphore(max_workers)
         request_lock = asyncio.Lock()
-        block_lock = asyncio.Lock()
         next_request_at = 0.0
-        host_blocked = False
+        # A single HTTP/2 reset used to trip a global circuit breaker and
+        # mark every remaining match as a browser failure.  That made a
+        # transient VIP outage look like a complete market outage.  Keep the
+        # browser session alive and let the mobile endpoint decide whether a
+        # market is genuinely unpublished.
 
         async def before_request() -> bool:
             nonlocal next_request_at
             async with request_lock:
-                if host_blocked:
-                    return False
                 now = time.monotonic()
                 wait = max(0.0, next_request_at - now)
                 next_request_at = max(now, next_request_at) + request_interval
             if wait:
                 await asyncio.sleep(wait)
-            return not host_blocked
-
-        async def trip_circuit(error: str) -> None:
-            nonlocal host_blocked
-            marker = error.upper()
-            if any(token in marker for token in (
-                "HTTP2_PROTOCOL_ERROR", "ERR_EMPTY_RESPONSE", "ERR_CONNECTION_CLOSED",
-                "HTTP_443", "CONNECTION_RESET",
-            )):
-                async with block_lock:
-                    host_blocked = True
+            return True
 
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(headless=True, executable_path=str(executable))
@@ -1191,14 +1419,10 @@ def browser_recover_vip_pages(
                                     )
                                 return match_id, market, parsed, ""
                             last_error = f"browser_empty_market_http_{status}"
-                            await trip_circuit(last_error)
                         except Exception as exc:
                             last_error = f"{type(exc).__name__}: {exc}"
-                            await trip_circuit(last_error)
                         finally:
                             await page.close()
-                        if host_blocked:
-                            return match_id, market, {}, last_error or "browser_host_cooldown"
                         if attempt + 1 < max_attempts:
                             await asyncio.sleep(1.5 * (attempt + 1))
                     return match_id, market, {}, last_error
@@ -1338,25 +1562,21 @@ def browser_recover_mobile_analysis_pages(
     async def fetch_all() -> list[tuple[str, str, dict[str, float | str], str]]:
         from playwright.async_api import async_playwright
 
-        timeout_ms = max(5_000, int(os.environ.get("TITAN_MOBILE_BROWSER_TIMEOUT_MS", "20_000")))
-        request_interval = max(0.15, float(os.environ.get("TITAN_MOBILE_BROWSER_REQUEST_INTERVAL", "0.45")))
-        max_attempts = max(1, int(os.environ.get("TITAN_MOBILE_BROWSER_ATTEMPTS", "2")))
+        timeout_ms = max(5_000, int(os.environ.get("TITAN_MOBILE_BROWSER_TIMEOUT_MS", "25_000")))
+        request_interval = max(0.15, float(os.environ.get("TITAN_MOBILE_BROWSER_REQUEST_INTERVAL", "0.60")))
+        max_attempts = max(1, int(os.environ.get("TITAN_MOBILE_BROWSER_ATTEMPTS", "3")))
         save_browser_html = os.environ.get("TITAN_SAVE_BROWSER_HTML", "0") == "1"
         next_request_at = 0.0
         request_lock = asyncio.Lock()
-        host_blocked = False
-
         async def before_request() -> bool:
             nonlocal next_request_at
             async with request_lock:
-                if host_blocked:
-                    return False
                 now = time.monotonic()
                 wait = max(0.0, next_request_at - now)
                 next_request_at = max(now, next_request_at) + request_interval
             if wait:
                 await asyncio.sleep(wait)
-            return not host_blocked
+            return True
 
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(headless=True, executable_path=str(executable))
@@ -1375,12 +1595,21 @@ def browser_recover_mobile_analysis_pages(
                     last_error = ""
                     for attempt in range(max_attempts):
                         try:
+                            scheme = "https" if attempt % 2 == 0 else "http"
                             response = await page.goto(
-                                f"https://m.titan007.com/analy/Analysis/{match_id}.htm",
+                                f"{scheme}://m.titan007.com/analy/Analysis/{match_id}.htm?refresh={stamp}_{attempt}",
                                 wait_until="domcontentloaded",
                                 timeout=timeout_ms,
                             )
+                            # The mobile page is static HTML, but the row
+                            # attribute has changed casing/spacing before.
+                            # Keep the strict market id while allowing the
+                            # harmless attribute-format variants.
                             market_row = page.locator(row_selector).first
+                            if not await market_row.count():
+                                market_row = page.locator(
+                                    f'#Odds tr[onclick*="GoDetail({1 if market == "ah" else 2},"]'
+                                ).first
                             spans = (
                                 await market_row.locator(".realOdds").all_inner_texts()
                                 if await market_row.count()
@@ -1398,7 +1627,13 @@ def browser_recover_mobile_analysis_pages(
                                     )
                                 results.append((match_id, market, parsed, ""))
                                 break
-                            last_error = f"mobile_empty_market_http_{status}"
+                            last_error = (
+                                f"market_not_published_http_{status}"
+                                if not await page.locator(
+                                    f'#Odds tr[onclick*="GoDetail({1 if market == "ah" else 2},"]'
+                                ).count()
+                                else f"mobile_market_parse_failed_http_{status}"
+                            )
                         except Exception as exc:
                             last_error = f"{type(exc).__name__}: {exc}"
                         if attempt + 1 < max_attempts:
@@ -1415,6 +1650,7 @@ def browser_recover_mobile_analysis_pages(
     recovered_ah = 0
     recovered_total = 0
     failed = 0
+    not_published = 0
     for match_id, market, parsed, error in results:
         base_row, fetched_any = completed[match_id]
         if parsed:
@@ -1437,11 +1673,22 @@ def browser_recover_mobile_analysis_pages(
             else:
                 recovered_total += 1
         else:
-            failed += 1
-            base_row[f"future_{market}_mobile_browser_error"] = error
+            if error.startswith(("market_not_published_", "mobile_empty_market_http_200")):
+                # A valid 200 response with no matching market row is a
+                # source state, not a transport failure.  Preserve it as an
+                # explicit missing-data reason so the model cannot mistake it
+                # for a fetch outage or a zero-priced market.
+                base_row[f"future_{market}_market_status"] = "NOT_PUBLISHED"
+                not_published += 1
+                base_row.pop(f"future_{market}_mobile_browser_error", None)
+                base_row.pop(f"future_{market}_fetch_error", None)
+            else:
+                failed += 1
+                base_row[f"future_{market}_mobile_browser_error"] = error
         completed[match_id] = (base_row, fetched_any)
     print(
-        f"future_mobile_queue={queued_jobs} batch={len(jobs)} skipped={max(0, queued_jobs - len(jobs))}",
+        f"future_mobile_queue={queued_jobs} batch={len(jobs)} skipped={max(0, queued_jobs - len(jobs))} "
+        f"not_published={not_published}",
         file=sys.stderr,
     )
     return recovered_ah, recovered_total, failed
@@ -1789,7 +2036,7 @@ def enrich_future_odds(
         or completed[match_id][0].get("future_total_fetch_error")
     ]
     browser_recovered = 0
-    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "1":
+    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "1" and not vip_probe_error:
         try:
             browser_recovered_ah, browser_recovered_total, browser_failed = browser_recover_vip_pages(
                 completed, ids_to_fetch, stamp, out_dir,
@@ -1807,6 +2054,13 @@ def enrich_future_odds(
                 base_row["future_browser_fallback_error"] = str(exc)
                 completed[match_id] = (base_row, fetched_any)
             print(f"future_browser_fallback_failed={exc}", file=sys.stderr)
+    elif failed_ids and vip_probe_error:
+        # The one-shot VIP probe already proved that the endpoint is
+        # unreachable from this runner.  Do not fan out the same known-bad
+        # request to every match; the mobile Analysis fallback below is the
+        # independent recovery path and gives a truthful 200/no-market
+        # result when a fixture has no published Asian line yet.
+        print(f"future_browser_skipped_due_probe={vip_probe_error}", file=sys.stderr)
     # The mobile Analysis page is a separate, broad-coverage Titan endpoint.
     # It remains usable when the VIP detail host is rate-limited, and exposes
     # the source opening/current AH and total triplets in the rendered DOM.
@@ -2655,6 +2909,29 @@ def main() -> int:
             out_dir,
             fivehundred=fivehundred_fallback,
         )
+        # BetExplorer can carry major competitions that are absent from the
+        # Titan Next page altogether (for example Championship/UCL fixtures).
+        # Add those rows after Titan enrichment so their provider IDs never
+        # enter the Titan VIP/mobile recovery queue.
+        supplemental_rows = build_betexplorer_supplemental_rows(
+            future_rows,
+            euro,
+            stamp,
+            out_dir,
+            target_list_date,
+        )
+        for match_id, item in supplemental_rows.items():
+            item["snapshot_stamp"] = stamp
+            apply_list_date_lock(
+                match_id,
+                item,
+                target_list_date,
+                "BetExplorer_supplemental",
+                roster,
+                global_roster,
+            )
+            rows_by_id[match_id] = item
+        future_added += len(supplemental_rows)
     except Exception as exc:
         print(f"future_fetch_failed: {exc}", file=sys.stderr)
 
@@ -2673,6 +2950,20 @@ def main() -> int:
     roster_file = save_roster(today, roster)
     rows = list(rows_by_id.values())
     frozen_count = freeze_started_match_odds(rows, stamp)
+
+    # A previous refresh may have written a transport error before the mobile
+    # fallback confirmed that the page was a valid HTTP 200 with no market row.
+    # Do not carry that stale error into later snapshots.  Keep the missing
+    # market explicit so downstream V3/V4 gates still reject it safely.
+    for row in rows:
+        for market in ("ah", "total"):
+            status_key = f"future_{market}_market_status"
+            mobile_error_key = f"future_{market}_mobile_browser_error"
+            if row.get(mobile_error_key) == "mobile_empty_market_http_200":
+                row[status_key] = "NOT_PUBLISHED"
+                row.pop(mobile_error_key, None)
+                row.pop(f"future_{market}_browser_error", None)
+                row.pop(f"future_{market}_fetch_error", None)
 
     csv_path = out_dir / f"{stamp}_titan007_odds_snapshot.csv"
     fieldnames = sorted({key for row in rows for key in row.keys()})

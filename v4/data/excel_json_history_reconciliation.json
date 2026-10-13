@@ -1,0 +1,26 @@
+{
+  "schema_version": "excel-json-history-reconciliation-v1",
+  "status": "PASS",
+  "list_date": "2026-10-14",
+  "versions": [
+    {
+      "version": "V3",
+      "source_row_count": 1389,
+      "historical_countable_rows": 694,
+      "current_rows": 228,
+      "competition_count": 222,
+      "duplicate_ledger_key_count": 0,
+      "source_excel_sha256": "d9a3080ef76e817055597e55eadb4c478d234c1ef9a1a73d2c5f395e775a5b7e"
+    },
+    {
+      "version": "V4",
+      "source_row_count": 1965,
+      "historical_countable_rows": 1077,
+      "current_rows": 228,
+      "competition_count": 366,
+      "duplicate_ledger_key_count": 0,
+      "source_excel_sha256": "404aceaa5a69bac5e04a7559f940943aa6cad1c366350b76dcc9dda7635a31f6"
+    }
+  ],
+  "generated_at": "2026-10-14T00:18:32.518913+08:00"
+}
