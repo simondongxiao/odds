@@ -1633,6 +1633,10 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     # continuity key; the fallback never replaces a verified 7M/Titan quote.
     cloudbet_quotes, cloudbet_audit = collect_cloudbet_kbl(
         fetch, merged_events, day, observed_at=stamp(now()))
+    # The audit dictionary is initialized before the global merge so that the
+    # early market-first diagnostics remain present; replace its deferred
+    # placeholder with the actual post-merge fallback result now.
+    deep_capture_audit['cloudbet_kbl_fallback'] = cloudbet_audit
     if cloudbet_quotes:
         existing_market_keys={(str(q.get('event_id')), str(q.get('market_type')))
                               for q in quotes}
