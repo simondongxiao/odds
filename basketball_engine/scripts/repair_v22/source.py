@@ -1497,16 +1497,16 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
                       if (str(q.get('event_id')), str(q.get('market_type'))) not in existing_7m_markets)
     else:
         fallback_event_ids=set()
-    # KBL is not covered by the Japan-only Betmonitor page.  If 7M/Titan did
-    # not expose a current board, query the public Cloudbet KBL SSR page and
-    # match only exact canonical teams plus the +/-5 minute continuity key.
-    cloudbet_quotes, cloudbet_audit = collect_cloudbet_kbl(
-        fetch, list(events.values()), day, observed_at=stamp(now()))
-    if cloudbet_quotes:
-        existing_market_keys={(str(q.get('event_id')), str(q.get('market_type')))
-                              for q in quotes}
-        quotes.extend(q for q in cloudbet_quotes
-                      if (str(q.get('event_id')), str(q.get('market_type'))) not in existing_market_keys)
+    # KBL is not covered by the Japan-only Betmonitor page.  The fallback is
+    # deliberately deferred until after global discovery below: KBL fixtures
+    # can be absent from the compact 7M schedule and only appear in the
+    # broad/global event inventory.  Calling the fallback before that merge
+    # made a real KBL fixture look like NO_MARKET even when Cloudbet had a
+    # current board.
+    cloudbet_audit = {'source': 'CLOUDBET', 'status': 'DEFERRED_UNTIL_GLOBAL_MERGE',
+                      'target_events': 0, 'event_pages': 0, 'quotes_added': 0,
+                      'matched_event_ids': [], 'unmatched_event_ids': [],
+                      'production_status': 'EXPERIMENTAL', 'errors': []}
     # Market first: only quote-backed 7M events need identity/history and
     # technical enrichment for pricing.  Keep every no-market event in the
     # event inventory, but do not spend hundreds of requests enriching rows
@@ -1628,6 +1628,16 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
         'errors':refresh_errors,
     }
     merged_events=merge_with_primary(list(events.values()),global_result.get('events',[]),quotes)
+    # KBL current-board fallback must see the fully merged event inventory.
+    # Match remains exact on canonical team pair and the +/-5 minute
+    # continuity key; the fallback never replaces a verified 7M/Titan quote.
+    cloudbet_quotes, cloudbet_audit = collect_cloudbet_kbl(
+        fetch, merged_events, day, observed_at=stamp(now()))
+    if cloudbet_quotes:
+        existing_market_keys={(str(q.get('event_id')), str(q.get('market_type')))
+                              for q in quotes}
+        quotes.extend(q for q in cloudbet_quotes
+                      if (str(q.get('event_id')), str(q.get('market_type'))) not in existing_market_keys)
     # Reconcile only after detail identities and global discovery have both
     # landed.  Some 7M fixtures (notably NBL/EuroLeague) are absent from the
     # compact schedule JS and become identifiable only through the quote/detail
