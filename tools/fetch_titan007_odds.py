@@ -1383,6 +1383,8 @@ def browser_recover_vip_pages(
     queued_jobs = len(jobs)
     if batch_limit:
         jobs = jobs[:batch_limit]
+        if queued_jobs > len(jobs):
+            print(f"future_browser_capped={len(jobs)}/{queued_jobs}", file=sys.stderr)
 
     chrome_candidates = (
         Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
