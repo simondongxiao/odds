@@ -76,6 +76,7 @@ jobs:
           git config --global --add safe.directory $publishRepo
           if (Test-Path -LiteralPath (Join-Path $publishRepo ".git")) {
             git -C $publishRepo fetch origin main gh-pages --quiet
+            git -C $publishRepo checkout -B gh-pages origin/gh-pages
           }
 
           & $python $env:FOOTBALL_UPDATE_SCRIPT --list-date $env:FOOTBALL_LIST_DATE

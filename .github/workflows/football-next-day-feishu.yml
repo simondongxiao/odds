@@ -69,6 +69,7 @@ jobs:
           $publishRepo = Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds"
           git config --global --add safe.directory $publishRepo
           git -C $publishRepo fetch origin main gh-pages --quiet
+          git -C $publishRepo checkout -B gh-pages origin/gh-pages
           & $python $env:FOOTBALL_UPDATE_SCRIPT --list-date $env:FOOTBALL_LIST_DATE
           if ($LASTEXITCODE -ne 0) {
             throw "next-day football update failed with exit code $LASTEXITCODE"
