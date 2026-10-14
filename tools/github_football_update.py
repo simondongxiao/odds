@@ -87,7 +87,16 @@ def read_rows(path: Path) -> list[dict[str, Any]]:
 
 
 def latest_snapshot(list_date: str) -> Path:
-    paths = sorted((REPO / "data" / "raw" / "titan007" / list_date.replace("-", "")).glob("*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime)
+    target_dir = REPO / "data" / "raw" / "titan007" / list_date.replace("-", "")
+    paths = sorted(target_dir.glob("*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime)
+    # The next-day 20:07 job requests tomorrow's business date, while the
+    # fetcher writes the snapshot under the runner's current Beijing date.
+    # Accept that same-run snapshot instead of failing after a successful
+    # scrape.  Never search arbitrary historical folders.
+    if not paths:
+        run_day = dt.datetime.now(TZ).strftime("%Y%m%d")
+        run_dir = REPO / "data" / "raw" / "titan007" / run_day
+        paths = sorted(run_dir.glob("*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime)
     if not paths:
         raise FileNotFoundError(f"Titan snapshot not found for {list_date}")
     return paths[-1]
