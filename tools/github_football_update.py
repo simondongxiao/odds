@@ -162,6 +162,14 @@ def evaluate(item: dict[str, Any], version: str) -> dict[str, Any]:
     else:
         side = team = decision = ""
         water = None
+    if item["state"] not in {"0", ""}:
+        gate_reasons = ["MATCH_NOT_PREMATCH"]
+    elif not complete:
+        gate_reasons = ["MISSING_CURRENT_AH_OR_EURO"]
+    elif excluded:
+        gate_reasons = ["YOUTH_OR_FRIENDLY_EXCLUDED"]
+    else:
+        gate_reasons = []
     return {
         "decision": decision if bettable else "NO_BET",
         "bettable": bettable,
@@ -170,8 +178,8 @@ def evaluate(item: dict[str, Any], version: str) -> dict[str, Any]:
         "selected_water": water,
         "ev_giving": ev_g,
         "ev_receiving": ev_r,
-        "quality_gate_passed": complete and not excluded,
-        "quality_gate_reasons": ([] if complete and not excluded else (["MISSING_CURRENT_AH_OR_EURO"] if not complete else ["YOUTH_OR_FRIENDLY_EXCLUDED"])),
+        "quality_gate_passed": complete and not excluded and item["state"] in {"0", ""},
+        "quality_gate_reasons": gate_reasons,
         "rule_version": "GITHUB_PORTABLE_V3_V4_20261014",
     }
 
