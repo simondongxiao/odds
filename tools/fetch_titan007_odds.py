@@ -2951,11 +2951,14 @@ def main() -> int:
         # must only materialize the requested list date; fetching later dates
         # wastes requests and can block the current day's publication when a
         # VIP endpoint is slow or unavailable.
-        target_mmdd = today.strftime("%m-%d")
+        # One business slate runs Beijing 12:00 through next-day 11:59.
+        # Keep the early next-day fixtures so 00:00-11:59 are not lost.
+        next_day = today + dt.timedelta(days=1)
+        target_mmdd = {today.strftime("%m-%d"), next_day.strftime("%m-%d")}
         future_rows = {
             match_id: item
             for match_id, item in future_rows.items()
-            if str(item.get("bj_time", "")).strip().startswith(target_mmdd)
+            if any(str(item.get("bj_time", "")).strip().startswith(mmdd) for mmdd in target_mmdd)
         }
         for match_id, item in future_rows.items():
             item["snapshot_stamp"] = stamp
