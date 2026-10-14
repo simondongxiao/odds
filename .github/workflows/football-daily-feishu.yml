@@ -28,9 +28,6 @@ jobs:
       FOOTBALL_DASHBOARD_URL: https://simondongxiao.github.io/odds/v4/
 
     steps:
-      - name: Checkout automation code
-        uses: actions/checkout@v4
-
       - name: Preflight production runner
         shell: powershell
         run: |
@@ -95,4 +92,5 @@ jobs:
             $python = (Get-Command python).Source
           }
           $listDate = & $python -c "from datetime import datetime, timezone, timedelta; print(datetime.now(timezone(timedelta(hours=8))).date().isoformat())"
-          & $python "$env:GITHUB_WORKSPACE\tools\send_feishu_daily_report.py" --list-date $listDate.Trim() --status $env:UPDATE_OUTCOME
+          $feishuScript = Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds\tools\send_feishu_daily_report.py"
+          & $python $feishuScript --list-date $listDate.Trim() --status $env:UPDATE_OUTCOME
