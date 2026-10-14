@@ -29,6 +29,34 @@ LEDGER_JSON = DATA / "ledger.json"
 LEDGER_CSV = DATA / "ledger.csv"
 SITE = REPO / "github_site"
 TZ = dt.timezone(dt.timedelta(hours=8))
+BUSINESS_CUTOFF_HOUR = 12
+
+# BetExplorer supplies English labels.  Keep a small checked-in alias layer so
+# cloud-only supplemental fixtures never leak English names into the Chinese
+# dashboard; the file can be extended without changing the pipeline.
+DEFAULT_TEAM_ALIASES = {
+    "slovenia w": "斯洛文尼亚女足", "turkey w": "土耳其女足",
+    "austria w": "奥地利女足", "kosovo w": "科索沃女足",
+    "sabah baku": "萨巴赫", "slavia prague": "布拉格斯拉维亚",
+    "reading": "雷丁", "chelsea u21": "切尔西U21",
+    "gillingham": "吉林汉姆", "brighton u21": "布莱顿U21",
+    "cheltenham": "切尔滕汉姆", "tottenham u21": "热刺U21",
+    "oldham": "奥尔德姆", "leeds u21": "利兹联U21",
+    "wales w": "威尔士女足", "albania w": "阿尔巴尼亚女足",
+    "england w": "英格兰女足", "greece w": "希腊女足",
+    "millwall": "米尔沃尔", "swansea": "斯旺西",
+    "queen's park": "女王公园", "inverness": "因弗内斯",
+    "cardiff": "卡迪夫城", "watford": "沃特福德",
+    "wrexham": "雷克瑟姆", "west brom": "西布朗",
+    "wolves": "狼队", "bolton": "博尔顿",
+    "arsenal": "阿森纳", "lille": "里尔", "inter": "国际米兰",
+    "club brugge": "布鲁日", "slovenia": "斯洛文尼亚",
+}
+DEFAULT_LEAGUE_ALIASES = {
+    "be:world-cup-women": "女足世界杯", "be:efl-trophy": "英锦赛",
+    "be:championship": "英冠", "be:premier-league": "英超",
+    "be:champions-league": "欧冠", "be:europa-league": "欧联",
+}
 
 
 def f(value: Any) -> float | None:
@@ -88,6 +116,49 @@ def kickoff(row: dict[str, str], list_date: str) -> str:
     raw = str(row.get("bj_time") or row.get("match_time_en") or "").strip()
     if len(raw) >= 10 and raw[:4].isdigit():
         return raw
+
+
+def business_date_for(kickoff_value: str, fallback: str) -> str:
+    """Business day is Beijing 12:00 through next day 11:59."""
+    text = str(kickoff_value or "").strip()
+    try:
+        parsed = dt.datetime.fromisoformat(text.replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=TZ)
+        local = parsed.astimezone(TZ)
+    except ValueError:
+        try:
+            local = dt.datetime.fromisoformat(f"{fallback[:4]}-{text[:5]} {text[6:]}:00+08:00")
+        except ValueError:
+            return fallback
+    return (local.date() if local.hour >= BUSINESS_CUTOFF_HOUR else local.date() - dt.timedelta(days=1)).isoformat()
+
+
+def aliases() -> tuple[dict[str, str], dict[str, str]]:
+    path = DATA / "team_aliases.json"
+    teams, leagues = dict(DEFAULT_TEAM_ALIASES), dict(DEFAULT_LEAGUE_ALIASES)
+    if path.exists():
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            teams.update({str(k).casefold(): str(v) for k, v in (payload.get("teams") or {}).items()})
+            leagues.update({str(k).casefold(): str(v) for k, v in (payload.get("leagues") or {}).items()})
+        except (OSError, json.JSONDecodeError):
+            pass
+    return teams, leagues
+
+
+def localize_row(item: dict[str, Any], team_map: dict[str, str], league_map: dict[str, str]) -> dict[str, Any]:
+    item["home_team_en"] = item.get("home_team_en") or item.get("home_team", "")
+    item["away_team_en"] = item.get("away_team_en") or item.get("away_team", "")
+    item["home_team"] = team_map.get(str(item.get("home_team", "")).casefold(), item.get("home_team", ""))
+    item["away_team"] = team_map.get(str(item.get("away_team", "")).casefold(), item.get("away_team", ""))
+    item["competition"] = league_map.get(str(item.get("competition", "")).casefold(), item.get("competition", ""))
+    market = item.get("market") or {}
+    for key in ("giving_team", "receiving_team"):
+        if market.get(key):
+            market[key] = team_map.get(str(market[key]).casefold(), market[key])
+    item["market"] = market
+    return item
     try:
         return f"{list_date[:4]}-{raw[:5]} {raw[6:]}:00+08:00"
     except Exception:
@@ -118,6 +189,8 @@ def market_row(row: dict[str, str], list_date: str) -> dict[str, Any]:
         "competition": competition,
         "home_team": home,
         "away_team": away,
+        "home_team_en": str(row.get("home_en") or "").strip(),
+        "away_team_en": str(row.get("away_en") or "").strip(),
         "state": str(row.get("state") or "").strip(),
         "score": f"{row.get('home_score','')}-{row.get('away_score','')}" if row.get("home_score") or row.get("away_score") else "",
         "market": {
@@ -324,8 +397,16 @@ def main() -> int:
     snapshot = Path(args.from_csv) if args.from_csv else run_fetch(date)
     with snapshot.open("r", encoding="utf-8-sig", newline="") as h:
         incoming = [market_row(x, date) for x in csv.DictReader(h)]
+    team_map, league_map = aliases()
+    for item in incoming:
+        # A requested date is a Beijing business slate: 12:00 through the
+        # following day 11:59.  Midnight-to-noon fixtures belong to yesterday.
+        item["list_date"] = business_date_for(item.get("kickoff", ""), date)
+        localize_row(item, team_map, league_map)
     old_rows = read_rows(LEDGER_JSON)
     rows, warning = merge(incoming, old_rows, date)
+    for item in rows:
+        localize_row(item, team_map, league_map)
     for x in rows:
         if x.get("list_date") != date:
             continue
