@@ -14,6 +14,7 @@ import datetime as dt
 import json
 import math
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -370,8 +371,41 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
     # Keep the checked-in rich V4 shell. The portable fallback creates the
     # small table only when no template is present (for a brand-new checkout).
     shell = SITE / version.lower() / "index.html"
-    if version != "V4" or not shell.exists():
+    if not shell.exists():
         atomic_text(shell, html)
+    if version == "V3" and shell.exists():
+        # Preserve the original rich V3 UI while refreshing only its embedded
+        # card data. This prevents the cloud fallback table from replacing the
+        # production interface on the next scheduled run.
+        rich = shell.read_text(encoding="utf-8")
+        marker, end_marker = "const cardsData = ", "\ncardsData.forEach"
+        start = rich.find(marker)
+        end = rich.find(end_marker, start + len(marker)) if start >= 0 else -1
+        if start >= 0 and end > start:
+            cards = []
+            for item in source_rows:
+                q = item.get("v3") or evaluate(item, "V3")
+                m = item.get("market") or {}
+                cards.append({
+                    "date": item.get("list_date", date), "league": item.get("competition", ""),
+                    "match": f"{item.get('home_team','')} vs {item.get('away_team','')}",
+                    "display_match": f"{item.get('home_team','')} vs {item.get('away_team','')}",
+                    "time": item.get("kickoff", ""), "display_time": item.get("kickoff", ""),
+                    "score": item.get("score", "") or "待赛", "display_score": item.get("score", "") or "待赛",
+                    "state": item.get("state", ""), "state_label": "完场" if item.get("state") not in {"0", ""} else "未开赛",
+                    "display_status": "完场" if item.get("state") not in {"0", ""} else "未开赛",
+                    "match_id": item.get("match_id", ""), "frozen_bettable": bool(q.get("bettable")),
+                    "frozen_bettable_action": q.get("decision", ""), "frozen_bettable_team": q.get("selected_team", ""),
+                    "matched_odds": bool(m.get("current_complete") or m.get("euro_complete")),
+                    "rank": item.get("competition", ""), "market": "亚盘", "pick": q.get("decision", "不投"),
+                    "ah": f"即 {m.get('line')}/{m.get('giving_water')}/{m.get('receiving_water')}" if m.get("current_complete") else "未接入",
+                    "euro": f"即 {m.get('euro_home')}/{m.get('euro_draw')}/{m.get('euro_away')}" if m.get("euro_complete") else "未接入",
+                    "ah_ok": bool(m.get("current_complete")), "euro_ok": bool(m.get("euro_complete")),
+                    "result": item.get("score", "") or "待赛", "pnl": "不计", "status": "已结算" if item.get("state") not in {"0", ""} else "待赛",
+                    "grade": "BET" if q.get("bettable") else "NA", "error": "、".join(q.get("quality_gate_reasons", [])),
+                })
+            replacement = marker + json.dumps(cards, ensure_ascii=False, separators=(",", ":"))
+            atomic_text(shell, rich[:start] + replacement + rich[end:])
 
 
 def send_feishu(date: str, counts: dict[str, int], warning: str | None) -> None:
