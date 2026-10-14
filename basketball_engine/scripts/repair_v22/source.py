@@ -887,6 +887,30 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
             elif key.startswith('odds_company_'):
                 qs,err=parse_odds(text_of(r),r['path'],r['received_at'],key.rsplit('_',1)[1],contracts);quotes+=qs;errors+=err
         except Exception as e:errors.append({'path':r['path'],'error':type(e).__name__+': '+str(e)})
+    # The 7M current-board file rolls to the next date shortly after
+    # midnight Beijing time.  A published evening inventory is therefore the
+    # only durable pointer to same-day fixtures during the morning refresh.
+    # Seed those source identities before the deep-capture decision so their
+    # detail pages and team-history feeds are fetched in this run as well.
+    # This carries forward events only; it never carries forward quotes.
+    baseline_path = root / 'dashboard_v2' / 'data' / (day + '.json')
+    baseline_document = load(baseline_path, {})
+    baseline_events = []
+    if isinstance(baseline_document, dict):
+        for item in baseline_document.get('events', []):
+            event = item.get('event') if isinstance(item, dict) and isinstance(item.get('event'), dict) else item
+            if not isinstance(event, dict) or event.get('bj_date') != day or not event.get('event_id'):
+                continue
+            # Only 7M identities are safe to replay through the 7M detail and
+            # history endpoints.  Titan rows are handled by their own board.
+            if str(event.get('source') or '').upper() == '7M' or str(event.get('event_id')).startswith('7m:'):
+                baseline_events.append(dict(event))
+    baseline_seeded = 0
+    for event in baseline_events:
+        event_id = str(event.get('event_id'))
+        if event_id not in events:
+            events[event_id] = event
+            baseline_seeded += 1
     # Market first: only quote-backed 7M events need identity/history and
     # technical enrichment for pricing.  Keep every no-market event in the
     # event inventory, but do not spend hundreds of requests enriching rows
@@ -907,6 +931,8 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     ids=sorted({e['source_event_id'] for e in deep_events if e.get('source_event_id') and str(e.get('source')).upper()!='TITAN007'})
     deep_capture_event_ids={str(e.get('event_id')) for e in deep_events if e.get('event_id')}
     deep_capture_audit={'discovered_events_before_deep_capture':len(events),
+                        'published_baseline_events_seeded':baseline_seeded,
+                        'published_baseline_file':str(baseline_path) if baseline_seeded else None,
                         'opening_market_backed_events':len(deep_events),
                         'today_and_next_day_upcoming_7m_late_market_candidates':len(today_upcoming_7m),
                         'lookahead_bj_dates':[day,(date.fromisoformat(day)+timedelta(days=1)).isoformat()],
