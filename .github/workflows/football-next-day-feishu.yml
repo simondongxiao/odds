@@ -67,6 +67,7 @@ jobs:
           $env:GIT_CONFIG_VALUE_0 = "AUTHORIZATION: basic $basic"
           $env:GIT_TERMINAL_PROMPT = "0"
           $publishRepo = Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds"
+          git config --global --add safe.directory $publishRepo
           git -C $publishRepo fetch origin main gh-pages --quiet
           & $python $env:FOOTBALL_UPDATE_SCRIPT --list-date $env:FOOTBALL_LIST_DATE
           if ($LASTEXITCODE -ne 0) {

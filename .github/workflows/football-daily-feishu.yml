@@ -73,6 +73,7 @@ jobs:
           $env:GIT_CONFIG_VALUE_0 = "AUTHORIZATION: basic $basic"
           $publishRepo = Join-Path $env:FOOTBALL_OUTPUT_ROOT "github_publish\odds"
           $env:GIT_TERMINAL_PROMPT = "0"
+          git config --global --add safe.directory $publishRepo
           if (Test-Path -LiteralPath (Join-Path $publishRepo ".git")) {
             git -C $publishRepo fetch origin main gh-pages --quiet
           }
