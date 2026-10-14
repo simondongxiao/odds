@@ -5,71 +5,505 @@
   "sports": {
     "basketball": {
       "teams": [
-        {"canonical_team_id":"cba:fujian","name":"福建浔兴","aliases":["福建晋江文旅"]},
-        {"canonical_team_id":"cba:sichuan","name":"四川金强","aliases":["四川锦城","四川丰谷酒业"]},
-        {"canonical_team_id":"cba:shanghai","name":"上海大鲨鱼","aliases":["上海久事","Shanghai Bilibili"]},
-        {"canonical_team_id":"cba:liaoning","name":"辽宁飞豹","aliases":["辽宁本钢","Liaoning Dinosaurs"]},
-        {"canonical_team_id":"cba:guangsha","name":"浙江广厦","aliases":["浙江方兴渡","浙江浙商证券"]},
-        {"canonical_team_id":"cba:qingdao","name":"青岛双星","aliases":["青岛国信水产","青岛崂山啤酒"]},
-        {"canonical_team_id":"cba:shenzhen","name":"深圳新世纪","aliases":["深圳马可波罗"]},
-        {"canonical_team_id":"cba:shanxi","name":"山西汾酒","aliases":["山西汾酒股份"]},
-        {"canonical_team_id":"cba:beijingducks","name":"北京首钢","aliases":["北京北汽","Beijing Ducks","Beijing Shougang"]},
-        {"canonical_team_id":"cba:ningbo","name":"宁波富邦","aliases":["宁波町渥"]},
-        {"canonical_team_id":"cba:guangdong","name":"广东宏远","aliases":["广东东阳光","Guangdong Southern Tigers","Guangdong Dongguan","广东Southern Tigers"]},
-        {"canonical_team_id":"cba:beikong","name":"北京控股","aliases":["Beijing Royal Fighters"]},
-        {"canonical_team_id":"cba:nanjing","name":"南京同曦","aliases":["南京同曦宙光","南京头排苏酒","南京天之蓝"]},
-        {"canonical_team_id":"cba:jilin","name":"吉林东北虎","aliases":["九台农商银行","长白山恩都里","吉林长白山恩都里"]},
-        {"canonical_team_id":"cba:xinjiang","name":"新疆广汇","aliases":["新疆广汇能源","新疆伊力特"]},
-        {"canonical_team_id":"cba:jiangsu","name":"江苏龙","aliases":["江苏肯帝亚","Jiangsu Dragons"]},
-        {"canonical_team_id":"cba:zhejiangbulls","name":"浙江稠州金租","aliases":["Zhejiang Golden Bulls"]},
-        {"canonical_team_id":"cba:guangzhou","name":"广州龙狮","aliases":["广州智都集团","广州朗肽海本"]},
-        {"canonical_team_id":"cba:tianjin","name":"天津荣钢","aliases":["天津先行者"]},
-        {"canonical_team_id":"cba:shandong","name":"山东黄金","aliases":["山东高速"]},
-        {"canonical_team_id":"nba:chicagobulls","name":"芝加哥公牛","aliases":["Chicago Bulls"]},
-        {"canonical_team_id":"nba:memphisgrizzlies","name":"孟菲斯灰熊","aliases":["Memphis Grizzlies"]},
-        {"canonical_team_id":"nba:denvernuggets","name":"丹佛掘金","aliases":["Denver Nuggets"]},
-        {"canonical_team_id":"nba:utahjazz","name":"犹他爵士","aliases":["Utah Jazz"]},
-        {"canonical_team_id":"nba:houstonrockets","name":"休斯顿火箭","aliases":["Houston Rockets"]},
-        {"canonical_team_id":"nba:dallasmavericks","name":"达拉斯独行侠","aliases":["Dallas Mavericks"]},
-        {"canonical_team_id":"wnba:lasvegasaces","name":"拉斯维加斯王牌","aliases":["Las Vegas Aces"]},
-        {"canonical_team_id":"wnba:goldenstatevalkyries","name":"金州女武神","aliases":["Golden State Valkyries"]},
-        {"canonical_team_id":"wnba:newyorkliberty","name":"纽约自由人","aliases":["New York Liberty"]},
-        {"canonical_team_id":"wnba:phoenixmercury","name":"菲尼克斯水星","aliases":["Phoenix Mercury"]},
-        {"canonical_team_id":"wnba:minnesotalynx","name":"明尼苏达山猫","aliases":["Minnesota Lynx"]},
-        {"canonical_team_id":"wnba:indianafever","name":"印第安纳狂热","aliases":["Indiana Fever"]},
-        {"canonical_team_id":"wnba:connecticutsun","name":"康涅狄格太阳","aliases":["Connecticut Sun"]},
-        {"canonical_team_id":"wnba:seattlestorm","name":"西雅图风暴","aliases":["Seattle Storm"]},
-        {"canonical_team_id":"wnba:washingtonmystics","name":"华盛顿神秘人","aliases":["Washington Mystics"]},
-        {"canonical_team_id":"wnba:chicagosky","name":"芝加哥天空","aliases":["Chicago Sky"]},
-        {"canonical_team_id":"wnba:losangelessparks","name":"洛杉矶火花","aliases":["Los Angeles Sparks"]},
-        {"canonical_team_id":"wnba:dallaswings","name":"达拉斯飞翼","aliases":["Dallas Wings"]},
-        {"canonical_team_id":"wnba:atlantadream","name":"亚特兰大梦想","aliases":["Atlanta Dream"]},
-        {"canonical_team_id":"national:chinese-taipei","name":"中国台北","aliases":["Chinese Taipei","中国台湾"]},
-        {"canonical_team_id":"national:chinese-taipei-women","name":"中国台北女篮","aliases":["Chinese Taipei Women","中国台湾女篮"]},
-        {"canonical_team_id":"japan_b:ehime","name":"爱媛维京人","aliases":["Ehime Orange Vikings","Ehime","爱媛橙维京人"]},
-        {"canonical_team_id":"japan_b:kanazawa","name":"石川金泽武士","aliases":["Kanazawa Samuraiz","Kanazawa","石川金泽"]},
-        {"canonical_team_id":"japan_b:fukui","name":"福井吹风","aliases":["Fukui Blowinds","福井风神"]},
-        {"canonical_team_id":"japan_b:yamagata","name":"山形飞龙","aliases":["Yamagata Wyverns"]},
-        {"canonical_team_id":"japan_b:fukuoka","name":"福冈雷风神","aliases":["Fukuoka Rizing Zephyr","Rizing Zephyr Fukuoka","Fukuoka"]},
-        {"canonical_team_id":"japan_b:yokohama_excellence","name":"横滨卓越","aliases":["Tokyo Excellence","Yokohama Excellence","橫濱卓越"]},
-        {"canonical_team_id":"japan_b:gifu","name":"岐阜猛扑","aliases":["Gifu Swoops"]},
-        {"canonical_team_id":"japan_b:saitama","name":"琦玉野马","aliases":["Saitama Broncos","Saitama"]},
-        {"canonical_team_id":"japan_b:koshigaya","name":"越谷阿尔法","aliases":["Otsuka Alphas","Koshigaya Alphas"]},
-        {"canonical_team_id":"japan_b:nagoya_fighting_eagles","name":"名古屋战鹰","aliases":["Fighting Eagles Nagoya","Nagoya"]},
-        {"canonical_team_id":"japan_b:kagoshima","name":"鹿儿岛列布尼斯","aliases":["Kagoshima Rebnise"]},
-        {"canonical_team_id":"japan_b:aomori","name":"青森热力","aliases":["Aomori Wats","Aomori Wat's"]},
-        {"canonical_team_id":"japan_b:nara","name":"奈良雄心","aliases":["Bambitious Nara"]},
-        {"canonical_team_id":"japan_b:niigata","name":"新泻天鹅","aliases":["Niigata Albirex","Niigata Albirex BB"]},
-        {"canonical_team_id":"japan_b:shizuoka","name":"静冈顶峰","aliases":["Veltex Shizuoka"]},
-        {"canonical_team_id":"japan_b:tokushima","name":"德岛甘巴鲁斯","aliases":["Tokushima Gambarous"]},
-        {"canonical_team_id":"japan_b:tokyo_hachioji","name":"东京八王子彩虹","aliases":["Tokyo Hachioji Trains","Tokyo Hachioji Bee Trains"]},
-        {"canonical_team_id":"japan_b:kumamoto","name":"熊本火山","aliases":["Kumamoto Volters"]},
-        {"canonical_team_id":"japan_b:iwate","name":"岩手大公牛","aliases":["Iwate Big Bulls"]},
-        {"canonical_team_id":"japan_b:tokyo_earthfriends","name":"东京地球之友","aliases":["Earth Friends Tokyo Z","Earthfriends Tokyo Z"]},
-        {"canonical_team_id":"japan_b:okayama","name":"冈山尝试箍","aliases":["Okayama Tryhoop","Tryhoop Okayama"]},
-        {"canonical_team_id":"japan_b:kagawa","name":"香川五箭","aliases":["Kagawa Five Arrows"]}
+        {
+          "canonical_team_id": "cba:fujian",
+          "name": "福建浔兴",
+          "aliases": [
+            "福建晋江文旅"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:sichuan",
+          "name": "四川金强",
+          "aliases": [
+            "四川锦城",
+            "四川丰谷酒业"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:shanghai",
+          "name": "上海大鲨鱼",
+          "aliases": [
+            "上海久事",
+            "Shanghai Bilibili"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:liaoning",
+          "name": "辽宁飞豹",
+          "aliases": [
+            "辽宁本钢",
+            "Liaoning Dinosaurs"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:guangsha",
+          "name": "浙江广厦",
+          "aliases": [
+            "浙江方兴渡",
+            "浙江浙商证券"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:qingdao",
+          "name": "青岛双星",
+          "aliases": [
+            "青岛国信水产",
+            "青岛崂山啤酒"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:shenzhen",
+          "name": "深圳新世纪",
+          "aliases": [
+            "深圳马可波罗"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:shanxi",
+          "name": "山西汾酒",
+          "aliases": [
+            "山西汾酒股份"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:beijingducks",
+          "name": "北京首钢",
+          "aliases": [
+            "北京北汽",
+            "Beijing Ducks",
+            "Beijing Shougang"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:ningbo",
+          "name": "宁波富邦",
+          "aliases": [
+            "宁波町渥"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:guangdong",
+          "name": "广东宏远",
+          "aliases": [
+            "广东东阳光",
+            "Guangdong Southern Tigers",
+            "Guangdong Dongguan",
+            "广东Southern Tigers"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:beikong",
+          "name": "北京控股",
+          "aliases": [
+            "Beijing Royal Fighters"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:nanjing",
+          "name": "南京同曦",
+          "aliases": [
+            "南京同曦宙光",
+            "南京头排苏酒",
+            "南京天之蓝"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:jilin",
+          "name": "吉林东北虎",
+          "aliases": [
+            "九台农商银行",
+            "长白山恩都里",
+            "吉林长白山恩都里"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:xinjiang",
+          "name": "新疆广汇",
+          "aliases": [
+            "新疆广汇能源",
+            "新疆伊力特"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:jiangsu",
+          "name": "江苏龙",
+          "aliases": [
+            "江苏肯帝亚",
+            "Jiangsu Dragons"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:zhejiangbulls",
+          "name": "浙江稠州金租",
+          "aliases": [
+            "Zhejiang Golden Bulls"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:guangzhou",
+          "name": "广州龙狮",
+          "aliases": [
+            "广州智都集团",
+            "广州朗肽海本"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:tianjin",
+          "name": "天津荣钢",
+          "aliases": [
+            "天津先行者"
+          ]
+        },
+        {
+          "canonical_team_id": "cba:shandong",
+          "name": "山东黄金",
+          "aliases": [
+            "山东高速"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:chicagobulls",
+          "name": "芝加哥公牛",
+          "aliases": [
+            "Chicago Bulls"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:memphisgrizzlies",
+          "name": "孟菲斯灰熊",
+          "aliases": [
+            "Memphis Grizzlies"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:denvernuggets",
+          "name": "丹佛掘金",
+          "aliases": [
+            "Denver Nuggets"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:utahjazz",
+          "name": "犹他爵士",
+          "aliases": [
+            "Utah Jazz"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:houstonrockets",
+          "name": "休斯顿火箭",
+          "aliases": [
+            "Houston Rockets"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:dallasmavericks",
+          "name": "达拉斯独行侠",
+          "aliases": [
+            "Dallas Mavericks"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:lasvegasaces",
+          "name": "拉斯维加斯王牌",
+          "aliases": [
+            "Las Vegas Aces"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:goldenstatevalkyries",
+          "name": "金州女武神",
+          "aliases": [
+            "Golden State Valkyries"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:newyorkliberty",
+          "name": "纽约自由人",
+          "aliases": [
+            "New York Liberty"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:phoenixmercury",
+          "name": "菲尼克斯水星",
+          "aliases": [
+            "Phoenix Mercury"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:minnesotalynx",
+          "name": "明尼苏达山猫",
+          "aliases": [
+            "Minnesota Lynx"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:indianafever",
+          "name": "印第安纳狂热",
+          "aliases": [
+            "Indiana Fever"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:connecticutsun",
+          "name": "康涅狄格太阳",
+          "aliases": [
+            "Connecticut Sun"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:seattlestorm",
+          "name": "西雅图风暴",
+          "aliases": [
+            "Seattle Storm"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:washingtonmystics",
+          "name": "华盛顿神秘人",
+          "aliases": [
+            "Washington Mystics"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:chicagosky",
+          "name": "芝加哥天空",
+          "aliases": [
+            "Chicago Sky"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:losangelessparks",
+          "name": "洛杉矶火花",
+          "aliases": [
+            "Los Angeles Sparks"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:dallaswings",
+          "name": "达拉斯飞翼",
+          "aliases": [
+            "Dallas Wings"
+          ]
+        },
+        {
+          "canonical_team_id": "wnba:atlantadream",
+          "name": "亚特兰大梦想",
+          "aliases": [
+            "Atlanta Dream"
+          ]
+        },
+        {
+          "canonical_team_id": "national:chinese-taipei",
+          "name": "中国台北",
+          "aliases": [
+            "Chinese Taipei",
+            "中国台湾"
+          ]
+        },
+        {
+          "canonical_team_id": "national:chinese-taipei-women",
+          "name": "中国台北女篮",
+          "aliases": [
+            "Chinese Taipei Women",
+            "中国台湾女篮"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:ehime",
+          "name": "爱媛维京人",
+          "aliases": [
+            "Ehime Orange Vikings",
+            "Ehime",
+            "爱媛维京人"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:kanazawa",
+          "name": "石川金泽武士",
+          "aliases": [
+            "Kanazawa Samuraiz",
+            "Kanazawa",
+            "石川金泽武士"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:fukui",
+          "name": "福井吹风",
+          "aliases": [
+            "Fukui Blowinds",
+            "福井吹风"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:yamagata",
+          "name": "山形飞龙",
+          "aliases": [
+            "Yamagata Wyverns",
+            "山形飞龙"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:fukuoka",
+          "name": "福冈雷风神",
+          "aliases": [
+            "Fukuoka Rizing Zephyr",
+            "Rizing Zephyr Fukuoka",
+            "Fukuoka",
+            "福冈雷风神"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:yokohama_excellence",
+          "name": "横滨卓越",
+          "aliases": [
+            "Tokyo Excellence",
+            "Yokohama Excellence",
+            "横滨卓越"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:gifu",
+          "name": "岐阜猛扑",
+          "aliases": [
+            "Gifu Swoops",
+            "岐阜猛扑"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:saitama",
+          "name": "琦玉野马",
+          "aliases": [
+            "Saitama Broncos",
+            "Saitama",
+            "琦玉野马"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:koshigaya",
+          "name": "越谷阿尔法",
+          "aliases": [
+            "Otsuka Alphas",
+            "Koshigaya Alphas",
+            "越谷阿尔法"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:nagoya_fighting_eagles",
+          "name": "名古屋战鹰",
+          "aliases": [
+            "Fighting Eagles Nagoya",
+            "Nagoya",
+            "名古屋战鹰"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:kagoshima",
+          "name": "鹿儿岛列布尼斯",
+          "aliases": [
+            "Kagoshima Rebnise",
+            "鹿儿岛列布尼斯"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:aomori",
+          "name": "青森热力",
+          "aliases": [
+            "Aomori Wats",
+            "Aomori Wat's",
+            "青森热力"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:nara",
+          "name": "奈良雄心",
+          "aliases": [
+            "Bambitious Nara",
+            "奈良雄心"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:niigata",
+          "name": "新泻天鹅",
+          "aliases": [
+            "Niigata Albirex",
+            "Niigata Albirex BB",
+            "新泻天鹅"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:shizuoka",
+          "name": "静冈顶峰",
+          "aliases": [
+            "Veltex Shizuoka",
+            "静冈顶峰"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:tokushima",
+          "name": "德岛甘巴鲁斯",
+          "aliases": [
+            "Tokushima Gambarous",
+            "德岛甘巴鲁斯"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:tokyo_hachioji",
+          "name": "东京八王子彩虹",
+          "aliases": [
+            "Tokyo Hachioji Trains",
+            "Tokyo Hachioji Bee Trains",
+            "东京八王子彩虹"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:kumamoto",
+          "name": "熊本火山",
+          "aliases": [
+            "Kumamoto Volters",
+            "熊本火山"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:iwate",
+          "name": "岩手大公牛",
+          "aliases": [
+            "Iwate Big Bulls",
+            "岩手大公牛"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:tokyo_earthfriends",
+          "name": "东京地球之友",
+          "aliases": [
+            "Earth Friends Tokyo Z",
+            "Earthfriends Tokyo Z",
+            "东京地球之友"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:okayama",
+          "name": "冈山尝试箔",
+          "aliases": [
+            "Okayama Tryhoop",
+            "Tryhoop Okayama",
+            "冈山尝试箔"
+          ]
+        },
+        {
+          "canonical_team_id": "japan_b:kagawa",
+          "name": "香川五箭",
+          "aliases": [
+            "Kagawa Five Arrows",
+            "香川五箭"
+          ]
+        }
       ]
     },
-    "football": {"teams": []}
+    "football": {
+      "teams": []
+    }
   }
 }
