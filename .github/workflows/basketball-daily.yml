@@ -2,10 +2,12 @@ name: Basketball daily update and Feishu delivery
 
 on:
   schedule:
-    # 05:00 Asia/Shanghai = 21:00 UTC on the previous day.
-    - cron: "0 21 * * *"
-    # 20:00 Asia/Shanghai = 12:00 UTC; this run targets tomorrow in Beijing time.
-    - cron: "0 12 * * *"
+    # GitHub may delay or drop jobs scheduled exactly on the hour under load.
+    # Use an off-peak minute while keeping the Beijing 05:00/20:00 windows.
+    # 05:07 Asia/Shanghai = 21:07 UTC on the previous day.
+    - cron: "7 21 * * *"
+    # 20:07 Asia/Shanghai = 12:07 UTC; this run targets tomorrow in Beijing time.
+    - cron: "7 12 * * *"
   workflow_dispatch:
     inputs:
       target_date:
@@ -86,10 +88,10 @@ jobs:
               run_kind = "MANUAL_TARGET_DATE"
           else:
               today = datetime.now(ZoneInfo("Asia/Shanghai")).date()
-              if schedule == "0 12 * * *":
+              if schedule == "7 12 * * *":
                   target = today + timedelta(days=1)
                   run_kind = "NEXT_DAY_EVENING"
-              elif schedule == "0 21 * * *":
+              elif schedule == "7 21 * * *":
                   target = today
                   run_kind = "TODAY_EARLY_MORNING"
               else:
