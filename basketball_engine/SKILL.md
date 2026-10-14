@@ -2,7 +2,7 @@
 name: basketball-odds-trader
 description: 篮球数据核验、Source-Agnostic Evidence、Titan007 Feature Store、真实比分与球员/球队技术统计独立定价、盘口比较和纸面模拟。v4.4固定“先盘口、再双方资料库、再刷新盘口比较Edge”的生产顺序，采用联赛均值锚定的滚动OOS攻防效率与MatchupAdj，分离Fair Center与Game Outcome不确定性并输出W/P/L、Probability Edge、EV与市场信息风险；将NBA/CBA Spread伤停、轮换和Net Rating改为Adjustment/Uncertainty层；统一多源历史证据合同与Titan独立Provisional账本；不允许真实下注，不把工程测试当作策略有效性。
 ---
-# 篮球研究与纸面模拟 v4.10
+# 篮球研究与纸面模拟 v4.11
 
 ## v4.9 全局实体注册、时段感知盘口与性能合同
 
@@ -656,7 +656,7 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 
 ### GitHub Actions 与飞书通知
 
-生产仓库的 .github/workflows/basketball-daily.yml 使用 0 23 * * *（UTC，即北京时间每天 07:00）生成当天版本，并使用 0 12 * * *（UTC，即北京时间每天 20:00）自动把目标日期设为次日，生成次日版本；同时支持 workflow_dispatch.target_date 重跑指定北京时间日期。工作流从 main 运行引擎，从 gh-pages 种子化最近状态，生成目标日 JSON/HTML 后提交 gh-pages；提交前保留并合并并发产生的最新页面状态，避免覆盖足球或人工更新。提交得到的 SHA 必须写入步骤输出并等待 Pages workflow 对该 SHA 返回 completed/success，只有部署成功或页面已是最新时才发送飞书页面链接。
+生产仓库的 .github/workflows/basketball-daily.yml 使用 0 23 * * *（UTC，即北京时间每天 07:00）生成当天版本，使用 0 7 * * *（UTC，即北京时间每天 15:00）重抓当天午后盘口，并使用 0 12 * * *（UTC，即北京时间每天 20:00）自动把目标日期设为次日，生成次日版本；同时支持 workflow_dispatch.target_date 重跑指定北京时间日期。工作流从 main 运行引擎，从 gh-pages 种子化最近状态，生成目标日 JSON/HTML 后提交 gh-pages；提交前保留并合并并发产生的最新页面状态，避免覆盖足球或人工更新。提交得到的 SHA 必须写入步骤输出并等待 Pages workflow 对该 SHA 返回 completed/success，只有部署成功或页面已是最新时才发送飞书页面链接。
 
 飞书只读取 GitHub Secret FEISHU_WEBHOOK，禁止把 webhook 写入仓库、日志、数据或 HTML。通知至少包含北京时间日期、运行状态、赛事数、纸面可投数、Pages 状态、发布提交短 SHA、Actions 运行链接和 https://simondongxiao.github.io/odds/basketball-v2.html。引擎失败时也发送失败状态；发送失败按 2/4 秒重试三次并把原因留在 Actions 日志。真实资金执行永久关闭。
 
