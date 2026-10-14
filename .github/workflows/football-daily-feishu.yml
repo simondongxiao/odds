@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Preflight production runner
-        shell: pwsh
+        shell: powershell
         run: |
           $ErrorActionPreference = "Stop"
           $required = @{
@@ -52,7 +52,7 @@ jobs:
 
       - name: Run the existing V3/V4 daily update
         id: football_update
-        shell: pwsh
+        shell: powershell
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
@@ -85,7 +85,7 @@ jobs:
 
       - name: Send Feishu result
         if: always()
-        shell: pwsh
+        shell: powershell
         env:
           UPDATE_OUTCOME: ${{ steps.football_update.outcome }}
         run: |
