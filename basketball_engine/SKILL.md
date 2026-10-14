@@ -2,7 +2,20 @@
 name: basketball-odds-trader
 description: 篮球数据核验、Source-Agnostic Evidence、Titan007 Feature Store、真实比分与球员/球队技术统计独立定价、盘口比较和纸面模拟。v4.4固定“先盘口、再双方资料库、再刷新盘口比较Edge”的生产顺序，采用联赛均值锚定的滚动OOS攻防效率与MatchupAdj，分离Fair Center与Game Outcome不确定性并输出W/P/L、Probability Edge、EV与市场信息风险；将NBA/CBA Spread伤停、轮换和Net Rating改为Adjustment/Uncertainty层；统一多源历史证据合同与Titan独立Provisional账本；不允许真实下注，不把工程测试当作策略有效性。
 ---
-# 篮球研究与纸面模拟 v4.11
+# 篮球研究与纸面模拟 v4.12
+
+## v4.12 日期滚动与日本 B 联赛历史续接修复
+
+7M 的日历文件在北京时间午夜后会滚到下一日。早间任务必须先读取
+`gh-pages/dashboard_v2/data/{target_date}.json` 的已发布赛事身份，再将缺失的
+7M 赛事放回本轮 detail/history 采集队列；只能续接赛事身份和赛果历史，禁止续接
+盘口报价。这样“库存保留”和“历史可定价”不会被拆成两个互相矛盾的结果。
+
+赛事页的“日本男子B联赛甲级联赛”和球队历史页的 `日B1`/`日B2`/`日B3` 必须归入同一
+`JAPAN_BLEAGUE` family key；联赛分级保留在原始字段中，不能因展示简称不同把球队历史
+判为 `COMPETITION_MISMATCH`。当前板没有真实报价时仍只输出 `NO_MARKET`/观察，不能用
+历史盘口或默认赔率填充；历史别名修复后，若盘口稍后出现，应在下一次 15:00/20:00
+刷新中直接进入正常定价链。
 
 ## v4.9 全局实体注册、时段感知盘口与性能合同
 
