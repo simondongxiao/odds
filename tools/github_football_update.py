@@ -179,6 +179,15 @@ def market_row(row: dict[str, str], list_date: str) -> dict[str, Any]:
     current_market = all(v is not None for v in (line, home_water, away_water)) and abs(line or 0) > 0
     euro_market = all(v is not None and v > 1 for v in (euro_home, euro_draw, euro_away))
     giving_home = (line or 0) < 0
+    # Titan's handicap sign is not consistent across the public feeds.  When
+    # 1X2 is complete, use the clear market favourite to orient the handicap;
+    # this prevents an away favourite such as Liverpool from being displayed
+    # as the receiving side merely because the feed emitted a positive line.
+    if line is not None and euro_home is not None and euro_away is not None:
+        if euro_home < euro_away * 0.92:
+            giving_home = True
+        elif euro_away < euro_home * 0.92:
+            giving_home = False
     giving_team = home if giving_home else away
     receiving_team = away if giving_home else home
     giving_water = home_water if giving_home else away_water
@@ -382,6 +391,13 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
         start = rich.find(marker)
         end = rich.find(end_marker, start + len(marker)) if start >= 0 else -1
         if start >= 0 and end > start:
+            old_cards = []
+            try:
+                old_start = start + len(marker)
+                old_payload = rich[old_start:end].strip().rstrip(";")
+                old_cards = json.loads(old_payload) if old_payload.startswith("[") else []
+            except (json.JSONDecodeError, TypeError):
+                old_cards = []
             cards = []
             for item in source_rows:
                 q = item.get("v3") or evaluate(item, "V3")
@@ -404,7 +420,10 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
                     "result": item.get("score", "") or "待赛", "pnl": "不计", "status": "已结算" if item.get("state") not in {"0", ""} else "待赛",
                     "grade": "BET" if q.get("bettable") else "NA", "error": "、".join(q.get("quality_gate_reasons", [])),
                 })
-            replacement = marker + json.dumps(cards, ensure_ascii=False, separators=(",", ":"))
+            # Keep prior dates in the rich shell so competition/side history
+            # panels continue to have historical samples after a refresh.
+            historical = [item for item in old_cards if str(item.get("date", "")) != date]
+            replacement = marker + json.dumps(historical + cards, ensure_ascii=False, separators=(",", ":"))
             atomic_text(shell, rich[:start] + replacement + rich[end:])
 
 
