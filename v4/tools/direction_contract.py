@@ -67,14 +67,7 @@ def _line(row: dict[str, Any], current: bool = True) -> float | None:
     )
     text = _first(row, *names)
     nums = re.findall(r"[-+]?\d+(?:\.\d+)?", text)
-    value = _float(nums[-1]) if nums else None
-    if value is None:
-        return None
-    convention = _first(row, "ah_line_convention")
-    company = _first(row, "ah_full_company")
-    if "betexplorer" in company.lower() and convention != "TITAN_HOME_SIGN_POSITIVE_GIVING":
-        value = -value
-    return value
+    return _float(nums[-1]) if nums else None
 
 
 def parse_titan_market(row: dict[str, Any]) -> dict[str, Any]:
