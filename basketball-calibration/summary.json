@@ -3,43 +3,43 @@
   "archive_type": "FORWARD_NATIVE",
   "hit_rate": null,
   "last_run_funnel": {
-    "blocked_events": 286,
+    "blocked_events": 385,
     "cold_start_priceable_events": 0,
-    "comparable_events": 42,
-    "comparable_markets": 49,
-    "events": 327,
+    "comparable_events": 17,
+    "comparable_markets": 22,
+    "events": 406,
     "executable_events": 0,
-    "fresh_market_events": 97,
-    "independent_priceable_events": 76,
+    "fresh_market_events": 20,
+    "independent_priceable_events": 33,
     "market_key": "canonical_event_id + market_type",
-    "market_observed_events": 126,
-    "market_observed_markets": 252,
-    "market_records": 654,
-    "paper_bettable": 4,
-    "paper_triggered_events": 4,
-    "paper_triggered_markets": 4,
-    "paper_triggered_spread_markets": 3,
-    "paper_triggered_total_markets": 1,
+    "market_observed_events": 123,
+    "market_observed_markets": 246,
+    "market_records": 812,
+    "paper_bettable": 2,
+    "paper_triggered_events": 2,
+    "paper_triggered_markets": 2,
+    "paper_triggered_spread_markets": 2,
+    "paper_triggered_total_markets": 0,
     "pricing_state_counts": {
-      "NATIVE_PRICEABLE": 76,
-      "UNPRICEABLE": 251
+      "NATIVE_PRICEABLE": 33,
+      "UNPRICEABLE": 373
     },
     "prior_only_price_events": 0,
-    "raw_verified_market_events": 126,
-    "research_coupled_events": 43,
-    "research_priceable_events": 76,
-    "shadow_eligible_events": 18
+    "raw_verified_market_events": 123,
+    "research_coupled_events": 17,
+    "research_priceable_events": 33,
+    "shadow_eligible_events": 14
   },
   "probability_calibration": "UNVALIDATED",
   "real_execution_allowed": false,
   "spread_execution_total": {
     "migration": {
-      "canonical_execution_records": 165,
-      "canonical_signal_records": 1166,
+      "canonical_execution_records": 166,
+      "canonical_signal_records": 1169,
       "policy": "Earliest valid first-write per canonical event and market is the only statistical sample; later captures remain audit evidence.",
-      "raw_first_write_records_found": 4294,
-      "repeat_capture_records_excluded_from_statistics": 3128,
-      "repeat_execution_records_excluded_from_statistics": 0
+      "raw_first_write_records_found": 4311,
+      "repeat_capture_records_excluded_from_statistics": 3142,
+      "repeat_execution_records_excluded_from_statistics": 1
     },
     "model_validation": {
       "SPREAD_MODEL_VALIDATED": false,
@@ -193,9 +193,9 @@
       "note": "No price-exhausted classification is inferred without same-contract before/after recheck evidence."
     },
     "spread_execution_layer": {
-      "executed": 139,
+      "executed": 140,
       "execution_losses": 35,
-      "execution_pending": 59,
+      "execution_pending": 60,
       "execution_pnl_units": 6.229999999999999,
       "execution_pushes": 2,
       "execution_roi": 0.07787499999999999,
@@ -203,15 +203,15 @@
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
       "signal_hit_rate_ex_push": 0.5238095238095238,
       "signal_losses": 180,
-      "signal_pending": 701,
+      "signal_pending": 704,
       "signal_pushes": 5,
       "signal_wins": 198,
-      "signals": 1084
+      "signals": 1087
     },
     "spread_signal_layer": {
-      "executed": 139,
+      "executed": 140,
       "execution_losses": 35,
-      "execution_pending": 59,
+      "execution_pending": 60,
       "execution_pnl_units": 6.229999999999999,
       "execution_pushes": 2,
       "execution_roi": 0.07787499999999999,
@@ -219,10 +219,10 @@
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
       "signal_hit_rate_ex_push": 0.5238095238095238,
       "signal_losses": 180,
-      "signal_pending": 701,
+      "signal_pending": 704,
       "signal_pushes": 5,
       "signal_wins": 198,
-      "signals": 1084
+      "signals": 1087
     },
     "total_diagnostic_layer": {
       "bias_conclusion": "DESCRIPTIVE_ONLY_NOT_USED_FOR_PARAMETERS",
