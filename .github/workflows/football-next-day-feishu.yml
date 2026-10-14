@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Preflight production runner
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = "Stop"
           $required = @{
@@ -46,7 +46,7 @@ jobs:
 
       - name: Run next-day V3/V4 update
         id: football_update
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
@@ -73,7 +73,7 @@ jobs:
 
       - name: Send Feishu result
         if: always()
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         env:
           UPDATE_OUTCOME: ${{ steps.football_update.outcome }}
         run: |
