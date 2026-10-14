@@ -236,15 +236,69 @@ def write_csv(rows: list[dict[str, Any]]) -> None:
     tmp.replace(LEDGER_CSV)
 
 
+def rich_v4_row(item: dict[str, Any]) -> dict[str, Any]:
+    """Adapt the portable cloud row to the original rich V4 dashboard schema."""
+    q = evaluate(item, "V4")
+    m = dict(item.get("market") or {})
+    line = f(m.get("line"))
+    giving_home = bool(line is not None and m.get("giving_team") == item.get("home_team"))
+    signed = -abs(line) if giving_home else abs(line) if line is not None else None
+    m.update({
+        "competition": item.get("competition", ""),
+        "home_team": item.get("home_team", ""),
+        "away_team": item.get("away_team", ""),
+        "home_handicap_signed": signed,
+        "away_handicap_signed": -signed if signed is not None else None,
+    })
+    started = str(item.get("state") or "") not in {"0", ""}
+    final_decision = "UNAVAILABLE" if started else q["decision"]
+    selected_side = q.get("selected_side", "") if not started else ""
+    selected_handicap = None
+    if selected_side:
+        selected_handicap = signed if selected_side == "giving" else (-signed if signed is not None else None)
+    return {
+        **item,
+        "model_id": "V4",
+        "model_version": "V4",
+        "domain": "GITHUB_CLOUD",
+        "league_level": "UNKNOWN",
+        "market": m,
+        "analysis_status": "NOT_PREMATCH" if started else ("EVALUATED" if q["quality_gate_passed"] else "MISSING_DATA"),
+        "final_decision": final_decision,
+        "decision_status": "NOT_PREMATCH" if started else ("BET" if q["bettable"] else "NO_BET"),
+        "quality_gate_passed": q["quality_gate_passed"],
+        "quality_gate_reasons": q["quality_gate_reasons"],
+        "selected_side": selected_side,
+        "selected_team": q.get("selected_team", "") if not started else "",
+        "selected_handicap_signed": selected_handicap,
+        "selected_water_hk": q.get("selected_water") if not started else None,
+        "candidate_side": selected_side,
+        "candidate_team": q.get("selected_team", "") if not started else "",
+        "ev_giving": q.get("ev_giving"),
+        "ev_receiving": q.get("ev_receiving"),
+        "data_quality": "MEDIUM" if q["quality_gate_passed"] else "LOW",
+        "market_quality": "MEDIUM" if m.get("current_complete") else "LOW",
+        "grade": "B" if q["bettable"] else "N",
+        "bet_unit": 1.0 if q["bettable"] else 0.0,
+        "started_lock": started,
+    }
+
+
 def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
     out = SITE / version.lower() / "data" / f"{date}.json"
-    payload = {"list_date": date, "version": version, "generated_at": dt.datetime.now(TZ).isoformat(), "matches": [x for x in rows if x.get("list_date") == date]}
+    source_rows = [x for x in rows if x.get("list_date") == date]
+    payload_rows = [rich_v4_row(x) for x in source_rows] if version == "V4" else source_rows
+    payload = {"list_date": date, "version": version, "model_id": version, "model_version": version, "generated_at": dt.datetime.now(TZ).isoformat(), "matches": payload_rows}
     for x in payload["matches"]:
         x[version.lower()] = evaluate(x, version)
     atomic_text(out, json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
     atomic_text(SITE / version.lower() / "data" / "index.json", json.dumps([date], ensure_ascii=False))
     html = f'''<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{version} GitHub Dashboard</title><style>body{{font:14px Arial;margin:0;background:#eef5fb;color:#17324d}}main{{max-width:1200px;margin:auto;padding:12px}}header,section{{background:#fff;padding:12px;margin-bottom:10px;border:1px solid #c5d9ea}}table{{width:100%;border-collapse:collapse}}th,td{{padding:7px;border-bottom:1px solid #d9e5ef;text-align:left}}.bet{{color:#07843f;font-weight:700}}.no{{color:#b42318}}.why{{font-size:12px;color:#7a3b00}}@media(max-width:700px){{table{{font-size:12px}}th:nth-child(5),td:nth-child(5){{display:none}}}}</style><main><header><h2>{version} GitHub 云端看板</h2><div id="meta">加载中</div><label><input id="all" type="checkbox" checked>显示全部赛事</label></header><section><table><thead><tr><th>时间</th><th>赛事</th><th>比赛</th><th>结果</th><th>盘口/水位</th><th>决策</th><th>门禁原因</th></tr></thead><tbody id="rows"></tbody></table></section></main><script>const d=new URLSearchParams(location.search).get('date')||'{date}';fetch('./data/'+d+'.json?v='+Date.now()).then(r=>r.json()).then(p=>{{document.querySelector('#meta').textContent=p.list_date+'｜共 '+p.matches.length+' 场';const key='{version.lower()}';const render=()=>{{const all=document.querySelector('#all').checked;document.querySelector('#rows').innerHTML=p.matches.filter(x=>all||x[key]?.bettable).map(x=>{{const q=x[key]||{{}};const m=x.market||{{}};const why=(q.quality_gate_reasons||[]).join('、')||'—';return '<tr><td>'+x.kickoff+'</td><td>'+x.competition+'</td><td>'+x.home_team+' vs '+x.away_team+'</td><td>'+x.score+'</td><td>'+((m.line??'—')+' / '+(m.giving_water??'—')+' / '+(m.receiving_water??'—'))+'</td><td class="'+(q.bettable?'bet':'no')+'">'+(q.bettable?(q.selected_team+' '+q.decision):'不投')+'</td><td class="why">'+why+'</td></tr>'}}).join('')}};document.querySelector('#all').onchange=render;render()}}).catch(e=>document.querySelector('#meta').textContent='数据加载失败：'+e)</script>'''
-    atomic_text(SITE / version.lower() / "index.html", html)
+    # Keep the checked-in rich V4 shell. The portable fallback creates the
+    # small table only when no template is present (for a brand-new checkout).
+    shell = SITE / version.lower() / "index.html"
+    if version != "V4" or not shell.exists():
+        atomic_text(shell, html)
 
 
 def send_feishu(date: str, counts: dict[str, int], warning: str | None) -> None:
