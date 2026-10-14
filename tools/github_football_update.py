@@ -116,6 +116,10 @@ def kickoff(row: dict[str, str], list_date: str) -> str:
     raw = str(row.get("bj_time") or row.get("match_time_en") or "").strip()
     if len(raw) >= 10 and raw[:4].isdigit():
         return raw
+    try:
+        return f"{list_date[:4]}-{raw[:5]} {raw[6:]}:00+08:00"
+    except Exception:
+        return raw
 
 
 def business_date_for(kickoff_value: str, fallback: str) -> str:
@@ -159,10 +163,6 @@ def localize_row(item: dict[str, Any], team_map: dict[str, str], league_map: dic
             market[key] = team_map.get(str(market[key]).casefold(), market[key])
     item["market"] = market
     return item
-    try:
-        return f"{list_date[:4]}-{raw[:5]} {raw[6:]}:00+08:00"
-    except Exception:
-        return raw
 
 
 def market_row(row: dict[str, str], list_date: str) -> dict[str, Any]:
