@@ -157,6 +157,13 @@ def main() -> int:
         "event_count": len(latest.get("events") or []),
         "archive_type": latest.get("archive_type", "FORWARD_NATIVE"),
     }
+    # Never advertise a date whose payload is absent.  A stale index entry
+    # used to make the selector request a 404 and leave the previous day's
+    # data visible, which looked like a failed date switch on mobile.
+    entries = {
+        key: value for key, value in entries.items()
+        if (dst_data / str(value.get("file") or f"{key}.json")).is_file()
+    }
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "dates": [entries[key] for key in sorted(entries, reverse=True)],
