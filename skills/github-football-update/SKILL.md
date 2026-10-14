@@ -30,6 +30,23 @@ BetExplorer-only fixtures carry English provider labels, so the pipeline applies
 `data/github_football/team_aliases.json` before writing the ledger and dashboard;
 extend that alias file when a new club is first encountered.
 
+## Handicap direction contract (mandatory)
+
+At ingestion every source is normalized to one signed convention: a positive
+home line means the home team gives the handicap; a negative home line means
+the home team receives it. `market_row()` must use this normalized AH sign as
+the source of truth. It must never reverse the sign a second time, and must not
+replace a non-zero AH direction with a 1X2 favourite guess. Euro odds may be
+used only as a fallback when the AH line is exactly level or absent, and any
+clear AH/Euro conflict must be retained as an audit warning.
+
+Every rendered row must expose `handicap_giving_team`,
+`handicap_receiving_team`, and a signed home-line field. The visible text must
+say which team is the 让球方, so a positive/negative number cannot be
+misread as the opposite side. Team and competition labels must be Chinese;
+when a BetExplorer-only English label appears, add its mapping to
+`team_aliases.json` before publishing.
+
 The script publishes date-scoped JSON and small responsive HTML shells under
 `github_site/v3` and `github_site/v4`. The HTML loads only the requested date's
 JSON, so mobile clients do not download the historical ledger on every visit.

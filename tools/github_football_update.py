@@ -178,16 +178,17 @@ def market_row(row: dict[str, str], list_date: str) -> dict[str, Any]:
     competition = str(row.get("league_cn") or row.get("league_en") or row.get("league_tw") or "UNKNOWN").strip()
     current_market = all(v is not None for v in (line, home_water, away_water)) and abs(line or 0) > 0
     euro_market = all(v is not None and v > 1 for v in (euro_home, euro_draw, euro_away))
-    giving_home = (line or 0) < 0
-    # Titan's handicap sign is not consistent across the public feeds.  When
-    # 1X2 is complete, use the clear market favourite to orient the handicap;
-    # this prevents an away favourite such as Liverpool from being displayed
-    # as the receiving side merely because the feed emitted a positive line.
-    if line is not None and euro_home is not None and euro_away is not None:
-        if euro_home < euro_away * 0.92:
-            giving_home = True
-        elif euro_away < euro_home * 0.92:
-            giving_home = False
+    # All feeds are normalized at ingestion to the project convention:
+    # positive home line = home gives, negative home line = home receives.
+    # Do not reverse this sign again or let 1X2 prices overwrite a valid AH
+    # direction.  Euro prices are only a fallback when the line is exactly
+    # level; they are an audit signal, not the handicap-side source of truth.
+    if line is not None and abs(line) > 1e-9:
+        giving_home = line > 0
+    elif euro_home is not None and euro_away is not None:
+        giving_home = euro_home < euro_away
+    else:
+        giving_home = False
     giving_team = home if giving_home else away
     receiving_team = away if giving_home else home
     giving_water = home_water if giving_home else away_water
@@ -205,6 +206,7 @@ def market_row(row: dict[str, str], list_date: str) -> dict[str, Any]:
         "score": f"{row.get('home_score','')}-{row.get('away_score','')}" if row.get("home_score") or row.get("away_score") else "",
         "market": {
             "line": abs(line) if line is not None else None,
+            "line_home_signed": line,
             "giving_team": giving_team,
             "receiving_team": receiving_team,
             "giving_water": giving_water,
@@ -461,7 +463,11 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
                     "frozen_bettable_action": q.get("decision", ""), "frozen_bettable_team": q.get("selected_team", ""),
                     "matched_odds": bool(m.get("current_complete") or m.get("euro_complete")),
                     "rank": item.get("competition", ""), "market": "亚盘", "pick": q.get("decision", "不投"),
-                    "ah": f"即 {m.get('line')}/{m.get('giving_water')}/{m.get('receiving_water')}" if m.get("current_complete") else "未接入",
+                    "ah": (f"让球方 {m.get('giving_team','')} | 盘口 {-abs(m.get('line')) if m.get('line') is not None else ''} | "
+                           f"让球方水位 {m.get('giving_water')} / 受让方水位 {m.get('receiving_water')}" if m.get("current_complete") else "未接入"),
+                    "handicap_giving_team": m.get("giving_team", ""),
+                    "handicap_receiving_team": m.get("receiving_team", ""),
+                    "handicap_home_signed": m.get("line_home_signed"),
                     "euro": f"即 {m.get('euro_home')}/{m.get('euro_draw')}/{m.get('euro_away')}" if m.get("euro_complete") else "未接入",
                     "ah_ok": bool(m.get("current_complete")), "euro_ok": bool(m.get("euro_complete")),
                     "result": item.get("score", "") or "待赛", "pnl": "不计", "status": "已结算" if item.get("state") not in {"0", ""} else "待赛",
