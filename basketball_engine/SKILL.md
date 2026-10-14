@@ -705,3 +705,9 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 6. **生产门槛。** 新增来源只有在连续三轮目标日采集都能解析出真实公司、主线、双边十进制赔率、收到时间和当前挂牌确认后，才可标记 `PRODUCTION_VERIFIED`；否则保持 `EXPERIMENTAL`，只用于诊断，不影响既有 Evidence Gate。每日审计必须同时输出来源覆盖率、各市场恢复率、首次命中来源、补源命中数、仍未命中赛事清单和下一次重试时间。
 
 该合同只扩大盘口发现与恢复，不降低实体消歧、盘口有效期、规则、Evidence Gate、Edge/EV、纸面可投或真实资金关闭要求；任何来源都不能用历史赔率替代当前盘口。
+
+## v4.15 日更耗时控制合同
+
+每轮运行必须先读取上一轮的 `stage_timings`，不能把超过 20 分钟的网络等待当作正常。历史库和源快照必须跨 GitHub Actions 运行复用：`reference_data/titan007_history` 使用带版本哈希的 Actions cache，缓存命中时只刷新过期或缺失的原始响应；team mapping 复用精确命中，team detail 24 小时 TTL，team schedule 10 小时 TTL，box score/period 直接复用数据库已验证记录。缓存只复用哈希校验通过的原始证据，不能改变历史首写或当前盘口 TTL。
+
+彼此独立的 ESPN、SofaScore、FIBA 赛程发现请求使用有界并发；盘口、实体匹配和历史定价仍按既定依赖顺序执行。每轮审计必须记录 `cache_reuse_by_stage`、网络请求数、缓存命中数及 `reference_database_update_seconds`、`market_identity_global_collection_seconds`、`collect_live_total_seconds`。目标是缓存后的常规日更控制在 20 分钟内；若连续两轮超过 30 分钟，自动按阶段报告并优先修复重复网络抓取，不能靠减少证据门槛或删除赛事来缩短时间。

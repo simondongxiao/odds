@@ -510,6 +510,8 @@ class TitanHistoryStore:
           ON team_mapping(canonical_team_id, observed_at DESC, status);
         CREATE INDEX IF NOT EXISTS idx_source_snapshot_entity_time
           ON source_snapshot(entity_type, entity_id, captured_at DESC);
+        CREATE INDEX IF NOT EXISTS idx_source_snapshot_url_time
+          ON source_snapshot(url, captured_at DESC);
         """)
         ensure_feature_schema(self.db)
         self.db.commit()
@@ -577,6 +579,51 @@ def _fetch(item, timeout=20):
 def _batch(items, workers=6, timeout=20):
     with ThreadPoolExecutor(max_workers=max(1, min(6, int(workers)))) as pool:
         return list(pool.map(lambda item: _fetch(item, timeout), items))
+
+
+def _cached_response(store, item, ttl_seconds):
+    """Reuse a recent immutable raw response instead of refetching it."""
+    key, url, referer = item
+    row = store.db.execute(
+        "SELECT raw_path,captured_at,sha256,content_type FROM source_snapshot "
+        "WHERE url=? ORDER BY captured_at DESC LIMIT 1", (url,)
+    ).fetchone()
+    if not row:
+        return None
+    raw_path, captured_at, digest, content_type = row
+    try:
+        observed = datetime.fromisoformat(str(captured_at).replace("Z", "+00:00"))
+        if observed.tzinfo is None:
+            observed = observed.replace(tzinfo=timezone.utc)
+        age = (datetime.now(timezone.utc) - observed.astimezone(timezone.utc)).total_seconds()
+        if age < 0 or age > float(ttl_seconds):
+            return None
+        path = Path(raw_path)
+        if not path.is_file():
+            return None
+        blob = path.read_bytes()
+        if _sha(blob) != str(digest):
+            return None
+        return {"key": key, "url": url, "ok": True, "cached": True,
+                "captured_at": captured_at, "status": 200,
+                "content_type": content_type, "blob": blob,
+                "text": blob.decode("utf-8-sig", "strict"),
+                "attempts": [], "attempt_count": 0,
+                "cache_age_seconds": round(age, 3)}
+    except (OSError, UnicodeError, TypeError, ValueError):
+        return None
+
+
+def _batch_with_cache(store, items, workers=6, ttl_seconds=0, timeout=20):
+    """Return cached responses plus only stale/missing live requests."""
+    cached, pending = [], []
+    for item in items:
+        hit = _cached_response(store, item, ttl_seconds) if ttl_seconds else None
+        if hit is None:
+            pending.append(item)
+        else:
+            cached.append(hit)
+    return cached + _batch(pending, workers, timeout) if pending else cached
 
 
 def _capture_foundation_memberships(store, league_families, health, errors, workers):
@@ -1060,7 +1107,9 @@ def update_history_database(events, root, cutoff=None, years=None, boxscore_limi
         detail_items = [("detail:" + tid, f"{BASE}/jsData/teamInfo/teamDetail/td{tid}.js",
                          f"{BASE}/cn/Team/Summary.aspx?TeamID={tid}") for tid in sorted(set(titan_to_canonical))]
         details = {}
-        for row in _batch(detail_items, workers):
+        # Team metadata changes slowly. Reuse a verified snapshot for one day;
+        # a live refresh happens automatically when the TTL expires.
+        for row in _batch_with_cache(store, detail_items, workers, ttl_seconds=24 * 3600):
             health.append({k: v for k, v in row.items() if k not in ("blob", "text")})
             if not row.get("ok"):
                 continue
@@ -1087,7 +1136,9 @@ def update_history_database(events, root, cutoff=None, years=None, boxscore_limi
                                        f"{BASE}/cn/Team/TeamSche.aspx?TeamID={tid}"))
         matches = {}
         match_snapshots = {}
-        for row in _batch(schedule_items, workers):
+        # Refresh schedules twice daily at most. This catches new fixtures but
+        # prevents retries and same-day reruns from repeating the full crawl.
+        for row in _batch_with_cache(store, schedule_items, workers, ttl_seconds=10 * 3600):
             health.append({k: v for k, v in row.items() if k not in ("blob", "text")})
             if not row.get("ok"):
                 continue
@@ -1253,6 +1304,8 @@ def update_history_database(events, root, cutoff=None, years=None, boxscore_limi
             mapping_status_counts[row[0] if row else "UNKNOWN"] += 1
         pace_levels = Counter(box.get("pace_level") or "UNKNOWN" for box in tech_data.values())
         fetch_failures = Counter(row["key"].split(":", 1)[0] for row in health if not row.get("ok"))
+        cache_reuse = Counter(row["key"].split(":", 1)[0]
+                              for row in health if row.get("cached"))
         audit = {"run_id": run_id, "requested_teams": len(teams),
                  "mapped_teams": sum(v is not None for v in mappings.values()), "years": years,
                  "mapping_cache_hits": mapping_cache_hits,
@@ -1260,6 +1313,7 @@ def update_history_database(events, root, cutoff=None, years=None, boxscore_limi
                  "schedule_rows": len(matches), "selected_box_score_matches": len(selected),
                  "box_scores": len(tech_data), "history_rows": len(history_rows), "errors": errors,
                  "pace_level_counts": dict(pace_levels), "cache_hits": cache_hits,
+                 "cache_reuse_by_stage": dict(cache_reuse),
                  "foundation_leagues": sorted(str(value).upper() for value in (foundation_leagues or [])),
                  "foundation_membership_counts": dict(Counter(row["league_family"] for row in memberships)),
                  "foundation_manifest_path": manifest_path,

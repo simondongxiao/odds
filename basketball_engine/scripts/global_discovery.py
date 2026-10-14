@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json, re, ssl, uuid
 from functools import lru_cache
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
@@ -272,12 +273,25 @@ def discover(day, output_root, timeout=12, workers=6):
         adapters.append((f"espn:{sport}",lambda sport=sport,family=family,region=region:_espn(day,sport,family,region,timeout,raw_dir)))
     adapters.append(("sofascore",lambda:_sofascore(day,timeout,raw_dir)))
     adapters.append(("fiba_official_calendar",lambda:_fiba_calendar(day,timeout,raw_dir)))
-    for name,fn in adapters:
-        started=stamp()
+    def run_adapter(adapter):
+        name, fn = adapter
         try:
-            rows=fn();events.extend(rows);health.append({"source":name,"source_group":"broad" if name!="fiba_official_calendar" else "official","upstream_provider":name.split(':',1)[0],"attempted":True,"success":True,"status":"success" if rows else "empty_valid_response","event_count":len(rows),"captured_at":stamp(),"raw_snapshot_path":str(raw_dir)})
+            return name, fn(), None
         except Exception as exc:
-            errors.append({"source":name,"error_type":type(exc).__name__,"error":str(exc)});health.append({"source":name,"source_group":"broad" if name!="fiba_official_calendar" else "official","upstream_provider":name.split(':',1)[0],"attempted":True,"success":False,"status":"source_unavailable","error_type":type(exc).__name__,"error":str(exc),"event_count":0,"captured_at":stamp(),"raw_snapshot_path":str(raw_dir)})
+            return name, [], {"error_type": type(exc).__name__, "error": str(exc)}
+
+    # Discovery sources are independent. Bounded parallelism prevents one
+    # unavailable provider's retry window from serially delaying every other
+    # source while preserving each adapter's raw snapshot and health record.
+    with ThreadPoolExecutor(max_workers=min(4, len(adapters))) as pool:
+        adapter_results = list(pool.map(run_adapter, adapters))
+    for name, rows, failure in adapter_results:
+        if failure is None:
+            events.extend(rows)
+            health.append({"source":name,"source_group":"broad" if name!="fiba_official_calendar" else "official","upstream_provider":name.split(':',1)[0],"attempted":True,"success":True,"status":"success" if rows else "empty_valid_response","event_count":len(rows),"captured_at":stamp(),"raw_snapshot_path":str(raw_dir)})
+        else:
+            errors.append({"source":name,**failure})
+            health.append({"source":name,"source_group":"broad" if name!="fiba_official_calendar" else "official","upstream_provider":name.split(':',1)[0],"attempted":True,"success":False,"status":"source_unavailable",**failure,"event_count":0,"captured_at":stamp(),"raw_snapshot_path":str(raw_dir)})
     unique={}
     for e in events:
         key=(e["team1_key"],e["team2_key"],e["tip_time_utc"][:16])
