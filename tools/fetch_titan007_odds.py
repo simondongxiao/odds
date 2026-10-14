@@ -1377,7 +1377,9 @@ def browser_recover_vip_pages(
     # The next daily refresh will resume from the still-missing rows.  Set the
     # variable to 0 explicitly when a controlled full pass is desired.
     jobs.sort(key=lambda item: browser_market_priority(completed[item[0]][0]))
-    batch_limit = max(0, int(os.environ.get("TITAN_BROWSER_BATCH_LIMIT", "240")))
+    # Browser recovery is an emergency path.  An unbounded serial recovery
+    # can turn a transient VIP outage into a multi-hour daily refresh.
+    batch_limit = max(0, int(os.environ.get("TITAN_BROWSER_BATCH_LIMIT", "48")))
     queued_jobs = len(jobs)
     if batch_limit:
         jobs = jobs[:batch_limit]
@@ -1394,9 +1396,9 @@ def browser_recover_vip_pages(
     async def fetch_all() -> list[tuple[str, str, dict[str, float | str], str]]:
         from playwright.async_api import async_playwright
 
-        max_workers = max(1, int(os.environ.get("TITAN_BROWSER_MAX_WORKERS", "1")))
-        timeout_ms = max(5_000, int(os.environ.get("TITAN_BROWSER_TIMEOUT_MS", "20_000")))
-        max_attempts = max(1, int(os.environ.get("TITAN_BROWSER_ATTEMPTS", "2")))
+        max_workers = max(1, int(os.environ.get("TITAN_BROWSER_MAX_WORKERS", "4")))
+        timeout_ms = max(5_000, int(os.environ.get("TITAN_BROWSER_TIMEOUT_MS", "12_000")))
+        max_attempts = max(1, int(os.environ.get("TITAN_BROWSER_ATTEMPTS", "1")))
         request_interval = max(0.0, float(os.environ.get("TITAN_BROWSER_REQUEST_INTERVAL", "0.75")))
         save_browser_html = os.environ.get("TITAN_SAVE_BROWSER_HTML", "0") == "1"
         semaphore = asyncio.Semaphore(max_workers)
@@ -2105,7 +2107,7 @@ def enrich_future_odds(
     # It remains usable when the VIP detail host is rate-limited, and exposes
     # the source opening/current AH and total triplets in the rendered DOM.
     # Run it after VIP recovery so it only fills still-missing markets.
-    if ids_to_fetch and os.environ.get("TITAN_ENABLE_MOBILE_FALLBACK", "1") == "1":
+    if ids_to_fetch and os.environ.get("TITAN_ENABLE_MOBILE_FALLBACK", "0") == "1":
         try:
             mobile_recovered_ah, mobile_recovered_total, mobile_failed = browser_recover_mobile_analysis_pages(
                 completed, ids_to_fetch, stamp, out_dir,
