@@ -26,6 +26,8 @@ jobs:
       FOOTBALL_UPDATE_SCRIPT: D:\codex\技能项目\football_update\run_football_update.py
       FOOTBALL_PYTHON: D:\python\python.exe
       FOOTBALL_DASHBOARD_URL: https://simondongxiao.github.io/odds/v4/
+      TITAN_ENABLE_BROWSER_FALLBACK: "0"
+      TITAN_ENABLE_MOBILE_FALLBACK: "0"
 
     steps:
       - name: Preflight production runner
