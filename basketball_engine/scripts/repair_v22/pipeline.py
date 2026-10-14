@@ -231,6 +231,17 @@ def preserve_daily_event_inventory(cap, root, day):
     inventory_dir = Path(root) / 'ledger' / 'event_inventory' / day.replace('-', '')
     inventory_dir.mkdir(parents=True, exist_ok=True)
     current_day = [e for e in cap.get('events', []) if e.get('bj_date') == day]
+    # The evening next-day run publishes a forward inventory before the source
+    # rolls its date file at midnight. Seed that published target-day view back
+    # into continuity matching so the morning run cannot lose fixtures merely
+    # because the current board moved to the following date.
+    baseline_path = Path(root) / 'dashboard_v2' / 'data' / (day + '.json')
+    baseline_document = load(baseline_path, {})
+    baseline_events = []
+    for item in baseline_document.get('events', []) if isinstance(baseline_document, dict) else []:
+        event = item.get('event') if isinstance(item, dict) and isinstance(item.get('event'), dict) else item
+        if isinstance(event, dict) and event.get('bj_date') == day and event.get('event_id'):
+            baseline_events.append(dict(event))
     snapshot = {
         'schema_version': 'daily-event-inventory-1.0', 'day': day,
         'run_id': cap.get('run_id'), 'captured_at': cap.get('capture_finished_at'),
@@ -260,6 +271,10 @@ def preserve_daily_event_inventory(cap, root, day):
     for event in current_day:
         if event.get('event_id'):
             inventory_events[str(event['event_id'])] = event
+    for event in baseline_events:
+        event_id = str(event.get('event_id'))
+        if event_id not in inventory_events:
+            inventory_events[event_id] = event
 
     ids = list(inventory_events)
     parent = {event_id: event_id for event_id in ids}
@@ -382,7 +397,9 @@ def preserve_daily_event_inventory(cap, root, day):
         'preserved_missing_current_board': sum(
             1 for event in merged.values()
             if str(event.get('event_id') or '') not in current_canonical_ids),
-        'snapshot_files': source_snapshots, 'quotes_fabricated': 0,
+        'snapshot_files': source_snapshots,
+        'published_baseline_file': str(baseline_path) if baseline_events else None,
+        'published_baseline_events': len(baseline_events), 'quotes_fabricated': 0,
         'event_id_redirects': redirects, 'quotes_remapped_to_current_identity': remapped_quotes,
         'fuzzy_time_tolerance_minutes': 45, 'fuzzy_merges': fuzzy_merges,
         'duplicate_event_ids_removed': sorted(set(duplicate_event_ids)),

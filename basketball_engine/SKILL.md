@@ -651,6 +651,7 @@ NBA、NBA季前、NBA常规赛、NBA季后赛统一使用 league_key=NBA 做同�
 ### 幂等、性能和页面验收
 
 同一 target_date 重跑必须只追加新的原始快照和新的健康审计，不复制 event、首写或 settlement。历史、Box Score 和赛程基线在初始化阶段一次读取并构建内存索引，逐场循环禁止再次读 JSON/JS；SQLite 查询必须命中复合索引；非核心诊断仅在内容签名变化时写盘。每轮必须记录开始/结束时间、HTTP 尝试与成功数、缓存命中、索引加载耗时、定价耗时和发布耗时，连续超时或失败不能静默成功。
+早间运行必须把 gh-pages 中同一 target_date 的已发布 JSON 作为上一轮赛事库存续接，再与当前源按 canonical continuity key 合并；源端日期文件滚动导致的缺场只能标记为当前源未观察到并保留 `NO_MARKET`，不得从页面删除。
 
 HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_key 统计并支持展开/收起；同赛事历史按 canonical event/team，而不是网页字符串。所有结束比赛必须显示比分，W/L/P 使用稳定颜色，行宽和中文名由固定渲染契约验证。公开 URL 的缓存参数只能用于刷新浏览器，不能改变数据日期。
 
