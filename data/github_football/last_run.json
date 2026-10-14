@@ -1,11 +1,11 @@
 {
   "list_date": "2026-10-14",
   "counts": {
-    "rows": 584,
+    "rows": 758,
     "V3": 5,
     "V4": 5
   },
-  "warning": null,
-  "snapshot": "/home/runner/work/odds/odds/data/raw/titan007/20261014/20261014_022544_titan007_odds_snapshot.csv",
-  "generated_at": "2026-10-14T10:27:59.016192+08:00"
+  "warning": "ROW_COUNT_SHRINK_WARNING previous=584 incoming=370",
+  "snapshot": "/home/runner/work/odds/odds/data/raw/titan007/20261014/20261014_024622_titan007_odds_snapshot.csv",
+  "generated_at": "2026-10-14T10:48:33.418872+08:00"
 }
