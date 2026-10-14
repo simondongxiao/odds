@@ -404,6 +404,12 @@ def main() -> int:
         item["list_date"] = business_date_for(item.get("kickoff", ""), date)
         localize_row(item, team_map, league_map)
     old_rows = read_rows(LEDGER_JSON)
+    # Migrate legacy rows that were stored with the old midnight-based date.
+    # This is a key-only correction; scores, locks, markets, and settlements
+    # remain untouched.
+    for item in old_rows:
+        if item.get("kickoff"):
+            item["list_date"] = business_date_for(item.get("kickoff", ""), str(item.get("list_date") or date))
     rows, warning = merge(incoming, old_rows, date)
     for item in rows:
         localize_row(item, team_map, league_map)
