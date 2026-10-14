@@ -94,9 +94,19 @@ def latest_snapshot(list_date: str) -> Path:
     # Accept that same-run snapshot instead of failing after a successful
     # scrape.  Never search arbitrary historical folders.
     if not paths:
-        run_day = dt.datetime.now(TZ).strftime("%Y%m%d")
-        run_dir = REPO / "data" / "raw" / "titan007" / run_day
-        paths = sorted(run_dir.glob("*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime)
+        # The fetcher timestamp is intentionally runner-local/UTC for
+        # backwards-compatible raw folders, while the requested slate is a
+        # Beijing business date.  Around 05:07 Beijing these dates differ by
+        # one day; accept only the two current-run date folders, never an
+        # arbitrary historical snapshot.
+        run_days = {
+            dt.datetime.now(TZ).strftime("%Y%m%d"),
+            dt.datetime.now().strftime("%Y%m%d"),
+        }
+        for run_day in run_days:
+            run_dir = REPO / "data" / "raw" / "titan007" / run_day
+            paths.extend(run_dir.glob("*_titan007_odds_snapshot.csv"))
+        paths = sorted(paths, key=lambda p: p.stat().st_mtime)
     if not paths:
         raise FileNotFoundError(f"Titan snapshot not found for {list_date}")
     return paths[-1]
