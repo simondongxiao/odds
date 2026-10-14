@@ -1,13 +1,13 @@
-name: Football cloud next-day update 20:00 Beijing
+name: Football cloud next-day update 20:07 Beijing
 
 on:
   schedule:
-    # 20:00 Asia/Shanghai = 12:00 UTC.
-    - cron: "0 12 * * *"
+    # 20:07 Asia/Shanghai = 12:07 UTC.
+    - cron: "7 12 * * *"
   workflow_dispatch:
 
 concurrency:
-  group: football-cloud-2000
+  group: football-cloud-2007
   cancel-in-progress: false
 
 permissions:

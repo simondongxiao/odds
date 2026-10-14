@@ -73,6 +73,11 @@ and push the site, then send a short Feishu result using the
 `FEISHU_WEBHOOK_URL` secret. Desktop runs continue to use the existing local
 skill and Excel ledgers; do not mix the two ledgers during a single run.
 
+The cloud schedules are Beijing time 05:07 for the current business slate and
+20:07 for the next business slate. GitHub cron is UTC, so these are `7 21 * * *`
+and `7 12 * * *` respectively. The evening job must pass tomorrow's Beijing
+date explicitly; never infer the next-day slate from the runner's UTC date.
+
 ## Performance guard
 
 The fast path is HTTP/API fetch plus append-only JSON merge. Browser recovery is
