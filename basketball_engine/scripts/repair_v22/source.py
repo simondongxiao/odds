@@ -42,6 +42,33 @@ BETMONITOR_TEAM_ALIASES={
     'Ehime Orange Vikings':'爱媛维京人','Kanazawa':'石川金泽武士',
 }
 
+def apply_canonical_display_names(event):
+    """Replace source display labels with the reviewed registry names.
+
+    Some 7M payloads arrive with a lossy legacy encoding even though their
+    identity IDs are still resolvable.  The canonical ID is the stable join;
+    once it is attached, the registry name is the only safe UI label.  Keep
+    the raw source label in an audit field and never use this display rewrite
+    for matching or pricing.
+    """
+    registry = default_registry()
+    by_id = {}
+    for entity in (registry.payload.get('sports', {}).get('basketball', {}).get('teams', []) or []):
+        cid = str(entity.get('canonical_team_id') or '')
+        name = str(entity.get('name') or '')
+        if cid and name:
+            by_id[cid] = name
+    for side in ('team1', 'team2'):
+        cid = str(event.get('canonical_' + side + '_id') or '')
+        display = by_id.get(cid)
+        if display and event.get(side + '_name') != display:
+            event.setdefault(side + '_source_name', event.get(side + '_name'))
+            event[side + '_name'] = display
+    if is_japan_b_league_event(event):
+        event.setdefault('league_source_name', event.get('league'))
+        event['league_display'] = '日本B联赛'
+    return event
+
 def is_japan_b_league_event(event):
     """Identify Japan B.League rows across 7M's 日B1/2/3 labels.
 
@@ -1466,6 +1493,11 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     errors+=post_errors
     final_titan_reconciliation=reconcile_titan_events(merged_event_map,titan_events,quotes)
     merged_events=list(merged_event_map.values())
+    # Identity resolution is complete at this point.  Freeze the reviewed
+    # registry labels into the event rows before the pricing/report pipeline
+    # copies them into display_event and the published HTML.
+    for event in merged_events:
+        apply_canonical_display_names(event)
     market_refresh_audit['post_history_refresh']={
         'attempted_at':stamp(now()),'titan_quotes_parsed':len(post_titan),
         'sevenm_quotes_parsed':len(post_sevenm),'errors':post_errors,
