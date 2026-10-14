@@ -711,3 +711,9 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 每轮运行必须先读取上一轮的 `stage_timings`，不能把超过 20 分钟的网络等待当作正常。历史库和源快照必须跨 GitHub Actions 运行复用：`reference_data/titan007_history` 使用带版本哈希的 Actions cache，缓存命中时只刷新过期或缺失的原始响应；team mapping 复用精确命中，team detail 24 小时 TTL，team schedule 10 小时 TTL，box score/period 直接复用数据库已验证记录。缓存只复用哈希校验通过的原始证据，不能改变历史首写或当前盘口 TTL。
 
 彼此独立的 ESPN、SofaScore、FIBA 赛程发现请求使用有界并发；盘口、实体匹配和历史定价仍按既定依赖顺序执行。每轮审计必须记录 `cache_reuse_by_stage`、网络请求数、缓存命中数及 `reference_database_update_seconds`、`market_identity_global_collection_seconds`、`collect_live_total_seconds`。目标是缓存后的常规日更控制在 20 分钟内；若连续两轮超过 30 分钟，自动按阶段报告并优先修复重复网络抓取，不能靠减少证据门槛或删除赛事来缩短时间。
+
+## v4.16 KBL补源与Edge门槛可审计化
+
+韩国KBL当前板不得因7M/Titan缺行直接写成无盘口。对`KOREA_KBL`目标赛事，先保留7M与Titan结果，再使用公开Cloudbet KBL SSR赛事页作为实验性补源；只接受页面同一轮返回的全场让分/总分主线、双边十进制赔率、当前挂牌状态、收到时间和原始HTML哈希。Cloudbet使用显式中英文/韩文注册别名和双方规范化身份+开赛时间±5分钟匹配，补源状态写入`deep_capture_audit.cloudbet_kbl_fallback`，连续三轮目标日验证后才能升级为`PRODUCTION_VERIFIED`。补源只能扩大盘口发现，不能用来绕过Evidence、盘口新鲜度或真实资金关闭。
+
+`Probability Edge`、`Line Edge`和`EV`必须分开显示。正式`手动实盘候选`的Edge Gate固定为：保守情景`adverse_ev >= 2.5%`且条件概率Edge`conditional_edge >= league_buffer`（CLUB_MATURE为2.5%，其它模型族沿用各自buffer）。普通EV为正但保守EV为负的记录只能显示为`LEAN/研究信号`，不得因为“明天比赛多”自动升级；每条比较结果必须输出`edge_gate`，分别列出两个子门槛、通过/未通过状态及值域。伤停、轮换、三分 profile、末节犯规、胶着/垃圾时间样本属于不确定性说明；只有`paper_evidence_blockers`、当前盘口有效性、规则冲突、严重来源冲突和正式Edge Gate才能阻塞正式候选。

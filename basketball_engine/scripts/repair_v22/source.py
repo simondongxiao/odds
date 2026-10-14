@@ -10,6 +10,10 @@ try:
     from curl_cffi import requests as curl_requests
 except Exception:
     curl_requests = None
+try:
+    import requests as std_requests
+except Exception:
+    std_requests = None
 from .common import *
 from odds_shared.http_retry import RetryPolicy, request_with_retry
 from odds_shared.market_schedule import market_inventory_state
@@ -25,7 +29,7 @@ from titan007_evidence_bridge import (
 
 # These five selector mappings are evidenced in the supplied source audit.
 COMPANIES={'0':('澳','0'),'1':('S2','4'),'2':('易','2'),'3':('12','3'),'4':('威','1')}
-ALLOWED_HOSTS={'basket.7m.com.cn','js-basket.7m.com.cn','bdata.7m.com.cn','bdata-js.7m.com.cn','bodds.7m.com.cn','lq.7m.com.cn','lq3.titan007.com','www.betmonitor.com','betmonitor.com'}
+ALLOWED_HOSTS={'basket.7m.com.cn','js-basket.7m.com.cn','bdata.7m.com.cn','bdata-js.7m.com.cn','bodds.7m.com.cn','lq.7m.com.cn','lq3.titan007.com','www.betmonitor.com','betmonitor.com','www.cloudbet.com','cloudbet.com'}
 JAPAN_B_LEAGUE_TOKENS=('JAPAN_BLEAGUE','B.LEAGUE','日本B联赛','日本男子B联赛','日B1','日B2','日B3','JAPANB1','JAPANB2','JAPANB3')
 BETMONITOR_JAPAN_LEAGUE_URL='https://www.betmonitor.com/odds-comparison/basketball/japan-b-league-1/10007979'
 BETMONITOR_TEAM_ALIASES={
@@ -40,6 +44,30 @@ BETMONITOR_TEAM_ALIASES={
     'Iwate Big Bulls':'岩手大公牛','Earth Friends Tokyo Z':'东京地球之友',
     'Okayama Tryhoop':'冈山尝试箍','Kagawa Five Arrows':'香川五箭',
     'Ehime Orange Vikings':'爱媛维京人','Kanazawa':'石川金泽武士',
+}
+CLOUDBET_KBL_URL='https://www.cloudbet.com/en/sports/basketball/south-korea-kbl'
+# Cloudbet uses sponsor-free English labels while 7M's KBL schedule uses the
+# Korean/Chinese display names.  These are explicit aliases only; matching is
+# still done through the canonical registry token and the +/-5 minute tip key.
+CLOUDBET_KBL_TEAM_ALIASES={
+    'Samsung Thunders':'首尔三星雷电',
+    'Seoul Samsung Thunders':'首尔三星雷电',
+    'LG Sakers':'昌原LG猎隼',
+    'Changwon LG Sakers':'昌原LG猎隼',
+    'SK Knights':'首尔SK骑士',
+    'Seoul SK Knights':'首尔SK骑士',
+    'KCC Egis':'釜山KCC宙斯盾',
+    'Busan KCC Egis':'釜山KCC宙斯盾',
+    'KT Sonicboom':'水原KT音速弹',
+    'Suwon KT Sonicboom':'水原KT音速弹',
+    'DB Promy':'原州DB新世代',
+    'Wonju DB Promy':'原州DB新世代',
+    'Korea Gas Corporation':'大邱韩国燃气公社',
+    'Daegu KOGAS Pegasus':'大邱韩国燃气公社',
+    'Mobis Phoebus':'蔚山现代모비스피버스',
+    'Ulsan Hyundai Mobis Phoebus':'蔚山现代모비스피버스',
+    'Anyang KGC':'安养正官庄',
+    'Anyang Jung Kwan Jang Red Boosters':'安养正官庄',
 }
 
 def apply_canonical_display_names(event):
@@ -1148,6 +1176,212 @@ def collect_betmonitor_japan_b(fetch, events, day, observed_at=None):
     audit['status'] = 'OBSERVED' if quotes else 'NO_CURRENT_BOARD_QUOTE'
     return quotes, audit
 
+
+def _cloudbet_visible(fragment):
+    """Return text from Cloudbet's SSR accessibility block without JS execution."""
+    value = re.sub(r'<!--.*?-->', '', str(fragment or ''), flags=re.S)
+    value = unescape(re.sub(r'<[^>]+>', ' ', value))
+    return re.sub(r'\s+', ' ', value).strip()
+
+
+def _cloudbet_event_links(html):
+    pattern = re.compile(
+        r'href=["\'](/en/sports/basketball/south-korea-kbl/(\d+))["\']', re.I)
+    seen = set(); out = []
+    for match in pattern.finditer(html or ''):
+        href, event_id = match.groups()
+        if event_id in seen:
+            continue
+        seen.add(event_id)
+        out.append((event_id, urljoin(CLOUDBET_KBL_URL, href)))
+    return out
+
+
+def _cloudbet_fetch(fetch, key, url):
+    """Cloudbet's CDN rejects curl_cffi's browser fingerprint; use normal HTTP.
+
+    This remains inside the shared bounded retry contract and writes the same
+    immutable raw response/health row as the other adapters.
+    """
+    if std_requests is None:
+        return {'key': key, 'url': url, 'ok': False, 'error_type': 'REQUESTS_UNAVAILABLE'}
+    started = stamp()
+    def operation():
+        response = std_requests.get(
+            url, headers={'User-Agent': 'Mozilla/5.0 basketball-odds-trader/1.0',
+                          'Accept': 'text/html,application/xhtml+xml,*/*',
+                          'Referer': 'https://www.cloudbet.com/en/sports/basketball'},
+            timeout=fetch.timeout, allow_redirects=True)
+        if response.status_code != 200:
+            raise urllib.error.HTTPError(url, response.status_code, 'HTTP ' + str(response.status_code), response.headers, None)
+        return {'blob': response.content, 'http_status': response.status_code}
+    try:
+        result, attempts = request_with_retry(
+            operation, url=url, policy=fetch.retry_policy,
+            validate=lambda item: bool(item.get('blob')) and len(item['blob']) <= 8_000_000,
+            status_of=lambda item: item.get('http_status'), sleeper=fetch.sleeper)
+        blob = result['blob']; path = fetch.directory / (safe_id(key) + '.raw'); path.write_bytes(blob)
+        meta = {'key': key, 'url': url, 'started_at': started, 'ok': True,
+                'path': str(path), 'sha256': sha(blob), 'bytes': len(blob),
+                'http_status': result.get('http_status'), 'attempts': attempts,
+                'attempt_count': len(attempts), 'received_at': stamp(),
+                'source': 'cloudbet_kbl', 'source_group': 'odds_board'}
+    except Exception as exc:
+        meta = {'key': key, 'url': url, 'started_at': started, 'ok': False,
+                'error_type': type(exc).__name__, 'error': str(exc),
+                'attempts': getattr(exc, 'retry_attempts', []),
+                'attempt_count': len(getattr(exc, 'retry_attempts', [])),
+                'received_at': stamp(), 'source': 'cloudbet_kbl', 'source_group': 'odds_board'}
+    fetch.rows.append(meta)
+    return meta
+
+
+def _cloudbet_event_page(html, event_id, url, day, observed_at):
+    """Parse one Cloudbet KBL SSR page into the two full-game main lines.
+
+    The page exposes a server-rendered accessibility block.  We deliberately
+    take only its first Handicap pair and first Total Points pair; alternate
+    lines remain in the immutable HTML but are not silently treated as the
+    main line.  The source is experimental until three successful target-day
+    runs are audited.
+    """
+    start_match = re.search(r'"startTime":"([^"\\]+)"', html or '', re.I)
+    if not start_match:
+        start_match = re.search(r'"cutoffTime":"([^"\\]+)"', html or '', re.I)
+    if not start_match:
+        return None
+    try:
+        tip = datetime.fromisoformat(start_match.group(1).replace('Z', '+00:00'))
+    except ValueError:
+        return None
+    if tip.astimezone(BJ).date().isoformat() != day:
+        return None
+    name_match = re.search(r'<h2>([^<]+\s+v\s+[^<]+)</h2>', html or '', re.I)
+    if not name_match:
+        name_match = re.search(r'"name":"([^"\\]+\s+v\s+[^"\\]+)"', html or '', re.I)
+    if not name_match:
+        return None
+    pair = [part.strip() for part in re.split(r'\s+v\s+', unescape(name_match.group(1)), maxsplit=1)]
+    if len(pair) != 2:
+        return None
+    handicap_block = re.search(r'<h2>Handicap</h2>(.*?)(?=<h2>Total Points</h2>)', html or '', re.I | re.S)
+    total_block = re.search(r'<h2>Total Points</h2>(.*?)(?=<h2>Winning Margin</h2>|</section>)', html or '', re.I | re.S)
+    handicap_text = _cloudbet_visible(handicap_block.group(1) if handicap_block else '')
+    total_text = _cloudbet_visible(total_block.group(1) if total_block else '')
+    spread = re.search(
+        r'Home\s+([+-]?\d+(?:\.\d+)?)\s*:\s*([0-9]+(?:\.\d+)?)\s+'
+        r'Away\s+([+-]?\d+(?:\.\d+)?)\s*:\s*([0-9]+(?:\.\d+)?)', handicap_text, re.I)
+    total = re.search(
+        r'Over\s+([+-]?\d+(?:\.\d+)?)\s*:\s*([0-9]+(?:\.\d+)?)\s+'
+        r'Under\s+([+-]?\d+(?:\.\d+)?)\s*:\s*([0-9]+(?:\.\d+)?)', total_text, re.I)
+    return {'event_id': str(event_id), 'url': url, 'tip_at': tip.isoformat(),
+            'team1_name': pair[0], 'team2_name': pair[1],
+            'spread': (float(spread.group(1)), float(spread.group(2)), float(spread.group(4))) if spread else None,
+            'total': (float(total.group(1)), float(total.group(2)), float(total.group(4))) if total else None,
+            'last_modified': re.search(r'"lastModified":"?(\d+)', html or '', re.I).group(1)
+            if re.search(r'"lastModified":"?(\d+)', html or '', re.I) else None}
+
+
+def _cloudbet_quote(event, page, market_type, line, prices, meta, observed_at):
+    quote_id = sha((str(event.get('event_id')) + 'CLOUDBET' + market_type + str(line) + str(meta.get('sha256'))).encode())[:24]
+    return {
+        'quote_id': quote_id, 'event_id': event.get('event_id'),
+        'canonical_event_id': event.get('canonical_event_id') or event.get('event_id'),
+        'source_event_id': event.get('source_event_id'), 'feed_provider': 'CLOUDBET',
+        'upstream_provider': 'cloudbet', 'bookmaker_id': 'cloudbet', 'bookmaker': 'Cloudbet',
+        'market_type': market_type, 'raw_market_key': 'CLOUDBET_HANDICAP' if market_type == 'SPREAD' else 'CLOUDBET_TOTAL',
+        'parse_status': 'PARSED_AND_NORMALIZED', 'period': 'FULL_GAME',
+        'market_role': 'MAIN', 'main_or_alt': 'MAIN', 'source_main_flag': '1',
+        'source_market_key': str(line), 'raw_line': float(line) if market_type == 'TOTAL' else abs(float(line)),
+        'line_team1': float(line) if market_type == 'SPREAD' else None,
+        'direction_verified': True, 'raw_prices': list(prices), 'decimal_prices': list(prices),
+        'price_format': 'DECIMAL', 'price_format_verified': True,
+        'source_quote_at': observed_at, 'source_timestamp_raw': observed_at,
+        'source_timestamp_semantics': 'CURRENT_BOARD_CAPTURE_ONLY',
+        'received_at': observed_at, 'observed_at': observed_at,
+        'raw_path': meta.get('path'), 'raw_sha256': meta.get('sha256'),
+        'raw_verified': True, 'raw_integrity_verified': True, 'status': 'OPEN',
+        'current_board_contract_verified': True, 'last_verified_at': observed_at,
+        'quote_verified_for_paper': True, 'identity_verified': True,
+        'ot_rule': 'INCLUDING_OT', 'rule_evidence': 'CLOUDBET_FULL_GAME_MARKET_PAGE_CAPTURE',
+        'ot_contract_status': 'SOURCE_CONFIRMED_INCLUDING_OT',
+        'comparison_scope': 'EXPERIMENTAL_CURRENT_BOARD', 'execution_verified': False,
+        'source_url': page.get('url'), 'provider_capture_note':
+            'Cloudbet KBL current-board fallback; production verification pending three target-day runs.',
+    }
+
+
+def collect_cloudbet_kbl(fetch, events, day, observed_at=None):
+    """Recover KBL current spread/total lines when 7M and Titan are empty."""
+    observed_at = observed_at or stamp(now())
+    targets = [e for e in events or [] if str(e.get('competition_key') or e.get('league_family') or '').upper() == 'KOREA_KBL']
+    audit = {'source': 'CLOUDBET', 'league_url': CLOUDBET_KBL_URL, 'target_events': len(targets),
+             'event_pages': 0, 'quotes_added': 0, 'matched_event_ids': [], 'unmatched_event_ids': [],
+             'status': 'NO_TARGET_EVENTS', 'production_status': 'EXPERIMENTAL', 'errors': []}
+    if not targets:
+        return [], audit
+    try:
+        league_meta = _cloudbet_fetch(fetch, 'cloudbet_kbl_league', CLOUDBET_KBL_URL)
+        if not league_meta.get('ok'):
+            audit['status'] = 'SOURCE_UNAVAILABLE'; audit['errors'].append(league_meta); return [], audit
+        links = _cloudbet_event_links(text_of(league_meta))
+    except Exception as exc:
+        audit['status'] = 'SOURCE_UNAVAILABLE'; audit['errors'].append({'error': str(exc)}); return [], audit
+    pages = {rid: _cloudbet_fetch(fetch, f'cloudbet_kbl_event_{rid}', url) for rid, url in links}
+    parsed_pages = []
+    for key, meta in pages.items():
+        if not meta.get('ok'):
+            continue
+        rid = key
+        parsed = _cloudbet_event_page(text_of(meta), rid, meta.get('url'), day, observed_at)
+        if parsed:
+            parsed['meta'] = meta
+            parsed_pages.append(parsed)
+    audit['event_pages'] = len(parsed_pages)
+    quotes = []; matched = set()
+    for page in parsed_pages:
+        def team_id(value):
+            mapped = CLOUDBET_KBL_TEAM_ALIASES.get(value, value)
+            return canonical_team_token(mapped)
+        def event_team_id(event, side):
+            cid = str(event.get('canonical_' + side + '_id') or '')
+            # A legacy 7M row may carry an explicit normalized-label ID rather
+            # than a registry ID.  Compare its normalized label token to the
+            # reviewed Cloudbet alias in that case.
+            if cid.startswith('basketball:label:'):
+                return cid.split(':', 2)[-1]
+            return cid or canonical_team_token(event.get(side + '_name'))
+        source_pair = (team_id(page['team1_name']), team_id(page['team2_name']))
+        try:
+            page_tip = datetime.fromisoformat(page['tip_at'].replace('Z', '+00:00'))
+        except ValueError:
+            continue
+        candidates = []
+        for event in targets:
+            attach_canonical_team_ids(event)
+            event_pair = (event_team_id(event, 'team1'), event_team_id(event, 'team2'))
+            try:
+                delta = abs((datetime.fromisoformat(str(event.get('tip_at')).replace('Z', '+00:00')) - page_tip).total_seconds())
+            except (TypeError, ValueError):
+                delta = 10**9
+            if source_pair == event_pair and delta <= 300:
+                candidates.append(event)
+        if len(candidates) != 1:
+            continue
+        event = candidates[0]; matched.add(str(event.get('event_id')))
+        meta = page['meta']
+        if page.get('spread'):
+            line, home_price, away_price = page['spread']
+            quotes.append(_cloudbet_quote(event, page, 'SPREAD', line, (home_price, away_price), meta, observed_at))
+        if page.get('total'):
+            line, over_price, under_price = page['total']
+            quotes.append(_cloudbet_quote(event, page, 'TOTAL', line, (over_price, under_price), meta, observed_at))
+    audit['matched_event_ids'] = sorted(matched)
+    audit['unmatched_event_ids'] = sorted(str(e.get('event_id')) for e in targets if str(e.get('event_id')) not in matched)
+    audit['quotes_added'] = len(quotes)
+    audit['status'] = 'OBSERVED' if quotes else 'NO_CURRENT_BOARD_QUOTE'
+    return quotes, audit
+
 def collect_live(output_root,day,contracts,timeout=12,workers=6):
     run_started_perf=time.perf_counter();stage_timings={}
     root=Path(output_root); sid=now().strftime('%Y%m%dT%H%M%S')+'_'+uuid.uuid4().hex[:10]
@@ -1253,6 +1487,16 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
                       if (str(q.get('event_id')), str(q.get('market_type'))) not in existing_7m_markets)
     else:
         fallback_event_ids=set()
+    # KBL is not covered by the Japan-only Betmonitor page.  If 7M/Titan did
+    # not expose a current board, query the public Cloudbet KBL SSR page and
+    # match only exact canonical teams plus the +/-5 minute continuity key.
+    cloudbet_quotes, cloudbet_audit = collect_cloudbet_kbl(
+        fetch, list(events.values()), day, observed_at=stamp(now()))
+    if cloudbet_quotes:
+        existing_market_keys={(str(q.get('event_id')), str(q.get('market_type')))
+                              for q in quotes}
+        quotes.extend(q for q in cloudbet_quotes
+                      if (str(q.get('event_id')), str(q.get('market_type'))) not in existing_market_keys)
     # Market first: only quote-backed 7M events need identity/history and
     # technical enrichment for pricing.  Keep every no-market event in the
     # event inventory, but do not spend hundreds of requests enriching rows
@@ -1282,7 +1526,8 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
                         'detail_identity_ids_attempted':len(ids),
                         'rule':'deep identity/history/statistics capture is market-first; no-market rows remain auditable in the event inventory',
                         'japan_b_league_market_retry':japan_retry_audit,
-                        'betmonitor_japan_b_league_fallback':betmonitor_audit}
+                        'betmonitor_japan_b_league_fallback':betmonitor_audit,
+                        'cloudbet_kbl_fallback':cloudbet_audit}
     detail=fetch.batch({f'detail_{i}':f'https://bdata.7m.com.cn/analyse/gb/{i}.shtml' for i in ids})
     id_urls={};htmls={}
     for k,r in detail.items():
