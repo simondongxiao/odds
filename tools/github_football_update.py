@@ -309,17 +309,25 @@ def merge(new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]], list_d
 
 def dedupe_fixture_rows(rows: list[dict[str, Any]], list_date: str) -> list[dict[str, Any]]:
     """Collapse cross-provider duplicates for the same Beijing business slate."""
+    def canonical_team(value: Any) -> str:
+        # Providers use slightly different suffixes for the same club.
+        # Normalize these before forming the cross-provider identity key.
+        text = str(value or "").casefold()
+        text = re.sub(r"\bred\s+diamonds\b", "reds", text)
+        text = re.sub(r"\bfootball\s+club\b", "fc", text)
+        text = re.sub(r"\bfc\b", "", text)
+        return re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", text)
+
     def key(item: dict[str, Any]) -> tuple[str, str, str]:
-        norm = lambda v: re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", str(v or "").casefold())
-        return str(item.get("list_date", "")), norm(item.get("home_team_en") or item.get("home_team")), norm(item.get("away_team_en") or item.get("away_team"))
+        return str(item.get("list_date", "")), canonical_team(item.get("home_team_en") or item.get("home_team")), canonical_team(item.get("away_team_en") or item.get("away_team"))
 
     def score(item: dict[str, Any]) -> tuple[int, int, int, int]:
         m = item.get("market") or {}
         source = str(item.get("match_id", ""))
         return (
-            1 if not source.startswith("BE_") else 0,
             1 if m.get("current_complete") else 0,
             1 if m.get("euro_complete") else 0,
+            1 if not source.startswith("BE_") else 0,
             1 if item.get("kickoff") else 0,
         )
 
