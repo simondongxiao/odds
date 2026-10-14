@@ -21,6 +21,12 @@ JSON, so mobile clients do not download the historical ledger on every visit.
 V3 and V4 are separate views; V4 is the stricter cloud shadow view and neither
 view may force a bet when current AH or Euro evidence is missing.
 
+An opening AH line is optional. A pending senior match may be evaluated when
+the current Asian line and both current waters plus the current 1X2 prices are
+present. Recompute every unstarted row on each refresh so a transient blank
+quote can recover later; preserve the last non-empty market fields when the
+new snapshot omits them. Only rows already started/settled are decision-locked.
+
 Before replacing the ledger, compare the incoming same-date count with the
 previous count. A drop below 65% is a `ROW_COUNT_SHRINK_WARNING`; retain the
 union of existing and incoming rows and expose the warning in `last_run.json`
