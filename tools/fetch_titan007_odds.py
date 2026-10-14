@@ -851,6 +851,30 @@ def load_betexplorer_schedule(stamp: str, out_dir: Path, target_date: str) -> li
         landing_text = decode_text(raw)
     by_event = {event["betexplorer_id"]: event for event in parse_betexplorer_next_schedule(next_text, target_date)}
     by_event.update({event["betexplorer_id"]: event for event in parse_betexplorer_schedule(landing_text, target_date)})
+
+    # ``/football/next/`` is intentionally a short rolling list.  It often
+    # stops before the afternoon/evening part of the requested Beijing slate,
+    # which made valid BetExplorer Asian odds look unavailable.  The daily
+    # calendar contains a much broader table.  Fetch both dates because one
+    # business slate is 12:00 through next-day 11:59 Beijing; the parser still
+    # applies the provider UTC -> Beijing conversion and keeps only the exact
+    # requested local date.  A failed optional calendar request must never
+    # discard the already parsed rolling schedule.
+    try:
+        target = dt.date.fromisoformat(target_date)
+        for day in (target, target + dt.timedelta(days=1)):
+            suffix = f"betexplorer_football_calendar_{day.isoformat()}.html"
+            saved = _maybe_saved(out_dir, stamp, suffix)
+            if saved:
+                calendar_text = saved.read_text(encoding="utf-8", errors="replace")
+            else:
+                url = f"https://www.betexplorer.com/football/?date={day.isoformat()}"
+                _path, raw = fetch_url(url, stamp, out_dir, suffix, referer=BETEXPLORER_HOME)
+                calendar_text = decode_text(raw)
+            by_event.update({event["betexplorer_id"]: event for event in parse_betexplorer_schedule(calendar_text, target_date)})
+        print(f"betexplorer_calendar_schedule={len(by_event)}", file=sys.stderr)
+    except Exception as exc:
+        print(f"betexplorer_calendar_optional_failed={exc}", file=sys.stderr)
     return list(by_event.values())
 
 
@@ -1006,12 +1030,16 @@ def match_betexplorer_to_titan(
         # When Titan has only Chinese labels, the team score is unavailable.
         # Use an exact Beijing kickoff match as a conservative secondary key;
         # ties remain ambiguous and are deliberately not joined.
-        if not scored:
-            source_time = time_key(source.get("bj_time") or source.get("match_time_en"))
-            if source_time:
-                timed = [event for event in schedule if source_time == time_key(event.get("bj_time") or event.get("betexplorer_dt"))]
-                if len(timed) == 1:
-                    scored = [(0.78, timed[0])]
+        # A weak name score is common when Titan exposes only mojibake Chinese
+        # labels.  In that case an exact Beijing kickoff is still a safe join
+        # when it identifies one BetExplorer event.  The old code only tried
+        # this path when ``scored`` was empty, so a single weak candidate could
+        # suppress the deterministic time key and silently lose the market.
+        source_time = time_key(source.get("bj_time") or source.get("match_time_en") or source.get("kickoff"))
+        if source_time and (not scored or max(item[0] for item in scored) < 0.78):
+            timed = [event for event in schedule if source_time == time_key(event.get("bj_time") or event.get("betexplorer_dt"))]
+            if len(timed) == 1:
+                scored = [(0.80, timed[0])]
         scored.sort(key=lambda item: item[0], reverse=True)
         if not scored or scored[0][0] < 0.78:
             continue
