@@ -384,6 +384,9 @@ def rich_v4_row(item: dict[str, Any]) -> dict[str, Any]:
     m = dict(item.get("market") or {})
     line = f(m.get("line"))
     giving_home = bool(line is not None and m.get("giving_team") == item.get("home_team"))
+    # `signed` is the home-team perspective.  The selected handicap shown in
+    # the card must instead use the selected side's perspective: a giving
+    # side is always shown with a negative line and a receiving side positive.
     signed = -abs(line) if giving_home else abs(line) if line is not None else None
     m.update({
         "competition": item.get("competition", ""),
@@ -397,7 +400,7 @@ def rich_v4_row(item: dict[str, Any]) -> dict[str, Any]:
     selected_side = q.get("selected_side", "") if not started else ""
     selected_handicap = None
     if selected_side:
-        selected_handicap = signed if selected_side == "giving" else (-signed if signed is not None else None)
+        selected_handicap = (-abs(line) if selected_side == "giving" else abs(line)) if line is not None else None
     return {
         **item,
         "model_id": "V4",
@@ -413,6 +416,7 @@ def rich_v4_row(item: dict[str, Any]) -> dict[str, Any]:
         "selected_side": selected_side,
         "selected_team": q.get("selected_team", "") if not started else "",
         "selected_handicap_signed": selected_handicap,
+        "selected_handicap_team": q.get("selected_team", "") if not started else "",
         "selected_water_hk": q.get("selected_water") if not started else None,
         "candidate_side": selected_side,
         "candidate_team": q.get("selected_team", "") if not started else "",

@@ -43,7 +43,10 @@ clear AH/Euro conflict must be retained as an audit warning.
 Every rendered row must expose `handicap_giving_team`,
 `handicap_receiving_team`, and a signed home-line field. The visible text must
 say which team is the 让球方, so a positive/negative number cannot be
-misread as the opposite side. Team and competition labels must be Chinese;
+misread as the opposite side. If a card displays a selected team, its displayed
+line must be from that selected team's perspective: giving is negative and
+receiving is positive; never reuse the home-team signed line for an away pick.
+Team and competition labels must be Chinese;
 when a BetExplorer-only English label appears, add its mapping to
 `team_aliases.json` before publishing.
 
