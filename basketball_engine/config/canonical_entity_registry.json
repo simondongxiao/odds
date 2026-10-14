@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-11T00:00:00+08:00",
+  "updated_at": "2026-10-14T12:00:00+08:00",
   "contract": "Exact aliases and source IDs only; no fuzzy merge",
   "sports": {
     "basketball": {
@@ -45,7 +45,29 @@
         {"canonical_team_id":"wnba:dallaswings","name":"达拉斯飞翼","aliases":["Dallas Wings"]},
         {"canonical_team_id":"wnba:atlantadream","name":"亚特兰大梦想","aliases":["Atlanta Dream"]},
         {"canonical_team_id":"national:chinese-taipei","name":"中国台北","aliases":["Chinese Taipei","中国台湾"]},
-        {"canonical_team_id":"national:chinese-taipei-women","name":"中国台北女篮","aliases":["Chinese Taipei Women","中国台湾女篮"]}
+        {"canonical_team_id":"national:chinese-taipei-women","name":"中国台北女篮","aliases":["Chinese Taipei Women","中国台湾女篮"]},
+        {"canonical_team_id":"japan_b:ehime","name":"爱媛维京人","aliases":["Ehime Orange Vikings","Ehime","爱媛橙维京人"]},
+        {"canonical_team_id":"japan_b:kanazawa","name":"石川金泽武士","aliases":["Kanazawa Samuraiz","Kanazawa","石川金泽"]},
+        {"canonical_team_id":"japan_b:fukui","name":"福井吹风","aliases":["Fukui Blowinds","福井风神"]},
+        {"canonical_team_id":"japan_b:yamagata","name":"山形飞龙","aliases":["Yamagata Wyverns"]},
+        {"canonical_team_id":"japan_b:fukuoka","name":"福冈雷风神","aliases":["Fukuoka Rizing Zephyr","Rizing Zephyr Fukuoka","Fukuoka"]},
+        {"canonical_team_id":"japan_b:yokohama_excellence","name":"横滨卓越","aliases":["Tokyo Excellence","Yokohama Excellence","橫濱卓越"]},
+        {"canonical_team_id":"japan_b:gifu","name":"岐阜猛扑","aliases":["Gifu Swoops"]},
+        {"canonical_team_id":"japan_b:saitama","name":"琦玉野马","aliases":["Saitama Broncos","Saitama"]},
+        {"canonical_team_id":"japan_b:koshigaya","name":"越谷阿尔法","aliases":["Otsuka Alphas","Koshigaya Alphas"]},
+        {"canonical_team_id":"japan_b:nagoya_fighting_eagles","name":"名古屋战鹰","aliases":["Fighting Eagles Nagoya","Nagoya"]},
+        {"canonical_team_id":"japan_b:kagoshima","name":"鹿儿岛列布尼斯","aliases":["Kagoshima Rebnise"]},
+        {"canonical_team_id":"japan_b:aomori","name":"青森热力","aliases":["Aomori Wats","Aomori Wat's"]},
+        {"canonical_team_id":"japan_b:nara","name":"奈良雄心","aliases":["Bambitious Nara"]},
+        {"canonical_team_id":"japan_b:niigata","name":"新泻天鹅","aliases":["Niigata Albirex","Niigata Albirex BB"]},
+        {"canonical_team_id":"japan_b:shizuoka","name":"静冈顶峰","aliases":["Veltex Shizuoka"]},
+        {"canonical_team_id":"japan_b:tokushima","name":"德岛甘巴鲁斯","aliases":["Tokushima Gambarous"]},
+        {"canonical_team_id":"japan_b:tokyo_hachioji","name":"东京八王子彩虹","aliases":["Tokyo Hachioji Trains","Tokyo Hachioji Bee Trains"]},
+        {"canonical_team_id":"japan_b:kumamoto","name":"熊本火山","aliases":["Kumamoto Volters"]},
+        {"canonical_team_id":"japan_b:iwate","name":"岩手大公牛","aliases":["Iwate Big Bulls"]},
+        {"canonical_team_id":"japan_b:tokyo_earthfriends","name":"东京地球之友","aliases":["Earth Friends Tokyo Z","Earthfriends Tokyo Z"]},
+        {"canonical_team_id":"japan_b:okayama","name":"冈山尝试箍","aliases":["Okayama Tryhoop","Tryhoop Okayama"]},
+        {"canonical_team_id":"japan_b:kagawa","name":"香川五箭","aliases":["Kagawa Five Arrows"]}
       ]
     },
     "football": {"teams": []}

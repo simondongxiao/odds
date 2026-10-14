@@ -689,4 +689,6 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 
 7M 当前盘口板以 `comlive_0/1/2/3/4.js` 为唯一当前板入口。HTTP 返回非空不等于目标赛事已经挂牌；当已识别的日本 B.League 赛事没有任何当前板报价时，按 2 秒、4 秒做最多两轮目标赛事重试，并在 `deep_capture_audit.japan_b_league_market_retry` 中记录候选、每轮 URL/解析数、命中赛事和未解决赛事。历史赔率页不得作为当前盘口回退，未命中仍写 `NO_MARKET` 并保留 `inventory_retained`。
 
+当 7M 当前板在目标日明确返回空目标行时，允许使用 Betmonitor 日本 B.League 当前赔率比较页作为受控补源。补源只读取 `japan-b-league-1/10007979` 的当日赛事页及其 `content/get_odds.php` 当前盘口响应，按注册表英文/中文别名、主客顺序和开赛时间 ±5 分钟匹配；让分与大小分必须分别抓取主线，不能把独立盘口的空缺当成整场空缺。每个补源报价必须保存原始 HTML、哈希、请求 URL、收到时间、当前挂牌确认、公司名、主线、十进制双边赔率和 `BETMONITOR` feed_provider，并进入同一 `quote_state`/Evidence Gate；不读取 Betmonitor 历史赛果或历史赔率，不覆盖已有 7M 同市场报价。补源失败、名称无法唯一匹配或盘口响应只有空壳时仍写 `NO_MARKET`，并在 `deep_capture_audit.betmonitor_japan_b_league_fallback` 留下原因。
+
 同一场日本 B.League 的当前盘口只能按 `canonical_event_id` 与 7M 赛事 ID 关联，方向仍须经过主客顺序和 `hadFlag`/公司合同核验。重跑 10/11 及更早日期时，已写入的盘口、首写方向、结算和 PnL 视为不可变历史，不得因当前板过期或日期滚动被清空。

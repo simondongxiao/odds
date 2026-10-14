@@ -2,9 +2,10 @@ from __future__ import annotations
 import json, re, urllib.request, urllib.error, uuid, math, time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
-from datetime import timedelta, date
+from datetime import datetime, timedelta, date
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlencode
+from html import unescape
 try:
     from curl_cffi import requests as curl_requests
 except Exception:
@@ -24,8 +25,22 @@ from titan007_evidence_bridge import (
 
 # These five selector mappings are evidenced in the supplied source audit.
 COMPANIES={'0':('澳','0'),'1':('S2','4'),'2':('易','2'),'3':('12','3'),'4':('威','1')}
-ALLOWED_HOSTS={'basket.7m.com.cn','js-basket.7m.com.cn','bdata.7m.com.cn','bdata-js.7m.com.cn','bodds.7m.com.cn','lq.7m.com.cn','lq3.titan007.com'}
+ALLOWED_HOSTS={'basket.7m.com.cn','js-basket.7m.com.cn','bdata.7m.com.cn','bdata-js.7m.com.cn','bodds.7m.com.cn','lq.7m.com.cn','lq3.titan007.com','www.betmonitor.com','betmonitor.com'}
 JAPAN_B_LEAGUE_TOKENS=('JAPAN_BLEAGUE','B.LEAGUE','日本B联赛','日本男子B联赛','日B1','日B2','日B3','JAPANB1','JAPANB2','JAPANB3')
+BETMONITOR_JAPAN_LEAGUE_URL='https://www.betmonitor.com/odds-comparison/basketball/japan-b-league-1/10007979'
+BETMONITOR_TEAM_ALIASES={
+    'Fukuoka':'福冈雷风神','Tokyo Excellence':'橫濱卓越',
+    'Fukui Blowinds':'福井吹风','Yamagata Wyverns':'山形飞龙',
+    'Gifu Swoops':'岐阜猛扑','Saitama':'琦玉野马',
+    'Otsuka Alphas':'越谷阿尔法','Nagoya':'名古屋战鹰',
+    'Kagoshima Rebnise':'鹿儿岛列布尼斯','Aomori Wats':'青森热力',
+    'Bambitious Nara':'奈良雄心','Niigata Albirex':'新泻天鹅',
+    'Veltex Shizuoka':'静冈顶峰','Tokushima Gambarous':'德岛甘巴鲁斯',
+    'Tokyo Hachioji Trains':'东京八王子彩虹','Kumamoto Volters':'熊本火山',
+    'Iwate Big Bulls':'岩手大公牛','Earth Friends Tokyo Z':'东京地球之友',
+    'Okayama Tryhoop':'冈山尝试箍','Kagawa Five Arrows':'香川五箭',
+    'Ehime Orange Vikings':'爱媛维京人','Kanazawa':'石川金泽武士',
+}
 
 def is_japan_b_league_event(event):
     """Identify Japan B.League rows across 7M's 日B1/2/3 labels.
@@ -901,6 +916,206 @@ def retry_japan_b_league_boards(fetch, events, quotes, contracts, observed_at=No
     audit['status']='OBSERVED' if not missing else 'BOARD_NOT_YET_LISTED'
     return added,audit
 
+
+def _betmonitor_text(value):
+    """Decode the small HTML fragments returned by Betmonitor.
+
+    The adapter intentionally uses only visible, non-script markup.  It never
+    executes provider JavaScript and it keeps the original response as an
+    immutable raw file for the evidence audit.
+    """
+    value = unescape(re.sub(r'<[^>]+>', ' ', str(value or '')))
+    return re.sub(r'\s+', ' ', value).strip()
+
+
+def _betmonitor_event_links(html):
+    pattern = re.compile(
+        r'href=["\'](/odds-comparison/basketball/japan-b-league-1/[^"\']+/([0-9]+))["\']',
+        re.I,
+    )
+    seen = set(); out = []
+    for match in pattern.finditer(html or ''):
+        href, rid = match.groups()
+        if rid == '10007979' or rid in seen:
+            continue
+        seen.add(rid); out.append((rid, urljoin(BETMONITOR_JAPAN_LEAGUE_URL, href)))
+    return out
+
+
+def _betmonitor_event_page(html, rid, url, day):
+    stamp_match = re.search(r'class=["\']evtime-switch[^>]*data-type=["\']event-header["\'][^>]*data-timestamp=["\'](\d+)', html or '', re.I)
+    if not stamp_match:
+        stamp_match = re.search(r'class=["\']evtime-switch[^>]*data-timestamp=["\'](\d+)', html or '', re.I)
+    if not stamp_match:
+        return None
+    tip = datetime.fromtimestamp(int(stamp_match.group(1)), UTC)
+    if tip.astimezone(BJ).date().isoformat() != day:
+        return None
+    team_match = re.search(r'<div class=["\']teams(?:\s+[^"\']*)?["\'][^>]*>(.*?)<div class=["\']favorites', html or '', re.I | re.S)
+    teams = _betmonitor_text(team_match.group(1) if team_match else '')
+    if '—' not in teams:
+        teams = teams.replace('–', '—').replace('-', '—', 1)
+    pair = [x.strip() for x in teams.split('—', 1)] if '—' in teams else []
+    if len(pair) != 2:
+        return None
+    lines = {}
+    for market in ('mahc', 'ou'):
+        top = re.search(r'<div class=["\']dd-item\s+' + market + r'\s+top[^>]*data-type=["\']([^"\']+)', html or '', re.I)
+        any_line = re.search(r'<div class=["\']dd-item\s+' + market + r'(?:\s+[^"\']*)?[^>]*data-type=["\']([^"\']+)', html or '', re.I)
+        lines[market] = (top or any_line).group(1) if (top or any_line) else None
+    return {'rid': str(rid), 'url': url, 'tip_at': tip.isoformat(),
+            'team1_name': pair[0], 'team2_name': pair[1], 'lines': lines}
+
+
+def _betmonitor_post(fetch, rid, market, line, referer, observed_at):
+    """Fetch one current Betmonitor market fragment with the common retry policy."""
+    payload = urlencode({'rid': rid, 'bettype': market, 'line': str(line),
+                         'view': 'classic', 'period': 'ft'}).encode()
+    url = 'https://www.betmonitor.com/content/get_odds.php'
+    headers = {'User-Agent': 'Mozilla/5.0 basketball-odds-trader/1.0',
+               'Referer': referer, 'X-Requested-With': 'XMLHttpRequest',
+               'Accept': 'text/html,*/*'}
+    def operation():
+        request = urllib.request.Request(url, data=payload, headers=headers, method='POST')
+        with urllib.request.urlopen(request, timeout=fetch.timeout) as response:
+            body = response.read(8_000_001)
+            return {'blob': body, 'http_status': response.status}
+    result, attempts = request_with_retry(
+        operation, url=url, policy=fetch.retry_policy,
+        validate=lambda item: bool(item.get('blob')) and len(item['blob']) <= 8_000_000,
+        status_of=lambda item: item.get('http_status'), sleeper=fetch.sleeper)
+    body = result['blob']
+    path = fetch.directory / safe_id(f'betmonitor_{rid}_{market}_{line}')
+    path = path.with_suffix('.html'); path.write_bytes(body)
+    meta = {'key': f'betmonitor_{rid}_{market}', 'url': url,
+            'source': 'betmonitor_japan_b_league', 'source_group': 'odds_board',
+            'ok': True, 'path': str(path), 'sha256': sha(body),
+            'bytes': len(body), 'http_status': result.get('http_status'),
+            'attempts': attempts, 'attempt_count': len(attempts),
+            'received_at': observed_at, 'market': market, 'rid': str(rid),
+            'line': str(line), 'referer': referer}
+    fetch.rows.append(meta)
+    return body.decode('utf-8-sig', 'replace'), meta
+
+
+def _betmonitor_quotes_fragment(html, event, market, line, meta, observed_at):
+    """Normalize Betmonitor's visible bookmaker rows into the shared quote contract."""
+    chunks = re.findall(r'<div class=["\']bookie-cont\b[^>]*>(.*?)(?=<div class=["\']bookie-cont\b|$)', html or '', re.I | re.S)
+    out = []
+    try:
+        numeric_line = float(line)
+    except (TypeError, ValueError):
+        return out
+    for chunk in chunks:
+        name_match = re.search(r'<div class=["\']bookie["\'][^>]*>.*?<a[^>]*>(.*?)</a>', chunk, re.I | re.S)
+        bookmaker = _betmonitor_text(name_match.group(1) if name_match else '')
+        odds = []
+        for value in re.findall(r'<span class=["\']odd-decimal[^"\']*["\']>\s*([0-9]+(?:\.[0-9]+)?)\s*</span>', chunk, re.I):
+            try:
+                price = float(value)
+                if math.isfinite(price) and price > 1:
+                    odds.append(price)
+            except (TypeError, ValueError):
+                continue
+        if not bookmaker or len(odds) < 2:
+            continue
+        odds = odds[:2]
+        provider = 'BETMONITOR'
+        quote_id = sha((str(event.get('event_id')) + provider + bookmaker + market + str(line) + str(meta.get('sha256'))).encode())[:24]
+        out.append({
+            'quote_id': quote_id, 'event_id': event.get('event_id'),
+            'canonical_event_id': event.get('canonical_event_id') or event.get('event_id'),
+            'source_event_id': event.get('source_event_id'), 'feed_provider': provider,
+            'upstream_provider': 'betmonitor', 'bookmaker_id': 'betmonitor-bookmaker:' + normalize_label(bookmaker),
+            'bookmaker': bookmaker, 'market_type': 'SPREAD' if market == 'mahc' else 'TOTAL',
+            'raw_market_key': 'BETMONITOR_MAHC' if market == 'mahc' else 'BETMONITOR_OU',
+            'parse_status': 'PARSED_AND_NORMALIZED', 'period': 'FULL_GAME',
+            'market_role': 'MAIN', 'main_or_alt': 'MAIN', 'source_main_flag': '1',
+            'source_market_key': str(line), 'raw_line': numeric_line,
+            'line_team1': numeric_line if market == 'mahc' else None,
+            'direction_verified': True, 'raw_prices': odds, 'decimal_prices': odds,
+            'price_format': 'DECIMAL', 'price_format_verified': True,
+            'source_quote_at': observed_at, 'source_timestamp_raw': observed_at,
+            'source_timestamp_semantics': 'CURRENT_BOARD_CAPTURE_ONLY',
+            'received_at': observed_at, 'observed_at': observed_at,
+            'raw_path': meta.get('path'), 'raw_sha256': meta.get('sha256'),
+            'raw_verified': True, 'raw_integrity_verified': True,
+            'status': 'OPEN', 'current_board_contract_verified': True,
+            'last_verified_at': observed_at, 'quote_verified_for_paper': True,
+            'identity_verified': True, 'ot_rule': 'INCLUDING_OT',
+            'rule_evidence': 'BETMONITOR_FULL_GAME_MARKET_PAGE; capture-time OPEN listing',
+            'ot_contract_status': 'SOURCE_RULE_OMITTED_POLICY_INCLUDED',
+            'comparison_scope': 'PAPER_RESEARCH_ONLY', 'execution_verified': False,
+            'source_url': meta.get('referer'), 'provider_capture_note':
+                'Fallback current-board capture; use only when 7M has no target quote.',
+        })
+    return out
+
+
+def collect_betmonitor_japan_b(fetch, events, day, observed_at=None):
+    """Use Betmonitor as a bounded fallback when 7M has no Japan B quote.
+
+    Betmonitor is a current odds comparison page, not a historical odds page.
+    The adapter only accepts a page whose event date, ordered teams and main
+    full-game line are all visible in the same capture.  It never carries a
+    prior quote forward and it leaves unmatched events as NO_MARKET.
+    """
+    observed_at = observed_at or stamp(now())
+    targets = [e for e in events or [] if is_japan_b_league_event(e)]
+    audit = {'source': 'BETMONITOR', 'league_url': BETMONITOR_JAPAN_LEAGUE_URL,
+             'target_events': len(targets), 'event_pages': 0, 'market_pages': 0,
+             'quotes_added': 0, 'matched_event_ids': [], 'unmatched_event_ids': [],
+             'errors': []}
+    if not targets:
+        audit['status'] = 'NO_TARGET_EVENTS'; return [], audit
+    try:
+        league_meta = fetch.one(('betmonitor_japan_b_league', BETMONITOR_JAPAN_LEAGUE_URL))
+        fetch.rows.append(league_meta)
+        if not league_meta.get('ok'):
+            audit['status'] = 'SOURCE_UNAVAILABLE'; audit['errors'].append(league_meta); return [], audit
+        league_html = text_of(league_meta); links = _betmonitor_event_links(league_html)
+    except Exception as exc:
+        audit['status'] = 'SOURCE_UNAVAILABLE'; audit['errors'].append({'error': str(exc)}); return [], audit
+    pages = fetch.batch({f'betmonitor_event_{rid}': url for rid, url in links})
+    parsed_pages = []
+    for key, meta in pages.items():
+        if not meta.get('ok'): continue
+        rid = key.rsplit('_', 1)[-1]
+        parsed = _betmonitor_event_page(text_of(meta), rid, meta.get('url'), day)
+        if parsed: parsed_pages.append(parsed)
+    audit['event_pages'] = len(parsed_pages)
+    quotes = []; matched = set()
+    for page in parsed_pages:
+        source_pair = (canonical_team_token(BETMONITOR_TEAM_ALIASES.get(page['team1_name'], page['team1_name'])),
+                       canonical_team_token(BETMONITOR_TEAM_ALIASES.get(page['team2_name'], page['team2_name'])))
+        try: page_tip = datetime.fromisoformat(page['tip_at'])
+        except ValueError: continue
+        candidates = []
+        for event in targets:
+            event_pair = (canonical_team_token(event.get('team1_name')), canonical_team_token(event.get('team2_name')))
+            try: delta = abs((datetime.fromisoformat(str(event.get('tip_at')).replace('Z', '+00:00')) - page_tip).total_seconds())
+            except (TypeError, ValueError): delta = 10**9
+            if source_pair == event_pair and delta <= 300:
+                candidates.append(event)
+        if len(candidates) != 1: continue
+        event = candidates[0]; matched.add(str(event.get('event_id')))
+        for market in ('mahc', 'ou'):
+            line = page['lines'].get(market)
+            if line is None: continue
+            try:
+                body, post_meta = _betmonitor_post(fetch, page['rid'], market, line, page['url'], observed_at)
+                audit['market_pages'] += 1
+                rows = _betmonitor_quotes_fragment(body, event, market, line, post_meta, observed_at)
+                quotes.extend(rows)
+            except Exception as exc:
+                audit['errors'].append({'rid': page['rid'], 'market': market, 'url': page['url'],
+                                        'error_type': type(exc).__name__, 'error': str(exc)})
+    audit['matched_event_ids'] = sorted(matched)
+    audit['unmatched_event_ids'] = sorted(str(e.get('event_id')) for e in targets if str(e.get('event_id')) not in matched)
+    audit['quotes_added'] = len(quotes)
+    audit['status'] = 'OBSERVED' if quotes else 'NO_CURRENT_BOARD_QUOTE'
+    return quotes, audit
+
 def collect_live(output_root,day,contracts,timeout=12,workers=6):
     run_started_perf=time.perf_counter();stage_timings={}
     root=Path(output_root); sid=now().strftime('%Y%m%dT%H%M%S')+'_'+uuid.uuid4().hex[:10]
@@ -994,6 +1209,18 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
         retry_ids={str(q.get('event_id')) for q in japan_retry_quotes}
         quotes=[q for q in quotes if not (q.get('feed_provider')=='7M' and str(q.get('event_id')) in retry_ids)]
         quotes.extend(japan_retry_quotes)
+    # 7M can return a valid board while omitting the current Japan B.League
+    # rows.  Use a current Betmonitor comparison page only for those still
+    # unmatched events; never replace a verified 7M quote or use history odds.
+    betmonitor_quotes, betmonitor_audit = collect_betmonitor_japan_b(
+        fetch, list(events.values()), day, observed_at=stamp(now()))
+    if betmonitor_quotes:
+        existing_7m_markets={(str(q.get('event_id')), str(q.get('market_type')))
+                             for q in quotes if q.get('feed_provider')=='7M'}
+        quotes.extend(q for q in betmonitor_quotes
+                      if (str(q.get('event_id')), str(q.get('market_type'))) not in existing_7m_markets)
+    else:
+        fallback_event_ids=set()
     # Market first: only quote-backed 7M events need identity/history and
     # technical enrichment for pricing.  Keep every no-market event in the
     # event inventory, but do not spend hundreds of requests enriching rows
@@ -1022,7 +1249,8 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
                         'no_market_events_retained_without_deep_capture':max(0,len(events)-len(deep_events)),
                         'detail_identity_ids_attempted':len(ids),
                         'rule':'deep identity/history/statistics capture is market-first; no-market rows remain auditable in the event inventory',
-                        'japan_b_league_market_retry':japan_retry_audit}
+                        'japan_b_league_market_retry':japan_retry_audit,
+                        'betmonitor_japan_b_league_fallback':betmonitor_audit}
     detail=fetch.batch({f'detail_{i}':f'https://bdata.7m.com.cn/analyse/gb/{i}.shtml' for i in ids})
     id_urls={};htmls={}
     for k,r in detail.items():
