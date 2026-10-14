@@ -109,6 +109,16 @@ def is_japan_b_league_event(event):
     text=' '.join(str(event.get(name) or '') for name in ('league','league_family','competition_key','league_display')).upper()
     return key=='JAPAN_BLEAGUE' or any(token.upper() in text for token in JAPAN_B_LEAGUE_TOKENS)
 
+
+def is_korea_kbl_event(event):
+    """Recognize KBL before the later global classifier has run."""
+    event = event or {}
+    key = str(event.get('competition_key') or '').upper()
+    text = ' '.join(str(event.get(name) or '') for name in
+                    ('league', 'league_family', 'competition', 'competition_key', 'league_display')).upper()
+    return key == 'KOREA_KBL' or any(token in text for token in
+                                     ('KBL', '韩篮甲', '韓籃甲', '韩国篮球', '韓國籃球', '韩国KBL'))
+
 def _canonical_team_token(value):
     # Titan's board appends live ranking markers such as ``[8]`` while the
     # 7M identity endpoint does not.  Only remove display-only markers; never
@@ -1314,7 +1324,7 @@ def _cloudbet_quote(event, page, market_type, line, prices, meta, observed_at):
 def collect_cloudbet_kbl(fetch, events, day, observed_at=None):
     """Recover KBL current spread/total lines when 7M and Titan are empty."""
     observed_at = observed_at or stamp(now())
-    targets = [e for e in events or [] if str(e.get('competition_key') or e.get('league_family') or '').upper() == 'KOREA_KBL']
+    targets = [e for e in events or [] if is_korea_kbl_event(e)]
     audit = {'source': 'CLOUDBET', 'league_url': CLOUDBET_KBL_URL, 'target_events': len(targets),
              'event_pages': 0, 'quotes_added': 0, 'matched_event_ids': [], 'unmatched_event_ids': [],
              'status': 'NO_TARGET_EVENTS', 'production_status': 'EXPERIMENTAL', 'errors': []}
