@@ -15,12 +15,20 @@ writes the append-only state to `data/github_football/ledger.json` and
 `ledger.csv`. Started/settled rows are locked: refresh may update score and
 settlement fields but must not replace the earlier market or decision.
 
+`YYYY-MM-DD` is a Beijing business slate, defined as 12:00 on that date through
+11:59 on the following date. A fixture before 12:00 is assigned to the prior
+business date, so the dashboard does not mix two half-days.
+
 For prematch coverage, Titan007 is the primary source and 500.com plus
 BetExplorer are independent supplements. BetExplorer is joined after Beijing
 date normalization because its schedule timestamps are UTC, and supplies both
 Asian handicap and 1X2 prices through its public event endpoints. A missing
 opening line remains allowed, but a row is bettable only after current Asian
 line/waters and current 1X2 prices are present.
+
+BetExplorer-only fixtures carry English provider labels, so the pipeline applies
+`data/github_football/team_aliases.json` before writing the ledger and dashboard;
+extend that alias file when a new club is first encountered.
 
 The script publishes date-scoped JSON and small responsive HTML shells under
 `github_site/v3` and `github_site/v4`. The HTML loads only the requested date's
