@@ -14,6 +14,97 @@ def load(path: Path, default):
         return default
 
 
+def mobile_document(document):
+    """Keep the mobile dashboard small without changing the desktop audit payload."""
+    if not isinstance(document, dict):
+        return document
+    top_keys = (
+        "date_bj", "date", "asof", "generated_at", "archive_type", "message",
+        "execution_mode", "schema_version", "real_execution_allowed",
+        "automated_execution_allowed", "funnel", "daily_paper_funnel",
+        "formal_manual_ledger", "paper_ledger_history",
+    )
+    out = {key: document[key] for key in top_keys if key in document}
+    # The visible cards use these fields. Large read-only diagnostics remain in
+    # the desktop JSON and artifact, where they can be opened on demand.
+    event_keys = ("id", "generation", "archive_type", "event", "pricing",
+                  "execution", "market", "display", "settlement", "current_snapshot")
+    pricing_keep = {
+        "archive_type", "asof", "event_id", "mu_raw", "mu_blended", "mu_market",
+        "mu_structural", "total_raw", "total_blended", "total_market", "total_structural",
+        "input_games", "pricing_data_quality", "pricing_state", "pricing_status",
+        "research_priceable", "paper_model_eligible", "executable_eligible",
+        "cold_start_priceable", "shadow_eligible", "league_lifecycle_state", "season_regime",
+        "history_ess", "current_season_games", "previous_season_games", "older_history_games",
+        "blockers", "model_warnings", "uncertainty_source", "spread_data_quality",
+        "total_model_status", "total_diagnostic", "titan_foundation_pricing",
+    }
+    decision_keep = {
+        "selected", "triggered", "comparison_ready", "model_state", "ev", "blockers",
+        "uncertainty_flags", "market_type", "market_revalidation", "display_action",
+    }
+    execution_keep = {
+        "event_id", "prediction_id", "asof", "archive_type", "execution_mode",
+        "manual_execution_state", "shadow_action", "triggered", "display_action",
+        "comparison_ready", "model_state", "selected", "market_decisions",
+        "blockers", "market_revalidation", "market_revalidation_by_market",
+        "titan_provisional_continuity", "titan_provisional_status", "signal_layer",
+    }
+
+    def compact_pricing(value):
+        if not isinstance(value, dict):
+            return value
+        return {k: value[k] for k in pricing_keep if k in value}
+
+    def compact_decision(value):
+        if not isinstance(value, dict):
+            return value
+        return {k: value[k] for k in decision_keep if k in value}
+
+    def compact_execution(value):
+        if not isinstance(value, dict):
+            return value
+        out_exec = {k: value[k] for k in execution_keep if k in value}
+        if isinstance(value.get("market_decisions"), dict):
+            out_exec["market_decisions"] = {
+                k: compact_decision(v) for k, v in value["market_decisions"].items()
+            }
+        if isinstance(value.get("selected"), dict):
+            out_exec["selected"] = dict(value["selected"])
+        return out_exec
+
+    def compact_snapshot(value):
+        if not isinstance(value, dict):
+            return value
+        out_snapshot = {k: value[k] for k in ("asof", "refresh_status") if k in value}
+        if isinstance(value.get("event"), dict):
+            out_snapshot["event"] = dict(value["event"])
+        if isinstance(value.get("pricing"), dict):
+            out_snapshot["pricing"] = compact_pricing(value["pricing"])
+        if isinstance(value.get("execution"), dict):
+            out_snapshot["execution"] = compact_execution(value["execution"])
+        if isinstance(value.get("market"), dict):
+            out_snapshot["market"] = value["market"]
+        return out_snapshot
+    compact_events = []
+    for row in document.get("events") or []:
+        if not isinstance(row, dict):
+            continue
+        item = {key: row[key] for key in event_keys if key in row}
+        if isinstance(item.get("pricing"), dict):
+            item["pricing"] = compact_pricing(item["pricing"])
+        if isinstance(item.get("execution"), dict):
+            item["execution"] = compact_execution(item["execution"])
+        if isinstance(item.get("current_snapshot"), dict):
+            item["current_snapshot"] = compact_snapshot(item["current_snapshot"])
+        compact_events.append(item)
+    out["events"] = compact_events
+    funnel = document.get("funnel")
+    if isinstance(funnel, dict):
+        out["funnel"] = dict(funnel)
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Publish the bounded basketball daily output to gh-pages")
     ap.add_argument("--root", required=True)
@@ -31,8 +122,18 @@ def main() -> int:
     current = src_data / f"{day}.json"
     if not current.is_file():
         raise SystemExit(f"missing daily JSON: {current}")
+    mobile = mobile_document(latest)
     for path in (current, src_data / "latest.json"):
         shutil.copy2(path, dst_data / path.name)
+    # A compact payload prevents mobile browsers from repeatedly downloading
+    # multi-megabyte audit diagnostics. It is intentionally separate from the
+    # full desktop JSON and never replaces the immutable audit artifact.
+    (dst_data / f"{day}.mobile.json").write_text(
+        json.dumps(mobile, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
+    )
+    (dst_data / "latest.mobile.json").write_text(
+        json.dumps(mobile, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
+    )
     health = root / "dashboard_v2" / "sources" / "health.json"
     if health.is_file():
         target = public / "basketball-sources" / "health.json"
@@ -52,6 +153,7 @@ def main() -> int:
     entries[day] = {
         "date": day,
         "file": f"{day}.json",
+        "mobile_file": f"{day}.mobile.json",
         "event_count": len(latest.get("events") or []),
         "archive_type": latest.get("archive_type", "FORWARD_NATIVE"),
     }
