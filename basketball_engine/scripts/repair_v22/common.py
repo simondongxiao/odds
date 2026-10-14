@@ -157,6 +157,17 @@ def competition_key(name, gender_hint=None):
             return key
     return 'LABEL:'+token
 
+def durable_competition_key(item):
+    """Prefer a registry-derived league key over stale LABEL:* snapshots."""
+    if not isinstance(item, dict):
+        return competition_key(item)
+    gender = item.get('gender')
+    derived = competition_key(item.get('league') or item.get('raw_event_name'), gender)
+    explicit = str(item.get('competition_key') or '').strip()
+    if derived and not str(derived).upper().startswith('LABEL:'):
+        return derived
+    return explicit or derived
+
 # Parse JavaScript DATA literals, never execute downloaded scripts.
 class JSLiteral:
     def __init__(self,s,start=0):self.s=s;self.i=start

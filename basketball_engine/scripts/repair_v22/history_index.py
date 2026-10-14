@@ -9,7 +9,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any
 
-from .common import attach_canonical_team_ids, competition_key
+from .common import attach_canonical_team_ids, durable_competition_key
 
 
 class HistoryIndex:
@@ -28,7 +28,7 @@ class HistoryIndex:
                     row[f"{side}_id"] = canonical
             self.rows.append(row)
             gender = str(row.get("gender") or "").upper()
-            comp = str(row.get("competition_key") or competition_key(row.get("league"), row.get("gender")) or "").upper()
+            comp = str(durable_competition_key(row) or "").upper()
             self.by_competition[(gender, comp)].append(row)
             for team_id in {row.get("team1_id"), row.get("team2_id")}:
                 if team_id:
@@ -51,7 +51,7 @@ class HistoryIndex:
     def candidates(self, raw_event: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         event = self.canonical_event(raw_event)
         gender = str(event.get("gender") or "").upper()
-        comp = str(event.get("competition_key") or competition_key(event.get("league"), event.get("gender")) or "").upper()
+        comp = str(durable_competition_key(event) or "").upper()
         key = (gender, comp, event.get("team1_id"), event.get("team2_id"))
         cached = self._candidate_cache.get(key)
         if cached is not None:

@@ -14,7 +14,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from repair_v22.common import iso, load
+from repair_v22.common import iso, load, durable_competition_key
 
 
 SOURCE = "TITAN007"
@@ -295,7 +295,7 @@ class _HistoryEvidenceIndex:
             event_id = str(game.get("event_id") or "")
             if not event_id:
                 continue
-            competition = str(game.get("competition_key") or "")
+            competition = str(durable_competition_key(game) or "")
             titan_league = str(game.get("source_competition_id_titan") or "")
             for target in {str(game.get("team1_id") or ""), str(game.get("team2_id") or "")}:
                 if not target:

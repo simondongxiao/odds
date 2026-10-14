@@ -5,7 +5,7 @@ from collections import Counter, defaultdict
 from datetime import timedelta
 from pathlib import Path
 from statistics import median
-from .common import iso, stamp, fingerprint, competition_key, load
+from .common import iso, stamp, fingerprint, competition_key, durable_competition_key, load
 from .verified_core import _ridge, t_cdf, threshold_probability, ev_and_kelly, display_fair_margin, margin_cdf
 from .tier_policy import tier_for, evaluation_channel
 from .score_context import build_score_context
@@ -555,8 +555,8 @@ def competition_match(event,g):
     eid=event.get('competition_id');gid=g.get('competition_id')
     if eid and gid and eid==gid:
         return 'EXACT_SOURCE_ID'
-    ek=event.get('competition_key') or competition_key(event.get('league'),event.get('gender'))
-    gk=g.get('competition_key') or competition_key(g.get('league'),g.get('gender'))
+    ek=durable_competition_key(event)
+    gk=durable_competition_key(g)
     if ek and gk and str(ek).upper()==str(gk).upper():
         return 'CROSS_SOURCE_CANONICAL_LEAGUE' if eid and gid and eid!=gid else 'CANONICAL_SOURCE_LABEL'
     # Defensive phase-independent fallback for rows captured before the

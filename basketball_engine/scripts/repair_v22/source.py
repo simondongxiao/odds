@@ -162,7 +162,7 @@ def resolve_reused_7m_team_ids(events, history_rows):
             # competition_key is the durable cross-source league label.  The
             # raw competition id is absent in 7M team-history pages, so using
             # it here would break the schedule/history join we are protecting.
-            scope=str(row.get('competition_key') or row.get('league') or 'UNKNOWN').upper()
+            scope=str(durable_competition_key(row) or row.get('league') or 'UNKNOWN').upper()
             scoped='7m-team-name:'+scope+':'+str(row.get('gender') or 'UNKNOWN').upper()+':'+token
             row.setdefault(side+'_legacy_id',legacy)
             row[side+'_id']=scoped
@@ -201,7 +201,7 @@ def bridge_cross_source_team_history_ids(history_rows, events):
     rewrites = []
     skipped_ambiguous = 0
     for row in rows:
-        row_scope = str(row.get('competition_key') or row.get('league_family') or '').upper()
+        row_scope = str(durable_competition_key(row) or row.get('league_family') or '').upper()
         row_gender = str(row.get('gender') or '').upper()
         if not row_scope or not row_gender:
             continue
@@ -253,7 +253,7 @@ def bridge_cross_source_team_history_ids(history_rows, events):
 
 def _history_game_fingerprint(row):
     """Build a source-independent fingerprint for one completed game."""
-    scope = str(row.get('competition_key') or row.get('league_family') or '').upper()
+    scope = str(durable_competition_key(row) or row.get('league_family') or '').upper()
     gender = str(row.get('gender') or '').upper()
     tip = source_time(row.get('tip_at'))
     pair = []
@@ -340,7 +340,7 @@ def load_prior_capture_history(output_root, events, cutoff, current_session=None
             audit['rows_seen'] += 1
             if not isinstance(row, dict):
                 continue
-            scope = str(row.get('competition_key') or row.get('league_family') or '').upper()
+            scope = str(durable_competition_key(row) or row.get('league_family') or '').upper()
             gender = str(row.get('gender') or '').upper()
             matched = False
             for side in ('team1', 'team2'):
