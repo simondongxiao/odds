@@ -1213,18 +1213,26 @@ def _cloudbet_fetch(fetch, key, url):
     This remains inside the shared bounded retry contract and writes the same
     immutable raw response/health row as the other adapters.
     """
-    if std_requests is None:
-        return {'key': key, 'url': url, 'ok': False, 'error_type': 'REQUESTS_UNAVAILABLE'}
     started = stamp()
     def operation():
-        response = std_requests.get(
-            url, headers={'User-Agent': 'Mozilla/5.0 basketball-odds-trader/1.0',
-                          'Accept': 'text/html,application/xhtml+xml,*/*',
-                          'Referer': 'https://www.cloudbet.com/en/sports/basketball'},
-            timeout=fetch.timeout, allow_redirects=True)
-        if response.status_code != 200:
-            raise urllib.error.HTTPError(url, response.status_code, 'HTTP ' + str(response.status_code), response.headers, None)
-        return {'blob': response.content, 'http_status': response.status_code}
+        headers={'User-Agent': 'Mozilla/5.0 basketball-odds-trader/1.0',
+                 'Accept': 'text/html,application/xhtml+xml,*/*',
+                 'Referer': 'https://www.cloudbet.com/en/sports/basketball'}
+        if std_requests is not None:
+            response = std_requests.get(url, headers=headers, timeout=fetch.timeout, allow_redirects=True)
+            if response.status_code != 200:
+                raise urllib.error.HTTPError(url, response.status_code, 'HTTP ' + str(response.status_code), response.headers, None)
+            return {'blob': response.content, 'http_status': response.status_code}
+        # GitHub Actions installs curl-cffi but not the standalone requests
+        # distribution.  Keep the fallback dependency-free so a missing
+        # optional package cannot turn a known KBL board into NO_MARKET.
+        request=urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(request, timeout=fetch.timeout) as response:
+            blob=response.read(8_000_001)
+            status=int(getattr(response, 'status', 200))
+            if status != 200:
+                raise urllib.error.HTTPError(url, status, 'HTTP ' + str(status), response.headers, None)
+            return {'blob': blob, 'http_status': status}
     try:
         result, attempts = request_with_retry(
             operation, url=url, policy=fetch.retry_policy,
