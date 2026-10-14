@@ -44,3 +44,14 @@ GitHub-hosted runner, copy `github_site` into the `gh-pages` worktree, commit
 and push the site, then send a short Feishu result using the
 `FEISHU_WEBHOOK_URL` secret. Desktop runs continue to use the existing local
 skill and Excel ledgers; do not mix the two ledgers during a single run.
+
+## Performance guard
+
+The fast path is HTTP/API fetch plus append-only JSON merge. Browser recovery is
+an emergency path only: cap it at 48 market jobs, use at most four concurrent
+workers, a 12-second page timeout, and one attempt. Keep mobile-page recovery
+disabled unless a targeted investigation explicitly enables it. When the cap is
+hit, log `future_browser_capped=used/queued` and leave the remaining rows as
+explicit missing-data rows for the next refresh; never let a source outage turn
+the daily job into an unbounded serial crawl. Each subprocess result records
+`elapsed_seconds` so a slow phase is visible in the run manifest.
