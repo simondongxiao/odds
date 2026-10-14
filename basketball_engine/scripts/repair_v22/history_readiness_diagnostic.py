@@ -14,7 +14,7 @@ from typing import Any
 from .common import atomic, iso
 from .model import (COLD_START, POLICY, _bootstrap_history, _bootstrap_match,
                     _effective_sample_size, _history_weight_profile,
-                    competition_match, eligible_history)
+                    competition_match, eligible_history, paper_history_minimum)
 
 
 FAILURE_CODES = {
@@ -59,7 +59,7 @@ def _region(event):
 def _audit_team(event, team_id, team_name, history, page_audit, cutoff, mode):
     family = event.get("model_family") or "CLUB_MATURE"
     research_minimum = int(POLICY.get(family, POLICY["CLUB_MATURE"]).get("min_games", 3))
-    paper_minimum = 8
+    paper_minimum = paper_history_minimum(event)
     paper_opponents_minimum = 3
     sid = _source_id(team_id)
     pages = [x for x in (page_audit or []) if str(x.get("team_source_id")) == sid]

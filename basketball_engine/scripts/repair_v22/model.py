@@ -72,6 +72,10 @@ def season_regime_for(event):
         return 'EARLY_REGULAR'
     return 'REGULAR'
 
+def paper_history_minimum(event):
+    """Per-team history gate for verified compact preseason/KBL feeds."""
+    return 4 if season_regime_for(event) == 'PRESEASON' or _competition_family(event) == 'KOREA_KBL' else 8
+
 
 def _context_adjustment_layer(context):
     """Return explicit adjustment layers; missing is UNKNOWN, never zero."""
@@ -781,13 +785,14 @@ def price_event(event,history,cutoff,mode,context=None):
                               'combine_rule':spread_uncertainty['combine_rule']}
     full=scenarios['INCLUDING_OT'];warnings=['UNVALIDATED_SCORE_BASELINE']
     if any(len(v)<2 for v in opponents.values()):warnings.append('ONLY_H2H_OR_SINGLE_OPPONENT')
+    history_minimum=paper_history_minimum(event)
     if min(counts.values())<8:warnings.append('SMALL_SAMPLE')
     if any(g['evidence_kind']=='H2H' for g in games) and not any(g['evidence_kind']=='TEAM_HISTORY' for g in games):warnings.append('TEAM_HISTORY_FEED_NOT_CAPTURED')
     nba_cba_soft_context=_nba_cba_spread_context_is_soft(event)
     if family!='CLUB_MATURE' and not context.get('roster_verified'):warnings.append('CURRENT_ROSTER_UNVERIFIED')
     if not context.get('injury_verified'):warnings.append('INJURY_UNKNOWN')
     paper_evidence_blockers=[]
-    if min(counts.values(),default=0)<8:paper_evidence_blockers.extend(['HISTORY_ESS_TOO_LOW','INSUFFICIENT_HISTORY'])
+    if min(counts.values(),default=0)<history_minimum:paper_evidence_blockers.extend(['HISTORY_ESS_TOO_LOW','INSUFFICIENT_HISTORY'])
     if any(len(v)<3 for v in opponents.values()):paper_evidence_blockers.extend(['OPPONENT_DIVERSITY_TOO_LOW','INSUFFICIENT_OPPONENT_DIVERSITY'])
     if not any(g['evidence_kind']=='TEAM_HISTORY' for g in games):paper_evidence_blockers.append('TEAM_HISTORY_FEED_NOT_CAPTURED')
     if family!='CLUB_MATURE' and not context.get('roster_verified',False) and not nba_cba_soft_context:
