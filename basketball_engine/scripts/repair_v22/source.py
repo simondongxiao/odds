@@ -1119,7 +1119,12 @@ def collect_betmonitor_japan_b(fetch, events, day, observed_at=None):
         except ValueError: continue
         candidates = []
         for event in targets:
-            event_pair = (canonical_team_token(event.get('team1_name')), canonical_team_token(event.get('team2_name')))
+            # The 7M display label can be mojibake even when its canonical IDs
+            # are valid.  Match Betmonitor's reviewed alias resolution to the
+            # already-attached registry IDs, never to the raw display string.
+            attach_canonical_team_ids(event)
+            event_pair = (str(event.get('canonical_team1_id') or ''),
+                          str(event.get('canonical_team2_id') or ''))
             try: delta = abs((datetime.fromisoformat(str(event.get('tip_at')).replace('Z', '+00:00')) - page_tip).total_seconds())
             except (TypeError, ValueError): delta = 10**9
             if source_pair == event_pair and delta <= 300:
