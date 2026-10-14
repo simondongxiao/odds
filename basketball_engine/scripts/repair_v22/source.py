@@ -25,6 +25,19 @@ from titan007_evidence_bridge import (
 # These five selector mappings are evidenced in the supplied source audit.
 COMPANIES={'0':('澳','0'),'1':('S2','4'),'2':('易','2'),'3':('12','3'),'4':('威','1')}
 ALLOWED_HOSTS={'basket.7m.com.cn','js-basket.7m.com.cn','bdata.7m.com.cn','bdata-js.7m.com.cn','bodds.7m.com.cn','lq.7m.com.cn','lq3.titan007.com'}
+JAPAN_B_LEAGUE_TOKENS=('JAPAN_BLEAGUE','B.LEAGUE','日本B联赛','日本男子B联赛','日B1','日B2','日B3','JAPANB1','JAPANB2','JAPANB3')
+
+def is_japan_b_league_event(event):
+    """Identify Japan B.League rows across 7M's 日B1/2/3 labels.
+
+    The event inventory and the odds board use different competition labels.
+    Keep this predicate in the collection layer so a delayed board quote does
+    not prevent the Japanese fixture from being pre-warmed and retried.
+    """
+    event=event or {}
+    key=str(event.get('competition_key') or '').upper()
+    text=' '.join(str(event.get(name) or '') for name in ('league','league_family','competition_key','league_display')).upper()
+    return key=='JAPAN_BLEAGUE' or any(token.upper() in text for token in JAPAN_B_LEAGUE_TOKENS)
 
 def _canonical_team_token(value):
     # Titan's board appends live ranking markers such as ``[8]`` while the
@@ -350,7 +363,8 @@ def upcoming_7m_deep_capture_event_ids(events, day, observed_at=None):
     cutoff=observed_at or now()
     def priority_lookahead(event):
         label=' '.join(str(event.get(key) or '') for key in ('league','competition_key','league_family')).upper()
-        return 'WNBA' in label or ('NBA' in label and 'WNBA' not in label)
+        return (is_japan_b_league_event(event) or 'WNBA' in label or
+                ('NBA' in label and 'WNBA' not in label))
     return {str(event.get('event_id')) for event in (events or [])
             if str(event.get('source')).upper()=='7M' and event.get('bj_date') in permitted and
             # Preserve full current-day coverage.  For the new lookahead leg,
@@ -828,6 +842,65 @@ def parse_odds(text,path,received_at,company_selector,contracts):
                 out.append(raw)
     return out,errors
 
+def retry_japan_b_league_boards(fetch, events, quotes, contracts, observed_at=None,
+                                max_rounds=2):
+    """Retry 7M boards when Japanese fixtures are known but the board is late.
+
+    A non-empty ``comlive_*.js`` response can still contain no rows for a
+    newly listed Japan B.League fixture.  The generic HTTP retry layer cannot
+    distinguish that valid-but-empty board from a successful capture.  This
+    bounded target-aware retry keeps the event inventory, waits 2s then 4s,
+    and only appends quotes whose event id is actually present in the retry
+    response.  It never reuses a historical odds page as a current quote.
+    """
+    cutoff=observed_at or now()
+    candidates={str(event.get('event_id')):event for event in (events or [])
+                if is_japan_b_league_event(event) and event.get('event_id') and
+                source_time(event.get('tip_at')) and source_time(event.get('tip_at'))>cutoff-timedelta(hours=2)}
+    observed={str(quote.get('event_id')) for quote in (quotes or [])
+              if quote.get('feed_provider')=='7M' and quote.get('event_id')}
+    missing=set(candidates)-observed
+    audit={'status':'NOT_NEEDED' if not missing else 'RETRYING','candidate_event_ids':sorted(candidates),
+           'initial_observed_event_ids':sorted(observed & set(candidates)),
+           'initial_missing_event_ids':sorted(missing),'attempts':[],
+           'retry_delays_seconds':[2.0,4.0][:max(0,int(max_rounds))],
+           'quotes_added':0,'unresolved_event_ids':[]}
+    added=[]
+    if not missing:
+        audit['status']='OBSERVED'
+        return added,audit
+    for attempt,delay in enumerate(audit['retry_delays_seconds'],1):
+        if missing:
+            fetch.sleeper(delay)
+        tick=str(int(now().timestamp()*1000))
+        urls={f'japan_retry_{attempt}_odds_company_{sel}':
+              f'https://js-basket.7m.com.cn/odds/comlive_{ns}.js?t={tick}'
+              for sel,(_,ns) in COMPANIES.items()}
+        responses=fetch.batch(urls)
+        parsed=[];errors=[]
+        for key,row in responses.items():
+            if not row.get('ok'):
+                errors.append({'key':key,'url':row.get('url'),'error':row.get('error_type') or 'FETCH_FAILED'})
+                continue
+            try:
+                qs,err=parse_odds(text_of(row),row.get('path'),row.get('received_at'),key.rsplit('_',1)[1],contracts)
+                parsed.extend(qs);errors.extend(err)
+            except Exception as exc:
+                errors.append({'key':key,'path':row.get('path'),'error':type(exc).__name__+': '+str(exc)})
+        target_parsed=[q for q in parsed if str(q.get('event_id')) in candidates]
+        if target_parsed:
+            added.extend(target_parsed)
+            observed.update(str(q.get('event_id')) for q in target_parsed)
+            missing=set(candidates)-observed
+        audit['attempts'].append({'attempt':attempt,'delay_seconds':delay,'parsed_quotes':len(parsed),
+                                  'target_quotes':len(target_parsed),'observed_target_event_ids':sorted(set(str(q.get('event_id')) for q in target_parsed)),
+                                  'remaining_event_ids':sorted(missing),'errors':errors})
+        if not missing:
+            break
+    audit['quotes_added']=len(added);audit['unresolved_event_ids']=sorted(missing)
+    audit['status']='OBSERVED' if not missing else 'BOARD_NOT_YET_LISTED'
+    return added,audit
+
 def collect_live(output_root,day,contracts,timeout=12,workers=6):
     run_started_perf=time.perf_counter();stage_timings={}
     root=Path(output_root); sid=now().strftime('%Y%m%dT%H%M%S')+'_'+uuid.uuid4().hex[:10]
@@ -911,6 +984,16 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
         if event_id not in events:
             events[event_id] = event
             baseline_seeded += 1
+    # Japan B.League boards are often published after the schedule file.  Do
+    # a target-aware bounded retry after baseline seeding, so a date-rollover
+    # inventory row is eligible for the same current-board check.  A valid
+    # empty board is not treated as an HTTP success for this continuity check.
+    japan_retry_quotes,japan_retry_audit=retry_japan_b_league_boards(
+        fetch, list(events.values()), quotes, contracts, observed_at=now(), max_rounds=2)
+    if japan_retry_quotes:
+        retry_ids={str(q.get('event_id')) for q in japan_retry_quotes}
+        quotes=[q for q in quotes if not (q.get('feed_provider')=='7M' and str(q.get('event_id')) in retry_ids)]
+        quotes.extend(japan_retry_quotes)
     # Market first: only quote-backed 7M events need identity/history and
     # technical enrichment for pricing.  Keep every no-market event in the
     # event inventory, but do not spend hundreds of requests enriching rows
@@ -938,7 +1021,8 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
                         'lookahead_bj_dates':[day,(date.fromisoformat(day)+timedelta(days=1)).isoformat()],
                         'no_market_events_retained_without_deep_capture':max(0,len(events)-len(deep_events)),
                         'detail_identity_ids_attempted':len(ids),
-                        'rule':'deep identity/history/statistics capture is market-first; no-market rows remain auditable in the event inventory'}
+                        'rule':'deep identity/history/statistics capture is market-first; no-market rows remain auditable in the event inventory',
+                        'japan_b_league_market_retry':japan_retry_audit}
     detail=fetch.batch({f'detail_{i}':f'https://bdata.7m.com.cn/analyse/gb/{i}.shtml' for i in ids})
     id_urls={};htmls={}
     for k,r in detail.items():

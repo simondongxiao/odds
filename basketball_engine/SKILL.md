@@ -682,3 +682,11 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 - NO_MARKET 赛事仍在库存，429/空响应有退避审计；
 - gh-pages 提交后 Pages 成功，飞书消息只在此后发送；
 - 任何失败不得删除不可变账本、历史档案或把 PENDING 伪装成已结算。
+
+## v4.13 日本 B.League 盘口连续性与稳定抓取
+
+`JAPAN_BLEAGUE` 必须统一覆盖 7M 的 `日B1`、`日B2`、`日B3`、日本男子 B 联赛展示名及英文 `B.League`。目标日和次日的日本 B.League 赛事先进入库存，再进入详情、历史和技术统计预热；不得因为次日 `comlive_*.js` 尚未列出盘口而删除赛事。
+
+7M 当前盘口板以 `comlive_0/1/2/3/4.js` 为唯一当前板入口。HTTP 返回非空不等于目标赛事已经挂牌；当已识别的日本 B.League 赛事没有任何当前板报价时，按 2 秒、4 秒做最多两轮目标赛事重试，并在 `deep_capture_audit.japan_b_league_market_retry` 中记录候选、每轮 URL/解析数、命中赛事和未解决赛事。历史赔率页不得作为当前盘口回退，未命中仍写 `NO_MARKET` 并保留 `inventory_retained`。
+
+同一场日本 B.League 的当前盘口只能按 `canonical_event_id` 与 7M 赛事 ID 关联，方向仍须经过主客顺序和 `hadFlag`/公司合同核验。重跑 10/11 及更早日期时，已写入的盘口、首写方向、结算和 PnL 视为不可变历史，不得因当前板过期或日期滚动被清空。
