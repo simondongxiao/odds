@@ -981,11 +981,21 @@ def match_betexplorer_to_titan(
         return {}
     mapped_events: dict[str, dict[str, str]] = {}
     ambiguous = 0
+    def time_key(value: object) -> str:
+        text = str(value or "").strip().replace("T", " ")
+        # Keep month-day and hour-minute; both feeds use Beijing local time
+        # after schedule normalization even when the source timestamp is UTC.
+        m = re.search(r"(\d{2})[-/](\d{2}).*?(\d{2}):(\d{2})", text)
+        return "".join(m.groups()) if m else ""
     for match_id, row in future_rows.items():
         source = dict(row)
         source.update(euro.get(match_id, {}))
-        home_en = str(source.get("home_en", "") or "")
-        away_en = str(source.get("away_en", "") or "")
+        # Future Titan rows often carry only the Chinese schedule labels.
+        # Falling back to home_cn/away_cn is required for the BetExplorer
+        # supplement join; otherwise valid AH quotes are fetched but mapped
+        # to zero Titan rows and disappear before V3/V4 evaluation.
+        home_en = str(source.get("home_en", "") or source.get("home_cn", "") or "")
+        away_en = str(source.get("away_en", "") or source.get("away_cn", "") or "")
         if not home_en or not away_en:
             continue
         scored: list[tuple[float, dict[str, str]]] = []
@@ -993,6 +1003,15 @@ def match_betexplorer_to_titan(
             score = (_team_name_similarity(home_en, event["home_en"]) + _team_name_similarity(away_en, event["away_en"])) / 2.0
             if score >= 0.70:
                 scored.append((score, event))
+        # When Titan has only Chinese labels, the team score is unavailable.
+        # Use an exact Beijing kickoff match as a conservative secondary key;
+        # ties remain ambiguous and are deliberately not joined.
+        if not scored:
+            source_time = time_key(source.get("bj_time") or source.get("match_time_en"))
+            if source_time:
+                timed = [event for event in schedule if source_time == time_key(event.get("bj_time") or event.get("betexplorer_dt"))]
+                if len(timed) == 1:
+                    scored = [(0.78, timed[0])]
         scored.sort(key=lambda item: item[0], reverse=True)
         if not scored or scored[0][0] < 0.78:
             continue
