@@ -1,0 +1,263 @@
+"""Portable V3/V4 football refresh for the GitHub-hosted runner.
+
+This entrypoint deliberately has no dependency on the desktop ``D:\\codex``
+tree.  It fetches the shared Titan snapshot, keeps an append-only JSON/CSV
+ledger in the repository, and publishes a small date-scoped dashboard payload.
+The desktop skill remains the authoritative rich/local workflow; this script
+is the cloud fallback used by scheduled GitHub Actions runs.
+"""
+from __future__ import annotations
+
+import argparse
+import csv
+import datetime as dt
+import json
+import math
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import urllib.request
+from pathlib import Path
+from typing import Any
+
+
+REPO = Path(__file__).resolve().parents[1]
+DATA = REPO / "data" / "github_football"
+LEDGER_JSON = DATA / "ledger.json"
+LEDGER_CSV = DATA / "ledger.csv"
+SITE = REPO / "github_site"
+TZ = dt.timezone(dt.timedelta(hours=8))
+
+
+def f(value: Any) -> float | None:
+    try:
+        x = float(str(value or "").strip())
+        return x if math.isfinite(x) else None
+    except (TypeError, ValueError):
+        return None
+
+
+def atomic_text(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8", delete=False, dir=path.parent, suffix=".tmp") as h:
+        h.write(text)
+        tmp = Path(h.name)
+    tmp.replace(path)
+
+
+def read_rows(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+        return value if isinstance(value, list) else value.get("rows", [])
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
+def latest_snapshot(list_date: str) -> Path:
+    paths = sorted((REPO / "data" / "raw" / "titan007" / list_date.replace("-", "")).glob("*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime)
+    if not paths:
+        raise FileNotFoundError(f"Titan snapshot not found for {list_date}")
+    return paths[-1]
+
+
+def run_fetch(list_date: str) -> Path:
+    os.environ["FOOTBALL_GITHUB_ROOT"] = str(REPO)
+    os.environ["FOOTBALL_RAW_ROOT"] = str(REPO / "data" / "raw" / "titan007")
+    os.environ["FOOTBALL_LIST_DATE"] = list_date
+    os.environ.setdefault("TITAN_ENABLE_BROWSER_FALLBACK", "0")
+    os.environ.setdefault("TITAN_ENABLE_MOBILE_FALLBACK", "0")
+    sys.path.insert(0, str(REPO / "tools"))
+    import fetch_titan007_odds  # type: ignore
+
+    old_argv = sys.argv
+    try:
+        sys.argv = [str(REPO / "tools" / "fetch_titan007_odds.py")]
+        code = fetch_titan007_odds.main()
+    finally:
+        sys.argv = old_argv
+    if code not in (0, None):
+        raise RuntimeError(f"Titan fetch failed with exit code {code}")
+    return latest_snapshot(list_date)
+
+
+def kickoff(row: dict[str, str], list_date: str) -> str:
+    raw = str(row.get("bj_time") or row.get("match_time_en") or "").strip()
+    if len(raw) >= 10 and raw[:4].isdigit():
+        return raw
+    try:
+        return f"{list_date[:4]}-{raw[:5]} {raw[6:]}:00+08:00"
+    except Exception:
+        return raw
+
+
+def market_row(row: dict[str, str], list_date: str) -> dict[str, Any]:
+    line = f(row.get("ah_full_current_line_or_draw"))
+    home_water = f(row.get("ah_full_current_home_or_over"))
+    away_water = f(row.get("ah_full_current_away_or_under"))
+    euro_home = f(row.get("euro_full_current_home_or_over"))
+    euro_draw = f(row.get("euro_full_current_line_or_draw"))
+    euro_away = f(row.get("euro_full_current_away_or_under"))
+    home = str(row.get("home_cn") or row.get("home_en") or "").strip()
+    away = str(row.get("away_cn") or row.get("away_en") or "").strip()
+    competition = str(row.get("league_cn") or row.get("league_en") or row.get("league_tw") or "UNKNOWN").strip()
+    current_market = all(v is not None for v in (line, home_water, away_water)) and abs(line or 0) > 0
+    euro_market = all(v is not None and v > 1 for v in (euro_home, euro_draw, euro_away))
+    giving_home = (line or 0) < 0
+    giving_team = home if giving_home else away
+    receiving_team = away if giving_home else home
+    giving_water = home_water if giving_home else away_water
+    receiving_water = away_water if giving_home else home_water
+    return {
+        "match_id": str(row.get("match_id") or "").strip(),
+        "list_date": list_date,
+        "kickoff": kickoff(row, list_date),
+        "competition": competition,
+        "home_team": home,
+        "away_team": away,
+        "state": str(row.get("state") or "").strip(),
+        "score": f"{row.get('home_score','')}-{row.get('away_score','')}" if row.get("home_score") or row.get("away_score") else "",
+        "market": {
+            "line": abs(line) if line is not None else None,
+            "giving_team": giving_team,
+            "receiving_team": receiving_team,
+            "giving_water": giving_water,
+            "receiving_water": receiving_water,
+            "euro_home": euro_home,
+            "euro_draw": euro_draw,
+            "euro_away": euro_away,
+            "current_complete": current_market,
+            "euro_complete": euro_market,
+            "opening_line": f(row.get("ah_full_open_line_or_draw")),
+        },
+        "source_snapshot": str(row.get("snapshot_stamp") or ""),
+    }
+
+
+def evaluate(item: dict[str, Any], version: str) -> dict[str, Any]:
+    m = item["market"]
+    complete = bool(m["current_complete"] and m["euro_complete"])
+    eh, ed, ea = m["euro_home"], m["euro_draw"], m["euro_away"]
+    total = (1 / eh + 1 / ed + 1 / ea) if complete else 0
+    probs = ((1 / eh) / total, (1 / ed) / total, (1 / ea) / total) if total else (0, 0, 0)
+    giving_p = probs[0] if m["giving_team"] == item["home_team"] else probs[2]
+    receiving_p = probs[2] if m["giving_team"] == item["home_team"] else probs[0]
+    gw, rw = m["giving_water"], m["receiving_water"]
+    ev_g = giving_p * (1 + (gw or 0)) - 1 if complete else None
+    ev_r = receiving_p * (1 + (rw or 0)) - 1 if complete else None
+    best = max(ev_g or -1, ev_r or -1)
+    gap = abs((ev_g or 0) - (ev_r or 0))
+    text = item["competition"].lower()
+    excluded = any(k in text for k in ("u17", "u19", "u20", "u21", "u23", "青年", "预备", "友谊", "friendly"))
+    threshold = 0.08 if version == "V3" else 0.06
+    bettable = bool(item["state"] in {"0", ""} and complete and not excluded and best >= threshold and gap >= 0.03)
+    if bettable:
+        side = "giving" if (ev_g or -1) >= (ev_r or -1) else "receiving"
+        team = m["giving_team"] if side == "giving" else m["receiving_team"]
+        water = gw if side == "giving" else rw
+        decision = "BET_GIVING" if side == "giving" else "BET_RECEIVING"
+    else:
+        side = team = decision = ""
+        water = None
+    return {
+        "decision": decision if bettable else "NO_BET",
+        "bettable": bettable,
+        "selected_side": side,
+        "selected_team": team,
+        "selected_water": water,
+        "ev_giving": ev_g,
+        "ev_receiving": ev_r,
+        "quality_gate_passed": complete and not excluded,
+        "quality_gate_reasons": ([] if complete and not excluded else (["MISSING_CURRENT_AH_OR_EURO"] if not complete else ["YOUTH_OR_FRIENDLY_EXCLUDED"])),
+        "rule_version": "GITHUB_PORTABLE_V3_V4_20261014",
+    }
+
+
+def merge(new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]], list_date: str) -> tuple[list[dict[str, Any]], str | None]:
+    old = {str(x.get("match_id")): x for x in old_rows if x.get("match_id")}
+    warning = None
+    previous_today = sum(1 for x in old.values() if x.get("list_date") == list_date)
+    incoming_today = sum(1 for x in new_rows if x.get("list_date") == list_date)
+    if previous_today and incoming_today < previous_today * 0.65:
+        warning = f"ROW_COUNT_SHRINK_WARNING previous={previous_today} incoming={incoming_today}"
+    for fresh in new_rows:
+        key = str(fresh.get("match_id") or "")
+        if not key:
+            continue
+        previous = old.get(key)
+        if previous and str(previous.get("state")) not in {"0", ""}:
+            locked = dict(previous)
+            locked.update({k: fresh.get(k) for k in ("state", "score", "source_snapshot")})
+            old[key] = locked
+        else:
+            old[key] = fresh
+    return sorted(old.values(), key=lambda x: (str(x.get("list_date")), str(x.get("kickoff")), str(x.get("match_id")))), warning
+
+
+def write_csv(rows: list[dict[str, Any]]) -> None:
+    flat = []
+    for x in rows:
+        y = {k: v for k, v in x.items() if k != "market"}
+        y.update({f"market_{k}": v for k, v in x.get("market", {}).items()})
+        flat.append(y)
+    fields = sorted({k for x in flat for k in x})
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8-sig", newline="", delete=False, dir=LEDGER_CSV.parent, suffix=".tmp") as h:
+        w = csv.DictWriter(h, fieldnames=fields); w.writeheader(); w.writerows(flat); tmp = Path(h.name)
+    tmp.replace(LEDGER_CSV)
+
+
+def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
+    out = SITE / version.lower() / "data" / f"{date}.json"
+    payload = {"list_date": date, "version": version, "generated_at": dt.datetime.now(TZ).isoformat(), "matches": [x for x in rows if x.get("list_date") == date]}
+    for x in payload["matches"]:
+        x[version.lower()] = evaluate(x, version)
+    atomic_text(out, json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
+    atomic_text(SITE / version.lower() / "data" / "index.json", json.dumps([date], ensure_ascii=False))
+    html = f'''<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{version} GitHub Dashboard</title><style>body{{font:14px Arial;margin:0;background:#eef5fb;color:#17324d}}main{{max-width:1200px;margin:auto;padding:12px}}header,section{{background:#fff;padding:12px;margin-bottom:10px;border:1px solid #c5d9ea}}table{{width:100%;border-collapse:collapse}}th,td{{padding:7px;border-bottom:1px solid #d9e5ef;text-align:left}}.bet{{color:#07843f;font-weight:700}}.no{{color:#b42318}}@media(max-width:700px){{table{{font-size:12px}}th:nth-child(5),td:nth-child(5){{display:none}}}}</style><main><header><h2>{version} GitHub 云端看板</h2><div id="meta">加载中</div><label><input id="all" type="checkbox" checked>显示全部赛事</label></header><section><table><thead><tr><th>时间</th><th>赛事</th><th>比赛</th><th>结果</th><th>盘口/水位</th><th>决策</th></tr></thead><tbody id="rows"></tbody></table></section></main><script>const d=new URLSearchParams(location.search).get('date')||'{date}';fetch('./data/'+d+'.json?v='+Date.now()).then(r=>r.json()).then(p=>{{document.querySelector('#meta').textContent=p.list_date+'｜共 '+p.matches.length+' 场';const key='{version.lower()}';const render=()=>{{const all=document.querySelector('#all').checked;document.querySelector('#rows').innerHTML=p.matches.filter(x=>all||x[key]?.bettable).map(x=>{{const q=x[key]||{{}};const m=x.market||{{}};return '<tr><td>'+x.kickoff+'</td><td>'+x.competition+'</td><td>'+x.home_team+' vs '+x.away_team+'</td><td>'+x.score+'</td><td>'+((m.line??'—')+' / '+(m.giving_water??'—')+' / '+(m.receiving_water??'—'))+'</td><td class="'+(q.bettable?'bet':'no')+'">'+(q.bettable?(q.selected_team+' '+q.decision):'不投')+'</td></tr>'}}).join('')}};document.querySelector('#all').onchange=render;render()}}).catch(e=>document.querySelector('#meta').textContent='数据加载失败：'+e)</script>'''
+    atomic_text(SITE / version.lower() / "index.html", html)
+
+
+def send_feishu(date: str, counts: dict[str, int], warning: str | None) -> None:
+    url = os.environ.get("FEISHU_WEBHOOK_URL")
+    if not url:
+        return
+    text = f"GitHub 足球云端更新 {date}\nV3 可投 {counts['V3']} 场｜V4 可投 {counts['V4']} 场｜底稿 {counts['rows']} 场"
+    if warning:
+        text += f"\n⚠️ {warning}"
+    body = json.dumps({"msg_type": "text", "content": {"text": text}}, ensure_ascii=False).encode("utf-8")
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"}, method="POST")
+    with urllib.request.urlopen(req, timeout=20) as response:
+        if response.status >= 300:
+            raise RuntimeError(f"Feishu HTTP {response.status}")
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--list-date", default=(dt.datetime.now(TZ).date().isoformat()))
+    ap.add_argument("--from-csv", help="offline test input; skips network fetch")
+    args = ap.parse_args()
+    date = args.list_date
+    snapshot = Path(args.from_csv) if args.from_csv else run_fetch(date)
+    with snapshot.open("r", encoding="utf-8-sig", newline="") as h:
+        incoming = [market_row(x, date) for x in csv.DictReader(h)]
+    old_rows = read_rows(LEDGER_JSON)
+    rows, warning = merge(incoming, old_rows, date)
+    for x in rows:
+        if x.get("list_date") == date:
+            x.setdefault("v3", evaluate(x, "V3")); x.setdefault("v4", evaluate(x, "V4"))
+    atomic_text(LEDGER_JSON, json.dumps(rows, ensure_ascii=False, indent=2))
+    write_csv(rows)
+    current = [x for x in rows if x.get("list_date") == date]
+    counts = {"rows": len(current), "V3": sum(bool(x.get("v3", {}).get("bettable")) for x in current), "V4": sum(bool(x.get("v4", {}).get("bettable")) for x in current)}
+    dashboard("V3", date, current); dashboard("V4", date, current)
+    atomic_text(DATA / "last_run.json", json.dumps({"list_date": date, "counts": counts, "warning": warning, "snapshot": str(snapshot), "generated_at": dt.datetime.now(TZ).isoformat()}, ensure_ascii=False, indent=2))
+    send_feishu(date, counts, warning)
+    print(json.dumps({"snapshot": str(snapshot), **counts, "warning": warning}, ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

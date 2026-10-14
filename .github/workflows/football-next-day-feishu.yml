@@ -1,9 +1,6 @@
 name: Football next-day evening update and Feishu delivery
 
 on:
-  schedule:
-    # 20:00 Asia/Shanghai = 12:00 UTC.
-    - cron: "0 12 * * *"
   workflow_dispatch:
 
 concurrency:

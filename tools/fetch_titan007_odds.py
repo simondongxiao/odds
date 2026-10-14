@@ -26,7 +26,13 @@ from pathlib import Path
 # transport fallback for the daily refresh.
 BASE = "https://bf.titan007.com/vbsxml"
 REFERER = "https://live.titan007.com/oldIndexall.aspx"
-OUT_ROOT = Path(r"D:\codex\v3_legacy\outputs\football_odds_trader\raw\titan007")
+# The desktop runner keeps its historical D:\codex tree, while the GitHub
+# runner stores the same append-only snapshots inside the checked-out repo.
+# Keep the desktop default for local skill runs and allow the cloud wrapper to
+# select a portable root without rewriting the fetch logic.
+_GITHUB_ROOT = Path(os.environ.get("FOOTBALL_GITHUB_ROOT", Path(__file__).resolve().parents[1]))
+_DEFAULT_OUT_ROOT = Path(r"D:\codex\v3_legacy\outputs\football_odds_trader\raw\titan007")
+OUT_ROOT = Path(os.environ.get("FOOTBALL_RAW_ROOT", str(_DEFAULT_OUT_ROOT if "FOOTBALL_GITHUB_ROOT" not in os.environ else _GITHUB_ROOT / "data" / "raw" / "titan007")))
 BF_BASE = "https://bf.titan007.com"
 VIP_BASE = "https://vip.titan007.com"
 EURO_INDEX = "https://1x2.titan007.com/index_vip.aspx"
