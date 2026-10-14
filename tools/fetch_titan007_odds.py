@@ -982,7 +982,8 @@ def match_betexplorer_to_titan(
     mapped_events: dict[str, dict[str, str]] = {}
     ambiguous = 0
     for match_id, row in future_rows.items():
-        source = euro.get(match_id, {})
+        source = dict(row)
+        source.update(euro.get(match_id, {}))
         home_en = str(source.get("home_en", "") or "")
         away_en = str(source.get("away_en", "") or "")
         if not home_en or not away_en:
@@ -3034,6 +3035,47 @@ def main() -> int:
             )
             rows_by_id[match_id] = item
         future_added += len(supplemental_rows)
+
+        # The Titan daily board contains official fixtures whose schedule row
+        # exists but whose current AH transport is blank.  Those rows are not
+        # in ``future_rows`` (the Next page is only a supplement), so give
+        # BetExplorer a second filtered pass over the existing roster.
+        # Merge only missing market fields; Titan/500 values remain preferred.
+        def _complete_ah(item: dict[str, object]) -> bool:
+            return all(str(item.get(k, "") or "").strip() for k in (
+                "ah_full_current_home_or_over", "ah_full_current_line_or_draw", "ah_full_current_away_or_under"
+            ))
+        def _complete_euro(item: dict[str, object]) -> bool:
+            return all(str(item.get(k, "") or "").strip() for k in (
+                "euro_full_current_home_or_over", "euro_full_current_line_or_draw", "euro_full_current_away_or_under"
+            ))
+        coverage_targets = {
+            match_id: row for match_id, row in rows_by_id.items()
+            if str(row.get("state") or "").strip() in {"0", ""}
+            and str(row.get("source_provider") or "") != "BetExplorer"
+            and (not _complete_ah(row) or not _complete_euro(row))
+            and str(row.get("home_en") or row.get("home_cn") or "").strip()
+            and str(row.get("away_en") or row.get("away_cn") or "").strip()
+        }
+        if coverage_targets:
+            try:
+                existing_fallbacks = match_betexplorer_to_titan(
+                    coverage_targets, {}, stamp, out_dir, target_list_date,
+                )
+                for match_id, fallback in existing_fallbacks.items():
+                    target = rows_by_id.get(match_id)
+                    if not target:
+                        continue
+                    for field, value in fallback.items():
+                        if value is not None and str(value).strip() and not str(target.get(field) or "").strip():
+                            target[field] = value
+                print(
+                    f"betexplorer_existing_targets={len(coverage_targets)} "
+                    f"betexplorer_existing_mapped={len(existing_fallbacks)}",
+                    file=sys.stderr,
+                )
+            except Exception as exc:
+                print(f"betexplorer_existing_failed={exc}", file=sys.stderr)
     except Exception as exc:
         print(f"future_fetch_failed: {exc}", file=sys.stderr)
 
