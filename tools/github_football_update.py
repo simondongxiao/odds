@@ -307,6 +307,45 @@ def merge(new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]], list_d
     return sorted(old.values(), key=lambda x: (str(x.get("list_date")), str(x.get("kickoff")), str(x.get("match_id")))), warning
 
 
+def dedupe_fixture_rows(rows: list[dict[str, Any]], list_date: str) -> list[dict[str, Any]]:
+    """Collapse cross-provider duplicates for the same Beijing business slate."""
+    def key(item: dict[str, Any]) -> tuple[str, str, str]:
+        norm = lambda v: re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", str(v or "").casefold())
+        return str(item.get("list_date", "")), norm(item.get("home_team_en") or item.get("home_team")), norm(item.get("away_team_en") or item.get("away_team"))
+
+    def score(item: dict[str, Any]) -> tuple[int, int, int, int]:
+        m = item.get("market") or {}
+        source = str(item.get("match_id", ""))
+        return (
+            1 if not source.startswith("BE_") else 0,
+            1 if m.get("current_complete") else 0,
+            1 if m.get("euro_complete") else 0,
+            1 if item.get("kickoff") else 0,
+        )
+
+    chosen: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for item in rows:
+        if str(item.get("list_date")) != list_date:
+            continue
+        k = key(item)
+        prior = chosen.get(k)
+        if prior is None or score(item) > score(prior):
+            chosen[k] = item
+    output: list[dict[str, Any]] = []
+    seen: set[int] = set()
+    for item in rows:
+        if str(item.get("list_date")) != list_date:
+            output.append(item)
+            continue
+        picked = chosen.get(key(item))
+        marker = id(picked) if picked is not None else id(item)
+        if marker in seen:
+            continue
+        seen.add(marker)
+        output.append(picked or item)
+    return output
+
+
 def write_csv(rows: list[dict[str, Any]]) -> None:
     flat = []
     for x in rows:
@@ -466,6 +505,7 @@ def main() -> int:
     rows, warning = merge(incoming, old_rows, date)
     for item in rows:
         localize_row(item, team_map, league_map)
+    rows = dedupe_fixture_rows(rows, date)
     for x in rows:
         if x.get("list_date") != date:
             continue
