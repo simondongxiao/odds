@@ -1986,7 +1986,9 @@ def _incremental_snapshot_index(
 
     cached_files = cached.get("files") if isinstance(cached.get("files"), dict) else {}
     cached_rows = cached.get("rows") if isinstance(cached.get("rows"), dict) else {}
-    rebuild = cached.get("version") != 1 or cached.get("mode") != mode
+    # Version 2 keeps an append-only overlay of non-empty market fields.
+    # A later transient blank must never erase a complete Euro/AH quote.
+    rebuild = cached.get("version") != 2 or cached.get("mode") != mode
     if set(cached_files) - set(signatures):
         rebuild = True
     if any(cached_files.get(path) != signature for path, signature in signatures.items() if path in cached_files):
@@ -2034,14 +2036,19 @@ def _incremental_snapshot_index(
                             )
                         }
                     projected["_source"] = str(path)
-                    rows[match_id] = projected
+                    previous = rows.get(match_id, {})
+                    merged = dict(previous)
+                    for key, value in projected.items():
+                        if str(value or "").strip() or not str(merged.get(key) or "").strip():
+                            merged[key] = value
+                    rows[match_id] = merged
         except (OSError, UnicodeError):
             continue
         processed_files[str(path)] = signatures[str(path)]
 
     if rebuild or pending:
         index_path.parent.mkdir(parents=True, exist_ok=True)
-        payload = {"version": 1, "mode": mode, "files": signatures, "rows": rows}
+        payload = {"version": 2, "mode": mode, "files": signatures, "rows": rows}
         index_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     return rows
 
