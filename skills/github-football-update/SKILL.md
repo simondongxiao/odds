@@ -15,6 +15,13 @@ writes the append-only state to `data/github_football/ledger.json` and
 `ledger.csv`. Started/settled rows are locked: refresh may update score and
 settlement fields but must not replace the earlier market or decision.
 
+For prematch coverage, Titan007 is the primary source and 500.com plus
+BetExplorer are independent supplements. BetExplorer is joined after Beijing
+date normalization because its schedule timestamps are UTC, and supplies both
+Asian handicap and 1X2 prices through its public event endpoints. A missing
+opening line remains allowed, but a row is bettable only after current Asian
+line/waters and current 1X2 prices are present.
+
 The script publishes date-scoped JSON and small responsive HTML shells under
 `github_site/v3` and `github_site/v4`. The HTML loads only the requested date's
 JSON, so mobile clients do not download the historical ledger on every visit.
