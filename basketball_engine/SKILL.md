@@ -14,7 +14,7 @@ description: 篮球数据核验、Source-Agnostic Evidence、Titan007 Feature St
 赛事页的“日本男子B联赛甲级联赛”和球队历史页的 `日B1`/`日B2`/`日B3` 必须归入同一
 `JAPAN_BLEAGUE` family key；联赛分级保留在原始字段中，不能因展示简称不同把球队历史
 判为 `COMPETITION_MISMATCH`。当前板没有真实报价时仍只输出 `NO_MARKET`/观察，不能用
-历史盘口或默认赔率填充；历史别名修复后，若盘口稍后出现，应在下一次 15:00/20:00
+历史盘口或默认赔率填充；历史别名修复后，若盘口稍后出现，应在下一次 05:00/20:00
 刷新中直接进入正常定价链。
 
 ## v4.9 全局实体注册、时段感知盘口与性能合同
@@ -670,7 +670,7 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 
 ### GitHub Actions 与飞书通知
 
-生产仓库的 .github/workflows/basketball-daily.yml 使用 0 23 * * *（UTC，即北京时间每天 07:00）生成当天版本，使用 0 7 * * *（UTC，即北京时间每天 15:00）重抓当天午后盘口，并使用 0 12 * * *（UTC，即北京时间每天 20:00）自动把目标日期设为次日，生成次日版本；同时支持 workflow_dispatch.target_date 重跑指定北京时间日期。工作流从 main 运行引擎，从 gh-pages 种子化最近状态，生成目标日 JSON/HTML 后提交 gh-pages；提交前保留并合并并发产生的最新页面状态，避免覆盖足球或人工更新。提交得到的 SHA 必须写入步骤输出并等待 Pages workflow 对该 SHA 返回 completed/success，只有部署成功或页面已是最新时才发送飞书页面链接。
+生产仓库的 .github/workflows/basketball-daily.yml 使用 0 21 * * *（UTC，即北京时间每天 05:00）生成当天版本，并使用 0 12 * * *（UTC，即北京时间每天 20:00）自动把目标日期设为次日，生成次日版本；同时支持 workflow_dispatch.target_date 重跑指定北京时间日期。工作流从 main 运行引擎，从 gh-pages 种子化最近状态，生成目标日 JSON/HTML 后提交 gh-pages；提交前保留并合并并发产生的最新页面状态，避免覆盖足球或人工更新。提交得到的 SHA 必须写入步骤输出并等待 Pages workflow 对该 SHA 返回 completed/success，只有部署成功或页面已是最新时才发送飞书页面链接。
 
 飞书只读取 GitHub Secret FEISHU_WEBHOOK，禁止把 webhook 写入仓库、日志、数据或 HTML。通知至少包含北京时间日期、运行状态、赛事数、纸面可投数、Pages 状态、发布提交短 SHA、Actions 运行链接和 https://simondongxiao.github.io/odds/basketball-v2.html。引擎失败时也发送失败状态；发送失败按 2/4 秒重试三次并把原因留在 Actions 日志。真实资金执行永久关闭。
 
