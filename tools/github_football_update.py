@@ -155,13 +155,23 @@ def aliases() -> tuple[dict[str, str], dict[str, str]]:
 def localize_row(item: dict[str, Any], team_map: dict[str, str], league_map: dict[str, str]) -> dict[str, Any]:
     item["home_team_en"] = item.get("home_team_en") or item.get("home_team", "")
     item["away_team_en"] = item.get("away_team_en") or item.get("away_team", "")
-    item["home_team"] = team_map.get(str(item.get("home_team", "")).casefold(), item.get("home_team", ""))
-    item["away_team"] = team_map.get(str(item.get("away_team", "")).casefold(), item.get("away_team", ""))
-    item["competition"] = league_map.get(str(item.get("competition", "")).casefold(), item.get("competition", ""))
+    def translate(raw: Any, english: Any) -> str:
+        raw_text = str(raw or "").strip()
+        english_text = str(english or "").strip()
+        # Prefer a direct source-label mapping, then use the English provider
+        # label.  The latter is essential for BetExplorer-only rows whose
+        # Chinese field is blank or arrived as mojibake.
+        return (team_map.get(raw_text.casefold()) or
+                team_map.get(english_text.casefold()) or raw_text or english_text)
+    item["home_team"] = translate(item.get("home_team"), item.get("home_team_en"))
+    item["away_team"] = translate(item.get("away_team"), item.get("away_team_en"))
+    item["competition"] = (league_map.get(str(item.get("competition", "")).casefold()) or
+                            league_map.get(str(item.get("competition_en", "")).casefold()) or
+                            item.get("competition", ""))
     market = item.get("market") or {}
     for key in ("giving_team", "receiving_team"):
         if market.get(key):
-            market[key] = team_map.get(str(market[key]).casefold(), market[key])
+            market[key] = translate(market[key], market[key])
     item["market"] = market
     return item
 
