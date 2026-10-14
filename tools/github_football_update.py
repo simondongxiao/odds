@@ -216,7 +216,7 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
         x[version.lower()] = evaluate(x, version)
     atomic_text(out, json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
     atomic_text(SITE / version.lower() / "data" / "index.json", json.dumps([date], ensure_ascii=False))
-    html = f'''<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{version} GitHub Dashboard</title><style>body{{font:14px Arial;margin:0;background:#eef5fb;color:#17324d}}main{{max-width:1200px;margin:auto;padding:12px}}header,section{{background:#fff;padding:12px;margin-bottom:10px;border:1px solid #c5d9ea}}table{{width:100%;border-collapse:collapse}}th,td{{padding:7px;border-bottom:1px solid #d9e5ef;text-align:left}}.bet{{color:#07843f;font-weight:700}}.no{{color:#b42318}}@media(max-width:700px){{table{{font-size:12px}}th:nth-child(5),td:nth-child(5){{display:none}}}}</style><main><header><h2>{version} GitHub 云端看板</h2><div id="meta">加载中</div><label><input id="all" type="checkbox" checked>显示全部赛事</label></header><section><table><thead><tr><th>时间</th><th>赛事</th><th>比赛</th><th>结果</th><th>盘口/水位</th><th>决策</th></tr></thead><tbody id="rows"></tbody></table></section></main><script>const d=new URLSearchParams(location.search).get('date')||'{date}';fetch('./data/'+d+'.json?v='+Date.now()).then(r=>r.json()).then(p=>{{document.querySelector('#meta').textContent=p.list_date+'｜共 '+p.matches.length+' 场';const key='{version.lower()}';const render=()=>{{const all=document.querySelector('#all').checked;document.querySelector('#rows').innerHTML=p.matches.filter(x=>all||x[key]?.bettable).map(x=>{{const q=x[key]||{{}};const m=x.market||{{}};return '<tr><td>'+x.kickoff+'</td><td>'+x.competition+'</td><td>'+x.home_team+' vs '+x.away_team+'</td><td>'+x.score+'</td><td>'+((m.line??'—')+' / '+(m.giving_water??'—')+' / '+(m.receiving_water??'—'))+'</td><td class="'+(q.bettable?'bet':'no')+'">'+(q.bettable?(q.selected_team+' '+q.decision):'不投')+'</td></tr>'}}).join('')}};document.querySelector('#all').onchange=render;render()}}).catch(e=>document.querySelector('#meta').textContent='数据加载失败：'+e)</script>'''
+    html = f'''<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{version} GitHub Dashboard</title><style>body{{font:14px Arial;margin:0;background:#eef5fb;color:#17324d}}main{{max-width:1200px;margin:auto;padding:12px}}header,section{{background:#fff;padding:12px;margin-bottom:10px;border:1px solid #c5d9ea}}table{{width:100%;border-collapse:collapse}}th,td{{padding:7px;border-bottom:1px solid #d9e5ef;text-align:left}}.bet{{color:#07843f;font-weight:700}}.no{{color:#b42318}}.why{{font-size:12px;color:#7a3b00}}@media(max-width:700px){{table{{font-size:12px}}th:nth-child(5),td:nth-child(5){{display:none}}}}</style><main><header><h2>{version} GitHub 云端看板</h2><div id="meta">加载中</div><label><input id="all" type="checkbox" checked>显示全部赛事</label></header><section><table><thead><tr><th>时间</th><th>赛事</th><th>比赛</th><th>结果</th><th>盘口/水位</th><th>决策</th><th>门禁原因</th></tr></thead><tbody id="rows"></tbody></table></section></main><script>const d=new URLSearchParams(location.search).get('date')||'{date}';fetch('./data/'+d+'.json?v='+Date.now()).then(r=>r.json()).then(p=>{{document.querySelector('#meta').textContent=p.list_date+'｜共 '+p.matches.length+' 场';const key='{version.lower()}';const render=()=>{{const all=document.querySelector('#all').checked;document.querySelector('#rows').innerHTML=p.matches.filter(x=>all||x[key]?.bettable).map(x=>{{const q=x[key]||{{}};const m=x.market||{{}};const why=(q.quality_gate_reasons||[]).join('、')||'—';return '<tr><td>'+x.kickoff+'</td><td>'+x.competition+'</td><td>'+x.home_team+' vs '+x.away_team+'</td><td>'+x.score+'</td><td>'+((m.line??'—')+' / '+(m.giving_water??'—')+' / '+(m.receiving_water??'—'))+'</td><td class="'+(q.bettable?'bet':'no')+'">'+(q.bettable?(q.selected_team+' '+q.decision):'不投')+'</td><td class="why">'+why+'</td></tr>'}}).join('')}};document.querySelector('#all').onchange=render;render()}}).catch(e=>document.querySelector('#meta').textContent='数据加载失败：'+e)</script>'''
     atomic_text(SITE / version.lower() / "index.html", html)
 
 
@@ -246,7 +246,16 @@ def main() -> int:
     old_rows = read_rows(LEDGER_JSON)
     rows, warning = merge(incoming, old_rows, date)
     for x in rows:
-        if x.get("list_date") == date:
+        if x.get("list_date") != date:
+            continue
+        # Unstarted matches must be reevaluated on every refresh.  A previous
+        # run may have seen a transiently missing quote; keeping setdefault()
+        # here would permanently freeze that false NO_BET until the match is
+        # locked.  Started/settled rows keep their historical decision.
+        if str(x.get("state") or "") in {"0", ""}:
+            x["v3"] = evaluate(x, "V3")
+            x["v4"] = evaluate(x, "V4")
+        else:
             x.setdefault("v3", evaluate(x, "V3")); x.setdefault("v4", evaluate(x, "V4"))
     atomic_text(LEDGER_JSON, json.dumps(rows, ensure_ascii=False, indent=2))
     write_csv(rows)
