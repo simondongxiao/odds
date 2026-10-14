@@ -24,7 +24,12 @@ jobs:
       FOOTBALL_PYTHON: D:\python\python.exe
       FOOTBALL_DASHBOARD_URL: https://simondongxiao.github.io/odds/v4/
       TITAN_ENABLE_BROWSER_FALLBACK: "0"
-      TITAN_ENABLE_MOBILE_FALLBACK: "0"
+      TITAN_ENABLE_MOBILE_FALLBACK: "1"
+      TITAN_MOBILE_BROWSER_MARKETS: "ah"
+      TITAN_MOBILE_BROWSER_BATCH_LIMIT: "160"
+      TITAN_MOBILE_BROWSER_TIMEOUT_MS: "12000"
+      TITAN_MOBILE_BROWSER_ATTEMPTS: "2"
+      TITAN_MOBILE_BROWSER_REQUEST_INTERVAL: "0.25"
 
     steps:
       - name: Preflight production runner
