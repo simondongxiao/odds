@@ -332,6 +332,31 @@ def clean_html_text(value: str) -> str:
     return " ".join(value.replace("\xa0", " ").split()).strip()
 
 
+def playwright_executable() -> str | None:
+    """Return an explicit browser path when one is installed.
+
+    GitHub-hosted Ubuntu runners use Playwright's managed Chromium, while the
+    local Windows skill normally uses Chrome/Edge.  The old Windows-only path
+    made the fallback silently impossible in cloud runs.
+    """
+    configured = str(os.environ.get("TITAN_BROWSER_EXECUTABLE", "")).strip()
+    if configured and Path(configured).exists():
+        return configured
+    candidates = (
+        Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
+        Path(r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"),
+        Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
+    )
+    for candidate in candidates:
+        if candidate.exists():
+            return str(candidate)
+    for command in ("chromium", "chromium-browser", "google-chrome", "microsoft-edge"):
+        resolved = shutil.which(command)
+        if resolved:
+            return resolved
+    return None
+
+
 def clean_team_text(value: str) -> tuple[str, str]:
     text = clean_html_text(value)
     ranks = re.findall(r"\[([^\]]+)\]", text)
@@ -1433,14 +1458,7 @@ def browser_recover_vip_pages(
         if queued_jobs > len(jobs):
             print(f"future_browser_capped={len(jobs)}/{queued_jobs}", file=sys.stderr)
 
-    chrome_candidates = (
-        Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
-        Path(r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"),
-        Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
-    )
-    executable = next((path for path in chrome_candidates if path.exists()), None)
-    if executable is None:
-        raise RuntimeError("Chromium executable unavailable for Titan VIP fallback")
+    executable = playwright_executable()
 
     async def fetch_all() -> list[tuple[str, str, dict[str, float | str], str]]:
         from playwright.async_api import async_playwright
@@ -1470,7 +1488,10 @@ def browser_recover_vip_pages(
             return True
 
         async with async_playwright() as playwright:
-            browser = await playwright.chromium.launch(headless=True, executable_path=str(executable))
+            launch_options = {"headless": True}
+            if executable:
+                launch_options["executable_path"] = executable
+            browser = await playwright.chromium.launch(**launch_options)
             context = await browser.new_context(
                 ignore_https_errors=True,
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
@@ -1635,14 +1656,7 @@ def browser_recover_mobile_analysis_pages(
     if batch_limit:
         jobs = jobs[:batch_limit]
 
-    chrome_candidates = (
-        Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
-        Path(r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"),
-        Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
-    )
-    executable = next((path for path in chrome_candidates if path.exists()), None)
-    if executable is None:
-        raise RuntimeError("Chromium executable unavailable for Titan mobile fallback")
+    executable = playwright_executable()
 
     async def fetch_all() -> list[tuple[str, str, dict[str, float | str], str]]:
         from playwright.async_api import async_playwright
@@ -1664,7 +1678,10 @@ def browser_recover_mobile_analysis_pages(
             return True
 
         async with async_playwright() as playwright:
-            browser = await playwright.chromium.launch(headless=True, executable_path=str(executable))
+            launch_options = {"headless": True}
+            if executable:
+                launch_options["executable_path"] = executable
+            browser = await playwright.chromium.launch(**launch_options)
             context = await browser.new_context(
                 ignore_https_errors=True,
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
@@ -2127,7 +2144,7 @@ def enrich_future_odds(
         or completed[match_id][0].get("future_total_fetch_error")
     ]
     browser_recovered = 0
-    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "1" and not vip_probe_error:
+    if failed_ids and os.environ.get("TITAN_ENABLE_BROWSER_FALLBACK", "1") == "1":
         try:
             browser_recovered_ah, browser_recovered_total, browser_failed = browser_recover_vip_pages(
                 completed, ids_to_fetch, stamp, out_dir,
