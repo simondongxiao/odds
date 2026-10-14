@@ -200,6 +200,25 @@ def merge(new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]], list_d
             locked = dict(previous)
             locked.update({k: fresh.get(k) for k in ("state", "score", "source_snapshot")})
             old[key] = locked
+        elif previous:
+            # The cloud runner does not retain every raw Titan snapshot between
+            # jobs.  Preserve a previously confirmed non-empty market when a
+            # later job receives a transient blank AH/Euro payload, while
+            # allowing any new non-empty quote to replace it.
+            merged = dict(previous)
+            for field, value in fresh.items():
+                if field == "market":
+                    continue
+                if str(value or "").strip() or not str(merged.get(field) or "").strip():
+                    merged[field] = value
+            old_market = dict(previous.get("market") or {})
+            for field, value in (fresh.get("market") or {}).items():
+                if value is not None and str(value).strip() or old_market.get(field) in (None, ""):
+                    old_market[field] = value
+            old_market["current_complete"] = all(old_market.get(field) is not None for field in ("line", "giving_water", "receiving_water")) and bool(old_market.get("line"))
+            old_market["euro_complete"] = all(f(old_market.get(field)) is not None and f(old_market.get(field)) > 1 for field in ("euro_home", "euro_draw", "euro_away"))
+            merged["market"] = old_market
+            old[key] = merged
         else:
             old[key] = fresh
     return sorted(old.values(), key=lambda x: (str(x.get("list_date")), str(x.get("kickoff")), str(x.get("match_id")))), warning
