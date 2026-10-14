@@ -815,15 +815,28 @@ def load_event_foundation_contexts(root, events, mappings, cutoff=None, recent_l
             if not league_id:
                 continue
             match_kind, phase_code = _event_target_phase(event, league_id)
+            # NBA/WNBA preseason is a phase, not a new league identity.  The
+            # foundation profile must reuse regular/postseason rows as well;
+            # phase uncertainty is applied by pricing, not by deleting history.
+            all_mainstream_phases = str(league_id) in ("1", "2")
             team_profiles = []
             for titan_id in titan_ids:
-                rows = db.execute(
-                    "SELECT g.*,o.pts opponent_pts FROM team_game_stat g "
-                    "LEFT JOIN team_game_stat o ON o.titan_match_id=g.titan_match_id AND o.titan_team_id=g.opponent_titan_team_id "
-                    "WHERE g.titan_team_id=? AND g.league_id=? AND g.match_kind=? AND g.tip_at<? "
-                    "ORDER BY g.tip_at DESC LIMIT ?",
-                    (titan_id, league_id, match_kind, cutoff_dt.astimezone(timezone.utc).isoformat(),
-                     max(1, int(recent_limit)))).fetchall()
+                if all_mainstream_phases:
+                    rows = db.execute(
+                        "SELECT g.*,o.pts opponent_pts FROM team_game_stat g "
+                        "LEFT JOIN team_game_stat o ON o.titan_match_id=g.titan_match_id AND o.titan_team_id=g.opponent_titan_team_id "
+                        "WHERE g.titan_team_id=? AND g.league_id=? AND g.match_kind IN (1,2,3) AND g.tip_at<? "
+                        "ORDER BY g.tip_at DESC LIMIT ?",
+                        (titan_id, league_id, cutoff_dt.astimezone(timezone.utc).isoformat(),
+                         max(1, int(recent_limit)))).fetchall()
+                else:
+                    rows = db.execute(
+                        "SELECT g.*,o.pts opponent_pts FROM team_game_stat g "
+                        "LEFT JOIN team_game_stat o ON o.titan_match_id=g.titan_match_id AND o.titan_team_id=g.opponent_titan_team_id "
+                        "WHERE g.titan_team_id=? AND g.league_id=? AND g.match_kind=? AND g.tip_at<? "
+                        "ORDER BY g.tip_at DESC LIMIT ?",
+                        (titan_id, league_id, match_kind, cutoff_dt.astimezone(timezone.utc).isoformat(),
+                         max(1, int(recent_limit)))).fetchall()
                 profile = _profile_from_rows(rows)
                 if profile:
                     profile.update({"titan_team_id": titan_id, "canonical_team_id": canonical_ids[len(team_profiles)]})

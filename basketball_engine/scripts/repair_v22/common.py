@@ -124,7 +124,7 @@ def competition_key(name, gender_hint=None):
         # family as 日B1/日B2/日B3.  Keep the division in phase/competition
         # metadata, but use one family key so history remains joinable.
         ('JAPAN_BLEAGUE', ('b.league','日本b联赛','日本男子b联赛甲级联赛','日本男子b联赛超级联赛','日本男子b联赛次级联赛','日b1','日b2','日b3','japanb1','japanb2','japanb3')),
-        ('KOREA_KBL', ('kbl','韩国篮球联赛')),
+        ('KOREA_KBL', ('kbl','韩国篮球联赛','韩国篮球甲级联赛','韩国篮球职业联赛','韩篮甲','韩国kbl')),
         ('FIBA_CONTINENTAL', ('亚洲运动会女子篮球赛','亚洲运动会男子篮球赛','亚洲杯','亚运会')),
         ('ASIAN_GAMES_WOMEN', ('亚运女篮','亚洲运动会女篮')),
         ('ASIAN_GAMES_MEN', ('亚运男篮','亚洲运动会男篮')),

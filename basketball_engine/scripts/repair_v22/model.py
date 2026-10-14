@@ -179,8 +179,9 @@ def _bootstrap_match(event, game):
     """
     if game.get('evidence_kind') != 'TEAM_HISTORY' or game.get('gender') != event.get('gender'):
         return None
-    if competition_match(event, game):
-        return 'CANONICAL_SOURCE_LABEL'
+    matched = competition_match(event, game)
+    if matched:
+        return matched
     family = str(event.get('model_family') or '')
     ekey = _competition_family(event)
     gkey = _competition_family(game)
@@ -251,7 +252,7 @@ def _competition_adjustment(relation, game):
     elif relation == 'CROSS_COMPETITION_ADJUSTED':
         label = str(game.get('competition_key') or game.get('league') or '').lower()
         key = 'CUP' if any(x in label for x in ('cup', '杯')) else 'TIER2_DOMESTIC'
-    elif relation in ('NATIVE', 'CANONICAL_SOURCE_LABEL', 'EXACT_SOURCE_ID'):
+    elif relation in ('NATIVE', 'CANONICAL_SOURCE_LABEL', 'CROSS_SOURCE_CANONICAL_LEAGUE', 'EXACT_SOURCE_ID'):
         key = 'SAME_COMPETITION'
     else:
         key = 'UNKNOWN'
@@ -543,14 +544,32 @@ def total_diagnostic(event,games,context,policy,predictive_spread=None,scale_mul
             'execution_blockers':list(dict.fromkeys(hard_blockers)) if not execution_eligible else []}
 
 def competition_match(event,g):
-    """Use a source id when both surfaces expose one; otherwise require a
-    conservative canonical label from the verified team-history endpoint."""
+    """Match history by durable league identity before provider IDs.
+
+    7M and Titan use independent competition-id namespaces.  An exact source
+    id is the strongest relation, but a differing id must not veto a verified
+    canonical league/gender match (especially NBA regular/preseason/playoff).
+    """
+    if g.get('evidence_kind')!='TEAM_HISTORY' or g.get('gender')!=event.get('gender'):
+        return None
     eid=event.get('competition_id');gid=g.get('competition_id')
-    if eid and gid:return 'EXACT_SOURCE_ID' if eid==gid else None
-    if g.get('evidence_kind')!='TEAM_HISTORY':return None
+    if eid and gid and eid==gid:
+        return 'EXACT_SOURCE_ID'
     ek=event.get('competition_key') or competition_key(event.get('league'),event.get('gender'))
     gk=g.get('competition_key') or competition_key(g.get('league'),g.get('gender'))
-    return 'CANONICAL_SOURCE_LABEL' if ek and ek==gk else None
+    if ek and gk and str(ek).upper()==str(gk).upper():
+        return 'CROSS_SOURCE_CANONICAL_LEAGUE' if eid and gid and eid!=gid else 'CANONICAL_SOURCE_LABEL'
+    # Defensive phase-independent fallback for rows captured before the
+    # registry alias was normalized.  Restrict it to explicit mature leagues;
+    # generic LABEL:* values must never be fuzzy-joined.
+    ef=_competition_family(event)
+    gf=_competition_family(g)
+    allowed={'NBA','WNBA','EUROLEAGUE','EUROCUP','EUROLEAGUE_WOMEN','EUROCUP_WOMEN',
+             'AUSTRALIA_NBL','AUSTRALIA_WNBL','JAPAN_BLEAGUE','KOREA_KBL',
+             'CBA_REGULAR','CBA_PLAYOFF','B_LEAGUE'}
+    if ef and ef==gf and ef in allowed:
+        return 'CROSS_SOURCE_CANONICAL_LEAGUE'
+    return None
 
 def eligible_history(event,history,cutoff,mode):
     c=iso(cutoff);p=POLICY[event['model_family']];good=[];reject=Counter()
