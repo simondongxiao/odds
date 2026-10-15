@@ -11,6 +11,7 @@ from global_discovery import classify  # noqa: E402
 from discover_events import classify_family  # noqa: E402
 from repair_v22.common import competition_key  # noqa: E402
 from repair_v22.source import upcoming_7m_deep_capture_event_ids  # noqa: E402
+from repair_v22.model import quote_state  # noqa: E402
 from providers.titan007_history_adapter import (  # noqa: E402
     _team_search_queries,
     parse_search_response,
@@ -65,3 +66,37 @@ def test_next_day_nbl_and_ncaab_are_pre_warmed():
         "7m:nbl",
         "7m:ncaa",
     }
+
+
+def _quote_for_current_board(event_id="7m:nbl"):
+    return {
+        "quote_id": "q1", "event_id": event_id, "bookmaker_id": "7m-company:0",
+        "status": "OBSERVED", "current_board_contract_verified": True,
+        "source_timestamp_semantics": "LAST_CHANGE",
+        "source_quote_at": "2026-10-14T10:00:00+00:00",
+        "received_at": "2026-10-16T09:59:00+00:00",
+        "raw_verified": True, "period": "FULL_GAME", "main_or_alt": "MAIN",
+        "price_format_verified": True, "direction_verified": True,
+        "ot_rule": "INCLUDING_OT", "rule_evidence": "policy",
+    }
+
+
+def test_current_board_receipt_overrides_old_nbl_last_change_for_freshness():
+    event = {"event_id": "7m:nbl", "identity_verified": True,
+             "tip_at": "2026-10-16T12:00:00+00:00"}
+    state = quote_state(_quote_for_current_board(), event,
+                        "2026-10-16T10:00:00+00:00")
+    assert state["paper_quote_eligible"] is True
+    assert "STALE_QUOTE" not in state["reasons"]
+    assert "QUOTE_LAST_CHANGE_OLD" in state["warnings"]
+    assert state["freshness_basis"] == "VERIFIED_CURRENT_BOARD_CAPTURE"
+
+
+def test_unverified_current_board_still_blocks_old_quote():
+    event = {"event_id": "7m:nbl", "identity_verified": True,
+             "tip_at": "2026-10-16T12:00:00+00:00"}
+    quote = _quote_for_current_board()
+    quote["current_board_contract_verified"] = False
+    state = quote_state(quote, event, "2026-10-16T10:00:00+00:00")
+    assert "STALE_QUOTE" in state["reasons"]
+    assert state["paper_quote_eligible"] is False

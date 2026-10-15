@@ -383,7 +383,11 @@ def quote_blockers(q: Mapping[str, Any], event: Mapping[str, Any], asof: str, mo
         errors.append("EVENT_IDENTITY_UNVERIFIED")
     if mode != "SYNTHETIC_FIXTURE" and q.get("synthetic"):
         errors.append("SYNTHETIC_IN_PRODUCTION")
-    if q.get("status") != "OPEN":
+    semantics = str(q.get("source_timestamp_semantics") or "").upper()
+    current_listing = (q.get("current_board_contract_verified") is True and
+                       q.get("status") in {"OPEN", "OBSERVED"} and
+                       (q.get("captured_at") or q.get("received_at") or q.get("last_verified_at")))
+    if q.get("status") not in {"OPEN", "OBSERVED"}:
         errors.append("MARKET_NOT_OPEN")
     if q.get("period") != "FULL_GAME":
         errors.append("PERIOD_UNSUPPORTED")
@@ -409,9 +413,6 @@ def quote_blockers(q: Mapping[str, Any], event: Mapping[str, Any], asof: str, mo
     try:
         captured = ts(q.get("captured_at") or q.get("received_at"))
         semantics = str(q.get("source_timestamp_semantics") or "").upper()
-        current_listing = (q.get("current_board_contract_verified") is True and
-                           q.get("status") == "OPEN" and
-                           semantics == "CURRENT_BOARD_CAPTURE_ONLY")
         updated = captured if current_listing else ts(q["source_quote_at"])
         if not current_listing and updated > captured:
             errors.append("QUOTE_TIME_CONFLICT")
@@ -441,8 +442,8 @@ def latest_market_rows(quotes: Iterable[Mapping[str, Any]], asof: str, mode: str
             capture = ts(q.get("captured_at") or q.get("received_at"))
             semantics = str(q.get("source_timestamp_semantics") or "").upper()
             current_listing = (q.get("current_board_contract_verified") is True and
-                               q.get("status") == "OPEN" and
-                               semantics == "CURRENT_BOARD_CAPTURE_ONLY")
+                               q.get("status") in {"OPEN", "OBSERVED"} and
+                               (q.get("captured_at") or q.get("received_at") or q.get("last_verified_at")))
             update = capture if current_listing else ts(q["source_quote_at"])
         except (KeyError, ValueError):
             rejected_time.append(q)
@@ -459,8 +460,8 @@ def latest_market_rows(quotes: Iterable[Mapping[str, Any]], asof: str, mode: str
         old_capture = ts((old or {}).get("captured_at") or (old or {}).get("received_at")) if old else None
         old_semantics = str((old or {}).get("source_timestamp_semantics") or "").upper()
         old_current_listing = bool(old and old.get("current_board_contract_verified") is True and
-                                   old.get("status") == "OPEN" and
-                                   old_semantics == "CURRENT_BOARD_CAPTURE_ONLY")
+                                   old.get("status") in {"OPEN", "OBSERVED"} and
+                                   (old.get("captured_at") or old.get("received_at") or old.get("last_verified_at")))
         old_update = old_capture if old_current_listing else ts(old["source_quote_at"]) if old else None
         if old is None or (update, capture) > (old_update, old_capture):
             groups[key] = q
@@ -484,8 +485,8 @@ def consensus(quotes: Iterable[Mapping[str, Any]], contract_key: tuple[str, ...]
         b = q["bookmaker_id"]
         semantics = str(q.get("source_timestamp_semantics") or "").upper()
         current_listing = (q.get("current_board_contract_verified") is True and
-                           q.get("status") == "OPEN" and
-                           semantics == "CURRENT_BOARD_CAPTURE_ONLY")
+                           q.get("status") in {"OPEN", "OBSERVED"} and
+                           (q.get("captured_at") or q.get("received_at") or q.get("last_verified_at")))
         quote_time = ts(q.get("captured_at") or q.get("received_at")) if current_listing else ts(q["source_quote_at"])
         if b not in latest:
             latest[b] = q
@@ -493,8 +494,8 @@ def consensus(quotes: Iterable[Mapping[str, Any]], contract_key: tuple[str, ...]
         prior = latest[b]
         prior_semantics = str(prior.get("source_timestamp_semantics") or "").upper()
         prior_current_listing = (prior.get("current_board_contract_verified") is True and
-                                 prior.get("status") == "OPEN" and
-                                 prior_semantics == "CURRENT_BOARD_CAPTURE_ONLY")
+                                 prior.get("status") in {"OPEN", "OBSERVED"} and
+                                 (prior.get("captured_at") or prior.get("received_at") or prior.get("last_verified_at")))
         prior_time = ts(prior.get("captured_at") or prior.get("received_at")) if prior_current_listing else ts(prior["source_quote_at"])
         if quote_time > prior_time:
             latest[b] = q

@@ -1040,19 +1040,35 @@ def quote_state(q,event,asof):
     # This is current-listing freshness, not a fabricated source timestamp.
     semantics=str(q.get('source_timestamp_semantics') or '').upper()
     last_verified=iso(q['last_verified_at']) if q.get('last_verified_at') else None
-    current_listing=(q.get('current_board_contract_verified') is True and q.get('status')=='OPEN' and
-                     semantics == 'CURRENT_BOARD_CAPTURE_ONLY' and (last_verified is not None or rec is not None))
+    # A current-board response is still a valid listing when the provider
+    # labels its status OBSERVED and also publishes an older LAST_CHANGE.
+    # The skill treats the receipt/verification time as the freshness basis in
+    # this case; the old provider change time is retained as a warning only.
+    current_listing=(q.get('current_board_contract_verified') is True and
+                     q.get('status') in ('OPEN','OBSERVED') and
+                     (last_verified is not None or rec is not None))
     basis=(last_verified or rec) if current_listing else qt
     freshness_basis='VERIFIED_CURRENT_BOARD_CAPTURE' if current_listing else 'SOURCE_QUOTE_TIME' if qt else 'UNKNOWN'
     age=(c-basis).total_seconds() if basis else None
-    if age is None:reasons.append('QUOTE_TIME_UNKNOWN')
-    elif age>ttl:reasons.append('STALE_QUOTE')
+    warnings=[]
+    last_change_age=((c-qt).total_seconds() if qt else None)
+    if age is None:
+        reasons.append('QUOTE_TIME_UNKNOWN')
+    elif age>ttl:
+        # `age` is based on the current-board receipt for a verified listing,
+        # so this branch remains a true stale-capture check.  A provider's
+        # old LAST_CHANGE must never turn a freshly verified NBL board into a
+        # stale market blocker.
+        reasons.append('STALE_QUOTE')
+    if current_listing and qt is not None and last_change_age is not None and last_change_age>ttl:
+        warnings.append('QUOTE_LAST_CHANGE_OLD')
     if not q.get('price_format_verified'):reasons.append('PRICE_FORMAT_UNVERIFIED')
     if not q.get('direction_verified'):reasons.append('SELECTION_DIRECTION_UNVERIFIED')
     if q.get('ot_contract_status') == 'EXPLICIT_REGULATION_ONLY_CONFLICT':reasons.append('OT_POLICY_MISMATCH')
     elif q.get('ot_rule') != 'INCLUDING_OT' or not q.get('rule_evidence'):reasons.append('UNKNOWN_OT_RULE')
     if q.get('main_or_alt')!='MAIN':reasons.append('MAIN_MARKET_UNVERIFIED')
-    return {'reasons':list(dict.fromkeys(reasons)),'age_seconds':age,'ttl_seconds':ttl,
+    return {'reasons':list(dict.fromkeys(reasons)),'warnings':list(dict.fromkeys(warnings)),
+      'age_seconds':age,'last_change_age_seconds':last_change_age,'ttl_seconds':ttl,
       'freshness_basis':freshness_basis,
       'raw_observation':bool(q.get('raw_verified')),'fresh_observation':bool(q.get('raw_verified') and age is not None and 0<=age<=ttl and iso(event['tip_at'])>c),
       'paper_quote_eligible':not reasons}
