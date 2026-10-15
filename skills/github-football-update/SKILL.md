@@ -92,14 +92,25 @@ and Feishu. Never silently shrink the ledger.
 
 The GitHub workflow must install `requirements.txt`, run this script on a
 GitHub-hosted runner, copy `github_site` into the `gh-pages` worktree, commit
-and push the site, then send a short Feishu result using the
-`FEISHU_WEBHOOK_URL` secret. Desktop runs continue to use the existing local
+and push the site, verify the public date JSON and generated marker online,
+then send a short Feishu result using the `FEISHU_WEBHOOK_URL` secret. The
+Feishu response must be checked at both HTTP and business-code level; a missing
+secret or non-success business response fails visibly. Desktop runs continue to use the existing local
 skill and Excel ledgers; do not mix the two ledgers during a single run.
 
 The cloud schedules are Beijing time 05:07 for the current business slate and
 20:07 for the next business slate. GitHub cron is UTC, so these are `7 21 * * *`
 and `7 12 * * *` respectively. The evening job must pass tomorrow's Beijing
 date explicitly; never infer the next-day slate from the runner's UTC date.
+
+The morning and evening football jobs, the basketball publisher, and the two
+legacy manual publishers share one non-cancelling `gh-pages` concurrency group.
+The publish step must not use `git commit ... || true`: no-op commits are
+allowed only after an explicit staged-diff check, and push failures must fail
+the job. Every run writes a non-secret manifest with the target date, source
+counts, V3/V4 counts, publish SHA, Pages status, Feishu status, and failure
+stage. A fetch that returns no rows, no match IDs, or an unchanged stale
+snapshot is an error; it must not be reported as a successful update.
 
 ## Performance guard
 
