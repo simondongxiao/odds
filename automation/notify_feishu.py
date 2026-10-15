@@ -8,6 +8,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+from stage_status import record_stage
+
 
 def load(path: Path):
     try:
@@ -47,13 +49,22 @@ def main() -> int:
     ap.add_argument("--run-kind", default="")
     ap.add_argument("--run-url", default="")
     ap.add_argument("--url", default="https://simondongxiao.github.io/odds/basketball-v2.html")
+    ap.add_argument("--audit-root", default=os.environ.get("BASKETBALL_RUN_ROOT", ""))
     args = ap.parse_args()
+    started = time.monotonic()
+    audit_root = args.audit_root.strip()
     webhook = os.environ.get("FEISHU_WEBHOOK", "").strip()
     if not webhook:
-        print("FEISHU_WEBHOOK is not configured; notification skipped")
-        return 0
+        message = "FEISHU_WEBHOOK is not configured; notification was not attempted"
+        if audit_root:
+            record_stage(audit_root, "FEISHU_SENT", "FAILED", duration_seconds=time.monotonic() - started, details={"reason": "SECRET_MISSING"})
+        print(message, file=os.sys.stderr)
+        return 2
     if not webhook.startswith("https://open.feishu.cn/open-apis/bot/v2/hook/"):
-        raise SystemExit("FEISHU_WEBHOOK must be an open.feishu.cn bot webhook")
+        message = "FEISHU_WEBHOOK must be an open.feishu.cn bot webhook"
+        if audit_root:
+            record_stage(audit_root, "FEISHU_SENT", "FAILED", duration_seconds=time.monotonic() - started, details={"reason": "WEBHOOK_HOST_INVALID"})
+        raise SystemExit(message)
     latest = load(Path(args.data))
     day = latest.get("date_bj") or latest.get("date") or "未知日期"
     funnel = latest.get("funnel") or {}
@@ -87,15 +98,28 @@ def main() -> int:
     for attempt in range(3):
         try:
             with urllib.request.urlopen(request, timeout=20) as response:
-                body = json.loads(response.read().decode("utf-8", errors="replace") or "{}")
-            if body.get("code", 0) not in (0, None):
-                raise RuntimeError(f"Feishu returned code {body.get('code')}")
-            print(json.dumps({"sent": True, "status": response.status}, ensure_ascii=False))
+                raw = response.read().decode("utf-8", errors="replace")
+                body = json.loads(raw or "{}")
+                http_status = response.status
+            if not 200 <= http_status < 300:
+                raise RuntimeError(f"Feishu HTTP status {http_status}")
+            # Feishu bot HTTP 200 is not sufficient: code=0 is the business
+            # acknowledgement.  Missing/unknown code is treated as failure.
+            if not isinstance(body, dict) or body.get("code") != 0:
+                raise RuntimeError(f"Feishu business response rejected: {body!r}")
+            msg = str(body.get("msg", "")).strip().lower()
+            if msg and msg not in {"success", "ok"}:
+                raise RuntimeError(f"Feishu business message rejected: {body!r}")
+            if audit_root:
+                record_stage(audit_root, "FEISHU_SENT", "SUCCESS", business_date=day, duration_seconds=time.monotonic() - started, details={"http_status": str(http_status), "business_code": "0"})
+            print(json.dumps({"sent": True, "status": http_status, "business_code": 0}, ensure_ascii=False))
             return 0
         except (OSError, ValueError, RuntimeError) as exc:
             last_error = exc
             if attempt < 2:
                 time.sleep(2 ** (attempt + 1))
+    if audit_root:
+        record_stage(audit_root, "FEISHU_SENT", "FAILED", business_date=day, duration_seconds=time.monotonic() - started, details={"reason": type(last_error).__name__, "error": str(last_error)})
     raise SystemExit(f"Feishu notification failed after 3 attempts: {last_error}")
 
 

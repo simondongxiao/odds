@@ -107,7 +107,18 @@ jobs:
           print(f"Beijing target date: {target.isoformat()} ({run_kind})")
           PY
 
+      - name: Record scheduled stage
+        run: >-
+          python automation/stage_status.py
+          --root "$BASKETBALL_RUN_ROOT"
+          --stage SCHEDULED
+          --status SUCCESS
+          --business-date "$BASKETBALL_DATE"
+          --detail run_kind="$BASKETBALL_RUN_KIND"
+          --detail schedule="${{ github.event.schedule || 'workflow_dispatch' }}"
+
       - name: Run basketball daily engine
+        id: engine
         run: python automation/run_basketball_daily.py
 
       - name: Publish dashboard to gh-pages
@@ -152,15 +163,25 @@ jobs:
           fi
 
       - name: Wait for GitHub Pages deployment
-        if: ${{ steps.publish.outputs.changed == 'true' }}
+        if: ${{ always() && steps.publish.outcome == 'success' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PAGES_WORKFLOW_ID: "342557702"
-        run: python automation/wait_for_pages.py --sha "${{ steps.publish.outputs.sha }}" --timeout 600
+          PAGES_DATA_URL: https://simondongxiao.github.io/odds/basketball-data/latest.json
+          PAGES_EXPECTED_GENERATED_AT: ${{ steps.engine.outputs.generated_at }}
+          PUBLISH_CHANGED: ${{ steps.publish.outputs.changed }}
+        run: >-
+          python automation/wait_for_pages.py
+          --sha "${{ steps.publish.outputs.sha }}"
+          --timeout 600
+          --pages-url "$PAGES_DATA_URL"
+          --expected-date "$BASKETBALL_DATE"
+          --expected-generated-at "$PAGES_EXPECTED_GENERATED_AT"
+          --changed "$PUBLISH_CHANGED"
+          --audit-root "$BASKETBALL_RUN_ROOT"
 
       - name: Notify Feishu
-        if: ${{ always() && (github.event_name != 'workflow_dispatch' || inputs.notify) }}
-        continue-on-error: true
+        if: ${{ always() && (github.event_name != 'workflow_dispatch' || inputs.notify != false) }}
         env:
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
           RUN_STATUS: ${{ job.status }}
@@ -168,6 +189,7 @@ jobs:
           DEPLOY_STATUS: ${{ steps.publish.outputs.changed == 'true' && 'success' || 'already-current' }}
           RUN_KIND: ${{ steps.target.outputs.kind }}
           RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          BASKETBALL_DATE: ${{ steps.target.outputs.date }}
         run: >-
           python automation/notify_feishu.py
           --data public/basketball-data/latest.json
@@ -176,6 +198,7 @@ jobs:
           --deploy-status "$DEPLOY_STATUS"
           --run-kind "$RUN_KIND"
           --run-url "$RUN_URL"
+          --audit-root "$BASKETBALL_RUN_ROOT"
 
       - name: Upload run audit
         if: always()
