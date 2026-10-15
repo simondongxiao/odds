@@ -18,11 +18,19 @@ def fetch_json(url: str) -> Any:
         return json.loads(response.read().decode("utf-8"))
 
 
+def fetch_status(url: str) -> None:
+    req = urllib.request.Request(url, headers={"User-Agent": "football-pages-verify/1"})
+    with urllib.request.urlopen(req, timeout=20) as response:
+        if response.status != 200:
+            raise RuntimeError(f"HTTP {response.status}")
+
+
 def verify_once(base_url: str, date: str, expected_v3: str | None, expected_v4: str | None) -> dict[str, Any]:
     stamp = str(time.time_ns())
     root = base_url.rstrip("/")
     results: dict[str, Any] = {}
     for version, expected in (("v3", expected_v3), ("v4", expected_v4)):
+        fetch_status(f"{root}/{version}/index.html?verify={stamp}")
         index = fetch_json(f"{root}/{version}/data/index.json?verify={stamp}")
         if date not in index:
             raise RuntimeError(f"{version} index missing {date}")
