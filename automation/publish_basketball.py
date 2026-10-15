@@ -3,11 +3,9 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
-import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from stage_status import record_stage
 
 
 def load(path: Path, default):
@@ -115,7 +113,6 @@ def main() -> int:
     args = ap.parse_args()
     root = Path(args.root).resolve()
     public = Path(args.public).resolve()
-    started = time.monotonic()
     src_data = root / "dashboard_v2" / "data"
     dst_data = public / "basketball-data"
     dst_data.mkdir(parents=True, exist_ok=True)
@@ -124,15 +121,12 @@ def main() -> int:
     if not day:
         raise SystemExit("basketball daily output has no date_bj")
     if latest.get("update_status") == "FAILED":
-        record_stage(root, "PUBLISHED", "FAILED", business_date=day, duration_seconds=time.monotonic() - started, details={"reason": "ENGINE_MARKED_FAILED"})
         raise SystemExit("refusing to publish a payload marked update_status=FAILED")
     current = src_data / f"{day}.json"
     if not current.is_file():
-        record_stage(root, "PUBLISHED", "FAILED", business_date=day, duration_seconds=time.monotonic() - started, details={"reason": "TARGET_PAYLOAD_MISSING"})
         raise SystemExit(f"missing daily JSON: {current}")
     current_doc = load(current, {})
     if current_doc.get("date_bj") != day or not current_doc.get("events"):
-        record_stage(root, "PUBLISHED", "FAILED", business_date=day, duration_seconds=time.monotonic() - started, details={"reason": "TARGET_PAYLOAD_STALE_OR_EMPTY", "events": str(len(current_doc.get("events") or []))})
         raise SystemExit("refusing to publish a stale or empty basketball target payload")
     mobile = mobile_document(latest)
     for path in (current, src_data / "latest.json"):
@@ -187,7 +181,6 @@ def main() -> int:
         "events": len(latest.get("events") or []),
         "published_data": str(dst_data / f"{day}.json"),
     }
-    record_stage(root, "PUBLISHED", "SUCCESS", business_date=day, duration_seconds=time.monotonic() - started, details={"events": str(summary["events"]), "public_dir": str(public)})
     print(json.dumps(summary, ensure_ascii=False))
     return 0
 
