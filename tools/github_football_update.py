@@ -765,6 +765,12 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
     out = SITE / version.lower() / "data" / f"{date}.json"
     source_rows = [x for x in rows if x.get("list_date") == date]
     payload_rows = [rich_v4_row(x) for x in source_rows] if version == "V4" else source_rows
+    decision_key = version.lower()
+
+    def decision_payload(row: dict[str, Any]) -> dict[str, Any]:
+        value = row.get(decision_key)
+        return value if isinstance(value, dict) else {}
+
     payload = {
         "list_date": date, "version": version, "model_id": version,
         "model_version": version, "generated_at": dt.datetime.now(TZ).isoformat(),
@@ -773,18 +779,18 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
         "is_formal_signal": False,
         "summary": {
             "total": len(payload_rows),
-            "computed": sum(1 for row in payload_rows if (row.get("v4") or {}).get("decision") or (row.get("v3") or {}).get("decision")),
+            "computed": sum(1 for row in payload_rows if decision_payload(row).get("decision")),
             # The checked-in rich V4 shell consumes these exact lower-case
             # counters.  Keep the legacy `BET` alias for the portable shell.
-            "giving": sum(1 for row in payload_rows if (row.get("v4") or row.get("v3") or {}).get("decision") == "BET_GIVING"),
-            "receiving": sum(1 for row in payload_rows if (row.get("v4") or row.get("v3") or {}).get("decision") == "BET_RECEIVING"),
-            "no_bet": sum(1 for row in payload_rows if str((row.get("v4") or row.get("v3") or {}).get("decision") or "") == "NO_BET"),
-            "BET": sum(1 for row in payload_rows if (row.get("v4") or row.get("v3") or {}).get("bettable")),
+            "giving": sum(1 for row in payload_rows if decision_payload(row).get("decision") == "BET_GIVING"),
+            "receiving": sum(1 for row in payload_rows if decision_payload(row).get("decision") == "BET_RECEIVING"),
+            "no_bet": sum(1 for row in payload_rows if str(decision_payload(row).get("decision") or "") == "NO_BET"),
+            "BET": sum(1 for row in payload_rows if decision_payload(row).get("bettable")),
             "A": sum(1 for row in payload_rows if str(row.get("grade") or "") == "A"),
             "B": sum(1 for row in payload_rows if str(row.get("grade") or "") == "B"),
             "C": sum(1 for row in payload_rows if str(row.get("grade") or "") == "C"),
             "N": sum(1 for row in payload_rows if str(row.get("grade") or "") == "N"),
-            "neutral": sum(1 for row in payload_rows if str((row.get("v4") or row.get("v3") or {}).get("decision") or "") in {"NO_BET", ""}),
+            "neutral": sum(1 for row in payload_rows if str(decision_payload(row).get("decision") or "") in {"NO_BET", ""}),
             "missing_data": sum(1 for row in payload_rows if not (row.get("market") or {}).get("current_complete")),
             "not_prematch": sum(1 for row in payload_rows if str(row.get("state") or "") not in {"0", ""}),
             "excluded_abnormal": 0,
@@ -792,7 +798,6 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
         },
         "matches": payload_rows,
     }
-    decision_key = version.lower()
     for x in payload["matches"]:
         # Started/settled rows are decision-locked.  Rendering must not
         # re-evaluate them with the current state and erase the historical
