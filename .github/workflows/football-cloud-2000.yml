@@ -46,10 +46,10 @@ jobs:
           python-version: "3.12"
       - name: Resolve Beijing next-day target date
         id: target
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "list_date=$(TZ=Asia/Shanghai date -d 'tomorrow' +%F)" >> "$GITHUB_OUTPUT"
-          echo "scheduled_at=${{ github.event.schedule || 'manual' }}" >> "$GITHUB_OUTPUT"
-          echo "actual_started_at=$(date -u -Iseconds)" >> "$GITHUB_OUTPUT"
+          python tools/resolve_target_date.py --mode evening --event "${{ github.event_name }}" --schedule "${{ github.event.schedule || '' }}" --output "$GITHUB_OUTPUT"
       - name: Install cloud dependencies
         run: |
           python -m pip install -r requirements.txt playwright==1.55.0
