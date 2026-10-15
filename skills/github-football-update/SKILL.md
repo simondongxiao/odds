@@ -35,11 +35,14 @@ bounded browser/secondary-source recovery queue follows this order:
    countries (England, Spain, Italy, Germany, France, Portugal, Netherlands,
    Belgium, Turkey, Scotland, Russia, Ukraine and the Nordic countries) and
    senior continental competitions are handled first.
-2. Japan, Korea and Australia senior competitions, European tier 3 leagues,
-   and recognized senior domestic cups.
-3. Unknown adult competitions.
-4. Youth/reserve/academy/development competitions, followed by friendlies and
-   test matches. These remain last and do not displace senior coverage.
+2. Japan, Korea and Australia senior competitions plus eligible European tier
+   3 leagues.
+3. Other senior adult competitions.
+4. Recognized senior domestic cups.
+5. Other/non-mainstream European tier 3 competitions.
+6. Youth/reserve/academy/development competitions.
+7. Friendlies and test matches. These remain last and do not displace senior
+   coverage.
 
 This is a fetch-order rule only: it never invents odds or deletes lower-priority
 rows. A match enters V3/V4 as bettable only when its current Asian handicap and
@@ -102,13 +105,16 @@ date explicitly; never infer the next-day slate from the runner's UTC date.
 The fast path is HTTP/API fetch plus append-only JSON merge. Browser recovery is
 an emergency path only: cap it at 48 market jobs, use at most four concurrent
 workers, a 12-second page timeout, and one attempt. Within that cap reserve 16
-slots (or the configured `TITAN_BROWSER_PRIORITY2_MIN`) for the second-level
-coverage groups, rotating across Japan/Korea/Australia, eligible European
-third tiers, and senior cups. Youth, friendlies, and non-mainstream European
-third tiers may remain queued when the cap is full. Keep mobile-page recovery
-disabled unless a targeted investigation explicitly enables it. When the cap
-is hit, log `future_browser_capped=used/queued` and
-`future_browser_priority2_reserved=used/queued`; leave the remaining rows as
-explicit missing-data rows for the next refresh. Never let a source outage
-turn the daily job into an unbounded serial crawl. Each subprocess result
-records `elapsed_seconds` so a slow phase is visible in the run manifest.
+slots (or the configured `TITAN_BROWSER_PRIORITY2_MIN`) for the adult block
+covering Japan/Korea/Australia, eligible European third tiers, and other adult
+competitions. Reserve a separate four slots (or the configured
+`TITAN_BROWSER_CUP_MIN`) for senior cups. The adult block is queued before the
+cup block; non-mainstream European third tiers, youth, and friendlies may
+remain queued when the cap is full. Keep mobile-page recovery disabled unless a
+targeted investigation explicitly enables it. When the cap is hit, log
+`future_browser_capped=used/queued`,
+`future_browser_priority2_reserved=used/queued`, and
+`future_browser_cup_reserved=used/queued`; leave the remaining rows as explicit
+missing-data rows for the next refresh. Never let a source outage turn the
+daily job into an unbounded serial crawl. Each subprocess result records
+`elapsed_seconds` so a slow phase is visible in the run manifest.
