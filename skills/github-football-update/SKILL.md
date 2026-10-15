@@ -102,6 +102,10 @@ The cloud schedules are Beijing time 05:07 for the current business slate and
 20:07 for the next business slate. GitHub cron is UTC, so these are `7 21 * * *`
 and `7 12 * * *` respectively. The evening job must pass tomorrow's Beijing
 date explicitly; never infer the next-day slate from the runner's UTC date.
+Scheduled runs resolve the anchor day from the GitHub Actions run creation time
+through `tools/resolve_target_date.py`; they must not switch business dates
+because a runner started late. If that API lookup cannot be completed for a
+scheduled run, the job fails rather than silently choosing a possibly wrong day.
 
 The morning and evening football jobs, the basketball publisher, and the two
 legacy manual publishers share one non-cancelling `gh-pages` concurrency group.
