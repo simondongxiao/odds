@@ -614,8 +614,16 @@ def dedupe_fixture_rows(rows: list[dict[str, Any]], list_date: str) -> list[dict
         text = re.sub(r"\bfc\b", "", text)
         return re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", text)
 
-    def key(item: dict[str, Any]) -> tuple[str, str, str]:
-        return str(item.get("list_date", "")), canonical_team(item.get("home_team_en") or item.get("home_team")), canonical_team(item.get("away_team_en") or item.get("away_team"))
+    def key(item: dict[str, Any]) -> tuple[str, ...]:
+        home = canonical_team(item.get("home_team_en") or item.get("home_team"))
+        away = canonical_team(item.get("away_team_en") or item.get("away_team"))
+        date = str(item.get("list_date", ""))
+        # Historical rows with missing/mojibake names must never collapse into
+        # one empty-name bucket.  A provider match id is the only safe fallback.
+        if not home or not away:
+            return date, f"match_id:{str(item.get('match_id') or '')}"
+        kickoff_at = str(item.get("kickoff") or "").strip()[:16]
+        return date, kickoff_at, home, away
 
     def score(item: dict[str, Any]) -> tuple[int, int, int, int]:
         m = item.get("market") or {}
