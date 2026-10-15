@@ -19,6 +19,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 from typing import Any
 
@@ -122,6 +123,7 @@ def run_fetch(list_date: str) -> Path:
     sys.path.insert(0, str(REPO / "tools"))
     import fetch_titan007_odds  # type: ignore
 
+    fetch_started = time.time()
     old_argv = sys.argv
     try:
         sys.argv = [str(REPO / "tools" / "fetch_titan007_odds.py")]
@@ -130,7 +132,12 @@ def run_fetch(list_date: str) -> Path:
         sys.argv = old_argv
     if code not in (0, None):
         raise RuntimeError(f"Titan fetch failed with exit code {code}")
-    return latest_snapshot(list_date)
+    snapshot = latest_snapshot(list_date)
+    # Never treat an old file as a successful fresh scrape when a source
+    # returned zero rows or exited without materialising a new snapshot.
+    if snapshot.stat().st_mtime < fetch_started - 1:
+        raise RuntimeError(f"Titan snapshot was not refreshed during this run: {snapshot}")
+    return snapshot
 
 
 def kickoff(row: dict[str, str], list_date: str) -> str:
@@ -528,6 +535,10 @@ def main() -> int:
     snapshot = Path(args.from_csv) if args.from_csv else run_fetch(date)
     with snapshot.open("r", encoding="utf-8-sig", newline="") as h:
         incoming = [market_row(x, date) for x in csv.DictReader(h)]
+    if not incoming:
+        raise RuntimeError(f"FETCH_EMPTY_SNAPSHOT date={date} snapshot={snapshot}")
+    if not any(str(x.get("match_id") or "").strip() for x in incoming):
+        raise RuntimeError(f"FETCH_INVALID_SNAPSHOT_NO_MATCH_IDS date={date} snapshot={snapshot}")
     team_map, league_map = aliases()
     for item in incoming:
         # A requested date is a Beijing business slate: 12:00 through the
