@@ -56,6 +56,19 @@ jobs:
           cp -R github_site/v3/. /tmp/football-gh-pages/v3/
           cp -R github_site/v4/. /tmp/football-gh-pages/v4/
           cp -R data/github_football/. /tmp/football-gh-pages/data/github_football/
+          # Preserve every previously published date.  The updater writes the
+          # current date locally, but copying that index verbatim would hide
+          # older JSON pages (for example 10/14) from the date selector.
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for version in ("v3", "v4"):
+              data_dir = Path("/tmp/football-gh-pages") / version / "data"
+              data_dir.mkdir(parents=True, exist_ok=True)
+              dates = sorted(p.stem for p in data_dir.glob("????-??-??.json"))
+              (data_dir / "index.json").write_text(json.dumps(dates, ensure_ascii=False), encoding="utf-8")
+              print(f"{version}_date_index={len(dates)} latest={dates[-1] if dates else ''}")
+          PY
           git -C /tmp/football-gh-pages config user.name github-actions[bot]
           git -C /tmp/football-gh-pages config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git -C /tmp/football-gh-pages add v3 v4 data/github_football
