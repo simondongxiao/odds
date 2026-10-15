@@ -82,12 +82,10 @@ def main() -> int:
             fh.write(f"run_id={summary.get('run_id') or result.get('run_id') or ''}\n")
             fh.write(f"update_status={update_status}\n")
     print(json.dumps(compact, ensure_ascii=False))
-    publish = [sys.executable, str(repo / "automation" / "publish_basketball.py"), "--root", str(root), "--public", str(public)]
-    try:
-        subprocess.run(publish, check=True, env=env)
-    except Exception as exc:
-        record_stage(root, "PUBLISHED", "FAILED", business_date=day, duration_seconds=time.monotonic() - started, details={"reason": type(exc).__name__, "error": str(exc)})
-        raise
+    # Remote publication is deliberately owned by the following workflow step.
+    # This wrapper only validates and prepares the payload; recording PUBLISHED
+    # here would falsely claim that gh-pages was updated if the runner is
+    # cancelled before the git push.
     return 0
 
 

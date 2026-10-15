@@ -124,6 +124,15 @@ jobs:
       - name: Publish dashboard to gh-pages
         id: publish
         run: |
+          publish_stage_failed() {
+            python automation/stage_status.py \
+              --root "$BASKETBALL_RUN_ROOT" \
+              --stage PUBLISHED \
+              --status FAILED \
+              --business-date "$BASKETBALL_DATE" \
+              --detail reason=GIT_PUBLISH_FAILED || true
+          }
+          trap publish_stage_failed ERR
           # The dashboard branch may receive a football or manual update while
           # this long-running basketball crawl is in progress. Preserve the
           # generated basketball payload, reset to the newest remote tip, then
@@ -142,6 +151,7 @@ jobs:
             echo "No dashboard changes"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "sha=$(git -C public rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+            changed=false
           else
             for attempt in 1 2 3; do
               git -C public commit -m "Automated basketball daily update $(date -u +%F)"
@@ -160,9 +170,19 @@ jobs:
             done
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "sha=$(git -C public rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+            changed=true
           fi
+          python automation/stage_status.py \
+            --root "$BASKETBALL_RUN_ROOT" \
+            --stage PUBLISHED \
+            --status SUCCESS \
+            --business-date "$BASKETBALL_DATE" \
+            --detail changed="$changed" \
+            --detail sha="$(git -C public rev-parse HEAD)"
+          trap - ERR
 
       - name: Wait for GitHub Pages deployment
+        id: pages
         if: ${{ always() && steps.publish.outcome == 'success' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -186,7 +206,7 @@ jobs:
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
           RUN_STATUS: ${{ job.status }}
           PUBLISHED_SHA: ${{ steps.publish.outputs.sha }}
-          DEPLOY_STATUS: ${{ steps.publish.outputs.changed == 'true' && 'success' || 'already-current' }}
+          DEPLOY_STATUS: ${{ steps.publish.outcome == 'success' && steps.pages.outcome == 'success' && 'success' || 'failed' }}
           RUN_KIND: ${{ steps.target.outputs.kind }}
           RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
           BASKETBALL_DATE: ${{ steps.target.outputs.date }}
