@@ -101,9 +101,14 @@ date explicitly; never infer the next-day slate from the runner's UTC date.
 
 The fast path is HTTP/API fetch plus append-only JSON merge. Browser recovery is
 an emergency path only: cap it at 48 market jobs, use at most four concurrent
-workers, a 12-second page timeout, and one attempt. Keep mobile-page recovery
-disabled unless a targeted investigation explicitly enables it. When the cap is
-hit, log `future_browser_capped=used/queued` and leave the remaining rows as
-explicit missing-data rows for the next refresh; never let a source outage turn
-the daily job into an unbounded serial crawl. Each subprocess result records
-`elapsed_seconds` so a slow phase is visible in the run manifest.
+workers, a 12-second page timeout, and one attempt. Within that cap reserve 16
+slots (or the configured `TITAN_BROWSER_PRIORITY2_MIN`) for the second-level
+coverage groups, rotating across Japan/Korea/Australia, eligible European
+third tiers, and senior cups. Youth, friendlies, and non-mainstream European
+third tiers may remain queued when the cap is full. Keep mobile-page recovery
+disabled unless a targeted investigation explicitly enables it. When the cap
+is hit, log `future_browser_capped=used/queued` and
+`future_browser_priority2_reserved=used/queued`; leave the remaining rows as
+explicit missing-data rows for the next refresh. Never let a source outage
+turn the daily job into an unbounded serial crawl. Each subprocess result
+records `elapsed_seconds` so a slow phase is visible in the run manifest.
