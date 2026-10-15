@@ -771,6 +771,25 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
         "model_status": MODEL_STATUS,
         "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
         "is_formal_signal": False,
+        "summary": {
+            "total": len(payload_rows),
+            "computed": sum(1 for row in payload_rows if (row.get("v4") or {}).get("decision") or (row.get("v3") or {}).get("decision")),
+            # The checked-in rich V4 shell consumes these exact lower-case
+            # counters.  Keep the legacy `BET` alias for the portable shell.
+            "giving": sum(1 for row in payload_rows if (row.get("v4") or row.get("v3") or {}).get("decision") == "BET_GIVING"),
+            "receiving": sum(1 for row in payload_rows if (row.get("v4") or row.get("v3") or {}).get("decision") == "BET_RECEIVING"),
+            "no_bet": sum(1 for row in payload_rows if str((row.get("v4") or row.get("v3") or {}).get("decision") or "") == "NO_BET"),
+            "BET": sum(1 for row in payload_rows if (row.get("v4") or row.get("v3") or {}).get("bettable")),
+            "A": sum(1 for row in payload_rows if str(row.get("grade") or "") == "A"),
+            "B": sum(1 for row in payload_rows if str(row.get("grade") or "") == "B"),
+            "C": sum(1 for row in payload_rows if str(row.get("grade") or "") == "C"),
+            "N": sum(1 for row in payload_rows if str(row.get("grade") or "") == "N"),
+            "neutral": sum(1 for row in payload_rows if str((row.get("v4") or row.get("v3") or {}).get("decision") or "") in {"NO_BET", ""}),
+            "missing_data": sum(1 for row in payload_rows if not (row.get("market") or {}).get("current_complete")),
+            "not_prematch": sum(1 for row in payload_rows if str(row.get("state") or "") not in {"0", ""}),
+            "excluded_abnormal": 0,
+            "errors": 0,
+        },
         "matches": payload_rows,
     }
     decision_key = version.lower()
