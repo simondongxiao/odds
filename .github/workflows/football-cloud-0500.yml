@@ -49,6 +49,7 @@ jobs:
           git fetch origin gh-pages
           mkdir -p data/github_football
           git show origin/gh-pages:data/github_football/ledger.json > data/github_football/ledger.json 2>/dev/null || true
+          python tools/restore_largest_ledger.py --ref origin/gh-pages --repo-path data/github_football/ledger.json --output data/github_football/ledger.json
           git show origin/gh-pages:data/github_football/ledger.csv > data/github_football/ledger.csv 2>/dev/null || true
           git show origin/gh-pages:data/github_football/run_manifest.json > data/github_football/run_manifest.json 2>/dev/null || true
           mkdir -p github_site/v3/data github_site/v4/data
