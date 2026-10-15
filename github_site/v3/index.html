@@ -1372,9 +1372,18 @@ function historyMatchTeams(r) {
 
 async function loadHistoryRates(date) {
   historyRateRows = [];
-  // Use the exact day first, then the newest available prior history file.
-  // This keeps the historical panel populated when today's alert artifact has
-  // not been published yet (the ledger itself still remains date-specific).
+  const direct = [`./data/v3_competition_history_${date}.json?ts=${Date.now()}`, `./data/v3_competition_history.json?ts=${Date.now()}`];
+  for (const url of direct) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) continue;
+      const payload = await response.json();
+      const payloadDate = payload.list_date || payload.metadata?.list_date || "";
+      if (payloadDate && payloadDate !== date) continue;
+      const rows = Array.isArray(payload.rows) ? payload.rows : [];
+      if (rows.length) { historyRateRows = rows; return; }
+    } catch (e) {}
+  }
   const candidates = [date];
   const base = new Date(`${date}T00:00:00Z`);
   for (let i = 1; i <= 14; i++) {
@@ -1386,7 +1395,7 @@ async function loadHistoryRates(date) {
       const response = await fetch(`../reviews/league_history/${d}/league_history_alert_${d}.json?ts=${Date.now()}`);
       if (response.ok) {
         const rows = (await response.json()).rows || [];
-        if (rows.length) { historyRateRows = rows; break; }
+        if (rows.length) { historyRateRows = rows; return; }
       }
     } catch (e) {}
   }

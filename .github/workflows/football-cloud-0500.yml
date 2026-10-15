@@ -41,6 +41,9 @@ jobs:
           mkdir -p data/github_football
           git show origin/gh-pages:data/github_football/ledger.json > data/github_football/ledger.json 2>/dev/null || true
           git show origin/gh-pages:data/github_football/ledger.csv > data/github_football/ledger.csv 2>/dev/null || true
+          mkdir -p github_site/v3/data github_site/v4/data
+          git show origin/gh-pages:v4/data/v3_history_detail.json > github_site/v3/data/v3_history_detail.json 2>/dev/null || true
+          git show origin/gh-pages:v4/data/v4_history_detail.json > github_site/v4/data/v4_history_detail.json 2>/dev/null || true
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

@@ -31,6 +31,8 @@ LEDGER_CSV = DATA / "ledger.csv"
 SITE = REPO / "github_site"
 TZ = dt.timezone(dt.timedelta(hours=8))
 BUSINESS_CUTOFF_HOUR = 12
+HISTORY_RESULTS = {"W", "HW", "P", "HL", "L"}
+HISTORY_LABELS = {"W": "红", "HW": "半红", "P": "走", "HL": "半黑", "L": "黑"}
 
 # BetExplorer supplies English labels.  Keep a small checked-in alias layer so
 # cloud-only supplemental fixtures never leak English names into the Chinese
@@ -68,6 +70,214 @@ def f(value: Any) -> float | None:
         return x if math.isfinite(x) else None
     except (TypeError, ValueError):
         return None
+
+
+def _history_score(value: Any) -> tuple[int, int] | None:
+    """Read a final 1X2 score without accepting a placeholder/live string."""
+    match = re.search(r"^(\d+)\s*[-:]\s*(\d+)(?:\D|$)", str(value or "").strip())
+    if not match:
+        return None
+    return int(match.group(1)), int(match.group(2))
+
+
+def _split_history_line(value: float) -> list[float]:
+    quarter = round(abs(value) * 4) / 4
+    if int(round(quarter * 4)) % 2 == 0:
+        return [quarter]
+    return [math.floor(quarter * 2) / 2, math.ceil(quarter * 2) / 2]
+
+
+def _settle_history_giving(margin: int, line: float) -> str:
+    parts = []
+    for handicap in _split_history_line(line):
+        value = margin - handicap
+        parts.append("W" if value > 1e-9 else "L" if value < -1e-9 else "P")
+    if all(x == "W" for x in parts):
+        return "W"
+    if all(x == "L" for x in parts):
+        return "L"
+    if all(x == "P" for x in parts):
+        return "P"
+    if set(parts) == {"W", "P"}:
+        return "HW"
+    if set(parts) == {"L", "P"}:
+        return "HL"
+    raise ValueError(f"unsupported Asian settlement parts: {parts}")
+
+
+def _mirror_history_result(result: str) -> str:
+    return {"W": "L", "HW": "HL", "P": "P", "HL": "HW", "L": "W"}[result]
+
+
+def _history_result(row: dict[str, Any], version: str) -> tuple[str, float] | None:
+    """Settle one locked cloud row using its frozen side, line and water."""
+    score = _history_score(row.get("score"))
+    if score is None or str(row.get("state") or "") in {"", "0"}:
+        return None
+    decision = row.get(version.lower()) or {}
+    if not decision.get("bettable"):
+        return None
+    market = row.get("market") or {}
+    line = f(market.get("line"))
+    water = f(decision.get("selected_water"))
+    side = str(decision.get("selected_side") or "").strip()
+    giving_team = str(market.get("giving_team") or "").strip()
+    home, away = str(row.get("home_team") or "").strip(), str(row.get("away_team") or "").strip()
+    if line is None or water is None or not side or giving_team not in {home, away}:
+        return None
+    home_goals, away_goals = score
+    margin = home_goals - away_goals if giving_team == home else away_goals - home_goals
+    result = _settle_history_giving(margin, abs(line))
+    if side == "receiving":
+        result = _mirror_history_result(result)
+    if result not in HISTORY_RESULTS:
+        return None
+    payout = {"W": water, "HW": water * 0.5, "P": 0.0, "HL": -0.5, "L": -1.0}[result]
+    return result, round(payout, 6)
+
+
+def _history_detail(row: dict[str, Any], version: str, result: str, pnl: float) -> dict[str, Any]:
+    decision = row.get(version.lower()) or {}
+    market = row.get("market") or {}
+    return {
+        "ledger_key": f"{version}|{row.get('list_date', '')}|{row.get('match_id', '')}",
+        "history_key": f"{row.get('competition', '')}|{row.get('list_date', '')}|{row.get('match_id', '')}",
+        "match_id": str(row.get("match_id") or ""),
+        "date": str(row.get("list_date") or ""),
+        "list_date": str(row.get("list_date") or ""),
+        "kickoff": str(row.get("kickoff") or ""),
+        "competition": str(row.get("competition") or "").strip(),
+        "canonical_competition_name": str(row.get("competition") or "").strip(),
+        "match": f"{row.get('home_team', '')} vs {row.get('away_team', '')}",
+        "score": str(row.get("score") or ""),
+        "selected_team": str(decision.get("selected_team") or ""),
+        "selected_side": str(decision.get("selected_side") or ""),
+        "line": market.get("line"),
+        "water": decision.get("selected_water"),
+        "settlement": HISTORY_LABELS[result],
+        "result": result,
+        "pnl_1u": pnl,
+        "roi": pnl,
+        "action": str(decision.get("decision") or ""),
+        "source": str(row.get("source_snapshot") or ""),
+        "settlement_status": "SETTLED",
+        "countable_history": True,
+    }
+
+
+def _normalise_history_result(value: Any) -> str:
+    text = str(value or "").strip().upper()
+    aliases = {
+        "红": "W", "红半": "HW", "半红": "HW", "走": "P", "走水": "P",
+        "黑": "L", "黑半": "HL", "半黑": "HL",
+    }
+    return aliases.get(text, text if text in HISTORY_RESULTS else "")
+
+
+def _load_existing_history_details(version: str) -> list[dict[str, Any]]:
+    path = SITE / version.lower() / "data" / f"{version.lower()}_history_detail.json"
+    if not path.exists():
+        return []
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        rows = payload.get("rows", []) if isinstance(payload, dict) else payload
+        return [row for row in rows if isinstance(row, dict)]
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
+def build_competition_history(rows: list[dict[str, Any]], target_date: str) -> None:
+    """Build date-scoped V3/V4 same-competition stats from locked history.
+
+    Existing Excel-derived detail artifacts are retained and supplemented with
+    newly settled cloud rows.  Each target date receives its own payload so a
+    user selecting an older page can never see later results.
+    """
+    all_dates = sorted({str(x.get("list_date") or "") for x in rows if x.get("list_date")})
+    if target_date not in all_dates:
+        all_dates.append(target_date)
+    for version in ("V3", "V4"):
+        details = _load_existing_history_details(version)
+        seen = {str(x.get("ledger_key") or "") for x in details if x.get("ledger_key")}
+        # Add only valid, frozen cloud settlements. Existing Excel rows are the
+        # source of truth for older dates; ledger keys make reruns idempotent.
+        for row in rows:
+            key = f"{version}|{row.get('list_date', '')}|{row.get('match_id', '')}"
+            if key in seen or not str(row.get("list_date") or ""):
+                continue
+            settled = _history_result(row, version)
+            if not settled:
+                continue
+            result, pnl = settled
+            details.append(_history_detail(row, version, result, pnl))
+            seen.add(key)
+        details = [x for x in details if _normalise_history_result(x.get("result") or x.get("settlement")) in HISTORY_RESULTS]
+        for date in all_dates:
+            historical = [x for x in details if str(x.get("list_date") or x.get("date") or "")[:10] < date]
+            grouped: dict[str, list[dict[str, Any]]] = {}
+            for item in historical:
+                competition = str(item.get("canonical_competition_name") or item.get("competition") or "").strip()
+                if competition:
+                    grouped.setdefault(competition, []).append(item)
+            output_rows = []
+            for current in rows:
+                if str(current.get("list_date") or "") != date:
+                    continue
+                competition = str(current.get("competition") or "").strip()
+                matches = grouped.get(competition, [])
+                counts = {key: 0 for key in HISTORY_RESULTS}
+                pnl_total = 0.0
+                for item in matches:
+                    result = _normalise_history_result(item.get("result") or item.get("settlement"))
+                    if result not in HISTORY_RESULTS:
+                        continue
+                    counts[result] += 1
+                    value = f(item.get("pnl_1u"))
+                    if value is not None:
+                        pnl_total += value
+                sample = sum(counts.values())
+                denominator = counts["W"] + 0.5 * counts["HW"] + counts["L"] + 0.5 * counts["HL"]
+                effective = ((counts["W"] + 0.5 * counts["HW"]) / denominator) if denominator else None
+                rate_band = ""
+                if sample > 8 and effective is not None:
+                    if effective >= 0.55:
+                        rate_band = "高：历史有效胜率≥55%"
+                    elif effective < 0.45:
+                        rate_band = "严重：历史有效胜率<45%"
+                output_rows.append({
+                    "version": version, "list_date": date,
+                    "match_id": str(current.get("match_id") or ""),
+                    "competition": competition,
+                    "match": f"{current.get('home_team', '')} vs {current.get('away_team', '')}",
+                    "selected_team": str((current.get(version.lower()) or {}).get("selected_team") or ""),
+                    "historical_settled_sample": sample,
+                    "红": counts["W"], "半红": counts["HW"], "走": counts["P"],
+                    "半黑": counts["HL"], "黑": counts["L"],
+                    "effective_win_rate": round(effective, 8) if effective is not None else "",
+                    "pnl_1u": round(pnl_total, 6) if sample else "",
+                    "roi": round(pnl_total / sample, 8) if sample else "",
+                    "pnl_rows": sample, "rate_band": rate_band, "alert_band": rate_band,
+                    "history_cutoff": f"list_date < {date}",
+                    "history_matches": sorted(({
+                        "date": str(item.get("date") or item.get("list_date") or "")[:10],
+                        "match": item.get("match", ""), "score": item.get("score", ""),
+                        "selected_team": item.get("selected_team", ""),
+                        "settlement": HISTORY_LABELS.get(_normalise_history_result(item.get("result") or item.get("settlement")), item.get("settlement", "")),
+                        "water": item.get("water"), "pnl_1u": item.get("pnl_1u"), "roi": item.get("roi"),
+                        "line": item.get("line"), "action": item.get("action", ""), "source": item.get("source", ""),
+                    } for item in matches), key=lambda item: (item["date"], item["match"]), reverse=True),
+                })
+            payload = {
+                "schema_version": "football-competition-history-v2",
+                "list_date": date, "version": version,
+                "history_cutoff": f"list_date < {date}",
+                "generated_at": dt.datetime.now(TZ).isoformat(),
+                "source_detail_rows": len(historical), "rows": output_rows,
+            }
+            path = SITE / version.lower() / "data" / f"{version.lower()}_competition_history_{date}.json"
+            atomic_text(path, json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
+            if date == target_date:
+                atomic_text(SITE / version.lower() / "data" / f"{version.lower()}_competition_history.json", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
 
 
 def atomic_text(path: Path, text: str) -> None:
@@ -571,6 +781,7 @@ def main() -> int:
     atomic_text(LEDGER_JSON, json.dumps(rows, ensure_ascii=False, indent=2))
     write_csv(rows)
     current = [x for x in rows if x.get("list_date") == date]
+    build_competition_history(rows, date)
     counts = {"rows": len(current), "V3": sum(bool(x.get("v3", {}).get("bettable")) for x in current), "V4": sum(bool(x.get("v4", {}).get("bettable")) for x in current)}
     source_counts = {
         "incoming_snapshot_rows": len(incoming),

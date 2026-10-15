@@ -43,7 +43,16 @@ def verify_once(base_url: str, date: str, expected_v3: str | None, expected_v4: 
         generated = str(payload.get("generated_at", ""))
         if expected and generated != expected:
             raise RuntimeError(f"{version} generated_at stale: {generated!r} != {expected!r}")
-        results[version] = {"matches": len(matches), "generated_at": generated}
+        history = fetch_json(f"{root}/{version}/data/{version}_competition_history_{date}.json?verify={stamp}")
+        if history.get("list_date") != date:
+            raise RuntimeError(f"{version} history list_date={history.get('list_date')!r}")
+        history_rows = history.get("rows")
+        if not isinstance(history_rows, list) or not history_rows:
+            raise RuntimeError(f"{version} history payload has no rows")
+        results[version] = {
+            "matches": len(matches), "generated_at": generated,
+            "history_rows": len(history_rows), "history_source_rows": history.get("source_detail_rows", 0),
+        }
     return results
 
 
@@ -62,7 +71,7 @@ def main() -> int:
     while time.monotonic() < deadline:
         try:
             result = verify_once(args.base_url, args.date, args.expected_v3, args.expected_v4)
-            print(f"pages_verify=success sha={args.sha} v3_matches={result['v3']['matches']} v4_matches={result['v4']['matches']}")
+            print(f"pages_verify=success sha={args.sha} v3_matches={result['v3']['matches']} v4_matches={result['v4']['matches']} v3_history_rows={result['v3']['history_rows']} v4_history_rows={result['v4']['history_rows']}")
             return 0
         except (OSError, ValueError, RuntimeError, urllib.error.URLError) as exc:
             last_error = str(exc)
