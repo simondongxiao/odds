@@ -7,7 +7,9 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: football-cloud-2007
+  # Morning and evening jobs publish to the same gh-pages branch.  A shared
+  # non-cancelling lock prevents a slower run from being overwritten mid-push.
+  group: football-gh-pages-publish
   cancel-in-progress: false
 
 permissions:
@@ -42,13 +44,20 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Resolve Beijing next-day target date
+        id: target
+        run: |
+          echo "list_date=$(TZ=Asia/Shanghai date -d 'tomorrow' +%F)" >> "$GITHUB_OUTPUT"
+          echo "scheduled_at=${{ github.event.schedule || 'manual' }}" >> "$GITHUB_OUTPUT"
       - name: Install cloud dependencies
         run: |
           python -m pip install -r requirements.txt playwright==1.55.0
           python -m playwright install --with-deps chromium
       - name: Run portable next-day skill
-        run: python tools/github_football_update.py --list-date "$(TZ=Asia/Shanghai date -d 'tomorrow' +%F)"
+        id: update
+        run: python tools/github_football_update.py --list-date "${{ steps.target.outputs.list_date }}"
       - name: Publish lightweight mobile dashboards
+        id: publish
         run: |
           set -euo pipefail
           git fetch origin gh-pages
@@ -74,5 +83,47 @@ jobs:
           git -C /tmp/football-gh-pages config user.name github-actions[bot]
           git -C /tmp/football-gh-pages config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git -C /tmp/football-gh-pages add v3 v4 data/github_football
-          git -C /tmp/football-gh-pages commit -m "Cloud next-day football update $(TZ=Asia/Shanghai date -d 'tomorrow' +%F)" || true
-          git -C /tmp/football-gh-pages push origin HEAD:gh-pages
+          if git -C /tmp/football-gh-pages diff --cached --quiet; then
+            echo "No gh-pages changes; retaining current published commit"
+          else
+            git -C /tmp/football-gh-pages commit -m "Cloud next-day football update ${{ steps.target.outputs.list_date }}"
+            git -C /tmp/football-gh-pages push origin HEAD:gh-pages
+          fi
+          echo "pages_sha=$(git -C /tmp/football-gh-pages rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Verify GitHub Pages online
+        id: pages
+        if: steps.update.outcome == 'success' && steps.publish.outcome == 'success'
+        run: |
+          expected_v3=$(python -c "import json; print(json.load(open('github_site/v3/data/${{ steps.target.outputs.list_date }}.json', encoding='utf-8'))['generated_at'])")
+          expected_v4=$(python -c "import json; print(json.load(open('github_site/v4/data/${{ steps.target.outputs.list_date }}.json', encoding='utf-8'))['generated_at'])")
+          python tools/wait_for_pages.py --date "${{ steps.target.outputs.list_date }}" --sha "${{ steps.publish.outputs.pages_sha }}" --expected-v3 "$expected_v3" --expected-v4 "$expected_v4"
+      - name: Send Feishu result after publish verification
+        if: always()
+        env:
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          UPDATE_OUTCOME: ${{ steps.update.outcome }}
+          PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
+          PAGES_OUTCOME: ${{ steps.pages.outcome }}
+        run: |
+          if [ "$UPDATE_OUTCOME" = "success" ] && [ "$PUBLISH_OUTCOME" = "success" ] && [ "$PAGES_OUTCOME" = "success" ]; then STATUS=SUCCESS; else STATUS=FAILED; fi
+          python tools/send_feishu_notification.py \
+            --date "${{ steps.target.outputs.list_date }}" \
+            --status "$STATUS" \
+            --workflow "${{ github.workflow }}" \
+            --run-id "${{ github.run_id }}" \
+            --event "${{ github.event_name }}" \
+            --scheduled-at "${{ steps.target.outputs.scheduled_at }}" \
+            --actual-started-at "${{ github.run_started_at }}" \
+            --pages-sha "${{ steps.publish.outputs.pages_sha }}" \
+            --pages-status "$PAGES_OUTCOME" \
+            --failure-stage "${{ steps.update.outcome != 'success' && 'update' || steps.publish.outcome != 'success' && 'publish' || steps.pages.outcome != 'success' && 'pages' || '' }}" \
+            --failure-reason "update=${UPDATE_OUTCOME}; publish=${PUBLISH_OUTCOME}; pages=${PAGES_OUTCOME}"
+      - name: Upload run manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-run-${{ steps.target.outputs.list_date }}-${{ github.run_id }}
+          if-no-files-found: warn
+          path: |
+            data/github_football/last_run.json
+            data/github_football/run_manifest.json

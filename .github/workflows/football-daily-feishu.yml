@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: football-daily-update
+  group: football-gh-pages-publish
   cancel-in-progress: false
 
 permissions:

@@ -19,7 +19,6 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import urllib.request
 from pathlib import Path
 from typing import Any
 
@@ -520,20 +519,6 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
             atomic_text(shell, rich[:start] + replacement + rich[end:])
 
 
-def send_feishu(date: str, counts: dict[str, int], warning: str | None) -> None:
-    url = os.environ.get("FEISHU_WEBHOOK_URL")
-    if not url:
-        return
-    text = f"GitHub 足球云端更新 {date}\nV3 可投 {counts['V3']} 场｜V4 可投 {counts['V4']} 场｜底稿 {counts['rows']} 场"
-    if warning:
-        text += f"\n⚠️ {warning}"
-    body = json.dumps({"msg_type": "text", "content": {"text": text}}, ensure_ascii=False).encode("utf-8")
-    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"}, method="POST")
-    with urllib.request.urlopen(req, timeout=20) as response:
-        if response.status >= 300:
-            raise RuntimeError(f"Feishu HTTP {response.status}")
-
-
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--list-date", default=(dt.datetime.now(TZ).date().isoformat()))
@@ -576,10 +561,18 @@ def main() -> int:
     write_csv(rows)
     current = [x for x in rows if x.get("list_date") == date]
     counts = {"rows": len(current), "V3": sum(bool(x.get("v3", {}).get("bettable")) for x in current), "V4": sum(bool(x.get("v4", {}).get("bettable")) for x in current)}
+    source_counts = {
+        "incoming_snapshot_rows": len(incoming),
+        "previous_ledger_rows": len(old_rows),
+        "merged_ledger_rows": len(rows),
+        "target_date_rows": len(current),
+    }
     dashboard("V3", date, current); dashboard("V4", date, current)
-    atomic_text(DATA / "last_run.json", json.dumps({"list_date": date, "counts": counts, "warning": warning, "snapshot": str(snapshot), "generated_at": dt.datetime.now(TZ).isoformat()}, ensure_ascii=False, indent=2))
-    send_feishu(date, counts, warning)
-    print(json.dumps({"snapshot": str(snapshot), **counts, "warning": warning}, ensure_ascii=False))
+    atomic_text(DATA / "last_run.json", json.dumps({"list_date": date, "counts": counts, "source_counts": source_counts, "warning": warning, "snapshot": str(snapshot), "generated_at": dt.datetime.now(TZ).isoformat()}, ensure_ascii=False, indent=2))
+    # Notification is intentionally sent by the workflow only after the
+    # gh-pages push and online Pages verification.  Sending here would report
+    # success before the published dashboard exists.
+    print(json.dumps({"snapshot": str(snapshot), "source_counts": source_counts, **counts, "warning": warning}, ensure_ascii=False))
     return 0
 
 

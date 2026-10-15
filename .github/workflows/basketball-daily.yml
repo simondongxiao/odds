@@ -24,7 +24,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: basketball-daily
+  # Basketball and football both write gh-pages; serialize all publishers.
+  group: football-gh-pages-publish
   cancel-in-progress: false
 
 jobs:
