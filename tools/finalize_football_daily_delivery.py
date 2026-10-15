@@ -169,6 +169,18 @@ def main():
                 card["display_status"] = "赛果待核"
                 card["status"] = "赛果未匹配待人工核验"
         path = ROOT / f"v4/outputs/v4_decisions_{target}.json"
+        # A local run can legitimately start with no formal decision artifact
+        # for the immediately preceding slate (for example after a clean
+        # checkout or a missed prior run).  Do not create an empty file or
+        # substitute a cloud diagnostic payload.  Keep today's delivery moving
+        # and expose the missing historical artifact for audit/backfill.
+        if not path.exists():
+            audit["dates"][target] = {
+                "status": "MISSING_LOCAL_FORMAL_DECISION",
+                "settled_all_grades": 0,
+                "prematch_unchanged": True,
+            }
+            continue
         payload = daily.read_json(path, {})
         rows = payload.get("matches", [])
         status_corrections = []
