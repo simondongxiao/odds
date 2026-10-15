@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 
@@ -129,7 +129,19 @@ def main() -> int:
     if current_doc.get("date_bj") != day or not current_doc.get("events"):
         raise SystemExit("refusing to publish a stale or empty basketball target payload")
     mobile = mobile_document(latest)
-    for path in (current, src_data / "latest.json"):
+    # Publish the target date plus the skill-mandated next-day lookahead.  The
+    # latter is kept as a selectable inventory snapshot, while latest.json
+    # remains anchored to the target date and is never mixed with it.
+    publish_paths = [current]
+    try:
+        next_day = (datetime.strptime(day, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+        lookahead = src_data / f"{next_day}.json"
+        if lookahead.is_file():
+            publish_paths.append(lookahead)
+    except ValueError:
+        next_day = None
+    publish_paths.append(src_data / "latest.json")
+    for path in publish_paths:
         shutil.copy2(path, dst_data / path.name)
     # A compact payload prevents mobile browsers from repeatedly downloading
     # multi-megabyte audit diagnostics. It is intentionally separate from the
@@ -137,6 +149,12 @@ def main() -> int:
     (dst_data / f"{day}.mobile.json").write_text(
         json.dumps(mobile, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
     )
+    if next_day and (src_data / f"{next_day}.json").is_file():
+        next_doc = load(src_data / f"{next_day}.json", {})
+        (dst_data / f"{next_day}.mobile.json").write_text(
+            json.dumps(mobile_document(next_doc), ensure_ascii=False, separators=(",", ":")),
+            encoding="utf-8",
+        )
     (dst_data / "latest.mobile.json").write_text(
         json.dumps(mobile, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
     )
@@ -163,6 +181,15 @@ def main() -> int:
         "event_count": len(latest.get("events") or []),
         "archive_type": latest.get("archive_type", "FORWARD_NATIVE"),
     }
+    if next_day and (src_data / f"{next_day}.json").is_file():
+        next_doc = load(src_data / f"{next_day}.json", {})
+        entries[next_day] = {
+            "date": next_day,
+            "file": f"{next_day}.json",
+            "mobile_file": f"{next_day}.mobile.json",
+            "event_count": len(next_doc.get("events") or []),
+            "archive_type": next_doc.get("archive_type", "FORWARD_NATIVE"),
+        }
     # Never advertise a date whose payload is absent.  A stale index entry
     # used to make the selector request a 404 and leave the previous day's
     # data visible, which looked like a failed date switch on mobile.
