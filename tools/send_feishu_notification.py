@@ -61,6 +61,16 @@ def main() -> int:
     status = args.status
     failure_reason = args.failure_reason if status == "FAILED" else ""
     failure_stage = args.failure_stage if status == "FAILED" else ""
+    ended_at = dt.datetime.now(dt.timezone.utc)
+    duration_seconds = None
+    if args.actual_started_at:
+        try:
+            started_at = dt.datetime.fromisoformat(args.actual_started_at.replace("Z", "+00:00"))
+            if started_at.tzinfo is None:
+                started_at = started_at.replace(tzinfo=dt.timezone.utc)
+            duration_seconds = round((ended_at - started_at).total_seconds(), 3)
+        except ValueError:
+            duration_seconds = None
     text = (
         f"GitHub 足球更新{status}｜日期 {args.date}\n"
         f"V3 可投 {counts.get('V3', '?')} 场｜V4 可投 {counts.get('V4', '?')} 场｜底稿 {counts.get('rows', '?')} 场\n"
@@ -76,7 +86,8 @@ def main() -> int:
         "event": args.event,
         "scheduled_at": args.scheduled_at,
         "actual_started_at": args.actual_started_at,
-        "ended_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "ended_at": ended_at.isoformat(),
+        "duration_seconds": duration_seconds,
         "target_date": args.date,
         "source_counts": last.get("source_counts", {}),
         "counts": counts,
