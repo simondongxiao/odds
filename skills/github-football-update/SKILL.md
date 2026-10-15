@@ -26,6 +26,25 @@ Asian handicap and 1X2 prices through its public event endpoints. A missing
 opening line remains allowed, but a row is bettable only after current Asian
 line/waters and current 1X2 prices are present.
 
+## Competition retrieval priority
+
+The roster remains append-only and must keep every discovered fixture, but any
+bounded browser/secondary-source recovery queue follows this order:
+
+1. Adult tier 1 and tier 2 competitions in each country. European mainstream
+   countries (England, Spain, Italy, Germany, France, Portugal, Netherlands,
+   Belgium, Turkey, Scotland, Russia, Ukraine and the Nordic countries) and
+   senior continental competitions are handled first.
+2. Japan, Korea and Australia senior competitions, European tier 3 leagues,
+   and recognized senior domestic cups.
+3. Unknown adult competitions.
+4. Youth/reserve/academy/development competitions, followed by friendlies and
+   test matches. These remain last and do not displace senior coverage.
+
+This is a fetch-order rule only: it never invents odds or deletes lower-priority
+rows. A match enters V3/V4 as bettable only when its current Asian handicap and
+current 1X2 prices pass the existing data contract.
+
 BetExplorer-only fixtures carry English provider labels, so the pipeline applies
 `data/github_football/team_aliases.json` before writing the ledger and dashboard;
 extend that alias file when a new club is first encountered.

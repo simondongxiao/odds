@@ -1362,44 +1362,73 @@ def parse_primary_odds_triplet(text: str) -> dict[str, float | str]:
 
 
 def browser_market_priority(row: dict[str, object]) -> tuple[int, str, str]:
-    """Order the browser recovery queue by coverage value, then kickoff.
+    """Order emergency market recovery by the requested competition hierarchy.
 
-    Titan's VIP detail host is rate limited.  A bounded queue must therefore
-    spend its first batch on the leagues the dashboard promises to cover:
-    top-five Europe, North/South America, Japan/Korea, and explicit tier/cup
-    competitions.  This changes only fetch order; it never fills a market.
+    Lower numbers are fetched first.  This is only a queue priority: it never
+    synthesizes odds and never removes a fixture from the append-only roster.
+    The order is senior tier 1/2 first, then Japan/Korea/Australia senior
+    leagues plus European tier 3 and senior cups, and youth/friendlies last.
     """
     text = " ".join(
         str(row.get(key, "") or "")
         for key in ("league_cn", "league_tw", "league_en", "competition")
-    ).lower()
-    if any(token in text for token in (
-        "英超", "西甲", "意甲", "德甲", "法甲", "premier league", "la liga",
-        "serie a", "bundesliga", "ligue 1",
-    )):
-        priority = 0
-    elif any(token in text for token in (
-        "美职联", "美职业", "美国职业大联盟", "美大联盟", "墨西", "巴西", "阿甲", "阿乙", "哥伦比亚",
-        "智利", "厄瓜多尔", "乌拉圭", "mls", "liga mx", "brazil", "argentina",
-        "colombia", "chile", "ecuador", "uruguay", "concacaf", "conmebol",
-    )):
-        priority = 1
-    elif any(token in text for token in (
-        "日职", "日乙", "日丙", "日足", "日本", "韩k", "韩国", "j.league",
-        "japan", "k league", "korea",
-    )):
-        priority = 2
-    elif any(token in text for token in (
-        "tier_1", "tier_2", "tier_3", "一级", "二级", "三级", "杯", "cup",
-        "championship", "league 1", "league 2",
-    )):
-        priority = 3
-    else:
-        priority = 4
+    ).casefold()
     kickoff = str(row.get("bj_time") or row.get("match_time_en") or "")
     match_id = str(row.get("match_id") or "")
-    return priority, kickoff, match_id
 
+    def has(*tokens: str) -> bool:
+        return any(token.casefold() in text for token in tokens)
+
+    # Youth/reserve/development rows and friendlies are deliberately last,
+    # even when their label also contains a first-tier club name.
+    if has(
+        "u17", "u18", "u19", "u20", "u21", "u22", "u23", "青年", "青年队",
+        "后备", "预备", "reserve", "reserves", "academy", "development",
+    ):
+        priority = 4
+    elif has(
+        "友谊", "友誼", "friendly", "club friendly", "international friendly",
+        "test match", "testimonial",
+    ):
+        priority = 5
+    # European big-five and continental senior competitions are the first
+    # adult block, followed by other countries' senior tier 1/2 leagues.
+    elif has(
+        "英超", "西甲", "意甲", "德甲", "法甲", "premier league", "la liga",
+        "serie a", "bundesliga", "ligue 1", "欧冠", "欧联", "欧协联",
+        "champions league", "europa league", "conference league", "亚冠",
+    ):
+        priority = 0
+    elif has(
+        # Country tier 1/2 names and normalized tier markers.
+        "英冠", "西乙", "意乙", "德乙", "法乙", "葡超", "葡甲", "荷甲", "荷乙",
+        "比甲", "比乙", "土超", "土甲", "苏超", "苏冠", "俄超", "俄甲",
+        "乌超", "乌甲", "丹超", "挪超", "瑞超", "奥超", "瑞士超",
+        "巴西甲", "巴西乙", "阿甲", "阿乙", "中超", "中甲", "美职联",
+        "美职业", "mls", "usl championship", "first division", "second division",
+        "premier division", "super league", "championship", "eredivisie",
+        "eerste divisie", "primeira liga", "segunda liga", "super lig", "1. lig",
+        "liga portugal", "1. liga", "2. liga", "division 1", "division 2",
+        "tier_1", "tier_2", "一级", "二级", "甲级", "乙级",
+    ):
+        priority = 1
+    elif has(
+        # Requested second block: Japan/Korea/Australia, European tier 3,
+        # and recognized senior domestic cups.
+        "日职", "日乙", "日丙", "日足", "日本", "j1", "j2", "j3", "j.league",
+        "韩k", "韩国", "k league", "k3", "澳超", "澳甲", "a-league", "australia",
+        "tier_3", "三级", "意丙", "英甲", "德丙", "法丙", "西协甲", "西協甲",
+        "3. liga", "liga 3", "serie c", "league one", "national league",
+        "primera federación", "primera federacion", "segunda rfef",
+        "division 3", "3. lig", "杯", "cup", "copa", "coppa", "coupe", "pokal",
+        "beker", "kup", "taça", "taca", "trofeo",
+    ):
+        priority = 2
+    else:
+        # Unknown adult competitions remain in the roster but are lower than
+        # the explicitly requested coverage groups and remain analysis-only.
+        priority = 3
+    return priority, kickoff, match_id
 
 def browser_recover_vip_pages(
     completed: dict[str, tuple[dict[str, object], bool]],
