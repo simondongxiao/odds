@@ -1,17 +1,17 @@
 {
-  "list_date": "2026-10-15",
+  "list_date": "2026-10-16",
   "counts": {
-    "rows": 309,
-    "V3": 83,
-    "V4": 94
+    "rows": 405,
+    "V3": 18,
+    "V4": 18
   },
   "source_counts": {
-    "incoming_snapshot_rows": 425,
-    "previous_ledger_rows": 1899,
-    "merged_ledger_rows": 1885,
-    "target_date_rows": 309
+    "incoming_snapshot_rows": 727,
+    "previous_ledger_rows": 1885,
+    "merged_ledger_rows": 1900,
+    "target_date_rows": 405
   },
   "warning": null,
-  "snapshot": "/home/runner/work/odds/odds/data/raw/titan007/20261015/20261015_134301_titan007_odds_snapshot.csv",
-  "generated_at": "2026-10-15T21:47:38.101472+08:00"
+  "snapshot": "/home/runner/work/odds/odds/data/raw/titan007/20261015/20261015_135159_titan007_odds_snapshot.csv",
+  "generated_at": "2026-10-15T21:57:20.990401+08:00"
 }
