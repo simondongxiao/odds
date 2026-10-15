@@ -7,7 +7,7 @@
   },
   "source_counts": {
     "incoming_snapshot_rows": 427,
-    "previous_ledger_rows": 1927,
+    "previous_ledger_rows": 1928,
     "merged_ledger_rows": 1928,
     "target_date_rows": 326
   },
@@ -20,18 +20,18 @@
     },
     "titan007_rows": 258,
     "betexplorer_rows": 169,
-    "asian_complete_rows": 51,
-    "euro_complete_rows": 297,
-    "both_markets_complete_rows": 50,
-    "missing_asian_rows": 376,
-    "missing_euro_rows": 130,
-    "started_rows": 123,
+    "asian_complete_rows": 71,
+    "euro_complete_rows": 333,
+    "both_markets_complete_rows": 65,
+    "missing_asian_rows": 356,
+    "missing_euro_rows": 94,
+    "started_rows": 124,
     "provider_duplicate_rows_removed": 101,
-    "captured_at": "2026-10-15T23:15:52.734466+08:00"
+    "captured_at": "2026-10-15T23:26:48.064598+08:00"
   },
   "warning": null,
-  "snapshot": "/home/runner/work/odds/odds/data/raw/titan007/20261015/20261015_151103_titan007_odds_snapshot.csv",
-  "generated_at": "2026-10-15T23:15:53.559666+08:00",
+  "snapshot": "/home/runner/work/odds/odds/data/raw/titan007/20261015/20261015_152158_titan007_odds_snapshot.csv",
+  "generated_at": "2026-10-15T23:26:48.874816+08:00",
   "model_status": "PORTABLE_DIAGNOSTIC",
   "formal_model_equivalence": "NOT_VERIFIED"
 }
