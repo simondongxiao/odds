@@ -24,8 +24,10 @@ permissions:
   contents: write
 
 concurrency:
-  # Basketball and football both write gh-pages; serialize all publishers.
-  group: football-gh-pages-publish
+  # Keep basketball responsive when a long football crawl is running.  The
+  # publish step fetches the newest gh-pages tip and retries fast-forward-safe
+  # commits, so the two publishers do not overwrite each other's files.
+  group: basketball-gh-pages-publish
   cancel-in-progress: false
 
 jobs:
