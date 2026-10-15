@@ -111,6 +111,13 @@ def competition_key(name, gender_hint=None):
     aliases=(
         ('WNBA', ('wnba','美国女子职业篮球联赛')),
         ('NBA', ('nba','美国职业篮球联赛','美国男子职业篮球联赛')),
+        # NCAA is a formal league family.  Leaving the source label as
+        # ``LABEL:ncaa`` prevents the Titan/7M history bridge and the
+        # possession evidence path from joining the same teams across runs.
+        # Resolve the gendered form first so women's college games never
+        # enter the men's NCAAB pool.
+        ('WNCAAB', ('wncaab','ncaa women','ncaa womens basketball','ncaa女子篮球','ncaa女子篮球赛')),
+        ('NCAAB', ('ncaab','ncaa','ncaa men','ncaa mens basketball','ncaa男子篮球','ncaa男子篮球赛')),
         ('EUROLEAGUE', ('euro','euroleague','euroleague basketball','欧洲篮球联赛','欧洲篮球冠军联赛','欧冠')),
         ('EUROCUP', ('eurocup','欧篮杯','欧洲杯','欧协杯','欧洲篮球联盟杯')),
         ('EUROLEAGUE_WOMEN', ('欧洲女子篮球联赛','欧女联')),

@@ -19,6 +19,8 @@ KNOWN = {"NBA","WNBA","NBA_SUMMER","G_LEAGUE","NCAAB","WNCAAB","EUROLEAGUE","CBA
 def classify_family(value: str) -> str:
     text = str(value or "").upper()
     if text in KNOWN: return text
+    if "WNCAAB" in text or "NCAA WOMEN" in text or "WOMEN'S COLLEGE" in text: return "WNCAAB"
+    if "NCAAB" in text or "NCAA" in text or "COLLEGE BASKETBALL" in text: return "NCAAB"
     if "FIBA" in text or "WORLD CUP" in text: return "FIBA_WOMEN" if "WOMEN" in text or "女" in text else "FIBA_MEN"
     if "CBA" in text or "夏季联赛" in text: return "CBA_SUMMER" if "夏" in text or "SUMMER" in text else "CBA_REGULAR"
     if "NBL" in text or "澳" in text: return "NBL_AU"

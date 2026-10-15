@@ -441,17 +441,25 @@ def upcoming_7m_deep_capture_event_ids(events, day, observed_at=None):
     target=date.fromisoformat(day)
     permitted={(target+timedelta(days=offset)).isoformat() for offset in (0,1)}
     cutoff=observed_at or now()
-    def priority_lookahead(event):
-        label=' '.join(str(event.get(key) or '') for key in ('league','competition_key','league_family')).upper()
-        return (is_japan_b_league_event(event) or 'WNBA' in label or
-                ('NBA' in label and 'WNBA' not in label))
-    return {str(event.get('event_id')) for event in (events or [])
-            if str(event.get('source')).upper()=='7M' and event.get('bj_date') in permitted and
-            # Preserve full current-day coverage.  For the new lookahead leg,
-            # only pre-warm the explicitly prioritized morning leagues rather
-            # than multiplying history crawls for every global fixture.
-            (event.get('bj_date')==day or priority_lookahead(event)) and
-            source_time(event.get('tip_at')) and source_time(event.get('tip_at'))>cutoff}
+    def include_event(event):
+        label=' '.join(str(event.get(key) or '') for key in
+                       ('league','competition_key','league_family')).upper()
+        priority = (is_japan_b_league_event(event) or 'WNBA' in label or
+                    ('NBA' in label and 'WNBA' not in label) or
+                    any(token in label for token in
+                        ('NBL_AU', 'AUSTRALIA_NBL', 'NCAAB', 'WNCAAB', 'NCAA')))
+        # Preserve full current-day coverage.  For the new lookahead leg,
+        # pre-warm the formal NBL/NCAA pools as well as the NBA/Japan
+        # morning pools.  These leagues are routinely published on the 7M
+        # board before their final market snapshot; waiting for a quote here
+        # strands the team-history/box-score bridge and later makes a real
+        # data gap look like a model limitation.
+        return (str(event.get('source')).upper() == '7M' and
+                event.get('bj_date') in permitted and
+                (event.get('bj_date') == day or priority) and
+                source_time(event.get('tip_at')) and
+                source_time(event.get('tip_at')) > cutoff)
+    return {str(event.get('event_id')) for event in (events or []) if include_event(event)}
 
 def _reconcile_event_family(event):
     """Return a normalized family label for source reconciliation only."""
@@ -1554,7 +1562,7 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
         # Identity script must be linked in the page itself.
         match=re.search(r'''<script[^>]+src=["'](js/\d+/'''+re.escape(i)+r'''\.js)["']''',html,re.I)
         if match:id_urls['identity_'+i]=urljoin(r['url'],match.group(1))
-    identities=fetch.batch(id_urls);history={};team_urls={};identity_rows=[];total_urls={};total_context={}
+    identities=fetch.batch(id_urls);history={};team_urls={};identity_rows=[];total_urls={};total_context={};bottom_source_audit=[]
     for k,r in identities.items():
         if not r['ok']:continue
         i=k.split('_')[1]
@@ -1570,6 +1578,14 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
                 team_urls.update(discover_links(html,e))
                 for name in ('avgpoint','pointstat','totalstat','bqcstat','standings','stats'):
                     total_urls['total_'+i+'_'+name]=f'https://bdata-js.7m.com.cn/analyse/{i}/{name}.js'
+                # 7M exposes a separate game-data feed for some live/final
+                # fixtures.  It is an optional raw-source probe: the parser
+                # never treats a missing/opaque response as pace evidence,
+                # and the Titan technical box-score bridge remains the only
+                # path that can produce verified FGA/FTA/ORB/TOV possessions.
+                family = str(e.get('league_family') or e.get('competition_key') or '').upper()
+                if any(token in family for token in ('NBL', 'NCAAB', 'WNCAAB', 'NCAA')):
+                    total_urls['game_'+i]=f'https://lq.7m.com.cn/data/game/{i}.js'
         except Exception as exc:errors.append({'id':i,'error':str(exc)})
     hist_res=fetch.batch({'history_'+tid:u for tid,u in team_urls.items()}); history_page_audit=[]
     for k,r in hist_res.items():
@@ -1582,8 +1598,41 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
             history_page_audit.append({'team_source_id':tid,'url':r['url'],'path':r['path'],'http_success':True,'parsed_games':len(hs),'errors':err})
         except Exception as e:
             errors.append({'path':r['path'],'error':str(e)});history_page_audit.append({'team_source_id':tid,'url':r['url'],'path':r['path'],'http_success':True,'parsed_games':0,'errors':[str(e)]})
+    # Keep an explicit per-event bottom-source audit for the formal NCAA/NBL
+    # pools.  The rows from n_history.js are valid score/period facts; they do
+    # not become possession evidence until Titan technical FGA/FTA/ORB/TOV
+    # rows are successfully bridged later in this run.
+    for event in events.values():
+        family = str(event.get('league_family') or event.get('competition_key') or '').upper()
+        if not any(token in family for token in ('NBL', 'NCAAB', 'WNCAAB', 'NCAA')):
+            continue
+        team_ids = {str(event.get('team1_source_id') or ''), str(event.get('team2_source_id') or '')}
+        pages = [row for row in history_page_audit if str(row.get('team_source_id') or '') in team_ids]
+        bottom_source_audit.append({
+            'event_id':event.get('event_id'),
+            'league_family':family,
+            'source':'7M_TEAM_HISTORY',
+            'team_history_pages_attempted':len(pages),
+            'team_history_pages_successful':sum(bool(row.get('http_success')) for row in pages),
+            'parsed_games':sum(int(row.get('parsed_games') or 0) for row in pages),
+            'urls':[row.get('url') for row in pages],
+            'status':'CAPTURED_SCORE_PERIODS' if any(row.get('parsed_games') for row in pages) else 'NOT_CAPTURED',
+            'pace_status':'WAITING_FOR_VERIFIED_TITAN_TECH_BOX_SCORE',
+        })
     total_res=fetch.batch(total_urls)
     for key,r in total_res.items():
+        if key.startswith('game_'):
+            bottom_source_audit.append({
+                'event_id':'7m:'+key.split('_',1)[1],
+                'source':'7M_GAME_DATA',
+                'url':r.get('url'),
+                'http_success':bool(r.get('ok')),
+                'status_code':r.get('status_code'),
+                'raw_path':r.get('path'),
+                'error_type':r.get('error_type'),
+                'note':'raw probe only; no possession fields are inferred from an opaque or missing response',
+            })
+            continue
         if not r.get('ok'):continue
         event_id='7m:'+key.split('_')[1]
         context=total_context.setdefault(event_id, {'source_urls':[],'raw_paths':[],'variables':{},
@@ -1801,6 +1850,7 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
        'stage_timings':stage_timings,
        'global_discovery':{'run_id':global_result.get('run_id'),'event_count':len(global_result.get('events',[])),'raw_directory':global_result.get('raw_directory'),'source_health':global_result.get('source_health',[])},
        'deep_capture_audit':deep_capture_audit,'identity_collision_audit':identity_collision_audit,
+       'bottom_source_audit':bottom_source_audit,
        'cross_source_history_bridge_audit':cross_source_history_bridge_audit,
        'prior_capture_history_audit':dict(prior_capture_history_audit,
                                            merge=prior_capture_merge_audit),

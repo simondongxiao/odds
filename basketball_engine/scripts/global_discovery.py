@@ -126,7 +126,7 @@ def classify(competition, country=""):
     if any(x in text for x in ("b.league", "japan", "日本")): return "JAPAN_BLEAGUE", "日本韩国"
     if any(x in text for x in ("kbl", "korea", "韩国")): return "KOREA_KBL", "日本韩国"
     if "wnbl" in text or "澳大利亚女子" in text: return "AUSTRALIA_WNBL", "大洋洲"
-    if any(x in text for x in ("australia", "nbl australia", "australian nbl", "澳大利亚国家篮球联赛", "澳洲nbl", "nbl(a)")): return "AUSTRALIA_NBL", "大洋洲"
+    if any(x in text for x in ("australia", "nbl australia", "australian nbl", "澳大利亚国家篮球联赛", "澳洲nbl", "nbl(a)", "nbl")): return "AUSTRALIA_NBL", "大洋洲"
     if any(x in text for x in ("new zealand", "nzbl")): return "NEW_ZEALAND", "大洋洲"
     if any(x in text for x in ("eurocup", "欧篮杯", "欧女杯", "欧洲杯")): return "EUROCUP", "欧洲"
     if any(x in text for x in ("euroleague", "euro", "欧洲篮球联赛", "欧洲篮球冠军联赛", "欧冠")):
@@ -135,7 +135,13 @@ def classify(competition, country=""):
         return "EUROPE_DOMESTIC", "欧洲"
     if "wnba" in text or "美国女子职业篮球联赛" in text: return "WNBA", "北美"
     if "nba" in text or "美国职业篮球联赛" in text: return "NBA", "北美"
-    if any(x in text for x in ("ncaa", "g league", "college")): return "NORTH_AMERICA_CLUB", "北美"
+    # College basketball is a formal coverage family.  It must not fall into
+    # NORTH_AMERICA_CLUB: that label has a different history/tier contract and
+    # silently breaks the NCAA cross-source bridge.
+    if any(x in text for x in ("wncaab", "ncaa women", "women's college", "women college", "女子大学")):
+        return "WNCAAB", "北美"
+    if any(x in text for x in ("ncaab", "ncaa", "mens college basketball", "men's college", "college basketball", "大学篮球")):
+        return "NCAAB", "北美"
     if any(x in text for x in ("mexico", "brazil", "argentina", "puerto rico", "chile", "uruguay", "venezuela", "colombia", "dominican")): return "AMERICAS_OTHER", "拉美"
     if any(x in text for x in ("saudi", "uae", "qatar", "bahrain", "kuwait", "gulf")): return "GULF", "海湾"
     if any(x in text for x in ("philippines", "taiwan", "southeast", "asia")): return "OTHER_ASIA", "其他亚洲"

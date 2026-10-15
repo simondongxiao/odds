@@ -73,6 +73,36 @@ def _search_name(value):
     return text
 
 
+# 7M uses Chinese display names while Titan's team search sometimes exposes
+# the English/short sponsor name as the exact alias.  These are reviewed
+# spelling variants only; a returned Titan TeamID is still accepted only when
+# Titan's own search response contains an exact alias match.  Keeping this
+# table explicit prevents a fuzzy name match from joining two different clubs.
+TEAM_SEARCH_ALIASES = {
+    "塔斯曼尼亚跳蚁": ("塔斯马尼亚跳蚁", "Tasmania JackJumpers", "Tasmania Jack Jumpers"),
+    "塔斯马尼亚跳蚁": ("塔斯曼尼亚跳蚁", "Tasmania JackJumpers", "Tasmania Jack Jumpers"),
+    "阿德莱德36人": ("阿德莱德三十六人", "Adelaide 36ers"),
+    "阿德莱德三十六人": ("阿德莱德36人", "Adelaide 36ers"),
+    "悉尼国王": ("Sydney Kings",),
+    "墨尔本联": ("Melbourne United",),
+    "珀斯野猫": ("Perth Wildcats",),
+    "新西兰破坏者": ("New Zealand Breakers", "NZ Breakers"),
+    "布里斯班子弹": ("Brisbane Bullets",),
+    "凯恩斯大班": ("Cairns Taipans",),
+    "伊拉瓦拉老鹰": ("Illawarra Hawks",),
+    "东南墨尔本凤凰": ("South East Melbourne Phoenix", "SEM Phoenix"),
+    "阿拉巴马": ("Alabama", "Alabama Crimson Tide"),
+    "密西西比": ("Mississippi", "Ole Miss", "Mississippi Rebels"),
+}
+
+
+def _team_search_queries(value):
+    """Return conservative reviewed queries for one source team name."""
+    cleaned = _search_name(value)
+    aliases = TEAM_SEARCH_ALIASES.get(cleaned, ())
+    return list(dict.fromkeys([cleaned, *aliases]))
+
+
 def _int(value):
     if isinstance(value, bool):
         return None
@@ -1080,6 +1110,7 @@ def update_history_database(events, root, cutoff=None, years=None, boxscore_limi
                 cached_mappings[canonical] = str(titan_id)
         mapping_cache_hits = 0
         search_items = []
+        search_key_canonical = {}
         for canonical, team in teams.items():
             if team.get("seed_titan_id"):
                 continue
@@ -1088,9 +1119,12 @@ def update_history_database(events, root, cutoff=None, years=None, boxscore_limi
                 team["seed_titan_id"] = cached_titan_id
                 mapping_cache_hits += 1
                 continue
-            team["search_name"] = _search_name(team["name"])
-            url = f"{BASE}/cn/aspx/Search_Team.aspx?str1={quote(team['search_name'])}"
-            search_items.append(("search:" + canonical, url, BASE + "/index_cn.htm"))
+            team["search_names"] = _team_search_queries(team["name"])
+            for index, search_name in enumerate(team["search_names"]):
+                key = f"search:{canonical}:{index}"
+                url = f"{BASE}/cn/aspx/Search_Team.aspx?str1={quote(search_name)}"
+                search_items.append((key, url, BASE + "/index_cn.htm"))
+                search_key_canonical[key] = canonical
         mappings = {}
         for canonical, team in teams.items():
             if not team.get("seed_titan_id"):
@@ -1099,19 +1133,47 @@ def update_history_database(events, root, cutoff=None, years=None, boxscore_limi
             store.db.execute("INSERT OR REPLACE INTO team_mapping VALUES(?,?,?,?,?,?)",
                              (canonical, team["name"], team["seed_titan_id"], "DIRECT_LEAGUE_MEMBERSHIP",
                               "[]", started))
+        search_outcomes = defaultdict(list)
         for row in _batch(search_items, workers):
             health.append({k: v for k, v in row.items() if k not in ("blob", "text")})
-            canonical = row["key"].split(":", 1)[1]
+            canonical = search_key_canonical[row["key"]]
             if not row.get("ok"):
-                result = {"query": teams[canonical]["name"], "candidates": [], "exact": None, "status": "FETCH_FAILED"}
+                result = {"query": row["key"], "candidates": [], "exact": None, "status": "FETCH_FAILED"}
             else:
                 store.snapshot(row["url"], row["blob"], row.get("content_type"), "team_search", canonical, row["captured_at"])
-                result = parse_search_response(row["text"], teams[canonical]["search_name"])
-            titan_id = result["exact"]["team_id"] if result.get("exact") else None
+                query = teams[canonical]["search_names"][int(row["key"].rsplit(":", 1)[1])]
+                result = parse_search_response(row["text"], query)
+            search_outcomes[canonical].append({"result": result, "captured_at": row["captured_at"]})
+
+        # Multiple reviewed aliases are allowed to hit the same Titan row, but
+        # different exact TeamIDs remain ambiguous and are never guessed.
+        for canonical, attempts in search_outcomes.items():
+            exact_rows = [a["result"]["exact"] for a in attempts if a["result"].get("exact")]
+            exact_ids = {str(row["team_id"]) for row in exact_rows}
+            if len(exact_ids) == 1:
+                titan_id = next(iter(exact_ids))
+                status = "EXACT"
+            elif len(exact_ids) > 1:
+                titan_id = None
+                status = "AMBIGUOUS"
+            else:
+                titan_id = None
+                status = ("FETCH_FAILED" if attempts and
+                          all(a["result"].get("status") == "FETCH_FAILED" for a in attempts)
+                          else "NOT_FOUND")
+            candidates = []
+            for attempt in attempts:
+                candidates.extend(attempt["result"].get("candidates") or [])
+            # Keep the full candidate audit, de-duplicated by TeamID/name.
+            unique_candidates = {}
+            for candidate in candidates:
+                key = (str(candidate.get("team_id") or ""), str(candidate.get("name") or ""))
+                unique_candidates[key] = candidate
+            captured_at = max((a["captured_at"] for a in attempts), default=started)
             mappings[canonical] = titan_id
             store.db.execute("INSERT OR REPLACE INTO team_mapping VALUES(?,?,?,?,?,?)",
-                             (canonical, teams[canonical]["name"], titan_id, result["status"],
-                              json.dumps(result["candidates"], ensure_ascii=False), row["captured_at"]))
+                             (canonical, teams[canonical]["name"], titan_id, status,
+                              json.dumps(list(unique_candidates.values()), ensure_ascii=False), captured_at))
 
         titan_to_canonical = {}
         for cid, tid in mappings.items():
