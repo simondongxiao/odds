@@ -57,6 +57,8 @@ DEFAULT_LEAGUE_ALIASES = {
     "be:world-cup-women": "女足世界杯", "be:efl-trophy": "英锦赛",
     "be:championship": "英冠", "be:premier-league": "英超",
     "be:champions-league": "欧冠", "be:europa-league": "欧联",
+    "be:usa-mls": "美职业", "be:major-league-soccer": "美职业",
+    "usa:mls": "美职业", "major league soccer": "美职业", "mls": "美职业",
 }
 
 

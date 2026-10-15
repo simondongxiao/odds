@@ -1379,7 +1379,7 @@ def browser_market_priority(row: dict[str, object]) -> tuple[int, str, str]:
     )):
         priority = 0
     elif any(token in text for token in (
-        "美职联", "美大联盟", "墨西", "巴西", "阿甲", "阿乙", "哥伦比亚",
+        "美职联", "美职业", "美国职业大联盟", "美大联盟", "墨西", "巴西", "阿甲", "阿乙", "哥伦比亚",
         "智利", "厄瓜多尔", "乌拉圭", "mls", "liga mx", "brazil", "argentina",
         "colombia", "chile", "ecuador", "uruguay", "concacaf", "conmebol",
     )):
