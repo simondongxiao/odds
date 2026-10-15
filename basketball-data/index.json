@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T15:39:33.983648+00:00",
+  "generated_at": "2026-10-15T23:44:40.919455+00:00",
   "dates": [
     {
       "archive_type": "FORWARD_NATIVE",
@@ -8,16 +8,17 @@
       "file": "2026-10-18.json"
     },
     {
-      "archive_type": "FORWARD_NATIVE",
       "date": "2026-10-17",
-      "event_count": 248,
-      "file": "2026-10-17.json"
+      "file": "2026-10-17.json",
+      "mobile_file": "2026-10-17.mobile.json",
+      "event_count": 259,
+      "archive_type": "FORWARD_NATIVE"
     },
     {
       "date": "2026-10-16",
       "file": "2026-10-16.json",
       "mobile_file": "2026-10-16.mobile.json",
-      "event_count": 115,
+      "event_count": 132,
       "archive_type": "FORWARD_NATIVE"
     },
     {
