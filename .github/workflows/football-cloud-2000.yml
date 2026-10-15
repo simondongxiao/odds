@@ -66,7 +66,7 @@ jobs:
       - name: Guard duplicate business slot
         id: dedupe
         run: |
-          run_key="${{ steps.target.outputs.target_list_date }}|${{ steps.target.outputs.planned_slot }}"
+          run_key="${{ steps.target.outputs.target_list_date }}|${{ steps.target.outputs.planned_slot }}|${{ github.sha }}"
           prior=$(python -c "import json; p=json.load(open('data/github_football/run_manifest.json', encoding='utf-8')); print(p.get('run_key',''))" 2>/dev/null || true)
           if [ "$prior" = "$run_key" ] && python -c "import json,sys; p=json.load(open('data/github_football/run_manifest.json', encoding='utf-8')); sys.exit(0 if p.get('status') in {'SUCCESS','DIAGNOSTIC','SKIPPED_DUPLICATE'} else 1)"; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
@@ -166,7 +166,7 @@ jobs:
             --actual-run-bjt "${{ steps.target.outputs.actual_run_bjt }}" \
             --target-list-date "${{ steps.target.outputs.target_list_date }}" \
             --trigger-source "${{ steps.target.outputs.trigger_source }}" \
-            --run-key "${{ steps.target.outputs.target_list_date }}|${{ steps.target.outputs.planned_slot }}" \
+            --run-key "${{ steps.target.outputs.target_list_date }}|${{ steps.target.outputs.planned_slot }}|${{ github.sha }}" \
             --actual-started-at "${{ steps.target.outputs.actual_started_at }}" \
             --pages-sha "${{ steps.publish.outputs.pages_sha }}" \
             --pages-status "$PAGES_OUTCOME" \
