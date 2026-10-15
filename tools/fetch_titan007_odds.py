@@ -1366,10 +1366,10 @@ def browser_market_priority(row: dict[str, object]) -> tuple[int, str, str]:
 
     Lower numbers are fetched first.  This is only a queue priority: it never
     synthesizes odds and never removes a fixture from the append-only roster.
-    The order is mainstream senior tier 1/2 first, then other senior adult
-    competitions, then senior cups, with non-mainstream tier 3, youth, and
-    friendlies at the end. Japan/Korea/Australia and eligible European tier 3
-    remain in the reserved adult block ahead of cups.
+    The order is mainstream senior tier 1/2 first, then Japan/Korea/Australia
+    leagues and eligible European tier 3, then Japan/Korea/Australia cups,
+    other senior adult competitions, and other cups. Lower European tier 3,
+    youth, and friendlies remain last.
     """
     text = " ".join(
         str(row.get(key, "") or "")
@@ -1387,12 +1387,12 @@ def browser_market_priority(row: dict[str, object]) -> tuple[int, str, str]:
         "u17", "u18", "u19", "u20", "u21", "u22", "u23", "青年", "青年队",
         "后备", "预备", "reserve", "reserves", "academy", "development",
     ):
-        priority = 6
+        priority = 7
     elif has(
         "友谊", "友誼", "friendly", "club friendly", "international friendly",
         "test match", "testimonial",
     ):
-        priority = 7
+        priority = 8
     # European big-five and continental senior competitions are the first
     # adult block, followed by other countries' senior tier 1/2 leagues.
     elif has(
@@ -1415,11 +1415,13 @@ def browser_market_priority(row: dict[str, object]) -> tuple[int, str, str]:
     ):
         priority = 1
     elif has(
-        # Cups are deliberately after all other adult competitions per the
-        # current retrieval rule, including Japan/Korea domestic cups.
-        "杯", "cup", "copa", "coppa", "coupe", "pokal", "beker", "kup", "taça", "taca", "trofeo",
+        # Japan/Korea/Australia domestic cups are the dedicated third tier.
+        "日联杯", "日聯杯", "日联赛杯", "日聯賽杯", "日足总杯", "日足總杯", "日本杯", "天皇杯",
+        "韩国杯", "韓國杯", "韩足总杯", "韓足總杯", "澳洲杯", "澳洲盃", "澳大利亚杯", "澳大利亞盃",
+        "j-league cup", "j league cup", "japan cup", "emperor's cup", "k league cup", "korea cup",
+        "a-league cup", "australia cup",
     ):
-        priority = 4
+        priority = 3
     elif has(
         # Requested second block: Japan/Korea/Australia senior leagues and
         # priority European third tiers.
@@ -1431,14 +1433,25 @@ def browser_market_priority(row: dict[str, object]) -> tuple[int, str, str]:
     ):
         priority = 2
     elif has(
+        # Other senior adult competitions follow the dedicated Asia/Oceania
+        # cup tier but remain ahead of generic domestic cups.
+        "其他成人", "other adult",
+    ):
+        priority = 4
+    elif has(
+        # Generic senior cups are kept in their own lower reserved queue.
+        "杯", "cup", "copa", "coppa", "coupe", "pokal", "beker", "kup", "taça", "taca", "trofeo",
+    ):
+        priority = 5
+    elif has(
         # Other European third tiers may wait when the bounded queue is full.
         "tier_3", "三级", "liga 3", "serie c", "national league", "division 3", "3. lig",
     ):
-        priority = 5
+        priority = 6
     else:
-        # Other adult competitions come before cups.  Unknown rows remain in
-        # the roster and are still subject to the normal odds quality gate.
-        priority = 3
+        # Unknown adult rows remain ahead of generic cups. They stay in the
+        # roster and are still subject to the normal odds quality gate.
+        priority = 4
     return priority, kickoff, match_id
 
 
@@ -1448,7 +1461,11 @@ def browser_priority2_group(row: dict[str, object]) -> str:
         str(row.get(key, "") or "")
         for key in ("league_cn", "league_tw", "league_en", "competition")
     ).casefold()
-    if any(token in text for token in ("日职", "日乙", "日丙", "日足", "日本", "j1", "j2", "j3", "j.league", "韩k", "韩国", "k league", "k3", "澳超", "澳甲", "a-league", "australia")):
+    asia_tokens = ("日职", "日乙", "日丙", "日足", "日本", "日联杯", "日聯杯", "日联赛杯", "日聯賽杯", "日足总杯", "日足總杯", "j1", "j2", "j3", "j.league", "韩k", "韩国", "韩足总杯", "韓足總杯", "k league", "k3", "澳超", "澳甲", "澳洲", "澳大利亚", "澳洲杯", "澳洲盃", "australia cup", "a-league", "australia", "japan", "korea")
+    cup_tokens = ("杯", "cup", "copa", "coppa", "coupe", "pokal", "beker", "kup", "taça", "taca", "trofeo")
+    if any(token in text for token in asia_tokens) and any(token in text for token in cup_tokens):
+        return "asia_oceania_cup"
+    if any(token in text for token in asia_tokens):
         return "asia_oceania"
     if any(token in text for token in ("意丙", "英甲", "德丙", "法丙", "西协甲", "西協甲", "3. liga", "league one", "primera federación", "primera federacion", "czech 3", "3. česk", "3. ces", "2. divisjon", "norsk tipping-ligaen", "2. deild", "ettan")):
         return "europe_tier3"
@@ -1511,9 +1528,9 @@ def browser_recover_vip_pages(
     queued_jobs = len(jobs)
     if batch_limit:
         priority_jobs = [job for job in jobs if browser_market_priority(completed[job[0]][0])[0] <= 1]
-        second_jobs = [job for job in jobs if browser_market_priority(completed[job[0]][0])[0] in {2, 3}]
-        cup_jobs = [job for job in jobs if browser_market_priority(completed[job[0]][0])[0] == 4]
-        lower_jobs = [job for job in jobs if browser_market_priority(completed[job[0]][0])[0] >= 5]
+        second_jobs = [job for job in jobs if browser_market_priority(completed[job[0]][0])[0] in {2, 3, 4}]
+        cup_jobs = [job for job in jobs if browser_market_priority(completed[job[0]][0])[0] == 5]
+        lower_jobs = [job for job in jobs if browser_market_priority(completed[job[0]][0])[0] >= 6]
         reserve = min(
             len(second_jobs),
             max(0, int(os.environ.get("TITAN_BROWSER_PRIORITY2_MIN", "16"))),
@@ -1524,15 +1541,15 @@ def browser_recover_vip_pages(
             max(0, int(os.environ.get("TITAN_BROWSER_CUP_MIN", "4"))),
             max(0, batch_limit - reserve),
         )
-        groups = {"other_adult": [], "asia_oceania": [], "europe_tier3": []}
+        groups = {"asia_oceania_cup": [], "other_adult": [], "asia_oceania": [], "europe_tier3": []}
         for job in second_jobs:
             groups.setdefault(browser_priority2_group(completed[job[0]][0]), []).append(job)
         second_selected = []
-        # Other adult competitions are intentionally visited before cups; the
-        # Asia/Oceania and eligible Europe-tier-3 groups still get turns.
+        # Asia/Oceania domestic cups are the third tier; other adult rows then
+        # get turns before the generic cup reserve.
         while len(second_selected) < reserve and any(groups.values()):
             progressed = False
-            for name in ("other_adult", "asia_oceania", "europe_tier3"):
+            for name in ("asia_oceania_cup", "other_adult", "asia_oceania", "europe_tier3"):
                 if groups.get(name):
                     second_selected.append(groups[name].pop(0))
                     progressed = True
