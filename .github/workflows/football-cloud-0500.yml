@@ -5,6 +5,15 @@ on:
     # 05:07 Asia/Shanghai = 21:07 UTC on the previous day.
     - cron: "7 21 * * *"
   workflow_dispatch:
+    inputs:
+      target_date:
+        description: "Explicit Beijing business date (optional)"
+        required: false
+        type: string
+      planned_run_bjt:
+        description: "Planned slot timestamp in Asia/Shanghai (optional)"
+        required: false
+        type: string
 
 concurrency:
   # Morning and evening jobs publish to the same gh-pages branch.  A shared
@@ -41,6 +50,7 @@ jobs:
           mkdir -p data/github_football
           git show origin/gh-pages:data/github_football/ledger.json > data/github_football/ledger.json 2>/dev/null || true
           git show origin/gh-pages:data/github_football/ledger.csv > data/github_football/ledger.csv 2>/dev/null || true
+          git show origin/gh-pages:data/github_football/run_manifest.json > data/github_football/run_manifest.json 2>/dev/null || true
           mkdir -p github_site/v3/data github_site/v4/data
           git show origin/gh-pages:v4/data/v3_history_detail.json > github_site/v3/data/v3_history_detail.json 2>/dev/null || true
           git show origin/gh-pages:v4/data/v4_history_detail.json > github_site/v4/data/v4_history_detail.json 2>/dev/null || true
@@ -52,29 +62,46 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python tools/resolve_target_date.py --mode morning --event "${{ github.event_name }}" --schedule "${{ github.event.schedule || '' }}" --output "$GITHUB_OUTPUT"
+          python tools/resolve_target_date.py --mode morning --event "${{ github.event_name }}" --schedule "${{ github.event.schedule || '' }}" --target-date "${{ inputs.target_date || '' }}" --planned-run-bjt "${{ inputs.planned_run_bjt || '' }}" --output "$GITHUB_OUTPUT"
+      - name: Guard duplicate business slot
+        id: dedupe
+        run: |
+          run_key="${{ steps.target.outputs.target_list_date }}|${{ steps.target.outputs.planned_slot }}"
+          prior=$(python -c "import json; p=json.load(open('data/github_football/run_manifest.json', encoding='utf-8')); print(p.get('run_key',''))" 2>/dev/null || true)
+          if [ "$prior" = "$run_key" ] && python -c "import json,sys; p=json.load(open('data/github_football/run_manifest.json', encoding='utf-8')); sys.exit(0 if p.get('status') in {'SUCCESS','DIAGNOSTIC','SKIPPED_DUPLICATE'} else 1)"; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Duplicate completed business slot: $run_key"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Install cloud dependencies
         run: |
           python -m pip install -r requirements.txt playwright==1.55.0
           python -m playwright install --with-deps chromium
       - name: Run portable football skill
         id: update
+        if: steps.dedupe.outputs.skip != 'true'
         run: python tools/github_football_update.py --list-date "${{ steps.target.outputs.list_date }}"
       - name: Publish lightweight mobile dashboards
         id: publish
+        if: steps.dedupe.outputs.skip != 'true'
         run: |
           set -euo pipefail
-          git fetch origin gh-pages
-          rm -rf /tmp/football-gh-pages
-          git worktree add --detach /tmp/football-gh-pages origin/gh-pages
-          mkdir -p /tmp/football-gh-pages/v3 /tmp/football-gh-pages/v4
-          cp -R github_site/v3/. /tmp/football-gh-pages/v3/
-          cp -R github_site/v4/. /tmp/football-gh-pages/v4/
-          cp -R data/github_football/. /tmp/football-gh-pages/data/github_football/
-          # Preserve every previously published date.  The updater writes the
-          # current date locally, but copying that index verbatim would hide
-          # older JSON pages (for example 10/14) from the date selector.
-          python - <<'PY'
+          stage="$RUNNER_TEMP/football-dashboard-payload"
+          rm -rf "$stage"
+          mkdir -p "$stage/v3" "$stage/v4" "$stage/data/github_football"
+          cp -R github_site/v3/. "$stage/v3/"
+          cp -R github_site/v4/. "$stage/v4/"
+          cp -R data/github_football/. "$stage/data/github_football/"
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            rm -rf /tmp/football-gh-pages
+            git worktree add --detach /tmp/football-gh-pages origin/gh-pages
+            cp -R "$stage/v3/." /tmp/football-gh-pages/v3/
+            cp -R "$stage/v4/." /tmp/football-gh-pages/v4/
+            cp -R "$stage/data/github_football/." /tmp/football-gh-pages/data/github_football/
+            # Rebuild only the date index; all older published JSON remains.
+            python - <<'PY'
           import json
           from pathlib import Path
           for version in ("v3", "v4"):
@@ -84,19 +111,29 @@ jobs:
               (data_dir / "index.json").write_text(json.dumps(dates, ensure_ascii=False), encoding="utf-8")
               print(f"{version}_date_index={len(dates)} latest={dates[-1] if dates else ''}")
           PY
-          git -C /tmp/football-gh-pages config user.name github-actions[bot]
-          git -C /tmp/football-gh-pages config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git -C /tmp/football-gh-pages add v3 v4 data/github_football
-          if git -C /tmp/football-gh-pages diff --cached --quiet; then
-            echo "No gh-pages changes; retaining current published commit"
-          else
+            git -C /tmp/football-gh-pages config user.name github-actions[bot]
+            git -C /tmp/football-gh-pages config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git -C /tmp/football-gh-pages add v3 v4 data/github_football
+            if git -C /tmp/football-gh-pages diff --cached --quiet; then
+              echo "No gh-pages changes; retaining current published commit"
+              echo "pages_sha=$(git -C /tmp/football-gh-pages rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+              break
+            fi
             git -C /tmp/football-gh-pages commit -m "Cloud football update ${{ steps.target.outputs.list_date }}"
-            git -C /tmp/football-gh-pages push origin HEAD:gh-pages
-          fi
-          echo "pages_sha=$(git -C /tmp/football-gh-pages rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+            if git -C /tmp/football-gh-pages push origin HEAD:gh-pages; then
+              echo "pages_sha=$(git -C /tmp/football-gh-pages rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+              break
+            fi
+            if [ "$attempt" = "3" ]; then
+              echo "gh-pages push conflicted after 3 attempts" >&2
+              exit 1
+            fi
+            echo "gh-pages moved during publish; refetching and reapplying payload (attempt $attempt)" >&2
+            sleep 2
+          done
       - name: Verify GitHub Pages online
         id: pages
-        if: steps.update.outcome == 'success' && steps.publish.outcome == 'success'
+        if: steps.dedupe.outputs.skip != 'true' && steps.update.outcome == 'success' && steps.publish.outcome == 'success'
         run: |
           expected_v3=$(python -c "import json; print(json.load(open('github_site/v3/data/${{ steps.target.outputs.list_date }}.json', encoding='utf-8'))['generated_at'])")
           expected_v4=$(python -c "import json; print(json.load(open('github_site/v4/data/${{ steps.target.outputs.list_date }}.json', encoding='utf-8'))['generated_at'])")
@@ -108,8 +145,16 @@ jobs:
           UPDATE_OUTCOME: ${{ steps.update.outcome }}
           PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
           PAGES_OUTCOME: ${{ steps.pages.outcome }}
+          DEDUPE_SKIP: ${{ steps.dedupe.outputs.skip }}
         run: |
-          if [ "$UPDATE_OUTCOME" = "success" ] && [ "$PUBLISH_OUTCOME" = "success" ] && [ "$PAGES_OUTCOME" = "success" ]; then STATUS=SUCCESS; else STATUS=FAILED; fi
+          if [ "$DEDUPE_SKIP" = "true" ]; then STATUS=SKIPPED_DUPLICATE; else
+          MODEL_STATUS=$(python -c "import json; print(json.load(open('data/github_football/last_run.json', encoding='utf-8')).get('model_status','UNKNOWN'))" 2>/dev/null || echo UNKNOWN)
+          if [ "$UPDATE_OUTCOME" = "success" ] && [ "$PUBLISH_OUTCOME" = "success" ] && [ "$PAGES_OUTCOME" = "success" ]; then
+            if [ "$MODEL_STATUS" = "FORMAL_VERIFIED" ]; then STATUS=SUCCESS; else STATUS=DIAGNOSTIC; fi
+          else
+            STATUS=FAILED
+          fi
+          fi
           python tools/send_feishu_notification.py \
             --date "${{ steps.target.outputs.list_date }}" \
             --status "$STATUS" \
@@ -117,6 +162,12 @@ jobs:
             --run-id "${{ github.run_id }}" \
             --event "${{ github.event_name }}" \
             --scheduled-at "${{ steps.target.outputs.scheduled_at }}" \
+            --planned-slot "${{ steps.target.outputs.planned_slot }}" \
+            --planned-run-bjt "${{ steps.target.outputs.planned_run_bjt }}" \
+            --actual-run-bjt "${{ steps.target.outputs.actual_run_bjt }}" \
+            --target-list-date "${{ steps.target.outputs.target_list_date }}" \
+            --trigger-source "${{ steps.target.outputs.trigger_source }}" \
+            --run-key "${{ steps.target.outputs.target_list_date }}|${{ steps.target.outputs.planned_slot }}" \
             --actual-started-at "${{ steps.target.outputs.actual_started_at }}" \
             --pages-sha "${{ steps.publish.outputs.pages_sha }}" \
             --pages-status "$PAGES_OUTCOME" \

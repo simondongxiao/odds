@@ -33,6 +33,13 @@ TZ = dt.timezone(dt.timedelta(hours=8))
 BUSINESS_CUTOFF_HOUR = 12
 HISTORY_RESULTS = {"W", "HW", "P", "HL", "L"}
 HISTORY_LABELS = {"W": "红", "HW": "半红", "P": "走", "HL": "半黑", "L": "黑"}
+# The GitHub entry point intentionally remains a portable companion.  The
+# desktop V3/V4 implementations are the formal authorities (V3 legacy JS
+# parity and V4 ``core_model.evaluate_match``).  Until the same inputs,
+# calibration files and freeze snapshot can be executed here, cloud decisions
+# must never be written into the formal history ledger as if they were equal.
+MODEL_STATUS = "PORTABLE_DIAGNOSTIC"
+FORMAL_MODEL_EQUIVALENCE = "NOT_VERIFIED"
 
 # BetExplorer supplies English labels.  Keep a small checked-in alias layer so
 # cloud-only supplemental fixtures never leak English names into the Chinese
@@ -189,9 +196,10 @@ def _load_existing_history_details(version: str) -> list[dict[str, Any]]:
 def build_competition_history(rows: list[dict[str, Any]], target_date: str) -> None:
     """Build date-scoped V3/V4 same-competition stats from locked history.
 
-    Existing Excel-derived detail artifacts are retained and supplemented with
-    newly settled cloud rows.  Each target date receives its own payload so a
-    user selecting an older page can never see later results.
+    Existing Excel-derived detail artifacts are the formal source of truth.
+    Cloud rows are written to a separate diagnostic artifact only: the
+    portable evaluator is not proven equivalent to the desktop models and
+    therefore must not contaminate formal V3/V4 backtests.
     """
     all_dates = sorted({str(x.get("list_date") or "") for x in rows if x.get("list_date")})
     if target_date not in all_dates:
@@ -199,8 +207,9 @@ def build_competition_history(rows: list[dict[str, Any]], target_date: str) -> N
     for version in ("V3", "V4"):
         details = _load_existing_history_details(version)
         seen = {str(x.get("ledger_key") or "") for x in details if x.get("ledger_key")}
-        # Add only valid, frozen cloud settlements. Existing Excel rows are the
-        # source of truth for older dates; ledger keys make reruns idempotent.
+        diagnostic_details: list[dict[str, Any]] = []
+        # Keep this calculation for audit visibility, but never append these
+        # rows to ``details`` used by the formal history panels.
         for row in rows:
             key = f"{version}|{row.get('list_date', '')}|{row.get('match_id', '')}"
             if key in seen or not str(row.get("list_date") or ""):
@@ -209,8 +218,7 @@ def build_competition_history(rows: list[dict[str, Any]], target_date: str) -> N
             if not settled:
                 continue
             result, pnl = settled
-            details.append(_history_detail(row, version, result, pnl))
-            seen.add(key)
+            diagnostic_details.append(_history_detail(row, version, result, pnl))
         details = [x for x in details if _normalise_history_result(x.get("result") or x.get("settlement")) in HISTORY_RESULTS]
         for date in all_dates:
             historical = [x for x in details if str(x.get("list_date") or x.get("date") or "")[:10] < date]
@@ -272,12 +280,30 @@ def build_competition_history(rows: list[dict[str, Any]], target_date: str) -> N
                 "list_date": date, "version": version,
                 "history_cutoff": f"list_date < {date}",
                 "generated_at": dt.datetime.now(TZ).isoformat(),
+                "history_provenance": "EXCEL_FORMAL_HISTORY_ONLY",
+                "model_status": MODEL_STATUS,
+                "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+                "diagnostic_rows_excluded": len(diagnostic_details),
                 "source_detail_rows": len(historical), "rows": output_rows,
             }
             path = SITE / version.lower() / "data" / f"{version.lower()}_competition_history_{date}.json"
             atomic_text(path, json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
             if date == target_date:
                 atomic_text(SITE / version.lower() / "data" / f"{version.lower()}_competition_history.json", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
+        if diagnostic_details:
+            diagnostic_payload = {
+                "schema_version": "football-competition-history-diagnostic-v1",
+                "list_date": target_date, "version": version,
+                "generated_at": dt.datetime.now(TZ).isoformat(),
+                "model_status": MODEL_STATUS,
+                "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+                "rows": diagnostic_details,
+                "note": "云端便携评估结果，仅供审计；未写入原版正式历史账本。",
+            }
+            atomic_text(
+                SITE / version.lower() / "data" / f"{version.lower()}_competition_history_diagnostic_{target_date}.json",
+                json.dumps(diagnostic_payload, ensure_ascii=False, separators=(",", ":")),
+            )
 
 
 def atomic_text(path: Path, text: str) -> None:
@@ -513,21 +539,42 @@ def evaluate(item: dict[str, Any], version: str) -> dict[str, Any]:
         "quality_gate_passed": complete and not excluded and item["state"] in {"0", ""},
         "quality_gate_reasons": gate_reasons,
         "rule_version": "GITHUB_PORTABLE_V3_V4_20261014",
+        "model_status": MODEL_STATUS,
+        "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+        "is_formal_signal": False,
     }
 
 
+def ledger_key(item: dict[str, Any]) -> str:
+    """Use a date-scoped identity so a reused provider id cannot erase history."""
+    date = str(item.get("list_date") or "").strip()
+    match_id = str(item.get("match_id") or "").strip()
+    if match_id:
+        return f"{date}|match_id:{match_id}"
+    home = str(item.get("home_team") or "").strip().casefold()
+    away = str(item.get("away_team") or "").strip().casefold()
+    kickoff_at = str(item.get("kickoff") or "").strip()
+    return f"{date}|fixture:{kickoff_at}|{home}|{away}"
+
+
 def merge(new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]], list_date: str) -> tuple[list[dict[str, Any]], str | None]:
-    old = {str(x.get("match_id")): x for x in old_rows if x.get("match_id")}
+    old = {ledger_key(x): x for x in old_rows if ledger_key(x)}
     warning = None
     previous_today = sum(1 for x in old.values() if x.get("list_date") == list_date)
     incoming_today = sum(1 for x in new_rows if x.get("list_date") == list_date)
     if previous_today and incoming_today < previous_today * 0.65:
         warning = f"ROW_COUNT_SHRINK_WARNING previous={previous_today} incoming={incoming_today}"
     for fresh in new_rows:
-        key = str(fresh.get("match_id") or "")
-        if not key:
+        key = ledger_key(fresh)
+        if not str(fresh.get("match_id") or "") and not (fresh.get("home_team") and fresh.get("away_team")):
             continue
         previous = old.get(key)
+        # A sudden slate shrink is a source failure until an official
+        # cancellation/ postponement feed is supplied. Preserve every prior
+        # prematch row and only allow score/state reconciliation while the
+        # warning is active; genuinely new fixtures may still be appended.
+        if warning and previous and str(fresh.get("list_date")) == list_date and str(previous.get("state")) in {"0", ""}:
+            continue
         if previous and str(previous.get("state")) not in {"0", ""}:
             locked = dict(previous)
             locked.update({k: fresh.get(k) for k in ("state", "score", "source_snapshot")})
@@ -615,6 +662,35 @@ def write_csv(rows: list[dict[str, Any]]) -> None:
     tmp.replace(LEDGER_CSV)
 
 
+def source_quality_audit(incoming: list[dict[str, Any]], current: list[dict[str, Any]]) -> dict[str, Any]:
+    """Record source/market completeness without changing model gates."""
+    def source_name(row: dict[str, Any]) -> str:
+        text = " ".join(str(row.get(key) or "") for key in ("source_snapshot", "match_id", "source"))
+        return "BetExplorer" if "betexplorer" in text.casefold() or str(row.get("match_id", "")).startswith("BE_") else "Titan007"
+
+    def complete(row: dict[str, Any], field: str) -> bool:
+        return bool((row.get("market") or {}).get(field))
+
+    source_counts: dict[str, int] = {}
+    for row in incoming:
+        source_counts[source_name(row)] = source_counts.get(source_name(row), 0) + 1
+    return {
+        "incoming_rows": len(incoming),
+        "target_rows_after_dedupe": len(current),
+        "source_counts": source_counts,
+        "titan007_rows": source_counts.get("Titan007", 0),
+        "betexplorer_rows": source_counts.get("BetExplorer", 0),
+        "asian_complete_rows": sum(complete(row, "current_complete") for row in incoming),
+        "euro_complete_rows": sum(complete(row, "euro_complete") for row in incoming),
+        "both_markets_complete_rows": sum(complete(row, "current_complete") and complete(row, "euro_complete") for row in incoming),
+        "missing_asian_rows": sum(not complete(row, "current_complete") for row in incoming),
+        "missing_euro_rows": sum(not complete(row, "euro_complete") for row in incoming),
+        "started_rows": sum(str(row.get("state") or "") not in {"0", ""} for row in incoming),
+        "provider_duplicate_rows_removed": max(0, len(incoming) - len(current)),
+        "captured_at": dt.datetime.now(TZ).isoformat(),
+    }
+
+
 def rich_v4_row(item: dict[str, Any]) -> dict[str, Any]:
     """Adapt the portable cloud row to the original rich V4 dashboard schema."""
     q = evaluate(item, "V4")
@@ -633,8 +709,15 @@ def rich_v4_row(item: dict[str, Any]) -> dict[str, Any]:
         "away_handicap_signed": -signed if signed is not None else None,
     })
     started = str(item.get("state") or "") not in {"0", ""}
-    final_decision = "UNAVAILABLE" if started else q["decision"]
-    selected_side = q.get("selected_side", "") if not started else ""
+    # A started/settled row is decision-locked.  Preserve the frozen choice
+    # for history queries instead of replacing it with an empty UNAVAILABLE
+    # payload; only the live market refresh is prohibited.
+    frozen = item.get("v4") if isinstance(item.get("v4"), dict) else {}
+    locked_q = frozen or q
+    final_decision = str(locked_q.get("decision") or q["decision"]) if started else q["decision"]
+    selected_side = locked_q.get("selected_side", "") if started else q.get("selected_side", "")
+    selected_team = locked_q.get("selected_team", "") if started else q.get("selected_team", "")
+    selected_water = locked_q.get("selected_water") if started else q.get("selected_water")
     selected_handicap = None
     if selected_side:
         selected_handicap = (-abs(line) if selected_side == "giving" else abs(line)) if line is not None else None
@@ -642,6 +725,9 @@ def rich_v4_row(item: dict[str, Any]) -> dict[str, Any]:
         **item,
         "model_id": "V4",
         "model_version": "V4",
+        "model_status": MODEL_STATUS,
+        "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+        "is_formal_signal": False,
         "domain": "GITHUB_CLOUD",
         "league_level": "UNKNOWN",
         "market": m,
@@ -651,12 +737,12 @@ def rich_v4_row(item: dict[str, Any]) -> dict[str, Any]:
         "quality_gate_passed": q["quality_gate_passed"],
         "quality_gate_reasons": q["quality_gate_reasons"],
         "selected_side": selected_side,
-        "selected_team": q.get("selected_team", "") if not started else "",
+        "selected_team": selected_team,
         "selected_handicap_signed": selected_handicap,
-        "selected_handicap_team": q.get("selected_team", "") if not started else "",
-        "selected_water_hk": q.get("selected_water") if not started else None,
+        "selected_handicap_team": selected_team,
+        "selected_water_hk": selected_water,
         "candidate_side": selected_side,
-        "candidate_team": q.get("selected_team", "") if not started else "",
+        "candidate_team": selected_team,
         "ev_giving": q.get("ev_giving"),
         "ev_receiving": q.get("ev_receiving"),
         "data_quality": "MEDIUM" if q["quality_gate_passed"] else "LOW",
@@ -671,7 +757,14 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
     out = SITE / version.lower() / "data" / f"{date}.json"
     source_rows = [x for x in rows if x.get("list_date") == date]
     payload_rows = [rich_v4_row(x) for x in source_rows] if version == "V4" else source_rows
-    payload = {"list_date": date, "version": version, "model_id": version, "model_version": version, "generated_at": dt.datetime.now(TZ).isoformat(), "matches": payload_rows}
+    payload = {
+        "list_date": date, "version": version, "model_id": version,
+        "model_version": version, "generated_at": dt.datetime.now(TZ).isoformat(),
+        "model_status": MODEL_STATUS,
+        "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+        "is_formal_signal": False,
+        "matches": payload_rows,
+    }
     decision_key = version.lower()
     for x in payload["matches"]:
         # Started/settled rows are decision-locked.  Rendering must not
@@ -692,6 +785,7 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
         # card data. This prevents the cloud fallback table from replacing the
         # production interface on the next scheduled run.
         rich = shell.read_text(encoding="utf-8")
+        rich = re.sub(r'const defaultDate = "[^"]*"', f'const defaultDate = "{date}"', rich, count=1)
         marker, end_marker = "const cardsData = ", "\ncardsData.forEach"
         start = rich.find(marker)
         end = rich.find(end_marker, start + len(marker)) if start >= 0 else -1
@@ -709,6 +803,8 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
                 m = item.get("market") or {}
                 cards.append({
                     "date": item.get("list_date", date), "league": item.get("competition", ""),
+                    "model_status": MODEL_STATUS, "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+                    "is_formal_signal": False,
                     "match": f"{item.get('home_team','')} vs {item.get('away_team','')}",
                     "display_match": f"{item.get('home_team','')} vs {item.get('away_team','')}",
                     "time": item.get("kickoff", ""), "display_time": item.get("kickoff", ""),
@@ -778,11 +874,18 @@ def main() -> int:
             x["v4"] = evaluate(x, "V4")
         else:
             x.setdefault("v3", evaluate(x, "V3")); x.setdefault("v4", evaluate(x, "V4"))
+        for version in ("v3", "v4"):
+            decision = x.get(version)
+            if isinstance(decision, dict):
+                decision.setdefault("model_status", MODEL_STATUS)
+                decision.setdefault("formal_model_equivalence", FORMAL_MODEL_EQUIVALENCE)
+                decision["is_formal_signal"] = False
     atomic_text(LEDGER_JSON, json.dumps(rows, ensure_ascii=False, indent=2))
     write_csv(rows)
     current = [x for x in rows if x.get("list_date") == date]
     build_competition_history(rows, date)
     counts = {"rows": len(current), "V3": sum(bool(x.get("v3", {}).get("bettable")) for x in current), "V4": sum(bool(x.get("v4", {}).get("bettable")) for x in current)}
+    quality = source_quality_audit(incoming, current)
     source_counts = {
         "incoming_snapshot_rows": len(incoming),
         "previous_ledger_rows": len(old_rows),
@@ -790,11 +893,16 @@ def main() -> int:
         "target_date_rows": len(current),
     }
     dashboard("V3", date, current); dashboard("V4", date, current)
-    atomic_text(DATA / "last_run.json", json.dumps({"list_date": date, "counts": counts, "source_counts": source_counts, "warning": warning, "snapshot": str(snapshot), "generated_at": dt.datetime.now(TZ).isoformat()}, ensure_ascii=False, indent=2))
+    atomic_text(DATA / "last_run.json", json.dumps({
+        "list_date": date, "counts": counts, "source_counts": source_counts,
+        "source_quality": quality, "warning": warning, "snapshot": str(snapshot),
+        "generated_at": dt.datetime.now(TZ).isoformat(), "model_status": MODEL_STATUS,
+        "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+    }, ensure_ascii=False, indent=2))
     # Notification is intentionally sent by the workflow only after the
     # gh-pages push and online Pages verification.  Sending here would report
     # success before the published dashboard exists.
-    print(json.dumps({"snapshot": str(snapshot), "source_counts": source_counts, **counts, "warning": warning}, ensure_ascii=False))
+    print(json.dumps({"snapshot": str(snapshot), "source_counts": source_counts, "source_quality": quality, "model_status": MODEL_STATUS, **counts, "warning": warning}, ensure_ascii=False))
     return 0
 
 
