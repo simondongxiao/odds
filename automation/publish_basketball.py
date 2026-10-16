@@ -32,17 +32,12 @@ def mobile_document(document):
 
     def compact_event(value):
         return pick(value, (
-            "age_group", "bj_date", "canonical_event_id", "canonical_identity_ambiguous",
-            "canonical_team1_id", "canonical_team2_id", "competition_id", "competition_key",
-            "discovery_status", "event_id", "format_id", "game_minutes",
-            "game_minutes_source", "game_minutes_used_in_pricing", "gender", "hours_to_start",
-            "identity_verified", "inventory_retained", "league", "league_display",
-            "league_family", "market_match_method", "market_status", "market_ttl_seconds",
-            "model_family", "next_market_retry_at", "observed_at", "pricing_inventory_status",
-            "region", "season_phase", "source", "source_event_id", "source_name",
-            "source_status", "team1_id", "team1_name", "team1_source_id", "team2_id",
-            "team2_name", "team2_source_id", "tip_at", "tip_time_bj", "tip_time_utc",
-            "time_basis", "venue_status",
+            "bj_date", "canonical_event_id", "canonical_identity_ambiguous",
+            "canonical_team1_id", "canonical_team2_id", "competition_key", "event_id",
+            "gender", "identity_verified", "inventory_retained", "league", "league_display",
+            "league_family", "market_status", "next_market_retry_at", "pricing_inventory_status",
+            "season_phase", "source_event_id", "team1_id", "team1_name", "team2_id",
+            "team2_name", "tip_at", "tip_time_bj", "tip_time_utc",
         ))
 
     def compact_selected(value):
@@ -117,15 +112,8 @@ def mobile_document(document):
         if not isinstance(value, dict):
             return value
         result = pick(value, (
-            "archive_type", "asof", "event_id", "mu_raw", "mu_blended", "mu_market",
-            "mu_structural", "total_raw", "total_blended", "total_market", "total_structural",
-            "input_games", "pricing_data_quality", "pricing_state", "pricing_status",
-            "research_priceable", "paper_model_eligible", "executable_eligible",
-            "cold_start_priceable", "shadow_eligible", "league_lifecycle_state", "season_regime",
-            "history_ess", "effective_sample_size", "current_season_games", "previous_season_games",
-            "older_history_games", "minimum_games", "minimum_distinct_opponents", "blockers",
-            "model_warnings", "uncertainty_source", "spread_data_quality", "total_model_status",
-            "total_execution_eligible", "total_evidence_complete", "total_market_found",
+            "event_id", "mu_raw", "total_raw", "input_games", "pricing_data_quality",
+            "pricing_status", "blockers", "model_warnings",
         ))
         diagnostic = value.get("total_diagnostic")
         if isinstance(diagnostic, dict):
@@ -140,17 +128,19 @@ def mobile_document(document):
         return pick(value, (
             "bookmaker", "bookmaker_id", "market_type", "quote_id", "raw_line", "line_team1",
             "decimal_prices", "raw_prices", "direction_verified", "main_or_alt", "period",
-            "ot_rule", "source_quote_at", "received_at", "last_verified_at",
-            "current_board_contract_verified", "status", "freshness_note",
-            "source_timestamp_semantics", "paper_quote_eligible", "parse_status",
+            "ot_rule", "source_quote_at", "received_at",
         ))
 
     def compact_state(value):
-        return pick(value, (
+        result = pick(value, (
             "quote_id", "age_seconds", "fresh_observation", "freshness_basis",
-            "last_change_age_seconds", "paper_quote_eligible", "raw_observation",
+            "last_change_age_seconds", "paper_quote_eligible",
             "reasons", "ttl_seconds", "warnings",
         ))
+        for key in ("reasons", "warnings"):
+            if isinstance(result.get(key), list):
+                result[key] = result[key][:3]
+        return result
 
     def compact_market(value, selected_ids=()):
         if not isinstance(value, dict):
@@ -163,12 +153,12 @@ def mobile_document(document):
         # full quote array (including raw paths/hashes) remains in desktop JSON.
         for quote in quotes:
             market_type = quote.get("market_type") or "OTHER"
-            if quote.get("quote_id") in selected_ids or per_type.get(market_type, 0) < 6:
+            if quote.get("quote_id") in selected_ids or per_type.get(market_type, 0) < 3:
                 compact_quotes.append(compact_quote(quote))
                 per_type[market_type] = per_type.get(market_type, 0) + 1
         return {
             "quotes": compact_quotes,
-            "quote_states": [compact_state(state) for state in (value.get("quote_states") or [])
+            "quote_states": [compact_state(state) for state in (value.get("quote_states") or [])[:8]
                               if isinstance(state, dict)],
         }
 
