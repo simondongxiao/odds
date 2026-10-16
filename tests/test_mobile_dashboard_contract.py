@@ -101,6 +101,8 @@ class MobileDashboardContractTest(unittest.TestCase):
         source = (ROOT / "basketball_engine/scripts/repair_v22/report.py").read_text(encoding="utf-8")
         self.assertIn("indexUrl.searchParams.set('ts',Date.now().toString())", source)
         self.assertIn("latest.mobile.json", source)
+        self.assertIn("window.__MOBILE_ROW_LIMIT__", source)
+        self.assertIn("mobile-more", source)
 
 
 if __name__ == "__main__":
