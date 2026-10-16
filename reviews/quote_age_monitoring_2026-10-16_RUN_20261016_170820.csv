@@ -1,0 +1,9 @@
+﻿version,list_date,match_id,kickoff_at,time_bucket,quote_age_bucket,hours_from_last_refresh_to_kickoff,grade_or_action,settlement_status,sample,effective_win_rate,pnl_1u,roi,monitoring_only
+V4,2026-10-16,3035679,2026-10-16T18:00:00+08:00,其他时段,<=2h,0.932,B,PREMATCH_ONLY,1,,,,True
+V4,2026-10-16,3101334,2026-10-16T19:00:00+08:00,其他时段,<=2h,1.932,B,PREMATCH_ONLY,1,,,,True
+V4,2026-10-16,3080898,2026-10-16T19:30:00+08:00,其他时段,>2h-4h,2.432,A,PREMATCH_ONLY,1,,,,True
+V4,2026-10-16,3040146,2026-10-16T21:00:00+08:00,其他时段,>12h,13.398,B,PREMATCH_ONLY,1,,,,True
+V4,2026-10-16,3024560,2026-10-16T21:00:00+08:00,其他时段,>2h-4h,3.932,B,PREMATCH_ONLY,1,,,,True
+V4,2026-10-16,3068167,2026-10-16T21:30:00+08:00,其他时段,>12h,13.898,B,PREMATCH_ONLY,1,,,,True
+V4,2026-10-16,2933166,2026-10-16T22:00:00+08:00,其他时段,>4h-8h,4.932,A,PREMATCH_ONLY,1,,,,True
+V4,2026-10-16,3041576,2026-10-16T23:00:00+08:00,其他时段,>4h-8h,5.932,C,PREMATCH_ONLY,1,,,,True
