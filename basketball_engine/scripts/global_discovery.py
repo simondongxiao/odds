@@ -6,10 +6,10 @@ an unavailable adapter is recorded rather than converted into "no games".
 """
 from __future__ import annotations
 
-import json, re, ssl, uuid
+import hashlib, json, re, ssl, uuid
 from functools import lru_cache
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta, date
 from pathlib import Path
 from urllib.parse import quote
 from urllib.request import HTTPSHandler, ProxyHandler, Request, build_opener, urlopen
@@ -161,11 +161,14 @@ def _fetch_json(url, timeout, direct=False):
             except OSError: response_ctx = urlopen(req, timeout=timeout)
         else: response_ctx = urlopen(req, timeout=timeout)
         with response_ctx as response:
-            raw=response.read(8_000_001)
+            # Season-wide ESPN history responses can exceed the daily
+            # discovery payload. Keep a bounded but sufficient cap so the
+            # box-score bridge is not silently downgraded to zero history.
+            raw=response.read(20_000_001)
             return {'raw':raw,'status':response.status}
     try:
         result,attempts=request_with_retry(operation,url=url,policy=RetryPolicy(attempts=4,delays=(2,4,8)),
-            validate=lambda item:bool(item.get('raw')) and len(item['raw'])<=8_000_000,
+            validate=lambda item:bool(item.get('raw')) and len(item['raw'])<=20_000_000,
             status_of=lambda item:item.get('status'))
         _HTTP_RETRY_LOG.append({'source':'global_discovery_http','url':url,'success':True,'attempts':attempts,'attempt_count':len(attempts)})
         raw=result['raw'];return json.loads(raw.decode("utf-8", "replace")),raw
@@ -225,19 +228,134 @@ def _event(family, region, team1, team2, tip, source, source_url, official_id, c
         "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED", "venue_status": "UNKNOWN",
     }
 
-def _espn(day, sport, family, region, timeout, raw_dir):
+def _american_decimal(value):
+    """Convert an ESPN American price to decimal without inventing a quote."""
+    text = str(value or '').strip().replace('+', '')
+    try:
+        number = float(text)
+    except (TypeError, ValueError):
+        return None
+    if number > 0:
+        return 1.0 + number / 100.0
+    if number < 0:
+        return 1.0 + 100.0 / abs(number)
+    return None
+
+
+def _espn_market_quotes(item, event, received_at):
+    """Normalize a complete current spread/total contract from ESPN.
+
+    ESPN remains schedule-only unless the response contains a line and both
+    prices.  This adapter records the public API capture as the current-board
+    confirmation; it never fabricates a last-change timestamp.
+    """
+    quotes = []
+    for odds in item.get('odds') or []:
+        provider = (odds.get('provider') or {}) if isinstance(odds, dict) else {}
+        bookmaker = provider.get('displayName') or provider.get('name') or 'ESPN'
+        spread = odds.get('pointSpread') or {}
+        home = spread.get('home') or {}; away = spread.get('away') or {}
+        home_obj = home.get('close') or home.get('open') or {}
+        away_obj = away.get('close') or away.get('open') or {}
+        home_line, away_line = home_obj.get('line'), away_obj.get('line')
+        home_price, away_price = home_obj.get('odds'), away_obj.get('odds')
+        try:
+            line_team1 = float(str(away_line).replace('+', ''))
+        except (TypeError, ValueError):
+            line_team1 = None
+        prices = [_american_decimal(away_price), _american_decimal(home_price)]
+        if (line_team1 is not None and all(isinstance(x, (int, float)) and x > 1 for x in prices)
+                and home_line is not None and away_line is not None):
+            quotes.append({
+                'quote_id': hashlib.sha256(f"ESPN|{event['event_id']}|SPREAD|{bookmaker}|{received_at}".encode()).hexdigest()[:24],
+                'event_id': event['event_id'], 'canonical_event_id': event['event_id'],
+                'source_event_id': str(event.get('source_event_id') or ''),
+                'feed_provider': 'ESPN', 'upstream_provider': 'espn',
+                'bookmaker_id': f"espn:{provider.get('id') or bookmaker}", 'bookmaker': bookmaker,
+                'market_type': 'SPREAD', 'raw_market_key': 'pointSpread',
+                'parse_status': 'PARSED_AND_NORMALIZED', 'period': 'FULL_GAME',
+                'main_or_alt': 'MAIN', 'source_market_key': 'pointSpread',
+                'source_array': [away_line, away_price, home_line, home_price],
+                'raw_line': line_team1, 'line_team1': line_team1,
+                'direction_verified': True, 'raw_prices': [away_price, home_price],
+                'decimal_prices': prices, 'price_format': 'AMERICAN',
+                'price_format_verified': True, 'source_quote_at': None,
+                'source_timestamp_raw': None,
+                'source_timestamp_semantics': 'CURRENT_BOARD_CAPTURE_ONLY',
+                'received_at': received_at, 'observed_at': received_at,
+                'raw_path': event.get('raw_path'), 'raw_sha256': None,
+                'ot_rule': 'UNKNOWN', 'rule_evidence': None,
+                'comparison_scope': 'VERIFIED_CURRENT_BOARD_CAPTURE',
+                'current_board_contract_verified': True, 'status': 'OPEN',
+                'raw_verified': bool(event.get('raw_path')), 'execution_verified': False,
+                'source_name': 'ESPN_CURRENT_ODDS_API',
+            })
+        total = odds.get('total') or {}
+        over = total.get('over') or {}; under = total.get('under') or {}
+        over_obj = over.get('close') or over.get('open') or {}
+        under_obj = under.get('close') or under.get('open') or {}
+        over_line, under_line = over_obj.get('line'), under_obj.get('line')
+        over_price, under_price = over_obj.get('odds'), under_obj.get('odds')
+        try:
+            line = float(re.sub(r'^[ou]', '', str(over_line), flags=re.I))
+        except (TypeError, ValueError):
+            line = None
+        prices = [_american_decimal(over_price), _american_decimal(under_price)]
+        if (line is not None and over_line is not None and under_line is not None
+                and all(isinstance(x, (int, float)) and x > 1 for x in prices)):
+            quotes.append({
+                'quote_id': hashlib.sha256(f"ESPN|{event['event_id']}|TOTAL|{bookmaker}|{received_at}".encode()).hexdigest()[:24],
+                'event_id': event['event_id'], 'canonical_event_id': event['event_id'],
+                'source_event_id': str(event.get('source_event_id') or ''),
+                'feed_provider': 'ESPN', 'upstream_provider': 'espn',
+                'bookmaker_id': f"espn:{provider.get('id') or bookmaker}", 'bookmaker': bookmaker,
+                'market_type': 'TOTAL', 'raw_market_key': 'total',
+                'parse_status': 'PARSED_AND_NORMALIZED', 'period': 'FULL_GAME',
+                'main_or_alt': 'MAIN', 'source_market_key': 'total',
+                'source_array': [over_line, over_price, under_line, under_price],
+                'raw_line': line, 'line_team1': None, 'direction_verified': True,
+                'raw_prices': [over_price, under_price], 'decimal_prices': prices,
+                'price_format': 'AMERICAN', 'price_format_verified': True,
+                'source_quote_at': None, 'source_timestamp_raw': None,
+                'source_timestamp_semantics': 'CURRENT_BOARD_CAPTURE_ONLY',
+                'received_at': received_at, 'observed_at': received_at,
+                'raw_path': event.get('raw_path'), 'raw_sha256': None,
+                'ot_rule': 'UNKNOWN', 'rule_evidence': None,
+                'comparison_scope': 'VERIFIED_CURRENT_BOARD_CAPTURE',
+                'current_board_contract_verified': True, 'status': 'OPEN',
+                'raw_verified': bool(event.get('raw_path')), 'execution_verified': False,
+                'source_name': 'ESPN_CURRENT_ODDS_API',
+            })
+    return quotes
+
+
+def _espn(day, sport, family, region, timeout, raw_dir, target_day=None):
     url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/{quote(sport)}/scoreboard?dates={day.replace('-', '')}"
     data, raw = _fetch_json(url, timeout, direct=True)
     path = raw_dir / f"espn_{sport.replace('/', '_')}_{day}.json"; path.write_bytes(raw)
-    rows=[]
+    rows=[]; market_quotes=[]; received_at=stamp()
     for item in data.get("events", []):
         comp=(item.get("competitions") or [{}])[0]; competitors=comp.get("competitors") or []
         if len(competitors)<2: continue
         by={x.get("homeAway"):x for x in competitors}; a=by.get("away", competitors[0]); h=by.get("home", competitors[1])
         league=((item.get("league") or {}).get("name") or sport)
-        rows.append(_event(family, region, a.get("team",{}).get("displayName", ""), h.get("team",{}).get("displayName", ""), item.get("date"), f"espn:{sport}", url, item.get("id"), league, path,
-                           a.get("team",{}).get("id"), h.get("team",{}).get("id")))
-    return rows
+        tip=item.get('date')
+        try:
+            local_day=parse_time(tip).astimezone(BJ).date().isoformat()
+        except Exception:
+            local_day=None
+        if target_day and local_day != target_day:
+            continue
+        event=_event(family, region, a.get("team",{}).get("displayName", ""), h.get("team",{}).get("displayName", ""), tip, f"espn:{sport}", url, item.get("id"), league, path,
+                     a.get("team",{}).get("id"), h.get("team",{}).get("id"))
+        rows.append(event)
+        quote_item = dict(item)
+        quote_item['odds'] = comp.get('odds') or item.get('odds') or []
+        market_quotes.extend(_espn_market_quotes(quote_item,event,received_at))
+    for event in rows:
+        if any(q.get('event_id') == event.get('event_id') for q in market_quotes):
+            event['current_market_source']='ESPN_CURRENT_ODDS_API'
+    return rows, market_quotes
 
 def _sofascore(day, timeout, raw_dir):
     url=f"https://www.sofascore.com/api/v1/sport/basketball/scheduled-events/{day}"
@@ -273,10 +391,14 @@ def discover(day, output_root, timeout=12, workers=6):
     _HTTP_RETRY_LOG.clear()
     run_id=datetime.now(UTC).strftime("%Y%m%dT%H%M%S")+"_"+uuid.uuid4().hex[:8]
     raw_dir=Path(output_root)/"raw"/"global_discovery"/run_id;raw_dir.mkdir(parents=True,exist_ok=True)
-    events=[];health=[];errors=[]
+    events=[];market_quotes=[];health=[];errors=[]
     adapters=[]
+    target=date.fromisoformat(day)
+    query_days=sorted({(target-timedelta(days=1)).isoformat(),target.isoformat()})
     for sport,family,region in (("nba","NBA","北美"),("wnba","WNBA","北美"),("mens-college-basketball","NCAAB","北美"),("womens-college-basketball","WNCAAB","北美")):
-        adapters.append((f"espn:{sport}",lambda sport=sport,family=family,region=region:_espn(day,sport,family,region,timeout,raw_dir)))
+        for query_day in query_days:
+            # ESPN dates are UTC; target_day is the Beijing business date.
+            adapters.append((f"espn:{sport}:{query_day}",lambda sport=sport,family=family,region=region,query_day=query_day:_espn(query_day,sport,family,region,timeout,raw_dir,target_day=day)))
     adapters.append(("sofascore",lambda:_sofascore(day,timeout,raw_dir)))
     adapters.append(("fiba_official_calendar",lambda:_fiba_calendar(day,timeout,raw_dir)))
     def run_adapter(adapter):
@@ -293,8 +415,13 @@ def discover(day, output_root, timeout=12, workers=6):
         adapter_results = list(pool.map(run_adapter, adapters))
     for name, rows, failure in adapter_results:
         if failure is None:
-            events.extend(rows)
-            health.append({"source":name,"source_group":"broad" if name!="fiba_official_calendar" else "official","upstream_provider":name.split(':',1)[0],"attempted":True,"success":True,"status":"success" if rows else "empty_valid_response","event_count":len(rows),"captured_at":stamp(),"raw_snapshot_path":str(raw_dir)})
+            if name.startswith('espn:'):
+                espn_rows, espn_quotes = rows if isinstance(rows, tuple) else (rows, [])
+                events.extend(espn_rows); market_quotes.extend(espn_quotes)
+                count=len(espn_rows)
+            else:
+                events.extend(rows); count=len(rows)
+            health.append({"source":name,"source_group":"broad" if name!="fiba_official_calendar" else "official","upstream_provider":name.split(':',1)[0],"attempted":True,"success":True,"status":"success" if count else "empty_valid_response","event_count":count,"market_quote_count":len([q for q in market_quotes if q.get('event_id')]),"captured_at":stamp(),"raw_snapshot_path":str(raw_dir)})
         else:
             errors.append({"source":name,**failure})
             health.append({"source":name,"source_group":"broad" if name!="fiba_official_calendar" else "official","upstream_provider":name.split(':',1)[0],"attempted":True,"success":False,"status":"source_unavailable",**failure,"event_count":0,"captured_at":stamp(),"raw_snapshot_path":str(raw_dir)})
@@ -307,7 +434,11 @@ def discover(day, output_root, timeout=12, workers=6):
         else:
             e["discovery_sources"]=[{"source":e["source"],"source_url":e["source_url"],"source_event_id":e.get("source_event_id")}];unique[key]=e
     health.extend(_HTTP_RETRY_LOG)
-    result={"run_id":run_id,"day":day,"events":list(unique.values()),"source_health":health,"errors":errors,"raw_directory":str(raw_dir),"captured_at":stamp()}
+    # Keep only quotes for de-duplicated event IDs.  If duplicate ESPN UTC
+    # buckets expose the same fixture, the first complete capture is retained.
+    valid_ids={str(e.get('event_id')) for e in unique.values() if e.get('event_id')}
+    market_quotes=[q for q in market_quotes if q.get('event_id') in valid_ids]
+    result={"run_id":run_id,"day":day,"events":list(unique.values()),"market_quotes":market_quotes,"source_health":health,"errors":errors,"raw_directory":str(raw_dir),"captured_at":stamp()}
     (raw_dir/"global_discovery.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
     return result
 
@@ -325,6 +456,15 @@ def merge_with_primary(primary, discovered, quotes=None):
         candidates=[p for p in out if close(p.get("tip_at"),g.get("tip_at")) and _same_team_pair(p,g)]
         if len(candidates)==1:
             p=candidates[0];p.setdefault("discovery_sources",[]).extend(g.get("discovery_sources",[]));p.setdefault("global_source_ids",[]).append(g.get("event_id"));used.add(g.get("event_id"))
+            # Current ESPN odds are keyed by the global event ID.  Once the
+            # fixture is reconciled onto an existing 7M/Titan row, carry the
+            # quote to that canonical event without changing its source audit.
+            for quote in quotes:
+                if quote.get('event_id') == g.get('event_id'):
+                    quote.setdefault('source_event_id_global', quote.get('source_event_id'))
+                    quote['event_id'] = p.get('event_id')
+                    quote['canonical_event_id'] = p.get('event_id')
+                    quote['event_match_method'] = 'TEAM_PAIR_AND_TIP_TIME'
         elif not candidates:
             g.setdefault("discovery_status", "DISCOVERED_ONLY")
             g.setdefault("market_status", "NO_MARKET")

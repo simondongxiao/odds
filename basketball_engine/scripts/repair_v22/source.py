@@ -23,6 +23,7 @@ from providers.titan007_adapter import parse_schedule_xml as parse_titan_schedul
 from providers.titan007_history_adapter import (
     update_history_database, merge_reference_history, load_event_foundation_contexts,
 )
+from providers.espn_history_adapter import collect_espn_history
 from titan007_evidence_bridge import (
     load_normalized_history_store, build_pregame_evidence_bundles,
 )
@@ -1684,6 +1685,13 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
         'sevenm_replaced_opening_snapshot':bool(sevenm_refresh),
         'errors':refresh_errors,
     }
+    # ESPN is schedule-only unless its public response contains a complete
+    # spread/total contract.  The global adapter records those explicit
+    # current-board quotes separately; merge them now so NBA/WNBA events do
+    # not remain NO_MARKET merely because Titan/7M publish on a different
+    # clock.  No quote is synthesized when the response lacks both sides.
+    global_quotes = list(global_result.get('market_quotes') or [])
+    quotes.extend(global_quotes)
     merged_events=merge_with_primary(list(events.values()),global_result.get('events',[]),quotes)
     # KBL current-board fallback must see the fully merged event inventory.
     # Match remains exact on canonical team pair and the +/-5 minute
@@ -1707,6 +1715,19 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     merged_event_map={event['event_id']:event for event in merged_events}
     titan_reconciliation=reconcile_titan_events(merged_event_map,titan_events,quotes)
     merged_events=list(merged_event_map.values())
+    # NBA/WNBA schedule and odds can be present on ESPN before Titan/7M
+    # exposes the corresponding team page.  Preload the same target teams'
+    # completed ESPN box scores into the immutable history pool so a provider
+    # ID gap cannot be reported as a false "history insufficient" state.  This
+    # bridge is source-audited and still obeys the formal 8 games / 3 opponent
+    # gate; it does not lower the gate or use market fields in pricing.
+    espn_history_rows, espn_contexts, espn_history_audit, espn_history_health = collect_espn_history(
+        merged_events, root, cutoff=now(), workers=workers, max_games_per_team=10)
+    history.update({row.get('event_id'): row for row in espn_history_rows if row.get('event_id')})
+    for event_id, context in espn_contexts.items():
+        existing = total_context.setdefault(event_id, {})
+        existing.update(context)
+    errors.extend(espn_history_audit.get('errors') or [])
     # Apply the shared league-family classifier to legacy 7M events as well as
     # newly discovered events, so coverage is comparable across all sources.
     for event in merged_events:
@@ -1743,7 +1764,12 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
         ref_root=root/'reference_data'/'titan007_history'
         year=now().astimezone(BJ).year
         market_event_ids={str(q.get('event_id')) for q in quotes if q.get('event_id')}
-        history_scope_ids=deep_capture_event_ids|market_event_ids
+        # NBA/WNBA history must be warmed even when a board is published on a
+        # different clock.  A missing current quote is a market state, not a
+        # reason to skip the team's completed box-score/history bridge.
+        nba_wnba_ids={str(e.get('event_id')) for e in merged_events
+                      if str(e.get('league_family') or e.get('competition_key') or '').upper() in {'NBA','WNBA'}}
+        history_scope_ids=deep_capture_event_ids|market_event_ids|nba_wnba_ids
         history_events=[e for e in merged_events if str(e.get('event_id')) in history_scope_ids]
         deep_capture_audit['history_database_events']=len(history_events)
         deep_capture_audit['history_database_events_skipped_no_market']=max(0,len(merged_events)-len(history_events))
@@ -1779,10 +1805,15 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
                 'late_foul_verified':False,'rotation_verified':False})
             context.update(evidence_contexts.get(event_id) or {})
             context['titan_foundation_pricing']=foundation
-            context['box_score_teams']=foundation.get('box_score_teams')
-            context['foundation_history_ready']=foundation.get('foundation_history_ready',False)
-            context['possessions_level']=foundation.get('possessions_level','LEVEL_D')
-            context['pace_source']=foundation.get('pace_source','UNAVAILABLE')
+            # A Titan foundation refresh may be partial while the ESPN
+            # history bridge already supplied a verified team box score.  Do
+            # not overwrite a stronger Level-B context with an empty/default
+            # Titan field merely because both providers were attempted.
+            context['box_score_teams']=foundation.get('box_score_teams') or context.get('box_score_teams')
+            context['foundation_history_ready']=bool(foundation.get('foundation_history_ready',False) or
+                                                     context.get('foundation_history_ready',False))
+            context['possessions_level']=foundation.get('possessions_level') or context.get('possessions_level','LEVEL_D')
+            context['pace_source']=foundation.get('pace_source') or context.get('pace_source','UNAVAILABLE')
             for flag in ('possessions_verified','basic_offense_verified','three_point_verified'):
                 context[flag]=bool(context.get(flag) or foundation.get(flag))
             context['available_variables']=sorted(set(context.get('available_variables',[]))|
@@ -1846,11 +1877,12 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     stage_timings['collect_live_total_seconds']=round(time.perf_counter()-run_started_perf,3)
     end=stamp(now());result={'run_id':sid,'mode':'FORWARD_NATIVE','capture_finished_at':end,'requested_day':day,
        'events':merged_events,'quotes':quotes,'history':history_rows,'settlement_facts':settlement_facts,'total_context':total_context,
-       'source_health':fetch.rows+global_result.get('source_health',[])+titan_history_health,'errors':errors,
+       'source_health':fetch.rows+global_result.get('source_health',[])+titan_history_health+espn_history_health,'errors':errors,
        'stage_timings':stage_timings,
        'global_discovery':{'run_id':global_result.get('run_id'),'event_count':len(global_result.get('events',[])),'raw_directory':global_result.get('raw_directory'),'source_health':global_result.get('source_health',[])},
        'deep_capture_audit':deep_capture_audit,'identity_collision_audit':identity_collision_audit,
        'bottom_source_audit':bottom_source_audit,
+       'espn_history_audit':espn_history_audit,
        'cross_source_history_bridge_audit':cross_source_history_bridge_audit,
        'prior_capture_history_audit':dict(prior_capture_history_audit,
                                            merge=prior_capture_merge_audit),

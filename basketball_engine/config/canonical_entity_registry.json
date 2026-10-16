@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updated_at": "2026-10-14T12:00:00+08:00",
+  "version": 2,
+  "updated_at": "2026-10-16T17:00:00+08:00",
   "contract": "Exact aliases and source IDs only; no fuzzy merge",
   "sports": {
     "basketball": {
@@ -166,133 +166,152 @@
           "canonical_team_id": "nba:chicagobulls",
           "name": "芝加哥公牛",
           "aliases": [
-            "Chicago Bulls"
+            "Chicago Bulls",
+            "chicago bulls"
           ]
         },
         {
           "canonical_team_id": "nba:memphisgrizzlies",
           "name": "孟菲斯灰熊",
           "aliases": [
-            "Memphis Grizzlies"
+            "Memphis Grizzlies",
+            "memphis grizzlies"
           ]
         },
         {
           "canonical_team_id": "nba:denvernuggets",
           "name": "丹佛掘金",
           "aliases": [
-            "Denver Nuggets"
+            "Denver Nuggets",
+            "denver nuggets"
           ]
         },
         {
           "canonical_team_id": "nba:utahjazz",
           "name": "犹他爵士",
           "aliases": [
-            "Utah Jazz"
+            "Utah Jazz",
+            "utah jazz"
           ]
         },
         {
           "canonical_team_id": "nba:houstonrockets",
           "name": "休斯顿火箭",
           "aliases": [
-            "Houston Rockets"
+            "Houston Rockets",
+            "houston rockets"
           ]
         },
         {
           "canonical_team_id": "nba:dallasmavericks",
           "name": "达拉斯独行侠",
           "aliases": [
-            "Dallas Mavericks"
+            "Dallas Mavericks",
+            "dallas mavericks"
           ]
         },
         {
           "canonical_team_id": "wnba:lasvegasaces",
           "name": "拉斯维加斯王牌",
           "aliases": [
-            "Las Vegas Aces"
+            "Las Vegas Aces",
+            "las vegas aces"
           ]
         },
         {
           "canonical_team_id": "wnba:goldenstatevalkyries",
           "name": "金州女武神",
           "aliases": [
-            "Golden State Valkyries"
+            "Golden State Valkyries",
+            "golden state valkyries"
           ]
         },
         {
           "canonical_team_id": "wnba:newyorkliberty",
           "name": "纽约自由人",
           "aliases": [
-            "New York Liberty"
+            "New York Liberty",
+            "new york liberty"
           ]
         },
         {
           "canonical_team_id": "wnba:phoenixmercury",
           "name": "菲尼克斯水星",
           "aliases": [
-            "Phoenix Mercury"
+            "Phoenix Mercury",
+            "phoenix mercury"
           ]
         },
         {
           "canonical_team_id": "wnba:minnesotalynx",
           "name": "明尼苏达山猫",
           "aliases": [
-            "Minnesota Lynx"
+            "Minnesota Lynx",
+            "minnesota lynx"
           ]
         },
         {
           "canonical_team_id": "wnba:indianafever",
           "name": "印第安纳狂热",
           "aliases": [
-            "Indiana Fever"
+            "Indiana Fever",
+            "indiana fever"
           ]
         },
         {
           "canonical_team_id": "wnba:connecticutsun",
           "name": "康涅狄格太阳",
           "aliases": [
-            "Connecticut Sun"
+            "Connecticut Sun",
+            "connecticut sun"
           ]
         },
         {
           "canonical_team_id": "wnba:seattlestorm",
           "name": "西雅图风暴",
           "aliases": [
-            "Seattle Storm"
+            "Seattle Storm",
+            "seattle storm"
           ]
         },
         {
           "canonical_team_id": "wnba:washingtonmystics",
           "name": "华盛顿神秘人",
           "aliases": [
-            "Washington Mystics"
+            "Washington Mystics",
+            "washington mystics"
           ]
         },
         {
           "canonical_team_id": "wnba:chicagosky",
           "name": "芝加哥天空",
           "aliases": [
-            "Chicago Sky"
+            "Chicago Sky",
+            "chicago sky"
           ]
         },
         {
           "canonical_team_id": "wnba:losangelessparks",
           "name": "洛杉矶火花",
           "aliases": [
-            "Los Angeles Sparks"
+            "Los Angeles Sparks",
+            "los angeles sparks"
           ]
         },
         {
           "canonical_team_id": "wnba:dallaswings",
           "name": "达拉斯飞翼",
           "aliases": [
-            "Dallas Wings"
+            "Dallas Wings",
+            "dallas wings"
           ]
         },
         {
           "canonical_team_id": "wnba:atlantadream",
           "name": "亚特兰大梦想",
           "aliases": [
-            "Atlanta Dream"
+            "Atlanta Dream",
+            "atlanta dream"
           ]
         },
         {
@@ -499,6 +518,174 @@
           "aliases": [
             "Kagawa Five Arrows",
             "香川五箭"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:atlantahawks",
+          "name": "亚特兰大老鹰",
+          "aliases": [
+            "Atlanta Hawks"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:bostonceltics",
+          "name": "波士顿凯尔特人",
+          "aliases": [
+            "Boston Celtics"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:brooklynnets",
+          "name": "布鲁克林篮网",
+          "aliases": [
+            "Brooklyn Nets"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:charlottehornets",
+          "name": "夏洛特黄蜂",
+          "aliases": [
+            "Charlotte Hornets"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:clevelandcavaliers",
+          "name": "克利夫兰骑士",
+          "aliases": [
+            "Cleveland Cavaliers"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:detroitpistons",
+          "name": "底特律活塞",
+          "aliases": [
+            "Detroit Pistons"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:goldenstatewarriors",
+          "name": "金州勇士",
+          "aliases": [
+            "Golden State Warriors"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:indianapacers",
+          "name": "印第安纳步行者",
+          "aliases": [
+            "Indiana Pacers"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:laclippers",
+          "name": "洛杉矶快船",
+          "aliases": [
+            "La Clippers"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:losangeleslakers",
+          "name": "洛杉矶湖人",
+          "aliases": [
+            "Los Angeles Lakers"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:miamiheat",
+          "name": "迈阿密热火",
+          "aliases": [
+            "Miami Heat"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:milwaukeebucks",
+          "name": "密尔沃基雄鹿",
+          "aliases": [
+            "Milwaukee Bucks"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:minnesotatimberwolves",
+          "name": "明尼苏达森林狼",
+          "aliases": [
+            "Minnesota Timberwolves"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:neworleanspelicans",
+          "name": "新奥尔良鹈鹕",
+          "aliases": [
+            "New Orleans Pelicans"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:newyorkknicks",
+          "name": "纽约尼克斯",
+          "aliases": [
+            "New York Knicks"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:oklahomacitythunder",
+          "name": "俄克拉荷马城雷霆",
+          "aliases": [
+            "Oklahoma City Thunder"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:orlandomagic",
+          "name": "奥兰多魔术",
+          "aliases": [
+            "Orlando Magic"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:philadelphia76ers",
+          "name": "费城76人",
+          "aliases": [
+            "Philadelphia 76Ers"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:phoenixsuns",
+          "name": "菲尼克斯太阳",
+          "aliases": [
+            "Phoenix Suns"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:portlandtrailblazers",
+          "name": "波特兰开拓者",
+          "aliases": [
+            "Portland Trail Blazers"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:sacramentokings",
+          "name": "萨克拉门托国王",
+          "aliases": [
+            "Sacramento Kings"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:sanantoniospurs",
+          "name": "圣安东尼奥马刺",
+          "aliases": [
+            "San Antonio Spurs"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:torontoraptors",
+          "name": "多伦多猛龙",
+          "aliases": [
+            "Toronto Raptors"
+          ]
+        },
+        {
+          "canonical_team_id": "nba:washingtonwizards",
+          "name": "华盛顿奇才",
+          "aliases": [
+            "Washington Wizards"
           ]
         }
       ]
