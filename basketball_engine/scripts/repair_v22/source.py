@@ -1735,7 +1735,7 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     # bridge is source-audited and still obeys the formal 8 games / 3 opponent
     # gate; it does not lower the gate or use market fields in pricing.
     espn_history_rows, espn_contexts, espn_history_audit, espn_history_health = collect_espn_history(
-        merged_events, root, cutoff=now(), workers=workers, max_games_per_team=10)
+        merged_events, root, cutoff=now(), workers=workers, max_games_per_team=8)
     history.update({row.get('event_id'): row for row in espn_history_rows if row.get('event_id')})
     for event_id, context in espn_contexts.items():
         existing = total_context.setdefault(event_id, {})

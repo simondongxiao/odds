@@ -233,9 +233,11 @@ def collect_espn_history(events, root, cutoff=None, workers=6, max_games_per_tea
             return None, err, {"source": "ESPN_BOX_SCORE", "event_id": event_id, "url": url,
                                "success": False, "error_type": type(exc).__name__, "error": str(exc), "captured_at": stamp()}
 
-    # Summary endpoints are independent.  Use the bounded worker budget so a
-    # 24-team NBA lookback does not turn into a serial hour-long crawl.
-    with ThreadPoolExecutor(max_workers=max(1, min(int(workers), 6))) as pool:
+    # Summary endpoints are independent.  Use a bounded but wider worker
+    # budget so a 24-team NBA lookback does not turn into a serial crawl.
+    # The provider remains protected by the explicit cap; this only removes
+    # avoidable queueing when GitHub's runner has a normal network path.
+    with ThreadPoolExecutor(max_workers=max(1, min(int(workers), 12))) as pool:
         fetched = list(pool.map(fetch_summary, sorted(selected.items(), key=lambda x: x[1]["tip"], reverse=True)))
     for fact, error, health_row in fetched:
         if error:
