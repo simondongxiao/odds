@@ -33,7 +33,12 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    # 35 minutes cancelled the delayed 2026-10-15 evening run while the
+    # 259-event target was still in the bounded history bridge. Keep a hard
+    # ceiling so a provider cannot hang forever, but allow one complete retry
+    # window to reach publication. The engine still records stage timings for
+    # the separate under-20-minute performance contract.
+    timeout-minutes: 60
     env:
       TZ: Asia/Shanghai
       BASKETBALL_RUN_ROOT: ${{ github.workspace }}/.basketball-run
@@ -77,36 +82,62 @@ jobs:
         env:
           OVERRIDE_DATE: ${{ inputs.target_date || '' }}
           SCHEDULE_CRON: ${{ github.event.schedule || '' }}
+          RUN_STARTED_AT: ${{ github.run_started_at }}
         run: |
           python - <<'PY'
           import os
-          from datetime import date, timedelta
+          from datetime import date, datetime, time, timedelta, timezone
           from zoneinfo import ZoneInfo
-          from datetime import datetime
 
           override = os.environ.get("OVERRIDE_DATE", "").strip()
           schedule = os.environ.get("SCHEDULE_CRON", "").strip()
+          started_raw = os.environ.get("RUN_STARTED_AT", "").strip()
           if override:
               target = date.fromisoformat(override)
               run_kind = "MANUAL_TARGET_DATE"
+              slot_date = target
           else:
-              today = datetime.now(ZoneInfo("Asia/Shanghai")).date()
+              # GitHub can start a scheduled run several hours late. Resolve
+              # the nominal UTC cron slot first, then convert that slot to
+              # Beijing. Using the wall clock at step execution time makes a
+              # delayed 20:07 run cross midnight and incorrectly target D+2.
+              now_utc = datetime.now(timezone.utc)
+              if started_raw:
+                  try:
+                      now_utc = datetime.fromisoformat(started_raw.replace("Z", "+00:00")).astimezone(timezone.utc)
+                  except ValueError:
+                      pass
+              slot_hour = {"7 12 * * *": 12, "7 21 * * *": 21}.get(schedule)
+              slot = None
+              if slot_hour is not None:
+                  for offset in range(0, 4):
+                      candidate = datetime.combine(
+                          now_utc.date() - timedelta(days=offset),
+                          time(hour=slot_hour, minute=7),
+                          tzinfo=timezone.utc,
+                      )
+                      if candidate <= now_utc:
+                          slot = candidate
+                          break
+              slot_bj = (slot or now_utc).astimezone(ZoneInfo("Asia/Shanghai"))
+              slot_date = slot_bj.date()
               if schedule == "7 12 * * *":
-                  target = today + timedelta(days=1)
+                  target = slot_date + timedelta(days=1)
                   run_kind = "NEXT_DAY_EVENING"
               elif schedule == "7 21 * * *":
-                  target = today
+                  target = slot_date
                   run_kind = "TODAY_EARLY_MORNING"
               else:
-                  target = today
+                  target = slot_bj.date()
                   run_kind = "TODAY_MORNING"
           with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as fh:
               fh.write(f"BASKETBALL_DATE={target.isoformat()}\n")
               fh.write(f"BASKETBALL_RUN_KIND={run_kind}\n")
+              fh.write(f"BASKETBALL_SLOT_DATE={slot_date.isoformat()}\n")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
               fh.write(f"date={target.isoformat()}\n")
               fh.write(f"kind={run_kind}\n")
-          print(f"Beijing target date: {target.isoformat()} ({run_kind})")
+          print(f"Beijing target date: {target.isoformat()} ({run_kind}); nominal slot date: {slot_date.isoformat()}")
           PY
 
       - name: Record scheduled stage
@@ -220,6 +251,7 @@ jobs:
           --deploy-status "$DEPLOY_STATUS"
           --run-kind "$RUN_KIND"
           --run-url "$RUN_URL"
+          --business-date "$BASKETBALL_DATE"
           --audit-root "$BASKETBALL_RUN_ROOT"
 
       - name: Upload run audit
