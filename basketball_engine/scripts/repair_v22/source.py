@@ -455,9 +455,16 @@ def upcoming_7m_deep_capture_event_ids(events, day, observed_at=None):
         # board before their final market snapshot; waiting for a quote here
         # strands the team-history/box-score bridge and later makes a real
         # data gap look like a model limitation.
+        # Keep the complete event inventory in memory, but only send quoted
+        # or explicitly supported priority leagues through the expensive
+        # identity/team-history/technical capture.  The previous condition
+        # deep-captured every same-day 7M fixture (often 150+ rows), which
+        # made a normal NBA run spend an hour on unrelated empty markets.
+        # NBA/WNBA/NCAA/NBL/Japan/Korea remain warmed even before a quote
+        # appears; other leagues are captured when a current quote exists.
         return (str(event.get('source')).upper() == '7M' and
                 event.get('bj_date') in permitted and
-                (event.get('bj_date') == day or priority) and
+                priority and
                 source_time(event.get('tip_at')) and
                 source_time(event.get('tip_at')) > cutoff)
     return {str(event.get('event_id')) for event in (events or []) if include_event(event)}
