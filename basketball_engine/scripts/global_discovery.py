@@ -283,7 +283,7 @@ def _espn_market_quotes(item, event, received_at):
                 'source_timestamp_raw': None,
                 'source_timestamp_semantics': 'CURRENT_BOARD_CAPTURE_ONLY',
                 'received_at': received_at, 'observed_at': received_at,
-                'raw_path': event.get('raw_path'), 'raw_sha256': None,
+                'raw_path': event.get('raw_path'), 'raw_sha256': event.get('raw_sha256'),
                 'ot_rule': 'UNKNOWN', 'rule_evidence': None,
                 'comparison_scope': 'VERIFIED_CURRENT_BOARD_CAPTURE',
                 'current_board_contract_verified': True, 'status': 'OPEN',
@@ -319,7 +319,7 @@ def _espn_market_quotes(item, event, received_at):
                 'source_quote_at': None, 'source_timestamp_raw': None,
                 'source_timestamp_semantics': 'CURRENT_BOARD_CAPTURE_ONLY',
                 'received_at': received_at, 'observed_at': received_at,
-                'raw_path': event.get('raw_path'), 'raw_sha256': None,
+                'raw_path': event.get('raw_path'), 'raw_sha256': event.get('raw_sha256'),
                 'ot_rule': 'UNKNOWN', 'rule_evidence': None,
                 'comparison_scope': 'VERIFIED_CURRENT_BOARD_CAPTURE',
                 'current_board_contract_verified': True, 'status': 'OPEN',
@@ -333,6 +333,7 @@ def _espn(day, sport, family, region, timeout, raw_dir, target_day=None):
     url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/{quote(sport)}/scoreboard?dates={day.replace('-', '')}"
     data, raw = _fetch_json(url, timeout, direct=True)
     path = raw_dir / f"espn_{sport.replace('/', '_')}_{day}.json"; path.write_bytes(raw)
+    raw_sha256 = hashlib.sha256(raw).hexdigest()
     rows=[]; market_quotes=[]; received_at=stamp()
     for item in data.get("events", []):
         comp=(item.get("competitions") or [{}])[0]; competitors=comp.get("competitors") or []
@@ -348,6 +349,7 @@ def _espn(day, sport, family, region, timeout, raw_dir, target_day=None):
             continue
         event=_event(family, region, a.get("team",{}).get("displayName", ""), h.get("team",{}).get("displayName", ""), tip, f"espn:{sport}", url, item.get("id"), league, path,
                      a.get("team",{}).get("id"), h.get("team",{}).get("id"))
+        event['raw_sha256'] = raw_sha256
         rows.append(event)
         quote_item = dict(item)
         quote_item['odds'] = comp.get('odds') or item.get('odds') or []
