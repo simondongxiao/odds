@@ -1530,7 +1530,12 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     # that the evidence gate can never price.  This preserves coverage and
     # exact NO_MARKET outcomes while avoiding an unnecessary deep crawl.
     opening_market_event_ids={str(q.get('event_id')) for q in quotes if q.get('event_id')}
-    opening_market_source_ids={str(q.get('source_event_id')) for q in quotes if q.get('source_event_id') and q.get('feed_provider')!='TITAN007'}
+    # Only 7M source IDs belong in the 7M detail/history queue.  ESPN
+    # current-board quotes use ESPN event IDs; sending those IDs to
+    # bdata.7m.com.cn creates repeated 404/retry traffic and was the main
+    # reason NBA runs became unnecessarily long.
+    opening_market_source_ids={str(q.get('source_event_id')) for q in quotes
+                               if q.get('source_event_id') and q.get('feed_provider')=='7M'}
     # Prepare both today's and next day's still-upcoming 7M fixtures.  NBA and
     # WNBA morning boards commonly publish after the schedule does; gathering
     # the next-day identity/history now avoids a missing-history race when a
@@ -1538,7 +1543,8 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     # current quote passes the ordinary freshness and evidence gates.
     today_upcoming_7m=upcoming_7m_deep_capture_event_ids(list(events.values()),day,now())
     deep_events=[e for e in events.values()
-                 if e.get('event_id') in opening_market_event_ids or
+                 if (str(e.get('source') or '').upper()=='7M' and
+                     e.get('event_id') in opening_market_event_ids) or
                     e.get('event_id') in today_upcoming_7m or
                     (str(e.get('source_event_id')) in opening_market_source_ids and str(e.get('source')).upper()!='TITAN007')]
     ids=sorted({e['source_event_id'] for e in deep_events if e.get('source_event_id') and str(e.get('source')).upper()!='TITAN007'})
