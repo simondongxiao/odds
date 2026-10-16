@@ -103,6 +103,10 @@ class MobileDashboardContractTest(unittest.TestCase):
         self.assertIn("latest.mobile.json", source)
         self.assertIn("window.__MOBILE_ROW_LIMIT__", source)
         self.assertIn("mobile-more", source)
+        # The comparison helper is replaced during template assembly; the
+        # state declaration must survive that replacement or the live page
+        # aborts before fetching index.json.
+        self.assertIn("let currentData=null,currentFilter='PAPER_BETTABLE'", source)
 
 
 if __name__ == "__main__":
