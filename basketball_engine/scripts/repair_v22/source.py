@@ -1549,11 +1549,33 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
     # fresh board quote appears.  It remains a NO_MARKET row until an actual
     # current quote passes the ordinary freshness and evidence gates.
     today_upcoming_7m=upcoming_7m_deep_capture_event_ids(list(events.values()),day,now())
+    def priority_capture_event(event):
+        """Keep expensive 7M enrichment bounded to supported priority pools.
+
+        Broad discovery can contain dozens of unrelated markets.  Their
+        inventory and quotes remain published, while Titan identity/history
+        capture is reserved for the pools with a maintained bridge.  NBA/WNBA
+        history is additionally supplied by the ESPN box-score adapter.
+        """
+        family = _reconcile_event_family(event)
+        label = ' '.join(str(event.get(key) or '') for key in
+                         ('league', 'competition_key', 'league_family')).upper()
+        return (is_japan_b_league_event(event) or
+                any(token in label for token in (
+                    'NBA', 'WNBA', 'KBL', '韩国', 'NCAAB', 'WNCAAB', 'NCAA',
+                    'AUSTRALIA_NBL', 'NBL_AU', '澳大利亚国家篮球联赛', '澳洲NBL',
+                    'CBA', '中国男子篮球')) or
+                family in {'NBA', 'WNBA', 'KOREA_KBL', 'NCAAB', 'WNCAAB',
+                           'AUSTRALIA_NBL', 'JAPAN_BLEAGUE', 'CBA_REGULAR',
+                           'CBA_PRESEASON', 'CBA_PLAYOFF'})
+
     deep_events=[e for e in events.values()
-                 if (str(e.get('source') or '').upper()=='7M' and
-                     e.get('event_id') in opening_market_event_ids) or
-                    e.get('event_id') in today_upcoming_7m or
-                    (str(e.get('source_event_id')) in opening_market_source_ids and str(e.get('source')).upper()!='TITAN007')]
+                 if priority_capture_event(e) and
+                    ((str(e.get('source') or '').upper()=='7M' and
+                      e.get('event_id') in opening_market_event_ids) or
+                     e.get('event_id') in today_upcoming_7m or
+                     (str(e.get('source_event_id')) in opening_market_source_ids and
+                      str(e.get('source')).upper()!='TITAN007'))]
     ids=sorted({e['source_event_id'] for e in deep_events if e.get('source_event_id') and str(e.get('source')).upper()!='TITAN007'})
     deep_capture_event_ids={str(e.get('event_id')) for e in deep_events if e.get('event_id')}
     deep_capture_audit={'discovered_events_before_deep_capture':len(events),
@@ -1785,6 +1807,7 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
         history_scope_ids=deep_capture_event_ids|market_event_ids
         history_events=[e for e in merged_events
                         if str(e.get('event_id')) in history_scope_ids and
+                        priority_capture_event(e) and
                         str(e.get('source') or '').upper() not in {'ESPN:NBA','ESPN:WNBA'}]
         deep_capture_audit['history_database_events']=len(history_events)
         deep_capture_audit['history_database_events_skipped_no_market']=max(0,len(merged_events)-len(history_events))
