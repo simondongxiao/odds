@@ -1770,13 +1770,15 @@ def collect_live(output_root,day,contracts,timeout=12,workers=6):
         ref_root=root/'reference_data'/'titan007_history'
         year=now().astimezone(BJ).year
         market_event_ids={str(q.get('event_id')) for q in quotes if q.get('event_id')}
-        # NBA/WNBA history must be warmed even when a board is published on a
-        # different clock.  A missing current quote is a market state, not a
-        # reason to skip the team's completed box-score/history bridge.
-        nba_wnba_ids={str(e.get('event_id')) for e in merged_events
-                      if str(e.get('league_family') or e.get('competition_key') or '').upper() in {'NBA','WNBA'}}
-        history_scope_ids=deep_capture_event_ids|market_event_ids|nba_wnba_ids
-        history_events=[e for e in merged_events if str(e.get('event_id')) in history_scope_ids]
+        # NBA/WNBA history is already bridged from the completed ESPN box
+        # scores above.  Keep those facts in the unified in-memory history,
+        # but do not send ESPN IDs through Titan's team-search/database crawl.
+        # That cross-provider retry path added many minutes without adding
+        # evidence.  Real 7M/Titan events continue through the Titan store.
+        history_scope_ids=deep_capture_event_ids|market_event_ids
+        history_events=[e for e in merged_events
+                        if str(e.get('event_id')) in history_scope_ids and
+                        str(e.get('source') or '').upper() not in {'ESPN:NBA','ESPN:WNBA'}]
         deep_capture_audit['history_database_events']=len(history_events)
         deep_capture_audit['history_database_events_skipped_no_market']=max(0,len(merged_events)-len(history_events))
         reference_update_started=time.perf_counter()
