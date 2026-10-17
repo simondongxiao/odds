@@ -139115,5 +139115,14 @@
     "feature_usage_csv": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_feature_usage_2026-10-18_RUN_20261017_204349.csv",
     "feature_usage_json": "D:\\codex\\outputs\\football_odds_trader\\v4_shadow\\v4_feature_usage_2026-10-18_RUN_20261017_204349.json",
     "manual_refresh_report": "D:\\codex\\outputs\\football_odds_trader\\daily\\manual_refresh_2026-10-18_RUN_20261017_204349.md"
-  }
+  },
+  "publish": {
+    "pushed": true,
+    "method": "safe_remote_reconcile",
+    "remote": "origin/gh-pages",
+    "commit": "c6054356",
+    "previous_publish_error": "basketball rebase conflict resolved without force push"
+  },
+  "git_commit_short": "c6054356",
+  "status": "COMPLETE"
 }
