@@ -6,6 +6,8 @@ import argparse
 import datetime as dt
 import json
 import os
+import time
+import urllib.error
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -59,6 +61,7 @@ def main() -> int:
     parser.add_argument("--actual-started-at", default="")
     parser.add_argument("--pages-sha", default="")
     parser.add_argument("--pages-status", default="")
+    parser.add_argument("--base-url", default=os.environ.get("FOOTBALL_PAGES_BASE_URL", "https://simondongxiao.github.io/odds"))
     parser.add_argument("--failure-stage", default="")
     parser.add_argument("--failure-reason", default="")
     args = parser.parse_args()
@@ -71,6 +74,14 @@ def main() -> int:
     failure_stage = args.failure_stage if status == "FAILED" else ""
     ended_at = dt.datetime.now(dt.timezone.utc)
     webhook = os.environ.get("FEISHU_WEBHOOK_URL", "").strip()
+    base_url = (args.base_url or "https://simondongxiao.github.io/odds").rstrip("/")
+    v3_url = f"{base_url}/v3/?date={args.date}"
+    v4_url = f"{base_url}/v4/?date={args.date}"
+    actions_url = ""
+    server_url = os.environ.get("GITHUB_SERVER_URL", "https://github.com").rstrip("/")
+    repository = os.environ.get("GITHUB_REPOSITORY", "")
+    if args.run_id and repository:
+        actions_url = f"{server_url}/{repository}/actions/runs/{args.run_id}"
     duration_seconds = None
     if args.actual_started_at:
         try:
@@ -99,8 +110,12 @@ def main() -> int:
         f"模型状态: {model_status}｜原版等价性: {equivalence}\n"
         f"业务时段: {args.planned_slot or 'manual'}｜计划 {args.planned_run_bjt or '未提供'}｜实际 {args.actual_run_bjt or '未提供'}\n"
         f"Pages: {args.pages_status or '未校验'} {args.pages_sha}\n"
+        f"V3网页: {v3_url}\n"
+        f"V4网页: {v4_url}\n"
         f"工作流 {args.workflow}｜Run {args.run_id}"
     )
+    if actions_url:
+        text += f"\nActions: {actions_url}"
     if failure_reason:
         text += f"\n失败阶段: {failure_stage or 'unknown'}\n原因: {failure_reason[:500]}"
     manifest: dict[str, Any] = {
@@ -135,29 +150,43 @@ def main() -> int:
         print("FEISHU_WEBHOOK_CONFIGURED=false")
         raise SystemExit("FEISHU_WEBHOOK_URL is missing")
     body = json.dumps({"msg_type": "text", "content": {"text": text}}, ensure_ascii=False).encode("utf-8")
-    req = urllib.request.Request(webhook, data=body, headers={"Content-Type": "application/json", "User-Agent": "football-update/1"}, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=20) as response:
-            raw = response.read().decode("utf-8", "replace")
-            http_status = response.status
-    except Exception as exc:
-        manifest["feishu"].update({"http_status": None, "business_status": "UNKNOWN_DELIVERY", "error": str(exc)})
-        write_manifest(manifest)
-        raise
-    if http_status >= 300:
-        manifest["feishu"].update({"http_status": http_status, "business_status": "http_failure"})
-        write_manifest(manifest)
-        raise SystemExit(f"Feishu HTTP {http_status}")
-    try:
-        code, message = parse_response(raw)
-    except Exception as exc:
-        manifest["feishu"].update({"http_status": http_status, "business_status": "business_failure", "error": str(exc)})
-        write_manifest(manifest)
-        raise
-    manifest["feishu"].update({"http_status": http_status, "business_code": code, "business_message": message, "business_status": "success"})
+    last_error: Exception | None = None
+    for attempt in range(1, 4):
+        req = urllib.request.Request(
+            webhook,
+            data=body,
+            headers={"Content-Type": "application/json", "User-Agent": "football-update/2"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=20) as response:
+                raw = response.read().decode("utf-8", "replace")
+                http_status = response.status
+            if http_status >= 300:
+                raise RuntimeError(f"Feishu HTTP {http_status}")
+            code, message = parse_response(raw)
+            manifest["feishu"].update({
+                "http_status": http_status,
+                "business_code": code,
+                "business_message": message,
+                "business_status": "success",
+                "attempt": attempt,
+            })
+            write_manifest(manifest)
+            print(f"FEISHU_WEBHOOK_CONFIGURED=true feishu_business_status=success http={http_status} attempt={attempt}")
+            return 0
+        except (OSError, ValueError, RuntimeError) as exc:
+            last_error = exc
+            if attempt < 3:
+                time.sleep(2 ** attempt)
+    manifest["feishu"].update({
+        "http_status": None,
+        "business_status": "UNKNOWN_DELIVERY" if isinstance(last_error, (OSError, urllib.error.URLError)) else "business_failure",
+        "error": str(last_error),
+        "attempt": 3,
+    })
     write_manifest(manifest)
-    print(f"FEISHU_WEBHOOK_CONFIGURED=true feishu_business_status=success http={http_status}")
-    return 0
+    raise SystemExit(f"Feishu notification failed after 3 attempts: {last_error}")
 
 
 if __name__ == "__main__":

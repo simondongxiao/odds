@@ -30,6 +30,7 @@ jobs:
     timeout-minutes: 30
     env:
       FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+      FOOTBALL_PAGES_BASE_URL: https://simondongxiao.github.io/odds
       TITAN_ENABLE_BROWSER_FALLBACK: "1"
       TITAN_BROWSER_BATCH_LIMIT: "48"
       TITAN_BROWSER_PRIORITY2_MIN: "16"
@@ -172,7 +173,8 @@ jobs:
             --pages-sha "${{ steps.publish.outputs.pages_sha }}" \
             --pages-status "$PAGES_OUTCOME" \
             --failure-stage "${{ steps.update.outcome != 'success' && 'update' || steps.publish.outcome != 'success' && 'publish' || steps.pages.outcome != 'success' && 'pages' || '' }}" \
-            --failure-reason "update=${UPDATE_OUTCOME}; publish=${PUBLISH_OUTCOME}; pages=${PAGES_OUTCOME}"
+            --failure-reason "update=${UPDATE_OUTCOME}; publish=${PUBLISH_OUTCOME}; pages=${PAGES_OUTCOME}" \
+            --base-url "$FOOTBALL_PAGES_BASE_URL"
       - name: Upload run manifest
         if: always()
         uses: actions/upload-artifact@v4
