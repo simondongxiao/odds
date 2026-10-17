@@ -54,9 +54,15 @@ def main() -> int:
     args = ap.parse_args()
     started = time.monotonic()
     audit_root = args.audit_root.strip()
+    # FEISHU_WEBHOOK is the canonical name.  Keep FEISHU_WEBHOOK_URL as a
+    # compatibility fallback because older repository settings used that
+    # name.  The fallback is intentionally only used when the canonical
+    # secret is absent; it must never silently override a conflicting value.
     webhook = os.environ.get("FEISHU_WEBHOOK", "").strip()
     if not webhook:
-        message = "FEISHU_WEBHOOK is not configured; notification was not attempted"
+        webhook = os.environ.get("FEISHU_WEBHOOK_URL", "").strip()
+    if not webhook:
+        message = "FEISHU_WEBHOOK (or FEISHU_WEBHOOK_URL) is not configured; notification was not attempted"
         if audit_root:
             record_stage(audit_root, "FEISHU_SENT", "FAILED", duration_seconds=time.monotonic() - started, details={"reason": "SECRET_MISSING"})
         print(message, file=os.sys.stderr)

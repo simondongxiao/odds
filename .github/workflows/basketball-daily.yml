@@ -237,6 +237,7 @@ jobs:
         if: ${{ always() && (github.event_name != 'workflow_dispatch' || inputs.notify != false) }}
         env:
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
           RUN_STATUS: ${{ job.status }}
           PUBLISHED_SHA: ${{ steps.publish.outputs.sha }}
           DEPLOY_STATUS: ${{ steps.publish.outcome == 'success' && steps.pages.outcome == 'success' && 'success' || 'failed' }}

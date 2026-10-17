@@ -1,8 +1,46 @@
 ---
 name: basketball-odds-trader
-description: 篮球数据核验、Source-Agnostic Evidence、Titan007 Feature Store、真实比分与球员/球队技术统计独立定价、盘口比较和纸面模拟。v4.4固定“先盘口、再双方资料库、再刷新盘口比较Edge”的生产顺序，采用联赛均值锚定的滚动OOS攻防效率与MatchupAdj，分离Fair Center与Game Outcome不确定性并输出W/P/L、Probability Edge、EV与市场信息风险；将NBA/CBA Spread伤停、轮换和Net Rating改为Adjustment/Uncertainty层；统一多源历史证据合同与Titan独立Provisional账本；不允许真实下注，不把工程测试当作策略有效性。
+description: 篮球数据核验、Source-Agnostic Evidence、Titan007 Feature Store、真实比分与球员/球队技术统计独立定价、盘口比较和纸面模拟。v4.20固定“先盘口、再双方资料库、再刷新盘口比较Edge”的生产顺序，并增加手机端独立精简数据投影、缓存失效和日期切换契约；采用联赛均值锚定的滚动OOS攻防效率与MatchupAdj，分离Fair Center与Game Outcome不确定性并输出W/P/L、Probability Edge、EV与市场信息风险；将NBA/CBA Spread伤停、轮换和Net Rating改为Adjustment/Uncertainty层；统一多源历史证据合同与Titan独立Provisional账本；不允许真实下注，不把工程测试当作策略有效性。
 ---
-# 篮球研究与纸面模拟 v4.12
+# 篮球研究与纸面模拟 v4.20
+
+## v4.19 目标日加次日预抓取
+
+用户指定北京时间目标日 `D` 时，生产运行必须同时建立 `D` 和 `D+1` 的赛事库存，
+并将两日的真实赛程、规范化身份、可取得的当前盘口与历史准备结果写入各自日期 JSON。
+`latest.json` 和首屏默认仍指向 `D`；`D+1` 只在日期筛选中展示，不得把次日数据混入
+目标日漏斗、结算或当天纸面 PnL。NBA/NBA季前的北京时间次日早场必须在本轮预热身份、
+球队历史和技术统计，确保盘口晚放时下一轮可以直接比较；其它次日赛事至少保留 canonical
+库存并记录 `NO_MARKET`、`UNPRICEABLE`、`next_market_retry_at` 和来源健康状态。次日没有
+盘口不能删除赛事，也不能用历史赔率或模型价代替真实盘口。每轮审计必须记录
+`lookahead_bj_dates=[D,D+1]`、两日发现数、深采集数和未命中赛事清单。
+
+## v4.18 乱码归档原始快照桥接
+
+跨源历史桥接遇到旧版 `capture.json` 字符集损坏时，不得把乱码名称当作新球队，
+也不得放宽为模糊匹配。必须从同一不可变归档目录中的 `history_*.raw` 按 UTF-8
+重新解析，继承已审核的联赛键（如 `KOREA_KBL`），再经 `canonical_team_id`、
+gender 和联赛精确匹配写入 `team*_legacy_id` 与桥接审计。`HistoryIndex` 不得用
+`LABEL:*` 覆盖已继承的审核联赛键；若双方历史仍未达到有效样本门槛，只保留盘口和
+研究状态，继续输出 `UNPRICEABLE`/`COLD_START_SHADOW_GATE_NOT_MET`，不能生成可投结论。
+
+## v4.17 盘口静态时长与韩国 KBL 历史桥接修复
+
+盘口“最后变动时间”不是“当前盘口是否仍挂牌”。篮球盘口在开赛前超过 1 小时不变是
+正常情况；只要本轮重新取得原始响应、哈希、主客队/市场合同和当前挂牌确认，且赛事尚未
+开始，就以本轮 `received_at`/`last_verified_at` 判断当前板时效。`source_quote_at` 超过
+TTL 时只能写入非阻塞警告 `QUOTE_LAST_CHANGE_OLD`（同时保留
+`last_change_age_seconds`），不得单独追加 `STALE_QUOTE`、`NO_MARKET` 或
+`UNPRICEABLE`。只有当前板未验证、明确 CLOSED/SUSPENDED、确认时间本身超 TTL、赛事已开赛
+或其他 Evidence/Edge 门禁失败时，才可阻塞纸面候选。禁止伪造或覆盖来源的最后变动时间。
+
+7M 韩国 KBL 的联赛展示名可能因上游字符集变成不可读文本，不能再用该字符串生成
+`LABEL:*` 竞争键。解析赛事、赛程和球队历史时必须保留 `competition_id`，并先通过源级注册表
+把 `7m-comp:23` 映射为 `KOREA_KBL`，再回退到显式中文/英文别名；HistoryIndex 每次装载也
+必须按该源级 ID 重算 `competition_key`。这样 KBL 事件、7M 历史和 Titan/其它来源可以在同一
+`KOREA_KBL + gender + canonical_team_id` 桥接，原始联赛文本和 `team*_legacy_id` 继续留在审计中。
+
+
 
 ## v4.12 日期滚动与日本 B 联赛历史续接修复
 
@@ -108,7 +146,7 @@ python D:\codex\skills\basketball-odds-trader\scripts\run_basketball_daily.py --
 
 Titan007当前盘口XML没有逐报价的最后变动时间，也没有在该接口中独立声明全场加时结算规则。因此：原始让分/大小分必须保存并在Dashboard显示为`MARKET_FOUND`，但只有在现有同场、同市场、同规则、时间新鲜和证据门禁全部满足时才可升级；不能把当前板抓到直接写成可纸面执行。缺少某一公司报价不删除赛事，写入`NO_CURRENT_BOARD_QUOTE`及具体source_event_id；不能再把“某接口没有报价”泛化为“数据抓取不到”。
 
-对本轮实时请求实际返回、原文和哈希已保存、`current_board_contract_verified=true`、状态为`OPEN`且比赛尚未开始的当前挂牌，`received_at`是“本轮仍挂牌确认时间”，可作为独立的时效依据。即使来源没有发布逐盘口`source_quote_at`，也不得仅因此写入`QUOTE_TIME_UNKNOWN`、`STALE_QUOTE`或把赛事排除；应保留`source_quote_at=null`、标记`source_timestamp_semantics=CURRENT_BOARD_CAPTURE_ONLY`和`freshness_basis=VERIFIED_CURRENT_BOARD_CAPTURE`，严禁伪造最后变动时间。若不是本轮已验证当前板、状态非OPEN、接收时间超出TTL或比赛已经开始，则仍按原规则阻塞。
+对本轮实时请求实际返回、原文和哈希已保存、`current_board_contract_verified=true`、状态为`OPEN`或已明确为本轮`OBSERVED`且比赛尚未开始的当前挂牌，`received_at`是“本轮仍挂牌确认时间”，可作为独立的时效依据。即使来源没有发布逐盘口`source_quote_at`，也不得仅因此写入`QUOTE_TIME_UNKNOWN`、`STALE_QUOTE`或把赛事排除；应保留`source_quote_at=null`、标记`source_timestamp_semantics=CURRENT_BOARD_CAPTURE_ONLY`和`freshness_basis=VERIFIED_CURRENT_BOARD_CAPTURE`，严禁伪造最后变动时间。若来源给出的`source_quote_at`已超过TTL但本轮当前板仍验证通过，只记录`QUOTE_LAST_CHANGE_OLD`信息提示；若不是本轮已验证当前板、状态明确关闭/暂停、接收时间超出TTL或比赛已经开始，则仍按原规则阻塞。
 
 Titan007、7M、ESPN、SofaScore的赛程/盘口/历史能力必须分源记录健康状态、原始快照、请求时间、接收时间、哈希、解析条数和失败原因。Titan007新源只有在当天实际解析到目标日事件、球队和盘口字段后才能标记`PRODUCTION_VERIFIED`；历史统计仍按截止时间和同赛事过滤，不能用最终赛果倒推盘前数据。
 
@@ -178,7 +216,7 @@ Titan `tech` 的球员27字段必须落库：球员ID、中英文名、位置、
 
 盘口解析规则放在`config/repair_market_contracts.json`。没有证据时不要激活示例。确认格式、让分符号、当前开放状态、时段、实际公司结算规则后才可纸面执行。7M是展示源，不能替所有公司制定统一加时规则。未知规则只阻止合同EV/执行，不阻止观察和独立研究定价。
 
-新下载不等于新报价。区分报价变化时间、收到时间、仍挂牌确认时间；只有已验证当前挂牌契约才允许以确认时间刷新稳定盘口。不能仅因事件已绑定就写`quote_age=0`。若来源明确提供`LAST_CHANGE`，仍以该来源时间判断时效，不能用较新的接收时间覆盖一个已明确过期的最后变动时间。
+新下载不等于新报价，但“最后变动时间”也不等于“盘口已过期”。区分报价变化时间、收到时间、仍挂牌确认时间；只有已验证当前挂牌契约才允许以确认时间刷新稳定盘口。不能仅因事件已绑定就写`quote_age=0`。若来源明确提供`LAST_CHANGE`，仍保存并展示该时间；当本轮同时完成当前板合同验证时，旧的`LAST_CHANGE`只产生`QUOTE_LAST_CHANGE_OLD`信息提示，不得覆盖本轮当前挂牌时效或单独阻塞。未完成当前板验证时，才按来源最后变动时间和TTL执行`STALE_QUOTE`。
 
 ## 数据补全与独立模型
 
@@ -700,7 +738,7 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 1. **主源与补源顺序固定但允许并行预热。** 先抓 7M `comlive_0/1/2/3/4.js` 和详情页；目标赛事未命中时，按同一 `canonical_event_id` 继续抓 Titan007 当前盘口接口；仍未命中时抓 Betmonitor 当日赛事页及 `content/get_odds.php`；再未命中时调用已验证的公开赔率比较适配器（如 OddsPortal/Flashscore/其它配置在 `config/source_capabilities.yaml` 中标记为 `CURRENT_MARKET=TRUE` 的站点）。ESPN、SofaScore、FIBA 等只能作为赛程、球队身份或比分补源，除非运行时证据证明它们返回当前让分/大小分，否则不得声称有盘口。新站点必须先做小样本适配器验证，再进入生产源池。
 2. **让分和大小分分别恢复。** 每个来源对 `SPREAD`、`TOTAL` 独立记录 `FOUND / EMPTY / PARSE_ERROR / RATE_LIMIT / BLOCKED`；一个市场抓到不代表另一市场抓到。主源只缺大小分时，只对 `TOTAL` 走补源；严禁把半场线、历史赔率、模型 Fair Line 或旧快照冒充当前全场主线。
 3. **分层重试与时间窗口。** 每个源首次失败后按 2 秒、4 秒、8 秒、16 秒退避，最多 5 次；空响应、429、5xx、连接重置和解析到 0 条目标行都要重试。早间运行在北京时间 05:00 后至少保留一次 20–40 分钟内的目标赛事重查，晚间 20:00 运行同时预抓次日赛事；距离开赛不足 6 小时的 `NO_MARKET` 赛事必须在下一来源完成后再次轮询。所有重试必须记录 URL、源、市场、状态码、响应哈希、耗时、重试序号、下一次时间和停止原因。
-4. **跨源对账后才允许入价。** 报价必须通过规范化主客队、`competition_key`、性别、阶段和开赛时间 ±5 分钟匹配。至少一个来源的当前盘口验证通过（本轮收到、盘口变动时间、仍挂牌确认均在 TTL 内）才进入定价；多源同线冲突时保留全部原始报价，按来源优先级和时间做可审计选择，方向冲突先回到主客顺序校正，不能静默取平均或任选一边。
+4. **跨源对账后才允许入价。** 报价必须通过规范化主客队、`competition_key`、性别、阶段和开赛时间 ±5 分钟匹配。至少一个来源的当前盘口验证通过（本轮收到、当前板仍挂牌确认在TTL内；来源最后变动时间仅作为信息字段，过旧时写`QUOTE_LAST_CHANGE_OLD`而非自动阻塞）才进入定价；多源同线冲突时保留全部原始报价，按来源优先级和时间做可审计选择，方向冲突先回到主客顺序校正，不能静默取平均或任选一边。
 5. **不丢赛事、不伪造盘口。** 所有来源耗尽仍未得到当前报价时，赛事和两个市场仍保留在库存，分别写 `NO_MARKET`/`UNPRICEABLE`、`inventory_retained=true`、`next_market_retry_at` 和 `market_recovery_exhausted=true`，并把每个源的失败原因写入 `deep_capture_audit.multi_source_market_recovery`。这表示“本轮所有配置来源均未验证到当前线”，不能写成“无盘口”、不能生成虚拟盘口，也不能删掉赛事。
 6. **生产门槛。** 新增来源只有在连续三轮目标日采集都能解析出真实公司、主线、双边十进制赔率、收到时间和当前挂牌确认后，才可标记 `PRODUCTION_VERIFIED`；否则保持 `EXPERIMENTAL`，只用于诊断，不影响既有 Evidence Gate。每日审计必须同时输出来源覆盖率、各市场恢复率、首次命中来源、补源命中数、仍未命中赛事清单和下一次重试时间。
 
@@ -711,6 +749,14 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 每轮运行必须先读取上一轮的 `stage_timings`，不能把超过 20 分钟的网络等待当作正常。历史库和源快照必须跨 GitHub Actions 运行复用：`reference_data/titan007_history` 使用带版本哈希的 Actions cache，缓存命中时只刷新过期或缺失的原始响应；team mapping 复用精确命中，team detail 24 小时 TTL，team schedule 10 小时 TTL，box score/period 直接复用数据库已验证记录。缓存只复用哈希校验通过的原始证据，不能改变历史首写或当前盘口 TTL。
 
 彼此独立的 ESPN、SofaScore、FIBA 赛程发现请求使用有界并发；盘口、实体匹配和历史定价仍按既定依赖顺序执行。每轮审计必须记录 `cache_reuse_by_stage`、网络请求数、缓存命中数及 `reference_database_update_seconds`、`market_identity_global_collection_seconds`、`collect_live_total_seconds`。目标是缓存后的常规日更控制在 20 分钟内；若连续两轮超过 30 分钟，自动按阶段报告并优先修复重复网络抓取，不能靠减少证据门槛或删除赛事来缩短时间。
+
+## v4.20 手机端页面与缓存交付合同
+
+手机端与桌面端共用响应式 `basketball-v2.html`，但不得让手机加载桌面审计 JSON。发布阶段必须由完整目标日 JSON 派生独立的 `{date}.mobile.json`、`latest.mobile.json` 和次日预抓取移动文件；移动投影只保留中文规范化赛事身份、盘口主线与双边赔率、纸面方向、可投门槛、结算和当前复核状态，原始响应、哈希、供应商路径、Titan 深层定价和完整诊断继续留在桌面审计文件。移动数据应控制在约 3MB 以内，HTML 页面本身应控制在约 100KB 以内；这只是展示和传输优化，不得改变模型、Evidence Gate、盘口或账本字段。
+
+页面检测窄屏或移动 User-Agent 后只能读取 `mobile_file`；桌面仍读取完整 `file`。首次读取 `index.json` 必须带一次性时间戳查询参数，随后所有日期文件和 `latest` 文件必须使用本轮 `index.generated_at` 作为版本查询参数，不能依赖 `localStorage` 或浏览器默认缓存决定业务日期。日期切换请求失败时必须清空上一日期的赛事和盘口，显示“所选日期暂无已发布数据”，不得把旧日期伪装成新日期。公开 URL 的查询参数只负责缓存失效，不能改变数据日期、盘口时效或任何定价结果。
+
+移动投影必须通过自动测试核验：事件数与完整 JSON 一致；有效方向引用的 `quote_id` 在当前显示市场中存在；中文队名、让分/大小分、W/L/P 和首写复核字段不丢失；完整 JSON 的字节内容和不可变账本不被移动裁剪流程改写。缓存策略变更后必须在真实 GitHub Pages URL 检查 HTML、`index.json`、目标日移动 JSON 和 `latest.mobile.json` 的状态码、响应大小、版本参数和目标日期。
 
 ## v4.16 KBL补源与Edge门槛可审计化
 
