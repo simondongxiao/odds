@@ -1,5 +1,5 @@
 from __future__ import annotations
-import argparse, json
+import argparse, json, traceback
 from pathlib import Path
 from .pipeline import execute
 from .common import now, BJ, load, atomic, stamp, iso, fingerprint
@@ -39,6 +39,7 @@ def main(argv=None):
         if a.publish_beta and not pub:result['publish']={'status':'NOT_CONFIGURED','reason':'未找到现有发布仓库；本地结果已生成，用 --publish-dir 指定仓库根目录。'}
         print(json.dumps(result,ensure_ascii=False,indent=2));return 0 if result.get('update_status')!='FAILED' else 2
     except Exception as exc:
+        traceback.print_exc()
         error={'status':'FAILED','error_type':type(exc).__name__,'message':str(exc),'real_execution_allowed':False}
         atomic(root/'audits'/'repair_v22_failure.json',error)
         print(json.dumps(error,ensure_ascii=False,indent=2));return 2
