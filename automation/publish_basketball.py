@@ -363,8 +363,13 @@ def main() -> int:
         lookahead = src_data / f"{next_day}.json"
         if lookahead.is_file():
             publish_paths.append(lookahead)
+            next_doc_for_anchor = load(lookahead, {})
+            next_anchor_path, next_anchor_payload = write_decision_anchor(dst_data, next_day, next_doc_for_anchor)
+        else:
+            next_anchor_path, next_anchor_payload = None, {}
     except ValueError:
         next_day = None
+        next_anchor_path, next_anchor_payload = None, {}
     publish_paths.append(src_data / "latest.json")
     for path in publish_paths:
         shutil.copy2(path, dst_data / path.name)
@@ -416,6 +421,8 @@ def main() -> int:
             "mobile_file": f"{next_day}.mobile.json",
             "event_count": len(next_doc.get("events") or []),
             "archive_type": next_doc.get("archive_type", "FORWARD_NATIVE"),
+            "decision_anchor_file": f"decision_anchors/{next_day}.json",
+            "decision_anchor_rows": next_anchor_payload.get("locked_rows", 0),
         }
     # Never advertise a date whose payload is absent.  A stale index entry
     # used to make the selector request a 404 and leave the previous day's
@@ -436,6 +443,7 @@ def main() -> int:
         "published_data": str(dst_data / f"{day}.json"),
         "decision_anchor": str(anchor_path),
         "decision_anchor_rows": anchor_payload.get("locked_rows", 0),
+        "next_day_decision_anchor_rows": next_anchor_payload.get("locked_rows", 0),
     }
     print(json.dumps(summary, ensure_ascii=False))
     return 0
