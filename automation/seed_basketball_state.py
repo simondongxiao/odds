@@ -34,6 +34,18 @@ def main() -> int:
     for path in dates[: max(1, args.days)]:
         shutil.copy2(path, dst / path.name)
         copied.append(path.name)
+    # Decision anchors are the durable first-write projection.  A GitHub
+    # runner is intentionally ephemeral, so seeding only latest.json used to
+    # lose an earlier qualified direction when a later board refresh had fewer
+    # fixtures.  Keep anchors alongside the bounded daily snapshots.
+    anchor_src = src / "decision_anchors"
+    anchor_dst = dst / "decision_anchors"
+    if anchor_src.is_dir():
+        anchor_dst.mkdir(parents=True, exist_ok=True)
+        anchors = sorted((p for p in anchor_src.glob("20??-??-??.json") if p.is_file()), reverse=True)
+        for path in anchors[: max(1, args.days)]:
+            shutil.copy2(path, anchor_dst / path.name)
+            copied.append(str(Path("decision_anchors") / path.name))
     print(json.dumps({"seeded_files": len(copied), "dates": copied}, ensure_ascii=False))
     return 0
 

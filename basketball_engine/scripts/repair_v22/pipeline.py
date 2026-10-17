@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json, shutil, subprocess, sys, uuid, time
 from collections import Counter, defaultdict
+import copy
 from datetime import date, timedelta
 from pathlib import Path
 from . import VERSION
@@ -220,6 +221,127 @@ def _load_market_gap_history(root):
     return gaps
 
 
+def _decision_anchor_path(root, day):
+    return Path(root) / 'dashboard_v2' / 'data' / 'decision_anchors' / f'{day}.json'
+
+
+def _load_decision_anchor(root, day):
+    """Read the published first-write decision projection for *day*.
+
+    GitHub runners are disposable.  The normal immutable ledger is therefore
+    not sufficient by itself: the previous gh-pages projection must carry the
+    first direction into the next run.  Anchors contain only already-written
+    paper/Titan rows and never create a quote or a new signal.
+    """
+    payload = load(_decision_anchor_path(root, day), {})
+    rows = payload.get('rows') if isinstance(payload, dict) else []
+    return [row for row in rows if isinstance(row, dict) and
+            isinstance(row.get('event'), dict) and row['event'].get('bj_date') == day]
+
+
+def _anchor_triggered(decision):
+    if not isinstance(decision, dict):
+        return False
+    if decision.get('triggered') is True or decision.get('titan_provisional_status') == 'TITAN_PROVISIONAL_SHADOW':
+        return True
+    return any(isinstance(item, dict) and
+               (item.get('triggered') is True or item.get('status') == 'TITAN_PROVISIONAL_SHADOW')
+               for item in (decision.get('market_decisions') or {}).values())
+
+
+def _anchor_direction_signature(decision):
+    """Return market -> side only; line/price movement is not a reversal."""
+    if not isinstance(decision, dict):
+        return {}
+    out = {}
+    markets = decision.get('market_decisions') or {}
+    for market, item in markets.items():
+        if not isinstance(item, dict):
+            continue
+        selected = item.get('selected') or {}
+        side = selected.get('selection') or selected.get('selected_side')
+        if side:
+            out[str(market)] = str(side)
+    selected = decision.get('selected') or {}
+    if selected.get('selection'):
+        out.setdefault(str(selected.get('market_type') or 'SELECTED'), str(selected['selection']))
+    return out
+
+
+def _merge_decision_anchor_rows(rows, anchor_rows, asof, day):
+    """Restore immutable anchor cards while exposing current revalidation.
+
+    A later source refresh may contain fewer games or a changed model gate.
+    The first published direction remains the accounting/display decision.  A
+    materially different side is attached as a review-only audit and is never
+    silently substituted into the paper card.
+    """
+    if not anchor_rows:
+        return rows
+    result = list(rows)
+    by_id = {str(row.get('event', {}).get('event_id') or ''): idx
+              for idx, row in enumerate(result)
+              if isinstance(row, dict) and isinstance(row.get('event'), dict)}
+    by_key = {}
+    for idx, row in enumerate(result):
+        event = row.get('event') or {}
+        key = event_continuity_key(event)
+        by_key.setdefault(key, idx)
+    consumed = set()
+    for anchor in anchor_rows:
+        anchor_event = anchor.get('event') or {}
+        anchor_decision = anchor.get('execution') or anchor.get('decision') or {}
+        if not _anchor_triggered(anchor_decision):
+            continue
+        anchor_id = str(anchor_event.get('event_id') or '')
+        idx = by_id.get(anchor_id)
+        match_method = 'EVENT_ID'
+        if idx is None:
+            idx = by_key.get(event_continuity_key(anchor_event))
+            match_method = 'TEAM_PAIR_AND_TIP_TIME' if idx is not None else 'NONE'
+        current = result[idx] if idx is not None else None
+        kept = copy.deepcopy(anchor)
+        if current is not None:
+            current_decision = current.get('execution') or {}
+            old_sig = _anchor_direction_signature(anchor_decision)
+            new_sig = _anchor_direction_signature(current_decision)
+            changed = bool(old_sig and new_sig and old_sig != new_sig)
+            if changed:
+                kept['direction_change_audit'] = {
+                    'status': 'REVIEW_REQUIRED', 'direction_reversed': True,
+                    'first_write': old_sig, 'current_revalidation': new_sig,
+                    'checked_at': asof,
+                    'display': '模型复核方向与首写方向不同；保留首写方向，单独提出复核',
+                }
+            kept['current_snapshot'] = {
+                'asof': asof, 'event': current.get('event'),
+                'market': current.get('market') or {'quotes': [], 'quote_states': []},
+                'pricing': current.get('pricing') or {'pricing_status': 'UNPRICEABLE'},
+                'execution': current_decision, 'refresh_status': 'OBSERVED',
+            }
+            for field in ('settlement', 'post_match_review', 'revisions'):
+                if field in current:
+                    kept[field] = current[field]
+            kept['event'] = current.get('event') or kept.get('event')
+        else:
+            kept['current_snapshot'] = {
+                'asof': asof, 'event': kept.get('event'),
+                'market': {'quotes': [], 'quote_states': []},
+                'pricing': {'pricing_status': 'UNPRICEABLE'},
+                'execution': {'triggered': False, 'shadow_action': 'WATCH',
+                              'display_action': '观察', 'blockers': ['NOT_ON_CURRENT_BOARD']},
+                'refresh_status': 'NOT_OBSERVED',
+            }
+        kept['first_write_preserved'] = True
+        kept['continuity_match_method'] = match_method
+        if idx is None:
+            result.append(kept)
+        else:
+            result[idx] = kept
+        consumed.add(idx)
+    return result
+
+
 def preserve_daily_event_inventory(cap, root, day):
     """Union today's current discovery with append-only intraday snapshots.
 
@@ -241,6 +363,11 @@ def preserve_daily_event_inventory(cap, root, day):
     for item in baseline_document.get('events', []) if isinstance(baseline_document, dict) else []:
         event = item.get('event') if isinstance(item, dict) and isinstance(item.get('event'), dict) else item
         if isinstance(event, dict) and event.get('bj_date') == day and event.get('event_id'):
+            baseline_events.append(dict(event))
+    anchor_rows = _load_decision_anchor(root, day)
+    for row in anchor_rows:
+        event = row.get('event') or {}
+        if event.get('event_id'):
             baseline_events.append(dict(event))
     snapshot = {
         'schema_version': 'daily-event-inventory-1.0', 'day': day,
@@ -399,7 +526,9 @@ def preserve_daily_event_inventory(cap, root, day):
             if str(event.get('event_id') or '') not in current_canonical_ids),
         'snapshot_files': source_snapshots,
         'published_baseline_file': str(baseline_path) if baseline_events else None,
-        'published_baseline_events': len(baseline_events), 'quotes_fabricated': 0,
+        'published_baseline_events': len(baseline_events),
+        'published_decision_anchor': str(_decision_anchor_path(root, day)) if anchor_rows else None,
+        'published_decision_anchor_rows': len(anchor_rows), 'quotes_fabricated': 0,
         'event_id_redirects': redirects, 'quotes_remapped_to_current_identity': remapped_quotes,
         'fuzzy_time_tolerance_minutes': 45, 'fuzzy_merges': fuzzy_merges,
         'duplicate_event_ids_removed': sorted(set(duplicate_event_ids)),
@@ -916,6 +1045,17 @@ def run_capture(cap,output_root,day,context_map=None):
     market_gap_history=_load_market_gap_history(root)
     if mode=='FORWARD_NATIVE':
         prior_forward_records, prior_forward_index_audit = load_prior_forward_records(root, run_id)
+        # The anchor is deliberately layered on top of the SQLite/JSON index:
+        # it survives an ephemeral GitHub runner even when the latest daily
+        # view was smaller than an earlier qualified snapshot.
+        for row in _load_decision_anchor(root, day):
+            decision = row.get('execution') or row.get('decision') or {}
+            event = row.get('event') or {}
+            if _anchor_triggered(decision):
+                prior_forward_records.append({
+                    'path': f"published_anchor:{_decision_anchor_path(root, day)}",
+                    'decision': decision, 'event': event,
+                })
         for record in prior_forward_records:
             d=record.get('decision') or {}
             input_event=record.get('event') or {}
@@ -1103,6 +1243,8 @@ def run_capture(cap,output_root,day,context_map=None):
             else:
                 current=None
             append_lifecycle_revision(root,event,original,current,asof,run_id)
+    if mode == 'FORWARD_NATIVE':
+        rows = _merge_decision_anchor_rows(rows, _load_decision_anchor(root, day), asof, day)
     current=[r for r in rows if r['event']['bj_date']==day]
     native=mode=='FORWARD_NATIVE';message=('实时运行；低置信度研究定价不等于可投。' if native else '包内离线核查；非当时实际发布的前向预测，不计入实盘或纸面业绩。')
     settled=settle_existing(root,cap['history'],asof,cap.get('settlement_facts')) if native else 0

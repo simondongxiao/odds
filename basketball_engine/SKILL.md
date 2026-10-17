@@ -763,3 +763,11 @@ HTML 顶部只显示本轮真实 paper_bettable，历史胜率/盈亏按 league_
 韩国KBL当前板不得因7M/Titan缺行直接写成无盘口。对`KOREA_KBL`目标赛事，先保留7M与Titan结果，再使用公开Cloudbet KBL SSR赛事页作为实验性补源；只接受页面同一轮返回的全场让分/总分主线、双边十进制赔率、当前挂牌状态、收到时间和原始HTML哈希。Cloudbet使用显式中英文/韩文注册别名和双方规范化身份+开赛时间±5分钟匹配，补源状态写入`deep_capture_audit.cloudbet_kbl_fallback`，连续三轮目标日验证后才能升级为`PRODUCTION_VERIFIED`。补源只能扩大盘口发现，不能用来绕过Evidence、盘口新鲜度或真实资金关闭。
 
 `Probability Edge`、`Line Edge`和`EV`必须分开显示。正式`手动实盘候选`的Edge Gate固定为：保守情景`adverse_ev >= 2.5%`且条件概率Edge`conditional_edge >= league_buffer`（CLUB_MATURE为2.5%，其它模型族沿用各自buffer）。普通EV为正但保守EV为负的记录只能显示为`LEAN/研究信号`，不得因为“明天比赛多”自动升级；每条比较结果必须输出`edge_gate`，分别列出两个子门槛、通过/未通过状态及值域。伤停、轮换、三分 profile、末节犯规、胶着/垃圾时间样本属于不确定性说明；只有`paper_evidence_blockers`、当前盘口有效性、规则冲突、严重来源冲突和正式Edge Gate才能阻塞正式候选。
+
+## v4.21 首写决策锚定与自动刷新稳定性合同
+
+GitHub Actions 每次运行都在临时工作器中执行，发布后的 `{date}.json` 不能作为唯一历史输入。对每个目标日必须发布 `basketball-data/decision_anchors/{date}.json`，保存已经写入的 Qualified Paper 与 Titan Provisional 完整赛事行、规范化连续性键、首写时间、首写盘口方向及当前复核快照。下一轮通过 `seed_basketball_state.py` 复制锚定文件，并将其加入赛事库存、prior-forward 索引和展示合并；即使当前板或最新快照少了赛事，也不得删除已写入的方向。
+
+方向采用“首写锁定”规则：让分/大小分方向以 `selection` 为比较单位，盘口线和赔率变化属于复核字段，不得静默改写首写方向。若同一规范化赛事的本轮复核方向与首写方向相反，写入 `direction_change_audit`（`REVIEW_REQUIRED`、首写方向、本轮方向、检查时间），页面继续展示首写决策，并单独提示方向变更。锚定合并不得制造盘口、不得把历史赔率当作当前盘口、不得放宽 Evidence Gate 或真实资金关闭原则。
+
+每日验收必须同时记录：锚定行数、恢复的赛事数、当前源观察状态、方向变更数、目标日与次日赛事数，以及自动运行的 GitHub run id。定时运行是已授权的 05:07/20:07 北京时间任务；它可以自动刷新数据，但只允许追加当前复核和赛果，不能生成一版更少且覆盖旧决策的无审计快照。

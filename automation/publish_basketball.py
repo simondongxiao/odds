@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
+import re
 import shutil
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -13,6 +15,98 @@ def load(path: Path, default):
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return default
+
+
+def anchor_key(event):
+    """Provider-independent fixture key for immutable decision anchors."""
+    event = event or {}
+    teams = [event.get('canonical_team1_id') or event.get('team1_name'),
+             event.get('canonical_team2_id') or event.get('team2_name')]
+    teams = sorted(re.sub(r'[^0-9a-zA-Z\u4e00-\u9fff]+', '', str(x or '').casefold()) for x in teams)
+    tip = str(event.get('tip_at') or event.get('tip_time_bj') or '')[:16]
+    return '|'.join(teams + [tip])
+
+
+def anchor_triggered(execution):
+    if not isinstance(execution, dict):
+        return False
+    if execution.get('triggered') is True or execution.get('titan_provisional_status') == 'TITAN_PROVISIONAL_SHADOW':
+        return True
+    return any(isinstance(item, dict) and
+               (item.get('triggered') is True or item.get('status') == 'TITAN_PROVISIONAL_SHADOW')
+               for item in (execution.get('market_decisions') or {}).values())
+
+
+def direction_signature(execution):
+    if not isinstance(execution, dict):
+        return {}
+    out = {}
+    for market, item in (execution.get('market_decisions') or {}).items():
+        selected = item.get('selected') if isinstance(item, dict) else None
+        if isinstance(selected, dict) and selected.get('selection'):
+            out[str(market)] = str(selected['selection'])
+    selected = execution.get('selected') or {}
+    if selected.get('selection'):
+        out.setdefault(str(selected.get('market_type') or 'SELECTED'), str(selected['selection']))
+    return out
+
+
+def write_decision_anchor(dst_data, day, current_doc):
+    """Append/merge first-write paper decisions for the target date.
+
+    The anchor is a published continuity artifact, not a second source of
+    odds.  Existing rows win forever; a later opposite side is recorded as a
+    review audit and the original direction remains the displayed decision.
+    """
+    anchor_dir = dst_data / 'decision_anchors'
+    anchor_dir.mkdir(parents=True, exist_ok=True)
+    path = anchor_dir / f'{day}.json'
+    previous = load(path, {})
+    old_rows = [row for row in (previous.get('rows') or []) if isinstance(row, dict)]
+    current_rows = [row for row in (current_doc.get('events') or [])
+                    if isinstance(row, dict) and isinstance(row.get('event'), dict)
+                    and row['event'].get('bj_date') == day
+                    and anchor_triggered(row.get('execution') or {})]
+    merged = {}
+    for row in old_rows:
+        event = row.get('event') or {}
+        if event.get('bj_date') == day:
+            merged[anchor_key(event)] = copy.deepcopy(row)
+    for row in current_rows:
+        key = anchor_key(row.get('event') or {})
+        if key not in merged:
+            item = copy.deepcopy(row)
+            item['anchor_status'] = 'LOCKED_FIRST_WRITE'
+            item['anchor_first_write_asof'] = (row.get('execution') or {}).get('asof') or current_doc.get('asof')
+            merged[key] = item
+            continue
+        item = merged[key]
+        old_execution = item.get('execution') or {}
+        new_execution = row.get('execution') or {}
+        old_sig, new_sig = direction_signature(old_execution), direction_signature(new_execution)
+        if old_sig and new_sig and old_sig != new_sig:
+            item['direction_change_audit'] = {
+                'status': 'REVIEW_REQUIRED', 'direction_reversed': True,
+                'first_write': old_sig, 'current_revalidation': new_sig,
+                'checked_at': current_doc.get('asof'),
+                'display': '模型复核方向与首写方向不同；保留首写方向，单独提出复核',
+            }
+        item['latest_revalidation'] = {
+            'asof': current_doc.get('asof'), 'event': row.get('event'),
+            'execution': new_execution, 'market': row.get('market') or {},
+        }
+        for field in ('settlement', 'post_match_review', 'revisions'):
+            if field in row:
+                item[field] = row[field]
+    payload = {
+        'schema_version': 'basketball-decision-anchor-1.0',
+        'date_bj': day, 'generated_at': datetime.now(timezone.utc).isoformat(),
+        'source_kind': 'PUBLISHED_FIRST_WRITE_PROJECTION',
+        'locked_direction_policy': 'FIRST_WRITE_WINS; DIRECTION_CHANGE_REVIEW_ONLY',
+        'rows': list(merged.values()), 'locked_rows': len(merged),
+    }
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
+    return path, payload
 
 
 def mobile_document(document):
@@ -258,6 +352,7 @@ def main() -> int:
     current_doc = load(current, {})
     if current_doc.get("date_bj") != day or not current_doc.get("events"):
         raise SystemExit("refusing to publish a stale or empty basketball target payload")
+    anchor_path, anchor_payload = write_decision_anchor(dst_data, day, current_doc)
     mobile = mobile_document(latest)
     # Publish the target date plus the skill-mandated next-day lookahead.  The
     # latter is kept as a selectable inventory snapshot, while latest.json
@@ -310,6 +405,8 @@ def main() -> int:
         "mobile_file": f"{day}.mobile.json",
         "event_count": len(latest.get("events") or []),
         "archive_type": latest.get("archive_type", "FORWARD_NATIVE"),
+        "decision_anchor_file": f"decision_anchors/{day}.json",
+        "decision_anchor_rows": anchor_payload.get("locked_rows", 0),
     }
     if next_day and (src_data / f"{next_day}.json").is_file():
         next_doc = load(src_data / f"{next_day}.json", {})
@@ -337,6 +434,8 @@ def main() -> int:
         "paper_bettable": (latest.get("funnel") or {}).get("paper_bettable"),
         "events": len(latest.get("events") or []),
         "published_data": str(dst_data / f"{day}.json"),
+        "decision_anchor": str(anchor_path),
+        "decision_anchor_rows": anchor_payload.get("locked_rows", 0),
     }
     print(json.dumps(summary, ensure_ascii=False))
     return 0
