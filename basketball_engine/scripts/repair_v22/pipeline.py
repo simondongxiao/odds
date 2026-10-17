@@ -234,7 +234,7 @@ def _load_decision_anchor(root, day):
     paper/Titan rows and never create a quote or a new signal.
     """
     payload = load(_decision_anchor_path(root, day), {})
-    rows = payload.get('rows') if isinstance(payload, dict) else []
+    rows = (payload.get('rows') or []) if isinstance(payload, dict) else []
     return [row for row in rows if isinstance(row, dict) and
             isinstance(row.get('event'), dict) and row['event'].get('bj_date') == day]
 
