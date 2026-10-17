@@ -59,8 +59,14 @@ def main() -> int:
     # name.  The fallback is intentionally only used when the canonical
     # secret is absent; it must never silently override a conflicting value.
     webhook = os.environ.get("FEISHU_WEBHOOK", "").strip()
+    legacy_webhook = os.environ.get("FEISHU_WEBHOOK_URL", "").strip()
+    if webhook and legacy_webhook and webhook != legacy_webhook:
+        message = "FEISHU_WEBHOOK and FEISHU_WEBHOOK_URL do not match; notification was not attempted"
+        if audit_root:
+            record_stage(audit_root, "FEISHU_SENT", "FAILED", duration_seconds=time.monotonic() - started, details={"reason": "SECRET_CONFLICT"})
+        raise SystemExit(message)
     if not webhook:
-        webhook = os.environ.get("FEISHU_WEBHOOK_URL", "").strip()
+        webhook = legacy_webhook
     if not webhook:
         message = "FEISHU_WEBHOOK (or FEISHU_WEBHOOK_URL) is not configured; notification was not attempted"
         if audit_root:
