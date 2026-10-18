@@ -30,7 +30,9 @@ jobs:
     timeout-minutes: 30
     env:
       FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
-      FOOTBALL_PAGES_BASE_URL: https://simondongxiao.github.io/odds
+      # The portable cloud runner is diagnostic only.  It must never replace
+      # the official local-skill V3/V4 pages on gh-pages.
+      FOOTBALL_PAGES_BASE_URL: https://simondongxiao.github.io/odds/diagnostic/cloud
       TITAN_ENABLE_BROWSER_FALLBACK: "1"
       TITAN_BROWSER_BATCH_LIMIT: "48"
       TITAN_BROWSER_PRIORITY2_MIN: "16"
@@ -83,30 +85,29 @@ jobs:
       - name: Run portable next-day skill
         id: update
         run: python tools/github_football_update.py --list-date "${{ steps.target.outputs.list_date }}"
-      - name: Publish lightweight mobile dashboards
+      - name: Publish cloud diagnostic dashboards
         id: publish
         if: steps.dedupe.outputs.skip != 'true'
         run: |
           set -euo pipefail
           stage="$RUNNER_TEMP/football-dashboard-payload"
           rm -rf "$stage"
-          mkdir -p "$stage/v3" "$stage/v4" "$stage/data/github_football"
-          cp -R github_site/v3/. "$stage/v3/"
-          cp -R github_site/v4/. "$stage/v4/"
-          cp -R data/github_football/. "$stage/data/github_football/"
+          mkdir -p "$stage/diagnostic/cloud/v3" "$stage/diagnostic/cloud/v4"
+          cp -R github_site/v3/. "$stage/diagnostic/cloud/v3/"
+          cp -R github_site/v4/. "$stage/diagnostic/cloud/v4/"
           for attempt in 1 2 3; do
             git fetch origin gh-pages
             rm -rf /tmp/football-gh-pages
             git worktree add --detach /tmp/football-gh-pages origin/gh-pages
-            cp -R "$stage/v3/." /tmp/football-gh-pages/v3/
-            cp -R "$stage/v4/." /tmp/football-gh-pages/v4/
-            cp -R "$stage/data/github_football/." /tmp/football-gh-pages/data/github_football/
+            mkdir -p /tmp/football-gh-pages/diagnostic/cloud/v3 /tmp/football-gh-pages/diagnostic/cloud/v4
+            cp -R "$stage/diagnostic/cloud/v3/." /tmp/football-gh-pages/diagnostic/cloud/v3/
+            cp -R "$stage/diagnostic/cloud/v4/." /tmp/football-gh-pages/diagnostic/cloud/v4/
             # Rebuild only the date index; all older published JSON remains.
             python - <<'PY'
           import json
           from pathlib import Path
           for version in ("v3", "v4"):
-              data_dir = Path("/tmp/football-gh-pages") / version / "data"
+              data_dir = Path("/tmp/football-gh-pages") / "diagnostic" / "cloud" / version / "data"
               data_dir.mkdir(parents=True, exist_ok=True)
               dates = sorted(p.stem for p in data_dir.glob("????-??-??.json"))
               (data_dir / "index.json").write_text(json.dumps(dates, ensure_ascii=False), encoding="utf-8")
@@ -114,7 +115,7 @@ jobs:
           PY
             git -C /tmp/football-gh-pages config user.name github-actions[bot]
             git -C /tmp/football-gh-pages config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git -C /tmp/football-gh-pages add v3 v4 data/github_football
+            git -C /tmp/football-gh-pages add diagnostic/cloud
             if git -C /tmp/football-gh-pages diff --cached --quiet; then
               echo "No gh-pages changes; retaining current published commit"
               echo "pages_sha=$(git -C /tmp/football-gh-pages rev-parse HEAD)" >> "$GITHUB_OUTPUT"
