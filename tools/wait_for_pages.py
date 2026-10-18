@@ -25,16 +25,18 @@ def fetch_status(url: str) -> None:
             raise RuntimeError(f"HTTP {response.status}")
 
 
-def verify_once(base_url: str, date: str, expected_v3: str | None, expected_v4: str | None) -> dict[str, Any]:
+def verify_once(base_url: str, date: str, expected_v3: str | None, expected_v4: str | None, path_prefix: str = "") -> dict[str, Any]:
     stamp = str(time.time_ns())
     root = base_url.rstrip("/")
+    prefix = path_prefix.strip("/")
     results: dict[str, Any] = {}
     for version, expected in (("v3", expected_v3), ("v4", expected_v4)):
-        fetch_status(f"{root}/{version}/index.html?verify={stamp}")
-        index = fetch_json(f"{root}/{version}/data/index.json?verify={stamp}")
+        version_root = f"{root}/{prefix}/{version}" if prefix else f"{root}/{version}"
+        fetch_status(f"{version_root}/index.html?verify={stamp}")
+        index = fetch_json(f"{version_root}/data/index.json?verify={stamp}")
         if date not in index:
             raise RuntimeError(f"{version} index missing {date}")
-        payload = fetch_json(f"{root}/{version}/data/{date}.json?verify={stamp}")
+        payload = fetch_json(f"{version_root}/data/{date}.json?verify={stamp}")
         if payload.get("list_date") != date:
             raise RuntimeError(f"{version} payload list_date={payload.get('list_date')!r}")
         matches = payload.get("matches")
@@ -43,7 +45,7 @@ def verify_once(base_url: str, date: str, expected_v3: str | None, expected_v4: 
         generated = str(payload.get("generated_at", ""))
         if expected and generated != expected:
             raise RuntimeError(f"{version} generated_at stale: {generated!r} != {expected!r}")
-        history = fetch_json(f"{root}/{version}/data/{version}_competition_history_{date}.json?verify={stamp}")
+        history = fetch_json(f"{version_root}/data/{version}_competition_history_{date}.json?verify={stamp}")
         if history.get("list_date") != date:
             raise RuntimeError(f"{version} history list_date={history.get('list_date')!r}")
         history_rows = history.get("rows")
@@ -63,6 +65,7 @@ def main() -> int:
     parser.add_argument("--expected-v3")
     parser.add_argument("--expected-v4")
     parser.add_argument("--sha", default="")
+    parser.add_argument("--path-prefix", default="", help="Optional path below the Pages base URL, e.g. diagnostic/cloud")
     parser.add_argument("--timeout", type=int, default=600)
     parser.add_argument("--interval", type=int, default=10)
     args = parser.parse_args()
@@ -70,7 +73,7 @@ def main() -> int:
     last_error = "unknown"
     while time.monotonic() < deadline:
         try:
-            result = verify_once(args.base_url, args.date, args.expected_v3, args.expected_v4)
+            result = verify_once(args.base_url, args.date, args.expected_v3, args.expected_v4, args.path_prefix)
             print(f"pages_verify=success sha={args.sha} v3_matches={result['v3']['matches']} v4_matches={result['v4']['matches']} v3_history_rows={result['v3']['history_rows']} v4_history_rows={result['v4']['history_rows']}")
             return 0
         except (OSError, ValueError, RuntimeError, urllib.error.URLError) as exc:
