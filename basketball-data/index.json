@@ -1,14 +1,23 @@
 {
-  "generated_at": "2026-10-17T23:19:03.477307+00:00",
+  "generated_at": "2026-10-18T15:56:53.600956+00:00",
   "dates": [
+    {
+      "date": "2026-10-20",
+      "file": "2026-10-20.json",
+      "mobile_file": "2026-10-20.mobile.json",
+      "event_count": 53,
+      "archive_type": "FORWARD_NATIVE",
+      "decision_anchor_file": "decision_anchors/2026-10-20.json",
+      "decision_anchor_rows": 1
+    },
     {
       "date": "2026-10-19",
       "file": "2026-10-19.json",
       "mobile_file": "2026-10-19.mobile.json",
-      "event_count": 56,
+      "event_count": 154,
       "archive_type": "FORWARD_NATIVE",
       "decision_anchor_file": "decision_anchors/2026-10-19.json",
-      "decision_anchor_rows": 0
+      "decision_anchor_rows": 2
     },
     {
       "date": "2026-10-18",
