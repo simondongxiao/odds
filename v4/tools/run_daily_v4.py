@@ -13,6 +13,10 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+ROOT = Path(r"D:\codex")
+if str(ROOT) not in os.sys.path:
+    os.sys.path.insert(0, str(ROOT))
+
 from raw_adapter import load_raw, write_raw
 from direction_contract import (
     derive_market_intent,
@@ -22,6 +26,7 @@ from core_model import (
     CALIBRATION_STATUS,
     DIRECTION_RULE,
     FORWARD_STATUS,
+    LOGIC_CHANGE_AT,
     MODEL_ID,
     MODEL_VERSION,
     PROBABILITY_VERSION,
@@ -30,10 +35,11 @@ from core_model import (
     write_runtime_diagnostics,
 )
 
-ROOT = Path(r"D:\codex")
+from football_titan_data import load_feature_snapshot
+
 TARGET_TZ = timezone(timedelta(hours=8))
 STATES = ("W", "HW", "P", "HL", "L")
-V4_LOGIC_CHANGE_AT = "2026-09-30T16:18:06+08:00"
+V4_LOGIC_CHANGE_AT = LOGIC_CHANGE_AT
 
 
 def sha(path: Path) -> str:
@@ -123,13 +129,23 @@ def load_raw_csv(path: Path, list_date: str) -> list[dict]:
             hw = _first(source, "ah_full_current_home_or_over", "xml_ah_home_water")
             line = _first(source, "ah_full_current_line_or_draw", "xml_ah_line")
             aw = _first(source, "ah_full_current_away_or_under", "xml_ah_away_water")
+            ah_company = _first(source, "ah_full_company")
+            ah_line_convention = _first(source, "ah_line_convention")
+            # Raw snapshots produced before the BetExplorer sign-normalization
+            # fix contain the provider's standard sign.  Normalize those
+            # legacy rows here as well, so replaying a cached snapshot cannot
+            # resurrect the home/away direction bug.
+            if "betexplorer" in ah_company.lower() and ah_line_convention != "TITAN_HOME_SIGN_POSITIVE_GIVING":
+                try:
+                    line = str(-float(line))
+                except (TypeError, ValueError):
+                    pass
             open_hw = _first(source, "ah_full_open_home_or_over")
             open_line = _first(source, "ah_full_open_line_or_draw", "initial_ah_hint")
             open_aw = _first(source, "ah_full_open_away_or_under")
             euro_home = _first(source, "euro_full_current_home_or_over", "xml_euro_home")
             euro_draw = _first(source, "euro_full_current_line_or_draw", "xml_euro_draw")
             euro_away = _first(source, "euro_full_current_away_or_under", "xml_euro_away")
-            price_source = _first(source, "ah_full_company", "future_ah_fetch_fallback", "total_full_company") or "Titan007"
             rows.append({
                 "match_id": match_id, "list_date": list_date,
                 "competition": _first(source, "league_cn", "competition"),
@@ -139,11 +155,12 @@ def load_raw_csv(path: Path, list_date: str) -> list[dict]:
                 "euro_raw": "/".join((euro_home, euro_draw, euro_away)) if euro_home and euro_draw and euro_away else "",
                 "euro_home": euro_home, "euro_draw": euro_draw, "euro_away": euro_away,
                 "ah_full_current_home_or_over": hw, "ah_full_current_line_or_draw": line, "ah_full_current_away_or_under": aw,
+                "ah_full_company": ah_company, "ah_line_convention": "TITAN_HOME_SIGN_POSITIVE_GIVING",
                 "ah_full_open_home_or_over": open_hw, "ah_full_open_line_or_draw": open_line, "ah_full_open_away_or_under": open_aw,
                 "totals_raw": "/".join((_first(source, "total_full_current_line_or_draw"), _first(source, "total_full_current_home_or_over"), _first(source, "total_full_current_away_or_under"))),
                 "ah_ok": bool(hw and line and aw), "euro_ok": bool(euro_home and euro_draw and euro_away),
                 "totals_ok": bool(_first(source, "total_full_current_line_or_draw")),
-                "price_source": price_source, "raw_source_path": str(path),
+                "price_source": "Titan007", "raw_source_path": str(path),
                 "quote_at": quote_timestamp(str(source.get("snapshot_stamp", "") or source.get("latest_snapshot_stamp", "") or "")),
                 "score": (f"{source.get('home_score')}-{source.get('away_score')}" if str(source.get("home_score", "")).strip() and str(source.get("away_score", "")).strip() else ""),
                 "form_evidence": "", "h2h_evidence": "", "injury_evidence": "",
@@ -229,6 +246,22 @@ def receiving_alpha(alpha: dict[str, dict[str, float]]) -> dict[str, dict[str, f
     }
 
 
+def _direction_sign_flip(old: dict, current: dict) -> bool:
+    """Detect a legacy home-line sign snapshot that needs one-time migration.
+
+    A normal refresh may change a line, but it should not change the sign while
+    keeping the exact same absolute quarter-line.  That pattern is the legacy
+    BetExplorer provider-sign bug fixed at ingestion.  Started rows remain
+    locked except for this explicit market-identity repair.
+    """
+    try:
+        old_line = float((old.get("market") or {}).get("home_handicap_signed"))
+        new_line = float((current.get("market") or {}).get("home_handicap_signed"))
+    except (TypeError, ValueError):
+        return False
+    return abs(old_line) > 1e-9 and abs(old_line + new_line) < 1e-9
+
+
 def preserve_started_output(decisions: list[dict], daily: Path, now: datetime, list_date: str) -> list[dict]:
     """Keep prior same-date V4 decisions when a refresh emits only future rows."""
     if not daily.exists():
@@ -263,7 +296,28 @@ def preserve_started_output(decisions: list[dict], daily: Path, now: datetime, l
         })
         if old.get("grade") is not None and old.get("ev_mean") is not None:
             frozen["analysis_status"] = "FROZEN_PREMATCH_DECISION"
-        frozen["reason_codes"] = ["STARTED_DECISION_LOCKED"]
+        if _direction_sign_flip(old, row):
+            # Migrate only market identity and the directly dependent frozen
+            # side fields.  Score/settlement fields remain append-only and are
+            # handled by the settlement backfill step.
+            direction_fields = (
+                "market", "market_line", "line_gap", "market_path",
+                "giving_team", "receiving_team", "giving_water_hk",
+                "receiving_water_hk", "candidate_side", "candidate_team",
+                "selected_side", "selected_team", "selected_handicap_signed",
+                "selected_water_hk", "opposite_water_hk", "final_decision",
+                "giving_probabilities", "receiving_probabilities",
+                "probabilities", "selected_probabilities", "p_giving_cover",
+                "p_receiving_cover", "ev_giving", "ev_receiving", "ev_mean",
+                "diagnostic_giving", "diagnostic_receiving",
+            )
+            for key in direction_fields:
+                if key in row:
+                    frozen[key] = row[key]
+            frozen["direction_repair"] = "LEGACY_BETEXPLORER_SIGN_NORMALIZED"
+            frozen["reason_codes"] = ["DIRECTION_REPAIRED_BETEXPLORER_SIGN"]
+        if "direction_repair" not in frozen:
+            frozen["reason_codes"] = ["STARTED_DECISION_LOCKED"]
         frozen["started_lock"] = True
         merged.append(frozen)
 
@@ -395,6 +449,8 @@ def main() -> None:
     parser.add_argument("--raw-csv", default="", help="Use a refreshed Titan CSV instead of the legacy HTML adapter.")
     args = parser.parse_args()
     now = datetime.now(TARGET_TZ)
+    shared_snapshot = load_feature_snapshot()
+    shared_matches = shared_snapshot.get("matches", {}) if isinstance(shared_snapshot, dict) else {}
     raw_rows = load_raw_csv(Path(args.raw_csv), args.list_date) if args.raw_csv else load_raw(args.list_date)
     raw_path = write_raw(raw_rows, args.list_date)
     training = ROOT / "outputs" / "football_odds_trader" / "research" / "v4_market_base_ready.csv"
@@ -452,24 +508,54 @@ def main() -> None:
                 "is_morning_baseline": False, "is_latest_valid_prematch": False, "parent_decision_id": "",
                 "monitoring_bucket": "MONITORING_BUCKET" if 4 <= kickoff.hour < 10 else "",
                 "prior_snapshot_id": prior_id, "odds_snapshot_id": raw_path.stem, "evidence_snapshot_id": evidence_snapshot_id,
-                "market": {"snapshot_id": raw_path.stem, "source": row.get("price_source") or "Titan007", "observed_at": quote_at or now.isoformat(),
+                "market": {"snapshot_id": raw_path.stem, "source": "Titan007", "observed_at": quote_at or now.isoformat(),
                 "home_team": row["home_team"], "away_team": row["away_team"], "competition": row.get("competition", ""), "home_handicap_signed": None, "away_handicap_signed": None, "home_water_hk": None, "away_water_hk": None,
+                "euro_home": row.get("euro_home"), "euro_draw": row.get("euro_draw"), "euro_away": row.get("euro_away"), "euro_current": row.get("euro_raw"),
                 "quote_at": quote_at, "last_confirmed_at": quote_at, "run_id": os.environ.get("FOOTBALL_RUN_ID", "")}}
+        base.update({
+            "data_integrity": "PASS" if row.get("match_id") and row.get("home_team") and row.get("away_team") and row.get("kickoff") else "FAIL",
+            "evidence_coverage": {"identity": "AVAILABLE", "kickoff": "AVAILABLE", "asian_market": "MISSING", "euro_market": "MISSING", "ffl": "MISSING_OPTIONAL", "real_flow": "MISSING"},
+            "model_support": "NOT_COMPUTED", "interpretation_status": "UNKNOWN", "decision_status": "UNAVAILABLE",
+            "evidence_checklist": {"observed": [], "missing": ["asian_market", "euro_market"], "compatible_explanations": [], "unidentifiable": ["bookmaker_intent", "current_net_position"]},
+        })
         m = parse_market(row)
+        # Keep a verified Asian market visible even when the optional European
+        # board is absent.  The model remains UNAVAILABLE until its required
+        # evidence gate passes, but the dashboard must never replace a real
+        # line/water with "盘口待核".
+        if m.get("ok"):
+            base["market"].update({
+                "home_handicap_signed": m.get("raw_line"),
+                "away_handicap_signed": -m.get("raw_line") if m.get("raw_line") is not None else None,
+                "titan_home_handicap_signed": m.get("raw_line"),
+                "titan_away_handicap_signed": -m.get("raw_line") if m.get("raw_line") is not None else None,
+                "home_water_hk": m.get("home_water"),
+                "away_water_hk": m.get("away_water"),
+                "giving_team": m.get("giving_team", ""),
+                "receiving_team": m.get("receiving_team", ""),
+                "giving_water": m.get("giving_water"),
+                "receiving_water": m.get("receiving_water"),
+                "market_status": "ASIAN_AVAILABLE_EURO_MISSING" if not row.get("euro_ok") else "ASIAN_AND_EURO_AVAILABLE",
+            })
         if str(row.get("state", "0")) != "0" or kickoff <= now:
             base.update(competition=row.get("competition", ""), analysis_status="NOT_PREMATCH", grade=None, rank=None,
-                        final_decision="UNAVAILABLE", reason_codes=["MATCH_NOT_PREMATCH"], score=row.get("score", ""))
+                        final_decision="UNAVAILABLE", reason_codes=["MATCH_NOT_PREMATCH"], score=row.get("score", ""),
+                        decision_status="NOT_PREMATCH", model_support="NOT_COMPUTED")
         elif not m.get("ok") or not row.get("ah_ok") or not row.get("euro_ok"):
+            missing_reason = "EURO_MARKET_MISSING" if m.get("ok") and row.get("ah_ok") and not row.get("euro_ok") else "REQUIRED_MARKET_INPUT_MISSING"
             base.update(competition=row.get("competition", ""), analysis_status="MISSING_DATA", grade=None, rank=None,
-                        final_decision="UNAVAILABLE", reason_codes=["REQUIRED_MARKET_INPUT_MISSING"])
+                        final_decision="UNAVAILABLE", reason_codes=[missing_reason],
+                        decision_status="UNAVAILABLE_CORE_MARKET_INPUT", model_support="INSUFFICIENT_SUPPORT",
+                        evidence_coverage={**base["evidence_coverage"], "asian_market": "AVAILABLE" if row.get("ah_ok") else "MISSING", "euro_market": "AVAILABLE" if row.get("euro_ok") else "MISSING"})
         elif m.get("pk"):
             base.update(competition=row.get("competition", ""), analysis_status="NEUTRAL", grade="N", rank=None,
                         final_decision="NO_BET", bet_unit=0.0, stake_rule="FIXED_1U",
-                        reason_codes=["PK_NO_GIVING_RECEIVING_IDENTITY"])
+                        reason_codes=["PK_NO_GIVING_RECEIVING_IDENTITY"], decision_status="NO_BET_NEUTRAL", model_support="MARKET_ONLY")
         else:
             raw_intent, intent_source = derive_market_intent(row, m)
             normalized_intent = raw_intent or "unknown"
-            model_row = {**row, "normalized_intent": normalized_intent}
+            titan_context = shared_matches.get(str(row["match_id"]), {})
+            model_row = {**row, "normalized_intent": normalized_intent, "titan_context": titan_context}
             bucket = m["bucket"] if m["bucket"] in alpha else "GLOBAL"
             result = evaluate_match(model_row, m, bucket_alpha=alpha.get(bucket))
             input_payload = {
@@ -478,6 +564,7 @@ def main() -> None:
                 "receiving_water": m.get("receiving_water"), "opening_line": m.get("opening_line"),
                 "euro": [row.get("euro_home"), row.get("euro_draw"), row.get("euro_away")],
                 "evidence_snapshot_id": evidence_snapshot_id, "competition": row.get("competition", ""),
+                "titan_context_snapshot_id": shared_snapshot.get("snapshot_id"),
             }
             input_hash = stable_hash(input_payload)
             decision_id = hashlib.sha256(f"{args.list_date}|{row['match_id']}|{input_hash}".encode()).hexdigest()[:20]
@@ -497,6 +584,7 @@ def main() -> None:
                 ev_p05=None, ev_p10=None, ev_p50=result.get("ev_mean"), ev_p90=None, ev_p95=None, p_ev_positive=None,
                 diagnostic_giving={"team": m["giving_team"], "water": m["giving_water"], "EV_mean": result["ev_giving"], "probabilities": result["giving_probabilities"], "status": "MATCH_SPECIFIC"},
                 diagnostic_receiving={"team": m["receiving_team"], "water": m["receiving_water"], "EV_mean": result["ev_receiving"], "probabilities": result["receiving_probabilities"], "status": "MATCH_SPECIFIC"},
+                titan_context=titan_context,
                 market={**base["market"], "home_handicap_signed": m["raw_line"], "away_handicap_signed": -m["raw_line"],
                         "titan_home_handicap_signed": m["raw_line"], "titan_away_handicap_signed": -m["raw_line"],
                         "home_water_hk": m["home_water"], "away_water_hk": m["away_water"],

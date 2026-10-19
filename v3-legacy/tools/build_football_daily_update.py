@@ -91,6 +91,8 @@ SENIOR_CUP_KEYWORDS = (
 
 
 def latest_snapshot() -> Path:
+    if os.environ.get("FOOTBALL_RAW_CSV"):
+        return Path(os.environ["FOOTBALL_RAW_CSV"])
     files = sorted(RAW.glob("**/*_titan007_odds_snapshot.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
     if not files:
         raise FileNotFoundError("no Titan007 snapshot")
@@ -1288,6 +1290,13 @@ def detail_status_line(rows: list[dict[str, str]]) -> str:
 
 def main() -> int:
     snapshot = latest_snapshot()
+    # Shared AS-OF context is attached before the legacy interpretation.
+    # It does not replace the V3 production decision framework.
+    import json
+    shared_path = Path(os.environ["TITAN_FEATURE_STORE_PATH"])
+    shared = json.loads(shared_path.read_text(encoding="utf-8"))
+    if shared.get("list_date") != TODAY.isoformat():
+        raise RuntimeError("SHARED_TITAN_LIST_DATE_MISMATCH")
     existing_rows = read_csv(LEDGER) if LEDGER.exists() else []
     details = load_details()
     flow_path, flow_lookup = load_flow_lookup()
@@ -1326,6 +1335,7 @@ def main() -> int:
     hist = load_history()
     sims = []
     for r in rows:
+        r["titan_context"] = shared.get("matches", {}).get(str(r.get("match_id")), {})
         r["_detail"] = details.get((r.get("match_id") or "").strip(), {})
         attach_flow(r, flow_lookup)
         sim = choose_simulation(r, hist)

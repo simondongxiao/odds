@@ -67,7 +67,18 @@ def _line(row: dict[str, Any], current: bool = True) -> float | None:
     )
     text = _first(row, *names)
     nums = re.findall(r"[-+]?\d+(?:\.\d+)?", text)
-    return _float(nums[-1]) if nums else None
+    value = _float(nums[-1]) if nums else None
+    if value is None:
+        return None
+    # Older snapshots written before the ingestion fix carry BetExplorer's
+    # provider sign (negative home = home giving).  The project contract is
+    # Titan signed AH (positive home = home giving).  New snapshots carry an
+    # explicit normalized marker and must not be flipped twice.
+    convention = _first(row, "ah_line_convention")
+    company = _first(row, "ah_full_company")
+    if "betexplorer" in company.lower() and convention != "TITAN_HOME_SIGN_POSITIVE_GIVING":
+        value = -value
+    return value
 
 
 def parse_titan_market(row: dict[str, Any]) -> dict[str, Any]:
