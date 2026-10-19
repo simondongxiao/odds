@@ -130,6 +130,10 @@ def publish(push: bool = True) -> dict[str, object]:
         # V3 Legacy and V4 Shadow are separate public pages.  Do not replace
         # either with a generated root dashboard during daily publication.
         (WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader" / "dashboard" / "index.html", PUBLISH_REPO / "v3-legacy" / "index.html"),
+        # /v3/ is the user-facing canonical alias.  Keep it byte-identical to
+        # the established V3 legacy/production page so a daily publish cannot
+        # leave the public alias one business day behind.
+        (WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader" / "dashboard" / "index.html", PUBLISH_REPO / "v3" / "index.html"),
         (WORKSPACE / "v3_legacy" / "tools" / "build_football_dashboard.py", PUBLISH_REPO / "v3-legacy" / "tools" / "build_football_dashboard.py"),
         (WORKSPACE / "v3_legacy" / "tools" / "build_football_daily_update.py", PUBLISH_REPO / "v3-legacy" / "tools" / "build_football_daily_update.py"),
         (WORKSPACE / "v3_legacy" / "tools" / "run_v3_legacy_daily_freeze.py", PUBLISH_REPO / "v3-legacy" / "tools" / "run_v3_legacy_daily_freeze.py"),
@@ -221,6 +225,7 @@ def publish(push: bool = True) -> dict[str, object]:
     v3_bridge = WORKSPACE / "bridge" / "v3_production" / f"{dt.date.today().isoformat()}.json"
     if v3_bridge.exists():
         pairs.append((v3_bridge, PUBLISH_REPO / "v3-legacy" / "data" / v3_bridge.name))
+        pairs.append((v3_bridge, PUBLISH_REPO / "v3" / "data" / v3_bridge.name))
     strict_audit = ROOT / "audits" / f"daily_update_{dt.date.today().isoformat()}_strict.md"
     if strict_audit.exists():
         pairs.append((strict_audit, PUBLISH_REPO / "reports" / "daily" / strict_audit.name))
