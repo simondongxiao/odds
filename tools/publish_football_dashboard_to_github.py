@@ -222,10 +222,10 @@ def publish(push: bool = True) -> dict[str, object]:
     v4_daily = latest_file(WORKSPACE / "v4" / "outputs", "v4_decisions_*.json")
     if v4_daily:
         pairs.append((v4_daily, PUBLISH_REPO / "v4" / "data" / v4_daily.name.removeprefix("v4_decisions_")))
-    v3_bridge = WORKSPACE / "bridge" / "v3_production" / f"{dt.date.today().isoformat()}.json"
-    if v3_bridge.exists():
-        pairs.append((v3_bridge, PUBLISH_REPO / "v3-legacy" / "data" / v3_bridge.name))
-        pairs.append((v3_bridge, PUBLISH_REPO / "v3" / "data" / v3_bridge.name))
+    # A 20:07 run publishes the next business list date, so selecting only
+    # ``date.today()`` silently omits tomorrow's V3 payload.  Publish the
+    # append-only bridge directory to both public V3 aliases instead.
+    v3_bridge_dir = WORKSPACE / "bridge" / "v3_production"
     strict_audit = ROOT / "audits" / f"daily_update_{dt.date.today().isoformat()}_strict.md"
     if strict_audit.exists():
         pairs.append((strict_audit, PUBLISH_REPO / "reports" / "daily" / strict_audit.name))
@@ -241,6 +241,10 @@ def publish(push: bool = True) -> dict[str, object]:
         copied.append(str(PUBLISH_REPO / "data"))
     if copy_dir(ROOT / "dashboard" / "assets", PUBLISH_REPO / "assets"):
         copied.append(str(PUBLISH_REPO / "assets"))
+    if copy_dir(v3_bridge_dir, PUBLISH_REPO / "v3-legacy" / "data"):
+        copied.append(str(PUBLISH_REPO / "v3-legacy" / "data"))
+    if copy_dir(v3_bridge_dir, PUBLISH_REPO / "v3" / "data"):
+        copied.append(str(PUBLISH_REPO / "v3" / "data"))
 
     if copy_dir(ROOT / "dashboard" / "audits", PUBLISH_REPO / "audits"):
         copied.append(str(PUBLISH_REPO / "audits"))
