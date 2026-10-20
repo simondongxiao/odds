@@ -1,29 +1,31 @@
 {
-  "generated_at": "2026-10-20T00:21:11.909149+00:00",
+  "generated_at": "2026-10-20T13:53:29.202002+00:00",
   "dates": [
     {
       "archive_type": "FORWARD_NATIVE",
+      "date": "2026-10-23",
+      "event_count": 41,
+      "file": "2026-10-23.json"
+    },
+    {
       "date": "2026-10-22",
-      "event_count": 87,
-      "file": "2026-10-22.json"
+      "file": "2026-10-22.json",
+      "mobile_file": "2026-10-22.mobile.json",
+      "event_count": 129,
+      "archive_type": "FORWARD_NATIVE"
     },
     {
       "date": "2026-10-21",
       "file": "2026-10-21.json",
       "mobile_file": "2026-10-21.mobile.json",
-      "event_count": 117,
-      "archive_type": "FORWARD_NATIVE",
-      "decision_anchor_file": "decision_anchors/2026-10-21.json",
-      "decision_anchor_rows": 6
+      "event_count": 143,
+      "archive_type": "FORWARD_NATIVE"
     },
     {
-      "date": "2026-10-20",
-      "file": "2026-10-20.json",
-      "mobile_file": "2026-10-20.mobile.json",
-      "event_count": 82,
       "archive_type": "FORWARD_NATIVE",
-      "decision_anchor_file": "decision_anchors/2026-10-20.json",
-      "decision_anchor_rows": 17
+      "date": "2026-10-20",
+      "event_count": 82,
+      "file": "2026-10-20.json"
     },
     {
       "archive_type": "FORWARD_NATIVE",
