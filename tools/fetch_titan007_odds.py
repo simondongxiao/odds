@@ -40,6 +40,7 @@ FIVEHUNDRED_REFERER = "https://trade.500.com/jczq/"
 BETEXPLORER_HOME = "https://www.betexplorer.com/football/"
 BETEXPLORER_NEXT = "https://www.betexplorer.com/football/next/"
 BETEXPLORER_ODDS = "https://www.betexplorer.com/match-odds/{event_id}/0/ah/bestOdds/?lang=en"
+BETEXPLORER_EURO_ODDS = "https://www.betexplorer.com/match-odds/{event_id}/0/1x2/bestOdds/?lang=en"
 ROSTER_ROOT = OUT_ROOT.parents[1] / "ledger" / "slate_rosters"
 HTTP_CACHE = OUT_ROOT / "cache" / "http"
 SNAPSHOT_META_INDEX = HTTP_CACHE / "snapshot_metadata_index_v1.json"
@@ -701,7 +702,10 @@ def match_fivehundred_to_titan(
 def _betexplorer_team_key(value: str) -> str:
     """Normalize English team names for the public BetExplorer join."""
     text = unicodedata.normalize("NFKC", html.unescape(clean_html_text(value))).lower()
-    text = re.sub(r"\b(fc|cf|sc|afc|ac|fk|sk|club|women|w|u19|u20|u21|u23|b)\b", " ", text)
+    # Preserve age, reserve and women's markers.  Removing them made senior
+    # UCL fixtures collide with the same clubs' U19 matches and could attach
+    # the senior market to the youth row.
+    text = re.sub(r"\b(fc|cf|sc|afc|ac|fk|sk|club)\b", " ", text)
     return re.sub(r"[^a-z0-9]+", "", text)
 
 
@@ -721,6 +725,14 @@ def _team_name_similarity(left: str, right: str) -> float:
     return SequenceMatcher(None, a, b).ratio()
 
 
+def _betexplorer_in_list_window(local_dt: dt.datetime, target_date: str) -> bool:
+    """Return whether a Beijing kickoff belongs to the noon-to-noon list date."""
+    target = dt.date.fromisoformat(target_date)
+    window_start = dt.datetime.combine(target, dt.time(12, 0))
+    window_end = window_start + dt.timedelta(days=1)
+    return window_start <= local_dt < window_end
+
+
 def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, str]]:
     """Parse the public daily fixture index into event ids and English teams."""
     target = dt.date.fromisoformat(target_date)
@@ -732,7 +744,7 @@ def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, st
         try:
             provider_dt = dt.datetime(int(parts[2]), int(parts[1]), int(parts[0]), int(parts[3]), int(parts[4]))
             local_dt = provider_dt + dt.timedelta(hours=int(os.environ.get("BETEXPLORER_UTC_OFFSET_HOURS", "8")))
-            if local_dt.date() != target:
+            if not _betexplorer_in_list_window(local_dt, target_date):
                 continue
         except (ValueError, IndexError):
             continue
@@ -776,7 +788,7 @@ def parse_betexplorer_next_schedule(text: str, target_date: str) -> list[dict[st
         try:
             provider_dt = dt.datetime(int(parts[2]), int(parts[1]), int(parts[0]), int(parts[3]), int(parts[4]))
             local_dt = provider_dt + dt.timedelta(hours=int(os.environ.get("BETEXPLORER_UTC_OFFSET_HOURS", "8")))
-            if local_dt.date() != target:
+            if not _betexplorer_in_list_window(local_dt, target_date):
                 continue
         except (ValueError, IndexError):
             continue
@@ -848,7 +860,85 @@ def load_betexplorer_schedule(stamp: str, out_dir: Path, target_date: str) -> li
         landing_text = decode_text(raw)
     by_event = {event["betexplorer_id"]: event for event in parse_betexplorer_next_schedule(next_text, target_date)}
     by_event.update({event["betexplorer_id"]: event for event in parse_betexplorer_schedule(landing_text, target_date)})
+
+    # ``/football/next/`` is intentionally a short rolling list.  It often
+    # stops before the afternoon/evening part of the requested Beijing slate,
+    # which made valid BetExplorer Asian odds look unavailable.  The daily
+    # calendar contains a much broader table.  Fetch both dates because one
+    # business slate is 12:00 through next-day 11:59 Beijing; the parser still
+    # applies the provider UTC -> Beijing conversion and keeps only the exact
+    # requested local date.  A failed optional calendar request must never
+    # discard the already parsed rolling schedule.
+    try:
+        target = dt.date.fromisoformat(target_date)
+        for day in (target, target + dt.timedelta(days=1)):
+            suffix = f"betexplorer_football_calendar_{day.isoformat()}.html"
+            saved = _maybe_saved(out_dir, stamp, suffix)
+            if saved:
+                calendar_text = saved.read_text(encoding="utf-8", errors="replace")
+            else:
+                url = f"https://www.betexplorer.com/football/?date={day.isoformat()}"
+                _path, raw = fetch_url(url, stamp, out_dir, suffix, referer=BETEXPLORER_HOME)
+                calendar_text = decode_text(raw)
+            by_event.update({event["betexplorer_id"]: event for event in parse_betexplorer_schedule(calendar_text, target_date)})
+        print(f"betexplorer_calendar_schedule={len(by_event)}", file=sys.stderr)
+    except Exception as exc:
+        print(f"betexplorer_calendar_optional_failed={exc}", file=sys.stderr)
     return list(by_event.values())
+
+
+def parse_betexplorer_euro(text: str) -> dict[str, float | str]:
+    """Parse a BetExplorer best-odds 1X2 response.
+
+    Supplemental fixtures do not have Titan numeric IDs, so their Titan
+    ``euro.js`` request cannot succeed.  BetExplorer exposes the same three
+    current 1X2 prices through ``/0/1x2/bestOdds``.  Prefer Bet365 when it is
+    present, then use a stable bookmaker row with three valid prices.
+    """
+    raw = str(text or "")
+    rows = re.findall(r"<tr\b([^>]*)>(.*?)</tr>", raw, flags=re.I | re.S)
+    preferred = {
+        "bet365": 0,
+        "pinnacle": 1,
+        "williamhill": 2,
+        "william hill": 2,
+        "betway": 3,
+        "1xbet": 4,
+    }
+    candidates: list[tuple[int, str, list[float]]] = []
+    for attrs, body in rows:
+        match = re.search(r"data-bookie=[\"']([^\"']+)", attrs + body, flags=re.I)
+        if not match:
+            # Current BetExplorer markup keeps only a numeric bookmaker id on
+            # the row and puts the readable bookmaker name on the first cell.
+            match = re.search(r"dataLayer\.push\(\{['\"]event-name['\"]:\s*['\"]([^'\"]+)", body, flags=re.I)
+        bookmaker = str(match.group(1) if match else "").strip().lower()
+        if not bookmaker:
+            continue
+        values: list[float] = []
+        for value in re.findall(r"data-odd=[\"']([0-9]+(?:\.[0-9]+)?)[\"']", body, flags=re.I):
+            try:
+                number = float(value)
+            except ValueError:
+                continue
+            if number > 1.0:
+                values.append(number)
+        if len(values) < 3:
+            continue
+        candidates.append((preferred.get(bookmaker, 50), bookmaker, values[:3]))
+    if not candidates:
+        return {}
+    _rank, bookmaker, values = sorted(candidates, key=lambda item: item[0])[0]
+    return {
+        "euro_full_current_home_or_over": values[0],
+        "euro_full_current_line_or_draw": values[1],
+        "euro_full_current_away_or_under": values[2],
+        "euro_full_open_home_or_over": values[0],
+        "euro_full_open_line_or_draw": values[1],
+        "euro_full_open_away_or_under": values[2],
+        "euro_full_company": f"BetExplorer {bookmaker}",
+        "euro_source": "BETEXPLORER_1X2_BEST_ODDS",
+    }
 
 
 def parse_betexplorer_asian(text: str) -> dict[str, float | str]:
@@ -924,17 +1014,44 @@ def match_betexplorer_to_titan(
         return {}
     mapped_events: dict[str, dict[str, str]] = {}
     ambiguous = 0
+    def time_key(value: object) -> str:
+        text = str(value or "").strip().replace("T", " ")
+        # Keep month-day and hour-minute; both feeds use Beijing local time
+        # after schedule normalization even when the source timestamp is UTC.
+        m = re.search(r"(\d{2})[-/](\d{2}).*?(\d{2}):(\d{2})", text)
+        return "".join(m.groups()) if m else ""
     for match_id, row in future_rows.items():
-        source = euro.get(match_id, {})
-        home_en = str(source.get("home_en", "") or "")
-        away_en = str(source.get("away_en", "") or "")
+        source = dict(row)
+        source.update(euro.get(match_id, {}))
+        # Future Titan rows often carry only the Chinese schedule labels.
+        # Falling back to home_cn/away_cn is required for the BetExplorer
+        # supplement join; otherwise valid AH quotes are fetched but mapped
+        # to zero Titan rows and disappear before V3/V4 evaluation.
+        home_en = str(source.get("home_en", "") or source.get("home_cn", "") or "")
+        away_en = str(source.get("away_en", "") or source.get("away_cn", "") or "")
         if not home_en or not away_en:
             continue
+        source_time = time_key(source.get("bj_time") or source.get("match_time_en") or source.get("kickoff"))
         scored: list[tuple[float, dict[str, str]]] = []
         for event in schedule:
+            event_time = time_key(event.get("bj_time") or event.get("betexplorer_dt"))
+            if source_time and event_time and source_time != event_time:
+                continue
             score = (_team_name_similarity(home_en, event["home_en"]) + _team_name_similarity(away_en, event["away_en"])) / 2.0
             if score >= 0.70:
                 scored.append((score, event))
+        # When Titan has only Chinese labels, the team score is unavailable.
+        # Use an exact Beijing kickoff match as a conservative secondary key;
+        # ties remain ambiguous and are deliberately not joined.
+        # A weak name score is common when Titan exposes only mojibake Chinese
+        # labels.  In that case an exact Beijing kickoff is still a safe join
+        # when it identifies one BetExplorer event.  The old code only tried
+        # this path when ``scored`` was empty, so a single weak candidate could
+        # suppress the deterministic time key and silently lose the market.
+        if source_time and (not scored or max(item[0] for item in scored) < 0.78):
+            timed = [event for event in schedule if source_time == time_key(event.get("bj_time") or event.get("betexplorer_dt"))]
+            if len(timed) == 1:
+                scored = [(0.80, timed[0])]
         scored.sort(key=lambda item: item[0], reverse=True)
         if not scored or scored[0][0] < 0.78:
             continue
@@ -958,13 +1075,29 @@ def match_betexplorer_to_titan(
             payload = json.loads(decode_text(raw))
             market_html = str(payload.get("odds", "")) if isinstance(payload, dict) else ""
             ah = parse_betexplorer_asian(market_html)
-            if ah:
-                ah.update({
+            # The Titan per-match 1X2 endpoint is not available for every
+            # future row.  BetExplorer exposes a second public endpoint for
+            # the same fixture, so carry its real 1X2 prices together with
+            # the Asian line instead of leaving the row in 待核.
+            euro_path, euro_raw = fetch_betexplorer_event(
+                BETEXPLORER_EURO_ODDS.format(event_id=event["betexplorer_id"]),
+                stamp,
+                out_dir,
+                f"betexplorer_{event['betexplorer_id']}_1x2.json",
+                referer=BETEXPLORER_HOME,
+            )
+            euro_payload = json.loads(decode_text(euro_raw))
+            euro_html = str(euro_payload.get("odds", "")) if isinstance(euro_payload, dict) else ""
+            euro_values = parse_betexplorer_euro(euro_html)
+            combined = dict(ah)
+            combined.update(euro_values)
+            if combined:
+                combined.update({
                     "betexplorer_id": event["betexplorer_id"],
                     "betexplorer_home_en": event["home_en"],
                     "betexplorer_away_en": event["away_en"],
                 })
-                return match_id, ah, ""
+                return match_id, combined, ""
         except Exception as exc:
             return match_id, None, str(exc)
         return match_id, None, ""
@@ -1001,6 +1134,7 @@ def build_betexplorer_supplemental_rows(
     stamp: str,
     out_dir: Path,
     target_date: str,
+    existing_rows: dict[str, dict[str, object]] | None = None,
 ) -> dict[str, dict[str, object]]:
     """Append fixtures absent from Titan's Next page using BetExplorer IDs.
 
@@ -1028,6 +1162,20 @@ def build_betexplorer_supplemental_rows(
         away = _betexplorer_team_key(str(source.get("away_en", "") or ""))
         if home and away:
             existing_pairs.append((home, away))
+    # Prefer the enriched Titan rows (which carry English labels from the
+    # per-match 1X2 response) over the aggregate Euro index.  This prevents a
+    # BetExplorer-only alias such as "Port MTI FC" from duplicating an
+    # already-present Titan fixture such as "Port FC".
+    if existing_rows:
+        existing_pairs.extend(
+            (
+                _betexplorer_team_key(str(item.get("home_en", "") or item.get("home_cn", ""))),
+                _betexplorer_team_key(str(item.get("away_en", "") or item.get("away_cn", ""))),
+            )
+            for item in existing_rows.values()
+            if _betexplorer_team_key(str(item.get("home_en", "") or item.get("home_cn", "")))
+            and _betexplorer_team_key(str(item.get("away_en", "") or item.get("away_cn", "")))
+        )
 
     def already_in_titan(event: dict[str, str]) -> bool:
         home = _betexplorer_team_key(event.get("home_en", ""))
@@ -1065,6 +1213,26 @@ def build_betexplorer_supplemental_rows(
             market = parse_betexplorer_asian(market_html)
         except Exception as exc:
             market["future_ah_supplement_error"] = str(exc)
+        # BetExplorer-only fixtures have no Titan numeric ID, so fetch their
+        # 1X2 prices from the same public provider instead of leaving euro
+        # fields blank by construction.
+        try:
+            euro_saved = _maybe_saved(out_dir, stamp, f"betexplorer_{event_id}_1x2.json")
+            if euro_saved:
+                euro_raw = euro_saved.read_bytes()
+            else:
+                _path, euro_raw = fetch_betexplorer_event(
+                    BETEXPLORER_EURO_ODDS.format(event_id=event_id),
+                    stamp,
+                    out_dir,
+                    f"betexplorer_{event_id}_1x2.json",
+                    referer=BETEXPLORER_HOME,
+                )
+            euro_payload = json.loads(decode_text(euro_raw))
+            euro_html = str(euro_payload.get("odds", "")) if isinstance(euro_payload, dict) else ""
+            market.update(parse_betexplorer_euro(euro_html))
+        except Exception as exc:
+            market["future_euro_supplement_error"] = str(exc)
         competition_cn, competition_en = _betexplorer_competition(event)
         match_id = f"BE_{event_id}"
         row: dict[str, object] = {
@@ -1086,7 +1254,7 @@ def build_betexplorer_supplemental_rows(
             "betexplorer_id": event_id,
             "betexplorer_href": event.get("betexplorer_href", ""),
             "supplemental_roster": "BETEXPLORER_ONLY",
-            "market_coverage_note": "BetExplorer AH only; Titan numeric detail ID unavailable",
+            "market_coverage_note": "BetExplorer AH + 1X2; Titan numeric detail ID unavailable",
         }
         row.update(market)
         if not market.get("ah_full_current_home_or_over"):
@@ -2844,6 +3012,7 @@ def main() -> int:
             stamp,
             out_dir,
             target_list_date,
+            existing_rows=rows_by_id,
         )
         for match_id, item in supplemental_rows.items():
             item["snapshot_stamp"] = stamp
