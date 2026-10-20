@@ -733,6 +733,33 @@ def _betexplorer_in_list_window(local_dt: dt.datetime, target_date: str) -> bool
     return window_start <= local_dt < window_end
 
 
+def _titan_in_list_window(value: str, target_date: str) -> bool:
+    """Check a Titan ``MM-DD HH:MM`` kickoff against the noon-to-noon window."""
+    match = re.search(
+        r"(?P<month>\d{1,2})-(?P<day>\d{1,2})\s+(?P<hour>\d{1,2}):(?P<minute>\d{2})",
+        str(value or ""),
+    )
+    if not match:
+        return False
+    target = dt.date.fromisoformat(target_date)
+    window_start = dt.datetime.combine(target, dt.time(12, 0))
+    window_end = window_start + dt.timedelta(days=1)
+    for year in (target.year - 1, target.year, target.year + 1):
+        try:
+            kickoff = dt.datetime(
+                year,
+                int(match.group("month")),
+                int(match.group("day")),
+                int(match.group("hour")),
+                int(match.group("minute")),
+            )
+        except ValueError:
+            continue
+        if window_start <= kickoff < window_end:
+            return True
+    return False
+
+
 def parse_betexplorer_schedule(text: str, target_date: str) -> list[dict[str, str]]:
     """Parse the public daily fixture index into event ids and English teams."""
     target = dt.date.fromisoformat(target_date)
@@ -2938,11 +2965,10 @@ def main() -> int:
         # must only materialize the requested list date; fetching later dates
         # wastes requests and can block the current day's publication when a
         # VIP endpoint is slow or unavailable.
-        target_mmdd = today.strftime("%m-%d")
         future_rows = {
             match_id: item
             for match_id, item in future_rows.items()
-            if str(item.get("bj_time", "")).strip().startswith(target_mmdd)
+            if _titan_in_list_window(str(item.get("bj_time", "")), target_list_date)
         }
         for match_id, item in future_rows.items():
             item["snapshot_stamp"] = stamp
