@@ -18704,9 +18704,15 @@
     ]
   },
   "publish": {
-    "pushed": false,
-    "skipped": true
+    "pushed": true,
+    "skipped": false,
+    "method": "isolated_gh_pages_worktree",
+    "content_commit": "034e14a00a0e8b6c5b8ee668973944634b124ffa",
+    "pages_run_id": 39608768070,
+    "pages_status": "success",
+    "v3_url": "https://simondongxiao.github.io/odds/v3/?date=2026-10-22&cb=034e14a0",
+    "v4_url": "https://simondongxiao.github.io/odds/v4/?date=2026-10-22&cb=034e14a0"
   },
-  "git_commit_short": "",
+  "git_commit_short": "034e14a0",
   "status": "COMPLETE"
 }
