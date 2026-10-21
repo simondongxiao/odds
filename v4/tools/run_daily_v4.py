@@ -36,6 +36,7 @@ from core_model import (
 )
 
 from football_titan_data import load_feature_snapshot
+from display_names import localize_record
 
 TARGET_TZ = timezone(timedelta(hours=8))
 STATES = ("W", "HW", "P", "HL", "L")
@@ -600,6 +601,11 @@ def main() -> None:
     out_dir = ROOT / "v4" / "outputs"; out_dir.mkdir(parents=True, exist_ok=True)
     daily = out_dir / f"v4_decisions_{args.list_date}.json"
     decisions = preserve_started_output(decisions, daily, now, args.list_date)
+    # Display localisation is deliberately applied after model evaluation and
+    # frozen-row reconciliation.  It cannot change a prediction, score,
+    # settlement, or ledger identity; it only prevents provider English labels
+    # from leaking into the public dashboard.
+    decisions = [localize_record(row) for row in decisions]
     summary = {"total": len(decisions), "computed": sum(x["analysis_status"] in computed_statuses for x in decisions), "A": sum(x.get("grade") == "A" and x["analysis_status"] in computed_statuses for x in decisions), "B": sum(x.get("grade") == "B" and x["analysis_status"] in computed_statuses for x in decisions), "C": sum(x.get("grade") == "C" and x["analysis_status"] in computed_statuses for x in decisions), "N": sum(x.get("grade") == "N" and x["analysis_status"] in computed_statuses for x in decisions), "giving": sum(x.get("final_decision") == "BET_GIVING" for x in decisions), "receiving": sum(x.get("final_decision") == "BET_RECEIVING" for x in decisions), "no_bet": sum(x.get("final_decision") == "NO_BET" and x.get("analysis_status") == "EVALUATED" for x in decisions), "neutral": sum(x["analysis_status"] == "NEUTRAL" for x in decisions), "missing_data": sum(x["analysis_status"] == "MISSING_DATA" for x in decisions), "insufficient_training": sum(x["analysis_status"] == "INSUFFICIENT_TRAINING" for x in decisions), "not_prematch": sum(x["analysis_status"] == "NOT_PREMATCH" and x.get("grade") is None for x in decisions), "errors": sum(x["analysis_status"] == "ERROR" for x in decisions), "core_evaluable_rate": round(sum(bool((x.get("expert_selector") or {}).get("core_evaluable")) for x in decisions if x.get("analysis_status") == "EVALUATED") / max(1, sum(x.get("analysis_status") == "EVALUATED" for x in decisions)), 6)}
     out["summary"] = summary; out["matches"] = decisions
     daily.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")

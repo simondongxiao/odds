@@ -334,9 +334,17 @@ def evaluate_match(
     shared_uncertainty = finite(shared_ffl.get("uncertainty"))
     if shared_uncertainty is not None:
         uncertainty = clamp(max(uncertainty, shared_uncertainty), 0.05, 0.95)
-    home_fair_goal_margin = raw_fair_margin
+    # ``raw_fair_margin`` is expressed in the *giving team's* perspective:
+    # positive means the giving side is expected to win by that margin.  The
+    # probability distribution below, however, is built in home-team space.
+    # The old code assigned ``home_fair_goal_margin = raw_fair_margin`` before
+    # checking whether the away team was giving, then mirrored that already
+    # positive home distribution.  For away-giving matches this made the home
+    # team look stronger twice over and systematically selected the home side.
+    # Convert exactly once from giving-side space to home-team space.
     giving_home = market["giving_team"] == row.get("home_team")
-    fair_goal_margin = home_fair_goal_margin if giving_home else -home_fair_goal_margin
+    home_fair_goal_margin = raw_fair_margin if giving_home else -raw_fair_margin
+    fair_goal_margin = home_fair_goal_margin
     total_goals = finite(shared_ffl.get("predicted_home_goals"))
     if total_goals is not None:
         total_goals += finite(shared_ffl.get("predicted_away_goals"), 0.0) or 0.0
