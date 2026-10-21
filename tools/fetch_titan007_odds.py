@@ -1041,12 +1041,11 @@ def match_betexplorer_to_titan(
         return {}
     mapped_events: dict[str, dict[str, str]] = {}
     ambiguous = 0
-    def time_key(value: object) -> str:
-        text = str(value or "").strip().replace("T", " ")
-        # Keep month-day and hour-minute; both feeds use Beijing local time
-        # after schedule normalization even when the source timestamp is UTC.
-        m = re.search(r"(\d{2})[-/](\d{2}).*?(\d{2}):(\d{2})", text)
-        return "".join(m.groups()) if m else ""
+    def time_key(value: object) -> int | None:
+        # BetExplorer can be one hour later around European DST transitions.
+        # Normalize both feeds to local minutes and accept a bounded 90-minute
+        # window; ordered team identity and competition still have to match.
+        return _fixture_minute(value, target_date)
     for match_id, row in future_rows.items():
         source = dict(row)
         source.update(euro.get(match_id, {}))
@@ -1059,13 +1058,18 @@ def match_betexplorer_to_titan(
         if not home_en or not away_en:
             continue
         source_time = time_key(source.get("bj_time") or source.get("match_time_en") or source.get("kickoff"))
+        source_family = _competition_family(source.get("league_cn") or source.get("league_en"))
         scored: list[tuple[float, dict[str, str]]] = []
         for event in schedule:
             event_time = time_key(event.get("bj_time") or event.get("betexplorer_dt"))
-            if source_time and event_time and source_time != event_time:
+            if source_time is not None and event_time is not None and abs(source_time - event_time) > 90:
+                continue
+            event_competition, event_competition_en = _betexplorer_competition(event)
+            event_family = _competition_family(event_competition or event_competition_en)
+            if source_family and event_family and source_family != event_family:
                 continue
             score = (_team_name_similarity(home_en, event["home_en"]) + _team_name_similarity(away_en, event["away_en"])) / 2.0
-            if score >= 0.70:
+            if score >= 0.68:
                 scored.append((score, event))
         # When Titan has only Chinese labels, the team score is unavailable.
         # Use an exact Beijing kickoff match as a conservative secondary key;
@@ -1075,12 +1079,17 @@ def match_betexplorer_to_titan(
         # when it identifies one BetExplorer event.  The old code only tried
         # this path when ``scored`` was empty, so a single weak candidate could
         # suppress the deterministic time key and silently lose the market.
-        if source_time and (not scored or max(item[0] for item in scored) < 0.78):
-            timed = [event for event in schedule if source_time == time_key(event.get("bj_time") or event.get("betexplorer_dt"))]
+        if source_time is not None and (not scored or max(item[0] for item in scored) < 0.72):
+            timed = [
+                event
+                for event in schedule
+                if time_key(event.get("bj_time") or event.get("betexplorer_dt")) is not None
+                and abs(source_time - time_key(event.get("bj_time") or event.get("betexplorer_dt"))) <= 90
+            ]
             if len(timed) == 1:
-                scored = [(0.80, timed[0])]
+                scored = [(0.74, timed[0])]
         scored.sort(key=lambda item: item[0], reverse=True)
-        if not scored or scored[0][0] < 0.78:
+        if not scored or scored[0][0] < 0.68:
             continue
         if len(scored) > 1 and scored[0][0] - scored[1][0] < 0.06:
             ambiguous += 1
@@ -1153,6 +1162,104 @@ def _betexplorer_competition(event: dict[str, str]) -> tuple[str, str]:
         "conference-league": "欧协联",
     }
     return labels.get(slug, f"BE:{slug}" if slug else "BE:UNKNOWN"), slug.replace("-", " ").title()
+
+
+def _fixture_minute(value: object, target_date: str) -> int | None:
+    """Return a comparable local minute for month-day fixture timestamps."""
+    text = str(value or "").strip().replace("T", " ")
+    match = re.search(r"(?:(\d{4})[-/])?(\d{2})[-/](\d{2}).*?(\d{2}):(\d{2})", text)
+    if not match:
+        return None
+    year = int(match.group(1) or target_date[:4])
+    try:
+        value_dt = dt.datetime(year, int(match.group(2)), int(match.group(3)), int(match.group(4)), int(match.group(5)))
+        target_dt = dt.datetime.fromisoformat(target_date)
+    except ValueError:
+        return None
+    # A December list date may legitimately contain January fixtures.
+    if value_dt < target_dt - dt.timedelta(days=180):
+        value_dt = value_dt.replace(year=value_dt.year + 1)
+    return int(value_dt.timestamp() // 60)
+
+
+def _competition_family(value: object) -> str:
+    text = unicodedata.normalize("NFKC", str(value or "")).casefold()
+    if "欧冠" in text or "champions league" in text:
+        return "UEFA_CHAMPIONS_LEAGUE"
+    if "欧联" in text or "europa league" in text:
+        return "UEFA_EUROPA_LEAGUE"
+    if "欧协" in text or "conference league" in text:
+        return "UEFA_CONFERENCE_LEAGUE"
+    if "英冠" in text or "championship" in text:
+        return "ENGLAND_CHAMPIONSHIP"
+    return re.sub(r"[^0-9a-z\u3400-\u9fff]+", "", text).removesuffix("杯")
+
+
+def _is_betexplorer_supplement_duplicate(
+    row: dict[str, object],
+    existing_rows: dict[str, dict[str, object]],
+    target_date: str,
+) -> bool:
+    """Match provider aliases using teams first and prices as a language-neutral fallback.
+
+    BetExplorer sometimes publishes UTC/DST-adjusted kickoffs one hour after
+    Titan and uses English club names where Titan has Chinese-only labels.
+    Treating those aliases as new fixtures duplicates the roster and can
+    double-count recommendations.  A duplicate requires the same competition
+    family, a kickoff within 90 minutes, and either a strong ordered-team match
+    or a close three-way price fingerprint.
+    """
+    row_minute = _fixture_minute(row.get("bj_time") or row.get("match_time_en"), target_date)
+    row_family = _competition_family(row.get("league_cn") or row.get("league_en"))
+    row_home = _betexplorer_team_key(str(row.get("home_en") or row.get("home_cn") or ""))
+    row_away = _betexplorer_team_key(str(row.get("away_en") or row.get("away_cn") or ""))
+    price_fields = (
+        "euro_full_current_home_or_over",
+        "euro_full_current_line_or_draw",
+        "euro_full_current_away_or_under",
+    )
+
+    def prices(item: dict[str, object]) -> list[float] | None:
+        values: list[float] = []
+        for field in price_fields:
+            try:
+                number = float(item.get(field) or 0)
+            except (TypeError, ValueError):
+                return None
+            if number <= 1.0:
+                return None
+            values.append(number)
+        return values
+
+    row_prices = prices(row)
+    for existing in existing_rows.values():
+        existing_family = _competition_family(existing.get("league_cn") or existing.get("league_en"))
+        if row_family and existing_family and row_family != existing_family:
+            continue
+        existing_minute = _fixture_minute(
+            existing.get("bj_time") or existing.get("match_time_en") or existing.get("kickoff"),
+            target_date,
+        )
+        if row_minute is None or existing_minute is None or abs(row_minute - existing_minute) > 90:
+            continue
+        existing_home = _betexplorer_team_key(str(existing.get("home_en") or existing.get("home_cn") or ""))
+        existing_away = _betexplorer_team_key(str(existing.get("away_en") or existing.get("away_cn") or ""))
+        if row_home and row_away and existing_home and existing_away:
+            team_score = (
+                _team_name_similarity(row_home, existing_home)
+                + _team_name_similarity(row_away, existing_away)
+            ) / 2.0
+            if team_score >= 0.78:
+                return True
+        existing_prices = prices(existing)
+        if row_prices and existing_prices:
+            relative_gaps = sorted(
+                abs(left - right) / max(left, right)
+                for left, right in zip(row_prices, existing_prices)
+            )
+            if relative_gaps[1] <= 0.08 and relative_gaps[2] <= 0.22:
+                return True
+    return False
 
 
 def build_betexplorer_supplemental_rows(
@@ -1295,9 +1402,16 @@ def build_betexplorer_supplemental_rows(
         for future in as_completed(futures):
             match_id, row = future.result()
             output[match_id] = row
+    duplicate_ids: list[str] = []
+    if existing_rows:
+        for match_id, row in list(output.items()):
+            if _is_betexplorer_supplement_duplicate(row, existing_rows, target_date):
+                duplicate_ids.append(match_id)
+                output.pop(match_id, None)
     print(
         f"betexplorer_supplement_schedule={len(schedule)} supplemental={len(output)} "
-        f"supplement_with_ah={sum(1 for row in output.values() if row.get('ah_full_current_home_or_over'))}",
+        f"supplement_with_ah={sum(1 for row in output.values() if row.get('ah_full_current_home_or_over'))} "
+        f"supplement_duplicates={len(duplicate_ids)}",
         file=sys.stderr,
     )
     return output

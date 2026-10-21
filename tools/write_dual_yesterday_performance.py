@@ -286,7 +286,31 @@ def main() -> int:
     v3_rows = [row for row in v3_payload.get("matches", []) if str(row.get("action", "")) in {"可投", "半仓可投"}]
     v4_path = ROOT / "v4" / "outputs" / f"v4_decisions_{target}.json"
     v4_payload = json.loads(v4_path.read_text(encoding="utf-8")) if v4_path.exists() else {"matches": []}
-    v4_rows = [row for row in v4_payload.get("matches", []) if row.get("grade") in {"A", "B", "C"}]
+    # Settlement must use the immutable same-day bettable export as its
+    # denominator.  A/B/C is a paper grade and can include neutral or otherwise
+    # non-actionable rows, so grade alone must never inflate frozen performance.
+    frozen_exports = sorted(
+        (OUT / "ledger" / "daily_bettable" / "v4").glob(f"bettable_{target}_*.csv"),
+        key=lambda path: path.stat().st_mtime,
+    )
+    frozen_v4_ids: set[str] = set()
+    if frozen_exports:
+        frozen_v4_ids = {
+            str(row.get("match_id", "")).strip()
+            for row in read_csv(frozen_exports[-1])
+            if str(row.get("match_id", "")).strip()
+        }
+    if frozen_v4_ids:
+        v4_rows = [
+            row for row in v4_payload.get("matches", [])
+            if str(row.get("match_id", "")).strip() in frozen_v4_ids
+        ]
+    else:
+        # Compatibility fallback for dates that predate timestamped exports.
+        v4_rows = [
+            row for row in v4_payload.get("matches", [])
+            if str(row.get("final_decision", "")) in {"BET_GIVING", "BET_RECEIVING"}
+        ]
     v3_settled = settle_v3(v3_rows, raw)
     v4_settled = settle_v4(v4_rows, raw)
     stamp = dt.datetime.now(CN_TZ).strftime("%Y%m%d_%H%M%S")
