@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-10-20T13:53:29.202002+00:00",
   "dates": [
     {
       "archive_type": "FORWARD_NATIVE",
       "date": "2026-10-23",
       "event_count": 41,
-      "file": "2026-10-23.json"
+      "file": "2026-10-23.json",
+      "mobile_file": "2026-10-23.mobile.json"
     },
     {
+      "archive_type": "FORWARD_NATIVE",
       "date": "2026-10-22",
+      "event_count": 130,
       "file": "2026-10-22.json",
-      "mobile_file": "2026-10-22.mobile.json",
-      "event_count": 129,
-      "archive_type": "FORWARD_NATIVE"
+      "mobile_file": "2026-10-22.mobile.json"
     },
     {
+      "archive_type": "FORWARD_NATIVE",
       "date": "2026-10-21",
+      "event_count": 164,
       "file": "2026-10-21.json",
-      "mobile_file": "2026-10-21.mobile.json",
-      "event_count": 143,
-      "archive_type": "FORWARD_NATIVE"
+      "mobile_file": "2026-10-21.mobile.json"
     },
     {
       "archive_type": "FORWARD_NATIVE",
@@ -351,5 +351,6 @@
       "event_count": 3,
       "file": "2026-08-26.json"
     }
-  ]
+  ],
+  "generated_at": "2026-10-20T23:53:12.113488+00:00"
 }
