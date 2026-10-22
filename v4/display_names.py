@@ -117,7 +117,9 @@ LEAGUE_ALIASES: dict[str, str] = {
     "be:premier-league": "英超",
     "be:championship": "英冠",
     "be:champions-league": "欧冠",
+    "be:champions-league-women": "欧冠女足",
     "be:europa-league": "欧联",
+    "be:europa-league-women": "欧联女足",
     # Canonical continental display labels.  These aliases are display-only;
     # the model scope remains the independent 欧联 competition.
     "欧联": "欧联",
@@ -127,6 +129,9 @@ LEAGUE_ALIASES: dict[str, str] = {
     "欧洲联赛": "欧联",
     "uefa europa league": "欧联",
     "europa league": "欧联",
+    "uefa women's europa league": "欧联女足",
+    "uefa women europa league": "欧联女足",
+    "women's europa league": "欧联女足",
     "欧冠杯": "欧冠",
     "欧洲冠军联赛": "欧冠",
     "uefa champions league": "欧冠",
@@ -201,6 +206,25 @@ def localize_league(value: Any) -> str:
     return LEAGUE_ALIASES.get(text.casefold(), text)
 
 
+def localize_competition_for_match(league: Any, match: Any = "") -> str:
+    """Return a display label that keeps men's, women's and youth scopes apart."""
+    raw = _clean(league)
+    text = f"{raw} {_clean(match)}"
+    label = localize_league(raw)
+    if re.search(r"(女足|女子|女联|women|woman|girls|female|\bW\b)", text, re.I):
+        if label == "欧联":
+            return "欧联女足"
+        if label == "欧冠":
+            return "欧冠女足"
+        if label == "欧协联":
+            return "欧协联女足"
+        if label and not label.endswith("女足"):
+            return f"{label}女足"
+    if re.search(r"(U\s*19|U\s*21|青年|youth)", text, re.I) and label in {"欧联", "欧冠", "欧协联"}:
+        return "欧青联"
+    return label
+
+
 def localize_record(record: dict[str, Any]) -> dict[str, Any]:
     """Normalise every user-facing identity field, including nested market."""
     market = record.get("market") if isinstance(record.get("market"), dict) else {}
@@ -215,7 +239,10 @@ def localize_record(record: dict[str, Any]) -> dict[str, Any]:
     record["home_team"] = home
     record["away_team"] = away
     record["match"] = f"{home} vs {away}" if home and away else _clean(record.get("match"))
-    record["competition"] = localize_league(record.get("competition") or market.get("competition"))
+    record["competition"] = localize_competition_for_match(
+        record.get("competition") or market.get("competition"),
+        record.get("match") or f"{home_raw} vs {away_raw}",
+    )
     record["selected_team"] = localize_team(record.get("selected_team"))
     record["candidate_team"] = localize_team(record.get("candidate_team"))
     for key in ("giving_team", "receiving_team"):
@@ -224,6 +251,9 @@ def localize_record(record: dict[str, Any]) -> dict[str, Any]:
     for key in ("home_team", "away_team", "giving_team", "receiving_team", "selected_team", "candidate_team"):
         if market.get(key):
             market[key] = localize_team(market[key])
-    market["competition"] = localize_league(market.get("competition") or record.get("competition"))
+    market["competition"] = localize_competition_for_match(
+        market.get("competition") or record.get("competition"),
+        record.get("match") or f"{home_raw} vs {away_raw}",
+    )
     record["market"] = market
     return record

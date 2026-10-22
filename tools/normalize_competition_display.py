@@ -40,8 +40,28 @@ def canonical_competition(value: Any) -> str:
     # Keep youth/women variants separate.  Only the senior Europa aliases are
     # collapsed; 欧冠 and 欧协联 remain independent scopes.
     if text in EUROPA_ALIASES or "欧罗巴" in text or "UEFA Europa League" in text or text.casefold() == "europa league":
-        return "欧联" if not re.search(r"女|U\s*\d+|青年|youth", text, re.I) else text
+        if re.search(r"女|women|woman|girls|female", text, re.I):
+            return "欧联女足"
+        if re.search(r"U\s*\d+|青年|youth", text, re.I):
+            return "欧青联"
+        return "欧联"
     return info.competition_canonical or text
+
+
+def canonical_competition_for_match(value: Any, match: Any = "") -> str:
+    """Use team markers to disambiguate a provider's generic league label."""
+    text = f"{value or ''} {match or ''}"
+    label = canonical_competition(value)
+    if re.search(r"(女足|女子|女联|women|woman|girls|female|\bW\b)", text, re.I):
+        if label == "欧联":
+            return "欧联女足"
+        if label == "欧冠":
+            return "欧冠女足"
+        if label == "欧协联":
+            return "欧协联女足"
+    if re.search(r"(U\s*19|U\s*21|青年|youth)", text, re.I) and label in {"欧联", "欧冠", "欧协联"}:
+        return "欧青联"
+    return label
 
 
 def normalize_labels(value: Any, key: str = "") -> Any:
@@ -49,7 +69,7 @@ def normalize_labels(value: Any, key: str = "") -> Any:
         out = {}
         for k, v in value.items():
             if k in {"competition", "competition_cn", "league", "league_cn", "赛事类型", "联赛/杯赛"} and isinstance(v, str):
-                out[k] = canonical_competition(v)
+                out[k] = canonical_competition_for_match(v, value.get("match", ""))
             elif k in {"canonical_competition_id", "canonical_competition_name"} and isinstance(v, str):
                 out[k] = canonical_competition(v)
             else:
