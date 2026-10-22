@@ -11,8 +11,30 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
+import football_competition_normalizer as competition_normalizer
+
 
 SETTLED_LABELS = {"红", "半红", "走", "半黑", "黑"}
+
+
+def canonical_competition(value: object) -> str:
+    """Use one senior competition key while keeping youth/friendly scopes separate.
+
+    Titan, BetExplorer and the Excel ledger use variants such as ``欧冠`` and
+    ``欧冠杯`` for the same senior competition.  The shared normalizer knows
+    these aliases, but its canonical family is intentionally also attached to
+    youth rows; those rows must not be merged into the senior history bucket.
+    """
+    text = html.unescape(str(value or ""))
+    text = re.sub(r"<[^>]+>", "", text)
+    raw = text.strip()
+    cleaned = re.sub(r"\s+", "", raw).strip()
+    if not raw:
+        return ""
+    info = competition_normalizer.normalize(raw)
+    if info.youth_or_reserve or info.friendly:
+        return cleaned
+    return str(info.competition_canonical or cleaned).strip() or cleaned
 
 
 def clean(value: object) -> str:
@@ -27,7 +49,9 @@ def clean_team(value: object) -> str:
 
 
 def kickoff_beijing(item: dict[str, str]) -> str:
-    raw = str(item.get("kickoff_at") or item.get("kickoff_beijing") or "").strip()
+    raw = str(item.get("kickoff_at") or item.get("kickoff_beijing") or item.get("kickoff") or "").strip()
+    if re.match(r"^\d{2}-\d{2}[ T]", raw):
+        raw = str(item.get("list_date", ""))[:4] + "-" + raw
     if not raw:
         return "时间待核"
     try:
@@ -55,6 +79,15 @@ def settled_pnl(result: str, water: object) -> float | None:
     }.get(result)
 
 
+def as_bool(value: object) -> bool | None:
+    text = clean(value).lower()
+    if text in {"true", "1", "yes", "是", "通过"}:
+        return True
+    if text in {"false", "0", "no", "否", "未通过"}:
+        return False
+    return None
+
+
 def read_history(path: Path, cutoff: str) -> dict[str, dict[str, object]]:
     wb = load_workbook(path, data_only=True, read_only=False)
     ws = wb["赛事明细"]
@@ -66,26 +99,69 @@ def read_history(path: Path, cutoff: str) -> dict[str, dict[str, object]]:
     status_col = headers.get("结算状态", 16)
     result_col = headers.get("红黑", 17)
     water_col = headers.get("投注水位", 18)
-    stats: dict[str, dict[str, object]] = defaultdict(lambda: {"counts": Counter(), "pnl": 0.0, "pnl_rows": 0})
+    pnl_col = headers.get("盈亏(u)", 19)
+    match_col = headers.get("具体比赛", 6)
+    score_col = headers.get("赛果", 15)
+    team_col = headers.get("投注方", 12)
+    line_col = headers.get("即时盘口", 8)
+    action_col = headers.get("投注动作", 14)
+    source_col = headers.get("比分来源", headers.get("来源", 20))
+    history_key_col = headers.get("History_Key")
+    frozen_col = headers.get("Frozen_Actionable")
+    countable_col = headers.get("Countable_History")
+    stats: dict[str, dict[str, object]] = defaultdict(
+        lambda: {"counts": Counter(), "pnl": 0.0, "pnl_rows": 0, "details": []}
+    )
     for row in range(4, last + 1):
         list_date = str(ws.cell(row, date_col).value or "")[:10]
         if not list_date or list_date >= cutoff:
             continue
-        if clean(ws.cell(row, status_col).value) != "已结算":
-            continue
         result = clean(ws.cell(row, result_col).value).replace("红半", "半红").replace("黑半", "半黑")
-        if result not in SETTLED_LABELS:
+        explicit_countable = as_bool(ws.cell(row, countable_col).value) if countable_col else None
+        countable = explicit_countable if explicit_countable is not None else clean(ws.cell(row, status_col).value) == "已结算" and result in SETTLED_LABELS
+        if not countable or result not in SETTLED_LABELS:
             continue
-        competition = clean(ws.cell(row, competition_col).value)
+        competition = canonical_competition(ws.cell(row, competition_col).value)
         if competition:
             bucket = stats[competition]
             counts = bucket["counts"]
             assert isinstance(counts, Counter)
             counts[result] += 1
-            pnl = settled_pnl(result, ws.cell(row, water_col).value)
+            # The workbook is the settlement authority.  Use its recorded
+            # PnL first; recomputing from the water is only a compatibility
+            # fallback for old rows that predate the PnL column.
+            pnl = None
+            if pnl_col:
+                raw_pnl = ws.cell(row, pnl_col).value
+                try:
+                    pnl = float(raw_pnl)
+                except (TypeError, ValueError):
+                    pnl = None
+            if pnl is None:
+                pnl = settled_pnl(result, ws.cell(row, water_col).value)
             if pnl is not None:
                 bucket["pnl"] = float(bucket["pnl"]) + pnl
                 bucket["pnl_rows"] = int(bucket["pnl_rows"]) + 1
+            details = bucket["details"]
+            assert isinstance(details, list)
+            details.append(
+                {
+                    "date": list_date,
+                    "match": clean_team(ws.cell(row, match_col).value),
+                    "score": clean(ws.cell(row, score_col).value),
+                    "selected_team": clean_team(ws.cell(row, team_col).value),
+                    "settlement": result,
+                    "water": ws.cell(row, water_col).value,
+                    "pnl_1u": round(float(pnl), 4) if pnl is not None else "",
+                    "roi": round(float(pnl), 8) if pnl is not None else "",
+                    "line": clean(ws.cell(row, line_col).value),
+                    "action": clean(ws.cell(row, action_col).value),
+                    "source": clean(ws.cell(row, source_col).value),
+                    "history_key": clean(ws.cell(row, history_key_col).value) if history_key_col else "",
+                    "frozen_actionable": as_bool(ws.cell(row, frozen_col).value) if frozen_col else None,
+                    "countable_history": True,
+                }
+            )
     return stats
 
 
@@ -114,20 +190,20 @@ def read_all_matches(path: Path, version: str) -> list[dict[str, str]]:
             identity = {
                 "list_date": item.get("list_date", payload.get("list_date", "")),
                 "match_id": item.get("match_id", ""),
-                "competition": item.get("competition") or market.get("competition", ""),
+                "competition": item.get("competition_cn") or item.get("competition") or market.get("competition", ""),
                 "kickoff": item.get("kickoff") or item.get("kickoff_at", ""),
-                "home": item.get("home_team") or market.get("home_team", ""),
-                "away": item.get("away_team") or market.get("away_team", ""),
+                "home": item.get("home_team_cn") or item.get("home_team_display") or item.get("home_team") or market.get("home_team", ""),
+                "away": item.get("away_team_cn") or item.get("away_team_display") or item.get("away_team") or market.get("away_team", ""),
             }
             decision = item
         rows.append({
             "list_date": str(identity.get("list_date", payload.get("list_date", ""))),
             "match_id": str(identity.get("match_id", "")),
-            "competition": str(identity.get("competition", "")),
+            "competition": canonical_competition(identity.get("competition", "")),
             "kickoff": str(identity.get("kickoff", "")),
             "home_team": str(identity.get("home", "")),
             "away_team": str(identity.get("away", "")),
-            "selected_team": str(decision.get("team", "")),
+            "selected_team": str(decision.get("selected_team_cn") or decision.get("selected_team_display") or decision.get("selected_team") or decision.get("team_cn") or (market.get("candidate_team") if version == "V4" else "") or decision.get("team", "")),
             "market_side": str(decision.get("side", "")),
             "action": str(decision.get("action", decision.get("status", ""))),
         })
@@ -139,7 +215,7 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
     output = []
     current_rows = read_all_matches(matches_json, version) if matches_json else read_bettable(bettable, version)
     for item in current_rows:
-        competition = clean(item.get("competition"))
+        competition = canonical_competition(item.get("competition"))
         bucket = history.get(competition, {"counts": Counter(), "pnl": 0.0, "pnl_rows": 0})
         counts = bucket["counts"]
         assert isinstance(counts, Counter)
@@ -147,12 +223,13 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
         win_rate = rate(counts)
         pnl = float(bucket["pnl"])
         roi = pnl / sample if sample else None
+        history_details = list(bucket.get("details", []))
         if sample > 8 and win_rate is not None and win_rate < 0.45:
             alert = "严重：历史有效胜率<45%"
         else:
             alert = ""
-        if sample > 8 and win_rate is not None and win_rate > 0.55:
-            band = "高：历史有效胜率>55%"
+        if sample > 8 and win_rate is not None and win_rate >= 0.55:
+            band = "高：历史有效胜率>=55%"
         else:
             band = alert
         output.append(
@@ -160,7 +237,7 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
                 "version": version,
                 "list_date": item.get("list_date", cutoff),
                 "match_id": item.get("match_id", ""),
-                "competition": item.get("competition", ""),
+                "competition": competition,
                 "kickoff_beijing": kickoff_beijing(item),
                 "match": f"{clean_team(item.get('home_team'))} vs {clean_team(item.get('away_team'))}",
                 "selected_team": clean_team(item.get("selected_team")),
@@ -178,6 +255,7 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
                 "alert_band": alert,
                 "rate_band": band,
                 "history_cutoff": f"list_date < {cutoff}",
+                "history_matches": history_details,
             }
         )
     return output
@@ -211,7 +289,7 @@ def main() -> None:
     lines = [
         f"# {args.list_date} V3/V4 同名联赛历史动态复核",
         "",
-        "口径：V3、V4分开；仅统计当前列表日前已结算的同名联赛；历史已结算场次>8且有效胜率>55%列为高胜率参考，<45%列为低胜率风险；45%-55%不纳入高低胜率列表；走盘不进入有效胜率分母；ROI=平注1U累计PnL/已结算样本。",
+        "口径：V3、V4分开；仅统计当前列表日前已结算的同名联赛；历史已结算场次>8且有效胜率>=55%列为高胜率参考，<45%列为低胜率风险；45%-<55%不纳入高低胜率列表；走盘不进入有效胜率分母；ROI=平注1U累计PnL/已结算样本。",
         "",
     ]
     def table(rows: list[dict[str, object]]) -> list[str]:
@@ -223,10 +301,10 @@ def main() -> None:
         return lines
 
     for version in ("V3", "V4"):
-        version_high = [row for row in all_rows if row["version"] == version and row["rate_band"] == "高：历史有效胜率>55%"]
+        version_high = [row for row in all_rows if row["version"] == version and row["rate_band"] == "高：历史有效胜率>=55%"]
         version_alerts = [row for row in alerts if row["version"] == version]
         lines += [f"## {version}", ""]
-        lines += ["### 高胜率参考（历史已结算场次>8且有效胜率>55%）", ""]
+        lines += ["### 高胜率参考（历史已结算场次>8且有效胜率>=55%）", ""]
         lines += table(version_high) if version_high else ["无。"]
         lines.append("")
         lines += ["### 低胜率风险（历史已结算场次>8且有效胜率<45%）", ""]
@@ -242,9 +320,9 @@ def main() -> None:
         "alerts": len(alerts),
         "v3_alerts": sum(row["version"] == "V3" for row in alerts),
         "v4_alerts": sum(row["version"] == "V4" for row in alerts),
-        "high_rate_rows": sum(row["rate_band"] == "高：历史有效胜率>55%" for row in all_rows),
-        "v3_high_rate_rows": sum(row["version"] == "V3" and row["rate_band"] == "高：历史有效胜率>55%" for row in all_rows),
-        "v4_high_rate_rows": sum(row["version"] == "V4" and row["rate_band"] == "高：历史有效胜率>55%" for row in all_rows),
+        "high_rate_rows": sum(row["rate_band"] == "高：历史有效胜率>=55%" for row in all_rows),
+        "v3_high_rate_rows": sum(row["version"] == "V3" and row["rate_band"] == "高：历史有效胜率>=55%" for row in all_rows),
+        "v4_high_rate_rows": sum(row["version"] == "V4" and row["rate_band"] == "高：历史有效胜率>=55%" for row in all_rows),
         "rows": all_rows,
         "csv": str(csv_path),
         "markdown": str(md_path),
