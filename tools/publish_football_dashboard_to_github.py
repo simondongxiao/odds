@@ -139,6 +139,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "v4" / "dashboard" / "legacy_redirect.html", PUBLISH_REPO / "v41" / "index.html"),
         (WORKSPACE / "v4" / "dashboard" / "legacy_redirect.html", PUBLISH_REPO / "v41" / "compare" / "index.html"),
         (WORKSPACE / "v4" / "run_daily_v4.py", PUBLISH_REPO / "v4" / "tools" / "run_daily_v4.py"),
+        (WORKSPACE / "v4" / "display_names.py", PUBLISH_REPO / "v4" / "tools" / "display_names.py"),
         (WORKSPACE / "v4" / "core_model.py", PUBLISH_REPO / "v4" / "tools" / "core_model.py"),
         (WORKSPACE / "v4" / "direction_contract.py", PUBLISH_REPO / "v4" / "tools" / "direction_contract.py"),
         (WORKSPACE / "v4" / "raw_adapter.py", PUBLISH_REPO / "v4" / "tools" / "raw_adapter.py"),

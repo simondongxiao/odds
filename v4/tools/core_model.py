@@ -316,9 +316,12 @@ def evaluate_match(
     shared_uncertainty = finite(shared_ffl.get("uncertainty"))
     if shared_uncertainty is not None:
         uncertainty = clamp(max(uncertainty, shared_uncertainty), 0.05, 0.95)
-    home_fair_goal_margin = raw_fair_margin
+    # raw_fair_margin is in giving-team perspective. Convert it once into
+    # home-team space; otherwise an away-giving match is mirrored from an
+    # already positive home distribution and the home side is over-selected.
     giving_home = market["giving_team"] == row.get("home_team")
-    fair_goal_margin = home_fair_goal_margin if giving_home else -home_fair_goal_margin
+    home_fair_goal_margin = raw_fair_margin if giving_home else -raw_fair_margin
+    fair_goal_margin = home_fair_goal_margin
     total_goals = finite(shared_ffl.get("predicted_home_goals"))
     if total_goals is not None:
         total_goals += finite(shared_ffl.get("predicted_away_goals"), 0.0) or 0.0

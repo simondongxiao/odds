@@ -416,8 +416,14 @@ def aliases() -> tuple[dict[str, str], dict[str, str]]:
 
 
 def localize_row(item: dict[str, Any], team_map: dict[str, str], league_map: dict[str, str]) -> dict[str, Any]:
-    item["home_team_en"] = item.get("home_team_en") or item.get("home_team", "")
-    item["away_team_en"] = item.get("away_team_en") or item.get("away_team", "")
+    market = item.get("market") or {}
+    # BetExplorer-only rows often carry the fixture identity only inside the
+    # nested market object.  Resolve that object first so it cannot bypass the
+    # Chinese alias layer and leak English into the dashboard.
+    home_raw = item.get("home_team") or market.get("home_team") or ""
+    away_raw = item.get("away_team") or market.get("away_team") or ""
+    item["home_team_en"] = item.get("home_team_en") or home_raw
+    item["away_team_en"] = item.get("away_team_en") or away_raw
     def translate(raw: Any, english: Any) -> str:
         raw_text = str(raw or "").strip()
         english_text = str(english or "").strip()
@@ -426,15 +432,21 @@ def localize_row(item: dict[str, Any], team_map: dict[str, str], league_map: dic
         # Chinese field is blank or arrived as mojibake.
         return (team_map.get(raw_text.casefold()) or
                 team_map.get(english_text.casefold()) or raw_text or english_text)
-    item["home_team"] = translate(item.get("home_team"), item.get("home_team_en"))
-    item["away_team"] = translate(item.get("away_team"), item.get("away_team_en"))
+    item["home_team"] = translate(home_raw, item.get("home_team_en"))
+    item["away_team"] = translate(away_raw, item.get("away_team_en"))
+    item["match"] = f"{item['home_team']} vs {item['away_team']}" if item["home_team"] and item["away_team"] else item.get("match", "")
     item["competition"] = (league_map.get(str(item.get("competition", "")).casefold()) or
+                            league_map.get(str(market.get("competition", "")).casefold()) or
                             league_map.get(str(item.get("competition_en", "")).casefold()) or
                             item.get("competition", ""))
-    market = item.get("market") or {}
-    for key in ("giving_team", "receiving_team"):
+    item["selected_team"] = translate(item.get("selected_team"), item.get("selected_team"))
+    item["candidate_team"] = translate(item.get("candidate_team"), item.get("candidate_team"))
+    for key in ("home_team", "away_team", "giving_team", "receiving_team", "selected_team", "candidate_team"):
         if market.get(key):
             market[key] = translate(market[key], market[key])
+    market["home_team"] = item["home_team"]
+    market["away_team"] = item["away_team"]
+    market["competition"] = item["competition"]
     item["market"] = market
     return item
 

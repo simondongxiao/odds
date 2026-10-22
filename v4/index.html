@@ -46,8 +46,11 @@ window.__embeddedHistoryPayloads={"2026-10-10":{"list_date":"2026-10-10","rows_c
 let payload=null,listDates={},activeListDate='',historyRateRows=[];
 const embeddedDatePayloads=window.__embeddedDatePayloads||{};
 const embeddedHistoryPayloads=window.__embeddedHistoryPayloads||{};
-const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const plainTeam=x=>String(x??'').replace(/<[^>]*>/g,'').trim();
+const esc=x=>{const raw=String(x??'').replace(/<[^>]*>/g,'').trim(),k=raw.toLowerCase(),mapped=(typeof DISPLAY_TEAMS!=='undefined'&&DISPLAY_TEAMS[k])||(typeof DISPLAY_LEAGUES!=='undefined'&&DISPLAY_LEAGUES[k])||raw;return String(mapped).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))};
+const DISPLAY_TEAMS={'fc tokyo':'FC东京','kashiwa reysol':'柏太阳神','kyoto':'京都不死鸟','kashima antlers':'鹿岛鹿角','okayama':'冈山绿雉','mito':'水户蜀葵','shimizu s-pulse':'清水鼓动','machida':'町田泽维亚','yokohama f. marinos':'横滨水手','verdy':'东京绿茵','montedio yamagata':'山形山神','hokkaido consadole sapporo':'札幌冈萨多','v-varen nagasaki':'长崎成功丸','sanfrecce hiroshima':'广岛三箭','urawa reds':'浦和红钻','chiba':'千叶市原','kofu':'甲府风林','yokohama fc':'横滨FC','iwata':'磐田喜悦','oita trinita':'大分三神','omiya ardija':'大宫松鼠','toyama':'富山胜利','tegevajaro miyazaki':'宫崎棒牛鸟','blaublitz':'秋田蓝色闪电','tokushima':'德岛漩涡','vanraure':'八户云罗里'};
+const DISPLAY_LEAGUES={'be:j1-league':'日职联','be:j2-league':'日职乙','be:j3-league':'日职丙','be:j-league-cup':'日联杯','be:premier-league':'英超','be:championship':'英冠','be:champions-league':'欧冠','be:europa-league':'欧联'};
+const plainTeam=x=>{const s=String(x??'').replace(/<[^>]*>/g,'').trim();return DISPLAY_TEAMS[s.toLowerCase()]||s};
+const plainLeague=x=>{const s=String(x??'').replace(/<[^>]*>/g,'').trim();return DISPLAY_LEAGUES[s.toLowerCase()]||s};
 const num=(x,n=3)=>x==null||x===''?'—':Number(x).toFixed(n); const pct=x=>x==null||x===''?'—':(Number(x)*100).toFixed(1)+'%';
 const value=(x,old='旧版未采集')=>x==null||x===''?old:esc(x); const settled=['W','HW','P','HL','L'];
 function resultText(x){const s=x.score||x.settlement?.score||'',r=x.result||x.settlement_state||x.settlement?.result||'',labels={W:'红',HW:'红半',P:'走',HL:'黑半',L:'黑'};return (s||r)?`${esc(s||'—')}<small>${esc(labels[r]||r||'—')}</small>`:'—'}
