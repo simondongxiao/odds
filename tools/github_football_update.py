@@ -735,7 +735,12 @@ def dedupe_fixture_rows(rows: list[dict[str, Any]], list_date: str) -> list[dict
                 return competition_identity[key]
             mapped = league_map.get(str(raw).strip().casefold())
             if mapped:
-                return token(mapped)
+                key = token(mapped)
+            scope_text = " ".join(str(item.get(k) or "") for k in ("match", "match_name", "fixture", "home_team_en", "away_team_en", "home_team", "away_team"))
+            if re.search(r"(女足|女子|女联|women|woman|girls|female|(?:^|[\s_\-/])w(?:$|[\s_\-/]))", scope_text, re.I):
+                return f"{key}::women"
+            if re.search(r"(青年|u\s*[0-9]+|预备队|reserve|youth|under\s*[0-9]+)", scope_text, re.I):
+                return f"{key}::youth"
             return key
         return ""
 
