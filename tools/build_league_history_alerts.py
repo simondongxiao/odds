@@ -25,13 +25,16 @@ def canonical_competition(value: object) -> str:
     these aliases, but its canonical family is intentionally also attached to
     youth rows; those rows must not be merged into the senior history bucket.
     """
-    raw = clean(value)
+    text = html.unescape(str(value or ""))
+    text = re.sub(r"<[^>]+>", "", text)
+    raw = text.strip()
+    cleaned = re.sub(r"\s+", "", raw).strip()
     if not raw:
         return ""
     info = competition_normalizer.normalize(raw)
     if info.youth_or_reserve or info.friendly:
-        return raw
-    return str(info.competition_canonical or raw).strip() or raw
+        return cleaned
+    return str(info.competition_canonical or cleaned).strip() or cleaned
 
 
 def clean(value: object) -> str:
