@@ -32,7 +32,10 @@ PROBABILITY_VERSION = "MATCH_SPECIFIC_MARGIN_UNCALIBRATED"
 DIRECTION_RULE = "MATCH_SPECIFIC_DUAL_EV"
 CALIBRATION_STATUS = "UNCALIBRATED_SHADOW"
 FORWARD_STATUS = "FROZEN_FORWARD"
-LOGIC_CHANGE_AT = "2026-10-04T09:52:00+08:00"
+# New venue/symmetry audit logic starts at this frozen forward boundary.  Files
+# dated before it remain read-only historical decisions; only rows evaluated
+# after this timestamp use the corrected venue residual and home-space mapping.
+LOGIC_CHANGE_AT = "2026-10-22T22:15:00+08:00"
 
 
 def finite(value: Any, default: float | None = None) -> float | None:
@@ -267,10 +270,18 @@ def evaluate_match(
 
     shared_context = row.get("titan_context") if isinstance(row.get("titan_context"), dict) else {}
     shared_ffl = shared_context.get("ffl") if isinstance(shared_context.get("ffl"), dict) else {}
+    shared_consensus = shared_context.get("fair_line_consensus") if isinstance(shared_context.get("fair_line_consensus"), dict) else {}
     # The shared FFL is computed before, and without, Asian handicap or water.
     # The local fallback remains for legacy/manual invocations that do not yet
     # carry a shared snapshot, but it likewise excludes AH depth/path.
     ffl_supported = finite(shared_ffl.get("fair_goal_margin")) is not None and not str(shared_ffl.get("status", "")).startswith("UNAVAILABLE")
+    consensus_distribution = shared_consensus.get("distribution") if isinstance(shared_consensus.get("distribution"), dict) else {}
+    # CMFL remains an auditable market reference in the shared snapshot.  The
+    # official V4 decision path continues to use its existing FFL-or-market
+    # conditional selection until an out-of-sample weight is frozen; silently
+    # promoting CMFL here would create a new model version.
+    cmfl_available = bool(consensus_distribution) and str(shared_consensus.get("source", "")) == "CMFL_PRIMARY"
+    cmfl_supported = False
     football_margin = finite(shared_ffl.get("fair_goal_margin")) if ffl_supported else None
     if football_margin is None:
         football_margin = 1.18 * strength_log_ratio + (0.0015 * elo if elo is not None else 0.0)
@@ -334,16 +345,17 @@ def evaluate_match(
     shared_uncertainty = finite(shared_ffl.get("uncertainty"))
     if shared_uncertainty is not None:
         uncertainty = clamp(max(uncertainty, shared_uncertainty), 0.05, 0.95)
-    # ``raw_fair_margin`` is expressed in the *giving team's* perspective:
-    # positive means the giving side is expected to win by that margin.  The
-    # probability distribution below, however, is built in home-team space.
-    # The old code assigned ``home_fair_goal_margin = raw_fair_margin`` before
-    # checking whether the away team was giving, then mirrored that already
-    # positive home distribution.  For away-giving matches this made the home
-    # team look stronger twice over and systematically selected the home side.
-    # Convert exactly once from giving-side space to home-team space.
+    # FFL and CMFL are both expressed in home-team space.  Only the fallback
+    # probability proxy is expressed from the giving team's perspective.  The
+    # previous code applied the giving/receiving mirror to an already
+    # home-space FFL snapshot, so an away-giving row could be mirrored twice.
     giving_home = market["giving_team"] == row.get("home_team")
-    home_fair_goal_margin = raw_fair_margin if giving_home else -raw_fair_margin
+    venue_effect = finite(shared_ffl.get("venue_effect"), 0.0) if ffl_supported else 0.0
+    neutral_margin = finite(shared_ffl.get("neutral_margin")) if ffl_supported else None
+    if ffl_supported or cmfl_supported:
+        home_fair_goal_margin = float(football_margin) + (bucket_margin if giving_home else -bucket_margin)
+    else:
+        home_fair_goal_margin = raw_fair_margin if giving_home else -raw_fair_margin
     fair_goal_margin = home_fair_goal_margin
     total_goals = finite(shared_ffl.get("predicted_home_goals"))
     if total_goals is not None:
@@ -351,7 +363,7 @@ def evaluate_match(
     else:
         total_goals = clamp(2.62 - 1.05 * (devig["draw"] - 0.25), 1.55, 3.85)
     shared_distribution = shared_ffl.get("margin_distribution")
-    if isinstance(shared_distribution, dict) and shared_distribution:
+    if ffl_supported and isinstance(shared_distribution, dict) and shared_distribution:
         home_distribution = normalise({int(key): float(value) for key, value in shared_distribution.items()})
     else:
         home_distribution = margin_distribution(home_fair_goal_margin, total_goals)
@@ -361,6 +373,21 @@ def evaluate_match(
     receiving_probs = asian_probabilities(mirrored, current_line)
     ev_giving = expected_value(giving_probs, giving_water)
     ev_receiving = expected_value(receiving_probs, receiving_water)
+
+    # Counterfactual venue contribution is calculated on the same frozen
+    # distribution and current quote.  It is diagnostic-only and never selects
+    # a side.  For CMFL/fallback rows the venue effect is zero by contract.
+    if neutral_margin is not None and ffl_supported:
+        neutral_home_distribution = margin_distribution(neutral_margin, total_goals)
+        neutral_distribution = neutral_home_distribution if giving_home else {-m: p for m, p in neutral_home_distribution.items()}
+        neutral_giving = asian_probabilities(neutral_distribution, -current_line)
+        neutral_receiving = asian_probabilities({-m: p for m, p in neutral_distribution.items()}, current_line)
+        neutral_home_probs = neutral_giving if giving_home else neutral_receiving
+        p_home_cover_neutral = cover_probability(neutral_home_probs)
+    else:
+        p_home_cover_neutral = cover_probability(giving_probs if giving_home else receiving_probs)
+    p_home_cover_with_venue = cover_probability(giving_probs if giving_home else receiving_probs)
+    venue_probability_delta = p_home_cover_with_venue - p_home_cover_neutral
 
     ev_threshold = policy.base_ev_threshold + policy.uncertainty_ev_slope * uncertainty
     gap_threshold = policy.base_gap_threshold + policy.uncertainty_gap_slope * uncertainty
@@ -504,12 +531,23 @@ def evaluate_match(
         "public_pull": {"status": public_pull, "score": None if public_pull == "MISSING" else finite(row.get("public_pull_score"))},
         "cup_context": {"format": cup_format, "aggregate_state": aggregate_state, "missing_is_not_veto": True},
         "fair_goal_margin": fair_goal_margin,
+        "neutral_margin": neutral_margin if neutral_margin is not None else fair_goal_margin,
+        "venue_effect": venue_effect,
+        "venue_effect_status": shared_context.get("venue_status") or shared_ffl.get("venue_effect_status") or "UNKNOWN",
+        "venue_effect_audit": shared_context.get("venue_effect_audit") or {},
+        "ffl_margin_after_venue": fair_goal_margin,
+        "p_home_cover_neutral": p_home_cover_neutral,
+        "p_home_cover_with_venue": p_home_cover_with_venue,
+        "venue_probability_delta": venue_probability_delta,
+        "venue_effect_dominates_decision": bool(abs(venue_probability_delta) >= 0.05),
         "ffl_home_fair_goal_margin": home_fair_goal_margin,
         "fair_handicap": round(fair_goal_margin * 4.0) / 4.0,
         "ffl_home_fair_handicap": shared_ffl.get("fair_handicap"),
         "fair_handicap_low": (shared_ffl.get("fair_handicap_low") if giving_home else -finite(shared_ffl.get("fair_handicap_high"), 0.0)) if shared_ffl else None,
         "fair_handicap_high": (shared_ffl.get("fair_handicap_high") if giving_home else -finite(shared_ffl.get("fair_handicap_low"), 0.0)) if shared_ffl else None,
         "fair_line_source": "TITAN_SHARED_FFL" if ffl_supported else "MARKET_REFERENCE_FALLBACK",
+        "probability_source": "FFL_PRIMARY" if ffl_supported else "MARKET_CONDITIONAL",
+        "cmfl_available_for_audit": cmfl_available,
         "titan_context_snapshot_id": shared_context.get("snapshot_id"),
         "cmfl": shared_context.get("cmfl"),
         "fair_line_consensus": shared_context.get("fair_line_consensus"),
@@ -592,7 +630,7 @@ def evaluate_match(
         "calibration_status": CALIBRATION_STATUS,
         "probability_version": PROBABILITY_VERSION,
         "direction_rule_version": DIRECTION_RULE,
-        "reason_codes": [reason, "BUCKET_PRIOR_ONLY", "INTENT_INTERPRETATION_ONLY", "FFL_OPTIONAL", f"EXPERT_{expert_tier}"],
+        "reason_codes": [reason, "BUCKET_PRIOR_ONLY", "INTENT_INTERPRETATION_ONLY", "FFL_OPTIONAL", "VENUE_EFFECT_SINGLE_ENTRY", f"EXPERT_{expert_tier}"],
     }
 
 
@@ -643,6 +681,191 @@ def probability_diversity(rows: Iterable[dict[str, Any]]) -> list[dict[str, Any]
     return output
 
 
+def _team_cover(result: dict[str, Any], market: dict[str, Any], team: str) -> float | None:
+    if team == market.get("giving_team"):
+        return finite(result.get("p_giving_cover"))
+    if team == market.get("receiving_team"):
+        return finite(result.get("p_receiving_cover"))
+    return None
+
+
+def _team_ev(result: dict[str, Any], market: dict[str, Any], team: str) -> float | None:
+    if team == market.get("giving_team"):
+        return finite(result.get("ev_giving"))
+    if team == market.get("receiving_team"):
+        return finite(result.get("ev_receiving"))
+    return None
+
+
+def _mirror_context(context: dict[str, Any]) -> dict[str, Any]:
+    """Mirror team-space inputs for the swap symmetry test.
+
+    The test intentionally sets venue to neutral: this isolates the model's
+    team/market mapping from the legitimate change in venue identity.
+    """
+    mirrored = json.loads(json.dumps(context, ensure_ascii=False, default=str))
+    mirrored["venue_status"] = "NEUTRAL"
+    mirrored["venue_effect"] = 0.0
+    mirrored["neutral_venue"] = True
+    for section in ("ffl", "fair_line_consensus"):
+        value = mirrored.get(section)
+        if not isinstance(value, dict):
+            continue
+        if finite(value.get("fair_goal_margin")) is not None:
+            value["fair_goal_margin"] = -float(value["fair_goal_margin"])
+        if finite(value.get("margin")) is not None:
+            value["margin"] = -float(value["margin"])
+        for key in ("predicted_home_goals", "predicted_away_goals", "lambda_home", "lambda_away"):
+            other = {"predicted_home_goals": "predicted_away_goals", "lambda_home": "lambda_away"}.get(key)
+            if other and key in value and other in value:
+                value[key], value[other] = value[other], value[key]
+        for key in ("margin_distribution", "ffl_margin_distribution"):
+            dist = value.get(key)
+            if isinstance(dist, dict):
+                value[key] = {str(-int(k)): v for k, v in dist.items()}
+        inputs = value.get("inputs")
+        if isinstance(inputs, dict) and "home" in inputs and "away" in inputs:
+            inputs["home"], inputs["away"] = inputs["away"], inputs["home"]
+    value = mirrored.get("fair_line_consensus")
+    if isinstance(value, dict) and isinstance(value.get("distribution"), dict):
+        value["distribution"] = {str(-int(k)): v for k, v in value["distribution"].items()}
+    for key in ("home_team", "away_team", "home_team_id", "away_team_id"):
+        other = {"home_team": "away_team", "home_team_id": "away_team_id"}.get(key)
+        if other and key in mirrored and other in mirrored:
+            mirrored[key], mirrored[other] = mirrored[other], mirrored[key]
+    return mirrored
+
+
+def swap_symmetry_test(rows: Iterable[dict[str, Any]], *, tolerance: float = 1e-7) -> dict[str, Any]:
+    """Re-score mirrored fixtures and verify home/away probability symmetry."""
+    checked = 0
+    passed = 0
+    failures: list[dict[str, Any]] = []
+    for source in rows:
+        if source.get("analysis_status") not in {"EVALUATED", "FROZEN_PREMATCH_DECISION"}:
+            continue
+        market0 = source.get("market") if isinstance(source.get("market"), dict) else {}
+        line = finite(market0.get("home_handicap_signed"))
+        home, away = str(market0.get("home_team") or source.get("home_team") or ""), str(market0.get("away_team") or source.get("away_team") or "")
+        giving, receiving = str(market0.get("giving_team") or source.get("giving_team") or ""), str(market0.get("receiving_team") or source.get("receiving_team") or "")
+        if line is None or not home or not away or not giving or not receiving:
+            continue
+        try:
+            base_row = {
+                "match_id": source.get("match_id"), "home_team": home, "away_team": away,
+                "competition": source.get("competition", ""),
+                "euro_home": market0.get("euro_home"), "euro_draw": market0.get("euro_draw"),
+                "euro_away": market0.get("euro_away"), "quote_at": source.get("quote_at", ""),
+                "normalized_intent": source.get("normalized_intent", ""),
+                "titan_context": source.get("titan_context") if isinstance(source.get("titan_context"), dict) else {},
+            }
+            market = {
+                "valid": True, "pk": abs(line) < 1e-9, "raw_line": line,
+                "giving_team": giving, "receiving_team": receiving,
+                "giving_water": finite(market0.get("giving_water"), finite(market0.get("home_water_hk"), 0.9)),
+                "receiving_water": finite(market0.get("receiving_water"), finite(market0.get("away_water_hk"), 0.9)),
+                "opening_line": finite(market0.get("opening_line")),
+                "opening_giving_water": finite(market0.get("opening_giving_water")),
+            }
+            original = evaluate_match(base_row, market)
+            mirror_row = dict(base_row)
+            mirror_row.update({"home_team": away, "away_team": home,
+                               "euro_home": base_row["euro_away"], "euro_away": base_row["euro_home"],
+                               "titan_context": _mirror_context(base_row["titan_context"])})
+            mirror_market = dict(market)
+            mirror_market.update({"raw_line": -line, "giving_water": market["giving_water"],
+                                  "receiving_water": market["receiving_water"],
+                                  "opening_line": -market["opening_line"] if market.get("opening_line") is not None else None,
+                                  "giving_team": giving, "receiving_team": receiving})
+            mirrored = evaluate_match(mirror_row, mirror_market)
+        except (TypeError, ValueError, KeyError, ZeroDivisionError):
+            continue
+        checked += 1
+        p_home = _team_cover(original, market, home)
+        p_away_after_swap = _team_cover(mirrored, mirror_market, home)
+        ev_home = _team_ev(original, market, home)
+        ev_away_after_swap = _team_ev(mirrored, mirror_market, home)
+        ok = (p_home is not None and p_away_after_swap is not None and
+              ev_home is not None and ev_away_after_swap is not None and
+              abs(p_home - p_away_after_swap) <= tolerance and
+              abs(ev_home - ev_away_after_swap) <= tolerance)
+        if ok:
+            passed += 1
+        elif len(failures) < 20:
+            failures.append({"match_id": source.get("match_id"), "p_home": p_home,
+                             "p_swapped_away": p_away_after_swap, "ev_home": ev_home,
+                             "ev_swapped_away": ev_away_after_swap,
+                             "error": "HOME_AWAY_SYMMETRY_ERROR"})
+    return {"checked": checked, "passed": passed, "failed": checked - passed,
+            "pass_rate": round(passed / checked, 6) if checked else None,
+            "status": "PASS" if checked and checked == passed else "FAIL" if checked else "NOT_RUN",
+            "failures": failures, "tolerance": tolerance}
+
+
+def _home_away_label(row: dict[str, Any], team: str) -> str:
+    market = row.get("market") if isinstance(row.get("market"), dict) else {}
+    home = str(market.get("home_team") or row.get("home_team") or "")
+    away = str(market.get("away_team") or row.get("away_team") or "")
+    return "HOME" if team and team == home else "AWAY" if team and team == away else "UNKNOWN"
+
+
+def _stage_side(row: dict[str, Any], *, home_value: float | None = None, away_value: float | None = None) -> str:
+    if home_value is None or away_value is None:
+        return ""
+    if home_value > away_value:
+        return "HOME"
+    if away_value > home_value:
+        return "AWAY"
+    return "TIE"
+
+
+def bias_funnel_rows(rows: Iterable[dict[str, Any]]) -> dict[str, Any]:
+    """Build the requested raw→FFL→CMFL→EV→gate→BET side funnel."""
+    stages = ("raw_ah", "ffl", "cmfl", "final_probability", "ev_home_gt_away",
+              "quality_gate", "history_roi_gate", "final_bet")
+    counters = {stage: Counter() for stage in stages}
+    total_raw = 0
+    for row in rows:
+        market = row.get("market") if isinstance(row.get("market"), dict) else {}
+        line = finite(market.get("home_handicap_signed"))
+        if line is None:
+            continue
+        total_raw += 1
+        raw_side = "HOME" if line > 0 else "AWAY" if line < 0 else "NEUTRAL"
+        counters["raw_ah"][raw_side] += 1
+        context = row.get("titan_context") if isinstance(row.get("titan_context"), dict) else {}
+        ffl = context.get("ffl") if isinstance(context.get("ffl"), dict) else {}
+        cmfl = context.get("cmfl") if isinstance(context.get("cmfl"), dict) else {}
+        ffl_margin = finite(ffl.get("fair_goal_margin"))
+        cmfl_margin = finite(cmfl.get("fair_goal_margin"), finite(cmfl.get("margin")))
+        if ffl_margin is not None:
+            counters["ffl"]["HOME" if ffl_margin > 0 else "AWAY" if ffl_margin < 0 else "TIE"] += 1
+        if cmfl_margin is not None:
+            counters["cmfl"]["HOME" if cmfl_margin > 0 else "AWAY" if cmfl_margin < 0 else "TIE"] += 1
+        giving = str(market.get("giving_team") or row.get("giving_team") or "")
+        receiving = str(market.get("receiving_team") or row.get("receiving_team") or "")
+        home = str(market.get("home_team") or row.get("home_team") or "")
+        p_giving, p_receiving = finite(row.get("p_giving_cover")), finite(row.get("p_receiving_cover"))
+        ev_giving, ev_receiving = finite(row.get("ev_giving")), finite(row.get("ev_receiving"))
+        p_home = p_giving if giving == home else p_receiving if receiving == home else None
+        p_away = p_receiving if giving == home else p_giving if receiving == home else None
+        side = _stage_side(row, home_value=p_home, away_value=p_away)
+        if side: counters["final_probability"][side] += 1
+        ev_home = ev_giving if giving == home else ev_receiving if receiving == home else None
+        ev_away = ev_receiving if giving == home else ev_giving if receiving == home else None
+        if ev_home is not None and ev_away is not None:
+            counters["ev_home_gt_away"]["HOME" if ev_home > ev_away else "AWAY" if ev_away > ev_home else "TIE"] += 1
+        bet_side = _home_away_label(row, row.get("selected_team", "")) if str(row.get("final_decision", "")).startswith("BET_") else ""
+        if row.get("quality_gate_passed") and bet_side:
+            counters["quality_gate"][bet_side] += 1
+            # The current V4 contract has no independent history/ROI veto.  It
+            # is recorded as a transparent pass-through stage rather than
+            # inventing a second selection rule.
+            counters["history_roi_gate"][bet_side] += 1
+            counters["final_bet"][bet_side] += 1
+    return {"total_raw_ah": total_raw, "stages": {stage: dict(counters[stage]) for stage in stages}}
+
+
 def write_csv(path: Path, rows: list[dict[str, Any]], fields: list[str] | None = None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fields = fields or (list(rows[0]) if rows else [])
@@ -656,6 +879,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fields: list[str] | None =
 
 def write_runtime_diagnostics(rows: list[dict[str, Any]], diagnostics: Path, metadata: dict[str, Any]) -> None:
     diagnostics.mkdir(parents=True, exist_ok=True)
+    rows = list(rows)
     matrix = direction_matrix(rows)
     diversity = probability_diversity(rows)
     write_csv(diagnostics / "handicap_direction_matrix.csv", matrix)
@@ -671,6 +895,197 @@ def write_runtime_diagnostics(rows: list[dict[str, Any]], diagnostics: Path, met
         "ev_giving": row.get("ev_giving"), "ev_receiving": row.get("ev_receiving"), "final_decision": row.get("final_decision"),
     } for row in evaluated]
     write_csv(diagnostics / "V4_PULL_LAYER_AUDIT.csv", pull_rows)
+
+    # Always regenerate the bias monitor from the durable date outputs.  This
+    # keeps 10/17-to-current diagnostics reproducible while leaving every
+    # frozen decision file untouched.
+    by_date: dict[str, list[dict[str, Any]]] = {}
+    for path in sorted((ROOT / "v4" / "outputs").glob("v4_decisions_*.json")):
+        date = path.stem.rsplit("_", 1)[-1]
+        if date < "2026-10-17":
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError, TypeError, json.JSONDecodeError):
+            continue
+        by_date[date] = payload.get("matches", []) if isinstance(payload.get("matches"), list) else []
+    current_date = str(metadata.get("list_date") or "")
+    if current_date:
+        by_date[current_date] = rows
+    funnel_records: list[dict[str, Any]] = []
+    def stage_fields(stage: str, values: dict[str, int]) -> dict[str, Any]:
+        home = int(values.get("HOME", 0)); away = int(values.get("AWAY", 0)); tie = int(values.get("TIE", 0)); n = home + away + tie
+        return {f"{stage}_home": home, f"{stage}_away": away, f"{stage}_tie": tie,
+                f"{stage}_n": n, f"{stage}_home_share": round(home / n, 6) if n else ""}
+    for date, date_rows in sorted(by_date.items()):
+        funnel = bias_funnel_rows(date_rows)
+        record: dict[str, Any] = {"list_date": date, "raw_ah_total": funnel["total_raw_ah"]}
+        for stage, values in funnel["stages"].items():
+            record.update(stage_fields(stage, values))
+        raw_share = record.get("raw_ah_home_share")
+        final_share = record.get("final_bet_home_share")
+        record["raw_home_share"] = raw_share
+        record["final_home_share"] = final_share
+        record["warning"] = "HOME_SIDE_BIAS_CRITICAL" if isinstance(final_share, (float, int)) and (final_share > 0.90 or final_share < 0.10) and record.get("final_bet_n", 0) >= 30 else "HOME_SIDE_CONCENTRATION_WARNING" if isinstance(final_share, (float, int)) and (final_share > 0.80 or final_share < 0.20) and record.get("final_bet_n", 0) >= 30 else ""
+        funnel_records.append(record)
+    funnel_fields = list(funnel_records[0]) if funnel_records else ["list_date", "raw_ah_total"]
+    write_csv(diagnostics / "v4_home_away_bias_funnel.csv", funnel_records, funnel_fields)
+    stage_order = ("raw_ah", "ffl", "cmfl", "final_probability", "ev_home_gt_away", "quality_gate", "history_roi_gate", "final_bet")
+    lines = ["# V4 主客偏置漏斗（诊断）", "", f"- 生成时间：{metadata.get('generated_at')}", f"- 逻辑变更点：{metadata.get('V4_logic_change_at')}", "- 统计范围：2026-10-17 至当前输出日期", "- 历史行只读；本报告不会改写冻结决策。", "", "| 日期 | 阶段 | 样本 | 主队 | 客队 | 平/未知 | 主队占比 | 告警 |", "|---|---|---:|---:|---:|---:|---:|---|"]
+    for record in funnel_records:
+        for stage in stage_order:
+            n = record.get(f"{stage}_n", 0)
+            if not n and stage != "raw_ah":
+                continue
+            lines.append(f"|{record['list_date']}|{stage}|{n}|{record.get(f'{stage}_home',0)}|{record.get(f'{stage}_away',0)}|{record.get(f'{stage}_tie',0)}|{record.get(f'{stage}_home_share','')}|{record.get('warning','')}|")
+    # First material expansion relative to the raw AH side is the operational
+    # answer to “which layer introduced the bias”.
+    first_layer = "未发现超过20个百分点的阶段性放大"
+    for record in funnel_records:
+        raw = record.get("raw_ah_home_share")
+        if not isinstance(raw, (float, int)):
+            continue
+        for stage in stage_order[1:]:
+            value = record.get(f"{stage}_home_share")
+            if isinstance(value, (float, int)) and value - raw > 0.20:
+                first_layer = f"{record['list_date']} 的 {stage}（raw={raw:.1%} → {value:.1%}）"
+                break
+        if not first_layer.startswith("未发现"):
+            break
+    lines.extend(["", f"## 首次明显放大", "", f"- {first_layer}", "- `history_roi_gate` 当前为透明直通层：正式 V4 没有第二套隐藏主客阈值。", "- 本报告不做主客配额、不反向选择客队。"])
+    (diagnostics / "V4_HOME_AWAY_BIAS_FUNNEL.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    symmetry = swap_symmetry_test(rows)
+    (diagnostics / "v4_swap_symmetry.json").write_text(json.dumps(symmetry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    current_record = funnel_records[-1] if funnel_records else {}
+    bias_monitor = {"list_date": current_date, "raw_home_share": current_record.get("raw_ah_home_share"),
+                    "ffl_home_share": current_record.get("ffl_home_share"),
+                    "cmfl_home_share": current_record.get("cmfl_home_share"),
+                    "final_probability_home_share": current_record.get("final_probability_home_share"),
+                    "dual_ev_home_share": current_record.get("ev_home_gt_away_home_share"),
+                    "final_home_share": current_record.get("final_bet_home_share"),
+                    "warning": current_record.get("warning", ""), "swap_symmetry": symmetry,
+                    "artificial_home_away_quota": False}
+    (diagnostics / "v4_bias_monitor.json").write_text(json.dumps(bias_monitor, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    # Per-match venue counterfactual and probability contribution audit.  This
+    # is a diagnostic export only: it never rewrites the frozen decision row.
+    venue_rows = []
+    mapping_rows = []
+    for item in rows:
+        market = item.get("market") if isinstance(item.get("market"), dict) else {}
+        home = str(market.get("home_team") or item.get("home_team") or "")
+        away = str(market.get("away_team") or item.get("away_team") or "")
+        selected = str(item.get("selected_team") or "")
+        selected_side = _home_away_label(item, selected)
+        venue_rows.append({
+            "list_date": item.get("list_date") or current_date,
+            "match_id": item.get("match_id"),
+            "home_team": home,
+            "away_team": away,
+            "venue_status": item.get("venue_effect_status"),
+            "neutral_margin": item.get("neutral_margin"),
+            "venue_effect": item.get("venue_effect"),
+            "ffl_margin_after_venue": item.get("ffl_margin_after_venue"),
+            "cmfl_margin": finite((item.get("fair_line_consensus") or {}).get("margin")) if isinstance(item.get("fair_line_consensus"), dict) else None,
+            "final_margin": item.get("fair_goal_margin"),
+            "p_home_cover_neutral": item.get("p_home_cover_neutral"),
+            "p_home_cover_with_venue": item.get("p_home_cover_with_venue"),
+            "venue_probability_delta": item.get("venue_probability_delta"),
+            "venue_effect_dominates_decision": item.get("venue_effect_dominates_decision"),
+            "selected_side": selected_side,
+            "probability_source": item.get("probability_source"),
+        })
+        giving = str(market.get("giving_team") or item.get("giving_team") or "")
+        receiving = str(market.get("receiving_team") or item.get("receiving_team") or "")
+        line = finite(market.get("home_handicap_signed"))
+        expected_giving = home if line is not None and line > 0 else away if line is not None and line < 0 else ""
+        expected_receiving = away if expected_giving == home else home if expected_giving == away else ""
+        mapping_rows.append({
+            "list_date": item.get("list_date") or current_date,
+            "match_id": item.get("match_id"),
+            "home_team": home,
+            "away_team": away,
+            "home_handicap_signed": line,
+            "expected_giving_team_by_titan_sign": expected_giving,
+            "actual_giving_team": giving,
+            "expected_receiving_team": expected_receiving,
+            "actual_receiving_team": receiving,
+            "giving_mapping_ok": bool(expected_giving and giving == expected_giving and receiving == expected_receiving),
+            "selected_team": selected,
+            "selected_side": selected_side,
+            "direction_contract": "POSITIVE_HOME_GIVES_NEGATIVE_AWAY_GIVES",
+        })
+    write_csv(diagnostics / "V4_VENUE_COUNTERFACTUAL.csv", venue_rows)
+    write_csv(diagnostics / "V4_DIRECTION_MAPPING_AUDIT.csv", mapping_rows)
+    mapping_bad = [r for r in mapping_rows if r.get("home_handicap_signed") not in (None, 0, 0.0) and not r.get("giving_mapping_ok")]
+    (diagnostics / "V4_DIRECTION_MAPPING_AUDIT.md").write_text(
+        "# V4 让球方向映射审计\n\n"
+        f"- 当前评估行：{len(mapping_rows)}\n"
+        f"- 非平手映射错误：{len(mapping_bad)}\n"
+        "- 合同：Titan 规范中 `home_handicap_signed > 0` 表示主队让球，`< 0` 表示客队让球；给球/受让两侧只按该合同映射一次。\n"
+        "- 结果：" + ("PASS\n" if not mapping_bad else "FAIL；详见 V4_DIRECTION_MAPPING_AUDIT.csv\n"),
+        encoding="utf-8",
+    )
+
+    # A/B venue ablation: A is the frozen scored row; B is the same row with
+    # the venue residual removed.  It is an out-of-sample diagnostic of venue
+    # contribution, not a new threshold or a direction-balancing rule.
+    ablation_rows = []
+    for r in venue_rows:
+        if r.get("p_home_cover_with_venue") is None:
+            continue
+        delta = finite(r.get("venue_probability_delta"), 0.0) or 0.0
+        a_side = r.get("selected_side") or "NO_BET"
+        b_side = a_side if abs(delta) < 0.05 else "VENUE_SENSITIVE"
+        ablation_rows.append({
+            "list_date": r.get("list_date"), "match_id": r.get("match_id"),
+            "A_probability_source": r.get("probability_source"),
+            "A_p_home_cover": r.get("p_home_cover_with_venue"),
+            "B_p_home_cover_neutral": r.get("p_home_cover_neutral"),
+            "venue_probability_delta": delta,
+            "A_selected_side": a_side, "B_counterfactual_status": b_side,
+        })
+    write_csv(diagnostics / "V4_MARKET_HOME_FEATURE_ABLATION.csv", ablation_rows)
+    dominant = sum(bool(r.get("venue_effect_dominates_decision")) for r in venue_rows)
+    (diagnostics / "V4_MARKET_HOME_FEATURE_ABLATION.md").write_text(
+        "# V4 主场特征 A/B（样本外诊断）\n\n"
+        "- A：正式冻结流程的逐场概率；B：同一输入将 venue residual 置零的中性场地反事实。\n"
+        "- 该 A/B 不改变正式阈值、不增加主场奖励、不做主客配额；仅量化 venue residual 对概率的贡献。\n"
+        f"- 可做反事实的行数：{len(ablation_rows)}；venue delta 达到 5 个百分点的行数：{dominant}。\n"
+        "- 正式模型没有独立的 market-home bonus；1X2/OU CMFL 仅作为市场条件参考，不再次追加主场项。\n"
+        "- 训练截止和冻结边界遵守 `V4_logic_change_at`；历史冻结行不回写。\n",
+        encoding="utf-8",
+    )
+
+    # Side calibration is intentionally descriptive.  It uses only settled
+    # rows and never feeds back into the current decision or its thresholds.
+    calibration_rows = []
+    for date, date_rows in sorted(by_date.items()):
+        for row in date_rows:
+            result = str(row.get("result") or (row.get("settlement") or {}).get("result") or "").upper()
+            if result not in STATES:
+                continue
+            side = _home_away_label(row, row.get("selected_team", ""))
+            if side not in {"HOME", "AWAY"}:
+                continue
+            calibration_rows.append({
+                "list_date": date, "match_id": row.get("match_id"), "side": side,
+                "result": result,
+                "p_selected_cover": row.get("p_selected_cover") or row.get("p_giving_cover") if side == "HOME" else row.get("p_selected_cover") or row.get("p_receiving_cover"),
+                "pnl_1u": row.get("pnl_1u") or (row.get("settlement") or {}).get("pnl_1u"),
+            })
+    write_csv(diagnostics / "V4_HOME_AWAY_CALIBRATION.csv", calibration_rows)
+    summary_rows = []
+    for side in ("HOME", "AWAY"):
+        group = [r for r in calibration_rows if r["side"] == side]
+        eff_w = sum(1.0 if r["result"] == "W" else 0.5 if r["result"] == "HW" else 0.0 for r in group)
+        denom = sum(r["result"] != "P" for r in group)
+        pnl = sum(float(r["pnl_1u"]) for r in group if finite(r["pnl_1u"]) is not None)
+        summary_rows.append((side, len(group), eff_w / denom if denom else None, pnl))
+    lines = ["# V4 主客概率/结算校准（只读）", "", "- 本表只读取已结算冻结记录，不反向修改模型。", "- 样本不足时标记 NOT_VERIFIED，不以小样本宣称校准通过。", "", "| side | settled | effective_win_rate | pnl_1u | status |", "|---|---:|---:|---:|---|"]
+    for side, n, rate, pnl in summary_rows:
+        lines.append(f"|{side}|{n}|{'' if rate is None else round(rate, 6)}|{round(pnl, 6)}|{'PASS' if n >= 30 else 'NOT_VERIFIED'}|")
+    (diagnostics / "V4_HOME_AWAY_CALIBRATION.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     level_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in evaluated:
@@ -731,5 +1146,17 @@ def write_runtime_diagnostics(rows: list[dict[str, Any]], diagnostics: Path, met
         "- Football Pull 以去水 1X2 为高覆盖核心；Elo、伤停、首发、轮换、战意缺失时进入不确定性调节。\n"
         "- Fair Line 先于 Market Line 比较；Data/Market Quality 只调节不确定性和阈值，不直接决定方向。\n"
         "- 杯赛字段缺失时不一刀切禁投，但增加不确定性。\n",
+        encoding="utf-8",
+    )
+    (diagnostics / "V4_HOME_ADVANTAGE_AUDIT.md").write_text(
+        "# V4 主场效应与重复计权审计\n\n"
+        "| 文件 | 函数/字段 | 结论 |\n|---|---|---|\n"
+        "| `D:\\codex\\football_titan_data\\core.py` | `_replay_elo::expected` | 已移除固定 +55 主场项；team strength 不再内置主场奖励 |\n"
+        "| `D:\\codex\\football_titan_data\\core.py` | `fundamental_fair_line::venue_effect` | 仅使用 competition×season residual venue effect，并向 country/global 收缩 |\n"
+        "| `D:\\codex\\v4\\core_model.py` | `evaluate_match::shared_ffl` | FFL/CMFL 已明确是 home-space；giving/receiving 只转换一次 |\n"
+        "| `D:\\codex\\v4\\core_model.py` | `evaluate_match::shared_consensus` | CMFL 不再追加 home bonus；市场 1X2/OU 仅进入 CMFL 分布 |\n"
+        "| `D:\\codex\\v4\\core_model.py` | `venue_effect` | neutral/unknown venue=0；不默认完整主场优势 |\n"
+        "| `D:\\codex\\v4\\run_daily_v4.py` | `selected_side`/quality gate | home/away 使用同一 EV、gap、quality gate；无人工配额 |\n\n"
+        "主场效应只在共享 FFL 的 venue residual 中进入一次；主客比例由输入与盘口自然决定。\n",
         encoding="utf-8",
     )

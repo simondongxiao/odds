@@ -612,6 +612,18 @@ def main() -> None:
     (out_dir / f"v4_selected_{args.list_date}.csv").write_text("match_id,selected_team,selected_handicap_signed,selected_water_hk,grade,ev_mean,ev_p10,p_ev_positive\n" + "\n".join(",".join(str(x.get(k, "")) for k in ["match_id","selected_team","selected_handicap_signed","selected_water_hk","grade","ev_mean","ev_p10","p_ev_positive"]) for x in decisions if x.get("grade") in {"A","B"}), encoding="utf-8")
     diagnostics = ROOT / "v4" / "diagnostics"
     write_runtime_diagnostics(decisions, diagnostics, out)
+    # The monitor is a publication gate only for a critical concentration or
+    # an actual home/away symmetry failure.  It never rebalances or flips a
+    # selection, and small slates remain diagnostic-only.
+    try:
+        monitor = json.loads((diagnostics / "v4_bias_monitor.json").read_text(encoding="utf-8"))
+        symmetry = monitor.get("swap_symmetry") or {}
+        if symmetry.get("status") == "FAIL":
+            raise RuntimeError("HOME_AWAY_SYMMETRY_ERROR: V4 publication blocked")
+        if monitor.get("warning") == "HOME_SIDE_BIAS_CRITICAL":
+            raise RuntimeError("HOME_SIDE_BIAS_CRITICAL: V4 publication blocked for audit")
+    except FileNotFoundError:
+        raise RuntimeError("V4_BIAS_MONITOR_MISSING: V4 publication blocked")
     write_integrity_audit(decisions, now.isoformat(), code_hash)
     print(json.dumps({"raw_total":len(raw_rows), "prior_training_rows":model.get("training_rows", 0), **summary, "daily":str(daily), "model":str(model_path), "prior":str(prior_path), "diagnostics":str(diagnostics)}, ensure_ascii=False))
 

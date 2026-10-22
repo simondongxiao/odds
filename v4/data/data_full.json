@@ -1,18 +1,18 @@
 {
   "schema_version": "football-dashboard-v2",
   "list_date": "2026-10-23",
-  "generated_at": "2026-10-22T21:54:38.389051+08:00",
+  "generated_at": "2026-10-22T22:48:52.161465+08:00",
   "source_workbook": "D:\\codex\\技能项目\\football_update\\outputs__from_root\\football_odds_trader\\excel\\football_odds_ledger_v4.xlsx",
-  "source_workbook_sha256": "9ee4fe3f469cef3ca015425b3658a9863ad627b3319f1d4e6c849b700704f5cf",
+  "source_workbook_sha256": "49bec12344c8fa83af83e7eb07a2f5ea7a189b1a4ebcbfd9e1207681bece6ddd",
   "count_shrink_audit": {
     "status": "PASS",
     "blocked": false,
     "list_date": "2026-10-23",
-    "previous_total": null,
+    "previous_total": 470,
     "incoming_total": 470,
     "contract_total": 470,
     "official_exception_count": 0,
-    "generated_at": "2026-10-22T21:26:43.623128+08:00"
+    "generated_at": "2026-10-22T22:16:05.489672+08:00"
   },
   "view": "full_ledger",
   "label": "全部赛事底稿 (7856场)",
@@ -346171,7 +346171,7 @@
       "Ledger_Key": "V4|2026-10-22|3062872",
       "Score_Status": "SCORE_VERIFIED",
       "Score_Source_Type": "titan007_snapshot",
-      "Score_Fetched_At": "2026-10-22T21:32:43.849831+08:00",
+      "Score_Fetched_At": "2026-10-22T22:26:15.698481+08:00",
       "Score_Match_Confidence": "exact_match_id",
       "Settlement_Audit_Status": "SETTLEMENT_VERIFIED",
       "Exclude_Reason": null,
@@ -346217,7 +346217,7 @@
       "Ledger_Key": "V4|2026-10-22|3062873",
       "Score_Status": "SCORE_VERIFIED",
       "Score_Source_Type": "titan007_snapshot",
-      "Score_Fetched_At": "2026-10-22T21:32:43.849831+08:00",
+      "Score_Fetched_At": "2026-10-22T22:26:15.698481+08:00",
       "Score_Match_Confidence": "exact_match_id",
       "Settlement_Audit_Status": "SETTLEMENT_VERIFIED",
       "Exclude_Reason": null,
@@ -376648,7 +376648,7 @@
     "filtered_subset_of_full": true,
     "mismatches": [],
     "workbook": "D:\\codex\\技能项目\\football_update\\outputs__from_root\\football_odds_trader\\excel\\football_odds_ledger_v4.xlsx",
-    "workbook_sha256": "9ee4fe3f469cef3ca015425b3658a9863ad627b3319f1d4e6c849b700704f5cf",
-    "generated_at": "2026-10-22T21:54:38.604852+08:00"
+    "workbook_sha256": "49bec12344c8fa83af83e7eb07a2f5ea7a189b1a4ebcbfd9e1207681bece6ddd",
+    "generated_at": "2026-10-22T22:48:52.373075+08:00"
   }
 }
