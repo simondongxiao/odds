@@ -1151,17 +1151,60 @@ def match_betexplorer_to_titan(
     return out
 
 
+def _load_display_team_aliases() -> dict[str, str]:
+    script_path = Path(__file__).resolve()
+    candidates = [
+        Path(r"D:\codex\football_repo_main\data\github_football\team_aliases.json"),
+        *(parent / "data" / "github_football" / "team_aliases.json" for parent in script_path.parents),
+    ]
+    for path in candidates:
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        return {
+            str(key).strip().casefold(): str(value).strip()
+            for key, value in (payload.get("teams") or {}).items()
+            if str(key).strip() and str(value).strip()
+        }
+    return {}
+
+
+BETEXPLORER_DISPLAY_TEAM_ALIASES = _load_display_team_aliases()
+
+
+def _betexplorer_display_team(value: object) -> str:
+    text = html.unescape(str(value or "")).strip()
+    return BETEXPLORER_DISPLAY_TEAM_ALIASES.get(text.casefold(), text)
+
+
 def _betexplorer_competition(event: dict[str, str]) -> tuple[str, str]:
     """Return stable display labels from a BetExplorer fixture URL."""
     parts = [part for part in str(event.get("betexplorer_href", "")).split("/") if part]
+    country = parts[1] if len(parts) >= 3 and parts[0] == "football" else ""
     slug = parts[2] if len(parts) >= 3 and parts[0] == "football" else ""
     labels = {
-        "championship": "英冠",
-        "champions-league": "欧冠",
-        "europa-league": "欧联",
-        "conference-league": "欧协联",
+        ("england", "premier-league"): "英超",
+        ("england", "championship"): "英冠",
+        ("europe", "champions-league"): "欧冠",
+        ("europe", "europa-league"): "欧联",
+        ("europe", "conference-league"): "欧协联",
+        ("mexico", "liga-mx"): "墨西联",
+        ("argentina", "reserve-league"): "阿后备",
+        ("brazil", "copa-do-brasil-u20"): "巴青杯",
+        ("bahrain", "premier-league"): "巴林超",
+        ("egypt", "division-2-a"): "埃及甲",
+        ("iran", "persian-gulf-pro-league"): "伊朗超",
+        ("indonesia", "super-league"): "印尼超",
+        ("jordan", "premier-league"): "约超联",
+        ("romania", "liga-2"): "罗乙",
+        ("malta", "premier-league"): "马耳甲",
+        ("saudi-arabia", "saudi-professional-league"): "沙特联",
+        ("united-arab-emirates", "presidents-cup"): "阿联杯",
+        ("uzbekistan", "super-league"): "乌兹超",
+        ("venezuela", "copa-venezuela"): "委内杯",
     }
-    return labels.get(slug, f"BE:{slug}" if slug else "BE:UNKNOWN"), slug.replace("-", " ").title()
+    return labels.get((country, slug), f"BE:{country}:{slug}" if slug else "BE:UNKNOWN"), slug.replace("-", " ").title()
 
 
 def _fixture_minute(value: object, target_date: str) -> int | None:
@@ -1374,8 +1417,8 @@ def build_betexplorer_supplemental_rows(
             "league_cn": competition_cn,
             "league_en": competition_en,
             "league_tw": "",
-            "home_cn": event.get("home_en", ""),
-            "away_cn": event.get("away_en", ""),
+            "home_cn": _betexplorer_display_team(event.get("home_en", "")),
+            "away_cn": _betexplorer_display_team(event.get("away_en", "")),
             "home_en": event.get("home_en", ""),
             "away_en": event.get("away_en", ""),
             "bj_time": event.get("bj_time", ""),

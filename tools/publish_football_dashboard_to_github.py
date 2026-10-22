@@ -10,7 +10,8 @@ from pathlib import Path
 
 WORKSPACE = Path(r"D:\codex")
 ROOT = WORKSPACE / "outputs" / "football_odds_trader"
-PUBLISH_REPO = ROOT / "github_publish" / "odds"
+PUBLISH_ROOT = ROOT / "github_publish" / "odds"
+PUBLISH_REPO = ROOT / "github_publish" / "worktrees" / "football-daily"
 V3_OUTPUT = WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader"
 V3_LEDGER = WORKSPACE / "技能项目" / "football_update" / "outputs__from_root" / "football_odds_trader" / "excel" / "football_odds_ledger_delta_conv.xlsx"
 V4_LEDGER = WORKSPACE / "技能项目" / "football_update" / "outputs__from_root" / "football_odds_trader" / "excel" / "football_odds_ledger_v4.xlsx"
@@ -83,11 +84,62 @@ def run_git(args: list[str], timeout: int = 120) -> subprocess.CompletedProcess[
     )
 
 
-def publish(push: bool = True) -> dict[str, object]:
-    if not PUBLISH_REPO.exists():
-        raise FileNotFoundError(f"publish repo not found: {PUBLISH_REPO}")
+def run_root_git(args: list[str], timeout: int = 120) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", "-C", str(PUBLISH_ROOT), *args],
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        timeout=timeout,
+    )
+
+
+def ensure_publish_worktree() -> str | None:
+    """Use a football-only gh-pages worktree so other publish branches cannot leak in."""
+    if not (PUBLISH_ROOT / ".git").exists():
+        return f"publish root is not a git repo: {PUBLISH_ROOT}"
+    fetched = run_root_git(["fetch", "origin", "gh-pages"], timeout=180)
+    if fetched.returncode != 0:
+        return fetched.stderr.strip() or fetched.stdout.strip()
     if not (PUBLISH_REPO / ".git").exists():
-        raise FileNotFoundError(f"publish repo is not a git repo: {PUBLISH_REPO}")
+        PUBLISH_REPO.parent.mkdir(parents=True, exist_ok=True)
+        added = run_root_git(["worktree", "add", "--detach", str(PUBLISH_REPO), "origin/gh-pages"], timeout=300)
+        if added.returncode != 0:
+            return added.stderr.strip() or added.stdout.strip()
+        return None
+    status = run_git(["status", "--porcelain"])
+    if status.returncode != 0:
+        return status.stderr.strip() or status.stdout.strip()
+    if status.stdout.strip():
+        return f"football publish worktree has uncommitted changes: {PUBLISH_REPO}"
+    checkout = run_git(["checkout", "--detach", "origin/gh-pages"], timeout=300)
+    if checkout.returncode != 0:
+        return checkout.stderr.strip() or checkout.stdout.strip()
+    return None
+
+
+def push_gh_pages() -> subprocess.CompletedProcess[str]:
+    """Fast-forward publish with a bounded rebase retry when another job wins the race."""
+    last: subprocess.CompletedProcess[str] | None = None
+    for _ in range(2):
+        last = run_git(["push", "origin", "HEAD:gh-pages"], timeout=180)
+        if last.returncode == 0:
+            return last
+        fetched = run_git(["fetch", "origin", "gh-pages"], timeout=180)
+        if fetched.returncode != 0:
+            return fetched
+        rebased = run_git(["rebase", "origin/gh-pages"], timeout=300)
+        if rebased.returncode != 0:
+            return rebased
+    assert last is not None
+    return last
+
+
+def publish(push: bool = True) -> dict[str, object]:
+    worktree_error = ensure_publish_worktree()
+    if worktree_error:
+        return {"copied": [], "committed": False, "pushed": False, "error": worktree_error}
 
     excel_sync = sync_authoritative_excel_ledgers()
     if excel_sync["missing"]:
@@ -275,7 +327,7 @@ def publish(push: bool = True) -> dict[str, object]:
     if diff.returncode == 0:
         if not push:
             return {"copied": copied, "committed": False, "pushed": False, "excel_sync": excel_sync, "message": "no changes"}
-        push_result = run_git(["push", "origin", "HEAD"], timeout=180)
+        push_result = push_gh_pages()
         if push_result.returncode != 0:
             return {
                 "copied": copied,
@@ -283,23 +335,7 @@ def publish(push: bool = True) -> dict[str, object]:
                 "pushed": False,
                 "error": push_result.stderr.strip() or push_result.stdout.strip(),
             }
-        pages_result = run_git(["push", "origin", "HEAD:gh-pages"], timeout=180)
-        if pages_result.returncode != 0:
-            return {
-                "copied": copied,
-                "committed": False,
-                "pushed": False,
-                "error": pages_result.stderr.strip() or pages_result.stdout.strip(),
-            }
-        main_result = run_git(["push", "origin", "HEAD:main"], timeout=180)
-        if main_result.returncode != 0:
-            return {
-                "copied": copied,
-                "committed": False,
-                "pushed": False,
-                "error": main_result.stderr.strip() or main_result.stdout.strip(),
-            }
-        return {"copied": copied, "committed": False, "pushed": True, "excel_sync": excel_sync, "message": "no changes; ensured main and gh-pages"}
+        return {"copied": copied, "committed": False, "pushed": True, "excel_sync": excel_sync, "message": "no changes; ensured gh-pages"}
 
     message = f"Update football odds dashboard {dt.datetime.now():%Y-%m-%d %H:%M}"
     commit = run_git(["commit", "-m", message])
@@ -309,7 +345,7 @@ def publish(push: bool = True) -> dict[str, object]:
     if not push:
         return {"copied": copied, "committed": True, "pushed": False, "excel_sync": excel_sync, "message": "committed without push"}
 
-    push_result = run_git(["push", "origin", "HEAD"], timeout=180)
+    push_result = push_gh_pages()
     if push_result.returncode != 0:
         return {
             "copied": copied,
@@ -317,23 +353,7 @@ def publish(push: bool = True) -> dict[str, object]:
             "pushed": False,
             "error": push_result.stderr.strip() or push_result.stdout.strip(),
         }
-    pages_result = run_git(["push", "origin", "HEAD:gh-pages"], timeout=180)
-    if pages_result.returncode != 0:
-        return {
-            "copied": copied,
-            "committed": True,
-            "pushed": False,
-            "error": pages_result.stderr.strip() or pages_result.stdout.strip(),
-        }
-    main_result = run_git(["push", "origin", "HEAD:main"], timeout=180)
-    if main_result.returncode != 0:
-        return {
-            "copied": copied,
-            "committed": True,
-            "pushed": False,
-            "error": main_result.stderr.strip() or main_result.stdout.strip(),
-        }
-    message = "\n".join(x for x in [push_result.stdout.strip(), pages_result.stdout.strip(), main_result.stdout.strip()] if x)
+    message = push_result.stdout.strip()
     return {"copied": copied, "committed": True, "pushed": True, "message": message}
 
 
