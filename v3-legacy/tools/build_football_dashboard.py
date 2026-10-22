@@ -6,7 +6,9 @@ import html
 import json
 import re
 import shutil
+import unicodedata
 from collections import defaultdict
+from difflib import SequenceMatcher
 from pathlib import Path
 
 import v3_cup_match_state as cup_v3
@@ -2395,14 +2397,73 @@ def apply_saved_dashboard_decisions(cards: list[dict]) -> list[dict]:
 
 
 def dedupe_current_match_ids(cards: list[dict]) -> list[dict]:
-    """Keep one visible current-day card per stable Titan match id."""
+    """Keep one visible current-day card per fixture identity.
+
+    Titan numeric IDs are authoritative.  A BetExplorer supplemental row can
+    carry a different ``BE_`` ID and a one-hour provider-time offset, so the
+    old ID-only guard left duplicate Europa League cards visible.
+    """
+    def league(value: object) -> str:
+        text = str(value or "").strip()
+        return "欧联" if any(token in text for token in ("欧联", "欧罗巴", "欧洲联赛", "Europa League")) and not re.search(r"女|U\s*\d+|青年|youth", text, re.I) else text
+
+    team_aliases = {
+        "圣吉罗斯联合": "圣吉罗斯", "圣吉罗斯联": "圣吉罗斯",
+        "贝尔谢巴工人": "贝尔谢巴夏普尔", "托伦斯": "杜连斯",
+        "乔治罗尼亚": "比亚韦斯托克雅盖隆", "萨尔茨堡红牛": "萨尔茨堡",
+    }
+    def team(value: object) -> str:
+        text = unicodedata.normalize("NFKC", str(value or ""))
+        text = re.sub(r"[（(][^）)]*[）)]", "", text)
+        text = re.sub(r"[^0-9A-Za-z\u3400-\u9fff]+", "", text).casefold()
+        for source, target in team_aliases.items():
+            text = text.replace(source.casefold(), target.casefold())
+        return text
+
+    def fixture_key(card: dict) -> tuple[str, str, str] | None:
+        if str(card.get("date", "")) != TODAY.isoformat():
+            return None
+        text = str(card.get("match") or card.get("display_match") or "")
+        parts = re.split(r"\s+vs\s+", text, maxsplit=1, flags=re.I)
+        if len(parts) != 2:
+            return None
+        return league(card.get("league")), team(parts[0]), team(parts[1])
+
     output: list[dict] = []
     positions: dict[str, int] = {}
+    fixture_positions: dict[tuple[str, str, str], int] = {}
     for card in cards:
+        if str(card.get("date", "")) == TODAY.isoformat():
+            card["league"] = league(card.get("league"))
         if str(card.get("date", "")) != TODAY.isoformat() or not card.get("match_id"):
             output.append(card)
             continue
         key = str(card["match_id"])
+        fkey = fixture_key(card)
+        if fkey and all(fkey):
+            previous_idx = fixture_positions.get(fkey)
+            if previous_idx is not None:
+                previous = output[previous_idx]
+                # Keep Titan's numeric decision row over a BE_ supplement.
+                if str(previous.get("match_id", "")).startswith("BE_") and not key.startswith("BE_"):
+                    output[previous_idx] = card
+                continue
+            # Handle translated team aliases that do not reduce to the same
+            # exact key while keeping the same competition and side order.
+            fuzzy_duplicate = False
+            for old_key, old_idx in list(fixture_positions.items()):
+                if old_key[0] != fkey[0] or not all(old_key[1:]) or not all(fkey[1:]):
+                    continue
+                score = (SequenceMatcher(None, old_key[1], fkey[1]).ratio() + SequenceMatcher(None, old_key[2], fkey[2]).ratio()) / 2
+                if score >= 0.78:
+                    previous = output[old_idx]
+                    if str(previous.get("match_id", "")).startswith("BE_") and not key.startswith("BE_"):
+                        output[old_idx] = card
+                    fuzzy_duplicate = True
+                    break
+            if fuzzy_duplicate:
+                continue
+            fixture_positions[fkey] = len(output)
         if key not in positions:
             positions[key] = len(output)
             output.append(card)

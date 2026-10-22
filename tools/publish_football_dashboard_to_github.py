@@ -273,7 +273,13 @@ def publish(push: bool = True) -> dict[str, object]:
             copy_dir(history_dir, PUBLISH_REPO / "reviews" / "league_history" / history_dir.name)
     v4_daily = latest_file(WORKSPACE / "v4" / "outputs", "v4_decisions_*.json")
     if v4_daily:
-        pairs.append((v4_daily, PUBLISH_REPO / "v4" / "data" / v4_daily.name.removeprefix("v4_decisions_")))
+        # The dashboard date payload is normalized and source-deduplicated;
+        # the raw decision file may still contain source-specific aliases or
+        # supplemental rows.  Prefer the date payload so the public V4 page
+        # cannot reintroduce duplicate Europa League fixtures.
+        date_name = v4_daily.name.removeprefix("v4_decisions_")
+        canonical_v4 = WORKSPACE / "v4" / "dashboard" / "data" / date_name
+        pairs.append((canonical_v4 if canonical_v4.exists() else v4_daily, PUBLISH_REPO / "v4" / "data" / date_name))
     # A 20:07 run publishes the next business list date, so selecting only
     # ``date.today()`` silently omits tomorrow's V3 payload.  Publish the
     # append-only bridge directory to both public V3 aliases instead.
