@@ -27,7 +27,10 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Browser fallback plus GitHub Pages propagation can legitimately exceed
+    # the old 30-minute ceiling.  Keep a bounded job while avoiding a false
+    # failure after the data was already published.
+    timeout-minutes: 45
     env:
       FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
       # The portable cloud runner is diagnostic only.  It must never replace
@@ -140,7 +143,7 @@ jobs:
         run: |
           expected_v3=$(python -c "import json; print(json.load(open('github_site/v3/data/${{ steps.target.outputs.list_date }}.json', encoding='utf-8'))['generated_at'])")
           expected_v4=$(python -c "import json; print(json.load(open('github_site/v4/data/${{ steps.target.outputs.list_date }}.json', encoding='utf-8'))['generated_at'])")
-          python tools/wait_for_pages.py --date "${{ steps.target.outputs.list_date }}" --sha "${{ steps.publish.outputs.pages_sha }}" --expected-v3 "$expected_v3" --expected-v4 "$expected_v4" --path-prefix "diagnostic/cloud"
+          python tools/wait_for_pages.py --date "${{ steps.target.outputs.list_date }}" --sha "${{ steps.publish.outputs.pages_sha }}" --expected-v3 "$expected_v3" --expected-v4 "$expected_v4" --path-prefix "diagnostic/cloud" --timeout 900
       - name: Send Feishu result after publish verification
         if: always()
         env:
