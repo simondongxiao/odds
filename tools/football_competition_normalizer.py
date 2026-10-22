@@ -31,12 +31,12 @@ def normalize(competition: str) -> CompetitionInfo:
     text = raw.lower()
     asian_games = any(k in raw for k in ("亚运会", "亚运男足", "亚运女足", "Asian Games"))
     youth = bool(re.search(r"(青年|u\s*[0-9]+|女足青年|预备队|reserve|youth)", raw, re.I)) and not asian_games
-    women = bool(re.search(r"(女足|女子|女联|women|woman|girls|female)", raw, re.I))
+    women = bool(re.search(r"(女足|女子|女联|女(?=(?:欧冠|欧联|欧罗巴|欧协联|欧洲联赛))|women|woman|girls|female)", raw, re.I))
     friendly = any(k in text for k in ("友谊", "friendly"))
     if any(k in raw for k in ("欧冠", "欧洲冠军联赛", "UEFA Champions League", "Champions League")):
         canonical = "欧冠女足" if women else ("欧冠青年" if youth else "欧冠")
         return _info(raw, canonical, f"{canonical}独立赛事", "洲际", "欧洲", f"{canonical}独立赛事", "洲际杯赛", "洲际杯赛", not youth and not friendly, not youth and not friendly, youth, friendly, "高", "欧冠别名优先匹配；按性别/年龄隔离")
-    if any(k in raw for k in ("欧联", "欧罗巴", "欧洲联赛", "UEFA Europa League", "Europa League", "Women's Europa League", "Women’s Europa League")):
+    if any(k in raw for k in ("欧联", "欧罗巴", "欧洲联赛", "UEFA Europa League", "Europa League", "Women\u0027s Europa League", "Women\u2019s Europa League")):
         canonical = "欧联女足" if women else ("欧联青年" if youth else "欧联")
         return _info(raw, canonical, f"{canonical}独立赛事", "洲际", "欧洲", f"{canonical}独立赛事", "洲际杯赛", "洲际杯赛", not youth and not friendly, not youth and not friendly, youth, friendly, "高", "欧联别名优先匹配；按性别/年龄隔离")
     if any(k in raw for k in ("欧协联", "Conference League")):
@@ -131,3 +131,4 @@ def competition_domain(competition: str | CompetitionInfo) -> str:
     if info.competition_scope == "国内联赛":
         return "CLUB_LEAGUE"
     return "UNKNOWN"
+
