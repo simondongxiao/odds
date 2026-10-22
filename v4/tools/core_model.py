@@ -836,7 +836,16 @@ def bias_funnel_rows(rows: Iterable[dict[str, Any]]) -> dict[str, Any]:
         context = row.get("titan_context") if isinstance(row.get("titan_context"), dict) else {}
         ffl = context.get("ffl") if isinstance(context.get("ffl"), dict) else {}
         cmfl = context.get("cmfl") if isinstance(context.get("cmfl"), dict) else {}
-        ffl_margin = finite(ffl.get("fair_goal_margin"))
+        # ``titan_context.ffl`` is absent for market-only rows, while the
+        # evaluated V4 row still stores the authoritative home-space FFL
+        # contribution in ``ffl_home_fair_goal_margin`` /
+        # ``ffl_margin_after_venue``.  Use those explicit fields so the
+        # requested funnel does not silently report an empty FFL stage.
+        ffl_margin = finite(
+            ffl.get("fair_goal_margin"),
+        )
+        if ffl_margin is None:
+            ffl_margin = finite(row.get("ffl_home_fair_goal_margin"), finite(row.get("ffl_margin_after_venue")))
         cmfl_margin = finite(cmfl.get("fair_goal_margin"), finite(cmfl.get("margin")))
         if ffl_margin is not None:
             counters["ffl"]["HOME" if ffl_margin > 0 else "AWAY" if ffl_margin < 0 else "TIE"] += 1
