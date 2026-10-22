@@ -70,6 +70,50 @@ DEFAULT_LEAGUE_ALIASES = {
     "usa:mls": "美职业", "major league soccer": "美职业", "mls": "美职业",
 }
 
+# BetExplorer uses slug names while Titan uses the Chinese competition
+# label. These aliases are also used by the cross-provider identity key.
+DEFAULT_LEAGUE_ALIASES.update({
+    "be:j1-league": "\u65e5\u804c\u8054", "j1-league": "\u65e5\u804c\u8054",
+    "be:j2-league": "\u65e5\u804c\u4e59", "j2-league": "\u65e5\u804c\u4e59",
+    "be:j3-league": "\u65e5\u804c\u4e19", "j3-league": "\u65e5\u804c\u4e19",
+    "be:j-league-cup": "\u65e5\u8054\u676f", "j-league-cup": "\u65e5\u8054\u676f",
+})
+
+# Display translation and fixture identity are intentionally separate. This
+# table only tells the de-duplicator that two provider labels are the same
+# club; it never changes odds, sides, scores, or frozen decisions.
+CROSS_PROVIDER_TEAM_ALIASES = {
+    "fc tokyo": "jp:fc-tokyo", "\u0046\u0043\u4e1c\u4eac": "jp:fc-tokyo",
+    "kashiwa reysol": "jp:kashiwa-reysol", "\u67cf\u592a\u9633\u795e": "jp:kashiwa-reysol",
+    "kyoto": "jp:kyoto", "kyoto sanga": "jp:kyoto", "\u4eac\u90fd\u4e0d\u6b7b\u9e1f": "jp:kyoto",
+    "kashima antlers": "jp:kashima-antlers", "\u9e7f\u5c9b\u9e7f\u89d2": "jp:kashima-antlers",
+    "okayama": "jp:okayama", "fagiano okayama": "jp:okayama", "\u5188\u5c71\u7eff\u96c9": "jp:okayama",
+    "mito": "jp:mito", "mito hollyhock": "jp:mito", "\u6c34\u6237\u871c\u67a0": "jp:mito",
+    "shimizu s-pulse": "jp:shimizu", "\u6e05\u6c34\u9f13\u52a8": "jp:shimizu",
+    "machida": "jp:machida", "machida zelvia": "jp:machida", "\u753a\u7530\u6cfd\u7ef4\u4e9a": "jp:machida",
+    "yokohama f. marinos": "jp:yokohama-marinos", "yokohama marinos": "jp:yokohama-marinos", "\u6a2a\u6ee8\u6c34\u624b": "jp:yokohama-marinos",
+    "verdy": "jp:tokyo-verdy", "tokyo verdy": "jp:tokyo-verdy", "\u4e1c\u4eac\u7eff\u8335": "jp:tokyo-verdy",
+    "montedio yamagata": "jp:yamagata", "yamagata": "jp:yamagata", "\u5c71\u5f62\u5c71\u795e": "jp:yamagata",
+    "hokkaido consadole sapporo": "jp:sapporo", "consadole sapporo": "jp:sapporo", "\u672d\u5e4c\u5188\u8428\u591a": "jp:sapporo",
+    "v-varen nagasaki": "jp:nagasaki", "\u957f\u5d0e\u6210\u529f\u4e38": "jp:nagasaki",
+    "sanfrecce hiroshima": "jp:hiroshima", "hiroshima sanfrecce": "jp:hiroshima", "\u5e7f\u5c9b\u4e09\u7bad": "jp:hiroshima",
+    "urawa reds": "jp:urawa", "urawa red diamonds": "jp:urawa", "\u6d66\u548c\u7ea2\u94bb": "jp:urawa",
+    "chiba": "jp:chiba", "jef united chiba": "jp:chiba", "\u5343\u53f6\u5e02\u539f": "jp:chiba",
+    "kofu": "jp:kofu", "ventforet kofu": "jp:kofu", "\u7532\u5e9c\u98ce\u6797": "jp:kofu",
+    "yokohama fc": "jp:yokohama-fc", "\u6a2a\u6ee8fc": "jp:yokohama-fc",
+    "iwata": "jp:iwata", "jubilo iwata": "jp:iwata", "\u78d0\u7530\u559c\u60a6": "jp:iwata",
+    "oita trinita": "jp:oita", "\u5927\u5206\u4e09\u795e": "jp:oita",
+    "omiya ardija": "jp:omiya", "\u5927\u5bae\u677e\u9f20": "jp:omiya",
+    "toyama": "jp:toyama", "kataller toyama": "jp:toyama", "\u5bcc\u5c71\u80dc\u5229": "jp:toyama",
+    "tegevajaro miyazaki": "jp:miyazaki", "\u5bab\u5d0e\u68d2\u725b\u9e1f": "jp:miyazaki",
+    "blaublitz": "jp:akita", "blaublitz akita": "jp:akita", "\u79cb\u7530\u84dd\u8272\u95ea\u7535": "jp:akita",
+    "tokushima": "jp:tokushima", "tokushima vortis": "jp:tokushima", "\u5fb7\u5c9b\u6f29\u6da1": "jp:tokushima",
+    "vanraure": "jp:hachinohe", "vanraure hachinohe": "jp:hachinohe", "\u516b\u6237\u4e91\u7f57\u91cc": "jp:hachinohe",
+    "kawasaki frontale": "jp:kawasaki", "\u5ddd\u5d0e\u524d\u950b": "jp:kawasaki",
+    "nagoya grampus": "jp:nagoya", "\u540d\u53e4\u5c4b\u9cb8\u516b": "jp:nagoya",
+}
+
+
 
 def f(value: Any) -> float | None:
     try:
@@ -604,59 +648,170 @@ def merge(new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]], list_d
 
 
 def dedupe_fixture_rows(rows: list[dict[str, Any]], list_date: str) -> list[dict[str, Any]]:
-    """Collapse cross-provider duplicates for the same Beijing business slate."""
-    def canonical_team(value: Any) -> str:
-        # Providers use slightly different suffixes for the same club.
-        # Normalize these before forming the cross-provider identity key.
-        text = str(value or "").casefold()
-        text = re.sub(r"\bred\s+diamonds\b", "reds", text)
-        text = re.sub(r"\bfootball\s+club\b", "fc", text)
-        text = re.sub(r"\bfc\b", "", text)
+    """Collapse Titan/BetExplorer copies of one fixture in a date slate.
+
+    Provider IDs are intentionally *not* the public identity: Titan uses a
+    numeric ID while the BetExplorer supplement uses ``BE_<id>``.  We first
+    canonicalise competition and team labels, then match the same home/away
+    pair on the same Beijing business date within a two-hour time tolerance.
+    The winning row is retained with a compact source audit so raw provenance
+    is visible without rendering the fixture twice.
+    """
+    def token(value: Any) -> str:
+        text = re.sub(r"<[^>]*>", "", str(value or "")).strip().casefold()
+        text = text.replace("&", "and")
+        text = re.sub(r"\bfootball\s+club\b", "", text)
         return re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", text)
 
-    def key(item: dict[str, Any]) -> tuple[str, ...]:
-        home = canonical_team(item.get("home_team_en") or item.get("home_team"))
-        away = canonical_team(item.get("away_team_en") or item.get("away_team"))
-        date = str(item.get("list_date", ""))
-        # Historical rows with missing/mojibake names must never collapse into
-        # one empty-name bucket.  A provider match id is the only safe fallback.
-        if not home or not away:
-            return date, f"match_id:{str(item.get('match_id') or '')}"
-        kickoff_at = str(item.get("kickoff") or "").strip()[:16]
-        return date, kickoff_at, home, away
+    team_map, league_map = aliases()
+    team_identity: dict[str, str] = {}
+    for raw, stable in CROSS_PROVIDER_TEAM_ALIASES.items():
+        team_identity[token(raw)] = stable
+    # Also invert the checked-in English -> source-label aliases.  This covers
+    # provider mojibake/source spellings without making those labels visible.
+    for raw, display in team_map.items():
+        stable = f"alias:{token(raw)}"
+        if token(raw):
+            team_identity.setdefault(token(raw), stable)
+        if token(display):
+            team_identity.setdefault(token(display), stable)
 
-    def score(item: dict[str, Any]) -> tuple[int, int, int, int]:
-        m = item.get("market") or {}
-        source = str(item.get("match_id", ""))
+    competition_identity: dict[str, str] = {}
+    for raw, display in league_map.items():
+        stable = token(display)
+        if token(raw):
+            competition_identity.setdefault(token(raw), stable)
+        if stable:
+            competition_identity.setdefault(stable, stable)
+    competition_identity.update({
+        token("be:j1-league"): "j1",
+        token("j1-league"): "j1",
+        token("\u65e5\u804c\u8054"): "j1",
+        token("be:j2-league"): "j2",
+        token("j2-league"): "j2",
+        token("\u65e5\u804c\u4e59"): "j2",
+        token("be:j3-league"): "j3",
+        token("j3-league"): "j3",
+        token("\u65e5\u804c\u4e19"): "j3",
+        token("be:j-league-cup"): "jleaguecup",
+        token("j-league-cup"): "jleaguecup",
+        token("\u65e5\u8054\u676f"): "jleaguecup",
+    })
+
+    def team(item: dict[str, Any], side: str) -> str:
+        market = item.get("market") or {}
+        candidates = (
+            item.get(f"{side}_team_en"),
+            item.get(f"{side}_team"),
+            market.get(f"{side}_team"),
+        )
+        for raw in candidates:
+            key = token(raw)
+            if not key:
+                continue
+            if key in team_identity:
+                return team_identity[key]
+            mapped = team_map.get(str(raw).strip().casefold())
+            if mapped and token(mapped) in team_identity:
+                return team_identity[token(mapped)]
+            return key
+        return ""
+
+    def competition(item: dict[str, Any]) -> str:
+        market = item.get("market") or {}
+        candidates = (
+            item.get("competition_en"), item.get("competition"),
+            item.get("league_en"), item.get("league_cn"),
+            market.get("competition"),
+        )
+        for raw in candidates:
+            key = token(raw)
+            if not key:
+                continue
+            if key in competition_identity:
+                return competition_identity[key]
+            mapped = league_map.get(str(raw).strip().casefold())
+            if mapped:
+                return token(mapped)
+            return key
+        return ""
+
+    def kickoff_at(item: dict[str, Any]) -> dt.datetime | None:
+        raw = str(item.get("kickoff") or item.get("bj_time") or item.get("match_time_en") or "").strip()
+        if not raw:
+            return None
+        try:
+            parsed = dt.datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        except ValueError:
+            try:
+                parsed = dt.datetime.strptime(raw[:16], "%Y-%m-%d %H:%M")
+            except ValueError:
+                return None
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=TZ)
+        return parsed.astimezone(TZ)
+
+    def provider(item: dict[str, Any]) -> str:
+        source = " ".join(str(item.get(k) or "") for k in ("match_id", "source_provider", "source_snapshot", "source_page"))
+        return "BetExplorer" if source.casefold().startswith("be_") or "betexplorer" in source.casefold() else "Titan007"
+
+    def score(item: dict[str, Any]) -> tuple[int, int, int, int, int]:
+        market = item.get("market") or {}
+        has_score = bool(_history_score(item.get("score")))
+        started = str(item.get("state") or "") not in {"", "0"}
         return (
-            1 if m.get("current_complete") else 0,
-            1 if m.get("euro_complete") else 0,
-            1 if not source.startswith("BE_") else 0,
+            1 if has_score and started else 0,
+            1 if market.get("current_complete") else 0,
+            1 if market.get("euro_complete") else 0,
+            1 if provider(item) == "Titan007" else 0,
             1 if item.get("kickoff") else 0,
         )
 
-    chosen: dict[tuple[str, str, str], dict[str, Any]] = {}
-    for item in rows:
-        if str(item.get("list_date")) != list_date:
-            continue
-        k = key(item)
-        prior = chosen.get(k)
-        if prior is None or score(item) > score(prior):
-            chosen[k] = item
+    def same_group(left: dict[str, Any], right: dict[str, Any]) -> bool:
+        if str(left.get("list_date")) != str(right.get("list_date")):
+            return False
+        if competition(left) != competition(right) or team(left, "home") != team(right, "home") or team(left, "away") != team(right, "away"):
+            return False
+        ltime, rtime = kickoff_at(left), kickoff_at(right)
+        if ltime is None or rtime is None:
+            # Missing kickoff is never enough to collapse two provider rows.
+            return False
+        return abs((ltime - rtime).total_seconds()) <= 2 * 3600
+
+    groups: list[list[dict[str, Any]]] = []
     output: list[dict[str, Any]] = []
-    seen: set[int] = set()
     for item in rows:
         if str(item.get("list_date")) != list_date:
             output.append(item)
             continue
-        picked = chosen.get(key(item))
-        marker = id(picked) if picked is not None else id(item)
-        if marker in seen:
-            continue
-        seen.add(marker)
-        output.append(picked or item)
-    return output
+        group = next((g for g in groups if same_group(g[0], item)), None)
+        if group is None:
+            groups.append([item])
+        else:
+            group.append(item)
 
+    for group in groups:
+        winner = max(group, key=score)
+        if len(group) > 1:
+            source_ids = list(dict.fromkeys(str(x.get("match_id") or "") for x in group if str(x.get("match_id") or "")))
+            winner["duplicate_source_match_ids"] = source_ids
+            winner["duplicate_source_count"] = len(source_ids)
+            winner["duplicate_sources"] = [
+                {"match_id": str(x.get("match_id") or ""), "provider": provider(x), "kickoff": x.get("kickoff") or x.get("bj_time") or ""}
+                for x in group
+            ]
+        output.append(winner)
+
+    # Preserve the original ordering of non-target dates while keeping the
+    # target slate in the first provider's feed order.
+    target_ids = {id(x) for g in groups for x in g}
+    target_output = [x for x in output if id(x) not in target_ids]
+    target_output.extend(max(g, key=score) for g in groups)
+    # The construction above may reorder rows; restore the incoming order by
+    # the earliest member of each group.
+    order = {id(item): index for index, item in enumerate(rows)}
+    target_output.sort(key=lambda x: order.get(id(x), 10**9))
+    return target_output
 
 def write_csv(rows: list[dict[str, Any]]) -> None:
     flat = []
@@ -685,6 +840,8 @@ def source_quality_audit(incoming: list[dict[str, Any]], current: list[dict[str,
     return {
         "incoming_rows": len(incoming),
         "target_rows_after_dedupe": len(current),
+        "provider_duplicate_rows_removed": sum(max(int(row.get("duplicate_source_count", 1)) - 1, 0) for row in current),
+        "provider_duplicate_groups": sum(1 for row in current if int(row.get("duplicate_source_count", 1) or 1) > 1),
         "source_counts": source_counts,
         "titan007_rows": source_counts.get("Titan007", 0),
         "betexplorer_rows": source_counts.get("BetExplorer", 0),
@@ -694,7 +851,6 @@ def source_quality_audit(incoming: list[dict[str, Any]], current: list[dict[str,
         "missing_asian_rows": sum(not complete(row, "current_complete") for row in incoming),
         "missing_euro_rows": sum(not complete(row, "euro_complete") for row in incoming),
         "started_rows": sum(str(row.get("state") or "") not in {"0", ""} for row in incoming),
-        "provider_duplicate_rows_removed": max(0, len(incoming) - len(current)),
         "captured_at": dt.datetime.now(TZ).isoformat(),
     }
 
@@ -795,6 +951,11 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
             "not_prematch": sum(1 for row in payload_rows if str(row.get("state") or "") not in {"0", ""}),
             "excluded_abnormal": 0,
             "errors": 0,
+        },
+        "dedupe_audit": {
+            "output_rows": len(payload_rows),
+            "duplicates_removed": sum(max(int(row.get("duplicate_source_count", 1)) - 1, 0) for row in payload_rows),
+            "duplicate_groups": sum(1 for row in payload_rows if int(row.get("duplicate_source_count", 1) or 1) > 1),
         },
         "matches": payload_rows,
     }
