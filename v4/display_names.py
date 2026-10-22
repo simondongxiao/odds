@@ -118,6 +118,18 @@ LEAGUE_ALIASES: dict[str, str] = {
     "be:championship": "英冠",
     "be:champions-league": "欧冠",
     "be:europa-league": "欧联",
+    # Canonical continental display labels.  These aliases are display-only;
+    # the model scope remains the independent 欧联 competition.
+    "欧联": "欧联",
+    "欧联杯": "欧联",
+    "欧罗巴杯": "欧联",
+    "欧罗巴联赛": "欧联",
+    "欧洲联赛": "欧联",
+    "uefa europa league": "欧联",
+    "europa league": "欧联",
+    "欧冠杯": "欧冠",
+    "欧洲冠军联赛": "欧冠",
+    "uefa champions league": "欧冠",
     "be:world-cup-women": "女足世界杯",
     "be:efl-trophy": "英锦赛",
     "be:usa-mls": "美职业",

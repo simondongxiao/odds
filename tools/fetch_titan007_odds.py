@@ -1229,7 +1229,10 @@ def _competition_family(value: object) -> str:
     text = unicodedata.normalize("NFKC", str(value or "")).casefold()
     if "欧冠" in text or "champions league" in text:
         return "UEFA_CHAMPIONS_LEAGUE"
-    if "欧联" in text or "europa league" in text:
+    # Titan calls the same competition 欧联/欧联杯/欧罗巴杯 while
+    # BetExplorer normally calls it Europa League.  Keep one join family so
+    # the supplemental source cannot append a second copy of the fixture.
+    if any(token in text for token in ("欧联", "欧罗巴", "欧洲联赛", "europa league")):
         return "UEFA_EUROPA_LEAGUE"
     if "欧协" in text or "conference league" in text:
         return "UEFA_CONFERENCE_LEAGUE"
@@ -1787,8 +1790,8 @@ def browser_recover_mobile_analysis_pages(
     """Recover missing markets from Titan's mobile Analysis page.
 
     This is a separate host and a separate circuit from the VIP detail pages.
-    It is intentionally sequential by default because the mobile endpoint is
-    the broad-coverage safety net for a large daily slate.
+    It uses a small bounded page pool because the mobile endpoint is the
+    broad-coverage safety net for a large daily slate.
     """
     jobs: list[tuple[str, str]] = []
     markets = {
@@ -1861,13 +1864,18 @@ def browser_recover_mobile_analysis_pages(
                 ignore_https_errors=True,
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
             )
-            page = await context.new_page()
-            results: list[tuple[str, str, dict[str, float | str], str]] = []
-            try:
-                for index, (match_id, market) in enumerate(jobs, start=1):
+            # Use a small pool of independent pages.  The old implementation
+            # reused one page in a sequential loop, so 300--500 fallback
+            # requests could dominate the daily run.  The global request
+            # interval remains in place to avoid burst traffic; page workers
+            # only overlap network waits and keep the parsing semantics intact.
+            max_workers = max(1, int(os.environ.get("TITAN_MOBILE_BROWSER_MAX_WORKERS", "4")))
+
+            async def fetch_one(index: int, match_id: str, market: str) -> tuple[str, str, dict[str, float | str], str]:
+                page = await context.new_page()
+                try:
                     if not await before_request():
-                        results.append((match_id, market, {}, "mobile_host_cooldown"))
-                        continue
+                        return match_id, market, {}, "mobile_host_cooldown"
                     row_selector = f'#Odds tr[onclick^="GoDetail({1 if market == "ah" else 2},"]'
                     last_error = ""
                     for attempt in range(max_attempts):
@@ -1878,10 +1886,6 @@ def browser_recover_mobile_analysis_pages(
                                 wait_until="domcontentloaded",
                                 timeout=timeout_ms,
                             )
-                            # The mobile page is static HTML, but the row
-                            # attribute has changed casing/spacing before.
-                            # Keep the strict market id while allowing the
-                            # harmless attribute-format variants.
                             market_row = page.locator(row_selector).first
                             if not await market_row.count():
                                 market_row = page.locator(
@@ -1902,8 +1906,7 @@ def browser_recover_mobile_analysis_pages(
                                         html_text,
                                         encoding="utf-8",
                                     )
-                                results.append((match_id, market, parsed, ""))
-                                break
+                                return match_id, market, parsed, ""
                             last_error = (
                                 f"market_not_published_http_{status}"
                                 if not await page.locator(
@@ -1915,10 +1918,20 @@ def browser_recover_mobile_analysis_pages(
                             last_error = f"{type(exc).__name__}: {exc}"
                         if attempt + 1 < max_attempts:
                             await asyncio.sleep(1.0 * (attempt + 1))
-                    else:
-                        results.append((match_id, market, {}, last_error or "mobile_empty_market"))
-                    if index % 50 == 0:
-                        print(f"future_mobile_progress={index}/{len(jobs)}", file=sys.stderr)
+                    return match_id, market, {}, last_error or "mobile_empty_market"
+                finally:
+                    await page.close()
+
+            try:
+                results: list[tuple[str, str, dict[str, float | str], str]] = []
+                for start in range(0, len(jobs), max_workers):
+                    batch = jobs[start:start + max_workers]
+                    results.extend(await asyncio.gather(
+                        *(fetch_one(start + offset + 1, match_id, market)
+                          for offset, (match_id, market) in enumerate(batch)),
+                    ))
+                    if (start + len(batch)) % 50 == 0:
+                        print(f"future_mobile_progress={start + len(batch)}/{len(jobs)}", file=sys.stderr)
             finally:
                 await browser.close()
             return results
