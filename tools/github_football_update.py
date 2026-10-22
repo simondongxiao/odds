@@ -673,7 +673,10 @@ def dedupe_fixture_rows(rows: list[dict[str, Any]], list_date: str) -> list[dict
         stable = f"alias:{token(raw)}"
         if token(raw):
             team_identity.setdefault(token(raw), stable)
-        if token(display):
+        # A legacy alias file may contain U+FFFD replacement characters after
+        # a provider encoding failure. Do not turn that lossy text into an
+        # identity key; it can collapse unrelated clubs.
+        if "\ufffd" not in str(display) and token(display):
             team_identity.setdefault(token(display), stable)
 
     competition_identity: dict[str, str] = {}
