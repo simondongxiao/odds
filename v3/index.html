@@ -1326,12 +1326,21 @@ function concreteCompetitionName(value) {
   return Boolean(s) && !s.includes("系列") && !["全部", "未标注", "未知赛事", "UNKNOWN"].includes(s);
 }
 
+function canonicalCompetition(value) {
+  const s = String(value || "").trim();
+  if (!s) return "";
+  if (/(?:欧冠杯|欧冠|欧洲冠军联赛|UEFA Champions League)/i.test(s) && !/(?:女|U\d+|青年|youth)/i.test(s)) return "欧冠";
+  if (/(?:欧联杯|欧罗巴|欧联|欧洲联赛|UEFA Europa League|Europa League)/i.test(s) && !/(?:女|U\d+|青年|youth)/i.test(s)) return "欧联";
+  if (/(?:欧协联|欧洲协会联赛|UEFA Conference League|Conference League)/i.test(s) && !/(?:女|U\d+|青年|youth)/i.test(s)) return "欧协联";
+  return s;
+}
+
 function historyRateBandForMatch(r) {
-  const competition = String(r.league || "").trim();
+  const competition = canonicalCompetition(r.league || "");
   if (!concreteCompetitionName(competition)) return "";
   const row = historyRateRows.find(x => String(x.version || "") === "V3"
     && String(x.match_id || "") === String(r.match_id || "")
-    && String(x.competition || "").trim() === competition);
+    && canonicalCompetition(x.competition) === competition);
   if (!row || Number(row.historical_settled_sample || 0) < 8) return "";
   const rate = Number(row.effective_win_rate);
   if (!Number.isFinite(rate)) return "";
