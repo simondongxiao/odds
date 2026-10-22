@@ -11,8 +11,27 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
+import football_competition_normalizer as competition_normalizer
+
 
 SETTLED_LABELS = {"红", "半红", "走", "半黑", "黑"}
+
+
+def canonical_competition(value: object) -> str:
+    """Use one senior competition key while keeping youth/friendly scopes separate.
+
+    Titan, BetExplorer and the Excel ledger use variants such as ``欧冠`` and
+    ``欧冠杯`` for the same senior competition.  The shared normalizer knows
+    these aliases, but its canonical family is intentionally also attached to
+    youth rows; those rows must not be merged into the senior history bucket.
+    """
+    raw = clean(value)
+    if not raw:
+        return ""
+    info = competition_normalizer.normalize(raw)
+    if info.youth_or_reserve or info.friendly:
+        return raw
+    return str(info.competition_canonical or raw).strip() or raw
 
 
 def clean(value: object) -> str:
@@ -99,7 +118,7 @@ def read_history(path: Path, cutoff: str) -> dict[str, dict[str, object]]:
         countable = explicit_countable if explicit_countable is not None else clean(ws.cell(row, status_col).value) == "已结算" and result in SETTLED_LABELS
         if not countable or result not in SETTLED_LABELS:
             continue
-        competition = clean(ws.cell(row, competition_col).value)
+        competition = canonical_competition(ws.cell(row, competition_col).value)
         if competition:
             bucket = stats[competition]
             counts = bucket["counts"]
@@ -177,7 +196,7 @@ def read_all_matches(path: Path, version: str) -> list[dict[str, str]]:
         rows.append({
             "list_date": str(identity.get("list_date", payload.get("list_date", ""))),
             "match_id": str(identity.get("match_id", "")),
-            "competition": str(identity.get("competition", "")),
+            "competition": canonical_competition(identity.get("competition", "")),
             "kickoff": str(identity.get("kickoff", "")),
             "home_team": str(identity.get("home", "")),
             "away_team": str(identity.get("away", "")),
@@ -193,7 +212,7 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
     output = []
     current_rows = read_all_matches(matches_json, version) if matches_json else read_bettable(bettable, version)
     for item in current_rows:
-        competition = clean(item.get("competition"))
+        competition = canonical_competition(item.get("competition"))
         bucket = history.get(competition, {"counts": Counter(), "pnl": 0.0, "pnl_rows": 0})
         counts = bucket["counts"]
         assert isinstance(counts, Counter)
@@ -215,7 +234,7 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
                 "version": version,
                 "list_date": item.get("list_date", cutoff),
                 "match_id": item.get("match_id", ""),
-                "competition": item.get("competition", ""),
+                "competition": competition,
                 "kickoff_beijing": kickoff_beijing(item),
                 "match": f"{clean_team(item.get('home_team'))} vs {clean_team(item.get('away_team'))}",
                 "selected_team": clean_team(item.get("selected_team")),

@@ -209,6 +209,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "tools" / "fetch_titan007_odds.py", PUBLISH_REPO / "tools" / "fetch_titan007_odds.py"),
         (WORKSPACE / "v3_legacy" / "tools" / "fetch_titan007_odds.py", PUBLISH_REPO / "v3-legacy" / "tools" / "fetch_titan007_odds.py"),
         (WORKSPACE / "tools" / "normalize_competition_display.py", PUBLISH_REPO / "tools" / "normalize_competition_display.py"),
+        (WORKSPACE / "tools" / "build_league_history_alerts.py", PUBLISH_REPO / "tools" / "build_league_history_alerts.py"),
         (WORKSPACE / "v4" / "display_names.py", PUBLISH_REPO / "v4" / "display_names.py"),
         (WORKSPACE / "v4" / "dashboard" / "tools" / "display_names.py", PUBLISH_REPO / "v4" / "tools" / "display_names.py"),
         (WORKSPACE / "tools" / "european_competition_scope.py", PUBLISH_REPO / "tools" / "european_competition_scope.py"),
