@@ -312,6 +312,11 @@ def publish(push: bool = True) -> dict[str, object]:
 
     if copy_dir(ROOT / "dashboard" / "audits", PUBLISH_REPO / "audits"):
         copied.append(str(PUBLISH_REPO / "audits"))
+    # V4 loads its full-ledger and strategy-filter views from this directory.
+    # Sync the Excel-backed views together with the date payload so a new date
+    # header cannot be paired with stale data_full/data_filtered files.
+    if copy_dir(WORKSPACE / "v4" / "dashboard" / "data", PUBLISH_REPO / "v4" / "data"):
+        copied.append(str(PUBLISH_REPO / "v4" / "data"))
     if copy_dir(WORKSPACE / "v4" / "diagnostics", PUBLISH_REPO / "v4" / "diagnostics"):
         copied.append(str(PUBLISH_REPO / "v4" / "diagnostics"))
     risk_skill = WORKSPACE / "skills" / "worldcup-odds-trader"
