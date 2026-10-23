@@ -4620,9 +4620,14 @@ function rankedRowsForDateLegacy() {{
 
 function renderDates() {{
   const dates = allDates();
-  // Always land on the newest embedded list_date. defaultDate remains only
-  // as a compatibility fallback for an empty/legacy payload.
-  const selected = dates[0] || defaultDate;
+  // Honour an explicit business date in the shared V3/V4 page link.  Without
+  // this, a valid ?date= link silently fell back to whichever date happened
+  // to sort first in the embedded payload, so a newly published slate could
+  // still open on yesterday's matches.
+  const requestedDate = new URLSearchParams(window.location.search).get("date");
+  const selected = requestedDate && dates.includes(requestedDate)
+    ? requestedDate
+    : (dates[0] || defaultDate);
   document.getElementById("dateSelect").innerHTML = dates.map(d => `<option value="${{d}}" ${{d === selected ? "selected" : ""}}>${{d}}</option>`).join("");
 }}
 

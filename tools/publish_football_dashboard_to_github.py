@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import json
 import shutil
 import stat
 import subprocess
@@ -39,6 +40,17 @@ def copy_dir(src: Path, dst: Path) -> bool:
     dst.mkdir(parents=True, exist_ok=True)
     shutil.copytree(src, dst, dirs_exist_ok=True)
     return True
+
+
+def write_v3_date_index(data_dir: Path) -> Path:
+    """Rebuild the append-only V3 date index from the published payloads."""
+    data_dir.mkdir(parents=True, exist_ok=True)
+    dates = sorted(path.stem for path in data_dir.glob("20??-??-??.json"))
+    target = data_dir / "index.json"
+    temporary = target.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps(dates, ensure_ascii=False, indent=2), encoding="utf-8")
+    temporary.replace(target)
+    return target
 
 
 def sync_authoritative_excel_ledgers() -> dict[str, object]:
@@ -309,6 +321,13 @@ def publish(push: bool = True) -> dict[str, object]:
         copied.append(str(PUBLISH_REPO / "v3-legacy" / "data"))
     if copy_dir(v3_bridge_dir, PUBLISH_REPO / "v3" / "data"):
         copied.append(str(PUBLISH_REPO / "v3" / "data"))
+    # The bridge is append-only, but it does not carry an index.json.  Leaving
+    # the repository's old index in place made newly copied business dates
+    # invisible to code that consults the manifest.  Rebuild both public aliases
+    # after every copy so their date selectors and direct ?date= links agree.
+    for alias in ("v3-legacy", "v3"):
+        index_path = write_v3_date_index(PUBLISH_REPO / alias / "data")
+        copied.append(str(index_path))
 
     if copy_dir(ROOT / "dashboard" / "audits", PUBLISH_REPO / "audits"):
         copied.append(str(PUBLISH_REPO / "audits"))
