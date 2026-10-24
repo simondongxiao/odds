@@ -1,7 +1,7 @@
 {
   "schema_version": "basketball-decision-anchor-1.0",
   "date_bj": "2026-10-25",
-  "generated_at": "2026-10-23T17:25:14.307213+00:00",
+  "generated_at": "2026-10-24T00:06:19.499729+00:00",
   "source_kind": "PUBLISHED_FIRST_WRITE_PROJECTION",
   "locked_direction_policy": "FIRST_WRITE_WINS; DIRECTION_CHANGE_REVIEW_ONLY",
   "rows": [
@@ -26324,7 +26324,997 @@
         "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR"
       },
       "anchor_status": "LOCKED_FIRST_WRITE",
-      "anchor_first_write_asof": "2026-10-23T13:37:40.872822+00:00"
+      "anchor_first_write_asof": "2026-10-23T13:37:40.872822+00:00",
+      "latest_revalidation": {
+        "asof": "2026-10-23T23:54:43.133369+00:00",
+        "event": {
+          "age_group": "SENIOR",
+          "bj_date": "2026-10-25",
+          "canonical_event_id": "7m:1365804",
+          "canonical_identity_ambiguous": false,
+          "canonical_team1_id": "wnba:atlantadream",
+          "canonical_team1_method": "EXPLICIT_CANONICAL_ID",
+          "canonical_team2_id": "wnba:goldenstatevalkyries",
+          "canonical_team2_method": "EXPLICIT_CANONICAL_ID",
+          "competition_id": "7m-comp:9",
+          "competition_key": "WNBA",
+          "discovery_sources": [
+            {
+              "source": "7M",
+              "source_url": "https://bdata.7m.com.cn/analyse/gb/1365804.shtml"
+            }
+          ],
+          "discovery_status": "MARKET_FOUND",
+          "event_id": "7m:1365804",
+          "format_id": "BASKETBALL",
+          "game_minutes": 40,
+          "game_minutes_source": "LEAGUE_RULE_PRIOR",
+          "game_minutes_used_in_pricing": false,
+          "gender": "WOMEN",
+          "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
+          "home_sign": 0,
+          "hours_to_start": 27.371980326944442,
+          "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20261023T133041_9698c3421f\\identity_1365804.raw",
+          "identity_verified": true,
+          "inventory_retained": true,
+          "league": "WNBA",
+          "league_display": "WNBA",
+          "league_family": "WNBA",
+          "league_original": "美国女子职业篮球联赛",
+          "market_match_method": "DIRECT_ID",
+          "market_status": "MARKET_FOUND",
+          "market_ttl_seconds": 3600,
+          "model_family": "CLUB_MATURE",
+          "next_market_retry_at": null,
+          "observed_at": "2026-10-23T13:31:10.090882+00:00",
+          "pricing_inventory_status": "PRICEABLE_MARKET_PRESENT",
+          "region": "北美",
+          "season_phase": "UNKNOWN",
+          "source": "7M",
+          "source_event_id": "1365804",
+          "source_time_raw": "2026,10,25,01,00,00",
+          "source_timezone": "Asia/Shanghai",
+          "source_url": "https://bdata.7m.com.cn/analyse/gb/1365804.shtml",
+          "team1_id": "7m-team:1580",
+          "team1_name": "亚特兰大梦想",
+          "team1_source_id": "1580",
+          "team2_id": "7m-team:8664",
+          "team2_name": "金州女武神",
+          "team2_source_id": "8664",
+          "time_basis": "7M page declares GMT+0800 unless otherwise labelled",
+          "tip_at": "2026-10-24T17:00:00+00:00",
+          "tip_time_bj": "2026-10-25T01:00:00+08:00",
+          "tip_time_utc": "2026-10-24T17:00:00+00:00",
+          "venue_status": "UNKNOWN"
+        },
+        "execution": {
+          "archive_type": "FORWARD_NATIVE",
+          "asof": "2026-10-23T13:37:40.872822+00:00",
+          "automated_execution_allowed": false,
+          "blockers": [],
+          "comparison_ready": true,
+          "display_action": "手动实盘候选",
+          "ev": 0.25330023109141,
+          "event_id": "7m:1365804",
+          "execution_lifecycle": {
+            "automated_execution_allowed": false,
+            "entry_phase": "SIGNAL_BEFORE_EARLY_WINDOW",
+            "execution_mode": "MANUAL_LIVE",
+            "late_recheck_required_at_minutes": [
+              30,
+              10,
+              5
+            ],
+            "manual_order_required": true,
+            "minutes_before_tip_at_entry": 1642.3187862999998,
+            "real_execution_allowed": true,
+            "threshold_source": "INITIAL_PRIOR"
+          },
+          "execution_mode": "MANUAL_LIVE",
+          "feature_isolation_verified": true,
+          "forecast_fingerprint": "bf78a5b6662cd7dd959ac6b042b7fcf7d2a40182c017e368570eb3f84e379ffe",
+          "kelly_usable": false,
+          "manual_execution_state": "NOT_ELIGIBLE",
+          "manual_order_required": true,
+          "market_decisions": {
+            "SPREAD": {
+              "archive_type": "FORWARD_NATIVE",
+              "asof": "2026-10-23T13:37:40.872822+00:00",
+              "automated_execution_allowed": false,
+              "blockers": [],
+              "comparison_ready": true,
+              "display_action": "不可投",
+              "ev": -0.027981893882970788,
+              "event_id": "7m:1365804",
+              "execution_mode": "MANUAL_LIVE",
+              "fair_spread_decomposition": {
+                "adjustment_layer": {
+                  "adjustment_applied": false,
+                  "layers": [
+                    {
+                      "adjustment_applied": false,
+                      "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "ROTATION_ADJUSTMENT",
+                      "reason": "ROTATION_CONTINUITY_WITHOUT_EXPECTED_MINUTES",
+                      "status": "CONTINUITY_ONLY",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                      "reason": "NET_RATING_USED_IN_BASE_MODEL",
+                      "status": "AVAILABLE_BASE_FEATURE",
+                      "value_points": null
+                    }
+                  ],
+                  "total_adjustment_points": 0,
+                  "unknown_layers": [
+                    "PLAYER_AVAILABILITY_ADJUSTMENT"
+                  ]
+                },
+                "after_context_adjustment_margin": 4.306988061919272,
+                "after_deep_spread_calibration_margin": null,
+                "after_mean_calibration_margin": null,
+                "base_fair_spread": 4.306988061919272,
+                "base_residual_scale": 15.244257446805305,
+                "betting_fair_spread": 4.306988061919272,
+                "break_even_win_probability": 0.5069966965703818,
+                "calibrated_cover_probability": null,
+                "calibrated_fair_spread": null,
+                "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                "conditional_break_even_probability": 0.5208333333333334,
+                "context_uncertainty_multiplier": 1.1,
+                "deep_spread_residual_multiplier": null,
+                "expected_value": -0.027981893882970788,
+                "fair_center_interval_80": [
+                  4.306988061919272,
+                  4.306988061919272
+                ],
+                "fair_center_interval_95": [
+                  4.306988061919272,
+                  4.306988061919272
+                ],
+                "fair_center_standard_error": 0.0,
+                "final_cover_probability": 0.49242279350633456,
+                "final_spread_residual_scale": 16.768683191485838,
+                "game_outcome_prediction_interval_80": [
+                  -16.52296571366869,
+                  25.136941837507237
+                ],
+                "game_outcome_prediction_interval_95": [
+                  -29.33345858539534,
+                  37.947434709233846
+                ],
+                "injury_uncertainty_multiplier": 1.1,
+                "league_residual_multiplier": 1.0,
+                "line_edge_points": 0.693011938080728,
+                "market_spread": -5.0,
+                "model_market_gap": 9.306988061919272,
+                "model_version": "score-ridge-production-2.4.0",
+                "p_loss": 0.48101086390879855,
+                "p_push": 0.026566342584866898,
+                "p_win": 0.49242279350633456,
+                "probability_edge": -0.014971644911834114,
+                "raw_cover_probability": 0.49242279350633456,
+                "raw_expected_away_score": 78.18211846944216,
+                "raw_expected_home_score": 82.48910653136143,
+                "raw_fair_spread": 4.306988061919272,
+                "raw_independent_margin": 4.306988061919272,
+                "raw_team1_line_gap": -0.693011938080728,
+                "raw_team_strength_away": 3.7207388423142933,
+                "raw_team_strength_home": 8.027726904233566,
+                "residual_oos_N": 747,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "rotation_uncertainty_multiplier": 1.0,
+                "season_regime_multiplier": 1.0,
+                "selected_side": "TEAM2",
+                "selected_side_line_edge_points": 0.693011938080728,
+                "spread_data_quality": "DATA_QUALITY_B",
+                "student_t_df": 10.0,
+                "student_t_scale": 13.634878367025618,
+                "tier_residual_multiplier": 1.0
+              },
+              "kelly_usable": false,
+              "manual_execution_state": "NOT_ELIGIBLE",
+              "manual_order_required": true,
+              "market_integrity": {},
+              "model_state": "NO_EDGE",
+              "real_bet_flag": false,
+              "real_execution_allowed": false,
+              "real_stake": 0,
+              "selected": {
+                "adverse_ev": -0.12864063229919948,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.5069966965703818,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5208333333333334,
+                "conditional_edge": -0.06882086179658481,
+                "conditional_model_win_probability": 0.5058616884214993,
+                "decimal_odds": 1.92,
+                "df": 10.0,
+                "direction_robust_80": true,
+                "ev": -0.027981893882970788,
+                "foundation_comparison_status": "SUPPORTS_SELECTION",
+                "foundation_edge_points": 1.9090295210809245,
+                "foundation_fair_line": 3.0909704789190755,
+                "foundation_line_basis": "TEAM1_EXPECTED_MARGIN_NEUTRAL_COURT",
+                "foundation_market_inputs_used": false,
+                "information_risk": "LOW",
+                "line": 5.0,
+                "line_edge_points": 0.693011938080728,
+                "market_convergence_divergence": "MARKET_CONVERGENCE",
+                "market_disagreement_percentile": 0.0551128818061089,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "SPREAD",
+                "model_market_gap_points": 0.693011938080728,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.48101086390879855,
+                "p_push": 0.026566342584866898,
+                "p_win": 0.49242279350633456,
+                "pricing_decomposition": {
+                  "adjustment_layer": {
+                    "adjustment_applied": false,
+                    "layers": [
+                      {
+                        "adjustment_applied": false,
+                        "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "ROTATION_ADJUSTMENT",
+                        "reason": "ROTATION_CONTINUITY_WITHOUT_EXPECTED_MINUTES",
+                        "status": "CONTINUITY_ONLY",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                        "reason": "NET_RATING_USED_IN_BASE_MODEL",
+                        "status": "AVAILABLE_BASE_FEATURE",
+                        "value_points": null
+                      }
+                    ],
+                    "total_adjustment_points": 0,
+                    "unknown_layers": [
+                      "PLAYER_AVAILABILITY_ADJUSTMENT"
+                    ]
+                  },
+                  "after_context_adjustment_margin": 4.306988061919272,
+                  "after_deep_spread_calibration_margin": null,
+                  "after_mean_calibration_margin": null,
+                  "base_fair_spread": 4.306988061919272,
+                  "base_residual_scale": 15.244257446805305,
+                  "betting_fair_spread": 4.306988061919272,
+                  "break_even_win_probability": 0.5069966965703818,
+                  "calibrated_cover_probability": null,
+                  "calibrated_fair_spread": null,
+                  "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                  "conditional_break_even_probability": 0.5208333333333334,
+                  "context_uncertainty_multiplier": 1.1,
+                  "deep_spread_residual_multiplier": null,
+                  "expected_value": -0.027981893882970788,
+                  "fair_center_interval_80": [
+                    4.306988061919272,
+                    4.306988061919272
+                  ],
+                  "fair_center_interval_95": [
+                    4.306988061919272,
+                    4.306988061919272
+                  ],
+                  "fair_center_standard_error": 0.0,
+                  "final_cover_probability": 0.49242279350633456,
+                  "final_spread_residual_scale": 16.768683191485838,
+                  "game_outcome_prediction_interval_80": [
+                    -16.52296571366869,
+                    25.136941837507237
+                  ],
+                  "game_outcome_prediction_interval_95": [
+                    -29.33345858539534,
+                    37.947434709233846
+                  ],
+                  "injury_uncertainty_multiplier": 1.1,
+                  "league_residual_multiplier": 1.0,
+                  "line_edge_points": 0.693011938080728,
+                  "market_spread": -5.0,
+                  "model_market_gap": 9.306988061919272,
+                  "model_version": "score-ridge-production-2.4.0",
+                  "p_loss": 0.48101086390879855,
+                  "p_push": 0.026566342584866898,
+                  "p_win": 0.49242279350633456,
+                  "probability_edge": -0.014971644911834114,
+                  "raw_cover_probability": 0.49242279350633456,
+                  "raw_expected_away_score": 78.18211846944216,
+                  "raw_expected_home_score": 82.48910653136143,
+                  "raw_fair_spread": 4.306988061919272,
+                  "raw_independent_margin": 4.306988061919272,
+                  "raw_team1_line_gap": -0.693011938080728,
+                  "raw_team_strength_away": 3.7207388423142933,
+                  "raw_team_strength_home": 8.027726904233566,
+                  "residual_oos_N": 747,
+                  "residual_source": "GLOBAL_EMPIRICAL",
+                  "rotation_uncertainty_multiplier": 1.0,
+                  "season_regime_multiplier": 1.0,
+                  "selected_side": "TEAM2",
+                  "selected_side_line_edge_points": 0.693011938080728,
+                  "spread_data_quality": "DATA_QUALITY_B",
+                  "student_t_df": 10.0,
+                  "student_t_scale": 13.634878367025618,
+                  "tier_residual_multiplier": 1.0
+                },
+                "probability_edge": -0.014971644911834114,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "5b9b3337aa989309deff3b28",
+                "raw_team1_line_gap": -0.693011938080728,
+                "research_edge_pass": false,
+                "residual_N": 747,
+                "residual_scale": 16.768683191485838,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 0.693011938080728,
+                "selection": "TEAM2"
+              },
+              "shadow_action": "PASS",
+              "triggered": false,
+              "uncertainty_flags": []
+            },
+            "TOTAL": {
+              "archive_type": "FORWARD_NATIVE",
+              "asof": "2026-10-23T13:37:40.872822+00:00",
+              "automated_execution_allowed": false,
+              "blockers": [],
+              "comparison_ready": true,
+              "display_action": "手动实盘候选",
+              "ev": 0.25330023109141,
+              "event_id": "7m:1365804",
+              "execution_mode": "MANUAL_LIVE",
+              "kelly_usable": false,
+              "manual_execution_state": "MANUAL_LIVE_CANDIDATE",
+              "manual_order_required": true,
+              "market_integrity": {},
+              "model_state": "EDGE",
+              "real_bet_flag": false,
+              "real_execution_allowed": false,
+              "real_stake": 0,
+              "selected": {
+                "adverse_ev": 0.13719363317655991,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.518625345093148,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5291005291005291,
+                "conditional_edge": 0.07415405036803069,
+                "conditional_model_win_probability": 0.6658287745644355,
+                "decimal_odds": 1.8900000000000001,
+                "df": 10.0,
+                "direction_robust_80": null,
+                "ev": 0.25330023109141,
+                "foundation_comparison_status": "SUPPORTS_SELECTION",
+                "foundation_edge_points": 4.708377583014908,
+                "foundation_fair_line": 157.7083775830149,
+                "foundation_line_basis": "EXPECTED_TOTAL_FROM_PACE_AND_PPP",
+                "foundation_market_inputs_used": false,
+                "information_risk": "LOW",
+                "line": 153.0,
+                "line_edge_points": 7.671225000803588,
+                "market_convergence_divergence": "UNCONFIRMED",
+                "market_disagreement_percentile": 0.598937583001328,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "TOTAL",
+                "model_market_gap_points": 7.671225000803588,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.32755527084115044,
+                "p_push": 0.01979809777395025,
+                "p_win": 0.6526466313848993,
+                "probability_edge": 0.13672824546390638,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "f46770e291ce1e0c96ee1e11",
+                "raw_team1_line_gap": null,
+                "research_edge_pass": true,
+                "residual_N": 747,
+                "residual_scale": 19.845,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 7.671225000803588,
+                "selection": "OVER"
+              },
+              "shadow_action": "SHADOW_BET",
+              "triggered": true,
+              "uncertainty_flags": [
+                "INJURY_UNKNOWN",
+                "LATE_FOUL_ENVIRONMENT_UNKNOWN"
+              ]
+            }
+          },
+          "market_integrity": {},
+          "market_revalidation": {
+            "blockers": [],
+            "checked_at": "2026-10-23T13:37:40.872822+00:00",
+            "comparison_ready": true,
+            "current_selected": {
+              "adverse_ev": 0.13719363317655991,
+              "bookmaker": "12",
+              "break_even_win_probability": 0.518625345093148,
+              "calibrated_probability": null,
+              "conditional_break_even_probability": 0.5291005291005291,
+              "conditional_edge": 0.07415405036803069,
+              "conditional_model_win_probability": 0.6658287745644355,
+              "decimal_odds": 1.8900000000000001,
+              "df": 10.0,
+              "direction_robust_80": null,
+              "ev": 0.25330023109141,
+              "foundation_comparison_status": "SUPPORTS_SELECTION",
+              "foundation_edge_points": 4.708377583014908,
+              "foundation_fair_line": 157.7083775830149,
+              "foundation_line_basis": "EXPECTED_TOTAL_FROM_PACE_AND_PPP",
+              "foundation_market_inputs_used": false,
+              "information_risk": "LOW",
+              "line": 153.0,
+              "line_edge_points": 7.671225000803588,
+              "market_convergence_divergence": "UNCONFIRMED",
+              "market_disagreement_percentile": 0.598937583001328,
+              "market_path": {
+                "CLOSE": null,
+                "FIRST_SEEN": null,
+                "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                "OPEN": null,
+                "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                "T-10": null,
+                "T-30": null,
+                "T-90": null
+              },
+              "market_path_status": "MARKET_PATH_PARTIAL",
+              "market_type": "TOTAL",
+              "model_market_gap_points": 7.671225000803588,
+              "ot_rule": "INCLUDING_OT",
+              "p_loss": 0.32755527084115044,
+              "p_push": 0.01979809777395025,
+              "p_win": 0.6526466313848993,
+              "probability_edge": 0.13672824546390638,
+              "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+              "probability_sum": 1.0,
+              "quote_id": "f46770e291ce1e0c96ee1e11",
+              "raw_team1_line_gap": null,
+              "research_edge_pass": true,
+              "residual_N": 747,
+              "residual_scale": 19.845,
+              "residual_source": "GLOBAL_EMPIRICAL",
+              "selected_side_line_edge_points": 7.671225000803588,
+              "selection": "OVER"
+            },
+            "display": "按本轮新鲜同规则盘口，仍符合纸面条件",
+            "event_id": "7m:1365804",
+            "original_selection": null,
+            "real_execution_allowed": false,
+            "status": "STILL_QUALIFIES"
+          },
+          "market_revalidation_by_market": {
+            "SPREAD": {
+              "blockers": [],
+              "checked_at": "2026-10-23T13:37:40.872822+00:00",
+              "comparison_ready": true,
+              "current_selected": {
+                "adverse_ev": -0.12864063229919948,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.5069966965703818,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5208333333333334,
+                "conditional_edge": -0.06882086179658481,
+                "conditional_model_win_probability": 0.5058616884214993,
+                "decimal_odds": 1.92,
+                "df": 10.0,
+                "direction_robust_80": true,
+                "ev": -0.027981893882970788,
+                "foundation_comparison_status": "SUPPORTS_SELECTION",
+                "foundation_edge_points": 1.9090295210809245,
+                "foundation_fair_line": 3.0909704789190755,
+                "foundation_line_basis": "TEAM1_EXPECTED_MARGIN_NEUTRAL_COURT",
+                "foundation_market_inputs_used": false,
+                "information_risk": "LOW",
+                "line": 5.0,
+                "line_edge_points": 0.693011938080728,
+                "market_convergence_divergence": "MARKET_CONVERGENCE",
+                "market_disagreement_percentile": 0.0551128818061089,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "SPREAD",
+                "model_market_gap_points": 0.693011938080728,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.48101086390879855,
+                "p_push": 0.026566342584866898,
+                "p_win": 0.49242279350633456,
+                "pricing_decomposition": {
+                  "adjustment_layer": {
+                    "adjustment_applied": false,
+                    "layers": [
+                      {
+                        "adjustment_applied": false,
+                        "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "ROTATION_ADJUSTMENT",
+                        "reason": "ROTATION_CONTINUITY_WITHOUT_EXPECTED_MINUTES",
+                        "status": "CONTINUITY_ONLY",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                        "reason": "NET_RATING_USED_IN_BASE_MODEL",
+                        "status": "AVAILABLE_BASE_FEATURE",
+                        "value_points": null
+                      }
+                    ],
+                    "total_adjustment_points": 0,
+                    "unknown_layers": [
+                      "PLAYER_AVAILABILITY_ADJUSTMENT"
+                    ]
+                  },
+                  "after_context_adjustment_margin": 4.306988061919272,
+                  "after_deep_spread_calibration_margin": null,
+                  "after_mean_calibration_margin": null,
+                  "base_fair_spread": 4.306988061919272,
+                  "base_residual_scale": 15.244257446805305,
+                  "betting_fair_spread": 4.306988061919272,
+                  "break_even_win_probability": 0.5069966965703818,
+                  "calibrated_cover_probability": null,
+                  "calibrated_fair_spread": null,
+                  "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                  "conditional_break_even_probability": 0.5208333333333334,
+                  "context_uncertainty_multiplier": 1.1,
+                  "deep_spread_residual_multiplier": null,
+                  "expected_value": -0.027981893882970788,
+                  "fair_center_interval_80": [
+                    4.306988061919272,
+                    4.306988061919272
+                  ],
+                  "fair_center_interval_95": [
+                    4.306988061919272,
+                    4.306988061919272
+                  ],
+                  "fair_center_standard_error": 0.0,
+                  "final_cover_probability": 0.49242279350633456,
+                  "final_spread_residual_scale": 16.768683191485838,
+                  "game_outcome_prediction_interval_80": [
+                    -16.52296571366869,
+                    25.136941837507237
+                  ],
+                  "game_outcome_prediction_interval_95": [
+                    -29.33345858539534,
+                    37.947434709233846
+                  ],
+                  "injury_uncertainty_multiplier": 1.1,
+                  "league_residual_multiplier": 1.0,
+                  "line_edge_points": 0.693011938080728,
+                  "market_spread": -5.0,
+                  "model_market_gap": 9.306988061919272,
+                  "model_version": "score-ridge-production-2.4.0",
+                  "p_loss": 0.48101086390879855,
+                  "p_push": 0.026566342584866898,
+                  "p_win": 0.49242279350633456,
+                  "probability_edge": -0.014971644911834114,
+                  "raw_cover_probability": 0.49242279350633456,
+                  "raw_expected_away_score": 78.18211846944216,
+                  "raw_expected_home_score": 82.48910653136143,
+                  "raw_fair_spread": 4.306988061919272,
+                  "raw_independent_margin": 4.306988061919272,
+                  "raw_team1_line_gap": -0.693011938080728,
+                  "raw_team_strength_away": 3.7207388423142933,
+                  "raw_team_strength_home": 8.027726904233566,
+                  "residual_oos_N": 747,
+                  "residual_source": "GLOBAL_EMPIRICAL",
+                  "rotation_uncertainty_multiplier": 1.0,
+                  "season_regime_multiplier": 1.0,
+                  "selected_side": "TEAM2",
+                  "selected_side_line_edge_points": 0.693011938080728,
+                  "spread_data_quality": "DATA_QUALITY_B",
+                  "student_t_df": 10.0,
+                  "student_t_scale": 13.634878367025618,
+                  "tier_residual_multiplier": 1.0
+                },
+                "probability_edge": -0.014971644911834114,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "5b9b3337aa989309deff3b28",
+                "raw_team1_line_gap": -0.693011938080728,
+                "research_edge_pass": false,
+                "residual_N": 747,
+                "residual_scale": 16.768683191485838,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 0.693011938080728,
+                "selection": "TEAM2"
+              },
+              "display": "本轮已重新比较，但未通过纸面条件",
+              "event_id": "7m:1365804",
+              "original_selection": null,
+              "real_execution_allowed": false,
+              "status": "NO_LONGER_QUALIFIES"
+            },
+            "TOTAL": {
+              "blockers": [],
+              "checked_at": "2026-10-23T13:37:40.872822+00:00",
+              "comparison_ready": true,
+              "current_selected": {
+                "adverse_ev": 0.13719363317655991,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.518625345093148,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5291005291005291,
+                "conditional_edge": 0.07415405036803069,
+                "conditional_model_win_probability": 0.6658287745644355,
+                "decimal_odds": 1.8900000000000001,
+                "df": 10.0,
+                "direction_robust_80": null,
+                "ev": 0.25330023109141,
+                "foundation_comparison_status": "SUPPORTS_SELECTION",
+                "foundation_edge_points": 4.708377583014908,
+                "foundation_fair_line": 157.7083775830149,
+                "foundation_line_basis": "EXPECTED_TOTAL_FROM_PACE_AND_PPP",
+                "foundation_market_inputs_used": false,
+                "information_risk": "LOW",
+                "line": 153.0,
+                "line_edge_points": 7.671225000803588,
+                "market_convergence_divergence": "UNCONFIRMED",
+                "market_disagreement_percentile": 0.598937583001328,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "TOTAL",
+                "model_market_gap_points": 7.671225000803588,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.32755527084115044,
+                "p_push": 0.01979809777395025,
+                "p_win": 0.6526466313848993,
+                "probability_edge": 0.13672824546390638,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "f46770e291ce1e0c96ee1e11",
+                "raw_team1_line_gap": null,
+                "research_edge_pass": true,
+                "residual_N": 747,
+                "residual_scale": 19.845,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 7.671225000803588,
+                "selection": "OVER"
+              },
+              "display": "按本轮新鲜同规则盘口，仍符合纸面条件",
+              "event_id": "7m:1365804",
+              "original_selection": null,
+              "real_execution_allowed": false,
+              "status": "STILL_QUALIFIES"
+            }
+          },
+          "market_types_triggered": [
+            "TOTAL"
+          ],
+          "market_types_with_comparison": [
+            "SPREAD",
+            "TOTAL"
+          ],
+          "model_state": "NO_EDGE",
+          "prediction_id": "78d47f67fb44b2c91a7375e192b6",
+          "pregame_evidence_bundle": {
+            "DATA_QUALITY": {
+              "current_availability": "UNKNOWN",
+              "history_ready": true,
+              "market_inputs_used_in_fair_price": false,
+              "market_loaded_after_fair_freeze": true,
+              "net_rating_context_verified": true,
+              "net_rating_source": "DERIVED_TITAN",
+              "rotation_continuity_verified": true,
+              "rule_ready": true
+            },
+            "HISTORY": {
+              "away_same_comp_games": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 26
+              },
+              "away_unique_opponents": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 10
+              },
+              "effective_opponent_diversity": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 10
+              },
+              "history_ess": {
+                "cutoff_valid": true,
+                "quality": "TIME_DECAYED",
+                "source": "TITAN007",
+                "value": 18.811286242255676
+              },
+              "history_source_quality": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": "NORMALIZED_HISTORY_STORE",
+                "value": "VERIFIED_SAME_COMP_PRE_CUTOFF"
+              },
+              "history_sources": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": "NORMALIZED_HISTORY_STORE",
+                "value": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ]
+              },
+              "home_same_comp_games": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 26
+              },
+              "home_unique_opponents": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 11
+              }
+            },
+            "PACE": {
+              "derived_possessions": {
+                "cutoff_valid": true,
+                "quality": "DERIVED_BOX_SCORE",
+                "source": "TITAN007",
+                "value": 80.0300530822249
+              },
+              "direct_pace": {
+                "cutoff_valid": true,
+                "quality": "NOT_AVAILABLE",
+                "source": "TITAN007",
+                "value": null
+              },
+              "pace_level": {
+                "cutoff_valid": true,
+                "quality": "BOX_SCORE_DERIVED",
+                "source": "TITAN007",
+                "value": "LEVEL_B"
+              }
+            },
+            "RULE": {
+              "overtime_minutes": {
+                "cutoff_valid": true,
+                "quality": "REGISTRY_VERIFIED",
+                "source": "LEAGUE_RULE_PRIOR",
+                "value": 5
+              },
+              "period_count": {
+                "cutoff_valid": true,
+                "quality": "REGISTRY_VERIFIED",
+                "source": "LEAGUE_RULE_PRIOR",
+                "value": 4
+              },
+              "period_minutes": {
+                "cutoff_valid": true,
+                "quality": "REGISTRY_VERIFIED",
+                "source": "LEAGUE_RULE_PRIOR",
+                "value": 10.0
+              },
+              "regulation_minutes": {
+                "cutoff_valid": true,
+                "quality": "REGISTRY_VERIFIED",
+                "source": "LEAGUE_RULE_PRIOR",
+                "value": 40
+              }
+            },
+            "canonical_event_id": "7m:1365804",
+            "schema_version": "pregame-evidence-bundle-1.0"
+          },
+          "price_blind_input_fingerprint": "02bfc55e68c6e9ff47cccbb4c1b78deeda8361cbcd4c9dd90587b8e73b93b1c7",
+          "real_bet_flag": false,
+          "real_execution_allowed": false,
+          "real_stake": 0,
+          "selected": {
+            "adverse_ev": 0.13719363317655991,
+            "bookmaker": "12",
+            "break_even_win_probability": 0.518625345093148,
+            "calibrated_probability": null,
+            "conditional_break_even_probability": 0.5291005291005291,
+            "conditional_edge": 0.07415405036803069,
+            "conditional_model_win_probability": 0.6658287745644355,
+            "decimal_odds": 1.8900000000000001,
+            "df": 10.0,
+            "direction_robust_80": null,
+            "ev": 0.25330023109141,
+            "foundation_comparison_status": "SUPPORTS_SELECTION",
+            "foundation_edge_points": 4.708377583014908,
+            "foundation_fair_line": 157.7083775830149,
+            "foundation_line_basis": "EXPECTED_TOTAL_FROM_PACE_AND_PPP",
+            "foundation_market_inputs_used": false,
+            "information_risk": "LOW",
+            "line": 153.0,
+            "line_edge_points": 7.671225000803588,
+            "market_convergence_divergence": "UNCONFIRMED",
+            "market_disagreement_percentile": 0.598937583001328,
+            "market_path": {
+              "CLOSE": null,
+              "FIRST_SEEN": null,
+              "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+              "OPEN": null,
+              "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+              "T-10": null,
+              "T-30": null,
+              "T-90": null
+            },
+            "market_path_status": "MARKET_PATH_PARTIAL",
+            "market_type": "TOTAL",
+            "model_market_gap_points": 7.671225000803588,
+            "ot_rule": "INCLUDING_OT",
+            "p_loss": 0.32755527084115044,
+            "p_push": 0.01979809777395025,
+            "p_win": 0.6526466313848993,
+            "probability_edge": 0.13672824546390638,
+            "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+            "probability_sum": 1.0,
+            "quote_id": "f46770e291ce1e0c96ee1e11",
+            "raw_team1_line_gap": null,
+            "research_edge_pass": true,
+            "residual_N": 747,
+            "residual_scale": 19.845,
+            "residual_source": "GLOBAL_EMPIRICAL",
+            "selected_side_line_edge_points": 7.671225000803588,
+            "selection": "OVER"
+          },
+          "shadow_action": "SHADOW_BET",
+          "titan_market_decisions": {
+            "SPREAD": {
+              "champion_eligible": false,
+              "comparison_ready": true,
+              "edge": false,
+              "fair_line": 3.0909704789190755,
+              "hard_blockers": [],
+              "line_only_research": [],
+              "market_type": "SPREAD",
+              "model_name": "TITAN_TECHNICAL_CHALLENGER",
+              "qualified_eligible": false,
+              "real_execution_allowed": false,
+              "selected": {
+                "adverse_ev": -0.0714239717353849,
+                "bookmaker": "12",
+                "conditional_edge": -0.03839224565153937,
+                "decimal_odds": 1.92,
+                "ev": 0.045815455105645664,
+                "fair_line": 3.0909704789190755,
+                "line": 5.0,
+                "market_type": "SPREAD",
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.44058840654327813,
+                "p_push": 0.030711743838326422,
+                "p_win": 0.5286998496183954,
+                "provisional_uncertainty_multiplier": 1.16,
+                "quote_id": "5b9b3337aa989309deff3b28",
+                "research_edge_pass": false,
+                "residual_scale": 15.079999999999998,
+                "selection": "TEAM2"
+              },
+              "soft_missing": [
+                "MODEL_NOT_YET_CHAMPION_VALIDATED",
+                "CURRENT_AVAILABILITY_UNKNOWN",
+                "NO_EDGE"
+              ],
+              "status": "TITAN_RESEARCH_PRICE",
+              "strategy_return_eligible": false,
+              "triggered": false
+            },
+            "TOTAL": {
+              "champion_eligible": false,
+              "comparison_ready": true,
+              "edge": false,
+              "fair_line": 157.7083775830149,
+              "hard_blockers": [],
+              "line_only_research": [],
+              "market_type": "TOTAL",
+              "model_name": "TITAN_TECHNICAL_CHALLENGER",
+              "qualified_eligible": false,
+              "real_execution_allowed": false,
+              "selected": {
+                "adverse_ev": 0.01647750730062597,
+                "bookmaker": "12",
+                "conditional_edge": 0.00891161091657322,
+                "decimal_odds": 1.8900000000000001,
+                "ev": 0.1376157891967031,
+                "fair_line": 157.7083775830149,
+                "line": 153.0,
+                "market_type": "TOTAL",
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.38822235842221503,
+                "p_push": 0.020948262230686132,
+                "p_win": 0.5908293793470989,
+                "provisional_uncertainty_multiplier": 1.16,
+                "quote_id": "f46770e291ce1e0c96ee1e11",
+                "research_edge_pass": false,
+                "residual_scale": 20.88,
+                "selection": "OVER"
+              },
+              "soft_missing": [
+                "MODEL_NOT_YET_CHAMPION_VALIDATED",
+                "CURRENT_AVAILABILITY_UNKNOWN",
+                "NO_EDGE"
+              ],
+              "status": "TITAN_RESEARCH_PRICE",
+              "strategy_return_eligible": false,
+              "triggered": false
+            }
+          },
+          "titan_provisional_counted": false,
+          "titan_provisional_status": "TITAN_RESEARCH_PRICE",
+          "triggered": true,
+          "uncertainty_flags": []
+        },
+        "market": {
+          "quote_states": [],
+          "quotes": []
+        }
+      }
     },
     {
       "archive_type": "FORWARD_NATIVE",
@@ -30768,7 +31758,922 @@
         "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR"
       },
       "anchor_status": "LOCKED_FIRST_WRITE",
-      "anchor_first_write_asof": "2026-10-23T13:37:40.872822+00:00"
+      "anchor_first_write_asof": "2026-10-23T13:37:40.872822+00:00",
+      "latest_revalidation": {
+        "asof": "2026-10-23T23:54:43.133369+00:00",
+        "event": {
+          "age_group": "SENIOR",
+          "bj_date": "2026-10-25",
+          "canonical_event_id": "7m:1366559",
+          "canonical_identity_ambiguous": false,
+          "canonical_team1_id": "basketball:label:胡安娜迪亚斯君主女篮",
+          "canonical_team1_method": "EXPLICIT_CANONICAL_ID",
+          "canonical_team2_id": "basketball:label:阿蒂约牧牛人女篮",
+          "canonical_team2_method": "EXPLICIT_CANONICAL_ID",
+          "competition_id": "7m-comp:413",
+          "competition_key": "PUERTO_RICO_WOMEN",
+          "discovery_sources": [
+            {
+              "source": "7M",
+              "source_url": "https://bdata.7m.com.cn/analyse/gb/1366559.shtml"
+            }
+          ],
+          "discovery_status": "MARKET_FOUND",
+          "event_id": "7m:1366559",
+          "format_id": "BASKETBALL",
+          "game_minutes": 40,
+          "game_minutes_source": "LEAGUE_RULE_PRIOR",
+          "game_minutes_used_in_pricing": false,
+          "gender": "WOMEN",
+          "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
+          "home_sign": 0,
+          "hours_to_start": 34.371980049444446,
+          "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20261023T133041_9698c3421f\\identity_1366559.raw",
+          "identity_verified": true,
+          "inventory_retained": true,
+          "league": "波多黎各联女篮",
+          "league_display": "波多黎各联女篮",
+          "league_family": "PUERTO_RICO_WOMEN",
+          "market_match_method": "DIRECT_ID",
+          "market_status": "MARKET_FOUND",
+          "market_ttl_seconds": 3600,
+          "model_family": "CLUB_MATURE",
+          "next_market_retry_at": null,
+          "observed_at": "2026-10-23T13:31:10.283692+00:00",
+          "pricing_inventory_status": "PRICEABLE_MARKET_PRESENT",
+          "region": "Americas",
+          "season_phase": "UNKNOWN",
+          "source": "7M",
+          "source_event_id": "1366559",
+          "source_time_raw": "2026,10,25,08,00,00",
+          "source_timezone": "Asia/Shanghai",
+          "source_url": "https://bdata.7m.com.cn/analyse/gb/1366559.shtml",
+          "team1_id": "7m-team:8795",
+          "team1_name": "胡安娜迪亚斯君主女篮",
+          "team1_source_id": "8795",
+          "team2_id": "7m-team:8520",
+          "team2_name": "阿蒂约牧牛人女篮",
+          "team2_source_id": "8520",
+          "time_basis": "7M page declares GMT+0800 unless otherwise labelled",
+          "tip_at": "2026-10-25T00:00:00+00:00",
+          "tip_time_bj": "2026-10-25T08:00:00+08:00",
+          "tip_time_utc": "2026-10-25T00:00:00+00:00",
+          "venue_status": "UNKNOWN"
+        },
+        "execution": {
+          "archive_type": "FORWARD_NATIVE",
+          "asof": "2026-10-23T13:37:40.872822+00:00",
+          "automated_execution_allowed": false,
+          "blockers": [
+            "TOTAL_CONTEXT_INCOMPLETE",
+            "POSSESSIONS_EVIDENCE_MISSING"
+          ],
+          "comparison_ready": true,
+          "display_action": "手动实盘候选",
+          "ev": 0.13768376435455232,
+          "event_id": "7m:1366559",
+          "execution_lifecycle": {
+            "automated_execution_allowed": false,
+            "entry_phase": "SIGNAL_BEFORE_EARLY_WINDOW",
+            "execution_mode": "MANUAL_LIVE",
+            "late_recheck_required_at_minutes": [
+              30,
+              10,
+              5
+            ],
+            "manual_order_required": true,
+            "minutes_before_tip_at_entry": 2062.3187863,
+            "real_execution_allowed": true,
+            "threshold_source": "INITIAL_PRIOR"
+          },
+          "execution_mode": "MANUAL_LIVE",
+          "feature_isolation_verified": true,
+          "forecast_fingerprint": "3add9b3ac485554b63a20a527053331ee2f4c9b4adda9940db26c9b67d5c5481",
+          "kelly_usable": false,
+          "manual_execution_state": "NOT_ELIGIBLE",
+          "manual_order_required": true,
+          "market_decisions": {
+            "SPREAD": {
+              "archive_type": "FORWARD_NATIVE",
+              "asof": "2026-10-23T13:37:40.872822+00:00",
+              "automated_execution_allowed": false,
+              "blockers": [],
+              "comparison_ready": true,
+              "display_action": "手动实盘候选",
+              "ev": 0.13768376435455232,
+              "event_id": "7m:1366559",
+              "execution_mode": "MANUAL_LIVE",
+              "fair_spread_decomposition": {
+                "adjustment_layer": {
+                  "adjustment_applied": false,
+                  "layers": [
+                    {
+                      "adjustment_applied": false,
+                      "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "ROTATION_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    }
+                  ],
+                  "total_adjustment_points": 0,
+                  "unknown_layers": [
+                    "PLAYER_AVAILABILITY_ADJUSTMENT",
+                    "ROTATION_ADJUSTMENT",
+                    "CURRENT_TEAM_STRENGTH_ADJUSTMENT"
+                  ]
+                },
+                "after_context_adjustment_margin": 0.864797647526466,
+                "after_deep_spread_calibration_margin": null,
+                "after_mean_calibration_margin": null,
+                "base_fair_spread": 0.864797647526466,
+                "base_residual_scale": 15.244257446805305,
+                "betting_fair_spread": 0.864797647526466,
+                "break_even_win_probability": 0.5328005151110919,
+                "calibrated_cover_probability": null,
+                "calibrated_fair_spread": null,
+                "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                "conditional_break_even_probability": 0.5464480874316939,
+                "context_uncertainty_multiplier": 1.1,
+                "deep_spread_residual_multiplier": null,
+                "expected_value": 0.13768376435455232,
+                "fair_center_interval_80": [
+                  -2.276459882586357,
+                  4.006055177639289
+                ],
+                "fair_center_interval_95": [
+                  -3.939341171944314,
+                  5.668936466997247
+                ],
+                "fair_center_standard_error": 2.451136274628118,
+                "final_cover_probability": 0.6080375448130331,
+                "final_spread_residual_scale": 16.768683191485838,
+                "game_outcome_prediction_interval_80": [
+                  -19.976322371319554,
+                  21.705917666372457
+                ],
+                "game_outcome_prediction_interval_95": [
+                  -32.78560286907887,
+                  34.51519816413179
+                ],
+                "injury_uncertainty_multiplier": 1.1,
+                "league_residual_multiplier": 1.0,
+                "line_edge_points": 5.135202352473534,
+                "market_spread": -6.0,
+                "model_market_gap": 6.864797647526466,
+                "model_version": "score-ridge-production-2.4.0",
+                "p_loss": 0.36698739784026513,
+                "p_push": 0.0249750573467018,
+                "p_win": 0.6080375448130331,
+                "probability_edge": 0.07716421027876641,
+                "raw_cover_probability": 0.6080375448130331,
+                "raw_expected_away_score": 70.75888515653864,
+                "raw_expected_home_score": 71.62368280406511,
+                "raw_fair_spread": 0.864797647526466,
+                "raw_independent_margin": 0.864797647526466,
+                "raw_team1_line_gap": -5.135202352473534,
+                "raw_team_strength_away": -4.110662296994107,
+                "raw_team_strength_home": -3.245864649467641,
+                "residual_oos_N": 747,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "rotation_uncertainty_multiplier": 1.1,
+                "season_regime_multiplier": 1.0,
+                "selected_side": "TEAM2",
+                "selected_side_line_edge_points": 5.135202352473534,
+                "spread_data_quality": "DATA_QUALITY_C",
+                "student_t_df": 10.0,
+                "student_t_scale": 13.634878367025618,
+                "tier_residual_multiplier": 1.0
+              },
+              "kelly_usable": false,
+              "manual_execution_state": "MANUAL_LIVE_CANDIDATE",
+              "manual_order_required": true,
+              "market_integrity": {},
+              "model_state": "EDGE",
+              "real_bet_flag": false,
+              "real_execution_allowed": false,
+              "real_stake": 0,
+              "selected": {
+                "adverse_ev": 0.04476609274999216,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.5328005151110919,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5464480874316939,
+                "conditional_edge": 0.025114943259993083,
+                "conditional_model_win_probability": 0.6236122977104603,
+                "decimal_odds": 1.83,
+                "df": 10.0,
+                "direction_robust_80": true,
+                "ev": 0.13768376435455232,
+                "information_risk": "LOW",
+                "line": 6.0,
+                "line_edge_points": 5.135202352473534,
+                "market_convergence_divergence": "UNCONFIRMED",
+                "market_disagreement_percentile": 0.43691899070385126,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:25+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "SPREAD",
+                "model_market_gap_points": 5.135202352473534,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.36698739784026513,
+                "p_push": 0.0249750573467018,
+                "p_win": 0.6080375448130331,
+                "pricing_decomposition": {
+                  "adjustment_layer": {
+                    "adjustment_applied": false,
+                    "layers": [
+                      {
+                        "adjustment_applied": false,
+                        "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "ROTATION_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      }
+                    ],
+                    "total_adjustment_points": 0,
+                    "unknown_layers": [
+                      "PLAYER_AVAILABILITY_ADJUSTMENT",
+                      "ROTATION_ADJUSTMENT",
+                      "CURRENT_TEAM_STRENGTH_ADJUSTMENT"
+                    ]
+                  },
+                  "after_context_adjustment_margin": 0.864797647526466,
+                  "after_deep_spread_calibration_margin": null,
+                  "after_mean_calibration_margin": null,
+                  "base_fair_spread": 0.864797647526466,
+                  "base_residual_scale": 15.244257446805305,
+                  "betting_fair_spread": 0.864797647526466,
+                  "break_even_win_probability": 0.5328005151110919,
+                  "calibrated_cover_probability": null,
+                  "calibrated_fair_spread": null,
+                  "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                  "conditional_break_even_probability": 0.5464480874316939,
+                  "context_uncertainty_multiplier": 1.1,
+                  "deep_spread_residual_multiplier": null,
+                  "expected_value": 0.13768376435455232,
+                  "fair_center_interval_80": [
+                    -2.276459882586357,
+                    4.006055177639289
+                  ],
+                  "fair_center_interval_95": [
+                    -3.939341171944314,
+                    5.668936466997247
+                  ],
+                  "fair_center_standard_error": 2.451136274628118,
+                  "final_cover_probability": 0.6080375448130331,
+                  "final_spread_residual_scale": 16.768683191485838,
+                  "game_outcome_prediction_interval_80": [
+                    -19.976322371319554,
+                    21.705917666372457
+                  ],
+                  "game_outcome_prediction_interval_95": [
+                    -32.78560286907887,
+                    34.51519816413179
+                  ],
+                  "injury_uncertainty_multiplier": 1.1,
+                  "league_residual_multiplier": 1.0,
+                  "line_edge_points": 5.135202352473534,
+                  "market_spread": -6.0,
+                  "model_market_gap": 6.864797647526466,
+                  "model_version": "score-ridge-production-2.4.0",
+                  "p_loss": 0.36698739784026513,
+                  "p_push": 0.0249750573467018,
+                  "p_win": 0.6080375448130331,
+                  "probability_edge": 0.07716421027876641,
+                  "raw_cover_probability": 0.6080375448130331,
+                  "raw_expected_away_score": 70.75888515653864,
+                  "raw_expected_home_score": 71.62368280406511,
+                  "raw_fair_spread": 0.864797647526466,
+                  "raw_independent_margin": 0.864797647526466,
+                  "raw_team1_line_gap": -5.135202352473534,
+                  "raw_team_strength_away": -4.110662296994107,
+                  "raw_team_strength_home": -3.245864649467641,
+                  "residual_oos_N": 747,
+                  "residual_source": "GLOBAL_EMPIRICAL",
+                  "rotation_uncertainty_multiplier": 1.1,
+                  "season_regime_multiplier": 1.0,
+                  "selected_side": "TEAM2",
+                  "selected_side_line_edge_points": 5.135202352473534,
+                  "spread_data_quality": "DATA_QUALITY_C",
+                  "student_t_df": 10.0,
+                  "student_t_scale": 13.634878367025618,
+                  "tier_residual_multiplier": 1.0
+                },
+                "probability_edge": 0.07716421027876641,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "2addf211591e3bab6186aa66",
+                "raw_team1_line_gap": -5.135202352473534,
+                "research_edge_pass": true,
+                "residual_N": 747,
+                "residual_scale": 16.768683191485838,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 5.135202352473534,
+                "selection": "TEAM2"
+              },
+              "shadow_action": "SHADOW_BET",
+              "triggered": true,
+              "uncertainty_flags": []
+            },
+            "TOTAL": {
+              "archive_type": "FORWARD_NATIVE",
+              "asof": "2026-10-23T13:37:40.872822+00:00",
+              "automated_execution_allowed": false,
+              "blockers": [
+                "TOTAL_CONTEXT_INCOMPLETE",
+                "POSSESSIONS_EVIDENCE_MISSING"
+              ],
+              "comparison_ready": false,
+              "display_action": "不可投",
+              "ev": null,
+              "event_id": "7m:1366559",
+              "execution_mode": "MANUAL_LIVE",
+              "kelly_usable": false,
+              "manual_execution_state": "NOT_ELIGIBLE",
+              "manual_order_required": true,
+              "market_integrity": {},
+              "model_state": "UNASSESSED",
+              "real_bet_flag": false,
+              "real_execution_allowed": false,
+              "real_stake": 0,
+              "shadow_action": "BLOCKED",
+              "triggered": false,
+              "uncertainty_flags": []
+            }
+          },
+          "market_integrity": {},
+          "market_revalidation": {
+            "blockers": [
+              "TOTAL_CONTEXT_INCOMPLETE",
+              "POSSESSIONS_EVIDENCE_MISSING"
+            ],
+            "checked_at": "2026-10-23T13:37:40.872822+00:00",
+            "comparison_ready": true,
+            "current_selected": {
+              "adverse_ev": 0.04476609274999216,
+              "bookmaker": "12",
+              "break_even_win_probability": 0.5328005151110919,
+              "calibrated_probability": null,
+              "conditional_break_even_probability": 0.5464480874316939,
+              "conditional_edge": 0.025114943259993083,
+              "conditional_model_win_probability": 0.6236122977104603,
+              "decimal_odds": 1.83,
+              "df": 10.0,
+              "direction_robust_80": true,
+              "ev": 0.13768376435455232,
+              "information_risk": "LOW",
+              "line": 6.0,
+              "line_edge_points": 5.135202352473534,
+              "market_convergence_divergence": "UNCONFIRMED",
+              "market_disagreement_percentile": 0.43691899070385126,
+              "market_path": {
+                "CLOSE": null,
+                "FIRST_SEEN": null,
+                "LAST_PREMATCH": "2026-10-23T05:44:25+00:00",
+                "OPEN": null,
+                "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                "T-10": null,
+                "T-30": null,
+                "T-90": null
+              },
+              "market_path_status": "MARKET_PATH_PARTIAL",
+              "market_type": "SPREAD",
+              "model_market_gap_points": 5.135202352473534,
+              "ot_rule": "INCLUDING_OT",
+              "p_loss": 0.36698739784026513,
+              "p_push": 0.0249750573467018,
+              "p_win": 0.6080375448130331,
+              "pricing_decomposition": {
+                "adjustment_layer": {
+                  "adjustment_applied": false,
+                  "layers": [
+                    {
+                      "adjustment_applied": false,
+                      "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "ROTATION_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    }
+                  ],
+                  "total_adjustment_points": 0,
+                  "unknown_layers": [
+                    "PLAYER_AVAILABILITY_ADJUSTMENT",
+                    "ROTATION_ADJUSTMENT",
+                    "CURRENT_TEAM_STRENGTH_ADJUSTMENT"
+                  ]
+                },
+                "after_context_adjustment_margin": 0.864797647526466,
+                "after_deep_spread_calibration_margin": null,
+                "after_mean_calibration_margin": null,
+                "base_fair_spread": 0.864797647526466,
+                "base_residual_scale": 15.244257446805305,
+                "betting_fair_spread": 0.864797647526466,
+                "break_even_win_probability": 0.5328005151110919,
+                "calibrated_cover_probability": null,
+                "calibrated_fair_spread": null,
+                "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                "conditional_break_even_probability": 0.5464480874316939,
+                "context_uncertainty_multiplier": 1.1,
+                "deep_spread_residual_multiplier": null,
+                "expected_value": 0.13768376435455232,
+                "fair_center_interval_80": [
+                  -2.276459882586357,
+                  4.006055177639289
+                ],
+                "fair_center_interval_95": [
+                  -3.939341171944314,
+                  5.668936466997247
+                ],
+                "fair_center_standard_error": 2.451136274628118,
+                "final_cover_probability": 0.6080375448130331,
+                "final_spread_residual_scale": 16.768683191485838,
+                "game_outcome_prediction_interval_80": [
+                  -19.976322371319554,
+                  21.705917666372457
+                ],
+                "game_outcome_prediction_interval_95": [
+                  -32.78560286907887,
+                  34.51519816413179
+                ],
+                "injury_uncertainty_multiplier": 1.1,
+                "league_residual_multiplier": 1.0,
+                "line_edge_points": 5.135202352473534,
+                "market_spread": -6.0,
+                "model_market_gap": 6.864797647526466,
+                "model_version": "score-ridge-production-2.4.0",
+                "p_loss": 0.36698739784026513,
+                "p_push": 0.0249750573467018,
+                "p_win": 0.6080375448130331,
+                "probability_edge": 0.07716421027876641,
+                "raw_cover_probability": 0.6080375448130331,
+                "raw_expected_away_score": 70.75888515653864,
+                "raw_expected_home_score": 71.62368280406511,
+                "raw_fair_spread": 0.864797647526466,
+                "raw_independent_margin": 0.864797647526466,
+                "raw_team1_line_gap": -5.135202352473534,
+                "raw_team_strength_away": -4.110662296994107,
+                "raw_team_strength_home": -3.245864649467641,
+                "residual_oos_N": 747,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "rotation_uncertainty_multiplier": 1.1,
+                "season_regime_multiplier": 1.0,
+                "selected_side": "TEAM2",
+                "selected_side_line_edge_points": 5.135202352473534,
+                "spread_data_quality": "DATA_QUALITY_C",
+                "student_t_df": 10.0,
+                "student_t_scale": 13.634878367025618,
+                "tier_residual_multiplier": 1.0
+              },
+              "probability_edge": 0.07716421027876641,
+              "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+              "probability_sum": 1.0,
+              "quote_id": "2addf211591e3bab6186aa66",
+              "raw_team1_line_gap": -5.135202352473534,
+              "research_edge_pass": true,
+              "residual_N": 747,
+              "residual_scale": 16.768683191485838,
+              "residual_source": "GLOBAL_EMPIRICAL",
+              "selected_side_line_edge_points": 5.135202352473534,
+              "selection": "TEAM2"
+            },
+            "display": "按本轮新鲜同规则盘口，仍符合纸面条件",
+            "event_id": "7m:1366559",
+            "original_selection": null,
+            "real_execution_allowed": false,
+            "status": "STILL_QUALIFIES"
+          },
+          "market_revalidation_by_market": {
+            "SPREAD": {
+              "blockers": [],
+              "checked_at": "2026-10-23T13:37:40.872822+00:00",
+              "comparison_ready": true,
+              "current_selected": {
+                "adverse_ev": 0.04476609274999216,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.5328005151110919,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5464480874316939,
+                "conditional_edge": 0.025114943259993083,
+                "conditional_model_win_probability": 0.6236122977104603,
+                "decimal_odds": 1.83,
+                "df": 10.0,
+                "direction_robust_80": true,
+                "ev": 0.13768376435455232,
+                "information_risk": "LOW",
+                "line": 6.0,
+                "line_edge_points": 5.135202352473534,
+                "market_convergence_divergence": "UNCONFIRMED",
+                "market_disagreement_percentile": 0.43691899070385126,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:25+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "SPREAD",
+                "model_market_gap_points": 5.135202352473534,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.36698739784026513,
+                "p_push": 0.0249750573467018,
+                "p_win": 0.6080375448130331,
+                "pricing_decomposition": {
+                  "adjustment_layer": {
+                    "adjustment_applied": false,
+                    "layers": [
+                      {
+                        "adjustment_applied": false,
+                        "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "ROTATION_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      }
+                    ],
+                    "total_adjustment_points": 0,
+                    "unknown_layers": [
+                      "PLAYER_AVAILABILITY_ADJUSTMENT",
+                      "ROTATION_ADJUSTMENT",
+                      "CURRENT_TEAM_STRENGTH_ADJUSTMENT"
+                    ]
+                  },
+                  "after_context_adjustment_margin": 0.864797647526466,
+                  "after_deep_spread_calibration_margin": null,
+                  "after_mean_calibration_margin": null,
+                  "base_fair_spread": 0.864797647526466,
+                  "base_residual_scale": 15.244257446805305,
+                  "betting_fair_spread": 0.864797647526466,
+                  "break_even_win_probability": 0.5328005151110919,
+                  "calibrated_cover_probability": null,
+                  "calibrated_fair_spread": null,
+                  "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                  "conditional_break_even_probability": 0.5464480874316939,
+                  "context_uncertainty_multiplier": 1.1,
+                  "deep_spread_residual_multiplier": null,
+                  "expected_value": 0.13768376435455232,
+                  "fair_center_interval_80": [
+                    -2.276459882586357,
+                    4.006055177639289
+                  ],
+                  "fair_center_interval_95": [
+                    -3.939341171944314,
+                    5.668936466997247
+                  ],
+                  "fair_center_standard_error": 2.451136274628118,
+                  "final_cover_probability": 0.6080375448130331,
+                  "final_spread_residual_scale": 16.768683191485838,
+                  "game_outcome_prediction_interval_80": [
+                    -19.976322371319554,
+                    21.705917666372457
+                  ],
+                  "game_outcome_prediction_interval_95": [
+                    -32.78560286907887,
+                    34.51519816413179
+                  ],
+                  "injury_uncertainty_multiplier": 1.1,
+                  "league_residual_multiplier": 1.0,
+                  "line_edge_points": 5.135202352473534,
+                  "market_spread": -6.0,
+                  "model_market_gap": 6.864797647526466,
+                  "model_version": "score-ridge-production-2.4.0",
+                  "p_loss": 0.36698739784026513,
+                  "p_push": 0.0249750573467018,
+                  "p_win": 0.6080375448130331,
+                  "probability_edge": 0.07716421027876641,
+                  "raw_cover_probability": 0.6080375448130331,
+                  "raw_expected_away_score": 70.75888515653864,
+                  "raw_expected_home_score": 71.62368280406511,
+                  "raw_fair_spread": 0.864797647526466,
+                  "raw_independent_margin": 0.864797647526466,
+                  "raw_team1_line_gap": -5.135202352473534,
+                  "raw_team_strength_away": -4.110662296994107,
+                  "raw_team_strength_home": -3.245864649467641,
+                  "residual_oos_N": 747,
+                  "residual_source": "GLOBAL_EMPIRICAL",
+                  "rotation_uncertainty_multiplier": 1.1,
+                  "season_regime_multiplier": 1.0,
+                  "selected_side": "TEAM2",
+                  "selected_side_line_edge_points": 5.135202352473534,
+                  "spread_data_quality": "DATA_QUALITY_C",
+                  "student_t_df": 10.0,
+                  "student_t_scale": 13.634878367025618,
+                  "tier_residual_multiplier": 1.0
+                },
+                "probability_edge": 0.07716421027876641,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "2addf211591e3bab6186aa66",
+                "raw_team1_line_gap": -5.135202352473534,
+                "research_edge_pass": true,
+                "residual_N": 747,
+                "residual_scale": 16.768683191485838,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 5.135202352473534,
+                "selection": "TEAM2"
+              },
+              "display": "按本轮新鲜同规则盘口，仍符合纸面条件",
+              "event_id": "7m:1366559",
+              "original_selection": null,
+              "real_execution_allowed": false,
+              "status": "STILL_QUALIFIES"
+            },
+            "TOTAL": {
+              "blockers": [
+                "TOTAL_CONTEXT_INCOMPLETE",
+                "POSSESSIONS_EVIDENCE_MISSING"
+              ],
+              "checked_at": "2026-10-23T13:37:40.872822+00:00",
+              "comparison_ready": false,
+              "current_selected": null,
+              "display": "缺少本轮新鲜、同规则的可比较盘口",
+              "event_id": "7m:1366559",
+              "original_selection": null,
+              "real_execution_allowed": false,
+              "status": "REVALIDATION_UNAVAILABLE"
+            }
+          },
+          "market_types_triggered": [
+            "SPREAD"
+          ],
+          "market_types_with_comparison": [
+            "SPREAD"
+          ],
+          "model_state": "EDGE",
+          "prediction_id": "dd2a8471e763041981260b0a82d2",
+          "pregame_evidence_bundle": {
+            "DATA_QUALITY": {
+              "market_inputs_used_in_fair_price": false,
+              "market_loaded_after_fair_freeze": true
+            },
+            "HISTORY": {},
+            "PACE": {},
+            "RULE": {}
+          },
+          "price_blind_input_fingerprint": "b6867283ccc99248b978ad0ac2660c6e0c4e81aa3d31f6b35dfb6831a1b9db45",
+          "real_bet_flag": false,
+          "real_execution_allowed": false,
+          "real_stake": 0,
+          "selected": {
+            "adverse_ev": 0.04476609274999216,
+            "bookmaker": "12",
+            "break_even_win_probability": 0.5328005151110919,
+            "calibrated_probability": null,
+            "conditional_break_even_probability": 0.5464480874316939,
+            "conditional_edge": 0.025114943259993083,
+            "conditional_model_win_probability": 0.6236122977104603,
+            "decimal_odds": 1.83,
+            "df": 10.0,
+            "direction_robust_80": true,
+            "ev": 0.13768376435455232,
+            "information_risk": "LOW",
+            "line": 6.0,
+            "line_edge_points": 5.135202352473534,
+            "market_convergence_divergence": "UNCONFIRMED",
+            "market_disagreement_percentile": 0.43691899070385126,
+            "market_path": {
+              "CLOSE": null,
+              "FIRST_SEEN": null,
+              "LAST_PREMATCH": "2026-10-23T05:44:25+00:00",
+              "OPEN": null,
+              "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+              "T-10": null,
+              "T-30": null,
+              "T-90": null
+            },
+            "market_path_status": "MARKET_PATH_PARTIAL",
+            "market_type": "SPREAD",
+            "model_market_gap_points": 5.135202352473534,
+            "ot_rule": "INCLUDING_OT",
+            "p_loss": 0.36698739784026513,
+            "p_push": 0.0249750573467018,
+            "p_win": 0.6080375448130331,
+            "pricing_decomposition": {
+              "adjustment_layer": {
+                "adjustment_applied": false,
+                "layers": [
+                  {
+                    "adjustment_applied": false,
+                    "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                    "reason": "DATA_UNAVAILABLE",
+                    "status": "UNKNOWN",
+                    "value_points": null
+                  },
+                  {
+                    "adjustment_applied": false,
+                    "layer": "ROTATION_ADJUSTMENT",
+                    "reason": "DATA_UNAVAILABLE",
+                    "status": "UNKNOWN",
+                    "value_points": null
+                  },
+                  {
+                    "adjustment_applied": false,
+                    "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                    "reason": "DATA_UNAVAILABLE",
+                    "status": "UNKNOWN",
+                    "value_points": null
+                  }
+                ],
+                "total_adjustment_points": 0,
+                "unknown_layers": [
+                  "PLAYER_AVAILABILITY_ADJUSTMENT",
+                  "ROTATION_ADJUSTMENT",
+                  "CURRENT_TEAM_STRENGTH_ADJUSTMENT"
+                ]
+              },
+              "after_context_adjustment_margin": 0.864797647526466,
+              "after_deep_spread_calibration_margin": null,
+              "after_mean_calibration_margin": null,
+              "base_fair_spread": 0.864797647526466,
+              "base_residual_scale": 15.244257446805305,
+              "betting_fair_spread": 0.864797647526466,
+              "break_even_win_probability": 0.5328005151110919,
+              "calibrated_cover_probability": null,
+              "calibrated_fair_spread": null,
+              "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+              "conditional_break_even_probability": 0.5464480874316939,
+              "context_uncertainty_multiplier": 1.1,
+              "deep_spread_residual_multiplier": null,
+              "expected_value": 0.13768376435455232,
+              "fair_center_interval_80": [
+                -2.276459882586357,
+                4.006055177639289
+              ],
+              "fair_center_interval_95": [
+                -3.939341171944314,
+                5.668936466997247
+              ],
+              "fair_center_standard_error": 2.451136274628118,
+              "final_cover_probability": 0.6080375448130331,
+              "final_spread_residual_scale": 16.768683191485838,
+              "game_outcome_prediction_interval_80": [
+                -19.976322371319554,
+                21.705917666372457
+              ],
+              "game_outcome_prediction_interval_95": [
+                -32.78560286907887,
+                34.51519816413179
+              ],
+              "injury_uncertainty_multiplier": 1.1,
+              "league_residual_multiplier": 1.0,
+              "line_edge_points": 5.135202352473534,
+              "market_spread": -6.0,
+              "model_market_gap": 6.864797647526466,
+              "model_version": "score-ridge-production-2.4.0",
+              "p_loss": 0.36698739784026513,
+              "p_push": 0.0249750573467018,
+              "p_win": 0.6080375448130331,
+              "probability_edge": 0.07716421027876641,
+              "raw_cover_probability": 0.6080375448130331,
+              "raw_expected_away_score": 70.75888515653864,
+              "raw_expected_home_score": 71.62368280406511,
+              "raw_fair_spread": 0.864797647526466,
+              "raw_independent_margin": 0.864797647526466,
+              "raw_team1_line_gap": -5.135202352473534,
+              "raw_team_strength_away": -4.110662296994107,
+              "raw_team_strength_home": -3.245864649467641,
+              "residual_oos_N": 747,
+              "residual_source": "GLOBAL_EMPIRICAL",
+              "rotation_uncertainty_multiplier": 1.1,
+              "season_regime_multiplier": 1.0,
+              "selected_side": "TEAM2",
+              "selected_side_line_edge_points": 5.135202352473534,
+              "spread_data_quality": "DATA_QUALITY_C",
+              "student_t_df": 10.0,
+              "student_t_scale": 13.634878367025618,
+              "tier_residual_multiplier": 1.0
+            },
+            "probability_edge": 0.07716421027876641,
+            "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+            "probability_sum": 1.0,
+            "quote_id": "2addf211591e3bab6186aa66",
+            "raw_team1_line_gap": -5.135202352473534,
+            "research_edge_pass": true,
+            "residual_N": 747,
+            "residual_scale": 16.768683191485838,
+            "residual_source": "GLOBAL_EMPIRICAL",
+            "selected_side_line_edge_points": 5.135202352473534,
+            "selection": "TEAM2"
+          },
+          "shadow_action": "SHADOW_BET",
+          "titan_market_decisions": {
+            "SPREAD": {
+              "champion_eligible": false,
+              "comparison_ready": false,
+              "edge": false,
+              "fair_line": null,
+              "hard_blockers": [
+                "NO_INDEPENDENT_FAIR_PRICE"
+              ],
+              "market_type": "SPREAD",
+              "model_name": "TITAN_TECHNICAL_CHALLENGER",
+              "qualified_eligible": false,
+              "real_execution_allowed": false,
+              "selected": null,
+              "soft_missing": [
+                "MODEL_NOT_YET_CHAMPION_VALIDATED"
+              ],
+              "status": "UNAVAILABLE",
+              "strategy_return_eligible": false,
+              "triggered": false
+            },
+            "TOTAL": {
+              "champion_eligible": false,
+              "comparison_ready": false,
+              "edge": false,
+              "fair_line": null,
+              "hard_blockers": [
+                "NO_INDEPENDENT_FAIR_PRICE"
+              ],
+              "market_type": "TOTAL",
+              "model_name": "TITAN_TECHNICAL_CHALLENGER",
+              "qualified_eligible": false,
+              "real_execution_allowed": false,
+              "selected": null,
+              "soft_missing": [
+                "MODEL_NOT_YET_CHAMPION_VALIDATED"
+              ],
+              "status": "UNAVAILABLE",
+              "strategy_return_eligible": false,
+              "triggered": false
+            }
+          },
+          "titan_provisional_counted": false,
+          "titan_provisional_status": "UNAVAILABLE",
+          "triggered": true,
+          "uncertainty_flags": []
+        },
+        "market": {
+          "quote_states": [],
+          "quotes": []
+        }
+      }
     },
     {
       "archive_type": "FORWARD_NATIVE",
@@ -55425,7 +57330,1184 @@
         "uncertainty_source": "UNVALIDATED_RESEARCH_PRIOR"
       },
       "anchor_status": "LOCKED_FIRST_WRITE",
-      "anchor_first_write_asof": "2026-10-23T13:37:40.872822+00:00"
+      "anchor_first_write_asof": "2026-10-23T13:37:40.872822+00:00",
+      "latest_revalidation": {
+        "asof": "2026-10-23T23:54:43.133369+00:00",
+        "event": {
+          "age_group": "SENIOR",
+          "bj_date": "2026-10-25",
+          "canonical_event_id": "7m:1349098",
+          "canonical_identity_ambiguous": false,
+          "canonical_team1_id": "basketball:label:坎斯大班",
+          "canonical_team1_method": "EXPLICIT_CANONICAL_ID",
+          "canonical_team2_id": "basketball:label:新西兰破坏者",
+          "canonical_team2_method": "EXPLICIT_CANONICAL_ID",
+          "competition_id": "7m-comp:22",
+          "competition_key": "AUSTRALIA_NBL",
+          "discovery_sources": [
+            {
+              "source": "7M",
+              "source_url": "https://bdata.7m.com.cn/analyse/gb/1349098.shtml"
+            }
+          ],
+          "discovery_status": "MARKET_FOUND",
+          "event_id": "7m:1349098",
+          "format_id": "BASKETBALL",
+          "game_minutes": 40,
+          "game_minutes_source": "NBL_OFFICIAL_COMPETITION_RULES",
+          "game_minutes_used_in_pricing": false,
+          "gender": "MEN",
+          "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
+          "home_sign": 0,
+          "hours_to_start": 38.371980326944445,
+          "identity_raw_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\repair_v22\\20261023T133041_9698c3421f\\identity_1349098.raw",
+          "identity_verified": true,
+          "inventory_retained": true,
+          "league": "澳大利亚国家篮球联赛",
+          "league_display": "澳大利亚国家篮球联赛",
+          "league_family": "AUSTRALIA_NBL",
+          "market_match_method": "DIRECT_ID",
+          "market_status": "MARKET_FOUND",
+          "market_ttl_seconds": 3600,
+          "model_family": "CLUB_MATURE",
+          "next_market_retry_at": null,
+          "observed_at": "2026-10-23T13:31:02.367087+00:00",
+          "pricing_inventory_status": "PRICEABLE_MARKET_PRESENT",
+          "region": "大洋洲",
+          "season_phase": "UNKNOWN",
+          "source": "7M",
+          "source_event_id": "1349098",
+          "source_time_raw": "2026,10,25,12,00,00",
+          "source_timezone": "Asia/Shanghai",
+          "source_url": "https://bdata.7m.com.cn/analyse/gb/1349098.shtml",
+          "team1_id": "7m-team:815",
+          "team1_name": "坎斯大班",
+          "team1_source_id": "815",
+          "team2_id": "7m-team:814",
+          "team2_name": "新西兰破坏者",
+          "team2_source_id": "814",
+          "time_basis": "7M page declares GMT+0800 unless otherwise labelled",
+          "tip_at": "2026-10-25T04:00:00+00:00",
+          "tip_time_bj": "2026-10-25T12:00:00+08:00",
+          "tip_time_utc": "2026-10-25T04:00:00+00:00",
+          "venue_status": "UNKNOWN"
+        },
+        "execution": {
+          "archive_type": "FORWARD_NATIVE",
+          "asof": "2026-10-23T13:37:40.872822+00:00",
+          "automated_execution_allowed": false,
+          "blockers": [],
+          "comparison_ready": true,
+          "display_action": "手动实盘候选",
+          "ev": 0.15655141716958954,
+          "event_id": "7m:1349098",
+          "execution_lifecycle": {
+            "automated_execution_allowed": false,
+            "entry_phase": "SIGNAL_BEFORE_EARLY_WINDOW",
+            "execution_mode": "MANUAL_LIVE",
+            "late_recheck_required_at_minutes": [
+              30,
+              10,
+              5
+            ],
+            "manual_order_required": true,
+            "minutes_before_tip_at_entry": 2302.3187863,
+            "real_execution_allowed": true,
+            "threshold_source": "INITIAL_PRIOR"
+          },
+          "execution_mode": "MANUAL_LIVE",
+          "feature_isolation_verified": true,
+          "forecast_fingerprint": "806ef43ac497eacd3e22db2572a09fa2aa401797b0b40ddd7c4717abab93670e",
+          "kelly_usable": false,
+          "manual_execution_state": "NOT_ELIGIBLE",
+          "manual_order_required": true,
+          "market_decisions": {
+            "SPREAD": {
+              "archive_type": "FORWARD_NATIVE",
+              "asof": "2026-10-23T13:37:40.872822+00:00",
+              "automated_execution_allowed": false,
+              "blockers": [],
+              "comparison_ready": true,
+              "display_action": "手动实盘候选",
+              "ev": 0.15655141716958954,
+              "event_id": "7m:1349098",
+              "execution_mode": "MANUAL_LIVE",
+              "fair_spread_decomposition": {
+                "adjustment_layer": {
+                  "adjustment_applied": false,
+                  "layers": [
+                    {
+                      "adjustment_applied": false,
+                      "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "ROTATION_ADJUSTMENT",
+                      "reason": "ROTATION_CONTINUITY_WITHOUT_EXPECTED_MINUTES",
+                      "status": "CONTINUITY_ONLY",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                      "reason": "NET_RATING_USED_IN_BASE_MODEL",
+                      "status": "AVAILABLE_BASE_FEATURE",
+                      "value_points": null
+                    }
+                  ],
+                  "total_adjustment_points": 0,
+                  "unknown_layers": [
+                    "PLAYER_AVAILABILITY_ADJUSTMENT"
+                  ]
+                },
+                "after_context_adjustment_margin": -4.146910400292744,
+                "after_deep_spread_calibration_margin": null,
+                "after_mean_calibration_margin": null,
+                "base_fair_spread": -4.146910400292744,
+                "base_residual_scale": 15.244257446805305,
+                "betting_fair_spread": -4.146910400292744,
+                "break_even_win_probability": 0.5020798226213579,
+                "calibrated_cover_probability": null,
+                "calibrated_fair_spread": null,
+                "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                "conditional_break_even_probability": 0.5154639175257733,
+                "context_uncertainty_multiplier": 1.1,
+                "deep_spread_residual_multiplier": null,
+                "expected_value": 0.15655141716958954,
+                "fair_center_interval_80": [
+                  -7.019728362628647,
+                  -1.274092437956841
+                ],
+                "fair_center_interval_95": [
+                  -8.540506328619944,
+                  0.24668552803445642
+                ],
+                "fair_center_standard_error": 2.2416717669219097,
+                "final_cover_probability": 0.5827764294098061,
+                "final_spread_residual_scale": 16.768683191485838,
+                "game_outcome_prediction_interval_80": [
+                  -24.9776927319378,
+                  16.683871931352314
+                ],
+                "game_outcome_prediction_interval_95": [
+                  -37.78809559682658,
+                  29.49427479624105
+                ],
+                "injury_uncertainty_multiplier": 1.1,
+                "league_residual_multiplier": 1.0,
+                "line_edge_points": 3.146910400292744,
+                "market_spread": 1.0,
+                "model_market_gap": -5.146910400292744,
+                "model_version": "score-ridge-production-2.4.0",
+                "p_loss": 0.39125842647562814,
+                "p_push": 0.02596514411456574,
+                "p_win": 0.5827764294098061,
+                "probability_edge": 0.08284776083818068,
+                "raw_cover_probability": 0.5827764294098061,
+                "raw_expected_away_score": 95.41115647367013,
+                "raw_expected_home_score": 91.2642460733774,
+                "raw_fair_spread": -4.146910400292744,
+                "raw_independent_margin": -4.146910400292744,
+                "raw_team1_line_gap": -3.146910400292744,
+                "raw_team_strength_away": 1.763349591824474,
+                "raw_team_strength_home": -2.38356080846827,
+                "residual_oos_N": 747,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "rotation_uncertainty_multiplier": 1.0,
+                "season_regime_multiplier": 1.0,
+                "selected_side": "TEAM2",
+                "selected_side_line_edge_points": 3.146910400292744,
+                "spread_data_quality": "DATA_QUALITY_B",
+                "student_t_df": 10.0,
+                "student_t_scale": 13.634878367025618,
+                "tier_residual_multiplier": 1.0
+              },
+              "kelly_usable": false,
+              "manual_execution_state": "MANUAL_LIVE_CANDIDATE",
+              "manual_order_required": true,
+              "market_integrity": {},
+              "model_state": "EDGE",
+              "real_bet_flag": false,
+              "real_execution_allowed": false,
+              "real_stake": 0,
+              "selected": {
+                "adverse_ev": 0.05547354451847464,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.5020798226213579,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5154639175257733,
+                "conditional_edge": 0.02937406487524996,
+                "conditional_model_win_probability": 0.5983116783639539,
+                "decimal_odds": 1.94,
+                "df": 10.0,
+                "direction_robust_80": true,
+                "ev": 0.15655141716958954,
+                "foundation_comparison_status": "OPPOSES_SELECTION",
+                "foundation_edge_points": -4.527480158238902,
+                "foundation_fair_line": 3.5274801582389017,
+                "foundation_line_basis": "TEAM1_EXPECTED_MARGIN_NEUTRAL_COURT",
+                "foundation_market_inputs_used": false,
+                "information_risk": "LOW",
+                "line": -1.0,
+                "line_edge_points": 3.146910400292744,
+                "market_convergence_divergence": "UNCONFIRMED",
+                "market_disagreement_percentile": 0.2782204515272244,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "SPREAD",
+                "model_market_gap_points": 3.146910400292744,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.39125842647562814,
+                "p_push": 0.02596514411456574,
+                "p_win": 0.5827764294098061,
+                "pricing_decomposition": {
+                  "adjustment_layer": {
+                    "adjustment_applied": false,
+                    "layers": [
+                      {
+                        "adjustment_applied": false,
+                        "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "ROTATION_ADJUSTMENT",
+                        "reason": "ROTATION_CONTINUITY_WITHOUT_EXPECTED_MINUTES",
+                        "status": "CONTINUITY_ONLY",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                        "reason": "NET_RATING_USED_IN_BASE_MODEL",
+                        "status": "AVAILABLE_BASE_FEATURE",
+                        "value_points": null
+                      }
+                    ],
+                    "total_adjustment_points": 0,
+                    "unknown_layers": [
+                      "PLAYER_AVAILABILITY_ADJUSTMENT"
+                    ]
+                  },
+                  "after_context_adjustment_margin": -4.146910400292744,
+                  "after_deep_spread_calibration_margin": null,
+                  "after_mean_calibration_margin": null,
+                  "base_fair_spread": -4.146910400292744,
+                  "base_residual_scale": 15.244257446805305,
+                  "betting_fair_spread": -4.146910400292744,
+                  "break_even_win_probability": 0.5020798226213579,
+                  "calibrated_cover_probability": null,
+                  "calibrated_fair_spread": null,
+                  "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                  "conditional_break_even_probability": 0.5154639175257733,
+                  "context_uncertainty_multiplier": 1.1,
+                  "deep_spread_residual_multiplier": null,
+                  "expected_value": 0.15655141716958954,
+                  "fair_center_interval_80": [
+                    -7.019728362628647,
+                    -1.274092437956841
+                  ],
+                  "fair_center_interval_95": [
+                    -8.540506328619944,
+                    0.24668552803445642
+                  ],
+                  "fair_center_standard_error": 2.2416717669219097,
+                  "final_cover_probability": 0.5827764294098061,
+                  "final_spread_residual_scale": 16.768683191485838,
+                  "game_outcome_prediction_interval_80": [
+                    -24.9776927319378,
+                    16.683871931352314
+                  ],
+                  "game_outcome_prediction_interval_95": [
+                    -37.78809559682658,
+                    29.49427479624105
+                  ],
+                  "injury_uncertainty_multiplier": 1.1,
+                  "league_residual_multiplier": 1.0,
+                  "line_edge_points": 3.146910400292744,
+                  "market_spread": 1.0,
+                  "model_market_gap": -5.146910400292744,
+                  "model_version": "score-ridge-production-2.4.0",
+                  "p_loss": 0.39125842647562814,
+                  "p_push": 0.02596514411456574,
+                  "p_win": 0.5827764294098061,
+                  "probability_edge": 0.08284776083818068,
+                  "raw_cover_probability": 0.5827764294098061,
+                  "raw_expected_away_score": 95.41115647367013,
+                  "raw_expected_home_score": 91.2642460733774,
+                  "raw_fair_spread": -4.146910400292744,
+                  "raw_independent_margin": -4.146910400292744,
+                  "raw_team1_line_gap": -3.146910400292744,
+                  "raw_team_strength_away": 1.763349591824474,
+                  "raw_team_strength_home": -2.38356080846827,
+                  "residual_oos_N": 747,
+                  "residual_source": "GLOBAL_EMPIRICAL",
+                  "rotation_uncertainty_multiplier": 1.0,
+                  "season_regime_multiplier": 1.0,
+                  "selected_side": "TEAM2",
+                  "selected_side_line_edge_points": 3.146910400292744,
+                  "spread_data_quality": "DATA_QUALITY_B",
+                  "student_t_df": 10.0,
+                  "student_t_scale": 13.634878367025618,
+                  "tier_residual_multiplier": 1.0
+                },
+                "probability_edge": 0.08284776083818068,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "5a696fb1fbe1e25fd964ba4a",
+                "raw_team1_line_gap": -3.146910400292744,
+                "research_edge_pass": true,
+                "residual_N": 747,
+                "residual_scale": 16.768683191485838,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 3.146910400292744,
+                "selection": "TEAM2"
+              },
+              "shadow_action": "SHADOW_BET",
+              "triggered": true,
+              "uncertainty_flags": []
+            },
+            "TOTAL": {
+              "archive_type": "FORWARD_NATIVE",
+              "asof": "2026-10-23T13:37:40.872822+00:00",
+              "automated_execution_allowed": false,
+              "blockers": [],
+              "comparison_ready": true,
+              "display_action": "不可投",
+              "ev": -0.011264898578037807,
+              "event_id": "7m:1349098",
+              "execution_mode": "MANUAL_LIVE",
+              "kelly_usable": false,
+              "manual_execution_state": "NOT_ELIGIBLE",
+              "manual_order_required": true,
+              "market_integrity": {},
+              "model_state": "NO_EDGE",
+              "real_bet_flag": false,
+              "real_execution_allowed": false,
+              "real_stake": 0,
+              "selected": {
+                "adverse_ev": -0.11568483187148665,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.5208333333333334,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5208333333333334,
+                "conditional_edge": -0.060252516599732686,
+                "conditional_model_win_probability": 0.514966198657272,
+                "decimal_odds": 1.92,
+                "df": 10.0,
+                "direction_robust_80": null,
+                "ev": -0.011264898578037807,
+                "foundation_comparison_status": "SUPPORTS_SELECTION",
+                "foundation_edge_points": 8.526042631546034,
+                "foundation_fair_line": 178.97395736845397,
+                "foundation_line_basis": "EXPECTED_TOTAL_FROM_PACE_AND_PPP",
+                "foundation_market_inputs_used": false,
+                "information_risk": "LOW",
+                "line": 187.5,
+                "line_edge_points": 0.8245974529524744,
+                "market_convergence_divergence": "MARKET_CONVERGENCE",
+                "market_disagreement_percentile": 0.06905710491367861,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "TOTAL",
+                "model_market_gap_points": 0.8245974529524744,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.485033801342728,
+                "p_push": 0.0,
+                "p_win": 0.514966198657272,
+                "probability_edge": -0.00586713467606137,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "6129fe78b35de4cb9f82d85f",
+                "raw_team1_line_gap": null,
+                "research_edge_pass": false,
+                "residual_N": 747,
+                "residual_scale": 23.962837500000003,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 0.8245974529524744,
+                "selection": "UNDER"
+              },
+              "shadow_action": "PASS",
+              "triggered": false,
+              "uncertainty_flags": [
+                "INJURY_UNKNOWN",
+                "THREE_POINT_PROFILE_UNKNOWN",
+                "LATE_FOUL_ENVIRONMENT_UNKNOWN"
+              ]
+            }
+          },
+          "market_integrity": {},
+          "market_revalidation": {
+            "blockers": [],
+            "checked_at": "2026-10-23T13:37:40.872822+00:00",
+            "comparison_ready": true,
+            "current_selected": {
+              "adverse_ev": 0.05547354451847464,
+              "bookmaker": "12",
+              "break_even_win_probability": 0.5020798226213579,
+              "calibrated_probability": null,
+              "conditional_break_even_probability": 0.5154639175257733,
+              "conditional_edge": 0.02937406487524996,
+              "conditional_model_win_probability": 0.5983116783639539,
+              "decimal_odds": 1.94,
+              "df": 10.0,
+              "direction_robust_80": true,
+              "ev": 0.15655141716958954,
+              "foundation_comparison_status": "OPPOSES_SELECTION",
+              "foundation_edge_points": -4.527480158238902,
+              "foundation_fair_line": 3.5274801582389017,
+              "foundation_line_basis": "TEAM1_EXPECTED_MARGIN_NEUTRAL_COURT",
+              "foundation_market_inputs_used": false,
+              "information_risk": "LOW",
+              "line": -1.0,
+              "line_edge_points": 3.146910400292744,
+              "market_convergence_divergence": "UNCONFIRMED",
+              "market_disagreement_percentile": 0.2782204515272244,
+              "market_path": {
+                "CLOSE": null,
+                "FIRST_SEEN": null,
+                "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                "OPEN": null,
+                "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                "T-10": null,
+                "T-30": null,
+                "T-90": null
+              },
+              "market_path_status": "MARKET_PATH_PARTIAL",
+              "market_type": "SPREAD",
+              "model_market_gap_points": 3.146910400292744,
+              "ot_rule": "INCLUDING_OT",
+              "p_loss": 0.39125842647562814,
+              "p_push": 0.02596514411456574,
+              "p_win": 0.5827764294098061,
+              "pricing_decomposition": {
+                "adjustment_layer": {
+                  "adjustment_applied": false,
+                  "layers": [
+                    {
+                      "adjustment_applied": false,
+                      "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                      "reason": "DATA_UNAVAILABLE",
+                      "status": "UNKNOWN",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "ROTATION_ADJUSTMENT",
+                      "reason": "ROTATION_CONTINUITY_WITHOUT_EXPECTED_MINUTES",
+                      "status": "CONTINUITY_ONLY",
+                      "value_points": null
+                    },
+                    {
+                      "adjustment_applied": false,
+                      "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                      "reason": "NET_RATING_USED_IN_BASE_MODEL",
+                      "status": "AVAILABLE_BASE_FEATURE",
+                      "value_points": null
+                    }
+                  ],
+                  "total_adjustment_points": 0,
+                  "unknown_layers": [
+                    "PLAYER_AVAILABILITY_ADJUSTMENT"
+                  ]
+                },
+                "after_context_adjustment_margin": -4.146910400292744,
+                "after_deep_spread_calibration_margin": null,
+                "after_mean_calibration_margin": null,
+                "base_fair_spread": -4.146910400292744,
+                "base_residual_scale": 15.244257446805305,
+                "betting_fair_spread": -4.146910400292744,
+                "break_even_win_probability": 0.5020798226213579,
+                "calibrated_cover_probability": null,
+                "calibrated_fair_spread": null,
+                "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                "conditional_break_even_probability": 0.5154639175257733,
+                "context_uncertainty_multiplier": 1.1,
+                "deep_spread_residual_multiplier": null,
+                "expected_value": 0.15655141716958954,
+                "fair_center_interval_80": [
+                  -7.019728362628647,
+                  -1.274092437956841
+                ],
+                "fair_center_interval_95": [
+                  -8.540506328619944,
+                  0.24668552803445642
+                ],
+                "fair_center_standard_error": 2.2416717669219097,
+                "final_cover_probability": 0.5827764294098061,
+                "final_spread_residual_scale": 16.768683191485838,
+                "game_outcome_prediction_interval_80": [
+                  -24.9776927319378,
+                  16.683871931352314
+                ],
+                "game_outcome_prediction_interval_95": [
+                  -37.78809559682658,
+                  29.49427479624105
+                ],
+                "injury_uncertainty_multiplier": 1.1,
+                "league_residual_multiplier": 1.0,
+                "line_edge_points": 3.146910400292744,
+                "market_spread": 1.0,
+                "model_market_gap": -5.146910400292744,
+                "model_version": "score-ridge-production-2.4.0",
+                "p_loss": 0.39125842647562814,
+                "p_push": 0.02596514411456574,
+                "p_win": 0.5827764294098061,
+                "probability_edge": 0.08284776083818068,
+                "raw_cover_probability": 0.5827764294098061,
+                "raw_expected_away_score": 95.41115647367013,
+                "raw_expected_home_score": 91.2642460733774,
+                "raw_fair_spread": -4.146910400292744,
+                "raw_independent_margin": -4.146910400292744,
+                "raw_team1_line_gap": -3.146910400292744,
+                "raw_team_strength_away": 1.763349591824474,
+                "raw_team_strength_home": -2.38356080846827,
+                "residual_oos_N": 747,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "rotation_uncertainty_multiplier": 1.0,
+                "season_regime_multiplier": 1.0,
+                "selected_side": "TEAM2",
+                "selected_side_line_edge_points": 3.146910400292744,
+                "spread_data_quality": "DATA_QUALITY_B",
+                "student_t_df": 10.0,
+                "student_t_scale": 13.634878367025618,
+                "tier_residual_multiplier": 1.0
+              },
+              "probability_edge": 0.08284776083818068,
+              "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+              "probability_sum": 1.0,
+              "quote_id": "5a696fb1fbe1e25fd964ba4a",
+              "raw_team1_line_gap": -3.146910400292744,
+              "research_edge_pass": true,
+              "residual_N": 747,
+              "residual_scale": 16.768683191485838,
+              "residual_source": "GLOBAL_EMPIRICAL",
+              "selected_side_line_edge_points": 3.146910400292744,
+              "selection": "TEAM2"
+            },
+            "display": "按本轮新鲜同规则盘口，仍符合纸面条件",
+            "event_id": "7m:1349098",
+            "original_selection": null,
+            "real_execution_allowed": false,
+            "status": "STILL_QUALIFIES"
+          },
+          "market_revalidation_by_market": {
+            "SPREAD": {
+              "blockers": [],
+              "checked_at": "2026-10-23T13:37:40.872822+00:00",
+              "comparison_ready": true,
+              "current_selected": {
+                "adverse_ev": 0.05547354451847464,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.5020798226213579,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5154639175257733,
+                "conditional_edge": 0.02937406487524996,
+                "conditional_model_win_probability": 0.5983116783639539,
+                "decimal_odds": 1.94,
+                "df": 10.0,
+                "direction_robust_80": true,
+                "ev": 0.15655141716958954,
+                "foundation_comparison_status": "OPPOSES_SELECTION",
+                "foundation_edge_points": -4.527480158238902,
+                "foundation_fair_line": 3.5274801582389017,
+                "foundation_line_basis": "TEAM1_EXPECTED_MARGIN_NEUTRAL_COURT",
+                "foundation_market_inputs_used": false,
+                "information_risk": "LOW",
+                "line": -1.0,
+                "line_edge_points": 3.146910400292744,
+                "market_convergence_divergence": "UNCONFIRMED",
+                "market_disagreement_percentile": 0.2782204515272244,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "SPREAD",
+                "model_market_gap_points": 3.146910400292744,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.39125842647562814,
+                "p_push": 0.02596514411456574,
+                "p_win": 0.5827764294098061,
+                "pricing_decomposition": {
+                  "adjustment_layer": {
+                    "adjustment_applied": false,
+                    "layers": [
+                      {
+                        "adjustment_applied": false,
+                        "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                        "reason": "DATA_UNAVAILABLE",
+                        "status": "UNKNOWN",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "ROTATION_ADJUSTMENT",
+                        "reason": "ROTATION_CONTINUITY_WITHOUT_EXPECTED_MINUTES",
+                        "status": "CONTINUITY_ONLY",
+                        "value_points": null
+                      },
+                      {
+                        "adjustment_applied": false,
+                        "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                        "reason": "NET_RATING_USED_IN_BASE_MODEL",
+                        "status": "AVAILABLE_BASE_FEATURE",
+                        "value_points": null
+                      }
+                    ],
+                    "total_adjustment_points": 0,
+                    "unknown_layers": [
+                      "PLAYER_AVAILABILITY_ADJUSTMENT"
+                    ]
+                  },
+                  "after_context_adjustment_margin": -4.146910400292744,
+                  "after_deep_spread_calibration_margin": null,
+                  "after_mean_calibration_margin": null,
+                  "base_fair_spread": -4.146910400292744,
+                  "base_residual_scale": 15.244257446805305,
+                  "betting_fair_spread": -4.146910400292744,
+                  "break_even_win_probability": 0.5020798226213579,
+                  "calibrated_cover_probability": null,
+                  "calibrated_fair_spread": null,
+                  "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+                  "conditional_break_even_probability": 0.5154639175257733,
+                  "context_uncertainty_multiplier": 1.1,
+                  "deep_spread_residual_multiplier": null,
+                  "expected_value": 0.15655141716958954,
+                  "fair_center_interval_80": [
+                    -7.019728362628647,
+                    -1.274092437956841
+                  ],
+                  "fair_center_interval_95": [
+                    -8.540506328619944,
+                    0.24668552803445642
+                  ],
+                  "fair_center_standard_error": 2.2416717669219097,
+                  "final_cover_probability": 0.5827764294098061,
+                  "final_spread_residual_scale": 16.768683191485838,
+                  "game_outcome_prediction_interval_80": [
+                    -24.9776927319378,
+                    16.683871931352314
+                  ],
+                  "game_outcome_prediction_interval_95": [
+                    -37.78809559682658,
+                    29.49427479624105
+                  ],
+                  "injury_uncertainty_multiplier": 1.1,
+                  "league_residual_multiplier": 1.0,
+                  "line_edge_points": 3.146910400292744,
+                  "market_spread": 1.0,
+                  "model_market_gap": -5.146910400292744,
+                  "model_version": "score-ridge-production-2.4.0",
+                  "p_loss": 0.39125842647562814,
+                  "p_push": 0.02596514411456574,
+                  "p_win": 0.5827764294098061,
+                  "probability_edge": 0.08284776083818068,
+                  "raw_cover_probability": 0.5827764294098061,
+                  "raw_expected_away_score": 95.41115647367013,
+                  "raw_expected_home_score": 91.2642460733774,
+                  "raw_fair_spread": -4.146910400292744,
+                  "raw_independent_margin": -4.146910400292744,
+                  "raw_team1_line_gap": -3.146910400292744,
+                  "raw_team_strength_away": 1.763349591824474,
+                  "raw_team_strength_home": -2.38356080846827,
+                  "residual_oos_N": 747,
+                  "residual_source": "GLOBAL_EMPIRICAL",
+                  "rotation_uncertainty_multiplier": 1.0,
+                  "season_regime_multiplier": 1.0,
+                  "selected_side": "TEAM2",
+                  "selected_side_line_edge_points": 3.146910400292744,
+                  "spread_data_quality": "DATA_QUALITY_B",
+                  "student_t_df": 10.0,
+                  "student_t_scale": 13.634878367025618,
+                  "tier_residual_multiplier": 1.0
+                },
+                "probability_edge": 0.08284776083818068,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "5a696fb1fbe1e25fd964ba4a",
+                "raw_team1_line_gap": -3.146910400292744,
+                "research_edge_pass": true,
+                "residual_N": 747,
+                "residual_scale": 16.768683191485838,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 3.146910400292744,
+                "selection": "TEAM2"
+              },
+              "display": "按本轮新鲜同规则盘口，仍符合纸面条件",
+              "event_id": "7m:1349098",
+              "original_selection": null,
+              "real_execution_allowed": false,
+              "status": "STILL_QUALIFIES"
+            },
+            "TOTAL": {
+              "blockers": [],
+              "checked_at": "2026-10-23T13:37:40.872822+00:00",
+              "comparison_ready": true,
+              "current_selected": {
+                "adverse_ev": -0.11568483187148665,
+                "bookmaker": "12",
+                "break_even_win_probability": 0.5208333333333334,
+                "calibrated_probability": null,
+                "conditional_break_even_probability": 0.5208333333333334,
+                "conditional_edge": -0.060252516599732686,
+                "conditional_model_win_probability": 0.514966198657272,
+                "decimal_odds": 1.92,
+                "df": 10.0,
+                "direction_robust_80": null,
+                "ev": -0.011264898578037807,
+                "foundation_comparison_status": "SUPPORTS_SELECTION",
+                "foundation_edge_points": 8.526042631546034,
+                "foundation_fair_line": 178.97395736845397,
+                "foundation_line_basis": "EXPECTED_TOTAL_FROM_PACE_AND_PPP",
+                "foundation_market_inputs_used": false,
+                "information_risk": "LOW",
+                "line": 187.5,
+                "line_edge_points": 0.8245974529524744,
+                "market_convergence_divergence": "MARKET_CONVERGENCE",
+                "market_disagreement_percentile": 0.06905710491367861,
+                "market_path": {
+                  "CLOSE": null,
+                  "FIRST_SEEN": null,
+                  "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+                  "OPEN": null,
+                  "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+                  "T-10": null,
+                  "T-30": null,
+                  "T-90": null
+                },
+                "market_path_status": "MARKET_PATH_PARTIAL",
+                "market_type": "TOTAL",
+                "model_market_gap_points": 0.8245974529524744,
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.485033801342728,
+                "p_push": 0.0,
+                "p_win": 0.514966198657272,
+                "probability_edge": -0.00586713467606137,
+                "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+                "probability_sum": 1.0,
+                "quote_id": "6129fe78b35de4cb9f82d85f",
+                "raw_team1_line_gap": null,
+                "research_edge_pass": false,
+                "residual_N": 747,
+                "residual_scale": 23.962837500000003,
+                "residual_source": "GLOBAL_EMPIRICAL",
+                "selected_side_line_edge_points": 0.8245974529524744,
+                "selection": "UNDER"
+              },
+              "display": "本轮已重新比较，但未通过纸面条件",
+              "event_id": "7m:1349098",
+              "original_selection": null,
+              "real_execution_allowed": false,
+              "status": "NO_LONGER_QUALIFIES"
+            }
+          },
+          "market_types_triggered": [
+            "SPREAD"
+          ],
+          "market_types_with_comparison": [
+            "SPREAD",
+            "TOTAL"
+          ],
+          "model_state": "EDGE",
+          "prediction_id": "b902cd732881b3673d0b74ed33ba",
+          "pregame_evidence_bundle": {
+            "DATA_QUALITY": {
+              "current_availability": "UNKNOWN",
+              "history_ready": true,
+              "market_inputs_used_in_fair_price": false,
+              "market_loaded_after_fair_freeze": true,
+              "net_rating_context_verified": true,
+              "net_rating_source": "DERIVED_TITAN",
+              "rotation_continuity_verified": true,
+              "rule_ready": true
+            },
+            "HISTORY": {
+              "away_same_comp_games": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 100
+              },
+              "away_unique_opponents": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 9
+              },
+              "effective_opponent_diversity": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 9
+              },
+              "history_ess": {
+                "cutoff_valid": true,
+                "quality": "TIME_DECAYED",
+                "source": "TITAN007",
+                "value": 6.108794339192591
+              },
+              "history_source_quality": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": "NORMALIZED_HISTORY_STORE",
+                "value": "VERIFIED_SAME_COMP_PRE_CUTOFF"
+              },
+              "history_sources": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": "NORMALIZED_HISTORY_STORE",
+                "value": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ]
+              },
+              "home_same_comp_games": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 101
+              },
+              "home_unique_opponents": {
+                "cutoff_valid": true,
+                "quality": "VERIFIED_SAME_COMP_PRE_CUTOFF",
+                "source": [
+                  "A_WF_25",
+                  "N_HISTORY_24"
+                ],
+                "value": 10
+              }
+            },
+            "PACE": {
+              "derived_possessions": {
+                "cutoff_valid": true,
+                "quality": "DERIVED_BOX_SCORE",
+                "source": "TITAN007",
+                "value": 79.24279148186005
+              },
+              "direct_pace": {
+                "cutoff_valid": true,
+                "quality": "NOT_AVAILABLE",
+                "source": "TITAN007",
+                "value": null
+              },
+              "pace_level": {
+                "cutoff_valid": true,
+                "quality": "BOX_SCORE_DERIVED",
+                "source": "TITAN007",
+                "value": "LEVEL_D"
+              }
+            },
+            "RULE": {
+              "overtime_minutes": {
+                "cutoff_valid": true,
+                "quality": "REGISTRY_VERIFIED",
+                "source": "NBL_OFFICIAL_COMPETITION_RULES",
+                "value": 5
+              },
+              "period_count": {
+                "cutoff_valid": true,
+                "quality": "REGISTRY_VERIFIED",
+                "source": "NBL_OFFICIAL_COMPETITION_RULES",
+                "value": 4
+              },
+              "period_minutes": {
+                "cutoff_valid": true,
+                "quality": "REGISTRY_VERIFIED",
+                "source": "NBL_OFFICIAL_COMPETITION_RULES",
+                "value": 10.0
+              },
+              "regulation_minutes": {
+                "cutoff_valid": true,
+                "quality": "REGISTRY_VERIFIED",
+                "source": "NBL_OFFICIAL_COMPETITION_RULES",
+                "value": 40
+              }
+            },
+            "canonical_event_id": "7m:1349098",
+            "schema_version": "pregame-evidence-bundle-1.0"
+          },
+          "price_blind_input_fingerprint": "8fcd0c223c7829f1bfe190d42236e1d4f75cdb9e8be18c2b593fe758bfe04a1d",
+          "real_bet_flag": false,
+          "real_execution_allowed": false,
+          "real_stake": 0,
+          "selected": {
+            "adverse_ev": 0.05547354451847464,
+            "bookmaker": "12",
+            "break_even_win_probability": 0.5020798226213579,
+            "calibrated_probability": null,
+            "conditional_break_even_probability": 0.5154639175257733,
+            "conditional_edge": 0.02937406487524996,
+            "conditional_model_win_probability": 0.5983116783639539,
+            "decimal_odds": 1.94,
+            "df": 10.0,
+            "direction_robust_80": true,
+            "ev": 0.15655141716958954,
+            "foundation_comparison_status": "OPPOSES_SELECTION",
+            "foundation_edge_points": -4.527480158238902,
+            "foundation_fair_line": 3.5274801582389017,
+            "foundation_line_basis": "TEAM1_EXPECTED_MARGIN_NEUTRAL_COURT",
+            "foundation_market_inputs_used": false,
+            "information_risk": "LOW",
+            "line": -1.0,
+            "line_edge_points": 3.146910400292744,
+            "market_convergence_divergence": "UNCONFIRMED",
+            "market_disagreement_percentile": 0.2782204515272244,
+            "market_path": {
+              "CLOSE": null,
+              "FIRST_SEEN": null,
+              "LAST_PREMATCH": "2026-10-23T05:44:17+00:00",
+              "OPEN": null,
+              "SIGNAL": "2026-10-23T13:37:40.872822+00:00",
+              "T-10": null,
+              "T-30": null,
+              "T-90": null
+            },
+            "market_path_status": "MARKET_PATH_PARTIAL",
+            "market_type": "SPREAD",
+            "model_market_gap_points": 3.146910400292744,
+            "ot_rule": "INCLUDING_OT",
+            "p_loss": 0.39125842647562814,
+            "p_push": 0.02596514411456574,
+            "p_win": 0.5827764294098061,
+            "pricing_decomposition": {
+              "adjustment_layer": {
+                "adjustment_applied": false,
+                "layers": [
+                  {
+                    "adjustment_applied": false,
+                    "layer": "PLAYER_AVAILABILITY_ADJUSTMENT",
+                    "reason": "DATA_UNAVAILABLE",
+                    "status": "UNKNOWN",
+                    "value_points": null
+                  },
+                  {
+                    "adjustment_applied": false,
+                    "layer": "ROTATION_ADJUSTMENT",
+                    "reason": "ROTATION_CONTINUITY_WITHOUT_EXPECTED_MINUTES",
+                    "status": "CONTINUITY_ONLY",
+                    "value_points": null
+                  },
+                  {
+                    "adjustment_applied": false,
+                    "layer": "CURRENT_TEAM_STRENGTH_ADJUSTMENT",
+                    "reason": "NET_RATING_USED_IN_BASE_MODEL",
+                    "status": "AVAILABLE_BASE_FEATURE",
+                    "value_points": null
+                  }
+                ],
+                "total_adjustment_points": 0,
+                "unknown_layers": [
+                  "PLAYER_AVAILABILITY_ADJUSTMENT"
+                ]
+              },
+              "after_context_adjustment_margin": -4.146910400292744,
+              "after_deep_spread_calibration_margin": null,
+              "after_mean_calibration_margin": null,
+              "base_fair_spread": -4.146910400292744,
+              "base_residual_scale": 15.244257446805305,
+              "betting_fair_spread": -4.146910400292744,
+              "break_even_win_probability": 0.5020798226213579,
+              "calibrated_cover_probability": null,
+              "calibrated_fair_spread": null,
+              "calibration_status": "NOT_IMPLEMENTED_IN_PRODUCTION; NULLS_ARE_INTENTIONAL",
+              "conditional_break_even_probability": 0.5154639175257733,
+              "context_uncertainty_multiplier": 1.1,
+              "deep_spread_residual_multiplier": null,
+              "expected_value": 0.15655141716958954,
+              "fair_center_interval_80": [
+                -7.019728362628647,
+                -1.274092437956841
+              ],
+              "fair_center_interval_95": [
+                -8.540506328619944,
+                0.24668552803445642
+              ],
+              "fair_center_standard_error": 2.2416717669219097,
+              "final_cover_probability": 0.5827764294098061,
+              "final_spread_residual_scale": 16.768683191485838,
+              "game_outcome_prediction_interval_80": [
+                -24.9776927319378,
+                16.683871931352314
+              ],
+              "game_outcome_prediction_interval_95": [
+                -37.78809559682658,
+                29.49427479624105
+              ],
+              "injury_uncertainty_multiplier": 1.1,
+              "league_residual_multiplier": 1.0,
+              "line_edge_points": 3.146910400292744,
+              "market_spread": 1.0,
+              "model_market_gap": -5.146910400292744,
+              "model_version": "score-ridge-production-2.4.0",
+              "p_loss": 0.39125842647562814,
+              "p_push": 0.02596514411456574,
+              "p_win": 0.5827764294098061,
+              "probability_edge": 0.08284776083818068,
+              "raw_cover_probability": 0.5827764294098061,
+              "raw_expected_away_score": 95.41115647367013,
+              "raw_expected_home_score": 91.2642460733774,
+              "raw_fair_spread": -4.146910400292744,
+              "raw_independent_margin": -4.146910400292744,
+              "raw_team1_line_gap": -3.146910400292744,
+              "raw_team_strength_away": 1.763349591824474,
+              "raw_team_strength_home": -2.38356080846827,
+              "residual_oos_N": 747,
+              "residual_source": "GLOBAL_EMPIRICAL",
+              "rotation_uncertainty_multiplier": 1.0,
+              "season_regime_multiplier": 1.0,
+              "selected_side": "TEAM2",
+              "selected_side_line_edge_points": 3.146910400292744,
+              "spread_data_quality": "DATA_QUALITY_B",
+              "student_t_df": 10.0,
+              "student_t_scale": 13.634878367025618,
+              "tier_residual_multiplier": 1.0
+            },
+            "probability_edge": 0.08284776083818068,
+            "probability_source": "MODEL_RESIDUAL_STUDENT_T",
+            "probability_sum": 1.0,
+            "quote_id": "5a696fb1fbe1e25fd964ba4a",
+            "raw_team1_line_gap": -3.146910400292744,
+            "research_edge_pass": true,
+            "residual_N": 747,
+            "residual_scale": 16.768683191485838,
+            "residual_source": "GLOBAL_EMPIRICAL",
+            "selected_side_line_edge_points": 3.146910400292744,
+            "selection": "TEAM2"
+          },
+          "shadow_action": "SHADOW_BET",
+          "titan_market_decisions": {
+            "SPREAD": {
+              "champion_eligible": false,
+              "comparison_ready": true,
+              "edge": false,
+              "fair_line": 3.5274801582389017,
+              "hard_blockers": [],
+              "line_only_research": [],
+              "market_type": "SPREAD",
+              "model_name": "TITAN_TECHNICAL_CHALLENGER",
+              "qualified_eligible": false,
+              "real_execution_allowed": false,
+              "selected": {
+                "adverse_ev": 0.04375356936196301,
+                "bookmaker": "12",
+                "conditional_edge": 0.023907001478945977,
+                "decimal_odds": 1.88,
+                "ev": 0.14220252561491425,
+                "fair_line": 3.5274801582389017,
+                "line": 1.0,
+                "market_type": "SPREAD",
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.3804968835813414,
+                "p_push": 0.025526515059277,
+                "p_win": 0.5939766013593816,
+                "provisional_uncertainty_multiplier": 1.16,
+                "quote_id": "5a696fb1fbe1e25fd964ba4a",
+                "research_edge_pass": false,
+                "residual_scale": 17.342,
+                "selection": "TEAM1"
+              },
+              "soft_missing": [
+                "MODEL_NOT_YET_CHAMPION_VALIDATED",
+                "CURRENT_AVAILABILITY_UNKNOWN",
+                "NO_EDGE"
+              ],
+              "status": "TITAN_RESEARCH_PRICE",
+              "strategy_return_eligible": false,
+              "triggered": false
+            },
+            "TOTAL": {
+              "champion_eligible": false,
+              "comparison_ready": true,
+              "edge": true,
+              "fair_line": 178.97395736845397,
+              "hard_blockers": [
+                "POSSESSIONS_EVIDENCE_MISSING"
+              ],
+              "line_only_research": [],
+              "market_type": "TOTAL",
+              "model_name": "TITAN_TECHNICAL_CHALLENGER",
+              "qualified_eligible": false,
+              "real_execution_allowed": false,
+              "selected": {
+                "adverse_ev": 0.15848246173224856,
+                "bookmaker": "12",
+                "conditional_edge": 0.08254294881887947,
+                "decimal_odds": 1.92,
+                "ev": 0.2604929838195186,
+                "fair_line": 178.97395736845397,
+                "line": 187.5,
+                "market_type": "TOTAL",
+                "ot_rule": "INCLUDING_OT",
+                "p_loss": 0.34349323759400074,
+                "p_push": 0.0,
+                "p_win": 0.6565067624059993,
+                "provisional_uncertainty_multiplier": 1.16,
+                "quote_id": "6129fe78b35de4cb9f82d85f",
+                "research_edge_pass": true,
+                "residual_scale": 24.011999999999997,
+                "selection": "UNDER"
+              },
+              "soft_missing": [
+                "MODEL_NOT_YET_CHAMPION_VALIDATED",
+                "CURRENT_AVAILABILITY_UNKNOWN"
+              ],
+              "status": "TITAN_RESEARCH_PRICE",
+              "strategy_return_eligible": false,
+              "triggered": false
+            }
+          },
+          "titan_provisional_counted": false,
+          "titan_provisional_status": "TITAN_RESEARCH_PRICE",
+          "triggered": true,
+          "uncertainty_flags": []
+        },
+        "market": {
+          "quote_states": [],
+          "quotes": []
+        }
+      }
     }
   ],
   "locked_rows": 3
