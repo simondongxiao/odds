@@ -217,6 +217,7 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "tools" / "sequential_asian_backtest_engine.py", PUBLISH_REPO / "tools" / "sequential_asian_backtest_engine.py"),
         (WORKSPACE / "tools" / "build_football_dashboard.py", PUBLISH_REPO / "tools" / "build_football_dashboard.py"),
         (WORKSPACE / "tools" / "build_football_daily_update.py", PUBLISH_REPO / "tools" / "build_football_daily_update.py"),
+        (WORKSPACE / "tools" / "repair_history.py", PUBLISH_REPO / "tools" / "repair_history.py"),
         (WORKSPACE / "tools" / "football_competition_normalizer.py", PUBLISH_REPO / "tools" / "football_competition_normalizer.py"),
         (WORKSPACE / "tools" / "fetch_titan007_odds.py", PUBLISH_REPO / "tools" / "fetch_titan007_odds.py"),
         (WORKSPACE / "v3_legacy" / "tools" / "fetch_titan007_odds.py", PUBLISH_REPO / "v3-legacy" / "tools" / "fetch_titan007_odds.py"),
