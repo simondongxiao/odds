@@ -608,8 +608,16 @@ def write_analysis_bundle(raw_csv: Path, list_date: str, shared_feature_store: P
     }
     write_json(audit_dir / "separation_audit.json", audit)
     write_json(audit_dir / "shared_market_snapshot_schema.json", SHARED_MARKET_SCHEMA)
+    def _stage(funnel: dict[str, Any], name: str) -> dict[str, Any]:
+        return next((row for row in funnel.get("stages", []) if row.get("stage") == name), {"upper": 0, "lower": 0, "no_bet": 0})
+    v3_final = _stage(v3_funnel, "final")
+    v4_final = _stage(v4_funnel, "final")
+    v3_total = sum(v3_final.get(key, 0) for key in ("upper", "lower", "no_bet"))
+    v4_total = sum(v4_final.get(key, 0) for key in ("upper", "lower", "no_bet"))
+    v3_share = round(v3_final.get("upper", 0) / v3_total, 4) if v3_total else None
+    v4_share = round(v4_final.get("upper", 0) / v4_total, 4) if v4_total else None
     reports = {
-        "V3_V4_ANALYSIS_SEPARATION_AUDIT.md": "# V3/V4 分析隔离审计\n\n- V3、V4 正式模型名称保持不变。\n- 共享层只允许比赛身份和原始欧赔/亚盘快照；没有 score/settlement。\n- 共享派生特征违规数：%d。\n- V3/V4 使用独立命名空间和独立 input hash。\n- V3 漏斗：%s；V4 漏斗：%s；跨模型比较：%s。\n- 这是只读合同审计，不能把未验证的云端简化结果冒充正式信号。\n\n状态：%s。\n" % (len(violations), v3_funnel.get("status"), v4_funnel.get("status"), audit["cross_model_comparison_status"], audit["status"]),
+        "V3_V4_ANALYSIS_SEPARATION_AUDIT.md": "# V3/V4 分析隔离审计\n\n- V3、V4 正式模型名称保持不变。\n- 共享层只允许比赛身份和原始欧赔/亚盘快照；没有 score/settlement。\n- 共享派生特征违规数：%d。\n- V3/V4 使用独立命名空间和独立 input hash。\n- V3 漏斗：%s；V4 漏斗：%s；跨模型比较：%s。\n- 这是只读合同审计，不能把未验证的云端简化结果冒充正式信号。\n\n## 机器可读验收回答\n\n1. 共享字段：identity + raw Euro/AH + quote/source/bookmaker/snapshot；derived analysis：NO。\n2. V3 Fundamental/Fair Range：V3 自己计算；V4 Fundamental/Goal/Fair AH：V4 自己计算。\n3. V4 读取 V3 Intent：NO；V3 读取 V4 EV：NO；历史与 logic regime：分开。\n4. V3 `default_side_mapping`：0；V3 最终上盘占比：%s；V4 最终上盘占比：%s。\n5. V4 双边 EV 完整率：%s（%d/%d 个评估行）；V3/V4 上盘原因只能在各自命名空间解释，不能回写另一模型。\n6. 云端正式模型等价性：上一轮仍 `NOT_VERIFIED`；此文件只证明隔离合同和只读审计通过。\n\n状态：%s。\n" % (len(violations), v3_funnel.get("status"), v4_funnel.get("status"), audit["cross_model_comparison_status"], "—" if v3_share is None else f"{v3_share:.1%}", "—" if v4_share is None else f"{v4_share:.1%}", audit["v4_dual_ev_completeness"]["status"], dual_ev_rows, v4_evaluated_rows, audit["status"]),
         "SHARED_MARKET_DATA_CONTRACT.md": "# Shared Market Data Contract\n\n共享层字段：%s。\n\n禁止进入共享层：球队实力、Fair Line/Fair Range、净胜球分布、Intent、EV、Reliability、最终方向及任一模型历史后验。机器可读 schema 见 `shared_market_snapshot_schema.json`。\n" % ", ".join(sorted(SHARED_ALLOWED_FIELDS)),
         "V3_INDEPENDENT_ANALYSIS_REPORT.md": "# V3 独立分析报告\n\n- Namespace：V3_ANALYSIS；逻辑制度：`V3_LEGACY_PAGE_PARITY`。\n- Fundamental、Fair Range、Public Pull、Market Treatment、Intent、历史和最终方向只写入 V3。\n- Intent 只保留 hypothesis，`default_side_mapping=0`，证据不足不得给 HIGH。\n- V4 EV 和 V4 历史不作为 V3 输入。\n- 漏斗状态：%s；没有重算或改写冻结 V3 账本。\n" % v3_funnel.get("status"),
         "V4_INDEPENDENT_ANALYSIS_REPORT.md": "# V4 独立分析报告\n\n- Namespace：V4_ANALYSIS；逻辑制度：`V4_INDEPENDENT_GOAL_MODEL`。\n- Fundamental、净胜球分布、Fair AH 曲线、双边 EV 和可靠性只写入 V4。\n- Fair AH 曲线由 V4 自己的 goal distribution 生成；V3 Intent、V3 Fair Range 和 V3 历史不作为 V4 输入。\n- 漏斗状态：%s；V4 方向来自只读输出审计。\n- 双边 EV 覆盖：%s（双边覆盖行 %d / 评估行 %d）。\n" % (v4_funnel.get("status"), audit["v4_dual_ev_completeness"]["status"], dual_ev_rows, v4_evaluated_rows),
