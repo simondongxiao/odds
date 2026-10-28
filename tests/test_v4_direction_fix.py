@@ -17,13 +17,11 @@ class V4DirectionFixTests(unittest.TestCase):
             "ah_full_open_away_or_under": "0.80",
         })
 
-    def test_receiving_intents(self):
-        for tag in ("诱上/阻下", "真实示弱/阻下", "阻下/下盘保护"):
-            self.assertEqual(map_intent(tag)["candidate_side"], "receiving")
-
-    def test_giving_intents(self):
-        for tag in ("阻上/诱下", "降温保护/诱下", "真实示强/阻上"):
-            self.assertEqual(map_intent(tag)["candidate_side"], "giving")
+    def test_intent_is_interpretation_only(self):
+        for tag in ("诱上/阻下", "真实示弱/阻下", "阻下/下盘保护", "阻上/诱下", "降温保护/诱下", "真实示强/阻上"):
+            result = map_intent(tag)
+            self.assertEqual(result["candidate_side"], "unknown")
+            self.assertEqual(result["mapping_rule_version"], "MATCH_SPECIFIC_DUAL_EV")
 
     def test_neutral_and_unknown(self):
         self.assertEqual(map_intent("平衡盘/等待临场确认")["candidate_side"], "neutral")
