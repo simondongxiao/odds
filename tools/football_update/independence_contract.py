@@ -42,6 +42,24 @@ FORBIDDEN_SHARED_FIELDS = {
     "final_direction", "meta_score", "v3_analysis", "v4_analysis",
 }
 
+# This is deliberately a small, machine-readable contract.  It describes the
+# facts that may cross the V3/V4 boundary; every probability, fair value,
+# intent, EV, reliability and direction field is model-owned and is written to
+# a namespaced context instead.
+SHARED_MARKET_SCHEMA = {
+    "contract": "SHARED_MARKET_SNAPSHOT_V2",
+    "identity_fields": list(IDENTITY_FIELDS),
+    "market_fields": list(MARKET_FIELDS),
+    "allowed_fields": sorted(SHARED_ALLOWED_FIELDS),
+    "field_types": {field: "string" for field in sorted(SHARED_ALLOWED_FIELDS)},
+    "forbidden_derived_fields": sorted(FORBIDDEN_SHARED_FIELDS),
+    "notes": [
+        "Only match identity, raw Euro/AH quote values, source/bookmaker and timestamps are shared.",
+        "No score/settlement result is part of the raw market snapshot.",
+        "Derived V3 and V4 fields must remain in their own analysis namespace.",
+    ],
+}
+
 
 def _text(value: Any) -> str:
     return str(value or "").strip()
@@ -121,7 +139,7 @@ def _devig(row: dict[str, Any]) -> tuple[float, float, float] | None:
 
 
 def _load_csv(path: Path | None) -> list[dict[str, Any]]:
-    if not path or not path.exists():
+    if not path or not path.is_file():
         return []
     with path.open(encoding="utf-8-sig", newline="") as handle:
         return [dict(row) for row in csv.DictReader(handle)]
@@ -154,6 +172,104 @@ def _history_index(rows: Iterable[dict[str, Any]], competition_key: str) -> dict
     return dict(counts)
 
 
+def _line(row: dict[str, Any], *keys: str) -> float | None:
+    for key in keys:
+        value = _float(row.get(key))
+        if value is not None:
+            return value
+    return None
+
+
+def _water(row: dict[str, Any], *keys: str) -> float | None:
+    return _line(row, *keys)
+
+
+def _attractiveness(line: float | None, water: float | None) -> float | None:
+    """A transparent market-treatment diagnostic, never a model decision."""
+    if line is None or water is None:
+        return None
+    # Lower HK water and a shallower handicap are normally more attractive to
+    # a quoted side.  The score is only used to describe price movement.
+    return round((1.0 - water) - 0.08 * abs(line), 4)
+
+
+def _side_from_line(line: float | None) -> str:
+    if line is None or abs(line) < 1e-9:
+        return "UNKNOWN"
+    # Titan's signed-home convention: >0 means home gives, <0 means away gives.
+    return "home" if line > 0 else "away"
+
+
+def _intent_diagnostic(market: dict[str, Any], raw: dict[str, Any], devig: tuple[float, float, float] | None) -> dict[str, Any]:
+    open_line = _line(market, "asian_open_line")
+    current_line = _line(market, "asian_current_line")
+    open_home = _water(market, "asian_open_home_water")
+    open_away = _water(market, "asian_open_away_water")
+    current_home = _water(market, "asian_current_home_water")
+    current_away = _water(market, "asian_current_away_water")
+    opening_side = _side_from_line(open_line)
+    current_side = _side_from_line(current_line)
+    # The natural-pull field is only populated from an explicit upstream hint;
+    # otherwise a large 1X2 gap is recorded as a weak market proxy, not fact.
+    explicit_pull = _field(raw, "natural_pull_side", "public_pull_side", "market_pull_side")
+    if explicit_pull:
+        natural_pull = explicit_pull
+    elif devig and devig[0] - devig[2] > 0.12:
+        natural_pull = "home_proxy"
+    elif devig and devig[2] - devig[0] > 0.12:
+        natural_pull = "away_proxy"
+    else:
+        natural_pull = "UNKNOWN"
+    open_giving_water = open_home if opening_side == "home" else open_away if opening_side == "away" else None
+    current_giving_water = current_home if current_side == "home" else current_away if current_side == "away" else None
+    open_receiving_water = open_away if opening_side == "home" else open_home if opening_side == "away" else None
+    current_receiving_water = current_away if current_side == "home" else current_home if current_side == "away" else None
+    open_giving_attr = _attractiveness(open_line, open_giving_water)
+    current_giving_attr = _attractiveness(current_line, current_giving_water)
+    open_receiving_attr = _attractiveness(-open_line if open_line is not None else None, open_receiving_water)
+    current_receiving_attr = _attractiveness(-current_line if current_line is not None else None, current_receiving_water)
+    complete = all(value is not None for value in (open_line, current_line, open_giving_water, current_giving_water))
+    line_move = round(current_line - open_line, 4) if open_line is not None and current_line is not None else None
+    residual = round((devig[0] - devig[2]) - (line_move or 0.0) * 0.08, 4) if devig else None
+    if complete:
+        hypothesis = "PRICE_SUPPORT" if (current_giving_attr or 0) > (open_giving_attr or 0) + 0.03 else "PRICE_RESISTANCE" if (current_giving_attr or 0) < (open_giving_attr or 0) - 0.03 else "MIXED_OR_STABLE"
+    else:
+        hypothesis = "UNIDENTIFIABLE"
+    confidence = "LOW" if not complete or natural_pull == "UNKNOWN" else "MEDIUM"
+    return {
+        "default_side_mapping": 0,
+        "natural_pull_side": natural_pull,
+        "opening_side_by_signed_line": opening_side,
+        "current_side_by_signed_line": current_side,
+        "open_price_treatment": {"line": open_line, "giving_water": open_giving_water, "receiving_water": open_receiving_water, "giving_attractiveness": open_giving_attr, "receiving_attractiveness": open_receiving_attr},
+        "current_price_treatment": {"line": current_line, "giving_water": current_giving_water, "receiving_water": current_receiving_water, "giving_attractiveness": current_giving_attr, "receiving_attractiveness": current_receiving_attr},
+        "sweetness_change_upper": round((current_giving_attr - open_giving_attr), 4) if current_giving_attr is not None and open_giving_attr is not None else None,
+        "sweetness_change_lower": round((current_receiving_attr - open_receiving_attr), 4) if current_receiving_attr is not None and open_receiving_attr is not None else None,
+        "market_residual": residual,
+        "intent_hypothesis": hypothesis,
+        "intent_confidence": confidence,
+        "status": "HYPOTHESIS_ONLY",
+        "evidence": {"market_complete": complete, "line_move": line_move, "devig_available": bool(devig)},
+    }
+
+
+def _v3_robustness(market: dict[str, Any]) -> dict[str, Any]:
+    line = _line(market, "asian_current_line")
+    home = _water(market, "asian_current_home_water")
+    away = _water(market, "asian_current_away_water")
+    available = all(value is not None for value in (line, home, away))
+    return {
+        "status": "AVAILABLE" if available else "NOT_IDENTIFIABLE",
+        "available": available,
+        "scenarios": [
+            {"name": "line_minus_quarter", "line": round(line - 0.25, 2) if line is not None else None},
+            {"name": "line_plus_quarter", "line": round(line + 0.25, 2) if line is not None else None},
+            {"name": "water_plus_005", "home_water": round(home + 0.05, 3) if home is not None else None, "away_water": round(away + 0.05, 3) if away is not None else None},
+        ],
+        "note": "Diagnostic sensitivity only; does not alter the frozen V3 decision.",
+    }
+
+
 def build_v3_context(shared: dict[str, Any], raw_rows: list[dict[str, Any]], ledger_rows: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     ledger_rows = ledger_rows or []
     matches: dict[str, Any] = {}
@@ -165,6 +281,7 @@ def build_v3_context(shared: dict[str, Any], raw_rows: list[dict[str, Any]], led
         rank_pull = ((rank_away - rank_home) * 0.04) if rank_home is not None and rank_away is not None else 0.0
         fair_center = round(rank_pull + 0.12, 3)
         competition = _text(market.get("competition_name"))
+        intent = _intent_diagnostic(market, raw, devig)
         matches[_text(raw.get("match_id"))] = {
             "namespace": "V3_ANALYSIS",
             "model_id": "V3",
@@ -174,7 +291,10 @@ def build_v3_context(shared: dict[str, Any], raw_rows: list[dict[str, Any]], led
             "football_prior": {"score": fair_center, "source": "V3_rank_form_evidence", "home_rank": rank_home, "away_rank": rank_away},
             "fair_range": {"low": round(fair_center - 0.25, 3), "center": fair_center, "high": round(fair_center + 0.25, 3), "support": "LOW" if rank_home is None or rank_away is None else "MEDIUM"},
             "public_pull": {"status": "MISSING", "score": None},
-            "market_treatment": {"raw_market_snapshot_id": shared.get("snapshot_id"), "devig_home": devig[0] if devig else None, "devig_draw": devig[1] if devig else None, "devig_away": devig[2] if devig else None},
+            "market_treatment": {"raw_market_snapshot_id": shared.get("snapshot_id"), "devig_home": devig[0] if devig else None, "devig_draw": devig[1] if devig else None, "devig_away": devig[2] if devig else None, "diagnostic_only": True},
+            "v3_market_behavior": intent,
+            "v3_robustness": _v3_robustness(market),
+            "default_side_mapping": 0,
             "history": _history_index(ledger_rows, competition),
             "decision_id": "v3dec_" + _hash({"match": market.get("match_id"), "snapshot": shared.get("snapshot_id")}, 20),
             "shared_market_snapshot_id": shared.get("snapshot_id"),
@@ -195,6 +315,50 @@ def _poisson_margin(home_lambda: float, away_lambda: float, radius: int = 7) -> 
         out[str(margin)] = value
     total = sum(out.values()) or 1.0
     return {key: value / total for key, value in out.items()}
+
+
+def _v4_fair_ah_curve(distribution: dict[str, float]) -> list[dict[str, Any]]:
+    """Return an auditable fair AH curve from V4's own margin distribution.
+
+    This is a diagnostic curve.  It is intentionally not fed back into the
+    production decision or used to rewrite a frozen record.
+    """
+    margins = {float(key): float(value) for key, value in distribution.items()}
+    curve: list[dict[str, Any]] = []
+    for step in range(-8, 9):
+        line = step / 4.0
+        # Home-side probability of covering a signed-home line.  For quarter
+        # lines, a push is retained separately so the diagnostic remains
+        # transparent rather than pretending every outcome is binary.
+        win = push = 0.0
+        for margin, probability in margins.items():
+            outcome = margin + line
+            if outcome > 1e-9:
+                win += probability
+            elif abs(outcome) <= 1e-9:
+                push += probability
+        lose = max(0.0, 1.0 - win - push)
+        p_upper = win + 0.5 * push
+        p_lower = lose + 0.5 * push
+        curve.append({
+            "line": line,
+            "p_upper_cover": round(p_upper, 6),
+            "p_lower_cover": round(p_lower, 6),
+            "push_probability": round(push, 6),
+            "fair_water_upper": round((1.0 / p_upper) - 1.0, 6) if p_upper > 0 else None,
+            "fair_water_lower": round((1.0 / p_lower) - 1.0, 6) if p_lower > 0 else None,
+        })
+    return curve
+
+
+def _v4_robustness(home_lambda: float, away_lambda: float) -> dict[str, Any]:
+    scenarios = []
+    for name, h_shift, a_shift in (("lambda_home_minus_010", -0.10, 0.0), ("lambda_home_plus_010", 0.10, 0.0), ("lambda_away_minus_010", 0.0, -0.10), ("lambda_away_plus_010", 0.0, 0.10)):
+        h = max(0.05, home_lambda + h_shift)
+        a = max(0.05, away_lambda + a_shift)
+        dist = _poisson_margin(h, a)
+        scenarios.append({"name": name, "lambda_home": round(h, 4), "lambda_away": round(a, 4), "fair_goal_margin": round(h - a, 4), "margin_distribution_hash": _hash(dist, 16)})
+    return {"status": "AVAILABLE", "scenarios": scenarios, "note": "Sensitivity only; V4 dual EV decision remains separately computed."}
 
 
 def build_v4_context(shared: dict[str, Any], raw_rows: list[dict[str, Any]], prior_rows: list[dict[str, Any]] | None = None) -> dict[str, Any]:
@@ -238,7 +402,8 @@ def build_v4_context(shared: dict[str, Any], raw_rows: list[dict[str, Any]], pri
             "v4_competition_state": _text(market.get("competition_name")),
             "v4_venue_effect": 0.0,
             "v4_goal_model": {"fair_goal_margin": round(home_lambda - away_lambda, 4), "lambda_home": round(home_lambda, 4), "lambda_away": round(away_lambda, 4), "margin_distribution": distribution, "source": "V4_OWN_HISTORY_PLUS_MARKET_CALIBRATION"},
-            "v4_fair_ah_curve": {"status": "GENERATED_FROM_V4_MARGIN_DISTRIBUTION"},
+            "v4_fair_ah_curve": {"status": "GENERATED_FROM_V4_MARGIN_DISTRIBUTION", "curve": _v4_fair_ah_curve(distribution), "source": "V4_GOAL_MODEL_DIAGNOSTIC"},
+            "v4_robustness": _v4_robustness(home_lambda, away_lambda),
             "v4_reliability": {"sample_home": len(home_hist), "sample_away": len(away_hist), "status": "SHRUNK_TO_GLOBAL" if min(len(home_hist), len(away_hist)) < 8 else "AVAILABLE"},
             "v4_historical_context": {"home_count": len(home_hist), "away_count": len(away_hist)},
             "shared_market_snapshot_id": shared.get("snapshot_id"),
@@ -263,6 +428,131 @@ def _read_prior_v4() -> list[dict[str, Any]]:
     return rows
 
 
+def _side_bucket(value: Any) -> str:
+    text = _text(value).casefold()
+    if text in {"upper", "giving", "home", "主", "主队", "上盘"} or "上盘" in text or "让球" in text:
+        return "upper"
+    if text in {"lower", "receiving", "away", "客", "客队", "下盘"} or "下盘" in text or "受让" in text:
+        return "lower"
+    return "no_bet"
+
+
+def _empty_funnel(model: str, stages: list[str], status: str) -> dict[str, Any]:
+    return {
+        "model": model,
+        "status": status,
+        "stages": [{"model": model, "stage": stage, "upper": 0, "lower": 0, "no_bet": 0} for stage in stages],
+    }
+
+
+def _find_v3_freeze(list_date: str) -> Path | None:
+    candidates = sorted((ROOT / "v3_legacy" / "outputs" / "football_odds_trader" / "ledger").glob(f"v3_legacy_decision_freeze_{list_date}_*.csv"), key=lambda path: path.stat().st_mtime)
+    return candidates[-1] if candidates else None
+
+
+def _load_v4_day(list_date: str) -> list[dict[str, Any]]:
+    path = ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("matches", [])
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
+def _funnel_rows(model: str, rows: list[dict[str, Any]], stages: list[str], stage_side: dict[str, list[str]]) -> dict[str, Any]:
+    if not rows:
+        return _empty_funnel(model, stages, "NOT_RUN")
+    output = {"model": model, "status": "PASS", "stages": []}
+    for stage in stages:
+        counts = {"upper": 0, "lower": 0, "no_bet": 0}
+        for row in rows:
+            values = [row.get(key) for key in stage_side.get(stage, [])]
+            bucket = next((_side_bucket(value) for value in values if _side_bucket(value) != "no_bet"), "no_bet")
+            counts[bucket] += 1
+        output["stages"].append({"model": model, "stage": stage, **counts})
+    return output
+
+
+def _build_v3_funnel(list_date: str) -> dict[str, Any]:
+    path = _find_v3_freeze(list_date)
+    rows = _load_csv(path)
+    if not rows:
+        return _empty_funnel("V3", ["raw_market", "football_prior", "public_pull", "intent_hypothesis", "price_check", "history_check", "final"], "NOT_RUN")
+    stages = ["raw_market", "football_prior", "public_pull", "intent_hypothesis", "price_check", "history_check", "final"]
+    stage_side = {
+        "raw_market": ["selected_side"],
+        "football_prior": ["direction", "selected_side"],
+        "public_pull": ["Public_Pull", "selected_side"],
+        "intent_hypothesis": ["selected_side"],
+        "price_check": ["selected_side"],
+        "history_check": ["selected_side"],
+        "final": ["selected_side"],
+    }
+    stage_rows = {
+        "raw_market": rows,
+        "football_prior": [row for row in rows if _float(row.get("fair_handicap")) is not None],
+        "public_pull": [row for row in rows if _text(row.get("Public_Pull")) not in {"", "MISSING", "NA"}],
+        "intent_hypothesis": [row for row in rows if _text(row.get("Cup_Intent")) not in {"", "MISSING", "NA"}],
+        "price_check": [row for row in rows if _float(row.get("line")) is not None and _float(row.get("water")) is not None],
+        "history_check": [row for row in rows if _text(row.get("competition"))],
+        "final": rows,
+    }
+    funnel = {"model": "V3", "status": "PASS", "stages": []}
+    for stage in stages:
+        scoped = stage_rows[stage]
+        counts = {"upper": 0, "lower": 0, "no_bet": 0}
+        for row in scoped:
+            bucket = _side_bucket(row.get("selected_side") or row.get("direction"))
+            counts[bucket] += 1
+        funnel["stages"].append({"model": "V3", "stage": stage, **counts, "available_rows": len(scoped)})
+    for stage in funnel["stages"]:
+        stage["source_file"] = str(path)
+    funnel["source_file"] = str(path)
+    funnel["rows"] = len(rows)
+    funnel["note"] = "Direction fields are read-only from the frozen V3 ledger; no decision is recomputed here."
+    return funnel
+
+
+def _build_v4_funnel(list_date: str) -> dict[str, Any]:
+    rows = _load_v4_day(list_date)
+    if not rows:
+        return _empty_funnel("V4", ["raw_market", "goal_margin", "dual_ev", "reliability", "history_context", "final"], "NOT_RUN")
+    stages = ["raw_market", "goal_margin", "dual_ev", "reliability", "history_context", "final"]
+    stage_rows: dict[str, list[dict[str, Any]]] = {
+        "raw_market": [row for row in rows if row.get("evidence_coverage", {}).get("asian_market") == "AVAILABLE"],
+        "goal_margin": [row for row in rows if row.get("analysis_status") in {"EVALUATED", "NEUTRAL"}],
+        "dual_ev": [row for row in rows if row.get("p_giving_cover") is not None and row.get("p_receiving_cover") is not None],
+        "reliability": [row for row in rows if row.get("model_support") not in {None, "INSUFFICIENT_SUPPORT"}],
+        "history_context": [row for row in rows if row.get("prior_snapshot_id")],
+        "final": rows,
+    }
+    output = {"model": "V4", "status": "PASS", "stages": []}
+    for stage in stages:
+        stage_rows_for_stage = stage_rows[stage]
+        counts = {"upper": 0, "lower": 0, "no_bet": 0}
+        for row in stage_rows_for_stage:
+            counts[_side_bucket(row.get("selected_side") or row.get("candidate_side") or row.get("final_decision"))] += 1
+        output["stages"].append({"model": "V4", "stage": stage, **counts})
+    output["source_file"] = str(ROOT / "v4" / "outputs" / f"v4_decisions_{list_date}.json")
+    output["rows"] = len(rows)
+    output["note"] = "Direction fields are read-only from the frozen V4 output; no decision is recomputed here."
+    return output
+
+
+def _build_cross_model_comparison(list_date: str, v3_context: dict[str, Any], v4_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    v4_by_id = {str(row.get("match_id")): row for row in v4_rows if row.get("match_id")}
+    records: list[dict[str, Any]] = []
+    freeze = _load_csv(_find_v3_freeze(list_date))
+    for row in freeze:
+        match_id = _text(row.get("match_id"))
+        v4 = v4_by_id.get(match_id)
+        if not v4:
+            continue
+        v3_side = _side_bucket(row.get("selected_side"))
+        v4_side = _side_bucket(v4.get("selected_side") or v4.get("candidate_side") or v4.get("final_decision"))
+        records.append({"match_id": match_id, "v3_direction": v3_side, "v4_direction": v4_side, "comparison": "AGREE" if v3_side == v4_side and v3_side != "no_bet" else "CONFLICT" if v3_side != "no_bet" and v4_side != "no_bet" else "NON_DIRECTIONAL"})
+    return records
+
+
 def write_analysis_bundle(raw_csv: Path, list_date: str, shared_feature_store: Path | None = None) -> dict[str, Any]:
     shared = build_shared_market_snapshot(raw_csv, list_date)
     raw_rows = [
@@ -272,6 +562,10 @@ def write_analysis_bundle(raw_csv: Path, list_date: str, shared_feature_store: P
     ]
     v3 = build_v3_context(shared, raw_rows, _load_csv(ROOT / "ledger" / "simulated_bets.csv"))
     v4 = build_v4_context(shared, raw_rows, _read_prior_v4())
+    v3_funnel = _build_v3_funnel(list_date)
+    v4_funnel = _build_v4_funnel(list_date)
+    v4_rows = _load_v4_day(list_date)
+    comparison_rows = _build_cross_model_comparison(list_date, v3, v4_rows)
     base = OUT / list_date
     shared_path, v3_path, v4_path = base / "shared_market_snapshot.json", base / "v3_analysis.json", base / "v4_analysis.json"
     write_json(shared_path, shared)
@@ -286,6 +580,9 @@ def write_analysis_bundle(raw_csv: Path, list_date: str, shared_feature_store: P
             violations.append({"match_id": match.get("match_id"), "fields": forbidden})
     v3_hashes = [value.get("model_input_hash") for value in v3["matches"].values()]
     v4_hashes = [value.get("model_input_hash") for value in v4["matches"].values()]
+    v3_intent_items = [value.get("v3_market_behavior", {}) for value in v3["matches"].values()]
+    dual_ev_rows = sum(1 for row in v4_rows if row.get("p_giving_cover") is not None and row.get("p_receiving_cover") is not None)
+    v4_evaluated_rows = sum(1 for row in v4_rows if row.get("analysis_status") in {"EVALUATED", "NEUTRAL"})
     audit = {
         "contract": "V3_V4_ANALYSIS_SEPARATION_AUDIT_V1",
         "list_date": list_date,
@@ -296,19 +593,29 @@ def write_analysis_bundle(raw_csv: Path, list_date: str, shared_feature_store: P
         "v3_namespace": v3.get("namespace"),
         "v4_namespace": v4.get("namespace"),
         "v3_v4_input_hash_overlap": len(set(v3_hashes) & set(v4_hashes)),
+        "independence_verdict": "PASS" if not (set(v3_hashes) & set(v4_hashes)) and not violations else "FAIL",
+        "v3_intent_confidence_counts": {level: sum(1 for item in v3_intent_items if item.get("intent_confidence") == level) for level in ("HIGH", "MEDIUM", "LOW")},
+        "v4_dual_ev_completeness": {"rows_with_both_cover_probs": dual_ev_rows, "evaluated_rows": v4_evaluated_rows, "formal_output_rows": len(v4_rows), "status": "PASS" if dual_ev_rows == v4_evaluated_rows and v4_evaluated_rows > 0 else "NOT_VERIFIED"},
         "shared_feature_store_retained_for_diagnostics_only": str(shared_feature_store or ""),
-        "model_decisions": "PENDING_MODEL_OUTPUT",
+        "shared_market_schema_path": str(audit_dir / "shared_market_snapshot_schema.json"),
+        "default_side_mapping": 0,
+        "v3_direction_funnel_status": v3_funnel.get("status"),
+        "v4_direction_funnel_status": v4_funnel.get("status"),
+        "cross_model_comparison_status": "PASS" if comparison_rows else "NOT_RUN",
+        "v3_formal_decisions": "READ_ONLY_AUDIT" if v3_funnel.get("status") == "PASS" else "NOT_RUN",
+        "v4_formal_decisions": "READ_ONLY_AUDIT" if v4_funnel.get("status") == "PASS" else "NOT_RUN",
         "status": "PASS" if not violations else "FAIL",
     }
     write_json(audit_dir / "separation_audit.json", audit)
+    write_json(audit_dir / "shared_market_snapshot_schema.json", SHARED_MARKET_SCHEMA)
     reports = {
-        "V3_V4_ANALYSIS_SEPARATION_AUDIT.md": "# V3/V4 分析隔离审计\n\n- V3、V4 正式模型名称保持不变。\n- 共享层只允许比赛身份和原始欧赔/亚盘快照。\n- 共享派生特征违规数：%d。\n- V3/V4 使用独立命名空间和独立 input hash。\n\n状态：%s。\n" % (len(violations), audit["status"]),
-        "SHARED_MARKET_DATA_CONTRACT.md": "# Shared Market Data Contract\n\n共享层字段：%s。\n\n禁止进入共享层：球队实力、Fair Line/Fair Range、净胜球分布、Intent、EV、Reliability、最终方向及任一模型历史后验。\n" % ", ".join(sorted(SHARED_ALLOWED_FIELDS)),
-        "V3_INDEPENDENT_ANALYSIS_REPORT.md": "# V3 独立分析报告\n\n- Namespace：V3_ANALYSIS\n- Fundamental、Fair Range、Public Pull、Market Treatment、Intent、历史和最终方向只写入 V3。\n- V4 EV 和 V4 历史不作为 V3 输入。\n",
-        "V4_INDEPENDENT_ANALYSIS_REPORT.md": "# V4 独立分析报告\n\n- Namespace：V4_ANALYSIS\n- Fundamental、净胜球分布、Fair AH、双边 EV 和可靠性只写入 V4。\n- V3 Intent、V3 Fair Range 和 V3 历史不作为 V4 输入。\n",
-        "V3_INTENT_DIAGNOSTIC.md": "# V3 Intent Diagnostic\n\nIntent 只能生成 hypothesis，不能直接映射 Final Side。DEFAULT_SIDE_MAPPING 必须为 0；证据不足时 Confidence 不得为 HIGH。\n",
-        "V4_DUAL_EV_DIAGNOSTIC.md": "# V4 Dual EV Diagnostic\n\nV4 对 giving/receiving 两侧分别计算概率、EV、EV gap 和覆盖概率。Intent 不参与方向选择。\n",
-        "V3_V4_CROSS_MODEL_COMPARISON.md": "# V3/V4 Cross Model Comparison\n\n只在最终展示层比较 V3/V4 方向；一致或冲突不回写任一模型。\n",
+        "V3_V4_ANALYSIS_SEPARATION_AUDIT.md": "# V3/V4 分析隔离审计\n\n- V3、V4 正式模型名称保持不变。\n- 共享层只允许比赛身份和原始欧赔/亚盘快照；没有 score/settlement。\n- 共享派生特征违规数：%d。\n- V3/V4 使用独立命名空间和独立 input hash。\n- V3 漏斗：%s；V4 漏斗：%s；跨模型比较：%s。\n- 这是只读合同审计，不能把未验证的云端简化结果冒充正式信号。\n\n状态：%s。\n" % (len(violations), v3_funnel.get("status"), v4_funnel.get("status"), audit["cross_model_comparison_status"], audit["status"]),
+        "SHARED_MARKET_DATA_CONTRACT.md": "# Shared Market Data Contract\n\n共享层字段：%s。\n\n禁止进入共享层：球队实力、Fair Line/Fair Range、净胜球分布、Intent、EV、Reliability、最终方向及任一模型历史后验。机器可读 schema 见 `shared_market_snapshot_schema.json`。\n" % ", ".join(sorted(SHARED_ALLOWED_FIELDS)),
+        "V3_INDEPENDENT_ANALYSIS_REPORT.md": "# V3 独立分析报告\n\n- Namespace：V3_ANALYSIS；逻辑制度：`V3_LEGACY_PAGE_PARITY`。\n- Fundamental、Fair Range、Public Pull、Market Treatment、Intent、历史和最终方向只写入 V3。\n- Intent 只保留 hypothesis，`default_side_mapping=0`，证据不足不得给 HIGH。\n- V4 EV 和 V4 历史不作为 V3 输入。\n- 漏斗状态：%s；没有重算或改写冻结 V3 账本。\n" % v3_funnel.get("status"),
+        "V4_INDEPENDENT_ANALYSIS_REPORT.md": "# V4 独立分析报告\n\n- Namespace：V4_ANALYSIS；逻辑制度：`V4_INDEPENDENT_GOAL_MODEL`。\n- Fundamental、净胜球分布、Fair AH 曲线、双边 EV 和可靠性只写入 V4。\n- Fair AH 曲线由 V4 自己的 goal distribution 生成；V3 Intent、V3 Fair Range 和 V3 历史不作为 V4 输入。\n- 漏斗状态：%s；V4 方向来自只读输出审计。\n- 双边 EV 覆盖：%s（双边覆盖行 %d / 评估行 %d）。\n" % (v4_funnel.get("status"), audit["v4_dual_ev_completeness"]["status"], dual_ev_rows, v4_evaluated_rows),
+        "V3_INTENT_DIAGNOSTIC.md": "# V3 Intent Diagnostic\n\nIntent 只能生成 hypothesis，不能直接映射 Final Side。`default_side_mapping=0`；证据不足时 Confidence 不得为 HIGH。市场行为、自然拉力和甜度变化均标注为诊断字段。\n",
+        "V4_DUAL_EV_DIAGNOSTIC.md": "# V4 Dual EV Diagnostic\n\nV4 对 giving/receiving 两侧分别计算概率、EV、EV gap 和覆盖概率。Intent 不参与方向选择；Fair AH 只来自 V4 自有 goal model。\n",
+        "V3_V4_CROSS_MODEL_COMPARISON.md": "# V3/V4 Cross Model Comparison\n\n只在最终展示层比较 V3/V4 方向；一致或冲突不回写任一模型。记录数：%d；状态：%s。\n" % (len(comparison_rows), "PASS" if comparison_rows else "NOT_RUN"),
     }
     for name, text in reports.items():
         (audit_dir / name).write_text(text, encoding="utf-8")
@@ -319,9 +626,16 @@ def write_analysis_bundle(raw_csv: Path, list_date: str, shared_feature_store: P
             writer.writeheader()
             for match_id, value in payload["matches"].items():
                 writer.writerow({"match_id": match_id, "list_date": list_date, "shared_market_snapshot_id": value.get("shared_market_snapshot_id"), "fundamental_snapshot_id": value.get("fundamental_snapshot_id"), "model_input_hash": value.get("model_input_hash"), "logic_regime_id": value.get("logic_regime_id"), "decision_id": value.get("decision_id", "")})
-    (audit_dir / "v3_direction_funnel.csv").write_text("model,stage,upper,lower,no_bet\nV3,raw_market,0,0,0\nV3,football_prior,0,0,0\nV3,public_pull,0,0,0\nV3,intent_hypothesis,0,0,0\nV3,price_check,0,0,0\nV3,history_check,0,0,0\nV3,final,0,0,0\n", encoding="utf-8")
-    (audit_dir / "v4_direction_funnel.csv").write_text("model,stage,upper,lower,no_bet\nV4,raw_market,0,0,0\nV4,goal_margin,0,0,0\nV4,dual_ev,0,0,0\nV4,reliability,0,0,0\nV4,history_context,0,0,0\nV4,final,0,0,0\n", encoding="utf-8")
-    (audit_dir / "cross_model_comparison.csv").write_text("match_id,v3_direction,v4_direction,comparison\n", encoding="utf-8")
+    for name, funnel in (("v3_direction_funnel.csv", v3_funnel), ("v4_direction_funnel.csv", v4_funnel)):
+        with (audit_dir / name).open("w", encoding="utf-8-sig", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=["model", "stage", "upper", "lower", "no_bet"])
+            writer.writeheader()
+            for row in funnel.get("stages", []):
+                writer.writerow({key: row.get(key, 0) for key in writer.fieldnames})
+    with (audit_dir / "cross_model_comparison.csv").open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["match_id", "v3_direction", "v4_direction", "comparison"])
+        writer.writeheader()
+        writer.writerows(comparison_rows)
     return {"shared": shared_path, "v3": v3_path, "v4": v4_path, "audit": audit_dir, "snapshot_id": shared["snapshot_id"], "rows": len(shared["matches"]), "status": audit["status"]}
 
 
