@@ -299,6 +299,25 @@ def build_v3_context(shared: dict[str, Any], raw_rows: list[dict[str, Any]], led
             "decision_id": "v3dec_" + _hash({"match": market.get("match_id"), "snapshot": shared.get("snapshot_id")}, 20),
             "shared_market_snapshot_id": shared.get("snapshot_id"),
         }
+        item = matches[_text(raw.get("match_id"))]
+        item.update({
+            "v3_fundamental_snapshot_id": item["fundamental_snapshot_id"],
+            "v3_model_input_hash": item["model_input_hash"],
+            "v3_logic_regime_id": item["logic_regime_id"],
+            "v3_decision_id": item["decision_id"],
+            "V3_Fair_Range_Low": item["fair_range"]["low"],
+            "V3_Fair_Range_Center": item["fair_range"]["center"],
+            "V3_Fair_Range_High": item["fair_range"]["high"],
+            "V3_Fair_Support": item["fair_range"]["support"],
+            "V3_Football_Pull": item["football_prior"],
+            "V3_Public_Pull": item["public_pull"],
+            "V3_Entry_Attractiveness_Upper_Open": item["v3_market_behavior"]["open_price_treatment"].get("giving_attractiveness"),
+            "V3_Entry_Attractiveness_Upper_Current": item["v3_market_behavior"]["current_price_treatment"].get("giving_attractiveness"),
+            "V3_Entry_Attractiveness_Lower_Open": item["v3_market_behavior"]["open_price_treatment"].get("receiving_attractiveness"),
+            "V3_Entry_Attractiveness_Lower_Current": item["v3_market_behavior"]["current_price_treatment"].get("receiving_attractiveness"),
+            "V3_Market_Treatment_Audit": item["v3_market_behavior"],
+            "V3_Robustness": item["v3_robustness"],
+        })
     return {"contract": "V3_ANALYSIS_CONTEXT_V1", "namespace": "V3_ANALYSIS", "list_date": shared.get("list_date"), "matches": matches}
 
 
@@ -408,6 +427,17 @@ def build_v4_context(shared: dict[str, Any], raw_rows: list[dict[str, Any]], pri
             "v4_historical_context": {"home_count": len(home_hist), "away_count": len(away_hist)},
             "shared_market_snapshot_id": shared.get("snapshot_id"),
         }
+        item = matches[_text(raw.get("match_id"))]
+        item.update({
+            "v4_fundamental_snapshot_id": item["fundamental_snapshot_id"],
+            "v4_model_input_hash": item["model_input_hash"],
+            "v4_logic_regime_id": item["logic_regime_id"],
+            "v4_decision_id": "v4dec_" + _hash({"match": market.get("match_id"), "snapshot": shared.get("snapshot_id")}, 20),
+            "V4_Goal_Margin_Distribution": distribution,
+            "V4_Fair_AH_Curve": item["v4_fair_ah_curve"],
+            "V4_Robustness": item["v4_robustness"],
+            "V4_Historical_Context": item["v4_historical_context"],
+        })
     return {"contract": "V4_ANALYSIS_CONTEXT_V1", "namespace": "V4_ANALYSIS", "list_date": shared.get("list_date"), "matches": matches}
 
 
