@@ -146,6 +146,8 @@ def publish(push: bool = True) -> dict[str, object]:
         (WORKSPACE / "v4" / "league_level_map.csv", PUBLISH_REPO / "v4" / "league_level_map.csv"),
         (WORKSPACE / "v4" / "V4_logic_change.json", PUBLISH_REPO / "v4" / "V4_logic_change.json"),
         (WORKSPACE / "run_football_update.py", PUBLISH_REPO / "tools" / "run_football_update.py"),
+        (WORKSPACE / "技能项目" / "football_update" / "independence_contract.py", PUBLISH_REPO / "tools" / "football_update" / "independence_contract.py"),
+        (WORKSPACE / "技能项目" / "football_update" / "tools" / "audit_v3_v4_analysis_separation.py", PUBLISH_REPO / "tools" / "audit_v3_v4_analysis_separation.py"),
         (WORKSPACE / "skills" / "worldcup-odds-trader" / "SKILL.md", PUBLISH_REPO / "skills" / "worldcup-odds-trader" / "SKILL.md"),
         (WORKSPACE / "tools" / "sequential_asian_backtest_engine.py", PUBLISH_REPO / "tools" / "sequential_asian_backtest_engine.py"),
         (WORKSPACE / "tools" / "build_football_dashboard.py", PUBLISH_REPO / "tools" / "build_football_dashboard.py"),

@@ -1045,6 +1045,30 @@ def dashboard(version: str, date: str, rows: list[dict[str, Any]]) -> None:
             atomic_text(shell, rich[:start] + replacement + rich[end:])
 
 
+def write_cloud_diagnostic_contract(date: str, current: list[dict[str, Any]]) -> Path:
+    """Record the cloud fallback boundary without presenting it as V3/V4.
+
+    The portable evaluator has not been proven equivalent to the desktop
+    models.  Keep its audit separate from formal ledgers and make the status
+    machine-readable for Pages/Feishu consumers.
+    """
+    target = DATA / "analysis_separation" / date / "separation_audit.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "contract": "CLOUD_PORTABLE_DIAGNOSTIC_BOUNDARY_V1",
+        "list_date": date,
+        "status": "PORTABLE_DIAGNOSTIC",
+        "model_status": MODEL_STATUS,
+        "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+        "formal_history_write": False,
+        "formal_signal": False,
+        "rows": len(current),
+        "note": "云端 fallback 只用于诊断展示；未证明与本地 V3/V4 等价，不写入正式账本。",
+    }
+    atomic_text(target, json.dumps(payload, ensure_ascii=False, indent=2))
+    return target
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--list-date", default=(dt.datetime.now(TZ).date().isoformat()))
@@ -1096,6 +1120,7 @@ def main() -> int:
     atomic_text(LEDGER_JSON, json.dumps(rows, ensure_ascii=False, indent=2))
     write_csv(rows)
     current = [x for x in rows if x.get("list_date") == date]
+    diagnostic_contract = write_cloud_diagnostic_contract(date, current)
     build_competition_history(rows, date)
     counts = {"rows": len(current), "V3": sum(bool(x.get("v3", {}).get("bettable")) for x in current), "V4": sum(bool(x.get("v4", {}).get("bettable")) for x in current)}
     quality = source_quality_audit(incoming, current)
@@ -1111,6 +1136,7 @@ def main() -> int:
         "source_quality": quality, "warning": warning, "snapshot": str(snapshot),
         "generated_at": dt.datetime.now(TZ).isoformat(), "model_status": MODEL_STATUS,
         "formal_model_equivalence": FORMAL_MODEL_EQUIVALENCE,
+        "analysis_separation_audit": str(diagnostic_contract),
     }, ensure_ascii=False, indent=2))
     # Notification is intentionally sent by the workflow only after the
     # gh-pages push and online Pages verification.  Sending here would report
