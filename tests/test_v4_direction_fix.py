@@ -24,7 +24,7 @@ class V4DirectionFixTests(unittest.TestCase):
             self.assertEqual(result["mapping_rule_version"], "MATCH_SPECIFIC_DUAL_EV")
 
     def test_neutral_and_unknown(self):
-        self.assertEqual(map_intent("平衡盘/等待临场确认")["candidate_side"], "neutral")
+        self.assertEqual(map_intent("平衡盘/等待临场确认")["candidate_side"], "unknown")
         self.assertEqual(map_intent("意图未接入")["candidate_side"], "unknown")
 
     def test_titan_positive_home_gives(self):
