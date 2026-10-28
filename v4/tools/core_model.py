@@ -265,12 +265,21 @@ def evaluate_match(
     public_pull = evidence_value(row, "public_pull", "public_story_pull")
     elo = finite(row.get("elo_diff"))
 
-    shared_context = row.get("titan_context") if isinstance(row.get("titan_context"), dict) else {}
-    shared_ffl = shared_context.get("ffl") if isinstance(shared_context.get("ffl"), dict) else {}
-    # The shared FFL is computed before, and without, Asian handicap or water.
-    # The local fallback remains for legacy/manual invocations that do not yet
-    # carry a shared snapshot, but it likewise excludes AH depth/path.
-    ffl_supported = finite(shared_ffl.get("fair_goal_margin")) is not None and not str(shared_ffl.get("status", "")).startswith("UNAVAILABLE")
+    # V4 reads only its own independent goal model.  V3-derived FFL fields
+    # are deliberately ignored even if a stale caller supplies them.
+    shared_context = row.get("v4_analysis") if isinstance(row.get("v4_analysis"), dict) else {}
+    v4_goal_model = shared_context.get("v4_goal_model") if isinstance(shared_context.get("v4_goal_model"), dict) else {}
+    shared_ffl = {
+        "fair_goal_margin": v4_goal_model.get("fair_goal_margin"),
+        "predicted_home_goals": v4_goal_model.get("lambda_home"),
+        "predicted_away_goals": v4_goal_model.get("lambda_away"),
+        "margin_distribution": v4_goal_model.get("margin_distribution"),
+        "fair_handicap": v4_goal_model.get("fair_goal_margin"),
+        "fair_handicap_low": v4_goal_model.get("fair_goal_margin"),
+        "fair_handicap_high": v4_goal_model.get("fair_goal_margin"),
+        "venue_effect": shared_context.get("v4_venue_effect", 0.0),
+    }
+    ffl_supported = finite(v4_goal_model.get("fair_goal_margin")) is not None
     football_margin = finite(shared_ffl.get("fair_goal_margin")) if ffl_supported else None
     if football_margin is None:
         football_margin = 1.18 * strength_log_ratio + (0.0015 * elo if elo is not None else 0.0)
@@ -475,8 +484,12 @@ def evaluate_match(
         "ffl_home_fair_handicap": shared_ffl.get("fair_handicap"),
         "fair_handicap_low": (shared_ffl.get("fair_handicap_low") if giving_home else -finite(shared_ffl.get("fair_handicap_high"), 0.0)) if shared_ffl else None,
         "fair_handicap_high": (shared_ffl.get("fair_handicap_high") if giving_home else -finite(shared_ffl.get("fair_handicap_low"), 0.0)) if shared_ffl else None,
-        "fair_line_source": "TITAN_SHARED_FFL" if ffl_supported else "MARKET_REFERENCE_FALLBACK",
-        "titan_context_snapshot_id": shared_context.get("snapshot_id"),
+        "fair_line_source": "V4_INDEPENDENT_GOAL_MODEL" if ffl_supported else "MARKET_REFERENCE_FALLBACK",
+        "probability_source": "V4_GOAL_MODEL" if ffl_supported else "MARKET_CONDITIONAL",
+        "shared_market_snapshot_id": row.get("shared_market_snapshot_id") or shared_context.get("shared_market_snapshot_id"),
+        "v4_fundamental_snapshot_id": shared_context.get("fundamental_snapshot_id"),
+        "v4_model_input_hash": shared_context.get("model_input_hash"),
+        "v4_logic_regime_id": shared_context.get("logic_regime_id"),
         "cmfl": shared_context.get("cmfl"),
         "fair_line_consensus": shared_context.get("fair_line_consensus"),
         "shared_market_deviation": shared_context.get("market_deviation"),
