@@ -268,19 +268,30 @@ def evaluate_match(
     public_pull = evidence_value(row, "public_pull", "public_story_pull")
     elo = finite(row.get("elo_diff"))
 
-    shared_context = row.get("titan_context") if isinstance(row.get("titan_context"), dict) else {}
-    shared_ffl = shared_context.get("ffl") if isinstance(shared_context.get("ffl"), dict) else {}
-    shared_consensus = shared_context.get("fair_line_consensus") if isinstance(shared_context.get("fair_line_consensus"), dict) else {}
-    # The shared FFL is computed before, and without, Asian handicap or water.
-    # The local fallback remains for legacy/manual invocations that do not yet
-    # carry a shared snapshot, but it likewise excludes AH depth/path.
-    ffl_supported = finite(shared_ffl.get("fair_goal_margin")) is not None and not str(shared_ffl.get("status", "")).startswith("UNAVAILABLE")
+    # V4 reads only its own independent goal model.  Shared input is limited
+    # to the immutable raw market snapshot; V3-derived FFL/consensus fields
+    # are deliberately ignored even if a stale caller supplies them.
+    shared_context = row.get("v4_analysis") if isinstance(row.get("v4_analysis"), dict) else {}
+    v4_goal_model = shared_context.get("v4_goal_model") if isinstance(shared_context.get("v4_goal_model"), dict) else {}
+    shared_ffl = {
+        "fair_goal_margin": v4_goal_model.get("fair_goal_margin"),
+        "predicted_home_goals": v4_goal_model.get("lambda_home"),
+        "predicted_away_goals": v4_goal_model.get("lambda_away"),
+        "margin_distribution": v4_goal_model.get("margin_distribution"),
+        "fair_handicap": v4_goal_model.get("fair_goal_margin"),
+        "fair_handicap_low": v4_goal_model.get("fair_goal_margin"),
+        "fair_handicap_high": v4_goal_model.get("fair_goal_margin"),
+        "venue_effect": shared_context.get("v4_venue_effect", 0.0),
+    }
+    # V4 no longer consumes a shared consensus/CMFL object.
+    shared_consensus = {}
+    ffl_supported = finite(v4_goal_model.get("fair_goal_margin")) is not None
     consensus_distribution = shared_consensus.get("distribution") if isinstance(shared_consensus.get("distribution"), dict) else {}
     # CMFL remains an auditable market reference in the shared snapshot.  The
     # official V4 decision path continues to use its existing FFL-or-market
     # conditional selection until an out-of-sample weight is frozen; silently
     # promoting CMFL here would create a new model version.
-    cmfl_available = bool(consensus_distribution) and str(shared_consensus.get("source", "")) == "CMFL_PRIMARY"
+    cmfl_available = False
     cmfl_supported = False
     football_margin = finite(shared_ffl.get("fair_goal_margin")) if ffl_supported else None
     if football_margin is None:
@@ -545,10 +556,13 @@ def evaluate_match(
         "ffl_home_fair_handicap": shared_ffl.get("fair_handicap"),
         "fair_handicap_low": (shared_ffl.get("fair_handicap_low") if giving_home else -finite(shared_ffl.get("fair_handicap_high"), 0.0)) if shared_ffl else None,
         "fair_handicap_high": (shared_ffl.get("fair_handicap_high") if giving_home else -finite(shared_ffl.get("fair_handicap_low"), 0.0)) if shared_ffl else None,
-        "fair_line_source": "TITAN_SHARED_FFL" if ffl_supported else "MARKET_REFERENCE_FALLBACK",
-        "probability_source": "FFL_PRIMARY" if ffl_supported else "MARKET_CONDITIONAL",
+        "fair_line_source": "V4_INDEPENDENT_GOAL_MODEL" if ffl_supported else "MARKET_REFERENCE_FALLBACK",
+        "probability_source": "V4_GOAL_MODEL" if ffl_supported else "MARKET_CONDITIONAL",
         "cmfl_available_for_audit": cmfl_available,
-        "titan_context_snapshot_id": shared_context.get("snapshot_id"),
+        "shared_market_snapshot_id": row.get("shared_market_snapshot_id") or shared_context.get("shared_market_snapshot_id"),
+        "v4_fundamental_snapshot_id": shared_context.get("fundamental_snapshot_id"),
+        "v4_model_input_hash": shared_context.get("model_input_hash"),
+        "v4_logic_regime_id": shared_context.get("logic_regime_id"),
         "cmfl": shared_context.get("cmfl"),
         "fair_line_consensus": shared_context.get("fair_line_consensus"),
         "shared_market_deviation": shared_context.get("market_deviation"),
@@ -707,7 +721,11 @@ def _mirror_context(context: dict[str, Any]) -> dict[str, Any]:
     mirrored["venue_status"] = "NEUTRAL"
     mirrored["venue_effect"] = 0.0
     mirrored["neutral_venue"] = True
-    for section in ("ffl", "fair_line_consensus"):
+    # V4's independent namespaced goal model is the formal probability source
+    # after the V3/V4 separation.  Mirror it here as well as the legacy
+    # diagnostic sections; otherwise the symmetry test silently reuses the
+    # original home-space margin and reports a false failure for every row.
+    for section in ("ffl", "fair_line_consensus", "v4_goal_model"):
         value = mirrored.get(section)
         if not isinstance(value, dict):
             continue
@@ -757,7 +775,7 @@ def swap_symmetry_test(rows: Iterable[dict[str, Any]], *, tolerance: float = 1e-
                 "euro_home": market0.get("euro_home"), "euro_draw": market0.get("euro_draw"),
                 "euro_away": market0.get("euro_away"), "quote_at": source.get("quote_at", ""),
                 "normalized_intent": source.get("normalized_intent", ""),
-                "titan_context": source.get("titan_context") if isinstance(source.get("titan_context"), dict) else {},
+                "v4_analysis": source.get("v4_analysis") if isinstance(source.get("v4_analysis"), dict) else {},
             }
             market = {
                 "valid": True, "pk": abs(line) < 1e-9, "raw_line": line,
@@ -771,7 +789,7 @@ def swap_symmetry_test(rows: Iterable[dict[str, Any]], *, tolerance: float = 1e-
             mirror_row = dict(base_row)
             mirror_row.update({"home_team": away, "away_team": home,
                                "euro_home": base_row["euro_away"], "euro_away": base_row["euro_home"],
-                               "titan_context": _mirror_context(base_row["titan_context"])})
+                               "v4_analysis": _mirror_context(base_row["v4_analysis"])})
             mirror_market = dict(market)
             mirror_market.update({"raw_line": -line, "giving_water": market["giving_water"],
                                   "receiving_water": market["receiving_water"],
@@ -833,10 +851,10 @@ def bias_funnel_rows(rows: Iterable[dict[str, Any]]) -> dict[str, Any]:
         total_raw += 1
         raw_side = "HOME" if line > 0 else "AWAY" if line < 0 else "NEUTRAL"
         counters["raw_ah"][raw_side] += 1
-        context = row.get("titan_context") if isinstance(row.get("titan_context"), dict) else {}
-        ffl = context.get("ffl") if isinstance(context.get("ffl"), dict) else {}
-        cmfl = context.get("cmfl") if isinstance(context.get("cmfl"), dict) else {}
-        # ``titan_context.ffl`` is absent for market-only rows, while the
+        context = row.get("v4_analysis") if isinstance(row.get("v4_analysis"), dict) else {}
+        ffl = context.get("v4_goal_model") if isinstance(context.get("v4_goal_model"), dict) else {}
+        cmfl = {}
+        # ``v4_analysis.ffl`` is absent for market-only rows, while the
         # evaluated V4 row still stores the authoritative home-space FFL
         # contribution in ``ffl_home_fair_goal_margin`` /
         # ``ffl_margin_after_venue``.  Use those explicit fields so the

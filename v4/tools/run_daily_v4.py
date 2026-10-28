@@ -450,8 +450,24 @@ def main() -> None:
     parser.add_argument("--raw-csv", default="", help="Use a refreshed Titan CSV instead of the legacy HTML adapter.")
     args = parser.parse_args()
     now = datetime.now(TARGET_TZ)
-    shared_snapshot = load_feature_snapshot()
+    # Formal runs consume a raw-market contract plus the V4-owned analysis
+    # namespace.  The legacy Titan feature store remains diagnostics-only.
+    shared_path_value = os.environ.get("SHARED_MARKET_SNAPSHOT_PATH", "")
+    v4_context_path_value = os.environ.get("V4_ANALYSIS_CONTEXT_PATH", "")
+    shared_path = Path(shared_path_value) if shared_path_value else None
+    v4_context_path = Path(v4_context_path_value) if v4_context_path_value else None
+    shared_snapshot = {}
+    v4_bundle = {}
+    if shared_path is not None and shared_path.exists():
+        shared_snapshot = json.loads(shared_path.read_text(encoding="utf-8"))
+    if v4_context_path is not None and v4_context_path.exists():
+        v4_bundle = json.loads(v4_context_path.read_text(encoding="utf-8"))
+    if os.environ.get("FOOTBALL_RUN_ID") and (not shared_snapshot or not v4_bundle):
+        raise RuntimeError("V4_ANALYSIS_CONTEXT_MISSING")
+    if v4_bundle and v4_bundle.get("list_date") != args.list_date:
+        raise RuntimeError("V4_ANALYSIS_LIST_DATE_MISMATCH")
     shared_matches = shared_snapshot.get("matches", {}) if isinstance(shared_snapshot, dict) else {}
+    v4_matches = v4_bundle.get("matches", {}) if isinstance(v4_bundle, dict) else {}
     raw_rows = load_raw_csv(Path(args.raw_csv), args.list_date) if args.raw_csv else load_raw(args.list_date)
     raw_path = write_raw(raw_rows, args.list_date)
     training = ROOT / "outputs" / "football_odds_trader" / "research" / "v4_market_base_ready.csv"
@@ -555,8 +571,8 @@ def main() -> None:
         else:
             raw_intent, intent_source = derive_market_intent(row, m)
             normalized_intent = raw_intent or "unknown"
-            titan_context = shared_matches.get(str(row["match_id"]), {})
-            model_row = {**row, "normalized_intent": normalized_intent, "titan_context": titan_context}
+            v4_analysis = v4_matches.get(str(row["match_id"]), {})
+            model_row = {**row, "normalized_intent": normalized_intent, "v4_analysis": v4_analysis, "shared_market_snapshot_id": shared_snapshot.get("snapshot_id")}
             bucket = m["bucket"] if m["bucket"] in alpha else "GLOBAL"
             result = evaluate_match(model_row, m, bucket_alpha=alpha.get(bucket))
             input_payload = {
@@ -565,7 +581,8 @@ def main() -> None:
                 "receiving_water": m.get("receiving_water"), "opening_line": m.get("opening_line"),
                 "euro": [row.get("euro_home"), row.get("euro_draw"), row.get("euro_away")],
                 "evidence_snapshot_id": evidence_snapshot_id, "competition": row.get("competition", ""),
-                "titan_context_snapshot_id": shared_snapshot.get("snapshot_id"),
+                "shared_market_snapshot_id": shared_snapshot.get("snapshot_id"),
+                "v4_model_input_hash": v4_analysis.get("model_input_hash"),
             }
             input_hash = stable_hash(input_payload)
             decision_id = hashlib.sha256(f"{args.list_date}|{row['match_id']}|{input_hash}".encode()).hexdigest()[:20]
@@ -585,7 +602,11 @@ def main() -> None:
                 ev_p05=None, ev_p10=None, ev_p50=result.get("ev_mean"), ev_p90=None, ev_p95=None, p_ev_positive=None,
                 diagnostic_giving={"team": m["giving_team"], "water": m["giving_water"], "EV_mean": result["ev_giving"], "probabilities": result["giving_probabilities"], "status": "MATCH_SPECIFIC"},
                 diagnostic_receiving={"team": m["receiving_team"], "water": m["receiving_water"], "EV_mean": result["ev_receiving"], "probabilities": result["receiving_probabilities"], "status": "MATCH_SPECIFIC"},
-                titan_context=titan_context,
+                v4_analysis=v4_analysis,
+                shared_market_snapshot_id=shared_snapshot.get("snapshot_id"),
+                v4_fundamental_snapshot_id=v4_analysis.get("fundamental_snapshot_id"),
+                v4_model_input_hash=v4_analysis.get("model_input_hash"),
+                v4_logic_regime_id=v4_analysis.get("logic_regime_id"),
                 market={**base["market"], "home_handicap_signed": m["raw_line"], "away_handicap_signed": -m["raw_line"],
                         "titan_home_handicap_signed": m["raw_line"], "titan_away_handicap_signed": -m["raw_line"],
                         "home_water_hk": m["home_water"], "away_water_hk": m["away_water"],

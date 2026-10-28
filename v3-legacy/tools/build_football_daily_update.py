@@ -1260,6 +1260,8 @@ def short(value: str, limit: int = 90) -> str:
 
 def fundamental_text(row: dict[str, str]) -> str:
     d = detail_for(row)
+    ctx = row.get("v3_analysis") if isinstance(row.get("v3_analysis"), dict) else {}
+    fair = ctx.get("fair_range") if isinstance(ctx.get("fair_range"), dict) else {}
     parts = [f"主客排名/阶段 {row.get('home_rank_or_stage','')}-{row.get('away_rank_or_stage','')}"]
     if d.get("strength_summary"):
         parts.append(d["strength_summary"])
@@ -1290,13 +1292,14 @@ def detail_status_line(rows: list[dict[str, str]]) -> str:
 
 def main() -> int:
     snapshot = latest_snapshot()
-    # Shared AS-OF context is attached before the legacy interpretation.
-    # It does not replace the V3 production decision framework.
+    # V3 consumes only its own namespaced analysis context.  The legacy Titan
+    # feature store is retained for diagnostics, never as a formal V3 input.
     import json
-    shared_path = Path(os.environ["TITAN_FEATURE_STORE_PATH"])
-    shared = json.loads(shared_path.read_text(encoding="utf-8"))
-    if shared.get("list_date") != TODAY.isoformat():
-        raise RuntimeError("SHARED_TITAN_LIST_DATE_MISMATCH")
+    context_path = Path(os.environ["V3_ANALYSIS_CONTEXT_PATH"])
+    v3_bundle = json.loads(context_path.read_text(encoding="utf-8"))
+    if v3_bundle.get("list_date") != TODAY.isoformat():
+        raise RuntimeError("V3_ANALYSIS_LIST_DATE_MISMATCH")
+    v3_matches = v3_bundle.get("matches", {})
     existing_rows = read_csv(LEDGER) if LEDGER.exists() else []
     details = load_details()
     flow_path, flow_lookup = load_flow_lookup()
@@ -1335,7 +1338,7 @@ def main() -> int:
     hist = load_history()
     sims = []
     for r in rows:
-        r["titan_context"] = shared.get("matches", {}).get(str(r.get("match_id")), {})
+        r["v3_analysis"] = v3_matches.get(str(r.get("match_id")), {})
         r["_detail"] = details.get((r.get("match_id") or "").strip(), {})
         attach_flow(r, flow_lookup)
         sim = choose_simulation(r, hist)
@@ -1470,6 +1473,7 @@ def main() -> int:
         "日期", "赛事", "比赛", "模拟ID", "赛制阶段", "市场框架", "模拟盘口/价格", "模拟方向",
         "虚拟仓位单位", "基本面拉力", "盘口倾向", "Polymarket/交易所情绪", "流动性", "模拟目的",
         "是否主单", "赛果", "模拟盈亏单位", "过程评级", "错误类型", "模型更新",
+        "V3基本面快照ID", "V3模型输入哈希", "V3逻辑制度ID", "V3决策ID", "共享原始市场快照ID",
     ]
     with sim_path.open("w", encoding="utf-8-sig", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=sim_fields)
@@ -1529,6 +1533,11 @@ def main() -> int:
                 "过程评级": grade,
                 "错误类型": err,
                 "模型更新": "本次更新已重新读取即时盘口；亚盘方向由HTML红框EV漏斗给出；无投注数据时沿用原亚盘EV框架，有Chuqi/必发匹配时按资金流验证矩阵审计",
+                "V3基本面快照ID": (r.get("v3_analysis") or {}).get("fundamental_snapshot_id", ""),
+                "V3模型输入哈希": (r.get("v3_analysis") or {}).get("model_input_hash", ""),
+                "V3逻辑制度ID": (r.get("v3_analysis") or {}).get("logic_regime_id", ""),
+                "V3决策ID": (r.get("v3_analysis") or {}).get("decision_id", ""),
+                "共享原始市场快照ID": (r.get("v3_analysis") or {}).get("shared_market_snapshot_id", ""),
             }
             sim_rows.append(out_row)
             writer.writerow(out_row)
