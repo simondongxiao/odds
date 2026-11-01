@@ -1,39 +1,39 @@
 {
   "schema_version": "football-dashboard-manifest-v1",
-  "list_date": "2026-11-01",
-  "generated_at": "2026-11-01T20:01:53.810139+08:00",
+  "list_date": "2026-11-02",
+  "generated_at": "2026-11-01T21:06:10.703867+08:00",
   "full": {
     "path": "data_full.json",
-    "rows": 15479
+    "rows": 15694
   },
   "filtered": {
     "path": "data_filtered.json",
-    "rows": 226
+    "rows": 43
   },
-  "workbook_sha256": "ab0c6b780c57d6be2b6b4c4909f3475cb370ec96487e2585fef90561135db602",
+  "workbook_sha256": "4704a96c9d1ce7236e1981f07c0b345a04cac9c0cc28825a3c8355aed97828a6",
   "count_shrink_audit": {
     "status": "PASS",
     "blocked": false,
-    "list_date": "2026-11-01",
-    "previous_total": 1309,
-    "incoming_total": 1309,
-    "contract_total": 1309,
+    "list_date": "2026-11-02",
+    "previous_total": null,
+    "incoming_total": 215,
+    "contract_total": 215,
     "official_exception_count": 0,
-    "generated_at": "2026-11-01T19:14:33.599484+08:00"
+    "generated_at": "2026-11-01T20:14:06.565479+08:00"
   },
   "reconciliation": {
     "schema_version": "football-three-way-reconciliation-v1",
     "status": "PASS",
     "source": "excel_cache",
-    "excel_rows": 15479,
-    "full_json_rows": 15479,
-    "filtered_json_rows": 226,
-    "excel_history_key_count": 15479,
-    "full_history_key_count": 15479,
+    "excel_rows": 15694,
+    "full_json_rows": 15694,
+    "filtered_json_rows": 43,
+    "excel_history_key_count": 15694,
+    "full_history_key_count": 15694,
     "filtered_subset_of_full": true,
     "mismatches": [],
     "workbook": "D:\\codex\\技能项目\\football_update\\outputs__from_root\\football_odds_trader\\excel\\football_odds_ledger_v4.xlsx",
-    "workbook_sha256": "ab0c6b780c57d6be2b6b4c4909f3475cb370ec96487e2585fef90561135db602",
-    "generated_at": "2026-11-01T20:01:54.201185+08:00"
+    "workbook_sha256": "4704a96c9d1ce7236e1981f07c0b345a04cac9c0cc28825a3c8355aed97828a6",
+    "generated_at": "2026-11-01T21:06:11.079950+08:00"
   }
 }
