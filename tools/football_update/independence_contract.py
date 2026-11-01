@@ -16,6 +16,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Iterable
 
+from .market_pricing import build_namespace_market_audit, write_namespace_audit
+
 _DEFAULT_ROOT = Path(r"D:\codex")
 ROOT = Path(os.environ.get("FOOTBALL_WORKSPACE_ROOT", str(_DEFAULT_ROOT if _DEFAULT_ROOT.exists() else Path(__file__).resolve().parents[2])))
 OUT = Path(os.environ.get("FOOTBALL_ANALYSIS_OUT", str(ROOT / "outputs" / "football_odds_trader" / "titan_data")))
@@ -31,7 +33,12 @@ MARKET_FIELDS = (
     "euro_current_home", "euro_current_draw", "euro_current_away",
     "asian_open_line", "asian_open_home_water", "asian_open_away_water",
     "asian_current_line", "asian_current_home_water", "asian_current_away_water",
-    "quote_at", "source", "bookmaker", "snapshot_id",
+    "market_type", "period", "settlement_clock", "in_play",
+    "raw_line", "raw_home_water", "raw_away_water", "odds_format",
+    "normalized_line", "normalized_home_water", "normalized_away_water",
+    "quote_at", "source_quote_at", "received_at", "last_verified_at",
+    "source", "bookmaker", "snapshot_id", "raw_hash", "parser_version",
+    "conversion_version", "quotes",
 )
 SHARED_ALLOWED_FIELDS = set(IDENTITY_FIELDS) | set(MARKET_FIELDS)
 FORBIDDEN_SHARED_FIELDS = {
@@ -51,7 +58,7 @@ SHARED_MARKET_SCHEMA = {
     "identity_fields": list(IDENTITY_FIELDS),
     "market_fields": list(MARKET_FIELDS),
     "allowed_fields": sorted(SHARED_ALLOWED_FIELDS),
-    "field_types": {field: "string" for field in sorted(SHARED_ALLOWED_FIELDS)},
+    "field_types": {field: ("array" if field == "quotes" else "string") for field in sorted(SHARED_ALLOWED_FIELDS)},
     "forbidden_derived_fields": sorted(FORBIDDEN_SHARED_FIELDS),
     "notes": [
         "Only match identity, raw Euro/AH quote values, source/bookmaker and timestamps are shared.",
