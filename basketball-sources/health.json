@@ -381,7 +381,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 282.0,
+        "elapsed_ms": 1974.711,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -630,7 +630,7 @@
         "url": "https://bdata.7m.com.cn/analyse/gb/1347168.shtml"
       }
     ],
-    "bytes": 93781,
+    "bytes": 93799,
     "http_client": "curl_cffi",
     "http_status": 200,
     "key": "detail_1347168",
@@ -2599,7 +2599,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 313.0,
+        "elapsed_ms": 880.746,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -3769,7 +3769,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 250.0,
+        "elapsed_ms": 872.893,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -5199,7 +5199,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 203.0,
+        "elapsed_ms": 857.323,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -6542,8 +6542,7 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1347168/stats.js"
   },
   {
-    "age_header": "0",
-    "attempt_count": 1,
+    "attempt_count": 3,
     "attempts": [
       {
         "attempt": 1,
@@ -10631,7 +10630,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 203.0,
+        "elapsed_ms": 848.277,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -12023,7 +12022,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 203.0,
+        "elapsed_ms": 945.577,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -13503,7 +13502,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 204.0,
+        "elapsed_ms": 985.23,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -14642,6 +14641,3854 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1367041/stats.js"
   },
   {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 931.917,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367018/avgpoint.js"
+      }
+    ],
+    "bytes": 2396,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367018_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:14:46 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367018_avgpoint.raw",
+    "received_at": "2026-11-02T00:39:59.802695+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:39:59 GMT",
+    "sha256": "0f106e2858e0eccfd252e46f9ef981762980a3dff8b893bce36d69c7725cab72",
+    "started_at": "2026-11-02T00:39:58.870516+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367018/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 940.962,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367018/pointstat.js"
+      }
+    ],
+    "bytes": 1373,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367018_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:14:46 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367018_pointstat.raw",
+    "received_at": "2026-11-02T00:39:59.950707+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:39:59 GMT",
+    "sha256": "cb85926a66aee8b93fdac5cd08cece8dcb7c7683790a06f8ecd607661db0016c",
+    "started_at": "2026-11-02T00:39:59.009488+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367018/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 831.759,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367018/totalstat.js"
+      }
+    ],
+    "bytes": 1349,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367018_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:14:46 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367018_totalstat.raw",
+    "received_at": "2026-11-02T00:39:59.989459+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:39:59 GMT",
+    "sha256": "02e90d22d06e289b9808f4ce74a12f51dd9ba9720c9475309f9a56a2f0d22037",
+    "started_at": "2026-11-02T00:39:59.157509+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367018/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 948.298,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367018/bqcstat.js"
+      }
+    ],
+    "bytes": 1048,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367018_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:14:46 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367018_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:00.751283+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:00 GMT",
+    "sha256": "ef648a7728b81f2cd9c086b57da42b5e5f4f3c77257748f76333b5674f0be990",
+    "started_at": "2026-11-02T00:39:59.802731+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367018/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1690.735,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367018/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367018_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:01.641555+00:00",
+    "started_at": "2026-11-02T00:39:59.950743+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367018/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2346.219,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367018/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367018_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:02.306620+00:00",
+    "started_at": "2026-11-02T00:39:59.960279+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367018/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 888.161,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367021/avgpoint.js"
+      }
+    ],
+    "bytes": 2399,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367021_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367021_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:00.877868+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:00 GMT",
+    "sha256": "548efd96da9d21d0300ecda9eb2ffac2efa08a546c36a44e75a5511ccb777785",
+    "started_at": "2026-11-02T00:39:59.989485+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367021/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1244.16,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367021/pointstat.js"
+      }
+    ],
+    "bytes": 1402,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367021_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367021_pointstat.raw",
+    "received_at": "2026-11-02T00:40:01.826836+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:01 GMT",
+    "sha256": "a31eb6b88b23d013105a6e82d0ea60be47bbc51d20e6a75754e175ae53e0bef0",
+    "started_at": "2026-11-02T00:40:00.582403+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367021/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 882.579,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367021/totalstat.js"
+      }
+    ],
+    "bytes": 1362,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367021_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367021_totalstat.raw",
+    "received_at": "2026-11-02T00:40:01.634150+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:01 GMT",
+    "sha256": "42a77ff155d033684d68facfa20d54d142e781d92a2ad77cecb10e3ebbf2a341",
+    "started_at": "2026-11-02T00:40:00.751319+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367021/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1157.347,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367021/bqcstat.js"
+      }
+    ],
+    "bytes": 1069,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367021_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367021_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:02.035469+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:01 GMT",
+    "sha256": "e7f9ee7fa3cf303b516e06189edf94f39ab07bd20a88d22d0fd7cf8cccdb2a22",
+    "started_at": "2026-11-02T00:40:00.877899+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367021/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2029.47,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367021/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367021_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:03.663731+00:00",
+    "started_at": "2026-11-02T00:40:01.634186+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367021/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1824.708,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367021/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367021_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:03.466341+00:00",
+    "started_at": "2026-11-02T00:40:01.641581+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367021/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1315.572,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367022/avgpoint.js"
+      }
+    ],
+    "bytes": 2482,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367022_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367022_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:03.142702+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:02 GMT",
+    "sha256": "40d1db8e3bcc45337b4e4e44c86be5a3795b2528021a15b1906a7e3ce2dc4877",
+    "started_at": "2026-11-02T00:40:01.826872+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367022/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1378.334,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367022/pointstat.js"
+      }
+    ],
+    "bytes": 1438,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367022_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367022_pointstat.raw",
+    "received_at": "2026-11-02T00:40:03.414056+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:02 GMT",
+    "sha256": "51d1b4eadebbd332917735ffb932c71df842ee1263e63a923df35d4facfe995f",
+    "started_at": "2026-11-02T00:40:02.035503+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367022/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1045.893,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367022/totalstat.js"
+      }
+    ],
+    "bytes": 1404,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367022_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367022_totalstat.raw",
+    "received_at": "2026-11-02T00:40:03.352818+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:02 GMT",
+    "sha256": "fcbbb9e982c487653b3f7102b2bb4e73d0b0368a7477126ed0206a68e11a096b",
+    "started_at": "2026-11-02T00:40:02.306650+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367022/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 866.386,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367022/bqcstat.js"
+      }
+    ],
+    "bytes": 1101,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367022_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367022_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:04.009392+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:03 GMT",
+    "sha256": "01798e40e3f41af92f16570120cf469f2bc387c7908083db7ce5a7b2e9c2f8fa",
+    "started_at": "2026-11-02T00:40:03.142738+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367022/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1603.336,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367022/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367022_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:04.956260+00:00",
+    "started_at": "2026-11-02T00:40:03.352866+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367022/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1679.09,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367022/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367022_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:05.093224+00:00",
+    "started_at": "2026-11-02T00:40:03.414087+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367022/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 936.733,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367023/avgpoint.js"
+      }
+    ],
+    "bytes": 2402,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367023_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367023_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:04.403357+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:03 GMT",
+    "sha256": "13ed1811bdcc2c6408389d20867135362e5cb059961907bd2144f59ebba028eb",
+    "started_at": "2026-11-02T00:40:03.466370+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367023/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 844.548,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367023/pointstat.js"
+      }
+    ],
+    "bytes": 1390,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367023_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367023_pointstat.raw",
+    "received_at": "2026-11-02T00:40:04.508762+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:03 GMT",
+    "sha256": "21d05c857e23ea682464c7da0d308ff7e42691a731c54d60720e108dcc7b13eb",
+    "started_at": "2026-11-02T00:40:03.663892+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367023/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1226.022,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367023/totalstat.js"
+      }
+    ],
+    "bytes": 1355,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367023_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367023_totalstat.raw",
+    "received_at": "2026-11-02T00:40:05.235668+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:04 GMT",
+    "sha256": "f6e18c8b0c96cad6b297d61882967c616bf0eef81ad921bfbf53c7bb46b78298",
+    "started_at": "2026-11-02T00:40:04.009427+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367023/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 843.202,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367023/bqcstat.js"
+      }
+    ],
+    "bytes": 1058,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367023_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367023_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:05.246822+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:04 GMT",
+    "sha256": "b658f4468bbb3f640473343ff00a50762cef41ef7888344d81d8837735db146a",
+    "started_at": "2026-11-02T00:40:04.403394+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367023/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1631.957,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367023/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367023_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:06.140847+00:00",
+    "started_at": "2026-11-02T00:40:04.508833+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367023/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1751.372,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367023/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367023_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:06.707721+00:00",
+    "started_at": "2026-11-02T00:40:04.956291+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367023/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 919.59,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367024/avgpoint.js"
+      }
+    ],
+    "bytes": 2388,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367024_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367024_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:06.013101+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:05 GMT",
+    "sha256": "7bc659e0ed0058f924627ad98f848d5e21e75cd1b41608db63fe3fb6f3ac3068",
+    "started_at": "2026-11-02T00:40:05.093258+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367024/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 959.728,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367024/pointstat.js"
+      }
+    ],
+    "bytes": 1372,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367024_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367024_pointstat.raw",
+    "received_at": "2026-11-02T00:40:06.195650+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:05 GMT",
+    "sha256": "397279f60cbd62c5c82fdf47cc71ec575ab7c3c449242afc3b505e14502cd802",
+    "started_at": "2026-11-02T00:40:05.235698+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367024/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1532.622,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367024/totalstat.js"
+      }
+    ],
+    "bytes": 1350,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367024_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367024_totalstat.raw",
+    "received_at": "2026-11-02T00:40:06.779713+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:06 GMT",
+    "sha256": "006a000a1d24aa73c6c0b10472bdf19486910c303b4bed9b53718125449c87ea",
+    "started_at": "2026-11-02T00:40:05.246853+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367024/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 914.593,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367024/bqcstat.js"
+      }
+    ],
+    "bytes": 1046,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367024_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367024_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:06.928018+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:06 GMT",
+    "sha256": "d15b8362b5bea5cf6dc2cb9dd882860aea71b8acaf65437a7d59142e9c344b66",
+    "started_at": "2026-11-02T00:40:06.013135+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367024/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1721.444,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367024/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367024_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:07.862386+00:00",
+    "started_at": "2026-11-02T00:40:06.140880+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367024/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1760.834,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367024/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367024_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:07.956582+00:00",
+    "started_at": "2026-11-02T00:40:06.195682+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367024/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 871.266,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367025/avgpoint.js"
+      }
+    ],
+    "bytes": 2489,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367025_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367025_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:07.579365+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:06 GMT",
+    "sha256": "9ffbf574725cdacc352e3f3223708084cf0d76007372269d8060eab43c3826ba",
+    "started_at": "2026-11-02T00:40:06.707837+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367025/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 890.352,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367025/pointstat.js"
+      }
+    ],
+    "bytes": 1456,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367025_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367025_pointstat.raw",
+    "received_at": "2026-11-02T00:40:07.670349+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:07 GMT",
+    "sha256": "ae407193817d09f64580c8c944223e5fd565f410342d4986d3b355688700d650",
+    "started_at": "2026-11-02T00:40:06.779747+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367025/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 895.42,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367025/totalstat.js"
+      }
+    ],
+    "bytes": 1412,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367025_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367025_totalstat.raw",
+    "received_at": "2026-11-02T00:40:07.823710+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:07 GMT",
+    "sha256": "b6f634214b86036135e3edf1559dc512d790f8c4e16e7d702c50ec5442c7be54",
+    "started_at": "2026-11-02T00:40:06.928052+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367025/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 888.898,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367025/bqcstat.js"
+      }
+    ],
+    "bytes": 1105,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367025_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:39 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367025_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:08.468543+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:07 GMT",
+    "sha256": "8b46dcfec69e57d0ac18896bb31aa9809e170cb3a4dc355ce88d439523be3a10",
+    "started_at": "2026-11-02T00:40:07.579400+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367025/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1654.253,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367025/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367025_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:09.324688+00:00",
+    "started_at": "2026-11-02T00:40:07.670382+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367025/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1744.016,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367025/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367025_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:09.567839+00:00",
+    "started_at": "2026-11-02T00:40:07.823745+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367025/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 997.145,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367026/avgpoint.js"
+      }
+    ],
+    "bytes": 2481,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367026_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367026_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:08.859795+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:08 GMT",
+    "sha256": "f263d352668e9df0a13084fbb3f327e85152ca036ef5cafb4224fd8706be81c5",
+    "started_at": "2026-11-02T00:40:07.862410+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367026/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 915.155,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367026/pointstat.js"
+      }
+    ],
+    "bytes": 1439,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367026_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367026_pointstat.raw",
+    "received_at": "2026-11-02T00:40:08.872074+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:08 GMT",
+    "sha256": "5581bf8908890968e59acb519200a3a9759b9390d7a4c7c3c10999eee4879a67",
+    "started_at": "2026-11-02T00:40:07.956651+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367026/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1387.315,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367026/totalstat.js"
+      }
+    ],
+    "bytes": 1403,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367026_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367026_totalstat.raw",
+    "received_at": "2026-11-02T00:40:09.856123+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:09 GMT",
+    "sha256": "c09f7d59a02a550a4de0e623eac7dfb88179333e06fa628718f8c44a1e0fc09f",
+    "started_at": "2026-11-02T00:40:08.468577+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367026/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 909.273,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367026/bqcstat.js"
+      }
+    ],
+    "bytes": 1097,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367026_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367026_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:09.720028+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:09 GMT",
+    "sha256": "5899d0fa3bd6e32c3b70693ac190dcc8b286ad185eb3621e3d5da75bc76ae4e9",
+    "started_at": "2026-11-02T00:40:08.810527+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367026/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1730.236,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367026/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367026_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:10.590113+00:00",
+    "started_at": "2026-11-02T00:40:08.859827+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367026/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1789.267,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367026/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367026_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:10.661414+00:00",
+    "started_at": "2026-11-02T00:40:08.872101+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367026/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 923.699,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367027/avgpoint.js"
+      }
+    ],
+    "bytes": 2484,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367027_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367027_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:10.248726+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:09 GMT",
+    "sha256": "6c4ddc1a13ceef160a48b3f1870e3ff6af529165f5000c4f359bc6fe1326a44d",
+    "started_at": "2026-11-02T00:40:09.324746+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367027/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 865.903,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367027/pointstat.js"
+      }
+    ],
+    "bytes": 1441,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367027_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367027_pointstat.raw",
+    "received_at": "2026-11-02T00:40:10.434034+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:09 GMT",
+    "sha256": "e1dc2897af56256a1294b21815f9f260bb9af34dfd000ffcf90927cb8e1f502b",
+    "started_at": "2026-11-02T00:40:09.567880+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367027/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 862.973,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367027/totalstat.js"
+      }
+    ],
+    "bytes": 1404,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367027_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367027_totalstat.raw",
+    "received_at": "2026-11-02T00:40:10.583281+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:09 GMT",
+    "sha256": "134a6621866439cc87ed1b73693841e318c38e75d77f5bca5598130fa29d0e50",
+    "started_at": "2026-11-02T00:40:09.720060+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367027/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1220.152,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367027/bqcstat.js"
+      }
+    ],
+    "bytes": 1099,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367027_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367027_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:11.076570+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:10 GMT",
+    "sha256": "21924b6e5489582fc4bcbb0b1dc36db52c7710adad71ebd93ee935a6f6bacd7d",
+    "started_at": "2026-11-02T00:40:09.856169+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367027/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1691.446,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367027/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367027_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:11.940285+00:00",
+    "started_at": "2026-11-02T00:40:10.248763+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367027/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1598.534,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367027/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367027_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:12.032658+00:00",
+    "started_at": "2026-11-02T00:40:10.434071+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367027/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 837.298,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367028/avgpoint.js"
+      }
+    ],
+    "bytes": 2409,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367028_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367028_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:11.420883+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:10 GMT",
+    "sha256": "cd0f7769bcb844b8d0141dd2eb6ff54529f99d1658317e5fe7043db617b66d09",
+    "started_at": "2026-11-02T00:40:10.583318+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367028/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 865.002,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367028/pointstat.js"
+      }
+    ],
+    "bytes": 1389,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367028_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367028_pointstat.raw",
+    "received_at": "2026-11-02T00:40:11.455333+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:10 GMT",
+    "sha256": "00c80060dfed2dc8ed6ed49508fd24294de855e820308956bdc779142cf40b60",
+    "started_at": "2026-11-02T00:40:10.590149+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367028/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 839.164,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367028/totalstat.js"
+      }
+    ],
+    "bytes": 1357,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367028_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367028_totalstat.raw",
+    "received_at": "2026-11-02T00:40:11.500841+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:10 GMT",
+    "sha256": "902445eacae2160abbe0b18c5495bf7d6b446344220a3c6f3166a82a528c6bff",
+    "started_at": "2026-11-02T00:40:10.661464+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367028/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 845.552,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367028/bqcstat.js"
+      }
+    ],
+    "bytes": 1064,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367028_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367028_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:11.922406+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:11 GMT",
+    "sha256": "2caf50d7eeec44bd684d279b742ba889ec651828dbf7d3d98553aa168c7a2c9e",
+    "started_at": "2026-11-02T00:40:11.076617+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367028/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2097.674,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367028/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367028_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:13.518645+00:00",
+    "started_at": "2026-11-02T00:40:11.420917+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367028/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1889.547,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367028/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367028_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:13.344955+00:00",
+    "started_at": "2026-11-02T00:40:11.455361+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367028/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 940.69,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367029/avgpoint.js"
+      }
+    ],
+    "bytes": 2486,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367029_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367029_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:12.441847+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:11 GMT",
+    "sha256": "7b91de1b4660325ecf8f933ce4dac519dde0dc0ffbb0bb03a27ddafee1de3b34",
+    "started_at": "2026-11-02T00:40:11.500870+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367029/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 919.932,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367029/pointstat.js"
+      }
+    ],
+    "bytes": 1448,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367029_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367029_pointstat.raw",
+    "received_at": "2026-11-02T00:40:12.842581+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:12 GMT",
+    "sha256": "bae64919bc55e778b58c952a1ba25bd29eb46c7e672b2c814c6b456ff255b6dd",
+    "started_at": "2026-11-02T00:40:11.922442+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367029/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 862.227,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367029/totalstat.js"
+      }
+    ],
+    "bytes": 1408,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367029_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367029_totalstat.raw",
+    "received_at": "2026-11-02T00:40:12.802821+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:12 GMT",
+    "sha256": "84ab3f454e5691a6180c360e95de34f58f7c9a0021fd6002048417e8f4ec8e4f",
+    "started_at": "2026-11-02T00:40:11.940321+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367029/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 926.414,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367029/bqcstat.js"
+      }
+    ],
+    "bytes": 1107,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367029_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367029_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:12.959323+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:12 GMT",
+    "sha256": "99a513f8993c36915d50139306d292e8113ae2be505fd12b5557103e0226bc77",
+    "started_at": "2026-11-02T00:40:12.032700+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367029/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1612.703,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367029/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367029_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:14.054643+00:00",
+    "started_at": "2026-11-02T00:40:12.441885+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367029/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 3376.009,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367029/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367029_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:16.178927+00:00",
+    "started_at": "2026-11-02T00:40:12.802859+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367029/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 933.766,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367030/avgpoint.js"
+      }
+    ],
+    "bytes": 2489,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367030_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367030_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:13.776624+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:12 GMT",
+    "sha256": "c679e5dbcc214686bd39cf94bdfc857c583a006e56c072efd586aaca1ef24d0e",
+    "started_at": "2026-11-02T00:40:12.842611+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367030/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 850.499,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367030/pointstat.js"
+      }
+    ],
+    "bytes": 1440,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367030_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367030_pointstat.raw",
+    "received_at": "2026-11-02T00:40:13.810095+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:13 GMT",
+    "sha256": "35a26e68b070ca83691901079026f5196d981c29ba9d91d6b4bc14f386872028",
+    "started_at": "2026-11-02T00:40:12.959353+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367030/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1015.009,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367030/totalstat.js"
+      }
+    ],
+    "bytes": 1406,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367030_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367030_totalstat.raw",
+    "received_at": "2026-11-02T00:40:14.360236+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:13 GMT",
+    "sha256": "5fbe551339a01b9313c989a472b54c431dd973911178e7dccd7b6e3d30c079b9",
+    "started_at": "2026-11-02T00:40:13.344990+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367030/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 878.839,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367030/bqcstat.js"
+      }
+    ],
+    "bytes": 1098,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367030_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367030_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:14.397763+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:13 GMT",
+    "sha256": "44ba825b2ec3beb475059f6ff669471139bfb3c0ecd8981695e2e6ccf5f589dd",
+    "started_at": "2026-11-02T00:40:13.518686+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367030/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1800.671,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367030/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367030_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:15.577386+00:00",
+    "started_at": "2026-11-02T00:40:13.776659+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367030/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1778.337,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367030/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367030_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:15.588520+00:00",
+    "started_at": "2026-11-02T00:40:13.810130+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367030/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 811.785,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367031/avgpoint.js"
+      }
+    ],
+    "bytes": 2404,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367031_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367031_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:14.866733+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:14 GMT",
+    "sha256": "aa43b603d9c1d1b75ba10d444f0929cf986db4b7c77be94b8f95921cd71da818",
+    "started_at": "2026-11-02T00:40:14.054698+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367031/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 996.898,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367031/pointstat.js"
+      }
+    ],
+    "bytes": 1390,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367031_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367031_pointstat.raw",
+    "received_at": "2026-11-02T00:40:15.357566+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:14 GMT",
+    "sha256": "25b1234a72bc72f3198ebe86ac4a745c669019f5ec7cfe18603425550becd6b6",
+    "started_at": "2026-11-02T00:40:14.360274+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367031/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 959.516,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367031/totalstat.js"
+      }
+    ],
+    "bytes": 1355,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367031_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367031_totalstat.raw",
+    "received_at": "2026-11-02T00:40:15.357895+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:14 GMT",
+    "sha256": "15ae29ae2b061d3fea0ad068b892bbf63166632c368a3c779e3adeb849ae6870",
+    "started_at": "2026-11-02T00:40:14.397826+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367031/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 919.537,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367031/bqcstat.js"
+      }
+    ],
+    "bytes": 1063,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367031_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367031_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:15.786570+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:14 GMT",
+    "sha256": "4c3d9c5a07b65c92c10dcc8392d670213a544323fdcc8fd91f0ece032a545251",
+    "started_at": "2026-11-02T00:40:14.866766+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367031/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1751.593,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367031/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367031_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:17.109254+00:00",
+    "started_at": "2026-11-02T00:40:15.357605+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367031/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2763.598,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367031/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367031_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:18.121562+00:00",
+    "started_at": "2026-11-02T00:40:15.357918+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367031/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1061.117,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367032/avgpoint.js"
+      }
+    ],
+    "bytes": 2489,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367032_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367032_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:16.638756+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:15 GMT",
+    "sha256": "e3e394b2c23a22a4147db6380a447512503bffb07938942b89f8225d2e669e7a",
+    "started_at": "2026-11-02T00:40:15.577417+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367032/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 987.225,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367032/pointstat.js"
+      }
+    ],
+    "bytes": 1445,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367032_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367032_pointstat.raw",
+    "received_at": "2026-11-02T00:40:16.576037+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:15 GMT",
+    "sha256": "37e97091d6cceb84f19a8e25d2325d3d97ce3520652bebb0fc05892556ae917c",
+    "started_at": "2026-11-02T00:40:15.588555+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367032/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 890.598,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367032/totalstat.js"
+      }
+    ],
+    "bytes": 1403,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367032_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367032_totalstat.raw",
+    "received_at": "2026-11-02T00:40:16.677418+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:15 GMT",
+    "sha256": "3467d6eec5987452aed72b672a4cb6af9b6efb8c2f1fb6f0e22315b6b391112d",
+    "started_at": "2026-11-02T00:40:15.786603+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367032/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2318.082,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367032/bqcstat.js"
+      }
+    ],
+    "bytes": 1101,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367032_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367032_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:18.497294+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:17 GMT",
+    "sha256": "af4e99a04169940d1c9facbfdf6223f3136b5d0fde38defc097e6dd9c321547e",
+    "started_at": "2026-11-02T00:40:16.178971+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367032/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1891.979,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367032/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367032_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:18.468107+00:00",
+    "started_at": "2026-11-02T00:40:16.576072+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367032/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2222.117,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367032/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367032_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:18.861003+00:00",
+    "started_at": "2026-11-02T00:40:16.638825+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367032/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 981.182,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367033/avgpoint.js"
+      }
+    ],
+    "bytes": 2401,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367033_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367033_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:17.658924+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:16 GMT",
+    "sha256": "66ba7a4f376b5ab4573890a8f3a523a0ad7076449468a1049e5654d661a244eb",
+    "started_at": "2026-11-02T00:40:16.677449+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367033/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 871.77,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367033/pointstat.js"
+      }
+    ],
+    "bytes": 1393,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367033_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367033_pointstat.raw",
+    "received_at": "2026-11-02T00:40:17.981312+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:17 GMT",
+    "sha256": "147502819c10e1566283483d520d4eda6484da22538a2fe13a9e7ee9ef48b504",
+    "started_at": "2026-11-02T00:40:17.109299+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367033/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 898.973,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367033/totalstat.js"
+      }
+    ],
+    "bytes": 1356,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367033_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367033_totalstat.raw",
+    "received_at": "2026-11-02T00:40:18.558181+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:17 GMT",
+    "sha256": "f2cc82913952ec54328f5bb0349217fd1efa0afa4c09dc8f3cd6c863da3f2442",
+    "started_at": "2026-11-02T00:40:17.658962+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367033/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1255.364,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367033/bqcstat.js"
+      }
+    ],
+    "bytes": 1062,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367033_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:40 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367033_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:19.236974+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:18 GMT",
+    "sha256": "59bf2d1a159253b755f9cdd79fb79376dd120732541b75cc5579f03971259667",
+    "started_at": "2026-11-02T00:40:17.981348+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367033/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1849.402,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367033/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367033_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:19.971068+00:00",
+    "started_at": "2026-11-02T00:40:18.121607+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367033/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1559.038,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367033/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367033_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:20.027247+00:00",
+    "started_at": "2026-11-02T00:40:18.468141+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367033/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 893.759,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367034/avgpoint.js"
+      }
+    ],
+    "bytes": 2388,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367034_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367034_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:19.391345+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:18 GMT",
+    "sha256": "ee478d0da07480ea369d88b06e8a39cd30dd0bbe6d7353e1560c6f70161a6ea8",
+    "started_at": "2026-11-02T00:40:18.497335+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367034/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 874.445,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367034/pointstat.js"
+      }
+    ],
+    "bytes": 1391,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367034_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367034_pointstat.raw",
+    "received_at": "2026-11-02T00:40:19.432947+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:18 GMT",
+    "sha256": "82df7fcdde49d04192de1ce63222c7a5680874d6ad7aede876d8a05e89ae1c39",
+    "started_at": "2026-11-02T00:40:18.558216+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367034/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 889.482,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367034/totalstat.js"
+      }
+    ],
+    "bytes": 1353,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367034_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367034_totalstat.raw",
+    "received_at": "2026-11-02T00:40:19.750805+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:18 GMT",
+    "sha256": "4df0eed6f62e24825238228ac93156dde29ee9fdbb36a49a86018331dfffa4b1",
+    "started_at": "2026-11-02T00:40:18.861048+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367034/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 927.329,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367034/bqcstat.js"
+      }
+    ],
+    "bytes": 1060,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367034_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367034_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:20.164616+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:19 GMT",
+    "sha256": "52bd5f42af86c4a507a209d71435242ff75fd20a2794ee17ad22e39c4f4a9642",
+    "started_at": "2026-11-02T00:40:19.237018+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367034/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2602.835,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367034/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367034_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:21.994263+00:00",
+    "started_at": "2026-11-02T00:40:19.391381+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367034/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1675.991,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367034/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367034_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:21.109029+00:00",
+    "started_at": "2026-11-02T00:40:19.432983+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367034/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 921.025,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367035/avgpoint.js"
+      }
+    ],
+    "bytes": 2496,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367035_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367035_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:20.672126+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:19 GMT",
+    "sha256": "67846b1aa85406542d04360e4323bf7a7ae835c8e0a50f71120637fe819ee87c",
+    "started_at": "2026-11-02T00:40:19.750842+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367035/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 883.679,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367035/pointstat.js"
+      }
+    ],
+    "bytes": 1435,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367035_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367035_pointstat.raw",
+    "received_at": "2026-11-02T00:40:20.855020+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:19 GMT",
+    "sha256": "417bf1ed7f16153821d928d2d6c3b7dfe7405f2406232f4eca522c1299d9442b",
+    "started_at": "2026-11-02T00:40:19.971111+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367035/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 952.967,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367035/totalstat.js"
+      }
+    ],
+    "bytes": 1401,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367035_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367035_totalstat.raw",
+    "received_at": "2026-11-02T00:40:20.980490+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:20 GMT",
+    "sha256": "652fe7c04b1c2da101f17dad26ef493d3fb912536c605c1de6b1648ca57e5a7b",
+    "started_at": "2026-11-02T00:40:20.027291+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367035/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 901.405,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367035/bqcstat.js"
+      }
+    ],
+    "bytes": 1098,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367035_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367035_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:21.066317+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:20 GMT",
+    "sha256": "f8768c2f71dc32f405d046194db2bf2c5e1459642e12799ba5abc98f986a5c50",
+    "started_at": "2026-11-02T00:40:20.164664+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367035/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2081.899,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367035/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367035_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:22.754116+00:00",
+    "started_at": "2026-11-02T00:40:20.672162+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367035/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2085.374,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367035/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367035_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:22.940475+00:00",
+    "started_at": "2026-11-02T00:40:20.855053+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367035/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1125.9,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367036/avgpoint.js"
+      }
+    ],
+    "bytes": 2494,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367036_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367036_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:22.106657+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:21 GMT",
+    "sha256": "10b65bf7b82e108c9c17d306c79c0abc9cd49d3594d068388045fbebd217e19d",
+    "started_at": "2026-11-02T00:40:20.980527+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367036/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 897.784,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367036/pointstat.js"
+      }
+    ],
+    "bytes": 1439,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367036_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367036_pointstat.raw",
+    "received_at": "2026-11-02T00:40:21.964383+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:21 GMT",
+    "sha256": "6ac3d540034b0c0eae706d76abece5e2f93583ca95e7a224381af577bc1263df",
+    "started_at": "2026-11-02T00:40:21.066353+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367036/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 859.643,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367036/totalstat.js"
+      }
+    ],
+    "bytes": 1404,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367036_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367036_totalstat.raw",
+    "received_at": "2026-11-02T00:40:21.968937+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:21 GMT",
+    "sha256": "41b1a2cddaf579128db65f24fb1060b847785c65fa0a13156240b90415a34493",
+    "started_at": "2026-11-02T00:40:21.109058+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367036/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 905.931,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367036/bqcstat.js"
+      }
+    ],
+    "bytes": 1101,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367036_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367036_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:22.870572+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:21 GMT",
+    "sha256": "41f3e73981166bfe560dadd55168a096eacd79ed911cbee3d91443703dcc9c6b",
+    "started_at": "2026-11-02T00:40:21.964419+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367036/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1690.9,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367036/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367036_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:23.659918+00:00",
+    "started_at": "2026-11-02T00:40:21.968968+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367036/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1714.44,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367036/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367036_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:23.708771+00:00",
+    "started_at": "2026-11-02T00:40:21.994292+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367036/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 933.395,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367037/avgpoint.js"
+      }
+    ],
+    "bytes": 2490,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367037_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367037_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:23.040294+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:22 GMT",
+    "sha256": "868f7471992071bc3ffaf7aec09c1d59ffa094a67419ffb5d248d06af7fd88f1",
+    "started_at": "2026-11-02T00:40:22.106689+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367037/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 911.662,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367037/pointstat.js"
+      }
+    ],
+    "bytes": 1443,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367037_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367037_pointstat.raw",
+    "received_at": "2026-11-02T00:40:23.666036+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:22 GMT",
+    "sha256": "49edc7ecccc2243237659f5581b440bd551c8dd28fbff5c932de0ece5d9c5ba5",
+    "started_at": "2026-11-02T00:40:22.754162+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367037/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 907.921,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367037/totalstat.js"
+      }
+    ],
+    "bytes": 1409,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367037_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367037_totalstat.raw",
+    "received_at": "2026-11-02T00:40:23.778803+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:22 GMT",
+    "sha256": "d318a31adf6d0907b6ae299c88702ea5e1da4b78992e2d5437907afc310fabf6",
+    "started_at": "2026-11-02T00:40:22.870607+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367037/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 963.329,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367037/bqcstat.js"
+      }
+    ],
+    "bytes": 1102,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367037_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367037_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:23.904068+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:22 GMT",
+    "sha256": "7a5d2fc2e9bc0fb4e377b93f3cda3bd9247883d39a9f42c6f29fd110e33ab8bb",
+    "started_at": "2026-11-02T00:40:22.940510+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367037/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1646.375,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367037/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367037_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:24.686741+00:00",
+    "started_at": "2026-11-02T00:40:23.040322+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367037/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1688.48,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367037/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367037_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:25.348499+00:00",
+    "started_at": "2026-11-02T00:40:23.659961+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367037/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 950.781,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367038/avgpoint.js"
+      }
+    ],
+    "bytes": 2492,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367038_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367038_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:24.617090+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:23 GMT",
+    "sha256": "4532526a07c222d5f3af2b7b0f62247792ceb1e05c2aae0c09abd77bf80cde9f",
+    "started_at": "2026-11-02T00:40:23.666063+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367038/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 914.658,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367038/pointstat.js"
+      }
+    ],
+    "bytes": 1438,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367038_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367038_pointstat.raw",
+    "received_at": "2026-11-02T00:40:24.623710+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:23 GMT",
+    "sha256": "56f32b8cc46a30e4e68e868680edd76efa76d35948ac7a7dcf373c05cfad78fe",
+    "started_at": "2026-11-02T00:40:23.708846+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367038/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 862.975,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367038/totalstat.js"
+      }
+    ],
+    "bytes": 1402,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367038_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367038_totalstat.raw",
+    "received_at": "2026-11-02T00:40:24.641977+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:23 GMT",
+    "sha256": "3662c267156e27b87da0456894b5732b81da0492ab7d0d7e795d39aad601c4dc",
+    "started_at": "2026-11-02T00:40:23.778841+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367038/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 931.292,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367038/bqcstat.js"
+      }
+    ],
+    "bytes": 1101,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367038_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367038_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:24.835657+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:23 GMT",
+    "sha256": "b770fd279ae7b10f334b079edecff90570f0fec180ef4d474eedfed7f0fbe084",
+    "started_at": "2026-11-02T00:40:23.904111+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367038/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1704.855,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367038/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367038_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:26.322039+00:00",
+    "started_at": "2026-11-02T00:40:24.617129+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367038/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1696.228,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367038/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367038_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:26.320042+00:00",
+    "started_at": "2026-11-02T00:40:24.623740+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367038/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 935.622,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367039/avgpoint.js"
+      }
+    ],
+    "bytes": 2490,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367039_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367039_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:25.577881+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:24 GMT",
+    "sha256": "857f24be22004dd9597bac1f02b0030869e458635d76172c04887cd807591578",
+    "started_at": "2026-11-02T00:40:24.641999+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367039/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1246.258,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367039/pointstat.js"
+      }
+    ],
+    "bytes": 1438,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367039_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367039_pointstat.raw",
+    "received_at": "2026-11-02T00:40:25.933320+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:24 GMT",
+    "sha256": "402591fbc6853e63481a7f628d96c15064cb6bfc07c9e2e0813368c3bab12ccd",
+    "started_at": "2026-11-02T00:40:24.686800+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367039/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 902.917,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367039/totalstat.js"
+      }
+    ],
+    "bytes": 1405,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367039_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367039_totalstat.raw",
+    "received_at": "2026-11-02T00:40:25.738878+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:24 GMT",
+    "sha256": "8dd838f8df684c0e21d1aec82c44401b7b47a8c895a121b56b56e2febb07d05e",
+    "started_at": "2026-11-02T00:40:24.835692+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367039/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 844.44,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367039/bqcstat.js"
+      }
+    ],
+    "bytes": 1099,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367039_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367039_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:26.193252+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:25 GMT",
+    "sha256": "e988d9b66867990900c76e03a41e90474b2318567ceef7c54fcbd3af958ffbc1",
+    "started_at": "2026-11-02T00:40:25.348544+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367039/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1696.429,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367039/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367039_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:27.274405+00:00",
+    "started_at": "2026-11-02T00:40:25.577917+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367039/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1787.767,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367039/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367039_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:27.526739+00:00",
+    "started_at": "2026-11-02T00:40:25.738915+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367039/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 945.282,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367040/avgpoint.js"
+      }
+    ],
+    "bytes": 2503,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367040_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367040_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:26.878930+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:25 GMT",
+    "sha256": "b065a73c70092254203dcdee2c32ab2b7f99d1435bd13e8d2d273f13af310384",
+    "started_at": "2026-11-02T00:40:25.933356+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367040/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 872.011,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367040/pointstat.js"
+      }
+    ],
+    "bytes": 1444,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367040_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367040_pointstat.raw",
+    "received_at": "2026-11-02T00:40:27.065558+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:26 GMT",
+    "sha256": "f6fb2b938e05f65d601d33ac52c62437b31214d58f26d7436e564fa021cceea7",
+    "started_at": "2026-11-02T00:40:26.193289+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367040/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 917.957,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367040/totalstat.js"
+      }
+    ],
+    "bytes": 1405,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367040_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367040_totalstat.raw",
+    "received_at": "2026-11-02T00:40:27.238266+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:26 GMT",
+    "sha256": "5c0d18ea6582f93a6c01b09174701508cc22dc2cf73e45c5f6b30e7f764d9e90",
+    "started_at": "2026-11-02T00:40:26.320075+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367040/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 886.061,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367040/bqcstat.js"
+      }
+    ],
+    "bytes": 1100,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367040_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:41 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367040_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:27.208377+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:26 GMT",
+    "sha256": "234c23fd0cb984d1cabddd25a3bd2ac9a8928d5bb5a1c341e0e6e1eae2c04d46",
+    "started_at": "2026-11-02T00:40:26.322076+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367040/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1713.239,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367040/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367040_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:28.592264+00:00",
+    "started_at": "2026-11-02T00:40:26.878968+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367040/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2721.489,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367040/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367040_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:29.787135+00:00",
+    "started_at": "2026-11-02T00:40:27.065594+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367040/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 865.895,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367041/avgpoint.js"
+      }
+    ],
+    "bytes": 2395,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367041_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367041_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:28.074554+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:27 GMT",
+    "sha256": "04971a748818ca9bcb669602d76600b76cd4dbf4a006cb0ebc02c36979d74801",
+    "started_at": "2026-11-02T00:40:27.208411+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367041/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 906.982,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367041/pointstat.js"
+      }
+    ],
+    "bytes": 1386,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367041_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367041_pointstat.raw",
+    "received_at": "2026-11-02T00:40:28.145512+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:27 GMT",
+    "sha256": "e56ff378573d10a5d5d71669c20a55b639402f736bfe0bd8011f189853e09eb2",
+    "started_at": "2026-11-02T00:40:27.238300+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367041/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 839.267,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367041/totalstat.js"
+      }
+    ],
+    "bytes": 1352,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367041_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367041_totalstat.raw",
+    "received_at": "2026-11-02T00:40:28.113986+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:27 GMT",
+    "sha256": "b064b2e0d934aa89cb9aed933d74f012312ba5324d190771a89e803c5954c7d1",
+    "started_at": "2026-11-02T00:40:27.274456+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367041/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 922.004,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367041/bqcstat.js"
+      }
+    ],
+    "bytes": 1061,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367041_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367041_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:28.449070+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:27 GMT",
+    "sha256": "a139cb702924322d5fe4423a975c812f3a18a3a0ea590d010fb89c0d8e3883be",
+    "started_at": "2026-11-02T00:40:27.526809+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367041/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1695.433,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367041/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367041_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:29.770083+00:00",
+    "started_at": "2026-11-02T00:40:28.074591+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367041/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1782.134,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367041/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367041_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:29.896212+00:00",
+    "started_at": "2026-11-02T00:40:28.114022+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367041/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 873.739,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367042/avgpoint.js"
+      }
+    ],
+    "bytes": 2303,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367042_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367042_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:29.019539+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:28 GMT",
+    "sha256": "409435307d19ca9c90ab3471f58f7ed745b8ed7b5cdf37393155c10d76d9247a",
+    "started_at": "2026-11-02T00:40:28.145546+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367042/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1044.72,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367042/pointstat.js"
+      }
+    ],
+    "bytes": 1326,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367042_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367042_pointstat.raw",
+    "received_at": "2026-11-02T00:40:29.494076+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:28 GMT",
+    "sha256": "42e32dfa5bec59b68f9442c82811f179a19e2e45839e9d87b926e3b71d071f94",
+    "started_at": "2026-11-02T00:40:28.449106+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367042/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1042.946,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367042/totalstat.js"
+      }
+    ],
+    "bytes": 1298,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367042_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367042_totalstat.raw",
+    "received_at": "2026-11-02T00:40:29.635545+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:28 GMT",
+    "sha256": "41b1801450354e88cf85b274da59c249cd9963e5ab721b80dfa67ff24f07768e",
+    "started_at": "2026-11-02T00:40:28.592337+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367042/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 908.06,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367042/bqcstat.js"
+      }
+    ],
+    "bytes": 1011,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367042_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367042_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:29.927910+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:28 GMT",
+    "sha256": "e75e3946f37b79b39f0747f3319ee7b572a99ca4a1c6bff04fbaf970befaae9e",
+    "started_at": "2026-11-02T00:40:29.019577+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367042/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1568.764,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367042/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367042_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:31.062934+00:00",
+    "started_at": "2026-11-02T00:40:29.494113+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367042/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1772.443,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367042/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367042_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:31.408081+00:00",
+    "started_at": "2026-11-02T00:40:29.635581+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367042/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 918.051,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367043/avgpoint.js"
+      }
+    ],
+    "bytes": 2483,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367043_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367043_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:30.688429+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:29 GMT",
+    "sha256": "388bb52b37949239dc344c9ad4b205310acf82cb6daa283471b05dda714fe3c7",
+    "started_at": "2026-11-02T00:40:29.770117+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367043/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 909.728,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367043/pointstat.js"
+      }
+    ],
+    "bytes": 1440,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367043_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367043_pointstat.raw",
+    "received_at": "2026-11-02T00:40:30.697103+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:29 GMT",
+    "sha256": "b748b64264e2afeb1dfd5c03a0cf0538a19cb74798359ceab1765696779c6280",
+    "started_at": "2026-11-02T00:40:29.787171+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367043/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 869.562,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367043/totalstat.js"
+      }
+    ],
+    "bytes": 1403,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367043_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367043_totalstat.raw",
+    "received_at": "2026-11-02T00:40:30.766102+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:29 GMT",
+    "sha256": "dd6fd7694a08e30c22aaae43403000a77ee3d7bb9c9fe172a28f0ce4e57a88a5",
+    "started_at": "2026-11-02T00:40:29.896263+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367043/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 933.052,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367043/bqcstat.js"
+      }
+    ],
+    "bytes": 1101,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367043_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367043_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:30.861247+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:29 GMT",
+    "sha256": "bb308fc73d604572be71725e0e2ae24fafeba70a0c982253cbe7f155d7b28a76",
+    "started_at": "2026-11-02T00:40:29.927954+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367043/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1745.812,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367043/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367043_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:32.434334+00:00",
+    "started_at": "2026-11-02T00:40:30.688466+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367043/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1981.647,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367043/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367043_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:32.678831+00:00",
+    "started_at": "2026-11-02T00:40:30.697133+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367043/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 882.486,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367044/avgpoint.js"
+      }
+    ],
+    "bytes": 2488,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367044_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367044_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:31.648894+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:30 GMT",
+    "sha256": "95769274a93d05907603682cb7c14fc5cb2a130742afeaef3eb61eaf54017b81",
+    "started_at": "2026-11-02T00:40:30.766137+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367044/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 937.157,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367044/pointstat.js"
+      }
+    ],
+    "bytes": 1446,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367044_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367044_pointstat.raw",
+    "received_at": "2026-11-02T00:40:31.798683+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:30 GMT",
+    "sha256": "4b3c3aea1b5d0005a7ff369dc92683612d15e398609f6681dfbb6df511a05ccb",
+    "started_at": "2026-11-02T00:40:30.861283+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367044/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 882.965,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367044/totalstat.js"
+      }
+    ],
+    "bytes": 1408,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367044_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367044_totalstat.raw",
+    "received_at": "2026-11-02T00:40:31.946183+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:30 GMT",
+    "sha256": "27faf3a7f713004e93be091e6d4a360523302b4acd19a3434efac8866be4ac8e",
+    "started_at": "2026-11-02T00:40:31.062981+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367044/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 878.362,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367044/bqcstat.js"
+      }
+    ],
+    "bytes": 1102,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367044_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367044_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:32.286751+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:31 GMT",
+    "sha256": "6b5abcf9452c48af94821567c2978b4e7b17c8c175a6d596a9f0e66e90186283",
+    "started_at": "2026-11-02T00:40:31.408123+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367044/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2341.681,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367044/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367044_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:33.990669+00:00",
+    "started_at": "2026-11-02T00:40:31.648929+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367044/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1776.789,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367044/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367044_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:33.577240+00:00",
+    "started_at": "2026-11-02T00:40:31.798718+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367044/stats.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 942.341,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367045/avgpoint.js"
+      }
+    ],
+    "bytes": 2481,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367045_avgpoint",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367045_avgpoint.raw",
+    "received_at": "2026-11-02T00:40:32.888825+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:31 GMT",
+    "sha256": "ecbd7b01264dd93138c628c1f7e1d9d537847dc2bdedf6562f8ce56f51523600",
+    "started_at": "2026-11-02T00:40:31.946215+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367045/avgpoint.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 831.064,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367045/pointstat.js"
+      }
+    ],
+    "bytes": 1443,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367045_pointstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367045_pointstat.raw",
+    "received_at": "2026-11-02T00:40:33.118116+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:32 GMT",
+    "sha256": "6b704cdd4eca6a9b837a9b36108147c6af4c40d9d4669554c37a8d11a5173d82",
+    "started_at": "2026-11-02T00:40:32.286812+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367045/pointstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1134.393,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367045/totalstat.js"
+      }
+    ],
+    "bytes": 1407,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367045_totalstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367045_totalstat.raw",
+    "received_at": "2026-11-02T00:40:33.569057+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:32 GMT",
+    "sha256": "a7c439c2913f0802be0967ddb5fe04359750d5cb474e3a5f62cdabeb92e09dfe",
+    "started_at": "2026-11-02T00:40:32.434382+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367045/totalstat.js"
+  },
+  {
+    "age_header": "0",
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 958.429,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367045/bqcstat.js"
+      }
+    ],
+    "bytes": 1099,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "total_1367045_bqcstat",
+    "last_modified": "Sun, 01 Nov 2026 21:16:42 GMT",
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261102T003709_bb9c26ea7f/total_1367045_bqcstat.raw",
+    "received_at": "2026-11-02T00:40:33.637566+00:00",
+    "response_date": "Mon, 02 Nov 2026 00:40:32 GMT",
+    "sha256": "8924521e4f9bd958074f7d6bb0f0be5fd37af86be9ccb85ba12cf1c9bcef8b3f",
+    "started_at": "2026-11-02T00:40:32.678874+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367045/bqcstat.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1645.16,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367045/standings.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367045_standings",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:34.534081+00:00",
+    "started_at": "2026-11-02T00:40:32.888861+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367045/standings.js"
+  },
+  {
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1649.614,
+        "error": "HTTP Error 404: Not Found",
+        "error_type": "HTTPError",
+        "http_status": 404,
+        "ok": false,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata-js.7m.com.cn/analyse/1367045/stats.js"
+      }
+    ],
+    "error": "HTTP Error 404: Not Found",
+    "error_type": "HTTPError",
+    "key": "total_1367045_stats",
+    "ok": false,
+    "received_at": "2026-11-02T00:40:34.767823+00:00",
+    "started_at": "2026-11-02T00:40:33.118152+00:00",
+    "url": "https://bdata-js.7m.com.cn/analyse/1367045/stats.js"
+  },
+  {
     "age_header": null,
     "attempt_count": 1,
     "attempts": [
@@ -15190,7 +19037,7 @@
     "raw_snapshot_path": "D:\\codex\\outputs\\basketball_odds_trader\\raw\\global_discovery\\20261102T112053_19f122c6",
     "source": "espn:mens-college-basketball",
     "source_group": "broad",
-    "status": "success",
+    "status": "empty_valid_response",
     "success": true,
     "upstream_provider": "espn"
   },
@@ -15294,6 +19141,7 @@
     "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard?dates=20261103"
   },
   {
+    "attempt_count": 1,
     "attempts": [
       {
         "attempt": 1,
@@ -15371,7 +19219,7 @@
     "url": "https://nba.titan007.com/cn/aspx/Search_Team.aspx?str1=%E7%94%B0%E7%BA%B3%E8%A5%BF%E5%B7%9E%E7%AB%8B"
   },
   {
-    "attempt_count": 1,
+    "attempt_count": 4,
     "attempts": [
       {
         "attempt": 1,
@@ -15392,7 +19240,7 @@
     "url": "https://nba.titan007.com/cn/aspx/Search_Team.aspx?str1=%E9%BB%98%E9%87%8C%E5%B7%9E%E7%AB%8B"
   },
   {
-    "attempt_count": 1,
+    "attempt_count": 4,
     "attempts": [
       {
         "attempt": 1,
@@ -24843,11 +28691,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 391.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 986.922,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td26.js"
       }
@@ -25151,11 +28997,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 250.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1050.615,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td2773.js"
       }
@@ -25305,11 +29149,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 171.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1136.737,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td282.js"
       }
@@ -25371,11 +29213,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 188.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1029.278,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td285.js"
       }
@@ -25393,11 +29233,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 172.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1078.671,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td2869.js"
       }
@@ -25459,11 +29297,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 203.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 998.024,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td289.js"
       }
@@ -26207,11 +30043,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 203.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1119.16,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td339.js"
       }
@@ -26229,11 +30063,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 188.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1056.918,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td3400.js"
       }
@@ -35205,11 +39037,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 172.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1004.793,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=201&y=2025"
       }
@@ -35227,10 +39057,10 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 156.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
+        "elapsed_ms": 926.583,
+        "error": "HTTP_404",
+        "error_type": "ValueError",
+        "http_status": 404,
         "ok": false,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=2011&y=2026"
@@ -35271,11 +39101,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 188.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1021.783,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=203&y=2026"
       }
@@ -45435,11 +49263,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 156.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 954.025,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=551&y=2026"
       }
@@ -45523,11 +49349,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 172.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1029.768,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=558&y=2026"
       }
@@ -45567,11 +49391,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 172.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 1014.813,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=5595&y=2026"
       }
