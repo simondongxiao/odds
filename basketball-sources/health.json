@@ -1,7 +1,7 @@
 [
   {
     "age_header": null,
-    "attempt_count": 1,
+    "attempt_count": 2,
     "attempts": [
       {
         "attempt": 1,
@@ -113,7 +113,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 390.0,
+        "elapsed_ms": 942.313,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -169,7 +169,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 390.0,
+        "elapsed_ms": 927.518,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -1429,7 +1429,735 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 469.0,
+        "elapsed_ms": 889.998,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367270.shtml"
+      }
+    ],
+    "bytes": 93718,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367270",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367270.raw",
+    "received_at": "2026-11-03T02:57:10.180672+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:09 GMT",
+    "sha256": "899a7f7e0a7ea42d84c01150dd3cf712816654562d8a9df4617e9197269482ca",
+    "started_at": "2026-11-03T02:57:09.290393+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367270.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 775.77,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367271.shtml"
+      }
+    ],
+    "bytes": 93745,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367271",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367271.raw",
+    "received_at": "2026-11-03T02:57:10.155755+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:09 GMT",
+    "sha256": "5fc68c299615f08b0d41427ac93e55d11fea132baaef8e311224a2a37e643bb2",
+    "started_at": "2026-11-03T02:57:09.379665+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367271.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 864.8,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367272.shtml"
+      }
+    ],
+    "bytes": 93709,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367272",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367272.raw",
+    "received_at": "2026-11-03T02:57:10.277206+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:09 GMT",
+    "sha256": "86059395a0f80ad8f5dc83c8bc294400e958aaa15acf6bf14506f8a4f467f483",
+    "started_at": "2026-11-03T02:57:09.412108+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367272.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2068.838,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367273.shtml"
+      }
+    ],
+    "bytes": 93736,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367273",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367273.raw",
+    "received_at": "2026-11-03T02:57:11.515037+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:11 GMT",
+    "sha256": "53a5d730a278faaeb321dfe7366fe617ee56d834fcc3ba5cc358be0e1a060558",
+    "started_at": "2026-11-03T02:57:09.445859+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367273.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1923.504,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367274.shtml"
+      }
+    ],
+    "bytes": 93772,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367274",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367274.raw",
+    "received_at": "2026-11-03T02:57:11.643822+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:11 GMT",
+    "sha256": "b48c2d76d760faca72eb69153069223c3d7f77b4750dd3c70f8a84c18115efb7",
+    "started_at": "2026-11-03T02:57:09.719997+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367274.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1229.246,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367275.shtml"
+      }
+    ],
+    "bytes": 93754,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367275",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367275.raw",
+    "received_at": "2026-11-03T02:57:11.385363+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:11 GMT",
+    "sha256": "50bd8492be4f9cea6c84bd21ca6a502bd124e5afa264498469afc3be023a83b9",
+    "started_at": "2026-11-03T02:57:10.155789+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367275.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1276.754,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367276.shtml"
+      }
+    ],
+    "bytes": 93754,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367276",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367276.raw",
+    "received_at": "2026-11-03T02:57:11.457687+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:11 GMT",
+    "sha256": "5dc418bd41e6d3d75749c751985cb167398648d0c8e67852dca01eda77ab8ce3",
+    "started_at": "2026-11-03T02:57:10.180698+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367276.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1167.066,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367277.shtml"
+      }
+    ],
+    "bytes": 93736,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367277",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367277.raw",
+    "received_at": "2026-11-03T02:57:11.429549+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:11 GMT",
+    "sha256": "74e98d30df9dc7a835c961651d913c5e705bf8ed7ff343eeff88c988c7bb9afa",
+    "started_at": "2026-11-03T02:57:10.262223+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367277.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1133.419,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367278.shtml"
+      }
+    ],
+    "bytes": 93736,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367278",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367278.raw",
+    "received_at": "2026-11-03T02:57:11.410970+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:11 GMT",
+    "sha256": "a388ff587729827add2581be5b1d0b85f97d9ecc2dddf8923b6b922eb1800192",
+    "started_at": "2026-11-03T02:57:10.277252+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367278.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 777.171,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367279.shtml"
+      }
+    ],
+    "bytes": 93754,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367279",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367279.raw",
+    "received_at": "2026-11-03T02:57:12.162915+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:11 GMT",
+    "sha256": "5c25ec63a857c2f7945f6190fbabf9defbc335adf9836df19703836d3f908392",
+    "started_at": "2026-11-03T02:57:11.385395+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367279.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1811.854,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367280.shtml"
+      }
+    ],
+    "bytes": 93736,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367280",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367280.raw",
+    "received_at": "2026-11-03T02:57:13.223199+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:12 GMT",
+    "sha256": "8489ff6d95b0604524ef83a43c7a2445d3e0544c370edfacd0c2dac043820522",
+    "started_at": "2026-11-03T02:57:11.410995+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367280.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 772.967,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367281.shtml"
+      }
+    ],
+    "bytes": 93754,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367281",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367281.raw",
+    "received_at": "2026-11-03T02:57:12.202832+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:11 GMT",
+    "sha256": "4ee31073dd6adf8f7bf4b92602e531e2954e59b47cbec49605e84491a4fd9a34",
+    "started_at": "2026-11-03T02:57:11.429570+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367281.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 817.939,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367282.shtml"
+      }
+    ],
+    "bytes": 93778,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367282",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367282.raw",
+    "received_at": "2026-11-03T02:57:12.275948+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:12 GMT",
+    "sha256": "ad25156b22cee281445882035b54e65370da43e5c3ee98e6ae8e165211a4ed37",
+    "started_at": "2026-11-03T02:57:11.457708+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367282.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 711.456,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367283.shtml"
+      }
+    ],
+    "bytes": 93727,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367283",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367283.raw",
+    "received_at": "2026-11-03T02:57:12.226818+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:12 GMT",
+    "sha256": "10c44f6423d16954ec69a3ff4422358b081aaf246aa6d509882def207c2efa96",
+    "started_at": "2026-11-03T02:57:11.515079+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367283.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 887.408,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367284.shtml"
+      }
+    ],
+    "bytes": 93772,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367284",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367284.raw",
+    "received_at": "2026-11-03T02:57:12.531640+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:12 GMT",
+    "sha256": "6191433296cac0dd98f7893228a580252ae2d5aad0ecd0661d7d82dcf61f19c7",
+    "started_at": "2026-11-03T02:57:11.643866+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367284.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 800.423,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367285.shtml"
+      }
+    ],
+    "bytes": 93763,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367285",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367285.raw",
+    "received_at": "2026-11-03T02:57:12.963697+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:12 GMT",
+    "sha256": "a3f452c83d60105addfb10446fe8f764c01e1eef004602c7886d1f75376848ff",
+    "started_at": "2026-11-03T02:57:12.162965+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367285.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1206.897,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367286.shtml"
+      }
+    ],
+    "bytes": 93745,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367286",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367286.raw",
+    "received_at": "2026-11-03T02:57:13.410121+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:13 GMT",
+    "sha256": "8a6891005001dcca16cd3cbd5aaf1c05f4d84360f522b2c1d7e12f90f9ffd932",
+    "started_at": "2026-11-03T02:57:12.202859+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367286.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 920.899,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367287.shtml"
+      }
+    ],
+    "bytes": 93790,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367287",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367287.raw",
+    "received_at": "2026-11-03T02:57:13.148081+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:12 GMT",
+    "sha256": "0f2dfbcb35afc765f952d875954ab51ef73708f02e6cdda2eaa106faa3239654",
+    "started_at": "2026-11-03T02:57:12.226842+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367287.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 837.286,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367288.shtml"
+      }
+    ],
+    "bytes": 93736,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367288",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367288.raw",
+    "received_at": "2026-11-03T02:57:13.113583+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:12 GMT",
+    "sha256": "026658dd33bb5637faff43c04b935bd547a6145058fd893cd3306dcc0abba006",
+    "started_at": "2026-11-03T02:57:12.275974+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367288.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1872.59,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367289.shtml"
+      }
+    ],
+    "bytes": 93763,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367289",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367289.raw",
+    "received_at": "2026-11-03T02:57:14.404585+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:14 GMT",
+    "sha256": "103907009907c03b1ef02d5354a1e104396a99d50487c28722f7cfab4533bef6",
+    "started_at": "2026-11-03T02:57:12.531680+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367289.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 779.157,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367290.shtml"
+      }
+    ],
+    "bytes": 93781,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367290",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367290.raw",
+    "received_at": "2026-11-03T02:57:13.743230+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:13 GMT",
+    "sha256": "3396d8dce4238bd8812dbde958b4f44e815af78547ef6c1250eed97a48d50ec6",
+    "started_at": "2026-11-03T02:57:12.963730+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367290.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 750.373,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367291.shtml"
+      }
+    ],
+    "bytes": 93736,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367291",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367291.raw",
+    "received_at": "2026-11-03T02:57:13.864259+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:13 GMT",
+    "sha256": "28f4dca71b3f28c8a0195a4a9a7f4c388fdb3eccd8ae5135d19ffcd982753a79",
+    "started_at": "2026-11-03T02:57:13.113617+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367291.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 710.056,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367292.shtml"
+      }
+    ],
+    "bytes": 93745,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367292",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367292.raw",
+    "received_at": "2026-11-03T02:57:13.858496+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:13 GMT",
+    "sha256": "c92dddfab2a6b35d709e29269ddff8a14594cde686ece00cc7d920d7f964900a",
+    "started_at": "2026-11-03T02:57:13.148110+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367292.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1776.29,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367293.shtml"
+      }
+    ],
+    "bytes": 93772,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367293",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367293.raw",
+    "received_at": "2026-11-03T02:57:14.999865+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:14 GMT",
+    "sha256": "119f992cb783491995061a46dbc96ff1136143c7d7326081e42f1446f4ab3193",
+    "started_at": "2026-11-03T02:57:13.223243+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367293.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 961.792,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367294.shtml"
+      }
+    ],
+    "bytes": 93772,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367294",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367294.raw",
+    "received_at": "2026-11-03T02:57:14.372307+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:14 GMT",
+    "sha256": "6c0bc4de63defbf7e6690b6763755b32a65612234437ce923be3a1e9892ca6d9",
+    "started_at": "2026-11-03T02:57:13.410169+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367294.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1049.379,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367295.shtml"
+      }
+    ],
+    "bytes": 93745,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367295",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367295.raw",
+    "received_at": "2026-11-03T02:57:14.793003+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:14 GMT",
+    "sha256": "9581f1a8b402109d450be327327cd3627644eff470686932c5775cacabb745a0",
+    "started_at": "2026-11-03T02:57:13.743262+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367295.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 987.625,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367296.shtml"
+      }
+    ],
+    "bytes": 93781,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367296",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367296.raw",
+    "received_at": "2026-11-03T02:57:14.846477+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:14 GMT",
+    "sha256": "f0b8c332476a353e9b75966835c1505ff535226c2c0d7cb69a75168169e843cd",
+    "started_at": "2026-11-03T02:57:13.858530+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367296.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2293.5,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/1367297.shtml"
+      }
+    ],
+    "bytes": 93763,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "detail_1367297",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/detail_1367297.raw",
+    "received_at": "2026-11-03T02:57:16.158155+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:15 GMT",
+    "sha256": "dfe4ebba082d57e937f128f22a8e5d2cbb72c99389c702e63c46f056c943db24",
+    "started_at": "2026-11-03T02:57:13.864292+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/1367297.shtml"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 665.479,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -3093,7 +3821,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 375.0,
+        "elapsed_ms": 705.454,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -3119,7 +3847,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 344.0,
+        "elapsed_ms": 867.893,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -4263,7 +4991,501 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 375.0,
+        "elapsed_ms": 660.276,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367279.js"
+      }
+    ],
+    "bytes": 520,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367279",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367279.raw",
+    "received_at": "2026-11-03T02:57:20.866403+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:20 GMT",
+    "sha256": "956569240e9faffdcd947814f0bd095d0c2cc7f7e81df9a22275be1674656436",
+    "started_at": "2026-11-03T02:57:20.205878+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367279.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 2033.339,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367280.js"
+      }
+    ],
+    "bytes": 220,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367280",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367280.raw",
+    "received_at": "2026-11-03T02:57:22.430400+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:22 GMT",
+    "sha256": "3d3f830e509514df543d9537b36ffd915ea6748b701bb30550520c1607a3df8d",
+    "started_at": "2026-11-03T02:57:20.396849+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367280.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 703.37,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367281.js"
+      }
+    ],
+    "bytes": 227,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367281",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367281.raw",
+    "received_at": "2026-11-03T02:57:21.212320+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:21 GMT",
+    "sha256": "08e61cf5c3a08bc2e92f26c297da23bb3a3fbdffe492006379c407705c778c30",
+    "started_at": "2026-11-03T02:57:20.508714+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367281.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 980.502,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367282.js"
+      }
+    ],
+    "bytes": 548,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367282",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367282.raw",
+    "received_at": "2026-11-03T02:57:21.745882+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:21 GMT",
+    "sha256": "0dfe4b2f46a57e08f63e61701686e68e3b6d10bbd38201dd1f679089e5d8a23c",
+    "started_at": "2026-11-03T02:57:20.765143+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367282.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 645.065,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367283.js"
+      }
+    ],
+    "bytes": 218,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367283",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367283.raw",
+    "received_at": "2026-11-03T02:57:21.432953+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:21 GMT",
+    "sha256": "e63e10939543a0b39a4d80d70fdbb89e3a2bcc5f5e5ef59f834bd62c76338446",
+    "started_at": "2026-11-03T02:57:20.787631+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367283.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 696.889,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367284.js"
+      }
+    ],
+    "bytes": 234,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367284",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367284.raw",
+    "received_at": "2026-11-03T02:57:21.563565+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:21 GMT",
+    "sha256": "a066a7d2fea24e1d83d06729e796f8d95235aed3356aca23d50c0e77bfdd21bd",
+    "started_at": "2026-11-03T02:57:20.866431+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367284.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 671.947,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367285.js"
+      }
+    ],
+    "bytes": 1115,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367285",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367285.raw",
+    "received_at": "2026-11-03T02:57:21.884545+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:21 GMT",
+    "sha256": "22ad723554fd43238e412d24ff31cd3eaa9a26c459db0cb2ff7a4c6bb6acb9b5",
+    "started_at": "2026-11-03T02:57:21.212352+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367285.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 677.059,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367286.js"
+      }
+    ],
+    "bytes": 375,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367286",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367286.raw",
+    "received_at": "2026-11-03T02:57:22.110294+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:21 GMT",
+    "sha256": "81f4aea569cdce93eabdb3b357c6f0ebd46f6539e689f80bcae86240e3ddbeeb",
+    "started_at": "2026-11-03T02:57:21.432988+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367286.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 699.867,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367287.js"
+      }
+    ],
+    "bytes": 239,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367287",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367287.raw",
+    "received_at": "2026-11-03T02:57:22.263713+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:22 GMT",
+    "sha256": "3af18de97002c9b9c54247a922c988ccb081d4cef08d21ccd1aec0c652795292",
+    "started_at": "2026-11-03T02:57:21.563603+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367287.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 770.964,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367288.js"
+      }
+    ],
+    "bytes": 221,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367288",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367288.raw",
+    "received_at": "2026-11-03T02:57:22.517136+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:22 GMT",
+    "sha256": "9fe08a73c74030663cc240c6f17131f5e62a8bf41eb4e6c85222bb59c263e8d3",
+    "started_at": "2026-11-03T02:57:21.745939+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367288.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 704.993,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367289.js"
+      }
+    ],
+    "bytes": 389,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367289",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367289.raw",
+    "received_at": "2026-11-03T02:57:22.589745+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:22 GMT",
+    "sha256": "be2f656f3c55c10b5a9e4e7664cbc2ea877aacd320a54451fe0c82643a93c139",
+    "started_at": "2026-11-03T02:57:21.884577+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367289.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 1327.843,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367290.js"
+      }
+    ],
+    "bytes": 706,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367290",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367290.raw",
+    "received_at": "2026-11-03T02:57:23.246238+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:23 GMT",
+    "sha256": "de4dad31586e2417e5f5757c8ec29558e7dcbb09cdc88baafeb2a50e9cbcb514",
+    "started_at": "2026-11-03T02:57:21.918222+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367290.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 635.139,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367291.js"
+      }
+    ],
+    "bytes": 372,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367291",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367291.raw",
+    "received_at": "2026-11-03T02:57:22.745682+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:22 GMT",
+    "sha256": "de15e372fedea2c198d4fd71c23a75ba3351a338aae1eb89be48a793e9a09e3b",
+    "started_at": "2026-11-03T02:57:22.110328+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367291.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 623.767,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367292.js"
+      }
+    ],
+    "bytes": 941,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367292",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367292.raw",
+    "received_at": "2026-11-03T02:57:22.887751+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:22 GMT",
+    "sha256": "92e4cba74b805ccca34e73277bce4ab8be008d772799c490f8b8d2af4dcd00f0",
+    "started_at": "2026-11-03T02:57:22.263744+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367292.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 670.688,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367293.js"
+      }
+    ],
+    "bytes": 835,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367293",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367293.raw",
+    "received_at": "2026-11-03T02:57:23.101494+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:22 GMT",
+    "sha256": "d79e3f599596a0787bc4a4be06650437945ec9cfeff8db0c2cabb925d2b66890",
+    "started_at": "2026-11-03T02:57:22.430446+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367293.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 691.045,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367294.js"
+      }
+    ],
+    "bytes": 983,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367294",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367294.raw",
+    "received_at": "2026-11-03T02:57:23.208464+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:23 GMT",
+    "sha256": "c58c34edc19210deb739f2dff6156c9ed00cc3b76fe9f1d8b373bb752c0cbfc3",
+    "started_at": "2026-11-03T02:57:22.517176+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367294.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 743.828,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367295.js"
+      }
+    ],
+    "bytes": 224,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367295",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367295.raw",
+    "received_at": "2026-11-03T02:57:23.333778+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:23 GMT",
+    "sha256": "2df15a4f46e4d62dac3671f988a18a773dc61eb859d5b0e0fb792805d4c1fb89",
+    "started_at": "2026-11-03T02:57:22.589777+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367295.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 662.254,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367296.js"
+      }
+    ],
+    "bytes": 1003,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367296",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367296.raw",
+    "received_at": "2026-11-03T02:57:23.408122+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:23 GMT",
+    "sha256": "77824f3e02dca0be5a70103d23e15eeef40cdb5487746603d67125efe327bd4f",
+    "started_at": "2026-11-03T02:57:22.745712+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367296.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 729.137,
+        "http_status": 200,
+        "ok": true,
+        "sleep_before_next_seconds": 0,
+        "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367297.js"
+      }
+    ],
+    "bytes": 390,
+    "http_client": "curl_cffi",
+    "http_status": 200,
+    "key": "identity_1367297",
+    "last_modified": null,
+    "ok": true,
+    "path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261103T025454_3a8c13e049/identity_1367297.raw",
+    "received_at": "2026-11-03T02:57:23.617174+00:00",
+    "response_date": "Tue, 03 Nov 2026 02:57:23 GMT",
+    "sha256": "ec2b90048134ad0191c92241f17b6caa64b656e75a5228a35a4fbb3756f0f4d1",
+    "started_at": "2026-11-03T02:57:22.887783+00:00",
+    "url": "https://bdata.7m.com.cn/analyse/gb/js/1367/1367297.js"
+  },
+  {
+    "age_header": null,
+    "attempt_count": 1,
+    "attempts": [
+      {
+        "attempt": 1,
+        "elapsed_ms": 679.726,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -4809,7 +6031,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 422.0,
+        "elapsed_ms": 652.443,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -4861,7 +6083,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 406.0,
+        "elapsed_ms": 1625.819,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -5251,7 +6473,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 359.0,
+        "elapsed_ms": 703.043,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -5277,7 +6499,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 391.0,
+        "elapsed_ms": 626.845,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -5407,7 +6629,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 360.0,
+        "elapsed_ms": 737.063,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -5433,7 +6655,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 406.0,
+        "elapsed_ms": 652.216,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -7565,14 +8787,14 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 391.0,
+        "elapsed_ms": 790.677,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://bdata.7m.com.cn/Basketball_Team_Data/3496/gb/n_history.js"
       }
     ],
-    "bytes": 2712,
+    "bytes": 2588,
     "http_client": "curl_cffi",
     "http_status": 200,
     "key": "history_3496",
@@ -7617,7 +8839,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 406.0,
+        "elapsed_ms": 1860.665,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -7747,7 +8969,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 515.0,
+        "elapsed_ms": 745.886,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -7799,7 +9021,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 531.0,
+        "elapsed_ms": 713.082,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -7877,7 +9099,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 469.0,
+        "elapsed_ms": 661.899,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -7980,7 +9202,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 766.0,
+        "elapsed_ms": 1367.663,
         "error": "HTTP Error 404: Not Found",
         "error_type": "HTTPError",
         "http_status": 404,
@@ -8029,7 +9251,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 359.0,
+        "elapsed_ms": 735.375,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -8081,7 +9303,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 453.0,
+        "elapsed_ms": 765.513,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -8181,7 +9403,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 437.0,
+        "elapsed_ms": 2292.016,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -8354,12 +9576,12 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1345339/stats.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 390.0,
+        "elapsed_ms": 814.737,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -8380,7 +9602,7 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1345340/avgpoint.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
@@ -8406,7 +9628,7 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1345340/pointstat.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
@@ -8432,7 +9654,7 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1345340/totalstat.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
@@ -8458,12 +9680,12 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1345340/bqcstat.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 422.0,
+        "elapsed_ms": 723.47,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -8506,12 +9728,12 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1345340/stats.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 297.0,
+        "elapsed_ms": 748.005,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -8532,19 +9754,19 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1345341/avgpoint.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 313.0,
+        "elapsed_ms": 804.986,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://bdata-js.7m.com.cn/analyse/1345341/pointstat.js"
       }
     ],
-    "bytes": 334,
+    "bytes": 488,
     "http_client": "curl_cffi",
     "http_status": 200,
     "key": "total_1345341_pointstat",
@@ -8558,7 +9780,7 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1345341/pointstat.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
@@ -11530,7 +12752,7 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1350328/stats.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
@@ -11556,7 +12778,7 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1352873/avgpoint.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
@@ -11582,7 +12804,7 @@
     "url": "https://bdata-js.7m.com.cn/analyse/1352873/pointstat.js"
   },
   {
-    "age_header": "0",
+    "age_header": null,
     "attempt_count": 1,
     "attempts": [
       {
@@ -11939,7 +13161,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 266.0,
+        "elapsed_ms": 1498.328,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -12013,7 +13235,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 328.0,
+        "elapsed_ms": 691.596,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -12981,7 +14203,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 422.0,
+        "elapsed_ms": 633.771,
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
@@ -21641,7 +22863,7 @@
     ],
     "captured_at": "2026-11-03T12:12:13.272319+00:00",
     "content_type": "text/html; charset=utf-8",
-    "key": "search:7m-team:7957",
+    "key": "search:7m-team:7957:0",
     "ok": true,
     "source": "titan007_history",
     "source_group": "team_history_and_box_score",
@@ -22486,7 +23708,7 @@
         "http_status": 200,
         "ok": true,
         "sleep_before_next_seconds": 0,
-        "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td1.js"
+        "url": "https://nba.titan007.com/cn/aspx/Search_Team.aspx?str1=%E6%A9%AB%E6%BF%B1%E5%8D%93%E8%B6%8A"
       }
     ],
     "captured_at": "2026-11-03T12:12:31.608369+00:00",
@@ -22496,7 +23718,7 @@
     "source": "titan007_history",
     "source_group": "team_history_and_box_score",
     "status": 200,
-    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td1.js"
+    "url": "https://nba.titan007.com/cn/aspx/Search_Team.aspx?str1=%E6%A9%AB%E6%BF%B1%E5%8D%93%E8%B6%8A"
   },
   {
     "attempt_count": 1,
@@ -22575,12 +23797,12 @@
     ],
     "captured_at": "2026-11-03T12:12:31.609547+00:00",
     "content_type": "application/javascript",
-    "key": "detail:1059",
+    "key": "detail:10580",
     "ok": true,
     "source": "titan007_history",
     "source_group": "team_history_and_box_score",
     "status": 200,
-    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td1059.js"
+    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td10580.js"
   },
   {
     "attempt_count": 1,
@@ -22659,12 +23881,12 @@
     ],
     "captured_at": "2026-11-03T12:12:32.004622+00:00",
     "content_type": "application/javascript",
-    "key": "detail:11",
+    "key": "detail:10595",
     "ok": true,
     "source": "titan007_history",
     "source_group": "team_history_and_box_score",
     "status": 200,
-    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td11.js"
+    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td10595.js"
   },
   {
     "attempt_count": 1,
@@ -23037,12 +24259,12 @@
     ],
     "captured_at": "2026-11-03T12:12:33.211968+00:00",
     "content_type": "application/javascript",
-    "key": "detail:12640",
+    "key": "detail:12369",
     "ok": true,
     "source": "titan007_history",
     "source_group": "team_history_and_box_score",
     "status": 200,
-    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td12640.js"
+    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td12369.js"
   },
   {
     "attempt_count": 1,
@@ -23163,12 +24385,12 @@
     ],
     "captured_at": "2026-11-03T12:12:33.533372+00:00",
     "content_type": "application/javascript",
-    "key": "detail:13",
+    "key": "detail:13341",
     "ok": true,
     "source": "titan007_history",
     "source_group": "team_history_and_box_score",
     "status": 200,
-    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td13.js"
+    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td13341.js"
   },
   {
     "attempt_count": 1,
@@ -23520,12 +24742,12 @@
     ],
     "captured_at": "2026-11-03T12:12:34.623229+00:00",
     "content_type": "application/javascript",
-    "key": "detail:14457",
+    "key": "detail:14395",
     "ok": true,
     "source": "titan007_history",
     "source_group": "team_history_and_box_score",
     "status": 200,
-    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td14457.js"
+    "url": "https://nba.titan007.com/jsData/teamInfo/teamDetail/td14395.js"
   },
   {
     "attempt_count": 1,
@@ -37488,11 +38710,9 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 390.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
-        "ok": false,
+        "elapsed_ms": 961.34,
+        "http_status": 200,
+        "ok": true,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=5052&y=2025"
       }
@@ -37664,10 +38884,10 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 203.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
+        "elapsed_ms": 727.681,
+        "error": "HTTP_404",
+        "error_type": "ValueError",
+        "http_status": 404,
         "ok": false,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=507&y=2025"
@@ -37774,10 +38994,10 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 203.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
+        "elapsed_ms": 798.625,
+        "error": "HTTP_404",
+        "error_type": "ValueError",
+        "http_status": 404,
         "ok": false,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=5084&y=2026"
@@ -37796,10 +39016,10 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 250.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
+        "elapsed_ms": 721.914,
+        "error": "HTTP_404",
+        "error_type": "ValueError",
+        "http_status": 404,
         "ok": false,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=5084&y=2025"
@@ -37840,10 +39060,10 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 219.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
+        "elapsed_ms": 817.815,
+        "error": "HTTP_404",
+        "error_type": "ValueError",
+        "http_status": 404,
         "ok": false,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=5101&y=2025"
@@ -37884,10 +39104,10 @@
     "attempts": [
       {
         "attempt": 1,
-        "elapsed_ms": 235.0,
-        "error": "Failed to perform, curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1). See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "error_type": "HTTPError",
-        "http_status": 92,
+        "elapsed_ms": 738.521,
+        "error": "HTTP_404",
+        "error_type": "ValueError",
+        "http_status": 404,
         "ok": false,
         "sleep_before_next_seconds": 0,
         "url": "https://nba.titan007.com/cn/Team/TeamScheAjax.aspx?TeamID=514&y=2025"
