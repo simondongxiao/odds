@@ -1,26 +1,26 @@
 {
   "schema_version": "excel-json-history-reconciliation-v1",
   "status": "PASS",
-  "list_date": "2026-11-09",
+  "list_date": "2026-11-10",
   "versions": [
     {
       "version": "V3",
-      "source_row_count": 19184,
-      "historical_countable_rows": 825,
-      "current_rows": 158,
-      "competition_count": 1202,
+      "source_row_count": 19356,
+      "historical_countable_rows": 829,
+      "current_rows": 172,
+      "competition_count": 1224,
       "duplicate_ledger_key_count": 0,
-      "source_excel_sha256": "89192f9485d9061873e0e6db51c7c1bc807c417fa4ac06dc26726fd72b203c7f"
+      "source_excel_sha256": "3bf9f2d7fde1622c7707555b2b18b4384adb4dda146b056d8cec8f18ca59ad8c"
     },
     {
       "version": "V4",
-      "source_row_count": 19760,
-      "historical_countable_rows": 1961,
-      "current_rows": 158,
-      "competition_count": 1228,
+      "source_row_count": 19932,
+      "historical_countable_rows": 1990,
+      "current_rows": 172,
+      "competition_count": 1248,
       "duplicate_ledger_key_count": 0,
-      "source_excel_sha256": "2d2b8dd554461b43ac78d9e78cb44d792422e040451bc4131e15d274bf0b59ae"
+      "source_excel_sha256": "65a1138ceecc3d7a5269af6d4acbaad5d78220631cb7236a121ac3b3ec0144dc"
     }
   ],
-  "generated_at": "2026-11-10T20:58:22.547736+08:00"
+  "generated_at": "2026-11-11T08:40:51.693504+08:00"
 }
