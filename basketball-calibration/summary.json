@@ -3,43 +3,43 @@
   "archive_type": "FORWARD_NATIVE",
   "hit_rate": null,
   "last_run_funnel": {
-    "blocked_events": 540,
+    "blocked_events": 468,
     "cold_start_priceable_events": 13,
-    "comparable_events": 34,
-    "comparable_markets": 49,
-    "events": 621,
+    "comparable_events": 70,
+    "comparable_markets": 85,
+    "events": 613,
     "executable_events": 0,
-    "fresh_market_events": 91,
-    "independent_priceable_events": 92,
+    "fresh_market_events": 165,
+    "independent_priceable_events": 176,
     "market_key": "canonical_event_id + market_type",
-    "market_observed_events": 186,
-    "market_observed_markets": 372,
-    "market_records": 1242,
-    "paper_bettable": 10,
-    "paper_triggered_events": 10,
-    "paper_triggered_markets": 11,
-    "paper_triggered_spread_markets": 9,
-    "paper_triggered_total_markets": 2,
+    "market_observed_events": 165,
+    "market_observed_markets": 330,
+    "market_records": 1226,
+    "paper_bettable": 17,
+    "paper_triggered_events": 17,
+    "paper_triggered_markets": 17,
+    "paper_triggered_spread_markets": 16,
+    "paper_triggered_total_markets": 1,
     "pricing_state_counts": {
       "COLD_START_PRICEABLE": 13,
-      "NATIVE_PRICEABLE": 79,
-      "UNPRICEABLE": 529
+      "NATIVE_PRICEABLE": 163,
+      "UNPRICEABLE": 437
     },
     "prior_only_price_events": 0,
-    "raw_verified_market_events": 186,
-    "research_coupled_events": 34,
-    "research_priceable_events": 92,
-    "shadow_eligible_events": 58
+    "raw_verified_market_events": 165,
+    "research_coupled_events": 70,
+    "research_priceable_events": 176,
+    "shadow_eligible_events": 85
   },
   "probability_calibration": "UNVALIDATED",
   "real_execution_allowed": false,
   "spread_execution_total": {
     "migration": {
-      "canonical_execution_records": 682,
-      "canonical_signal_records": 3205,
+      "canonical_execution_records": 699,
+      "canonical_signal_records": 3274,
       "policy": "Earliest valid first-write per canonical event and market is the only statistical sample; later captures remain audit evidence.",
-      "raw_first_write_records_found": 7484,
-      "repeat_capture_records_excluded_from_statistics": 4279,
+      "raw_first_write_records_found": 7554,
+      "repeat_capture_records_excluded_from_statistics": 4280,
       "repeat_execution_records_excluded_from_statistics": 2
     },
     "model_validation": {
@@ -50,11 +50,20 @@
       "no_auto_tuning": true,
       "probability_calibration": {
         "SPREAD": {
-          "Brier": 0.27299088626744233,
-          "ECE": 0.17423414880025925,
-          "LogLoss": 0.7471360063283392,
-          "N": 168,
+          "Brier": 0.2721957701453112,
+          "ECE": 0.17508332463945456,
+          "LogLoss": 0.7442073228649188,
+          "N": 176,
           "buckets": {
+            "56-58%": {
+              "N": 1,
+              "actual": 0.0,
+              "brier": 0.3248814829066128,
+              "calibration_gap": 0.5699837567041826,
+              "log_loss": 0.8439322959014381,
+              "overconfidence": false,
+              "predicted": 0.5699837567041826
+            },
             "58-60%": {
               "N": 2,
               "actual": 0.5,
@@ -65,68 +74,68 @@
               "predicted": 0.598433789617443
             },
             "60-62%": {
-              "N": 22,
-              "actual": 0.45454545454545453,
-              "brier": 0.27353189469535377,
-              "calibration_gap": 0.15562253635554607,
-              "log_loss": 0.7413020353553829,
+              "N": 26,
+              "actual": 0.5384615384615384,
+              "brier": 0.2540624272020058,
+              "calibration_gap": 0.07269926155832274,
+              "log_loss": 0.7016404504574406,
               "overconfidence": true,
-              "predicted": 0.6101679909010006
+              "predicted": 0.6111608000198612
             },
             "62-64%": {
               "N": 32,
-              "actual": 0.53125,
-              "brier": 0.259929130173498,
-              "calibration_gap": 0.09944501686761831,
-              "log_loss": 0.7140073489279422,
+              "actual": 0.5,
+              "brier": 0.2679411676343256,
+              "calibration_gap": 0.1303033919141996,
+              "log_loss": 0.7303981563827643,
               "overconfidence": true,
-              "predicted": 0.6306950168676183
+              "predicted": 0.6303033919141996
             },
             "64-66%": {
-              "N": 26,
-              "actual": 0.5384615384615384,
-              "brier": 0.2606447453074297,
-              "calibration_gap": 0.11138466475486475,
-              "log_loss": 0.715809242212608,
+              "N": 23,
+              "actual": 0.5652173913043478,
+              "brier": 0.25108276091885023,
+              "calibration_gap": 0.08428132649808884,
+              "log_loss": 0.6958695805544852,
               "overconfidence": true,
-              "predicted": 0.6498462032164032
+              "predicted": 0.6494987178024366
             },
             "66-68%": {
               "N": 15,
-              "actual": 0.6,
-              "brier": 0.243908133254971,
-              "calibration_gap": 0.06862585822425238,
-              "log_loss": 0.6815119916948279,
+              "actual": 0.7333333333333333,
+              "brier": 0.1982092611552038,
+              "calibration_gap": -0.06523490283670053,
+              "log_loss": 0.5862511304391034,
               "overconfidence": false,
-              "predicted": 0.6686258582242524
+              "predicted": 0.6680984304966328
             },
             "68-70%": {
               "N": 23,
               "actual": 0.5217391304347826,
-              "brier": 0.2778991211598186,
-              "calibration_gap": 0.16833876520293278,
-              "log_loss": 0.7538982790869535,
+              "brier": 0.27773119870380747,
+              "calibration_gap": 0.16911936061389476,
+              "log_loss": 0.7534978360279854,
               "overconfidence": true,
-              "predicted": 0.6900778956377154
+              "predicted": 0.6908584910486774
             },
             "70%+": {
-              "N": 48,
-              "actual": 0.4583333333333333,
-              "brier": 0.33545606468490496,
-              "calibration_gap": 0.3056531733951073,
-              "log_loss": 0.9107660634629652,
+              "N": 54,
+              "actual": 0.4444444444444444,
+              "brier": 0.3440907480455638,
+              "calibration_gap": 0.3181700946797782,
+              "log_loss": 0.9294120495984378,
               "overconfidence": true,
-              "predicted": 0.7639865067284406
+              "predicted": 0.7626145391242226
             }
           },
           "overconfidence_flag": true,
           "status": "VALIDATED"
         },
         "TOTAL": {
-          "Brier": 0.2718992384198945,
-          "ECE": 0.26114376061723504,
-          "LogLoss": 0.7427988350109935,
-          "N": 27,
+          "Brier": 0.27648766220481674,
+          "ECE": 0.22308526746138577,
+          "LogLoss": 0.7519641804933822,
+          "N": 29,
           "buckets": {
             "58-60%": {
               "N": 1,
@@ -148,12 +157,12 @@
             },
             "62-64%": {
               "N": 7,
-              "actual": 1.0,
-              "brier": 0.13865465678197347,
-              "calibration_gap": -0.3723379620769923,
-              "log_loss": 0.46577761078953134,
+              "actual": 0.8571428571428571,
+              "brier": 0.17365206390145455,
+              "calibration_gap": -0.23038495361564026,
+              "log_loss": 0.537228370950496,
               "overconfidence": false,
-              "predicted": 0.6276620379230077
+              "predicted": 0.6267579035272168
             },
             "64-66%": {
               "N": 7,
@@ -183,13 +192,13 @@
               "predicted": 0.6869870083719776
             },
             "70%+": {
-              "N": 4,
+              "N": 6,
               "actual": 0.5,
-              "brier": 0.3056627229201365,
-              "calibration_gap": 0.2332383577186503,
-              "log_loss": 0.8191216600157578,
+              "brier": 0.3027842822951113,
+              "calibration_gap": 0.22420261830315136,
+              "log_loss": 0.8118283182315135,
               "overconfidence": false,
-              "predicted": 0.7332383577186503
+              "predicted": 0.7242026183031514
             }
           },
           "overconfidence_flag": false,
@@ -203,40 +212,40 @@
       "note": "No price-exhausted classification is inferred without same-contract before/after recheck evidence."
     },
     "spread_execution_layer": {
-      "executed": 593,
-      "execution_losses": 93,
-      "execution_pending": 402,
+      "executed": 609,
+      "execution_losses": 95,
+      "execution_pending": 409,
       "execution_pnl_units": 6.229999999999999,
-      "execution_pushes": 2,
-      "execution_roi": 0.032617801047120414,
-      "execution_wins": 96,
+      "execution_pushes": 3,
+      "execution_roi": 0.031149999999999994,
+      "execution_wins": 102,
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
-      "signal_hit_rate_ex_push": 0.5072639225181598,
-      "signal_losses": 407,
-      "signal_pending": 2150,
-      "signal_pushes": 10,
-      "signal_wins": 419,
-      "signals": 2986
+      "signal_hit_rate_ex_push": 0.495260663507109,
+      "signal_losses": 426,
+      "signal_pending": 2197,
+      "signal_pushes": 12,
+      "signal_wins": 418,
+      "signals": 3053
     },
     "spread_signal_layer": {
-      "executed": 593,
-      "execution_losses": 93,
-      "execution_pending": 402,
+      "executed": 609,
+      "execution_losses": 95,
+      "execution_pending": 409,
       "execution_pnl_units": 6.229999999999999,
-      "execution_pushes": 2,
-      "execution_roi": 0.032617801047120414,
-      "execution_wins": 96,
+      "execution_pushes": 3,
+      "execution_roi": 0.031149999999999994,
+      "execution_wins": 102,
       "note": "Signal results describe frozen first-write directions; they are not a strategy win rate. Execution PnL includes only triggered paper entries.",
-      "signal_hit_rate_ex_push": 0.5072639225181598,
-      "signal_losses": 407,
-      "signal_pending": 2150,
-      "signal_pushes": 10,
-      "signal_wins": 419,
-      "signals": 2986
+      "signal_hit_rate_ex_push": 0.495260663507109,
+      "signal_losses": 426,
+      "signal_pending": 2197,
+      "signal_pushes": 12,
+      "signal_wins": 418,
+      "signals": 3053
     },
     "total_diagnostic_layer": {
       "bias_conclusion": "DESCRIPTIVE_ONLY_NOT_USED_FOR_PARAMETERS",
-      "settled_total_observations": 92,
+      "settled_total_observations": 105,
       "status": "EXPERIMENTAL_DIAGNOSTIC_ONLY"
     }
   }
