@@ -4389,7 +4389,8 @@ function historyRateBandForMatch(r) {{
   if (!row || Number(row.historical_settled_sample || 0) < 8) return "";
   const rate = Number(row.effective_win_rate);
   if (!Number.isFinite(rate)) return "";
-  return rate > 0.55 ? "high" : rate < 0.45 ? "low" : "";
+  const band = String(row.rate_band || row.alert_band || "");
+  return band.includes("高") ? "high" : band.includes("严重") ? "low" : "";
 }}
 
 function historyRateMode() {{
@@ -4403,7 +4404,7 @@ function historyRateIds() {{
     .filter(x => String(x.version || "") === "V3")
     .filter(x => concreteCompetitionName(x.competition))
     .filter(x => Number(x.historical_settled_sample || 0) >= 8 && Number.isFinite(Number(x.effective_win_rate)))
-    .filter(x => mode === "high" ? Number(x.effective_win_rate) > 0.55 : Number(x.effective_win_rate) < 0.45)
+    .filter(x => mode === "high" ? String(x.rate_band || x.alert_band || "").includes("高") : String(x.rate_band || x.alert_band || "").includes("严重"))
     .map(x => String(x.match_id || "")));
 }}
 

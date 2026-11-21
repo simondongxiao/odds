@@ -5,5 +5,5 @@
 
 | side | settled | effective_win_rate | pnl_1u | status |
 |---|---:|---:|---:|---|
-|HOME|557|0.45412|-15.995|PASS|
-|AWAY|183|0.482857|3.385|PASS|
+|HOME|559|0.452425|-17.995|PASS|
+|AWAY|187|0.480447|2.87|PASS|

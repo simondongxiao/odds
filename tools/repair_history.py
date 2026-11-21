@@ -109,7 +109,10 @@ def build_score_cache(raw_root: Path, cache_path: Path | None = None) -> dict[st
         except (OSError, json.JSONDecodeError):
             cache = {}
             file_mtimes = {}
-    raw_files = sorted(raw_root.rglob("*_titan007_odds_snapshot.csv"))
+    # Score-only supplements are not odds snapshots and must never become
+    # inputs to pre-match models. They are accepted only by this result reader.
+    raw_files = sorted([*raw_root.rglob("*_titan007_odds_snapshot.csv"),
+                        *raw_root.rglob("*_verified_scores.csv")])
     # Keep a per-file high-water mark.  A new daily snapshot normally contains
     # the current scores for the whole slate, so rescanning only new/changed
     # snapshots is sufficient and avoids walking the complete multi-week raw
@@ -135,10 +138,13 @@ def build_score_cache(raw_root: Path, cache_path: Path | None = None) -> dict[st
                         "score": score, "state": state, "competition": text(row.get("league_cn") or row.get("league_tw")),
                         "home": text(row.get("home_cn")), "away": text(row.get("away_cn")), "kickoff": text(row.get("bj_time")),
                         "list_date": date10(row.get("list_date")) or snapshot_sort(path)[0],
-                        "source": str(path), "source_type": "titan007_snapshot", "fetched_at": dt.datetime.now(CN_TZ).isoformat(),
+                        "source": text(row.get("raw_file")) or str(path),
+                        "source_url": text(row.get("url")),
+                        "source_type": (text(row.get("source_type")) or "titan007_analysis_verified") if path.name.endswith("_verified_scores.csv") else "titan007_snapshot",
+                        "fetched_at": dt.datetime.now(CN_TZ).isoformat(),
                     }
                     current = cache.get(mid)
-                    if current is None or ((state == FINAL and current.get("state") != FINAL) or (state == FINAL and snapshot_sort(path) > snapshot_sort(Path(str(current.get("source", "")))))):
+                    if current is None or (state in CANCELLED and current.get("state") != FINAL) or ((state == FINAL and current.get("state") != FINAL) or (state == FINAL and snapshot_sort(path) > snapshot_sort(Path(str(current.get("source", "")))))):
                         cache[mid] = candidate
         except (OSError, UnicodeError):
             continue
@@ -206,7 +212,9 @@ def row_score_pending(row: dict[str, Any], now: dt.datetime) -> bool:
         )
     )
     score_verified = ledger._score_verified(row) and not not_final
-    return (not score_verified) or settlement_status in {"结算待核", "赛果未匹配待人工核验", "赛果已核/冻结投注未核", "RESULT_PENDING_VERIFICATION"} or (ledger._countable(row) and ledger._number(row.get("盈亏(u)")) is None)
+    # Already-settled rows also need arithmetic validation. Otherwise a past
+    # sign-convention bug remains permanently in same-competition win rates.
+    return (not score_verified) or settlement_status in {"结算待核", "赛果未匹配待人工核验", "赛果已核/冻结投注未核", "RESULT_PENDING_VERIFICATION"} or ledger._countable(row)
 
 
 def source_for_row(
@@ -242,7 +250,10 @@ def frozen_fields(row: dict[str, Any], h: dict[str, int], version: str) -> tuple
     if version == "V4" and h.get(frozen_water_key) and number(row.get(frozen_water_key)) is not None:
         water = number(row.get(frozen_water_key))
     if version == "V3":
-        direction = text(row.get("V4等级/信号"))
+        # Legacy V3 stores the frozen upper/lower choice in the selected-team
+        # annotation, not V4's grade/signal column. Ignoring it flips draws
+        # at quarter-ball lines and away-team selections.
+        direction = text(row.get("投注方")) + " " + text(row.get("V4等级/信号"))
         if line is not None and any(token in direction for token in ("上盘", "upper")):
             line = -abs(line)
         elif line is not None and any(token in direction for token in ("下盘", "lower")):
@@ -273,10 +284,23 @@ def repair_workbook(path: Path, version: str, score_cache: dict[str, dict[str, A
         source, confidence = source_for_row(values, score_cache, identity_index)
         old_score = text(values.get("赛果"))
         old_status = text(values.get("结算状态"))
+        if (not source or source.get("state") != FINAL) and ledger._countable(values):
+            # An explicitly verified ledger final remains authoritative when
+            # the latest live feed has dropped that fixture. Never synthesize
+            # a score from the settlement label or PnL.
+            score_parts = re.fullmatch(r"(\d+)\s*[-:：]\s*(\d+)", old_score)
+            if score_parts:
+                source = {"state": FINAL, "home_score": score_parts[1], "away_score": score_parts[2],
+                          "source": text(values.get("比分来源") or values.get("来源")),
+                          "source_type": text(values.get("Score_Source_Type")) or "verified_ledger_final",
+                          "fetched_at": text(values.get("Score_Fetched_At"))}
+                confidence = text(values.get("Score_Match_Confidence")) or "verified_ledger_identity"
         new_score = score_text(source or {})
         if not source or not new_score or source.get("state") in CANCELLED:
             unresolved += 1
             reason = "CANCELLED" if source and source.get("state") in CANCELLED else "SCORE_MISSING"
+            if reason == "CANCELLED" and h.get("结算状态"):
+                ws.cell(rownum, h["结算状态"]).value = "取消/延期"
             if h.get("Score_Status"):
                 ws.cell(rownum, h["Score_Status"]).value = "SCORE_MISSING"
             if h.get("Settlement_Audit_Status"):

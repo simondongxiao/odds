@@ -224,12 +224,12 @@ def evaluate(version: str, ledger: Path, bettable: Path, cutoff: str, matches_js
         pnl = float(bucket["pnl"])
         roi = pnl / sample if sample else None
         history_details = list(bucket.get("details", []))
-        if sample > 8 and win_rate is not None and win_rate < 0.45:
+        if sample >= 8 and win_rate is not None and win_rate < 0.45:
             alert = "严重：历史有效胜率<45%"
         else:
             alert = ""
-        if sample > 8 and win_rate is not None and win_rate >= 0.55:
-            band = "高：历史有效胜率>=55%"
+        if sample >= 8 and win_rate is not None and win_rate > 0.55:
+            band = "高：历史有效胜率>55%"
         else:
             band = alert
         output.append(
@@ -289,7 +289,7 @@ def main() -> None:
     lines = [
         f"# {args.list_date} V3/V4 同名联赛历史动态复核",
         "",
-        "口径：V3、V4分开；仅统计当前列表日前已结算的同名联赛；历史已结算场次>8且有效胜率>=55%列为高胜率参考，<45%列为低胜率风险；45%-<55%不纳入高低胜率列表；走盘不进入有效胜率分母；ROI=平注1U累计PnL/已结算样本。",
+        "口径：V3、V4分开；仅统计当前列表日前已结算的同名联赛；历史已结算场次>=8且有效胜率>55%列为高胜率参考，<45%列为低胜率风险；45%-55%不纳入高低胜率列表；走盘不进入有效胜率分母；ROI=平注1U累计PnL/已结算样本。",
         "",
     ]
     def table(rows: list[dict[str, object]]) -> list[str]:
@@ -301,13 +301,13 @@ def main() -> None:
         return lines
 
     for version in ("V3", "V4"):
-        version_high = [row for row in all_rows if row["version"] == version and row["rate_band"] == "高：历史有效胜率>=55%"]
+        version_high = [row for row in all_rows if row["version"] == version and row["rate_band"] == "高：历史有效胜率>55%"]
         version_alerts = [row for row in alerts if row["version"] == version]
         lines += [f"## {version}", ""]
-        lines += ["### 高胜率参考（历史已结算场次>8且有效胜率>=55%）", ""]
+        lines += ["### 高胜率参考（历史已结算场次>=8且有效胜率>55%）", ""]
         lines += table(version_high) if version_high else ["无。"]
         lines.append("")
-        lines += ["### 低胜率风险（历史已结算场次>8且有效胜率<45%）", ""]
+        lines += ["### 低胜率风险（历史已结算场次>=8且有效胜率<45%）", ""]
         if not version_alerts:
             lines += ["无触发。", ""]
             continue
@@ -320,9 +320,9 @@ def main() -> None:
         "alerts": len(alerts),
         "v3_alerts": sum(row["version"] == "V3" for row in alerts),
         "v4_alerts": sum(row["version"] == "V4" for row in alerts),
-        "high_rate_rows": sum(row["rate_band"] == "高：历史有效胜率>=55%" for row in all_rows),
-        "v3_high_rate_rows": sum(row["version"] == "V3" and row["rate_band"] == "高：历史有效胜率>=55%" for row in all_rows),
-        "v4_high_rate_rows": sum(row["version"] == "V4" and row["rate_band"] == "高：历史有效胜率>=55%" for row in all_rows),
+        "high_rate_rows": sum(row["rate_band"] == "高：历史有效胜率>55%" for row in all_rows),
+        "v3_high_rate_rows": sum(row["version"] == "V3" and row["rate_band"] == "高：历史有效胜率>55%" for row in all_rows),
+        "v4_high_rate_rows": sum(row["version"] == "V4" and row["rate_band"] == "高：历史有效胜率>55%" for row in all_rows),
         "rows": all_rows,
         "csv": str(csv_path),
         "markdown": str(md_path),
