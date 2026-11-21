@@ -4965,7 +4965,22 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "result": "W",
+      "pnl_1u": 0.8,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "1-0",
+        "result": "W",
+        "pnl_1u": 0.8,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2962742",
@@ -5622,5 +5637,6 @@
   "run_id": "RUN_20261105_211530",
   "raw_snapshot_id": "20261105_211531_titan007_odds_snapshot",
   "odds_cutoff": "20261105_211531",
-  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-11-06\\RUN_20261105_211530\\v3_decisions.json"
+  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-11-06\\RUN_20261105_211530\\v3_decisions.json",
+  "result_backfill_at": "2026-11-21T08:51:02.329739+08:00"
 }

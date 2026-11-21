@@ -82,7 +82,7 @@ def clean_selected_team(value: Any) -> str:
     raw = text(value)
     if not raw:
         return ""
-    return re.split(r"\s*[（(]\s*(?:反向|正向)\s*=.*?[）)]\s*$", raw, maxsplit=1)[0].strip()
+    return re.sub(r"\s*[（(]\s*(?:(?:反向|正向)\s*=\s*)?(?:上盘|下盘)\s*[）)]\s*$", "", raw).strip()
 
 
 def score_text(row: dict[str, Any]) -> str:
@@ -186,6 +186,8 @@ def normalize_match(value: Any) -> str:
 
 
 def row_score_pending(row: dict[str, Any], now: dt.datetime) -> bool:
+    if text(row.get("Exclude_Reason")) == "FROZEN_MARKET_CONFLICT":
+        return False
     kickoff = date10(row.get("日期筛选"))
     if not kickoff or kickoff >= now.date().isoformat():
         return False
@@ -214,7 +216,7 @@ def row_score_pending(row: dict[str, Any], now: dt.datetime) -> bool:
     score_verified = ledger._score_verified(row) and not not_final
     # Already-settled rows also need arithmetic validation. Otherwise a past
     # sign-convention bug remains permanently in same-competition win rates.
-    return (not score_verified) or settlement_status in {"结算待核", "赛果未匹配待人工核验", "赛果已核/冻结投注未核", "RESULT_PENDING_VERIFICATION"} or ledger._countable(row)
+    return (not score_verified) or settlement_status in {"结算待核", "赛果未匹配待人工核验", "赛果已核/冻结投注未核", "RESULT_PENDING_VERIFICATION"} or ledger._countable(row) or ledger._as_bool(row.get("Frozen_Actionable")) is True
 
 
 def source_for_row(

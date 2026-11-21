@@ -12474,7 +12474,7 @@
       "settlement_status": "SETTLED",
       "result_state": "-1",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261119\\20261119_095909_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-11-19T13:44:57.787210+08:00",
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00",
       "settlement": {
         "score": "0-2",
         "result": "L",
@@ -16490,7 +16490,7 @@
       "settlement_status": "SETTLED",
       "result_state": "-1",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261119\\20261119_095909_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-11-19T13:44:57.787210+08:00",
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00",
       "settlement": {
         "score": "2-0",
         "result": "L",
@@ -17268,7 +17268,7 @@
       "settlement_status": "SETTLED",
       "result_state": "-1",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261119\\20261119_095909_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-11-19T13:44:57.787210+08:00",
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00",
       "settlement": {
         "score": "1-1",
         "result": "HW",
@@ -18352,7 +18352,7 @@
       "settlement_status": "SETTLED",
       "result_state": "-1",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261119\\20261119_095909_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-11-19T13:44:57.787210+08:00",
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00",
       "settlement": {
         "score": "0-1",
         "result": "L",
@@ -19232,7 +19232,7 @@
       "settlement_status": "SETTLED",
       "result_state": "-1",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261119\\20261119_095909_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-11-19T13:44:57.787210+08:00",
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00",
       "settlement": {
         "score": "2-0",
         "result": "L",
@@ -20223,7 +20223,7 @@
       "settlement_status": "SETTLED",
       "result_state": "-1",
       "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261119\\20261119_095909_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-11-19T13:44:57.787210+08:00",
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00",
       "settlement": {
         "score": "2-1",
         "result": "W",
@@ -21098,20 +21098,19 @@
       "away_team": "博塔弗戈",
       "match": "科林蒂安 vs 博塔弗戈",
       "score": "4-0",
-      "result": "",
-      "pnl_1u": "",
-      "settlement_status": "RESULT_PENDING_VERIFICATION",
-      "result_state": "3",
-      "result_source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261119\\20261119_095909_titan007_odds_snapshot.csv",
-      "settlement_updated_at": "2026-11-19T13:44:57.787210+08:00",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "D:\\codex\\work\\football_score_recovery_20261121\\2910967.html",
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00",
       "settlement": {
-        "score": "",
-        "result": "",
-        "pnl_1u": "",
-        "status": "NOT_FINAL_STATE_3",
-        "result_state": "3",
-        "source": "D:\\codex\\v3_legacy\\outputs\\football_odds_trader\\raw\\titan007\\20261119\\20261119_095909_titan007_odds_snapshot.csv",
-        "updated_at": "2026-11-19T09:59:07.841705+08:00"
+        "score": "4-0",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": "D:\\codex\\work\\football_score_recovery_20261121\\2910967.html"
       }
     },
     {
@@ -21972,5 +21971,6 @@
   "started_lock_policy": "started rows and current-roster frozen V4 A/B/C selections retain original pre-match prediction; future rows absent from the current official roster are not re-attached",
   "run_id": "RUN_20261117_223137",
   "raw_snapshot_id": "20261117_223143_titan007_odds_snapshot",
-  "side_mapping_version": "MATCH_SPECIFIC_DUAL_EV"
+  "side_mapping_version": "MATCH_SPECIFIC_DUAL_EV",
+  "result_backfill_at": "2026-11-21T08:51:02.329739+08:00"
 }

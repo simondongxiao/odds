@@ -1898,7 +1898,22 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "3-2",
+      "result": "W",
+      "pnl_1u": 0.83,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "3-2",
+        "result": "W",
+        "pnl_1u": 0.83,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "3026776",
@@ -2902,7 +2917,22 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-5",
+      "result": "W",
+      "pnl_1u": 1.03,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "1-5",
+        "result": "W",
+        "pnl_1u": 1.03,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2995385",
@@ -2962,7 +2992,22 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "5-2",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "5-2",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2914740",
@@ -3494,7 +3539,22 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-1",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "1-1",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2997765",
@@ -3672,7 +3732,22 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-3",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "1-3",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2997770",
@@ -3732,7 +3807,22 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-0",
+      "result": "W",
+      "pnl_1u": 0.8,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "1-0",
+        "result": "W",
+        "pnl_1u": 0.8,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2996529",
@@ -4382,7 +4472,22 @@
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
       "Cup_Intent_Reason": "",
-      "frozen_selection_lock": true
+      "frozen_selection_lock": true,
+      "score": "1-0",
+      "result": "W",
+      "pnl_1u": 0.8,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "1-0",
+        "result": "W",
+        "pnl_1u": 0.8,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "3106649",
@@ -5983,5 +6088,6 @@
   "run_id": "RUN_20261029_212439",
   "raw_snapshot_id": "20261029_204553_titan007_odds_snapshot",
   "odds_cutoff": "20261029_204553",
-  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-30\\RUN_20261029_212439\\v3_decisions.json"
+  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-30\\RUN_20261029_212439\\v3_decisions.json",
+  "result_backfill_at": "2026-11-21T08:51:02.329739+08:00"
 }

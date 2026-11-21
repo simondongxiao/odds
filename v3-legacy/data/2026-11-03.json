@@ -4316,7 +4316,22 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-4",
+      "result": "W",
+      "pnl_1u": 0.82,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "0-4",
+        "result": "W",
+        "pnl_1u": 0.82,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "3008311",
@@ -4375,7 +4390,22 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "2-3",
+      "result": "W",
+      "pnl_1u": 0.84,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "2-3",
+        "result": "W",
+        "pnl_1u": 0.84,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "3008315",
@@ -4552,7 +4582,22 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "1-0",
+      "result": "W",
+      "pnl_1u": 0.8,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "1-0",
+        "result": "W",
+        "pnl_1u": 0.8,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "3007118",
@@ -5504,5 +5549,6 @@
   "run_id": "RUN_20261102_191528",
   "raw_snapshot_id": "20261102_191536_titan007_odds_snapshot",
   "odds_cutoff": "20261102_191536",
-  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-11-03\\RUN_20261102_191528\\v3_decisions.json"
+  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-11-03\\RUN_20261102_191528\\v3_decisions.json",
+  "result_backfill_at": "2026-11-21T08:51:02.329739+08:00"
 }
