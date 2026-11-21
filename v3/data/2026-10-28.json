@@ -10865,7 +10865,22 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "3-3",
+      "result": "HL",
+      "pnl_1u": -0.5,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "3-3",
+        "result": "HL",
+        "pnl_1u": -0.5,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "3097347",
@@ -11042,7 +11057,22 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-3",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "0-3",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2912311",
@@ -15349,7 +15379,22 @@
       "Cup_Bayes_Weight": 0.105,
       "Cup_Intent": "诱上/阻下",
       "Cup_Raw_Intent": "诱上/阻下",
-      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL"
+      "Cup_Intent_Reason": "FAIR_LINE_ALIGNS_OR_IS_NEUTRAL",
+      "score": "0-1",
+      "result": "L",
+      "pnl_1u": -1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "0-1",
+        "result": "L",
+        "pnl_1u": -1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "3092098",
@@ -16470,7 +16515,22 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "4-0",
+      "result": "W",
+      "pnl_1u": 1.0,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "4-0",
+        "result": "W",
+        "pnl_1u": 1.0,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2908882",
@@ -17178,7 +17238,22 @@
       "Cup_Bayes_Weight": "",
       "Cup_Intent": "",
       "Cup_Raw_Intent": "",
-      "Cup_Intent_Reason": ""
+      "Cup_Intent_Reason": "",
+      "score": "0-0",
+      "result": "W",
+      "pnl_1u": 1.05,
+      "settlement_status": "SETTLED",
+      "result_state": "-1",
+      "result_source": "",
+      "settlement": {
+        "score": "0-0",
+        "result": "W",
+        "pnl_1u": 1.05,
+        "settlement_status": "SETTLED",
+        "result_state": "-1",
+        "result_source": ""
+      },
+      "settlement_updated_at": "2026-11-21T08:51:02.329739+08:00"
     },
     {
       "match_id": "2908884",
@@ -17363,5 +17438,6 @@
   "run_id": "RUN_20261027_220944",
   "raw_snapshot_id": "20261027_220950_titan007_odds_snapshot",
   "odds_cutoff": "20261027_220950",
-  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-28\\RUN_20261027_220944\\v3_decisions.json"
+  "decision_version_path": "D:\\codex\\outputs\\football_odds_trader\\decision_versions\\2026-10-28\\RUN_20261027_220944\\v3_decisions.json",
+  "result_backfill_at": "2026-11-21T08:51:02.329739+08:00"
 }
