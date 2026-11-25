@@ -1,7 +1,7 @@
 {
   "schema_version": "basketball-decision-anchor-1.0",
   "date_bj": "2026-11-25",
-  "generated_at": "2026-11-24T22:50:43.668740+00:00",
+  "generated_at": "2026-11-25T04:29:46.067385+00:00",
   "source_kind": "PUBLISHED_FIRST_WRITE_PROJECTION",
   "locked_direction_policy": "FIRST_WRITE_WINS; DIRECTION_CHANGE_REVIEW_ONLY",
   "rows": [
@@ -45221,7 +45221,7 @@
       "anchor_status": "LOCKED_FIRST_WRITE",
       "anchor_first_write_asof": "2026-11-24T05:28:18.681341+00:00",
       "latest_revalidation": {
-        "asof": "2026-11-24T22:35:23.319003+00:00",
+        "asof": "2026-11-25T04:18:55.493431+00:00",
         "event": {
           "age_group": "SENIOR",
           "bj_date": "2026-11-25",
@@ -67573,7 +67573,7 @@
       "anchor_status": "LOCKED_FIRST_WRITE",
       "anchor_first_write_asof": "2026-11-24T05:28:18.681341+00:00",
       "latest_revalidation": {
-        "asof": "2026-11-24T22:35:23.319003+00:00",
+        "asof": "2026-11-25T04:18:55.493431+00:00",
         "event": {
           "age_group": "SENIOR",
           "bj_date": "2026-11-25",
@@ -67624,18 +67624,18 @@
           "gender": "MEN",
           "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
           "home_sign": 0,
-          "hours_to_start": 2.4101892336111113,
-          "identity_raw_path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261124T222353_dfbca748fd/identity_1356246.raw",
+          "hours_to_start": -3.3154147411111112,
+          "identity_raw_path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261125T040828_73455f551b/identity_1356246.raw",
           "identity_verified": true,
           "inventory_retained": true,
           "league": "美国男子职业篮球联赛",
           "league_family": "NBA",
           "market_match_method": "DIRECT_ID",
           "market_status": "MARKET_FOUND",
-          "market_ttl_seconds": 900,
+          "market_ttl_seconds": 300,
           "model_family": "CLUB_MATURE",
           "next_market_retry_at": null,
-          "observed_at": "2026-11-24T22:24:17.024918+00:00",
+          "observed_at": "2026-11-25T04:09:58.736850+00:00",
           "pricing_inventory_status": "PRICEABLE_MARKET_PRESENT",
           "region": "北美",
           "season_phase": "UNKNOWN",
@@ -67680,18 +67680,18 @@
             "gender": "MEN",
             "home_adjustment_assumption": "NEUTRAL_UNLESS_VERIFIED",
             "home_sign": 0,
-            "identity_raw_path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261124T222353_dfbca748fd/titan_schedule.raw",
+            "identity_raw_path": "/home/runner/work/odds/odds/.basketball-run/raw/repair_v22/20261125T040828_73455f551b/titan_schedule.raw",
             "identity_verified": true,
             "league": "NBA",
             "market_status": "MARKET_FOUND",
             "model_family": "CLUB_MATURE",
-            "observed_at": "2026-11-24T22:23:56.953916+00:00",
+            "observed_at": "2026-11-25T04:09:37.294836+00:00",
             "season_phase": "UNKNOWN",
             "source": "TITAN007",
             "source_event_id": "728374",
             "source_event_url": "https://nba.titan007.com/analysis/728374.htm",
             "source_name": "titan007_nba",
-            "source_status": "0",
+            "source_status": "-1",
             "source_timezone": "Asia/Shanghai",
             "source_url": "https://lq3.titan007.com/nba.htm",
             "team1_aliases": [
@@ -67714,8 +67714,8 @@
             "tip_at": "2026-11-25T01:00:00+00:00",
             "tip_time_bj": "2026-11-25T09:00:00+08:00",
             "tip_time_utc": "2026-11-25T01:00:00+00:00",
-            "titan_schedule_row": "728374^NBA,NBA^4^#FF0000^11月25日<br>09:00^0^^8^华盛顿奇才[东9],華盛頓巫師[东9],Washington Wizards[东9]^2^波士顿凯尔特人[东3],波士頓塞爾特人[东3],Boston Celtics[东3]^^^^^^^^^^^0^^^^^^^^^^^1^1^0^4.34,1.21^1^2026^^0^1^周二307^0^0^1^000",
-            "titan_schedule_row_index": 64,
+            "titan_schedule_row": "728374^NBA,NBA^4^#FF0000^11月25日<br>09:00^-1^^8^华盛顿奇才[东9],華盛頓巫師[东9],Washington Wizards[东9]^2^波士顿凯尔特人[东3],波士頓塞爾特人[东3],Boston Celtics[东3]^116^131^28^34^21^46^40^24^27^27^0^^^^^^^True^^奇才-得分:戴维斯(33) 篮板:戴维斯(13) 助攻:特雷.杨(12)<br>凯尔特人-得分:塔图姆(41) 篮板:怀特(7) 助攻:乔治(9)^^1^1^0^4.39,1.21^1^2026^^0^1^^0^0^1^000",
+            "titan_schedule_row_index": 152,
             "venue_status": "UNKNOWN"
           },
           "titan007_source_event_ids": [
@@ -120972,7 +120972,7 @@
       "anchor_status": "LOCKED_FIRST_WRITE",
       "anchor_first_write_asof": "2026-11-24T05:28:18.681341+00:00",
       "latest_revalidation": {
-        "asof": "2026-11-24T22:35:23.319003+00:00",
+        "asof": "2026-11-25T04:18:55.493431+00:00",
         "event": {
           "age_group": "SENIOR",
           "bj_date": "2026-11-25",
