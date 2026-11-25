@@ -4427,8 +4427,13 @@ async function loadHistoryRates(date) {{
   historyRateRows = [];
   try {{
     const response = await fetch(`../reviews/league_history/${{date}}/league_history_alert_${{date}}.json?ts=${{Date.now()}}`);
-    if (response.ok) historyRateRows = (await response.json()).rows || [];
-  }} catch (e) {{ historyRateRows = []; }}
+    if (!response.ok) throw Error("history unavailable");
+    historyRateRows = (await response.json()).rows || [];
+  }} catch (e) {{
+    const embedded = document.getElementById("v3EmbeddedHistoryData");
+    const fallback = embedded ? JSON.parse(embedded.textContent) : {{}};
+    historyRateRows = fallback.list_date === date ? (fallback.rows || []) : [];
+  }}
 }}
 
 function historyRateAlertHtml(r) {{

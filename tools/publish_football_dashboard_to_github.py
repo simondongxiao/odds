@@ -191,6 +191,8 @@ def publish(push: bool = True) -> dict[str, object]:
 
     copied: list[str] = []
     pairs = [
+        (ROOT / "reviews/backtest_since_20261020.json", PUBLISH_REPO / "reviews/backtest_since_20261020.json"),
+        (ROOT / "reviews/current_source_aliases.json", PUBLISH_REPO / "reviews/current_source_aliases.json"),
         # V3 Legacy and V4 Shadow are separate public pages.  Do not replace
         # either with a generated root dashboard during daily publication.
         (WORKSPACE / "v3_legacy" / "outputs" / "football_odds_trader" / "dashboard" / "index.html", PUBLISH_REPO / "v3-legacy" / "index.html"),

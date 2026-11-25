@@ -1,0 +1,146 @@
+{
+  "list_date": "2026-11-25",
+  "source_records": 288,
+  "distinct_fixtures": 280,
+  "versions": {
+    "V3": {
+      "actionable_source_records": 13,
+      "distinct_actionable_fixtures": 13
+    },
+    "V4": {
+      "actionable_source_records": 61,
+      "distinct_actionable_fixtures": 55
+    }
+  },
+  "alias_groups": [
+    {
+      "kickoff": "2026-11-25 17:30",
+      "match": "八户云罗里 vs 新潟天鹅",
+      "source_ids": [
+        "3000201",
+        "BE_hK9vkc94"
+      ],
+      "source_kickoffs": [
+        "2026-11-25T17:30:00+08:00",
+        "2026-11-25T18:30:00+08:00"
+      ],
+      "competitions": [
+        "日职乙",
+        "BE:japan:j2-league"
+      ]
+    },
+    {
+      "kickoff": "2026-11-25 18:00",
+      "match": "千叶市原 vs 名古屋鲸八",
+      "source_ids": [
+        "3000544",
+        "BE_xExeU8hC"
+      ],
+      "source_kickoffs": [
+        "2026-11-25T18:00:00+08:00",
+        "2026-11-25T19:00:00+08:00"
+      ],
+      "competitions": [
+        "日职联",
+        "BE:japan:j1-league"
+      ]
+    },
+    {
+      "kickoff": "2026-11-25 18:00",
+      "match": "FC东京 vs 广岛三箭",
+      "source_ids": [
+        "3000545",
+        "BE_pvt3SnNO"
+      ],
+      "source_kickoffs": [
+        "2026-11-25T18:00:00+08:00",
+        "2026-11-25T19:00:00+08:00"
+      ],
+      "competitions": [
+        "日职联",
+        "BE:japan:j1-league"
+      ]
+    },
+    {
+      "kickoff": "2026-11-25 18:00",
+      "match": "水户蜀葵 vs 东京绿茵",
+      "source_ids": [
+        "3000546",
+        "BE_IqtuYjgm"
+      ],
+      "source_kickoffs": [
+        "2026-11-25T18:00:00+08:00",
+        "2026-11-25T19:00:00+08:00"
+      ],
+      "competitions": [
+        "日职联",
+        "BE:japan:j1-league"
+      ]
+    },
+    {
+      "kickoff": "2026-11-25 18:00",
+      "match": "冈山绿雉 vs 清水鼓动",
+      "source_ids": [
+        "3000547",
+        "BE_0jGCnj8t"
+      ],
+      "source_kickoffs": [
+        "2026-11-25T18:00:00+08:00",
+        "2026-11-25T19:00:00+08:00"
+      ],
+      "competitions": [
+        "日职联",
+        "BE:japan:j1-league"
+      ]
+    },
+    {
+      "kickoff": "2026-11-25 18:00",
+      "match": "山形山神 vs 磐田喜悦",
+      "source_ids": [
+        "3000196",
+        "BE_0pDnmyvH"
+      ],
+      "source_kickoffs": [
+        "2026-11-25T18:00:00+08:00",
+        "2026-11-25T19:00:00+08:00"
+      ],
+      "competitions": [
+        "日职乙",
+        "BE:japan:j2-league"
+      ]
+    },
+    {
+      "kickoff": "2026-11-25 18:00",
+      "match": "湘南海洋 vs 甲府风林",
+      "source_ids": [
+        "3000199",
+        "BE_AceSaENM"
+      ],
+      "source_kickoffs": [
+        "2026-11-25T18:00:00+08:00",
+        "2026-11-25T19:00:00+08:00"
+      ],
+      "competitions": [
+        "日职乙",
+        "BE:japan:j2-league"
+      ]
+    },
+    {
+      "kickoff": "2026-11-25 18:30",
+      "match": "浦和红钻 vs 大阪樱花",
+      "source_ids": [
+        "3000548",
+        "BE_jcvmWUNa"
+      ],
+      "source_kickoffs": [
+        "2026-11-25T18:30:00+08:00",
+        "2026-11-25T19:30:00+08:00"
+      ],
+      "competitions": [
+        "日职联",
+        "BE:japan:j1-league"
+      ]
+    }
+  ],
+  "rule": "Source IDs and original predictions are preserved. Same fixture quotes are alternatives, never additional independent bets."
+}
